@@ -8,9 +8,20 @@
 		<put-attribute name="content" value="" />
 	</definition>
 	
+	<definition name="cvs_basicLayout" template="/WEB-INF/view/common/cvs/cvs_basicLayout.jsp">
+		<put-attribute name="cvs_top" value="/WEB-INF/view/common/cvs/cvs_left.jsp" />
+		<put-attribute name="cvs_left" value="/WEB-INF/view/common/cvs/cvs_top.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	
+	
 	<definition name="userMain" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/userMain.jsp" />
 	</definition>
 	
+	<definition name="cvs_index" extends="cvs_basicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_index.jsp"/>	
+	</definition>
 	
 </tiles-definitions>

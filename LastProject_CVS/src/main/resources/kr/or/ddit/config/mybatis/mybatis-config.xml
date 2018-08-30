@@ -9,7 +9,7 @@
 	<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.board.model □□□□□□□□□□□□□□□□□□□□ -->
   	<typeAlias type="kr.or.ddit.model.BarcodeVo"		alias="barcodeVo"/>
   	<typeAlias type="kr.or.ddit.model.BoardVo"			alias="boardVo"/>
-  	<typeAlias type="kr.or.ddit.model.BookmarkVo" 		alias="commentsVO"/>
+  	<typeAlias type="kr.or.ddit.model.BookmarkVo" 		alias="BookmarkVo"/>
   	<typeAlias type="kr.or.ddit.model.CategoryVo" 		alias="categoryVo"/>
   	<typeAlias type="kr.or.ddit.model.CommentsVo" 		alias="commentsVo"/>
   	<typeAlias type="kr.or.ddit.model.CvsServiceVo" 	alias="cvsServiceVo"/>
