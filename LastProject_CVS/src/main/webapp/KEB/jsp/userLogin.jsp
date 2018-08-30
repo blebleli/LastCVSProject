@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>사용자 로그인 화면</title>
+<title>사용자 로그인 화면/ localhost:8180/jsp/userLogin.jsp </title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -20,9 +21,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- font-awesome icons -->
 <link href="/web/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" /> 
 <!-- //font-awesome icons -->
+
 <!-- js -->
 <script src="/web/js/jquery-1.11.1.min.js"></script>
 <!-- //js -->
+
+<!-- ssg.css  -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/scom.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/main.css' />"></link> 
+<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/common/layout.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/common/common_layout.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/mem.css' />"></link>
+
+
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <!-- start-smoth-scrolling -->
@@ -58,6 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 <!-- //products-breadcrumb_____________________ -->
 
+
 <!-- banner 공통 또는 비 공통 부분-->
 	<div class="banner">
 		
@@ -74,8 +86,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
 					<div class="tooltip">Click Me</div>
 				  </div>
+				  
 				  <div class="form">
-					<h2>로그인 하기</h2>
+					<h2>로그인 하기</h2> 
 					<form action="#" method="post">  <!-- submit 로그인 클릭시  이동 경로 주기(메인화면) ★  -->
 					  <input type="text" name="Username" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
 					  <input type="password" name="Password" placeholder="비밀번호를 입력해 주세요" required=" ">
@@ -83,71 +96,50 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</form>
 				  </div>
 				  
-				  
-				  <!--  -->
-				  
-				 <!--  <form id="emailAuthForm" method="post" action="/member/join/sendEmail.ssg">
-				<input type="hidden" name="mbrTypeCd" value="60">
-				<div class="medium_bx">
-					<h4>이메일인증으로 회원 가입</h4>
-					<fieldset class="fieldset">
-						<legend>이메일 인증</legend>
-						<div class="field">
-							<label for="emailIdNmStr" class="label">이메일 아이디</label>
-							<div class="insert">
-								<input type="text" id="emailIdNmStr" name="emailIdNmStr" title="이메일 아이디 입력" value="" class="input_text small" style="width:105px">
-								<span>@</span>
-								<input type="text" id="emailDomNm" name="emailDomNm" title="이메일 도메인 입력" value="" class="input_text small" style="width:105px">
-								<select id="emailDomNmSB" title="이메일 도메인 선택" class="select small">
-								<option class="select" value="">직접 입력</option>
-								<option value="001" addtoptnval1="" addtoptnval2="">naver.com</option><option value="002" addtoptnval1="" addtoptnval2="">gmail.com</option><option value="003" addtoptnval1="" addtoptnval2="">nate.com</option><option value="004" addtoptnval1="" addtoptnval2="">yahoo.co.kr</option><option value="005" addtoptnval1="" addtoptnval2="">hanmail.net</option><option value="006" addtoptnval1="" addtoptnval2="">daum.net</option><option value="007" addtoptnval1="" addtoptnval2="">dreamwiz.com</option><option value="008" addtoptnval1="" addtoptnval2="">lycos.co.kr</option><option value="009" addtoptnval1="" addtoptnval2="">empal.com</option><option value="010" addtoptnval1="" addtoptnval2="">korea.com</option><option value="011" addtoptnval1="" addtoptnval2="">paran.com</option><option value="012" addtoptnval1="" addtoptnval2="">freechal.com</option><option value="013" addtoptnval1="" addtoptnval2="">hitel.net</option><option value="014" addtoptnval1="" addtoptnval2="">hanmir.com</option><option value="015" addtoptnval1="" addtoptnval2="">hotmail.com</option>
-								</select>
+				  <div class="form"> 
+				  <div class="content">
+						<form id="emailAuthForm" method="post" action="/member/join/sendEmail.ssg">
+						<input type="hidden" name="mbrTypeCd" value="60">
+						<div class="medium_bx">
+							<h4>사용자 이메일 인증으로 회원 가입하기</h4>
+							<fieldset class="fieldset">
+								<legend>이메일 인증</legend>
+								<div class="field">
+									<label for="emailIdNmStr" class="label">이메일 아이디</label>
+									<div class="insert">
+										<input type="text" id="emailIdNmStr" name="emailIdNmStr" title="이메일 아이디 입력" value="" class="input_text small" style="width:105px">
+										<span>@</span>
+										<input type="text" id="emailDomNm" name="emailDomNm" title="이메일 도메인 입력" value="" class="input_text small" style="width:105px">
+										<select id="emailDomNmSB" title="이메일 도메인 선택" class="select small">
+										<option class="select" value="">직접 입력</option>
+										<option value="001" addtoptnval1="" addtoptnval2="">naver.com</option><option value="002" addtoptnval1="" addtoptnval2="">gmail.com</option><option value="003" addtoptnval1="" addtoptnval2="">nate.com</option><option value="004" addtoptnval1="" addtoptnval2="">yahoo.co.kr</option><option value="005" addtoptnval1="" addtoptnval2="">hanmail.net</option><option value="006" addtoptnval1="" addtoptnval2="">daum.net</option><option value="007" addtoptnval1="" addtoptnval2="">dreamwiz.com</option><option value="008" addtoptnval1="" addtoptnval2="">lycos.co.kr</option><option value="009" addtoptnval1="" addtoptnval2="">empal.com</option><option value="010" addtoptnval1="" addtoptnval2="">korea.com</option><option value="011" addtoptnval1="" addtoptnval2="">paran.com</option><option value="012" addtoptnval1="" addtoptnval2="">freechal.com</option><option value="013" addtoptnval1="" addtoptnval2="">hitel.net</option><option value="014" addtoptnval1="" addtoptnval2="">hanmir.com</option><option value="015" addtoptnval1="" addtoptnval2="">hotmail.com</option>
+										</select>
+									</div>
+								</div>
+							</fieldset>
+							<ul class="data_list small">
+							<li>회원가입 정보입력은 인증 메일을 통한 인증 후 가능합니다.</li>
+							</ul>
+							<div class="bn_ar">
+								<a id="btnEmailAuth" href="javascript:;" class="bn medium color1">인증하기 </a>
+							</div>
+							<p class="email_msg" style="display:none;">
+								<strong class="text">이미 사용중인 이메일입니다. 다른 이메일을 입력 하시거나 로그인 또는 비밀번호 찾기를 선택해주세요.</strong>
+							</p>
+							<div id="btnFindIdPwWrap" class="bn_ar" style="display:none">
+								<a href="//member.ssg.com/member/login.ssg" class="bn color1">로그인 하기</a>
+								<a href="//member.ssg.com/member/findIdPw.ssg?tabType=pw" class="bn color2">비밀번호 찾기</a>
 							</div>
 						</div>
-					</fieldset>
-					<ul class="data_list small">
-					<li>정보입력은 인증 메일을 통한 인증 후 가능합니다.</li>
-					</ul>
-					<div class="bn_ar">
-						<a id="btnEmailAuth" href="javascript:;" class="bn medium color1">인증하기</a>
-					</div>
-					<p class="email_msg" style="display:none;">
-						<strong class="text"></strong>
-					</p>
-					<div id="btnFindIdPwWrap" class="bn_ar" style="display:none">
-						<a href="//member.ssg.com/member/login.ssg" class="bn color1">로그인 하기</a>
-						<a href="//member.ssg.com/member/findIdPw.ssg?tabType=pw" class="bn color2">비밀번호 찾기</a>
-					</div>
-				  </div> -->
-				  
-				  <!--  -->
-				  
-				  <div class="form">
-					<h2>사용자 인증으로 회원 가입</h2>
-					<form action="#" method="post">  <!-- submit 회원가입 클릭시  이동 경로 주기( ) ★  -->
- 							
-									
-							
-						<input type="text" id="emailIdNmStr" name="emailIdNmStr" title="이메일 아이디 입력" value="" class="input_text small" style="width:105px">
-						<span>@</span>
-						<input type="text" id="emailDomNm" name="emailDomNm" title="이메일 도메인 입력" value="" class="input_text small" style="width:105px">
-						<select id="emailDomNmSB" title="이메일 도메인 선택" class="select small">
-						<option class="select" value="">직접 입력</option>
-						<option value="001" addtOptnVal1="" addtOptnVal2="">naver.com</option><option value="002" addtOptnVal1="" addtOptnVal2="">gmail.com</option><option value="003" addtOptnVal1="" addtOptnVal2="">nate.com</option><option value="004" addtOptnVal1="" addtOptnVal2="">yahoo.co.kr</option><option value="005" addtOptnVal1="" addtOptnVal2="">hanmail.net</option><option value="006" addtOptnVal1="" addtOptnVal2="">daum.net</option><option value="007" addtOptnVal1="" addtOptnVal2="">dreamwiz.com</option><option value="008" addtOptnVal1="" addtOptnVal2="">lycos.co.kr</option><option value="009" addtOptnVal1="" addtOptnVal2="">empal.com</option><option value="010" addtOptnVal1="" addtOptnVal2="">korea.com</option><option value="011" addtOptnVal1="" addtOptnVal2="">paran.com</option><option value="012" addtOptnVal1="" addtOptnVal2="">freechal.com</option><option value="013" addtOptnVal1="" addtOptnVal2="">hitel.net</option><option value="014" addtOptnVal1="" addtOptnVal2="">hanmir.com</option><option value="015" addtOptnVal1="" addtOptnVal2="">hotmail.com</option>
-						</select>
-				
-								
- 					
-<!--  					  <input type="text" name="Username" placeholder="Username" required=" ">  -->
-<!-- 					  <input type="password" name="Password" placeholder="Password" required=" ">  -->
-<!-- 					  <input type="email" name="Email" placeholder="Email Address" required=" "> -->
-<!--  					  <input type="text" name="Phone" placeholder="Phone Number" required=" ">  -->
-					  <input type="submit" value="회원가입 >"> 
-					</form>
-				  </div>
-				  <div class="cta"><a href="/jsp/userInfoSearch.jsp">아이디/비밀번호 찾기</a></div>
-				</div>
-			</div>
+						</form>
+				 </div>
+				 </div>
+					 <div class="cta"><a href="/jsp/userInfoSearch.jsp">아이디/비밀번호 찾기</a></div>
+				</div>	
+				  </div>	
+			
+			
+			
 			
 			<script>   /* <div class="toggle"> 클릭시 이벤트  로그인,회원가입 폼 전환 */
 				$('.toggle').click(function(){
@@ -162,13 +154,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				  }, "slow");
 				});
 			</script>
-		</div>  
+		</div>   <!--	<div class="w3_login">  -->
 <!-- //login 비공통-->
 		</div> <!-- // <div class="w3l_banner_nav_right">  -->
 		<div class="clearfix"></div>
 		
-	</div>
+	</div>  
 <!-- //banner 공통 또는 비공통 -->
+
 
 <%@include file="/KEB/jsp/common/newsAndbttom.jsp"%>
 
