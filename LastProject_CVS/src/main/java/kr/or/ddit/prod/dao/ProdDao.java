@@ -1,6 +1,7 @@
 package kr.or.ddit.prod.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.model.ProdVo;
 
@@ -29,6 +30,24 @@ public class ProdDao implements ProdDaoInf {
 	public int deleteProd(String PROD_ID) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<ProdVo> getListProdBestCategoryOne() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProdVo> getListProdBestCategory(Map<String, String> pr_class) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ProdVo> getListProdEvent(String event_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
