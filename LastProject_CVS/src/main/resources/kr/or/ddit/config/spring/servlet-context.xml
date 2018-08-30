@@ -58,9 +58,9 @@
 <!-- 	<bean id="excelDawnloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView"></bean> -->
 
 <!-- 	fileDownload view -->
-	<bean id="fileDownloadView" class="kr.or.ddit.file.FileDownloadView" />
+<!-- 	<bean id="fileDownloadView" class="kr.or.ddit.file.FileDownloadView" /> -->
 	
-	<bean id="fileDownloadCon" class="kr.or.ddit.file.FileDownloadController" />
+<!-- 	<bean id="fileDownloadCon" class="kr.or.ddit.file.FileDownloadController" /> -->
 
 	<!-- multipart -->
 	<bean id="multipartResolver"
