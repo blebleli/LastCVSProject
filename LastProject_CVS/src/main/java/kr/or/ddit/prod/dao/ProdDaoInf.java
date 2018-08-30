@@ -6,30 +6,29 @@ import java.util.Map;
 import kr.or.ddit.model.ProdVo;
 
 
-/**
- * @Class Name : ProdDaoInf.java
- *
- * @author           
- * @since              
- * @version          1.0
- * @see
- *
- * <pre>
- * @<< 개정이력(Modification Information) >>
- * @
- * @   수정일         수정자        수정내용
- * @ -------------   -------   ------------------------
- * @ 
- *
- * </pre>
- */
-
 //조회================================================================
 	// List<ProdVo> getListProdBestCategoryOne()_카테고리별 최고 평점 제품 1건씩 조회 기능
 	// List<ProdVo> getListProdBestCategory(Map<String, String> pr_class )_제품 카테고리별 평점 높은 순으로 조회 기능
 	// List<ProdVo> getListProdEvent(String event_id)_제품 검색 기능 (조건 : 행사제품코드)
 
 
+/**
+* ProdDaoInf.java
+*
+* @author 조계환
+* @since 2018. 8. 30.
+* @version 1.0
+* @see
+*
+* <pre>
+* << 개정이력(Modification Information) >>
+*
+* 수정일 수정자 수정내용
+* ---------- ------ ------------------------
+* 2018. 8. 30. 조계환 최초 생성
+*
+* </pre>
+*/
 public interface ProdDaoInf {
 
 	int newProd(ProdVo prodVo);
@@ -79,6 +78,10 @@ public interface ProdDaoInf {
 	 * @return  List<ProdVo>(조건에 맞는 제품들)
 	 */
 	List<ProdVo> getListProdEvent(String event_id);
+	
+	
+	
+	
 	
 	// 조회================================================================
 }
