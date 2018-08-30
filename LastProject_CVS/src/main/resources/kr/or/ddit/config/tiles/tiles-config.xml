@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition name="userBasicLayout" template="/WEB-INF/view/common/user/userBasicLayout.jsp">
+		<put-attribute name="top" value="/WEB-INF/view/common/user/top.jsp" />
+		<put-attribute name="bottom" value="/WEB-INF/view/common/user/bottom.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	<definition name="userMain" extends="userBasicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/userMain.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>
