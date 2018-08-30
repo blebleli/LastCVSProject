@@ -3,8 +3,8 @@
 <tiles-definitions>
 
 	<definition name="userBasicLayout" template="/WEB-INF/view/common/user/userBasicLayout.jsp">
-		<put-attribute name="top" value="/WEB-INF/view/common/user/top.jsp" />
-		<put-attribute name="bottom" value="/WEB-INF/view/common/user/bottom.jsp" />
+		<put-attribute name="top" value="/WEB-INF/view/common/user/userTop.jsp" />
+		<put-attribute name="bottom" value="/WEB-INF/view/common/user/userBottom.jsp" />
 		<put-attribute name="content" value="" />
 	</definition>
 	
