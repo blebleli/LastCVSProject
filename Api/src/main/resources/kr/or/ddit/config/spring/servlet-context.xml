@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<mvc:annotation-driven/>
+	
+	<mvc:default-servlet-handler/>
+	
+	<context:annotation-config/>
+	
+	<context:component-scan base-package="kr.or.ddit.api" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0"></property>
+	</bean>
+
+	<!-- Tiles View Resolver -->
+<!-- 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"> -->
+<!-- 		<property name="order" value="1" /> -->
+<!-- 		<property name="viewClass" 	value="org.springframework.web.servlet.view.tiles3.TilesView" /> -->
+<!-- 	</bean> -->
+
+	<!-- Internal Resource View Resolver  -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1"></property>
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!--______________________________________________________________________________________________-->
+	
+	<!-- json view   -->
+<!-- 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"> -->
+<!-- 	</bean> -->
+
+	<!-- excelDownload view 설정    -->
+<!-- 	<bean id="excelDownloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView"></bean> -->
+	
+	<!-- fileDownload view 설정    -->
+<!-- 	<bean id="fileDownloadView" class="kr.or.ddit.mvc.view.FileDownloadView"></bean> -->
+	<!-- multipart  -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10000000"/>  <!-- 1024*1000*10 = 10mega  -->
+		<property name="maxInMemorySize" value="10000000"/>
+	</bean>
+	
+</beans>
