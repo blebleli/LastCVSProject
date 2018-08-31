@@ -8,13 +8,19 @@ import kr.or.ddit.model.CategoryVo;
 public class CategoryDao implements CategoryDaoInf {
 
 	@Override
-	public int newCategory(CategoryVo categoryVo) {
+	public int setInsertCategory(CategoryVo categoryVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<CategoryVo> getCategoryList() {
+	public List<CategoryVo> getListCategory() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CategoryVo> getListCategoryProd(String ctgy_level) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,9 +32,10 @@ public class CategoryDao implements CategoryDaoInf {
 	}
 
 	@Override
-	public int deleteCategody(String CTGY_ID) {
+	public int deleteCategory(String ctgy_id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
