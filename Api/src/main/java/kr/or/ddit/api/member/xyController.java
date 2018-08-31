@@ -16,13 +16,29 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class xyController {
 	public static void main(String[] args) throws IOException {
-		CoordPoint pt = new CoordPoint(236053.7605, 312592.6575); // 변환해야할 좌표
-//		CoordPoint pt = new CoordPoint(); // 변환해야할 좌표
 		
-	    CoordPoint wgs84 = TransCoord.getTransCoord(pt, TransCoord.COORD_TYPE_WTM, TransCoord.COORD_TYPE_WGS84);
+		List<MemberVo> memberList =  mb();
+
+		CoordPoint pt = null;
 		
-		List<MemberVo> aa =  mb();
-		System.out.println("aa: " + aa +"/n");		
+		for (int i = 0 ; i < memberList.size(); i++) {
+		
+			// 변환변 vo
+			System.out.println(memberList.get(i));
+			 pt = new CoordPoint(memberList.get(i).getMem_x(), memberList.get(i).getMem_y()); // 변환해야할 좌표
+			 CoordPoint wgs84 = TransCoord.getTransCoord(pt, TransCoord.COORD_TYPE_WTM, TransCoord.COORD_TYPE_WGS84);
+			 memberList.get(i).setMem_x(wgs84.x);			 
+			 memberList.get(i).setMem_y(wgs84.y);
+			 
+			// 변환후 vo
+			 System.out.println("변환=================");
+			 System.out.println(memberList.get(i));
+			 System.out.println("================================");
+		}
+		
+		
+		
+		
 	}
 	
 	public static List<MemberVo> mb () throws IOException {
@@ -102,9 +118,9 @@ public class xyController {
                         case 11: // 이메일
                         	memberVo.setMem_cvs_tel(value); break;
                         case 12: // 이메일                       		
-	                        memberVo.setMem_x(value); break;
+	                        memberVo.setMem_x(Double.parseDouble(value)); break;
                         case 13: // 이메일                     		
-	                        memberVo.setMem_y(value); break;
+	                        memberVo.setMem_y(Double.parseDouble(value)); break;
 
                         case 14: // 이메일
                         	memberVo.setMem_id(value); break;
