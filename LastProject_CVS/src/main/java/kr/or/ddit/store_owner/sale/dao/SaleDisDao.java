@@ -7,15 +7,15 @@ import kr.or.ddit.model.SaleDisVo;
 public class SaleDisDao implements SaleDisDaoInf {
 
 	@Override
-	public List<SaleDisVo> getSaleDisList() {
+	public int setInsertSaleDis(SaleDisVo saleDisVo) {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
-	public int newSaleDis(SaleDisVo saleDisVo) {
+	public List<SaleDisVo> getListSaleDis() {
 		// TODO Auto-generated method stub
-		return 0;
+		return null;
 	}
 
 	@Override
@@ -25,9 +25,10 @@ public class SaleDisDao implements SaleDisDaoInf {
 	}
 
 	@Override
-	public int deleteSaleDis(String SD_ID) {
+	public int deleteSaleDis(String sd_id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
