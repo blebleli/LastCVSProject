@@ -7,13 +7,13 @@ import kr.or.ddit.model.BookmarkVo;
 public class BookmarkDao implements BookmarkDaoInf {
 
 	@Override
-	public int newBookmark(BookmarkVo bookmarkVo) {
+	public int setInsertBookmark(BookmarkVo bookmarkVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<BookmarkVo> getBookmarkList() {
+	public List<BookmarkVo> getListBookmark(String mem_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -29,5 +29,6 @@ public class BookmarkDao implements BookmarkDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
