@@ -3,6 +3,7 @@ package kr.or.ddit.board.dao;
 import java.util.List;
 
 import kr.or.ddit.model.BoardVo;
+import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.EventVo;
 import kr.or.ddit.model.ProdVo;
 
@@ -28,21 +29,65 @@ import kr.or.ddit.model.ProdVo;
 // ==========================================
 // 목록
 // 조회==========================================
-	//EventVo getEventPopUpOne()_메인화면에서 이벤트 팝업창에 출력될 이벤트(기간내에 하고 있는 이벤트 중 가나다 순으로 출력)
-	//int getSearch(String word)_메인화면에서 검색어를 매개변수로 가져와서 DB에서 검색 조회
 	//List<BoardVo> getListBestReviewOne()_메인화면에서 카테고리별 Best 리뷰작성 회원 1건씩 조회 기능
-	//int getCvsSearch(String word)_메인화면에서 매개변수를 가져와서 그 매개변수로 편의점 이름 검색
+	//int setInsertBoard(BoardVo boardVo)_관리자가 공지사항 게시물 신규 작성 기능
+	//List<BoardVo> getListBoard()_공지사항 게시판의 게시물 리스트 출력
+	//int updateBoard(BoardVo boardVo)_관리자가 작성한 공지사항 게시글에 대해서 수정하는 기능
+	//int deleteBoard(String bd_id)_관리자가 작성한 공지사항 게시글에 대해서 삭제하는 기능
+	//BoardVo getBoard(String bd_id)_클릭한 공지사항 게시글 상세보기 기능
+	//int setInsertComments(CommentsVo commentsVo)_회원이 작성할 신규 댓글
+	//int updateComments(CommentsVo commentsVo)_작성한 댓글 수정 기능
+	//List<CommentsVo> getListComments()_작성된 댓글 리스트 출력
+	//int deleteComments(String cm_id)_작성한 댓글 삭제 기능
 
 public interface BoardDaoInf {
 	
-	int newBoard(BoardVo boardVo);
+	/**
+	* Method : setInsertBoard
+	* Method 설명 :관리자가 공지사항 게시물 신규 작성 기능
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int setInsertBoard(BoardVo boardVo)_관리자가 공지사항 게시물 신규 작성 기능
+	* @param boardVo
+	* @return
+	*/
+	int setInsertBoard(BoardVo boardVo);
 
-	List<BoardVo> getBoardList();
+	/**
+	* Method : getBoardList
+	* Method 설명 :공지사항 게시판의 게시물 리스트 출력
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :List<BoardVo> getListBoard()_공지사항 게시판의 게시물 리스트 출력
+	* @return
+	*/
+	List<BoardVo> getListBoard();
 	
+	/**
+	* Method : updateBoard
+	* Method 설명 :관리자가 작성한 공지사항 게시글에 대해서 수정하는 기능 
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int updateBoard(BoardVo boardVo)_관리자가 작성한 공지사항 게시글에 대해서 수정하는 기능
+	* @param boardVo
+	* @return
+	*/
 	int updateBoard(BoardVo boardVo);
 	
+	/**
+	* Method : deleteBoard
+	* Method 설명 : 관리자가 작성한 공지사항 게시글에 대해서 삭제하는 기능
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int deleteBoard(String bd_id)_관리자가 작성한 공지사항 게시글에 대해서 삭제하는 기능
+	* @param bd_id
+	* @return
+	*/
 	int deleteBoard(String bd_id);
-	
 	
 	/**
 	* Method : getListBestReviewOne
@@ -52,45 +97,66 @@ public interface BoardDaoInf {
 	* 변경이력 :신규 
 	* 조 회 :	List<BoardVo> getListBestReviewOne()_메인화면에서 카테고리별 Best 리뷰작성 회원 1건씩 조회 기능
 	* @return
-	
 	*/
 	List<BoardVo> getListBestReviewOne();
 	
 	/**
-	* Method : getEventPopUpOne
-	* Method 설명 : 메인화면에서 이벤트 팝업창에 출력될 이벤트(기간내에 하고 있는 이벤트 중 가나다 순으로 출력)
+	* Method : getBoard
+	* Method 설명 :클릭한 공지사항 게시글 상세보기 기능
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 : EventVo getEventPopUpOne()_메인화면에서 이벤트 팝업창에 출력될 이벤트(기간내에 하고 있는 이벤트 중 가나다 순으로 출력)
+	* 조 회 :BoardVo getBoard(String bd_id)_클릭한 공지사항 게시글 상세보기 기능
+	* @param bd_id
 	* @return
-	
 	*/
-	List<EventVo> getEventPopUpOne();
+	BoardVo getBoard(String bd_id);
 	
 	/**
-	* Method : getSearch
-	* Method 설명 : 메인화면에서 검색어를 매개변수로 가져와서 DB에서 검색 조회
+	* Method : setInsertComments
+	* Method 설명 :회원이 작성할 신규 댓글
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 : int getSearch(String word)_메인화면에서 검색어(상품)를 매개변수로 가져와서 DB에서 검색 조회
-	* @param word
+	* 조 회 :int setInsertComments(CommentsVo commentsVo)_회원이 작성할 신규 댓글
+	* @param commentsVo
 	* @return
 	*/
-	int getProdSearch(String word);
-	
+	int setInsertComments(CommentsVo commentsVo);
 	
 	/**
-	* Method : getCvsSearch
-	* Method 설명 :메인화면에서 매개변수를 가져와서 그 매개변수로 편의점 이름 검색
+	* Method : updatecomments
+	* Method 설명 :작성한 댓글 수정 기능
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
-	* 변경이력 :신규 
-	* 조 회 :int getCvsSearch(String word)_메인화면에서 매개변수를 가져와서 그 매개변수로 편의점 이름 검색
-	* @param word
+	* 변경이력 :신규
+	* 조 회 :int updateComments(CommentsVo commentsVo)_작성한 댓글 수정 기능
+	* @param commentsVo
 	* @return
 	*/
-	int getCvsSearch(String word);
+	int updateComments(CommentsVo commentsVo);
+	
+	/**
+	* Method : getListComments
+	* Method 설명 :작성된 댓글 리스트 출력
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :List<CommentsVo> getListComments()_작성된 댓글 리스트 출력
+	* @return
+	*/
+	List<CommentsVo> getListComments();
+	
+	/**
+	* Method : deleteComments
+	* Method 설명 :작성한 댓글 삭제 기능
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int deleteComments(String cm_id)_작성한 댓글 삭제 기능
+	* @param cm_id
+	* @return
+	*/
+	int deleteComments(String cm_id);
 	
 }
