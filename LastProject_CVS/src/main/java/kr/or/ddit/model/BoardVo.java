@@ -16,7 +16,6 @@ public class BoardVo {
 	private String bd_kind_id;                               // 공지사항 : 44 , 리뷰 : 55, 이벤트 : 66
 	
 	
-	
 	public BoardVo() {
 		super();
 		// TODO Auto-generated constructor stub
