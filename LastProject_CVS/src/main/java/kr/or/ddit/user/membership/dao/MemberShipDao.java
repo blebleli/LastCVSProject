@@ -7,13 +7,19 @@ import kr.or.ddit.model.MemberShipVo;
 public class MemberShipDao implements MemberShipDaoInf {
 
 	@Override
-	public int newMemberShip(MemberShipVo memberShipVo) {
+	public int setInsertMemberShip(MemberShipVo memberShipVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<MemberShipVo> getMemberShipList() {
+	public MemberShipVo getVoMemberShip(String mem_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MemberShipVo> getListMemberShip() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -29,5 +35,6 @@ public class MemberShipDao implements MemberShipDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
