@@ -7,13 +7,13 @@ import kr.or.ddit.model.ReserveVo;
 public class ReserveDao implements ReserveDaoInf {
 
 	@Override
-	public int newReserve(ReserveVo reserveVo) {
+	public int setInsertReserve(ReserveVo reserveVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<ReserveVo> getReserveList() {
+	public List<ReserveVo> getListReserve(String mem_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -29,5 +29,6 @@ public class ReserveDao implements ReserveDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
