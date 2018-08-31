@@ -18,8 +18,6 @@ public class MemberVo {
 	private String mem_intro; 	 // 편의점 소개
 	private double mem_x; 			 // 편의점 x좌표
 	private double mem_y; 			 // 편의점 y좌표
-	private String x;
-	private String y;
 	
 	public MemberVo(){
 		super();
@@ -166,22 +164,6 @@ public class MemberVo {
 
 	public void setMem_y(double mem_y) {
 		this.mem_y = mem_y;
-	}
-	
-	public String getX() {
-		return x;
-	}
-
-	public void setX(String x) {
-		this.x = x;
-	}
-
-	public String getY() {
-		return y;
-	}
-
-	public void setY(String y) {
-		this.y = y;
 	}
 
 	@Override
