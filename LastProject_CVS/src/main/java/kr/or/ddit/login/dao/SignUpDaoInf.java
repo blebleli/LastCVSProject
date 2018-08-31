@@ -39,8 +39,4 @@ public interface SignUpDaoInf {
 	*/
 	int setInsertSignUpUser(MemberVo memberVo);
 	
-	//이메일 인증........API?
-	
-	
-
 }

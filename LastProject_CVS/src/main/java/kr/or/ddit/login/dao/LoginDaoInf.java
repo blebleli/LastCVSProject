@@ -23,35 +23,34 @@ import kr.or.ddit.model.MemberVo;
 // ==========================================
 // 목록
 // 조회===============================================
-	//int searchUser(String id, String password)_회원가입 단에서 아이디와 비밀번호 입력후 DB에 있는 값과 일치하는지 확인하는 기능
-
+	//int searchUser(String id, String password)_로그인 단에서 아이디와 비밀번호 입력후 DB에 있는 값과 일치하는지 확인하는 기능
+	//MemberVo searchUser(MemberVo memverVo)_로그인 단에서 객체로 DB에 있는 값과 일치하는지 확인 기능
 public interface LoginDaoInf {
 	
 	/**
 	* Method : searchUser
-	* Method 설명 : 회원가입 단에서 아이디와 비밀번호 입력후 DB에 있는 값과 일치하는지 확인하는 기능
+	* Method 설명 : 로그인 단에서 아이디와 비밀번호 입력후 DB에 있는 값과 일치하는지 확인하는 기능
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 :int searchUser(String id, String password)_회원가입 단에서 아이디와 비밀번호 입력후 DB에 있는 값과 일치하는지 확인하는 기능
+	* 조 회 :int searchUser(String id, String password)_로그인 단에서 아이디와 비밀번호 입력후 DB에 있는 값과 일치하는지 확인하는 기능
 	* @param id
 	* @param password
 	* @return
 	
 	*/
-	int searchUser(String id, String password);
+	int getCntSearchUser(String id, String password);
 	
 	/**
 	* Method : searchUser
-	* Method 설명 : 
+	* Method 설명 : 로그인 단에서 객체로 DB에 있는 값과 일치하는지 확인 기능
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 :MemberVo searchUser(MemberVo memverVo)_
+	* 조 회 :MemberVo searchUser(MemberVo memverVo)_로그인 단에서 객체로 DB에 있는 값과 일치하는지 확인 기능
 	* @param memverVo
 	* @return
 	*/
-	MemberVo searchUser(MemberVo memverVo);
-	
+	MemberVo getVoSearchUser(String id, String password);
 
 }

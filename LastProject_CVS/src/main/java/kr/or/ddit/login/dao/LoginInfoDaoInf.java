@@ -38,7 +38,7 @@ public interface LoginInfoDaoInf {
 	* @param memberVo
 	* @return
 	*/
-	int searchUserId(MemberVo memberVo);
+	int getCntSearchUserId(MemberVo memberVo);
 	
 	/**
 	* Method : searchUserPassword
@@ -50,6 +50,8 @@ public interface LoginInfoDaoInf {
 	* @param memberVo
 	* @return
 	*/
-	int searchUserPassword(MemberVo memberVo);
+	int getCntSearchUserPassword(MemberVo memberVo);
+	
+	
 	
 }
