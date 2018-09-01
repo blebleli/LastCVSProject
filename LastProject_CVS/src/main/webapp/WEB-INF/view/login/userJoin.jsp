@@ -25,7 +25,6 @@ $(document).ready(function() {
 
 </head>
 
-<%@include file="/KEB/jsp/common/headertop.jsp"%>
 
 <!-- products-breadcrumb 유저의 위치를 보여주는 부차적인 네비게이션________ -->
 	<div class="products-breadcrumb">
@@ -41,7 +40,6 @@ $(document).ready(function() {
 <!-- banner 공통 또는 비 공통 부분-->
 	<div class="banner">
 		
-		<%@include file="/KEB/jsp/common/leftNavbar.jsp"%>
 
 		<div class="w3l_banner_nav_right">
 		
@@ -189,6 +187,5 @@ $(document).ready(function() {
 <!-- //banner 공통 또는 비공통 -->
 
 
-<%@include file="/KEB/jsp/common/newsAndbttom.jsp"%>
 </body>
 </html>

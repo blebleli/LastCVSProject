@@ -14,7 +14,26 @@
 		<put-attribute name="content" value="" />
 	</definition>
 	
+	<!-- Login -->
+	<definition name="loginLayout" template="/WEB-INF/view/login/layout/loginLayout.jsp">
+		<put-attribute name="top" value="/WEB-INF/view/login/layout/headertop.jsp" />
+		<put-attribute name="left" value="/WEB-INF/view/login/layout/leftNavbar.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="bottom" value="/WEB-INF/view/login/layout/newsAndbttom.jsp" />
+	</definition>
 	
+	<!-- Main -->
+	<definition name="mainLayout" template="/WEB-INF/view/common/main/mainLayout.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	<definition name="login/*" extends="loginLayout">
+		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" />
+	</definition>
+	
+	<definition name="main/*" extends="mainLayout">
+		<put-attribute name="content" value="/WEB-INF/view/{1}.jsp" />
+	</definition>
 	
 	<definition name="userMain" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/userMain.jsp" />
