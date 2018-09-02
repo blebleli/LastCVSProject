@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+	<!-- 사용자ID 중복 조회 -->
+	<select id="getMemIdCnt" parameterType="string" resultType="int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE MEM_ID = #{mem_id}
+	</select>
+	
+	<!-- 사용자정보 등록 -->
+	<insert id="setInsertSignUpUser" parameterType="memberVo">
+		INSERT INTO MEMBER
+		(
+			  MEM_ID
+			, MEM_PW
+			, MEM_KIND
+			, MEM_NAME
+			, MEM_TEL
+			, MEM_BIRTH
+			, MEM_GEN
+			, MEM_ZIP
+			, MEM_ADD
+			, MEM_ADDR
+			, MEM_CVS_NAME
+			, MEM_CVS_TEL
+			, MEM_INTRO
+			, MEM_X
+			, MEM_Y
+		)
+		VALUES (
+		      #{mem_id, jdbcType=VARCHAR}			<!--//  일반:이메일, 점주:사업자번호, 관리자:일괄부여  -->
+			, #{mem_pw, jdbcType=VARCHAR}			<!--// 비밀번호  -->
+			, #{mem_kind, jdbcType=VARCHAR}		<!--// 관리자 : 00, 점주 : 01, 일반 : 02  -->
+			, #{mem_name, jdbcType=VARCHAR}		<!--// 일반:일반회원 점주:점주이름  -->
+			, #{mem_tel, jdbcType=VARCHAR}		<!--// 연락처  -->
+			, #{mem_birth, jdbcType=VARCHAR}		<!--// 생년월일  -->
+			, #{mem_gen, jdbcType=CHAR}		<!--// 성별  -->
+			, #{mem_zip, jdbcType=NUMERIC}		<!--// 일반: 개인집주소, 점주:편의점주소  -->
+			, #{mem_add, jdbcType=VARCHAR}		<!--// 일반: 개인집주소, 점주:편의점주소  -->
+			, #{mem_addr, jdbcType=VARCHAR}		<!--// 일반: 개인집주소, 점주:편의점주소  -->
+			, #{mem_cvs_name, jdbcType=VARCHAR}	<!--// 편의점명  -->
+			, #{mem_cvs_tel, jdbcType=VARCHAR}	<!--// 편의점연락처  -->
+			, #{mem_intro, jdbcType=VARCHAR}		<!--// 소개  -->
+			, #{mem_x, jdbcType=NUMERIC}			<!--// 좌표_x  -->
+			, #{mem_y, jdbcType=NUMERIC}			<!--// 좌표_y  -->
+		)
+	</insert>
+	
+	<!-- 사용자 비밀번호 수정 -->
+	<update id="setUpdateMember" parameterType="memberVo">
+		UPDATE MEMBER
+		   SET MEM_PW = #{mem_pw}
+		 WHERE MEM_ID = #{mem_id}
+		   AND MEM_PW = #{old_mem_pw}
+	</update>
+	
+	<update id="setUpdateMemberPw" parameterType="memberVo">
+		UPDATE MEMBER
+		   SET MEM_KIND = #{mem_kind}
+			 , MEM_NAME = #{mem_name}
+			 , MEM_TEL = #{mem_tel}
+			 , MEM_BIRTH = #{mem_birth}
+			 , MEM_GEN = #{mem_gen}
+			 , MEM_ZIP = #{mem_zip}
+			 , MEM_ADD = #{mem_add}
+			 , MEM_ADDR = #{mem_addr}
+			 , MEM_CVS_NAME = #{mem_cvs_name}
+			 , MEM_CVS_TEL = #{mem_cvs_tel}
+			 , MEM_INTRO = #{mem_intro}
+			 , MEM_X = #{mem_x}
+			 , MEM_Y = #{mem_y}
+		 WHERE MEM_ID = #{mem_id}
+	</update>
+	
+	<!-- 사용자 조회 -->
+	<select id="getMember" resultType="memberVo">
+		SELECT MEM_ID
+			 , MEM_PW
+			 , MEM_KIND
+			 , MEM_NAME
+			 , MEM_TEL
+			 , MEM_BIRTH
+			 , MEM_GEN
+			 , MEM_ZIP
+			 , MEM_ADD
+			 , MEM_ADDR
+			 , MEM_CVS_NAME
+			 , MEM_CVS_TEL
+			 , MEM_INTRO
+			 , MEM_X
+			 , MEM_Y
+		  FROM MEMBER
+	     WHERE MEM_ID = #{mem_id}
+	       AND MEM_PW = #{mem_pw}
+	</select>
+	
+	<!-- 사용자목록 페이징 조회 -->
+	<select id="getMemberPageList" parameterType="map" resultType="boardVo">  	
+		SELECT *
+		FROM (SELECT a.*, ROWNUM rn
+			  FROM
+				  (SELECT MEM_ID
+						, MEM_PW
+						, MEM_KIND
+						, MEM_NAME
+						, MEM_TEL
+						, MEM_BIRTH
+						, MEM_GEN
+						, MEM_ZIP
+						, MEM_ADD
+						, MEM_ADDR
+						, MEM_CVS_NAME
+						, MEM_CVS_TEL
+						, MEM_INTRO
+						, MEM_X
+						, MEM_Y
+					 FROM MEMBER
+				    WHERE 1=1
+				    <if test="mem_kind != null and mem_kind != ''">
+				    	AND MEM_KIND = #{mem_kind}
+				    </if>
+				    <if test="mem_name != null and mem_name != ''">
+				    	AND MEM_NAME = #{mem_name}
+				    </if>
+				    ORDER BY MEM_NAME 
+				   )
+			  a )
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+	</select>
+	
+	<!-- 사용자 목록 총 건수 -->
+  	<select id="getMemberListTotalCnt" resultType="int">
+		SELECT count(*) AS tot_cnt
+		  FROM MEMBER
+		 WHERE 1=1
+		 <if test="mem_kind != null and mem_kind != ''">
+		   AND MEM_KIND = #{mem_kind}
+		 </if>
+		 <if test="mem_name != null and mem_name != ''">
+		   AND MEM_NAME = #{mem_name}
+		  </if>
+  	</select>
+</mapper>

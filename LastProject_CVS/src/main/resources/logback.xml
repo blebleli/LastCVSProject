@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+ 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-4level [%logger.%method:%line]- %msg%n</pattern>
+		</layout>
+  	</appender>  
+
+    <appender name="LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">		
+		<file>c:/logs/spring-board.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>spring-board.%d{yyyy-MM-dd}.log</fileNamePattern>
+		<!-- 30일 지난 파일은 삭제한다.  -->
+		 <maxHistory>30</maxHistory>
+		</rollingPolicy>		
+		<encoder>
+		<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4level [%logger.%method:%line] - %msg %n</pattern>
+		</encoder> 			
+	</appender>
+
+    <logger name="org" level="info" additivity="false"/>
+    
+    <logger name="kr.or.ddit" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>    
+
+  	<root>
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</configuration>

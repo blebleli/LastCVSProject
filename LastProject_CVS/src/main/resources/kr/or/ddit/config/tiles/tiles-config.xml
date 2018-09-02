@@ -20,6 +20,10 @@
 	<definition name="userLogin" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/userLogin.jsp" />
 	</definition>
+	<!-- 회원가입 -->
+	<definition name="userJoin" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/login/userJoin.jsp" />
+	</definition>
 	
 	
 <!-- 	<definition name="cvs_basicLayout" template="/WEB-INF/view/common/cvs/cvs_basicLayout.jsp"> -->

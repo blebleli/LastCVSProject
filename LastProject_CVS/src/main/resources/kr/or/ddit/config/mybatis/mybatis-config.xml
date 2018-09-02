@@ -29,6 +29,7 @@
   
   <mappers>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml"/>  
+  	<mapper resource="kr/or/ddit/config/mybatis/mapper/member.xml"/>  
   </mappers>
 
 </configuration>
