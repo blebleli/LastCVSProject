@@ -8,25 +8,25 @@ import kr.or.ddit.model.CvsServiceVo;
 public class CVSService implements CVSServiceInf {
 
 	@Override
-	public int newCategory(CvsServiceVo cvsServiceVo) {
+	public int setInsertCvsService(CvsServiceVo cvsServiceVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<CvsServiceVo> getCategoryList() {
+	public List<CvsServiceVo> getListCvsService() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int updateCategory(CvsServiceVo cvsServiceVo) {
+	public int updateCvsService(CvsServiceVo cvsServiceVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteCategody(String service_id) {
+	public int deleteCvsService(String service_id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
