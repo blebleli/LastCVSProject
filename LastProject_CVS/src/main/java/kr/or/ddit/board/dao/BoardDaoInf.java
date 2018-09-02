@@ -4,8 +4,6 @@ import java.util.List;
 
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
-import kr.or.ddit.model.EventVo;
-import kr.or.ddit.model.ProdVo;
 
 
 /**
