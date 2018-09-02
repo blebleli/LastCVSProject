@@ -7,13 +7,13 @@ import kr.or.ddit.model.PayVo;
 public class PayService implements PayServiceInf {
 
 	@Override
-	public int newPay(PayVo payVo) {
+	public int setInsertPay(PayVo payVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<PayVo> getPay() {
+	public List<PayVo> getListPay() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -29,5 +29,6 @@ public class PayService implements PayServiceInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
