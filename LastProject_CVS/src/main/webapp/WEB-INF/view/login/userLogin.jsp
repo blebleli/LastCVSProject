@@ -2,6 +2,40 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	/**
+	* 메일 전송
+	*/
+	$("#btnEmailAuth").on('click', function() {
+		
+		var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+		if(!regEmail.test($("#emailAddr").val())) {
+            alert('이메일이 유효하지 않습니다');
+            $("#emailAddr").focus();
+            return false;
+        }
+		
+		$.ajax({
+            type : "POST",
+            url : "<c:url value='/login/sendMailAuth' />",
+            dataType : "text",
+            data : {emailAddr : $("#emailAddr").val()},
+            success : function(data){
+            	if(data == "SUCCESS") {
+                    alert($("#emailAddr").val() + "로 인증 메일이 전송되었습니다.") ;
+            	}
+            },
+            error: function(request, status, error) {
+                alert(error);
+            }
+        });
+	});
+	
+});
+</script>
+
 <div class="w3l_banner_nav_right">
 	<!-- login 비공통 -->
 	<div class="w3_login">
@@ -15,7 +49,7 @@
 
 				<div class="form">
 					<h2>로그인 하기</h2>
-					<form action="#" method="post">
+					<form id="loginForm" action="#" method="post">
 						<!-- submit 로그인 클릭시  이동 경로 주기(메인화면) ★  -->
 						<input type="text" name="Username" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
 						<input type="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
@@ -25,16 +59,17 @@
 
 				<div class="form">
 					<div class="content">
-						<form id="emailAuthForm" method="post" action="/member/join/sendEmail.ssg">
+						<form id="emailAuthForm" method="post" action="<c:url value='/login/sendEmail' />">
 							<input type="hidden" name="mbrTypeCd" value="60">
 							<div class="medium_bx">
 								<h4>사용자 이메일 인증으로 회원 가입하기</h4>
 								<br />
 								<fieldset class="fieldset">
-									<legend>이메일 인증</legend>
+									<!-- <legend>이메일 인증</legend> -->
 									<div class="field">
-										<!-- 
 										<label for="emailIdNmStr" class="label">이메일 아이디</label>
+										
+										<!-- 
 										<div class="insert">
 											<input type="text" id="emailIdNmStr" name="emailIdNmStr" title="이메일 아이디 입력" value="" class="input_text small" style="width: 105px">&nbsp;
 											<span>@</span>&nbsp;
@@ -59,7 +94,9 @@
 											</select>
 										</div>
 										 -->
-										<input type="text" name="emailAddr" placeholder="이메일 주소를 입력해 주세요" required autofocus>
+										 
+										<input type="text" name="emailAddr" id="emailAddr" placeholder="이메일 주소를 입력해 주세요" required autofocus>
+										
 									</div>
 								</fieldset>
 								<ul class="data_list small">
