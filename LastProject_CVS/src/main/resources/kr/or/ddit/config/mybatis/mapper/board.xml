@@ -3,5 +3,56 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
-
+	<!-- 공지사항 게시글 생성 -->
+	<insert id="setInsertBoard" parameterType="boardVo">
+		INSERT INTO board (bd_id, bd_title, bd_content, bd_date, bd_del, bd_rating, bd_views,
+							bd_group, prod_id, mem_id, bd_kind_id)
+		VALUES (
+				 #{bd_id}
+				,#{bd_title}
+				,RAWTOHEX(#{bd_content})
+				,sysdate
+				,#{bd_del}
+				,#{bd_rating}
+				,#{bd_views}
+				,#{bd_group}
+				,#{prod_id}
+				,#{mem_id}
+				,'44'
+				)
+	</insert>
+	
+	<!-- 공지사항 게시글 전체 조회 -->
+	<select id="getListBoard" resultType="boardVo">
+		SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(bd_content), bd_date, bd_del, bd_rating, bd_views,
+			   bd_group, prod_id, mem_id, bd_parent, bd_kind_id
+		FROM board WHERE bd_kind_id ='44'
+	</select>
+	
+	<!-- 공지사항 게시글 상세조회 -->
+	<select id="getBoard" resultType="boardVo" parameterType="String">
+		SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(bd_content), bd_date, bd_del, bd_rating, bd_views,
+			   bd_group, prod_id, mem_id, bd_parent, bd_kind_id
+		FROM board
+		WHERE bd_id = #{bd_id}
+	</select>
+	
+	<!-- 공지사항 게시판 정보 페이징 조회 -->
+	<select id="getBoardPageList" parameterType="map" resultType="boardVo">  	
+		SELECT *
+		FROM (SELECT a.*, ROWNUM rn
+			  FROM
+				  (SELECT bd_id, lpad('    ', level*4, '    ')|| board.bd_title as bd_title,
+				  		  mem_id, bd_date, bd_parent, bd_group, bd_del, bd_kind_id
+				   FROM board
+				   WHERE bd_kind_id='44' start with bd_parent is null connect by prior bd_id = bd_parent
+				   		 order siblings by bd_group )
+			  a )
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+	</select>
+	
+	<!-- 공지사항 전체 건수 -->
+  	<select id="getWriteTotCnt" resultType="int">
+    SELECT count(*) FROM board WHERE bd_kind_id='44'
+  	</select>
 </mapper>
