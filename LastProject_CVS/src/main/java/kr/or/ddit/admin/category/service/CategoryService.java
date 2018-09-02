@@ -8,27 +8,30 @@ import kr.or.ddit.model.CategoryVo;
 public class CategoryService implements CategoryServiceInf {
 
 	@Override
-	public int newCategory(CategoryVo categoryVo) {
-		// TODO Auto-generated method stub
+	public int setInsertCategory(CategoryVo categoryVo) {
 		return 0;
 	}
 
 	@Override
-	public List<CategoryVo> getCategoryList() {
-		// TODO Auto-generated method stub
+	public List<CategoryVo> getListCategory() {
+		return null;
+	}
+
+	@Override
+	public List<CategoryVo> getListCategoryProd(String ctgy_level) {
 		return null;
 	}
 
 	@Override
 	public int updateCategory(CategoryVo categoryVo) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int deleteCategody(String CTGY_ID) {
+	public int deleteCategory(String ctgy_id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
