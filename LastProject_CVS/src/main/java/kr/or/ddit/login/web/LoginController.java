@@ -11,6 +11,6 @@ public class LoginController {
 	
 	@RequestMapping("/loginView")
 	public String loginView(){
-		return "login/userLogin";
+		return "userLogin";
 	}
 }

@@ -3,13 +3,14 @@ package kr.or.ddit.login.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+
+@RequestMapping("/cvs")
+@Controller("mainController")
 public class MainController {
-	
 
 	@RequestMapping("/main")
 	public String main(){
-		return "main/main";
+		return "userMain";
 	}
 
 }
