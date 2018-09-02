@@ -4,7 +4,6 @@ import java.util.List;
 
 import kr.or.ddit.model.EventVo;
 
-
 public class EventService implements EventServiceInf {
 
 	@Override
