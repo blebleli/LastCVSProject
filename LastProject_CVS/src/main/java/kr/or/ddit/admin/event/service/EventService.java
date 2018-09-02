@@ -8,13 +8,13 @@ import kr.or.ddit.model.EventVo;
 public class EventService implements EventServiceInf {
 
 	@Override
-	public int newEvnet(EventVo eventVo) {
+	public int setInsertEvnet(EventVo eventVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public List<EventVo> getEventList() {
+	public List<EventVo> getListEvent() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,9 +26,10 @@ public class EventService implements EventServiceInf {
 	}
 
 	@Override
-	public int deleteEvent(String EVENT_ID) {
+	public int deleteEvent(String event_id) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
