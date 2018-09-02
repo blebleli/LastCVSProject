@@ -6,17 +6,11 @@ import java.util.Map;
 import kr.or.ddit.model.ProdVo;
 
 
-//조회================================================================
-	// List<ProdVo> getListProdBestCategoryOne()_카테고리별 최고 평점 제품 1건씩 조회 기능
-	// List<ProdVo> getListProdBestCategory(Map<String, String> pr_class )_제품 카테고리별 평점 높은 순으로 조회 기능
-	// List<ProdVo> getListProdEvent(String event_id)_제품 검색 기능 (조건 : 행사제품코드)
-
-
 /**
-* ProdDaoInf.java
+* @Class Name : ProdDaoInf.java
 *
 * @author 조계환
-* @since 2018. 8. 30.
+* @since 2018. 8. 31.
 * @version 1.0
 * @see
 *
@@ -25,19 +19,67 @@ import kr.or.ddit.model.ProdVo;
 *
 * 수정일 수정자 수정내용
 * ---------- ------ ------------------------
-* 2018. 8. 30. 조계환 최초 생성
+* 2018. 8. 31. 조계환 최초 생성
 *
 * </pre>
 */
+
+// ==========================================
+// 목록
+// 조회=============================================
+	//int setInsertProd(ProdVo prodVo)_관리자에 의한 신규 제품 생성 기능
+	//List<ProdVo> getListProd()_제품들에 대한 리스트 출력 기능
+	//int updateProd(ProdVo prodVo)_생성한 제품에 대한 수정 기능
+	//int deleteProd(String prod_id)_생성한 제품에 대한 삭제 기능	
+	//List<ProdVo> getListProdBestCategoryOne()_카테고리별 최고 평점 제품 1건씩 조회 기능
 public interface ProdDaoInf {
 
-	int newProd(ProdVo prodVo);
+	/**
+	* Method : setInsertProd
+	* Method 설명 : 관리자에 의한 신규 제품 생성 기능
+	* 최초작성일 : 2018. 8. 31.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int setInsertProd(ProdVo prodVo)_관리자에 의한 신규 제품 생성 기능
+	* @param prodVo
+	* @return
+	*/
+	int setInsertProd(ProdVo prodVo);
 	
-	List<ProdVo> getProdList();
+	/**
+	* Method : getListProd
+	* Method 설명 :제품들에 대한 리스트 출력 기능
+	* 최초작성일 : 2018. 8. 31.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :List<ProdVo> getListProd()_제품들에 대한 리스트 출력 기능
+	* @return
+	*/
+	List<ProdVo> getListProd();
 	
+	/**
+	* Method : updateProd
+	* Method 설명 :생성한 제품에 대한 수정 기능 
+	* 최초작성일 : 2018. 8. 31.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int updateProd(ProdVo prodVo)_생성한 제품에 대한 수정 기능
+	* @param prodVo
+	* @return
+	*/
 	int updateProd(ProdVo prodVo);
 	
-	int deleteProd(String PROD_ID);
+	/**
+	* Method : deleteProd
+	* Method 설명 :생성한 제품에 대한 삭제 기능
+	* 최초작성일 : 2018. 8. 31.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int deleteProd(String prod_id)_생성한 제품에 대한 삭제 기능
+	* @param prod_id
+	* @return
+	*/
+	int deleteProd(String prod_id);
 	
 	/**
 	 * Method           : getListProdBestCategoryOne
@@ -78,9 +120,6 @@ public interface ProdDaoInf {
 	 * @return  List<ProdVo>(조건에 맞는 제품들)
 	 */
 	List<ProdVo> getListProdEvent(String event_id);
-	
-	
-	
 	
 	
 	// 조회================================================================
