@@ -6,6 +6,7 @@ import kr.or.ddit.model.CategoryVo;
 
 public interface CategoryServiceInf {
 
+
 	/**
 	* Method : setInsertCategory
 	* Method 설명 :관리자에 의한 카테고리(예:음료, 주류, 식품) 생성 (조건:카테고리 분류)
@@ -65,4 +66,5 @@ public interface CategoryServiceInf {
 	* @return
 	*/
 	int deleteCategory(String ctgy_id);
+	
 }
