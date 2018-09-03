@@ -1,16 +1,15 @@
-package kr.or.ddit.user.search.dao;
+package kr.or.ddit.user.search.service;
 
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.stereotype.Repository;
-
 import kr.or.ddit.model.MemberVo;
 
+import org.springframework.stereotype.Service;
+
 /** 
- * UserSearchDao.java 
+ * UserSearchService.java 
  * 
  * @author 조계환 
  * @since 2018. 9. 3. 
@@ -26,24 +25,25 @@ import kr.or.ddit.model.MemberVo;
  * 
  * </pre>
  */
-@Repository("userSearchDao")
-public class UserSearchDao implements UserSearchDaoInf{
+@Service("userSearchService")
+public class CvsSearchService implements CvsSearchServiceInf{
 
-	@Resource(name="userSearchDao")
-	private SqlSessionTemplate template;
-	
+	@Resource(name="userSearchService")
+	private CvsSearchServiceInf userSearchService;
 	/** 
 	 * Method   : getListMember 
 	 * 최초작성일  : 2018. 9. 3. 
-	 * 작성자 : 조계환 
+	 * 작성자 :조계환 
 	 * 변경이력 : 신규
 	 * @param word
 	 * @return 
-	 * Method 설명 : 매개 변수로 가져온 검색어를 DB상에 포함 검색 (예:대흥점 검색하면 대흥점 포함한 편의점 이름 검색) 
+	 * Method 설명 :매개 변수로 가져온 검색어를 DB상에 포함 검색 (예:대흥점 검색하면 대흥점 포함한 편의점 이름 검색) 
 	 */
 	@Override
 	public List<MemberVo> getListMember(String word) {
-		return template.selectList("");
+		return userSearchService.getListMember(word);
 	}
+	
+	
 
 }

@@ -1,5 +1,12 @@
 package kr.or.ddit.user.search.web;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.user.search.service.CvsSearchServiceInf;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class SearchController {
 	
 	private Logger logger = LoggerFactory.getLogger(SearchController.class);
+	
+	@Resource(name="userSearchService")
+	private CvsSearchServiceInf cvsSearchService;
 
 	@RequestMapping("/test")
 	 public String bView() {
@@ -46,10 +56,9 @@ public class SearchController {
 	public String cvsSearchAction(@RequestParam(value="searchWord",defaultValue="word")String word, 
 								  Model model){
 		
+		List<MemberVo> cvsSearchList = cvsSearchService.getListMember(word);
 		
-		System.out.println("==============================word : " + word);
-		logger.debug("==============================word : {}" , word);
-		
+		logger.debug("==============================cvsSearchList {} " + cvsSearchList);
 		
 		return "redirect:/search/cvsSearch";
 	}
