@@ -20,11 +20,116 @@
 */ -->        
 <style>
 
-input[name='uImage'] {
-  width :  110px;
-  height : 140px;
+.result_search .service {
+	overflow: hidden;
 }
+
+.service .result_txt {
+	overflow: hidden;
+	margin-bottom: 15px;
+}
+
+.service .result_txt h4 {
+	background: url("../images/icon/bullet_purple.png") no-repeat 0 0;
+	float: left;
+	font-size: 1.231em;
+	font-weight: normal;
+	padding-left: 17px;
+}
+
+.service .result_txt p {
+	float: right;
+}
+
+.service .result_txt span {
+	color: #782d91;
+	text-decoration: underline;
+}
+
+.service .list_service {
+	overflow: hidden;
+	margin-bottom: 25px;
+}
+
+.service .list_service ul {
+	overflow: hidden;
+	border-top: 2px solid #1e1e1e;
+	border-bottom: 1px solid #dadada;
+	height: 140px;
+}
+
+.service .list_service ul li {
+	background: url("../images/common/bg_diagonal_228.gif") repeat-x 0 0;
+	display: block;
+	float: left;
+	border-left: 1px solid #dadada;
+	height: 140px;
+	width: 119px;
+}
+
+.service .list_service ul li:first-child {
+	border-left: none;
+}
+
+.list_service .group_service {
+	overflow: hidden;
+	margin: 0 auto;
+	padding-top: 20px;
+	width: 70px;
+}
+
+.list_service .group_service a {
+	display: block;
+	overflow: hidden;
+	text-align: center;
+}
+
+.list_service .group_service .emblem {
+	margin-bottom: 14px;
+	height: 65px;
+	width: 65px;
+}
+
+.list_service .group_service .emblem.on img {
+	margin-top: -66px;
+}
+
+.list_service .group_service .text {
+	letter-spacing: -1px;
+	line-height: 1em;
+}
+
 </style> 
+<script>
+
+function myFunc(e) {
+    if(e.className == 'emblem') {
+        e.className = 'emblem on';
+    } else {
+        e.className = 'emblem';
+    }
+}
+
+function searchList(pageNo){
+
+	$('#pageIndex').val(pageNo);
+	$.ajax({
+		type:"post",
+		url: "/store/list_Ajax.do",
+			dataType: 'html',
+		data: $('#listForm').serialize(),
+		success: function(data){
+			$('#dataTable').remove();
+			$('#dataTableTop').append(data);
+			//searchGugunList();
+		},
+		error : function(data){
+			alert('정보를 가져 오던 중 오류가 발생하였습니다.');
+		}
+	});
+}
+
+</script>
 
 <!-- products-breadcrumb -->
 <!-- //products-breadcrumb -->
@@ -119,25 +224,86 @@ input[name='uImage'] {
 				<br>
 				<br>
 				<div class="col-md-12 w3ls_service_grid_left">
-								<h4>검색결과</h4>
-									<ul>
-										<li>매장 유형 및 서비스</li>
-									
-									</ul>
+					<h4>검색결과</h4>
+						<ul>
+							<li>매장 유형 및 서비스</li>
+						
+						</ul>
+				</div>
+			</div>
+	
+			<div class="col-md-12 w3ls_service_grids2">
+				<div id="dataTable">
+					<div id="result_search" class="result_search">
+						<div class="tit_h3">
+							<h3>검색 결과</h3>
+						</div>
+						<!-- 서비스유형선택 -->
+						<div class="service">
+							<div class="result_txt">
+								<h4>매장 유형 및 서비스</h4>
+							</div>
+							<div class="list_service">
+								<ul>
+									<li>
+										<div class="group_service">
+											<a class="emblem on" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_01_hour.png" alt=""></a><!-- 선택한a태그 class="on" 추가 -->
+											<a class="text" href="#" onclick="myFunc(this); return false;">24시간</a>
+										</div>
+									</li>
+									<li>
+										<div class="group_service">
+											<a class="emblem" href="#" onclick="searchService('jumpoDelivery', 'Y'); return false;"><img src="/images/store/icon_big_02_delivery.png" alt=""></a>
+											<a class="text" href="#" onclick="searchService('jumpoDelivery','Y'); return false;">택배 서비스</a>
+										</div>
+									</li>
+									<li>
+										<div class="group_service">
+											<a class="emblem" href="#" onclick="searchService('jumpoBakery', 'Y'); return false;"><img src="/images/store/icon_big_03_bakery.png" alt=""></a>
+											<a class="text" href="#" onclick="searchService('jumpoBakery', 'Y'); return false;">베이커리 판매</a>
+										</div>
+									</li>
+									<li>
+										<div class="group_service">
+											<a class="emblem" href="#" onclick="searchService('jumpoFry', 'Y'); return false;"><img src="/images/store/icon_big_04_fried.png" alt=""></a>
+											<a class="text" href="#" onclick="searchService('jumpoFry', 'Y'); return false;">튀김 판매</a>
+										</div>
+									</li>
+									<li>
+										<div class="group_service">
+											<a class="emblem" href="#" onclick="searchService('jumpoCafe', 'Y'); return false;"><img src="/images/store/icon_big_05_coffee.png" alt=""></a>
+											<a class="text" href="#" onclick="searchService('jumpoCafe', 'Y'); return false;">에스프레소<br>커피 판매</a>
+										</div>
+									</li>
+									<li>
+										<div class="group_service">
+											<a class="emblem" href="#" onclick="searchService('jumpoLotto', 'Y'); return false;"><img src="/images/store/icon_big_06_lotto.png" alt=""></a>
+											<a class="text" href="#" onclick="searchService('jumpoLotto', 'Y'); return false;">로또 판매</a>
+										</div>
+									</li>
+									<li>
+										<div class="group_service">
+											<a class="emblem" href="#" onclick="searchService('jumpoToto', 'Y'); return false;"><img src="/images/store/icon_big_07_toto.png" alt=""></a>
+											<a class="text" href="#" onclick="searchService('jumpoToto','Y'); return false;">스포츠토토</a>
+										</div>
+									</li>
+									<li>
+										<div class="group_service">
+											<a class="emblem" href="#" onclick="searchService('jumpoCash', 'Y'); return false;"><img src="/images/store/icon_big_08_cash.png" alt=""></a>
+											<a class="text" href="#" onclick="searchService('jumpoCash', 'Y'); return false;">현금지급기</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+				
 					</div>
 				</div>
-	
-				<div class="col-md-12 w3ls_service_grids2">
-					<input type="image" name="uImage" src="/userImages/service_(9).png" alt="검색" onClick="fn_usertsearchList(9); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(10).png" alt="검색" onClick="fn_usertsearchList(10); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(11).png" alt="검색" onClick="fn_usertsearchList(11); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(12).png" alt="검색" onClick="fn_usertsearchList(12); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(13).png" alt="검색" onClick="fn_usertsearchList(13); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(14).png" alt="검색" onClick="fn_usertsearchList(14); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(15).png" alt="검색" onClick="fn_usertsearchList(15); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(16).png" alt="검색" onClick="fn_usertsearchList(16); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(17).png" alt="검색" onClick="fn_usertsearchList(17); return false;" />
-				</div>
+			</div>
+				
+
+
+
 				<div class="clearfix"> </div>
 				<div class="col-md-6 w3ls_service_grids3">
 				<table class="table">
@@ -191,8 +357,8 @@ input[name='uImage'] {
 					</nav>										
 				</div>
 			</div>
-			</div>
 		</div>
+	</div>
 <!-- //services -->
 	
 		<div class="clearfix"></div>
