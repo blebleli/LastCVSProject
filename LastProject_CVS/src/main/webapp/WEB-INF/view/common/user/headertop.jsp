@@ -64,7 +64,7 @@
 <!-- 							<div class="dropdown-menu mega-dropdown-menu w3ls_products_menu"> -->
 <!-- 								<div class="w3ls_vegetables"> -->
 									<ul>	
-										<li><a href="">편의점검색</a></li><br/>
+										<li><a href="/search/cvsSearch">편의점검색</a></li><br/>
 										<li><a href="">공지사항</a></li><br/>
 										<li><a href="">이벤트</a></li>
 									</ul>
