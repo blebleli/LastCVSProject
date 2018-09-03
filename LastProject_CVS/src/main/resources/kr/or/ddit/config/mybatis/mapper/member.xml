@@ -144,7 +144,7 @@
   	</select>
   	
   	<!-- 편의점 이름을 앞뒤로 포함한 검색  -->
-  	<select id="searchCvsName" parameterType="String" resultType="MemberVo">
+  	<select id="searchCvsName" parameterType="String" resultType="memberVo">
   		select * from member where MEM_CVS_NAME like '%#{MEM_CVS_NAME}%'
   	</select>
 </mapper>
