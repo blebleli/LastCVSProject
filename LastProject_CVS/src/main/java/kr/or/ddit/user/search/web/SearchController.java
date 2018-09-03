@@ -46,6 +46,7 @@ public class SearchController {
 	public String cvsSearchAction(@RequestParam(value="searchWord",defaultValue="word")String word, 
 								  Model model){
 		
+		
 		System.out.println("==============================word : " + word);
 		logger.debug("==============================word : {}" , word);
 		

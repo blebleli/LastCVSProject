@@ -1,13 +1,11 @@
-package kr.or.ddit.user.search.dao;
+package kr.or.ddit.user.search.service;
 
 import java.util.List;
-
-import org.springframework.stereotype.Service;
 
 import kr.or.ddit.model.MemberVo;
 
 /** 
- * UserSearchDaoInf.java 
+ * UserSearchServiceInf.java 
  * 
  * @author 조계환 
  * @since 2018. 9. 3. 
@@ -23,8 +21,7 @@ import kr.or.ddit.model.MemberVo;
  * 
  * </pre>
  */
-
-public interface UserSearchDaoInf {
+public interface UserSearchServiceInf {
 	
 	/** 
 	 * Method   : getListMember 
@@ -36,6 +33,5 @@ public interface UserSearchDaoInf {
 	 * Method 설명 : 매개 변수로 가져온 검색어를 DB상에 포함 검색 (예:대흥점 검색하면 대흥점 포함한 편의점 이름 검색) 
 	 */
 	List<MemberVo> getListMember(String word);
- 	
 
 }
