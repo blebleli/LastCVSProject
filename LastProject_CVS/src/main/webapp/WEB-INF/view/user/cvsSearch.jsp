@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-        
+<!-- /**
+* @Class Name : cvsSearch.jsp
+*
+* @author 조계환
+* @since 2018. 9. 03
+* @version 1.0
+* @see
+*
+* <pre>
+* << 개정이력(Modification Information) >>
+*
+* 수정일 수정자 수정내용
+* ---------- ------ ------------------------
+* 2018. 9. 03 조계환 최초 생성
+*
+* </pre>
+*/ -->        
 <style>
 
 input[name='uImage'] {
@@ -145,8 +161,11 @@ input[name='uImage'] {
 										<th scope="row"><label for="store_name">매장명으로 검색</label></th>
 										<td >
 											<div class="col-lg-10 input-group">
-   											<input type="text" class="form-control" placeholder="Search for...">
-      										<span class="input-group-btn"><button class="btn btn-default" type="button">Go!</button></span>
+											<!-- -->
+   												<input type="text" class="form-control" name="searchWord" placeholder="Search for...">
+      											<span class="input-group-btn">
+	      											<button class="btn btn-default" type="button">Go!</button>
+      											</span>
    											</div>								
 										</td>
 									</tr>
