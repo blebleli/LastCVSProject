@@ -48,14 +48,16 @@
 		$("#searchList li").on("click",function(){
 			// 해당 제품 id 가져옴
 			var prod_id = $("#searchList li [name=prod_id]").val();
+			alert("prod_id" + prod_id);
+			
 		    $.ajax({
 		        type:"POST",
-		        url:"./book.jsp",
+		        url:"/search/storeSearch",
 		        data : {"prod_id" : prod_id},
 // 		        dataType : "xml",
 		        success: function(data){
 		         
-		        	$("#keyword").val(data);
+// 		        	$("#keyword").val(memList);
 		        	
 		        }
 		    });
@@ -142,14 +144,14 @@ var infowindow = new daum.maps.InfoWindow({zIndex:1});
 searchPlaces();
 
 // 키워드 검색을 요청하는 함수입니다
-function searchPlaces() {
+function searchPlaces(keyword) {
 
-    var keyword = document.getElementById('keyword').value;
+//     var keyword = document.getElementById('keyword').value;
 
-    if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
-        return false;
-    }
+//     if (!keyword.replace(/^\s+|\s+$/g, '')) {
+//         alert('키워드를 입력해주세요!');
+//         return false;
+//     }
 
 //     alert(placesSearchCB);
     // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
