@@ -10,6 +10,7 @@ import kr.or.ddit.maeum.board.dao.BoardDaoInf;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 import kr.or.ddit.user.search.web.SearchController;
 
 import org.slf4j.Logger;
@@ -43,6 +44,21 @@ public class CvsSearchService implements CvsSearchServiceInf{
 
 	@Resource(name="cvsSearchDao")
 	private CvsSearchDaoInf cvsSearchDao;
+	
+	
+	/**
+	 * Method : getListProdMember
+	 * 최초작성일 : 오전 12:32:57
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param   : 2018. 9. 4.
+	 * @return  : List<MemberVo>
+	 * Method 설명 : 제품코드로 현재 고를 가지고 있는 편의점 검색 기능
+	 */
+	public List<CvsSearchVo> getListProdMember(String prod_id){
+		
+		return cvsSearchDao.getListProdMember(prod_id);
+	}
 
 	/** 
 	 * Method   : getListMember 

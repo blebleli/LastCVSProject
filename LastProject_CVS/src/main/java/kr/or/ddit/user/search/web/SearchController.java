@@ -6,9 +6,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 import kr.or.ddit.user.search.service.CvsSearchServiceInf;
 
 import org.slf4j.Logger;
@@ -31,9 +33,6 @@ public class SearchController {
 	@Resource(name="cvsSearchService")
 	private CvsSearchServiceInf cvsSearchService;
 	
-	@Resource(name="cvsSearchDao")
-	private CvsSearchDaoInf cvsSearchDao;
-
 	@RequestMapping("/test")
 	 public String bView() {
 		
@@ -62,17 +61,22 @@ public class SearchController {
 			 								,Model model) {
 
 		List<ProdVo> searchList = prodService.getSearchProdList(prodSearch);
-		System.out.println("=================================================");
-		System.out.println(searchList);
-		System.out.println(searchList.size());
+//		System.out.println("=================================================");
+//		System.out.println(searchList);
+//		System.out.println(searchList.size());
 		
 		model.addAttribute("searchList", searchList);
 //		model.addAllAttributes(searchList);
 		
-		
-		
 		return "prodSearch";		 
 	 }
+	
+	
+	@RequestMapping("/storeSearch")
+	public List<CvsSearchVo> storeSearch(@RequestParam(value="prod_id") String prod_id, Model model){
+		List<CvsSearchVo> memList = cvsSearchService.getListProdMember(prod_id);
+		return memList;
+	}
 	
 	
 	/** 

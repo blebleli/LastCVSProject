@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 
 /** 
  * UserSearchDaoInf.java 
@@ -59,4 +60,16 @@ public interface CvsSearchDaoInf {
 	 * Method 설명 : 편의점 검색해서 나오는 목록의 토탈 카운트 
 	 */
 	int TotCvsListCnt(String mem_cvs_name);
+
+	
+	/**
+	 * Method : getListProdMember
+	 * 최초작성일 : 오전 12:32:57
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param   : 2018. 9. 4.
+	 * @return  : List<MemberVo>
+	 * Method 설명 : 제품코드로 현재 고를 가지고 있는 편의점 검색 기능
+	 */
+	List<CvsSearchVo> getListProdMember(String prod_id);
 }

@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 
 /** 
  * UserSearchDao.java 
@@ -32,6 +33,20 @@ public class CvsSearchDao implements CvsSearchDaoInf{
 
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
+	
+	
+	/**
+	 * Method : getListProdMember
+	 * 최초작성일 : 오전 12:32:57
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param   : 2018. 9. 4.
+	 * @return  : List<CvsSearchVo>
+	 * Method 설명 : 제품코드로 현재 고를 가지고 있는 편의점 검색 기능
+	 */
+	public List<CvsSearchVo> getListProdMember(String prod_id){
+		return template.selectList("member.getListProdMember", prod_id);
+	}
 	
 	/** 
 	 * Method   : getListMember 

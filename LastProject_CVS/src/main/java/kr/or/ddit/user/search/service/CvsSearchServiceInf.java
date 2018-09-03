@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 
 /** 
  * UserSearchServiceInf.java 
@@ -45,6 +46,17 @@ public interface CvsSearchServiceInf {
 	 * Method 설명 : 편의점 이름 검색했을때 그 편의점 목록의 페이징 처리
 	 */
 	Map<String, Object> getCvsPageList(Map<String, Object> map);
+
+	/**
+		 * Method : getListProdMember
+		 * 최초작성일 : 오전 12:32:57
+		 * 작성자 : 조종원
+		 * 변경이력 : 신규
+		 * @param   : 2018. 9. 4.
+		 * @return  : List<CvsSearchVo>
+		 * Method 설명 : 제품코드로 현재 고를 가지고 있는 편의점 검색 기능
+		 */
+	List<CvsSearchVo> getListProdMember(String prod_id);
 	
 
 }
