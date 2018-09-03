@@ -56,9 +56,9 @@ public class SearchController {
 	public String cvsSearchAction(@RequestParam(value="searchWord",defaultValue="word")String word, 
 								  Model model){
 		
-		List<MemberVo> cvsSearchList = cvsSearchService.getListMember(word);
+		logger.debug("{} word==============================" + word);
 		
-		logger.debug("==============================cvsSearchList {} " + cvsSearchList);
+		
 		
 		return "redirect:/search/cvsSearch";
 	}
