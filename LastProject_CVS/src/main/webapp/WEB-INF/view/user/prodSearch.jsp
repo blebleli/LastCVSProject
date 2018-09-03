@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -38,7 +38,31 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>    
+</style>
+
+<script>
+
+	$(function(){
+		
+		// 제품 리스트 클릭 했을때
+		$("#searchList li").on("click",function(){
+			// 해당 제품 id 가져옴
+			var prod_id = $("#searchList li [name=prod_id]").val();
+		    $.ajax({
+		        type:"POST",
+		        url:"./book.jsp",
+		        data : {"prod_id" : prod_id},
+// 		        dataType : "xml",
+		        success: function(data){
+		         
+		        	$("#keyword").val(data);
+		        	
+		        }
+		    });
+		});
+	});
+
+</script>
 
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
@@ -46,15 +70,49 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="라인프렌즈" id="keyword" size="15" name="searchWord"> 
-                    
+                <form id="frm" onsubmit="searchPlaces(); return false;">
+                	<input type="hidden" id="keyword">
+                </form>
+                <form action="/search/prodSearch">
+                    키워드 : <input type="text" value="" id="prodSearch" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
         </div>
         <hr>
-        <ul id="placesList"></ul>
+        <!-- 제품으로 변경  -->
+<!--         <ul id="placesList"> -->
+        <ul id="searchList">
+        	<c:forEach items="${searchList }" var="vo">
+        		<li>
+        			<img src="${vo.file_path }/${vo.file_upname }">
+        			${vo.prod_name } <br/>
+        			${vo.prod_intro } <br/>
+<%--         			${vo.prod_id }       --%>
+<%-- 					${vo.prod_intro }    --%>
+<%-- 					${vo.prod_price }    --%>
+<%-- 					${vo.prod_exnum }    --%>
+<%-- 					${vo.pr_class_lg }   --%>
+<%-- 					${vo.pr_class_md }   --%>
+<%-- 					${vo.event_id }      --%>
+<%-- 					${vo.file_path }  <br/>   --%>
+<%-- 					${vo.file_upname }  <br/> --%>
+        			<input type="hidden" name="prod_id" value="${vo.prod_id }">
+<%--         			<input type="hidden" name="prod_id" value="${vo.prod_name }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.prod_intro }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.prod_price }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.prod_exnum }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_lg }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_md }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.event_id }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.file_path }"> --%>
+<%--         			<input type="hidden" name="prod_id" value="${vo.file_upname }"> --%>
+        		</li>
+        	</c:forEach>
+        </ul>
+        
+        
+        <ul id="searchList"></ul>
         <div id="pagination"></div>
     </div>
 </div>
@@ -93,6 +151,10 @@ function searchPlaces() {
         return false;
     }
 
+//     alert(placesSearchCB);
+    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
+    // 서버에 상점리스트를 ajax 로 요청 후 , 화면에 뿌려주기
+    // data 형식은 json 형식
     ps.keywordSearch( keyword, placesSearchCB); 
 }
 
@@ -183,8 +245,8 @@ function getListItem(index, places) {
 
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-              '<div class="info">' +
-              '   <h5>' + places.place_name + '</h5>';      //places.place_name
+                '<div class="info">' +
+                '   <h5>' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
         itemStr += '    <span>' + places.road_address_name + '</span>' +
@@ -278,4 +340,3 @@ function removeAllChildNods(el) {
     }
 }
 </script>
-
