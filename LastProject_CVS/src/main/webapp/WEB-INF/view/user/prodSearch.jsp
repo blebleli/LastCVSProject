@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -38,8 +38,8 @@
 #pagination {margin:10px auto;text-align: center;}
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
-</style>
-    
+</style>    
+
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
@@ -47,7 +47,8 @@
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
+                    키워드 : <input type="text" value="라인프렌즈" id="keyword" size="15" name="searchWord"> 
+                    
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -92,9 +93,6 @@ function searchPlaces() {
         return false;
     }
 
-    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    // 서버에 상점리스트를 ajax 로 요청 후 , 화면에 뿌려주기
-    // data 형식은 json 형식
     ps.keywordSearch( keyword, placesSearchCB); 
 }
 
@@ -185,8 +183,8 @@ function getListItem(index, places) {
 
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
-                '   <h5>' + places.place_name + '</h5>';
+              '<div class="info">' +
+              '   <h5>' + places.place_name + '</h5>';      //places.place_name
 
     if (places.road_address_name) {
         itemStr += '    <span>' + places.road_address_name + '</span>' +
@@ -280,3 +278,4 @@ function removeAllChildNods(el) {
     }
 }
 </script>
+
