@@ -10,7 +10,10 @@ import kr.or.ddit.maeum.board.dao.BoardDaoInf;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
+import kr.or.ddit.user.search.web.SearchController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /** 
@@ -32,16 +35,15 @@ import org.springframework.stereotype.Service;
  */
 @Service("cvsSearchService")
 public class CvsSearchService implements CvsSearchServiceInf{
+	
+	private Logger logger = LoggerFactory.getLogger(CvsSearchService.class);
 
 	@Resource(name="cvsSearchService")
 	private CvsSearchServiceInf userSearchService;
-	
+
 	@Resource(name="cvsSearchDao")
 	private CvsSearchDaoInf cvsSearchDao;
-	
-	@Resource(name="boardDaos")
-	private BoardDaoInf boardDaos;
-	
+
 	/** 
 	 * Method   : getListMember 
 	 * 최초작성일  : 2018. 9. 3. 
@@ -55,65 +57,83 @@ public class CvsSearchService implements CvsSearchServiceInf{
 	public List<MemberVo> getListMember(String word) {
 		return cvsSearchDao.getListMember(word);
 	}
-	
-//	/**
-//	 * Method : getBoardPageList
-//	 * 최초작성일 : 2018. 9. 2.
-//	 * 작성자 : 김마음
-//	 * 변경이력 : 신규
-//	 * @param map
-//	 * @return
-//	 * Method 설명 : 각 게시판 페이징 기법
-//	 */
-//	@Override
-//	public Map<String, Object> getBoardPageList(Map<String, Integer> map) {
-//		
-//		Map<String, Object> resultMap = new HashMap<String, Object>();
-//		
-//		// 게시판 페이지 리스트 조회
-//		List<BoardVo> boardList = boardDaos.getBoardPageList(map);
-//		resultMap.put("boardList", boardList);
-//		
-//		// 게시글 전체 건수 조회
-//		int totCnt = boardDaos.getWriteTotCnt();
-//		resultMap.put("totCnt", totCnt);
-//		
-//		// 페이지 네비게이션 html 생성
-//		int page = map.get("page");
-//		int pageSize = map.get("pageSize");
-//		
-//		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));
-//
-//		return resultMap;
-//	}
-//	
-//	private String makePageNavi(int page, int pageSize, int totCnt){
-//		
-//		int cnt = totCnt / pageSize; // 몫
-//		int mod = totCnt % pageSize; // 나머지
-//		
-//		if (mod > 0)
-//			cnt++;
-//		
-//		StringBuffer pageNaviStr = new StringBuffer();
-//		
-//		int prevPage = page == 1? 1 : page-1;
-//		int nextPage = page == cnt ? page : page+1;
-//		pageNaviStr.append("<li><a href=\"/board/list?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
-//		
-//		for(int i = 1; i <= cnt; i++){
-//			// /board/list?page=3&pageSize=10
-//			String activeClass = "";
-//			if(i == page)
-//				activeClass = "class=\"active\"";
-//			pageNaviStr.append("<li " + activeClass + "><a href=\"/write/list?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
-//		}
-//		
-//		pageNaviStr.append("<li><a href=\"/board/list?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
-//		
-//		return pageNaviStr.toString();
-//	}
-//	
-	
+
+	/** 
+	 * Method   : getCvsPageList 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return 
+	 * Method 설명 : 검색한 편의점의 목록 전체 리스트  
+	 */
+	@Override
+	public Map<String, Object> getCvsPageList(Map<String, Object> map) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		// 게시판 페이지 리스트 조회
+		List<MemberVo> CvsPageList = (List<MemberVo>) cvsSearchDao.getCvsPageList(map);
+		resultMap.put("CvsPageList", CvsPageList);
+		
+		logger.debug("{}=========================CvsPageList" , CvsPageList);
+		
+		String mem_cvs_name = (String) map.get("mem_cvs_name");
+		// 게시글 전체 건수 조회
+		int totCnt = cvsSearchDao.TotCvsListCnt(mem_cvs_name);
+		resultMap.put("totCnt", totCnt);
+		
+		logger.debug("{}=========================totCnt" , totCnt);
+		
+		// 페이지 네비게이션 html 생성
+		int page = (int) map.get("page");
+		int pageSize = (int) map.get("pageSize");
+		String searchWord = (String)map.get("mem_cvs_name");
+		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt, searchWord));
+		
+		logger.debug("{}=========================resultMap.get(pageNavi)" , resultMap.get("pageNavi"));
+
+		return resultMap;
+	}
+
+	/** 
+	 * Method   : makePageNavi 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @param page
+	 * @param pageSize
+	 * @param totCnt
+	 * @return 
+	 * Method 설명 :페이징 처리  
+	 */
+	private String makePageNavi(int page, int pageSize, int totCnt, String searchWord){
+
+		int cnt = totCnt / pageSize; // 몫
+		int mod = totCnt % pageSize; // 나머지
+
+		if (mod > 0)
+			cnt++;
+
+		StringBuffer pageNaviStr = new StringBuffer();
+
+		int prevPage = page == 1? 1 : page-1;
+		int nextPage = page == cnt ? page : page+1;
+		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + 1 + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + prevPage + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+
+		for(int i = 1; i <= cnt; i++){
+			// /board/list?page=3&pageSize=10 
+			String activeClass = "";
+			if(i == page)
+				activeClass = "class=\"active\"";
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/search/cvsSearchAction?page=" + i + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\"> "+ i +" </a></li>");
+		}
+
+		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + nextPage + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + cnt + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+
+		return pageNaviStr.toString();
+	}
 
 }

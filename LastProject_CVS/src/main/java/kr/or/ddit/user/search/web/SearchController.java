@@ -1,12 +1,14 @@
 package kr.or.ddit.user.search.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
-import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
+import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
 import kr.or.ddit.user.search.service.CvsSearchServiceInf;
 
 import org.slf4j.Logger;
@@ -23,12 +25,14 @@ public class SearchController {
 	
 	private Logger logger = LoggerFactory.getLogger(SearchController.class);
 	
-	
 	@Resource(name="prodService")
 	private ProdServiceInf prodService;
 	
 	@Resource(name="cvsSearchService")
 	private CvsSearchServiceInf cvsSearchService;
+	
+	@Resource(name="cvsSearchDao")
+	private CvsSearchDaoInf cvsSearchDao;
 
 	@RequestMapping("/test")
 	 public String bView() {
@@ -78,21 +82,46 @@ public class SearchController {
 	 * 변경이력 :신규
 	 * @param model
 	 * @return 
-	 * Method 설명 : 
+	 * Method 설명 : 편의점 검색 버튼 눌렀을때 검색 액션
 	 */
-	@RequestMapping("/cvsSearchAction")
-	public String cvsSearchAction(@RequestParam(value="searchWord",defaultValue="word")String searchWord, 
-								  Model model){
+//	@RequestMapping("/cvsSearchAction")
+//	public String cvsSearchAction(@RequestParam(value="searchWord",defaultValue="word")String searchWord, 
+//								  Model model){
+//		
+//		logger.debug("{} word==============================" + searchWord);
+//		
+//		List<MemberVo> searchCvsList = cvsSearchService.getListMember(searchWord);
+//		
+//		logger.debug("{}=============================searchCvsList : " + searchCvsList);
+//		
+//		model.addAttribute("searchCvsList",searchCvsList);
+//		
+//		return "cvsSearch";
+//	}
+	
+	@RequestMapping("/cvsSearchAction") // 공지사항 페이징 기법
+	public String view(@RequestParam(value="page", defaultValue="1") int page,
+					   @RequestParam(value="pageSize", defaultValue="10") int pageSize,
+					   @RequestParam(value="searchWord",defaultValue="word")String searchWord,
+					   Model model){
 		
-		logger.debug("{} word==============================" + searchWord);
+		logger.debug("{}searchWord",searchWord);
 		
-		List<MemberVo> searchCvsList = cvsSearchService.getListMember(searchWord);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
-		logger.debug("{}=============================searchCvsList : " + searchCvsList);
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("mem_cvs_name", searchWord);
 		
-		model.addAttribute("searchCvsList",searchCvsList);
+		Map<String, Object> list = cvsSearchService.getCvsPageList(paramMap);
+		
+		logger.debug("{}=========================paramMap : " + paramMap);
+		
+//		model.addAttribute("list", list.get("CvsPageList"));
+		model.addAllAttributes(list);   
 		
 		return "cvsSearch";
 	}
+	
 	
 }

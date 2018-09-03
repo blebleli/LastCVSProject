@@ -1,6 +1,7 @@
 package kr.or.ddit.user.search.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.model.MemberVo;
 
@@ -34,6 +35,16 @@ public interface CvsSearchServiceInf {
 	 */
 	List<MemberVo> getListMember(String word);
 	
+	/** 
+	 * Method   : getCvsPageList 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return 
+	 * Method 설명 : 편의점 이름 검색했을때 그 편의점 목록의 페이징 처리
+	 */
+	Map<String, Object> getCvsPageList(Map<String, Object> map);
 	
 
 }

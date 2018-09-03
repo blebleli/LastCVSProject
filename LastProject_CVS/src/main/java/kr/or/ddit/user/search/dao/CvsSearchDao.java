@@ -1,6 +1,7 @@
 package kr.or.ddit.user.search.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -45,6 +46,35 @@ public class CvsSearchDao implements CvsSearchDaoInf{
 	public List<MemberVo> getListMember(String word) {
 		return template.selectList("member.searchCvsName", word);
 	}
+
+	/** 
+	 * Method   : getCvsPageList 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return 
+	 * Method 설명 : 편의점 이름 검색했을때 그 편의점 목록의 페이징 처리
+	 */
+	@Override
+	public List<MemberVo> getCvsPageList(Map<String, Object> map) {
+		return template.selectList("member.getCvsPageList", map);
+	}
+
+	/** 
+	 * Method   : TotCvsListCnt 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @return 
+	 * Method 설명 : 편의점 검색해서 나오는 목록의 토탈 카운트 
+	 */
+	@Override
+	public int TotCvsListCnt(String mem_cvs_name) {
+		return template.selectOne("member.getTotCvsCnt",mem_cvs_name);
+	}
+	
+	
 	
 	
 

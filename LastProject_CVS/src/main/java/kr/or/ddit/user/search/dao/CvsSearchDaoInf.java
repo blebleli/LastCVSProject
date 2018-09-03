@@ -1,9 +1,11 @@
 package kr.or.ddit.user.search.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 
 /** 
@@ -37,5 +39,24 @@ public interface CvsSearchDaoInf {
 	 */
 	List<MemberVo> getListMember(String word);
  	
-
+	/** 
+	 * Method   : getCvsPageList 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return 
+	 * Method 설명 : 편의점 이름 검색했을때 그 편의점 목록의 페이징 처리
+	 */
+	List<MemberVo> getCvsPageList(Map<String, Object> map);
+	
+	/** 
+	 * Method   : TotCvsListCnt 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @return 
+	 * Method 설명 : 편의점 검색해서 나오는 목록의 토탈 카운트 
+	 */
+	int TotCvsListCnt(String mem_cvs_name);
 }
