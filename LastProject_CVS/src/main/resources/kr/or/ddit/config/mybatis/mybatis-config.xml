@@ -5,6 +5,7 @@
 <properties resource="kr/or/ddit/config/mybatis/db.properties" />
 	
   <typeAliases>  
+<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
   	<typeAlias type="kr.or.ddit.model.BarcodeVo"		alias="barcodeVo"/>
   	<typeAlias type="kr.or.ddit.model.BoardVo"			alias="boardVo"/>
   	<typeAlias type="kr.or.ddit.model.BookmarkVo" 		alias="BookmarkVo"/>
@@ -25,12 +26,14 @@
   	<typeAlias type="kr.or.ddit.model.StockVo" 			alias="stockVo"/>
   	<typeAlias type="kr.or.ddit.model.SupplyListVo" 	alias="supplyListVo"/>
   	<typeAlias type="kr.or.ddit.model.SupplyVo" 		alias="supplyVo"/>
+<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
+
   </typeAliases>
-  
+
   <mappers>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml"/>  
-  	<mapper resource="kr/or/ddit/config/mybatis/mapper/member.xml"/>  
-  	<mapper resource="kr/or/ddit/config/mybatis/mapper/category.xml"/>  
+  	<mapper resource="kr/or/ddit/config/mybatis/mapper/member.xml"/>
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/category.xml"/>  
   </mappers>
 
 </configuration>
