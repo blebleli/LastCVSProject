@@ -34,6 +34,12 @@
 	<put-attribute name="content" value="/WEB-INF/view/user/prodSearch.jsp" />
 	</definition>
 	
+	<!-- 상품 -->
+	<definition name="bestProducts" extends="userLayout">
+		<put-attribute name="left" 		value="/WEB-INF/view/common/user/leftNavbar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/view/user/products.jsp" />
+	</definition>
+	
 <!-- 	<definition name="cvs_basicLayout" template="/WEB-INF/view/common/cvs/cvs_basicLayout.jsp"> -->
 <!-- 		<put-attribute name="cvs_top" value="/WEB-INF/view/common/cvs/cvs_left.jsp" /> -->
 <!-- 		<put-attribute name="cvs_left" value="/WEB-INF/view/common/cvs/cvs_top.jsp" /> -->
