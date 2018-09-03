@@ -100,10 +100,12 @@ input[name='uImage'] {
 										<td >
 											<div class="col-lg-10 input-group">
 											<!-- -->
-   												<input type="text" class="form-control" name="searchWord" placeholder="Search for...">
-      											<span class="input-group-btn">
-	      											<button class="btn btn-default" type="button">Go!</button>
-      											</span>
+      												<form action="/search/cvsSearchAction" method="post">
+    		  											<span class="input-group-btn">
+			   												<input type="text" class="form-control" name="searchWord"  placeholder="Search for...">
+		      												<button class="btn btn-default" type="submit">Go!</button>
+	      												</span>
+      												</form>
    											</div>								
 										</td>
 									</tr>
