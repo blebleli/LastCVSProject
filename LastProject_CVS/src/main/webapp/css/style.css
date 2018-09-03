@@ -78,8 +78,11 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
 	-o-transition: .5s ease-in;
 	-ms-transition: .5s ease-in;
 }
+
+/* 최상단 탑 레이어 컬러 */
 .agileits_header{
-	background:#212121;
+/* 	background:#212121; */
+	background:#C7C421;
 }
 .w3l_offers{
 	float:left;
@@ -3202,7 +3205,8 @@ input.checkbox:checked:after {
 		padding: 0 .7em;
 	}
 	.container {
-		width: 815px;
+		float:none;
+/* 		width: 815px; */
 	}
 	.w3ls_logo_products_left1:nth-child(3) {
 		margin-left: 1em;
