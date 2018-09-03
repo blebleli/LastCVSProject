@@ -101,7 +101,7 @@ input[name='uImage'] {
 										<td >
 											<div class="col-lg-10 input-group">
 											<!-- -->
-      												<form action="/search/cvsSearchAction" method="post">
+      												<form action="/search/cvsSearchAction" method="get">
     		  											<span class="input-group-btn">
 			   												<input type="text" class="form-control" name="searchWord"  placeholder="Search for...">
 		      												<button class="btn btn-default" type="submit">Go!</button>
@@ -128,15 +128,15 @@ input[name='uImage'] {
 				</div>
 	
 				<div class="col-md-12 w3ls_service_grids2">
-					<input type="image" name="uImage" src="/userImages/service_(9).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(10).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(11).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(12).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(13).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(14).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(15).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(16).png" alt="검색" onClick="usertsearchList(1); return false;" />
-					<input type="image" name="uImage" src="/userImages/service_(17).png" alt="검색" onClick="usertsearchList(1); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(9).png" alt="검색" onClick="fn_usertsearchList(9); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(10).png" alt="검색" onClick="fn_usertsearchList(10); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(11).png" alt="검색" onClick="fn_usertsearchList(11); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(12).png" alt="검색" onClick="fn_usertsearchList(12); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(13).png" alt="검색" onClick="fn_usertsearchList(13); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(14).png" alt="검색" onClick="fn_usertsearchList(14); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(15).png" alt="검색" onClick="fn_usertsearchList(15); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(16).png" alt="검색" onClick="fn_usertsearchList(16); return false;" />
+					<input type="image" name="uImage" src="/userImages/service_(17).png" alt="검색" onClick="fn_usertsearchList(17); return false;" />
 				</div>
 				<div class="clearfix"> </div>
 				<div class="col-md-6 w3ls_service_grids3">
@@ -148,13 +148,17 @@ input[name='uImage'] {
 					</tr>						
 					</thead>
 					<tbody>									
-						<c:forEach items="${searchCvsList }" var="vo">
-							<tr>
+						<c:forEach items="${CvsPageList}" var="vo">
+							<tr id="clickCvs">
 								<td>
-									${vo.mem_cvs_name}
-									${vo.mem_cvs_tel }<br>
+									${vo.mem_cvs_name}/
+									${vo.mem_cvs_tel}<br>
 								</td>
-							</tr>	
+								<td>
+									${vo.mem_addr }<br>
+								</td>
+							</tr>
+								
 						</c:forEach>
 				</tbody>
 				</table>
@@ -176,17 +180,7 @@ input[name='uImage'] {
 				<div class="col-md-6 w3ls_service_grid_left">
 					<nav>
 					  <ul class="pagination">
-					    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-					    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-					    <li><a href="#">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li>
-					      <a href="#" aria-label="Next">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
+					    	${pageNavi}
 					  </ul>
 					</nav>										
 				</div>
@@ -200,7 +194,14 @@ input[name='uImage'] {
 <!-- //banner -->
 
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<script src="js/common/bootstrap.min.js"></script>
+
+<script>
+<!-- 편의점 서비스 카테고리 이벤트 -->
+	function fn_usertsearchList(num){
+		
+	}
+</script>
 <script>
 $(document).ready(function(){
     $(".dropdown").hover(            
@@ -234,7 +235,7 @@ $(document).ready(function(){
 <!-- //here ends scrolling icon -->
 
 <!-- //here ends scrolling icon -->
-<script src="js/minicart.js"></script>
+<script src="js/common/minicart.js"></script>
 <script>
 		paypal.minicart.render();
 
