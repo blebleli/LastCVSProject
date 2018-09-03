@@ -2,6 +2,7 @@ package kr.or.ddit.commons.dao;
 
 import java.util.List;
 
+import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.EventVo;
 
 /**
@@ -40,5 +41,16 @@ public interface CommonsDaoInf {
 	
 	*/
 	List<EventVo> getEventPopUpOne();
+	
+	/**
+	 * Method           : prodCtgyList
+	 * Method 설명  :  left 상품 카테고리 대분류 중분류의 계층구조 리스트
+	 *                            
+	 * 최초작성일    : 2018. 9. 03.
+	 * 작성자           : 김현경
+	 * 변경이력       : 신규
+	 * @return   List<CategoryVo>
+	 */
+	List<CategoryVo> prodCtgyList();
 	
 }
