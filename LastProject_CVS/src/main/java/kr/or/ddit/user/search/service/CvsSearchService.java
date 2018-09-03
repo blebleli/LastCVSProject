@@ -29,8 +29,12 @@ import org.springframework.stereotype.Service;
 @Service("cvsSearchService")
 public class CvsSearchService implements CvsSearchServiceInf{
 
+	@Resource(name="cvsSearchService")
+	private CvsSearchServiceInf userSearchService;
+	
 	@Resource(name="cvsSearchDao")
 	private CvsSearchDaoInf cvsSearchDao;
+	
 	/** 
 	 * Method   : getListMember 
 	 * 최초작성일  : 2018. 9. 3. 
