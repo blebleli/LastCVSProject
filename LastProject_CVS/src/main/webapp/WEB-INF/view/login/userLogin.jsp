@@ -36,7 +36,6 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="w3l_banner_nav_right">
 	<!-- login 비공통 -->
 	<div class="w3_login">
 		<h3>Sign In & Sign Up</h3>
@@ -44,7 +43,7 @@ $(document).ready(function() {
 			<div class="module form-module">
 				<div class="toggle">
 					<i class="fa fa-times fa-pencil"></i>
-					<div class="tooltip">Click Me</div>
+					<div class="tooltip">회원가입</div>
 				</div>
 
 				<div class="form">
@@ -142,4 +141,4 @@ $(document).ready(function() {
 </div>
 <!-- // <div class="w3l_banner_nav_right">  -->
 
-<div class="clearfix"></div>
+<div class="clearfix">
