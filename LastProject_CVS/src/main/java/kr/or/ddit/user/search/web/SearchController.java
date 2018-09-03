@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.user.search.service.CvsSearchServiceInf;
 
 import org.slf4j.Logger;
@@ -21,6 +23,10 @@ public class SearchController {
 	
 	private Logger logger = LoggerFactory.getLogger(SearchController.class);
 	
+	
+	@Resource(name="prodService")
+	private ProdServiceInf prodService;
+	
 	@Resource(name="cvsSearchService")
 	private CvsSearchServiceInf cvsSearchService;
 
@@ -36,10 +42,15 @@ public class SearchController {
 		 return "cvsSearch";
 	 }
 	
+	
 	@RequestMapping("/prodSearch")
-	 public String prodSearch() {
+	 public String prodSearch(@RequestParam(value="searchWord",defaultValue="라인프렌즈") String searchWord
+			 								,Model model) {
+
+		List<ProdVo> searchList = prodService.getSearchProdList(searchWord);		
+		model.addAttribute("searchList",searchList);
 		
-		 return "prodSearch";
+		return "prodSearch";		 
 	 }
 	
 	
