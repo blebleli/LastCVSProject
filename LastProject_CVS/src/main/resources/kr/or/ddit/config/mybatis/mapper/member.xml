@@ -183,4 +183,39 @@
     	SELECT count(*) FROM member WHERE MEM_CVS_NAME like '%'||#{mem_cvs_name}||'%'
   	</select>
   	
+  	
+  	<select id="getListProdMember" parameterType="String" resultType="cvsSearchVo">
+		SELECT   
+		        -- 편의점  정보
+		         MEM.MEM_ID       -- 사업자번호
+		        ,MEM.MEM_NAME     -- 업주명
+		        ,MEM.MEM_TEL      -- 업주전화번호
+		        ,MEM.MEM_BIRTH    -- 업주 생년월일
+		        ,MEM.MEM_GEN      -- 업주 성별
+		        ,MEM.MEM_ZIP      -- 매장 우편번호
+		        ,MEM.MEM_ADD      -- 매장 구주소 
+		        ,MEM.MEM_ADDR     -- 매장 신주소
+		        ,MEM.MEM_CVS_NAME -- 매장명
+		        ,MEM.MEM_CVS_TEL  -- 매장번호
+		        ,MEM.MEM_INTRO    -- 매장소개
+		        ,MEM.MEM_X        -- 매장X좌표
+		        ,MEM.MEM_Y        -- 매장Y좌표
+		        
+		        -- 제품 정보
+		        ,STL.STCKLIST_ID      -- 재고리스트코드
+		        ,STL.STCKLIST_AMOUNT  -- 수량
+		        ,STL.SICKLIST_EXDATE  -- 유통기한
+		        ,STL.STCK_DATE        -- 날짜
+		        ,STL.STCKLIST_INFO    -- 비고 
+		FROM MEMBER    MEM          -- 회원테이블
+		JOIN STOCK     ST           -- 재고테이블
+		ON MEM.MEM_ID = ST.MEM_ID
+		JOIN STOCK_LIST     STL     -- 재고리스트테이블
+		ON ST.STOCK_ID = ST.STOCK_ID
+		WHERE STL.STCKLIST_AMOUNT > 0  -- 0개 이상
+		AND   TO_CHAR(STL.STCK_DATE ,'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') -- 현재날짜
+		AND  PROD_ID = #{prod_id}               -- 사용자가 선택한 제품  코드
+		AND  MEM.MEM_KIND = '01'        -- 편의점
+		AND  STL.STCKLIST_KIND = '888'  -- 재고  	
+  	</select>
 </mapper>

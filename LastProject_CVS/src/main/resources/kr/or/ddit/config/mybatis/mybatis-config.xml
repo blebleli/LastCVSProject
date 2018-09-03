@@ -28,6 +28,10 @@
   	<typeAlias type="kr.or.ddit.model.SupplyVo" 		alias="supplyVo"/>
 <!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
 
+	<!-- 제품 검색 -->
+  	<typeAlias type="kr.or.ddit.user.search.model.CvsSearchVo" 		alias="cvsSearchVo"/>
+
+	
   </typeAliases>
 
   <mappers>  
