@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<%@include file="/WEB-INF/view/common/user/userTop.jsp" %>
+<%@include file="/WEB-INF/view/common/user/headertop.jsp" %>
 
 <!-- products-breadcrumb -->
 	<div class="products-breadcrumb">
@@ -204,5 +204,5 @@
 	</div>
 <!-- //banner -->
 
-<%@include file="/WEB-INF/view/common/user/userBottom.jsp" %>
+<%@include file="/WEB-INF/view/common/user/newsAndbttom.jsp" %>
 </html>
