@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
 
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,8 @@ import org.springframework.stereotype.Service;
 @Service("cvsSearchService")
 public class CvsSearchService implements CvsSearchServiceInf{
 
-	@Resource(name="userSearchService")
-	private CvsSearchServiceInf userSearchService;
+	@Resource(name="cvsSearchDao")
+	private CvsSearchDaoInf cvsSearchDao;
 	/** 
 	 * Method   : getListMember 
 	 * 최초작성일  : 2018. 9. 3. 
@@ -41,7 +42,7 @@ public class CvsSearchService implements CvsSearchServiceInf{
 	 */
 	@Override
 	public List<MemberVo> getListMember(String word) {
-		return userSearchService.getListMember(word);
+		return cvsSearchDao.getListMember(word);
 	}
 	
 	

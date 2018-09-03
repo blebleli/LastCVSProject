@@ -21,7 +21,7 @@ public class SearchController {
 	
 	private Logger logger = LoggerFactory.getLogger(SearchController.class);
 	
-	@Resource(name="userSearchService")
+	@Resource(name="cvsSearchService")
 	private CvsSearchServiceInf cvsSearchService;
 
 	@RequestMapping("/test")

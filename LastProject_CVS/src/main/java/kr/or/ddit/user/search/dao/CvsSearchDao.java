@@ -29,7 +29,7 @@ import kr.or.ddit.model.MemberVo;
 @Repository("cvsSearchDao")
 public class CvsSearchDao implements CvsSearchDaoInf{
 
-	@Resource(name="userSearchDao")
+	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 	
 	/** 
