@@ -2,7 +2,6 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-
 <!-- 사용자 -->
 	<definition name="userLayout" template="/WEB-INF/view/common/user/userBasicLayout.jsp">
 		<put-attribute name="top" 		value="/WEB-INF/view/common/user/headertop.jsp" />
@@ -26,7 +25,14 @@
 	<definition name="userJoin" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/userJoin.jsp" />
 	</definition>
-	
+
+	<definition name="cvsSearch" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/cvsSearch.jsp" />
+	</definition>
+		
+	<definition name="prodSearch" extends="userLayout">
+	<put-attribute name="content" value="/WEB-INF/view/user/prodSearch.jsp" />
+	</definition>
 	
 <!-- 	<definition name="cvs_basicLayout" template="/WEB-INF/view/common/cvs/cvs_basicLayout.jsp"> -->
 <!-- 		<put-attribute name="cvs_top" value="/WEB-INF/view/common/cvs/cvs_left.jsp" /> -->
@@ -55,7 +61,6 @@
 <!-- 	<definition name="main/*" extends="mainLayout"> -->
 <!-- 		<put-attribute name="content" value="/WEB-INF/view/{1}.jsp" /> -->
 <!-- 	</definition> -->
-	
 	
 <!-- 	<definition name="cvs_index" extends="cvs_basicLayout"> -->
 <!-- 		<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_index.jsp"/>	 -->
