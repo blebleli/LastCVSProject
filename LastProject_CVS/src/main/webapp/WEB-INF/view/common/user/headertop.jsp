@@ -15,11 +15,11 @@
 	</div>
 	<div class="w3l_search">
 		<!-- submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->
-		<form action="#" method="post">
+		<form action="/search/prodSearch" method="post">
 			<input type="text" name="Product" value="검색하기"
 				onfocus="this.value = '';"
 				onblur="if (this.value == '') {this.value = '검색하기';}" required="">
-			<input type="submit" value=" ">
+			<input type="submit" value="">
 		</form>
 	</div>
 	<div class="product_list_header">
