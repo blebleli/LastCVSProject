@@ -53,12 +53,16 @@ public class SearchController {
 	 * Method 설명 : 
 	 */
 	@RequestMapping("/cvsSearchAction")
-	public String cvsSearchAction(@RequestParam(value="searchWord",defaultValue="word")String word, 
+	public String cvsSearchAction(@RequestParam(value="searchWord",defaultValue="word")String searchWord, 
 								  Model model){
 		
-		logger.debug("{} word==============================" + word);
+		logger.debug("{} word==============================" + searchWord);
 		
+		List<MemberVo> searchCvsList = cvsSearchService.getListMember(searchWord);
 		
+		logger.debug("{}=============================searchCvsList : " + searchCvsList);
+		
+		model.addAttribute("searchCvsList",searchCvsList);
 		
 		return "redirect:/search/cvsSearch";
 	}
