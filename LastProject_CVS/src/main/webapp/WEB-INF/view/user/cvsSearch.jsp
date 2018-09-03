@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!-- /**
 * @Class Name : cvsSearch.jsp
 *
@@ -147,34 +148,14 @@ input[name='uImage'] {
 					</tr>						
 					</thead>
 					<tbody>									
-					<tr>
-						<td>
-						6공단2호점<br><br>032-866-1112
-						</td>
-						<td><a>인천광역시 남구 염전로 241</a></td>
-					</tr>	
-					<tr>
-						<td>7번국도점<br><br>054-787-6011</td>
-							<td><a>인천광역시 남구 염전로 241</a></td>
-					</tr>
-					<tr>
-						<td>
-						88체육관점<br><br>02-2697-5544
-						</td>
-						<td><a>인천광역시 남구 염전로 241</a></td>
-					</tr>
-					<tr>
-						<td>
-						901개화역점<br><br>02-2656-0701
-						</td>
-						<td><a>인천광역시 남구 염전로 241</a></td>
-					</tr>
-					<tr>
-						<td>
-						902김포공항점<br><br>070-4256-0702
-						</td>
-							<td><a>인천광역시 남구 염전로 241</a></td>
-					</tr>
+						<c:forEach items="${searchCvsList }" var="vo">
+							<tr>
+								<td>
+									${vo.mem_cvs_name}
+									${vo.mem_cvs_tel }<br>
+								</td>
+							</tr>	
+						</c:forEach>
 				</tbody>
 				</table>
 				</div>
