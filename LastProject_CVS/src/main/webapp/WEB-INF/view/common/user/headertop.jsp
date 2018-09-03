@@ -53,7 +53,7 @@
 			<ul class="special_items">   		 	<!-- 메뉴 모양 변경해야됨. 하위메뉴 나오도록.   -->
 				<li><a href="#">상품</a>
 					<ul>	
-						<li><a href="/Web-INF/view/user/products.jsp">BEST 상품</a></li><br/>
+						<li><a href="/userProd/view">BEST 상품</a></li><br/>
 						<li><a href="">PB 상품 뺄꺼임</a></li><br/>
 						<li><a href="/Web-INF/view/user/eventProducts.jsp">행사 상품</a></li>
 					</ul>
