@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="category">
 
-<select id="prodCtgyList" resultType="category">
+<select id="prodCtgyList" resultType="categoryVo">
 	SELECT ctgy_id, LPAD(' ',(level-1)*4,' ') || ctgy_name AS ctgy_name, ctgy_parent 
 		FROM category
 		WHERE ctgy_kind = 301
