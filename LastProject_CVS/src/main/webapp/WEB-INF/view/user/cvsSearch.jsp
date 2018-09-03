@@ -145,17 +145,23 @@ input[name='uImage'] {
 					<tr class="active">										
 						<th>매장명 / 연락처	</th>
 						<th>주소 / 매장 유형 및 서비스</th>
+						<th>지도 찾기</th>
 					</tr>						
 					</thead>
 					<tbody>									
 						<c:forEach items="${CvsPageList}" var="vo">
-							<tr id="clickCvs">
+							<tr>
 								<td>
 									${vo.mem_cvs_name}/
 									${vo.mem_cvs_tel}<br>
+									<input type="hidden" name="mem_x" value="${vo.mem_x}">
+									<input type="hidden" name="mem_y" value="${vo.mem_y}">
 								</td>
 								<td>
 									${vo.mem_addr }<br>
+								</td>
+								<td>
+									<input id="clickCvs" type="button" value="지도찾기">
 								</td>
 							</tr>
 								
@@ -201,6 +207,12 @@ input[name='uImage'] {
 	function fn_usertsearchList(num){
 		
 	}
+	
+	$(function() {
+		$("#clickCvs").on("click",function(){
+			$("#mem_x")
+		});
+	});
 </script>
 <script>
 $(document).ready(function(){
@@ -236,6 +248,8 @@ $(document).ready(function(){
 
 <!-- //here ends scrolling icon -->
 <script src="js/common/minicart.js"></script>
+
+
 <script>
 		paypal.minicart.render();
 
