@@ -6,7 +6,7 @@
 <!-- header 공통부분 -->
 <div class="agileits_header">
 	<div class="w3l_offers"> <!-- 링크 클릭시 ★ 이동 경로 주기(상품 화면)  -->
-		<a href="products.html">오늘의 특별행사 !</a>
+		<a href="/cvs/main">오늘의 특별행사 !</a>
 	</div>
 	<div class="w3l_search">  <!-- submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->
 		<form action="#" method="post">
@@ -31,7 +31,7 @@
 					<div class="w3ls_vegetables">
 						<ul class="dropdown-menu drp-mnu">
 							<li><a href="/login/loginView">로그인</a></li> 
-							<li><a href="userLogin.jsp">회원가입</a></li>
+<!-- 							<li><a href="userLogin.jsp">회원가입</a></li> -->
 						</ul>
 					</div>                  
 				</div>	
@@ -83,5 +83,21 @@
 		<div class="clearfix"> </div>
 	</div>
 </div>
+
+<!-- script-for sticky-nav -->
+	<script>
+	$(document).ready(function() {
+		 var navoffeset=$(".agileits_header").offset().top;
+		 $(window).scroll(function(){
+			var scrollpos=$(window).scrollTop(); 
+			if(scrollpos >=navoffeset){
+				$(".agileits_header").addClass("fixed");
+			}else{
+				$(".agileits_header").removeClass("fixed");
+			}
+		 });
+		 
+	});
+	</script>
 <!-- //header 공통부분 -->
 

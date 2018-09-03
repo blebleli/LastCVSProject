@@ -114,20 +114,20 @@ paypal.minicart.cart.on('checkout', function (evt) {
 <tiles:insertAttribute name="top" />
 
 	<!-- products-breadcrumb 유저의 위치를 보여주는 부차적인 네비게이션________ -->
-	<div class="products-breadcrumb">
-		<div class="container">
-			<ul>
-				<li><i class="fa fa-home" aria-hidden="true"></i><a href="index.html">Home</a><span>|</span></li>
-				<li>로그인 & 회원가입</li>
-			</ul>
-		</div>
-	</div>
+<!-- 	<div class="products-breadcrumb"> -->
+<!-- 		<div class="container"> -->
+<!-- 			<ul> -->
+<!-- 				<li><i class="fa fa-home" aria-hidden="true"></i><a href="/cvs/main">Home</a><span>|</span></li> -->
+<!-- 				<li>로그인 & 회원가입</li> -->
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	<!-- //products-breadcrumb_____________________ -->
 
 	<!-- banner 공통 또는 비 공통 부분 -->
-	<div class="banner">
+<!-- 	<div class="banner"> -->
 <%-- 		<tiles:insertAttribute name="left" /> --%>
- 	</div>
+<!--  	</div> -->
 	<!-- //banner 공통 또는 비공통 -->
  	
 	<tiles:insertAttribute name="content" />
