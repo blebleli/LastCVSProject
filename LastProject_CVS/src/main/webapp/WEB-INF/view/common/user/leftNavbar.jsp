@@ -14,29 +14,33 @@
 			   </div> 
 			   <!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+				
 					<ul class="nav navbar-nav nav_1">
 						<c:forEach items="${prodCtgy}" var="ctgy">
+						
 							<c:choose>
-								<c:when test="${ctgy.ctgy_parent==null}">
-								<li><a href="products.html">${ctgy.ctgy_name}</a></li>
-								</c:when>
-								<c:otherwise>
+								<c:when test="${ctgy.level == 1}">
 									<li class="dropdown mega-dropdown active">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">${ctgy.ctgy_name}<span class="caret"></span></a>				
-										<div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">${ctgy.ctgy_name}<span class="caret"></span></a>
+								</c:when>
+								<c:when test="${ctgy.level ==2}" >
+									<div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
 											<div class="w3ls_vegetables">
+											
 												<ul>	
-													<li><a href="vegetables.html">${ctgy.ctgy_name}</a></li>
 													<li><a href="vegetables.html">${ctgy.ctgy_name}</a></li>
 												</ul>
 											</div>                  
 										</div>				
 									</li>
-								</c:otherwise>
+								</c:when>
 							</c:choose>
 						</c:forEach>
+						
 					</ul>
 				</div>
+			</nav>
+		</div>		
 						
 						
 		
