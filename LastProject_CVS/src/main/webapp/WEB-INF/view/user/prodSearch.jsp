@@ -59,6 +59,7 @@
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=20ef2122f316faf3ee201ff1da312505&libraries=services"></script>
+
 <script>
 // 마커를 담을 배열입니다
 var markers = [];
@@ -189,13 +190,13 @@ function getListItem(index, places) {
 
     if (places.road_address_name) {
         itemStr += '    <span>' + places.road_address_name + '</span>' +
-                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+                   '   <span class="jibun gray">' +  places.address_name  + '</span>';
     } else {
         itemStr += '    <span>' +  places.address_name  + '</span>'; 
     }
                  
       itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
+                 '</div>';           
 
     el.innerHTML = itemStr;
     el.className = 'item';
