@@ -45,5 +45,7 @@ public class CvsSearchDao implements CvsSearchDaoInf{
 	public List<MemberVo> getListMember(String word) {
 		return template.selectList("member.searchCvsName", word);
 	}
+	
+	
 
 }

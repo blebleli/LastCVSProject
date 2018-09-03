@@ -64,7 +64,7 @@ public class SearchController {
 		
 		model.addAttribute("searchCvsList",searchCvsList);
 		
-		return "redirect:/search/cvsSearch";
+		return "cvsSearch";
 	}
 	
 }
