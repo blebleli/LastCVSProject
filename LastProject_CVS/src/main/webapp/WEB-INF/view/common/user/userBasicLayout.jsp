@@ -40,6 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
 <!-- <script type="text/javascript" src="<c:url value='/js/common/minicart.js' />"></script> -->	<!--// here ends scrolling icon -->
+
 <script type="text/javascript" >
 $(document).ready(function(){
 	
@@ -125,7 +126,7 @@ paypal.minicart.cart.on('checkout', function (evt) {
 
 	<!-- banner 공통 또는 비 공통 부분 -->
 	<div class="banner">
-		<tiles:insertAttribute name="left" />
+<%-- 		<tiles:insertAttribute name="left" /> --%>
  	</div>
 	<!-- //banner 공통 또는 비공통 -->
  	

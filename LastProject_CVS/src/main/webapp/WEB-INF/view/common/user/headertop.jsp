@@ -51,10 +51,27 @@
 		</div>
 		<div class="w3ls_logo_products_left1">  
 			<ul class="special_items">   		 	<!-- 메뉴 모양 변경해야됨. 하위메뉴 나오도록.   -->
-				<li><a href="events.html">Events</a><i>/</i></li>
-				<li><a href="about.html">About Us</a><i>/</i></li>
-				<li><a href="products.html">Best Deals</a><i>/</i></li>
-				<li><a href="services.html">Services</a></li>
+				<li><a href="#">상품</a>
+					<ul>	
+						<li><a href="">BEST 상품</a></li><br/>
+						<li><a href="">PB 상품 뺄꺼임</a></li><br/>
+						<li><a href="">행사 상품</a></li>
+					</ul>
+				<i>/</i></li>
+				<li>
+					<a href="#">편의점 & 서비스</a>
+<!-- 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">편의점 & 서비스<span class="caret"></span></a>				 -->
+<!-- 							<div class="dropdown-menu mega-dropdown-menu w3ls_products_menu"> -->
+<!-- 								<div class="w3ls_vegetables"> -->
+									<ul>	
+										<li><a href="">편의점검색</a></li><br/>
+										<li><a href="">공지사항</a></li><br/>
+										<li><a href="">이벤트</a></li>
+									</ul>
+<!-- 								</div>                   -->
+<!-- 							</div>					 -->
+				<i>/</i></li>
+				<li><a href="#">마이페이지</a><i>/</i></li>
 			</ul>
 		</div>
 		<div class="w3ls_logo_products_left1">
