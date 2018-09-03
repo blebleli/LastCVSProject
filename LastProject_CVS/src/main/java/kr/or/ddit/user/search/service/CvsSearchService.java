@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
  * 
  * </pre>
  */
-@Service("userSearchService")
+@Service("cvsSearchService")
 public class CvsSearchService implements CvsSearchServiceInf{
 
 	@Resource(name="userSearchService")

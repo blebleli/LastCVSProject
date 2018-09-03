@@ -26,7 +26,7 @@ import kr.or.ddit.model.MemberVo;
  * 
  * </pre>
  */
-@Repository("userSearchDao")
+@Repository("cvsSearchDao")
 public class CvsSearchDao implements CvsSearchDaoInf{
 
 	@Resource(name="userSearchDao")
