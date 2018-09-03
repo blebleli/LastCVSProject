@@ -6,7 +6,8 @@
 <!-- 사용자 -->
 	<definition name="userLayout" template="/WEB-INF/view/common/user/userBasicLayout.jsp">
 		<put-attribute name="top" 		value="/WEB-INF/view/common/user/headertop.jsp" />
-		<put-attribute name="left" 		value="/WEB-INF/view/common/user/leftNavbar.jsp" />
+<!-- 		<put-attribute name="left" 		value="/WEB-INF/view/common/user/leftNavbar.jsp" /> -->
+		<put-attribute name="left" 		value="" />
 		<put-attribute name="content" 	value="" />
 		<put-attribute name="bottom" 	value="/WEB-INF/view/common/user/newsAndbttom.jsp" />
 	</definition>
@@ -20,6 +21,7 @@
 	<definition name="userLogin" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/userLogin.jsp" />
 	</definition>
+	
 	<!-- 회원가입 -->
 	<definition name="userJoin" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/userJoin.jsp" />
