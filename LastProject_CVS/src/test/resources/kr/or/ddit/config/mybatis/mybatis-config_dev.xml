@@ -9,26 +9,26 @@
   <typeAliases>
   
 	<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.board.model □□□□□□□□□□□□□□□□□□□□ -->
-  	<typeAlias type="kr.or.ddit.board.model.BarcodeVo"		alias="barcodeVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.BoardVo"		alias="boardVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.BookmarkVo" 	alias="commentsVO"/>
-  	<typeAlias type="kr.or.ddit.board.model.CategoryVo" 	alias="categoryVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.CommentsVo" 	alias="commentsVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.CvsServiceVo" 	alias="cvsServiceVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.DisposalListVo" alias="disposalListVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.EventVo" 		alias="eventVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.MemberShipVo" 	alias="memberShipVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.MemberVo" 		alias="memberVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.PayKindVo" 		alias="payKindVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.PayVo" 			alias="payVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.PocketVo" 		alias="pocketVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.ProdVo" 		alias="prodVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.ReserveVo" 		alias="reserveVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.SaleDisVo" 		alias="saleDisVo"/>
- 	<typeAlias type="kr.or.ddit.board.model.SaleListVo" 	alias="saleListVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.StockVo" 		alias="stockVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.SupplyListVo" 	alias="supplyListVo"/>
-  	<typeAlias type="kr.or.ddit.board.model.SupplyVo" 		alias="supplyVo"/>
+  	<typeAlias type="kr.or.ddit.model.BarcodeVo"		alias="barcodeVo"/>
+  	<typeAlias type="kr.or.ddit.model.BoardVo"			alias="boardVo"/>
+  	<typeAlias type="kr.or.ddit.model.BookmarkVo" 		alias="bookmarkVo"/>
+  	<typeAlias type="kr.or.ddit.model.CategoryVo" 		alias="categoryVo"/>
+  	<typeAlias type="kr.or.ddit.model.CommentsVo" 		alias="commentsVo"/>
+  	<typeAlias type="kr.or.ddit.model.CvsServiceVo" 	alias="cvsServiceVo"/>
+  	<typeAlias type="kr.or.ddit.model.DisposalListVo" 	alias="disposalListVo"/>
+  	<typeAlias type="kr.or.ddit.model.EventVo" 			alias="eventVo"/>
+  	<typeAlias type="kr.or.ddit.model.MemberShipVo" 	alias="memberShipVo"/>
+  	<typeAlias type="kr.or.ddit.model.MemberVo" 		alias="memberVo"/>
+  	<typeAlias type="kr.or.ddit.model.PayKindVo" 		alias="payKindVo"/>
+  	<typeAlias type="kr.or.ddit.model.PayVo" 			alias="payVo"/>
+  	<typeAlias type="kr.or.ddit.model.PocketVo" 		alias="pocketVo"/>
+  	<typeAlias type="kr.or.ddit.model.ProdVo" 			alias="prodVo"/>
+  	<typeAlias type="kr.or.ddit.model.ReserveVo" 		alias="reserveVo"/>
+  	<typeAlias type="kr.or.ddit.model.SaleDisVo" 		alias="saleDisVo"/>
+ 	<typeAlias type="kr.or.ddit.model.SaleListVo" 		alias="saleListVo"/>
+  	<typeAlias type="kr.or.ddit.model.StockVo" 			alias="stockVo"/>
+  	<typeAlias type="kr.or.ddit.model.SupplyListVo" 	alias="supplyListVo"/>
+  	<typeAlias type="kr.or.ddit.model.SupplyVo" 		alias="supplyVo"/>
 	<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.board.model □□□□□□□□□□□□□□□□□□□□ -->
   </typeAliases>
   
