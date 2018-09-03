@@ -43,12 +43,29 @@ public class SearchController {
 	 }
 	
 	
+	/** 
+	 * Method   : prodSearch 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 신규
+	 * @param searchWord
+	 * @param model
+	 * @return 
+	 * Method 설명 : 지도 왼쪽에 제품 리스트 출력 기능
+	 */
 	@RequestMapping("/prodSearch")
-	 public String prodSearch(@RequestParam(value="searchWord",defaultValue="라인프렌즈") String searchWord
+	 public String prodSearch(@RequestParam(value="prodSearch",defaultValue="티머니") String prodSearch
 			 								,Model model) {
 
-		List<ProdVo> searchList = prodService.getSearchProdList(searchWord);		
-		model.addAttribute("searchList",searchList);
+		List<ProdVo> searchList = prodService.getSearchProdList(prodSearch);
+		System.out.println("=================================================");
+		System.out.println(searchList);
+		System.out.println(searchList.size());
+		
+		model.addAttribute("searchList", searchList);
+//		model.addAllAttributes(searchList);
+		
+		
 		
 		return "prodSearch";		 
 	 }
