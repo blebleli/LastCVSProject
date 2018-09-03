@@ -147,4 +147,40 @@
   	<select id="searchCvsName" parameterType="String" resultType="memberVo">
   		select * from member where MEM_CVS_NAME like '%'||#{MEM_CVS_NAME}||'%'
   	</select>
+  	
+  	<!-- 편의점 이름 검색했을때 그 이름을 포함한 편의점들의 목록을 10개로 묶음 -->
+  	<select id="getCvsPageList" parameterType="Map" resultType="memberVo">
+  		SELECT *
+			FROM (SELECT a.*, ROWNUM rn
+			  FROM
+				  (SELECT MEM_ID
+						, MEM_PW
+						, MEM_KIND
+						, MEM_NAME
+						, MEM_TEL
+						, MEM_BIRTH
+						, MEM_GEN
+						, MEM_ZIP
+						, MEM_ADD
+						, MEM_ADDR
+						, MEM_CVS_NAME
+						, MEM_CVS_TEL
+						, MEM_INTRO
+						, MEM_X
+						, MEM_Y
+					 FROM MEMBER
+				    WHERE 1=1
+				    	AND MEM_KIND = '01'
+				    	AND MEM_CVS_NAME like '%${mem_cvs_name}%'
+				    ORDER BY MEM_CVS_NAME 
+				   )
+			  a )
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+  	</select>
+  	
+  		<!-- 검색한 편의점의 목록 전체 건수 -->
+  	<select id="getTotCvsCnt" parameterType="String" resultType="int">
+    	SELECT count(*) FROM member WHERE MEM_CVS_NAME like '%'||#{mem_cvs_name}||'%'
+  	</select>
+  	
 </mapper>
