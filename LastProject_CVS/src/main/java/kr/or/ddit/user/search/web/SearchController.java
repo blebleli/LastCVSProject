@@ -2,7 +2,6 @@ package kr.or.ddit.user.search.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @RequestMapping("/search")
@@ -26,4 +25,5 @@ public class SearchController {
 		
 		 return "prodSearch";
 	 }
+	
 }
