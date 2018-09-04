@@ -142,7 +142,7 @@ var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니�
 
 //마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
 function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
-alert("마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다");
+// alert("마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다");
 // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
 var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
     overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
@@ -196,11 +196,24 @@ daum.maps.event.addListener(marker, 'click', function() {
     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
     selectedMarker = marker;
 });
+
+//마커 위에 커스텀오버레이를 표시합니다
+//마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+var overlay = new daum.maps.CustomOverlay({
+ content: content,
+ map: map,
+ position: marker.getPosition()       
+});
+
+//마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+daum.maps.event.addListener(marker, 'click', function() {
+ overlay.setMap(map);
+});
 }
 
 //MakrerImage 객체를 생성하여 반환하는 함수입니다
 function createMarkerImage(markerSize, offset, spriteOrigin) {
-	alert("MakrerImage 객체를 생성하여 반환하는 함수입니다");
+// 	alert("MakrerImage 객체를 생성하여 반환하는 함수입니다");
 var markerImage = new daum.maps.MarkerImage(
     SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
     markerSize, // 마커의 크기
@@ -214,6 +227,7 @@ var markerImage = new daum.maps.MarkerImage(
 return markerImage;
 }
 
+var content="";
 
 	$(document).ready(function(){
 		// 제품 리스트 클릭 했을때
@@ -228,16 +242,39 @@ return markerImage;
 		        dataType : "json",
 		        success: function(data){
 		        	
-		        	alert("성공"+data);
+// 		        	alert("성공"+data);
 		        	 $.each(data,function(index,item){
-// 		        		 alert(item.mem_x);
+						// 리턴 받은 값 (좌표) set
 						positions.push(new daum.maps.LatLng(item.mem_x, item.mem_y));
-// 	        		    addMarker(positions[index], normalOrigin, overOrigin, clickOrigin);
+						
+						// 커스텀 오버레이에 표시할 컨텐츠 입니다
+						// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+						// 별도의 이벤트 메소드를 제공하지 않습니다 
+						content = '<div class="wrap">' + 
+						            '    <div class="info">' + 
+						            '        <div class="title">' + 
+						            '            '+item.mem_cvs_name +
+						            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+						            '        </div>' + 
+						            '        <div class="body">' + 
+						            '            <div class="img">' +
+						            '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+						            '                 상품이미지'+
+						            '            </div>' + 
+						            '            <div class="desc">' + 
+						            '                <div class="ellipsis">수량 : '+item.stcklist_amount+'</div>' + 
+						            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
+						            '                <div><a href="http://www.kakaocorp.com/main" target="_blank" class="link">상세보기? 링크</a></div>' + 
+						            '            </div>' + 
+						            '        </div>' + 
+						            '    </div>' +    
+						            '</div>';
+
 		        	 });
-		        	 alert(positions.length);
+// 		        	 alert(positions.length);
 		        	//지도 위에 마커를 표시합니다
 		        	 for (var i = 0, len = positions.length; i < len; i++) {
-		        	     alert("지도 위에 마커를 표시합니다");
+// 		        	     alert("지도 위에 마커를 표시합니다");
 		        	 var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
 		        	     originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
 		        	     overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
