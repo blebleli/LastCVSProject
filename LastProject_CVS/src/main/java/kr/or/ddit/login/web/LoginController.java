@@ -126,10 +126,11 @@ public class LoginController {
 
 		logger.debug("requestUrl : {}", request.getRequestURL().toString());
 		
+		
 		// param : 받는사람 메일 주소, 인증 Url, 메일 본문 html
 		sendMailService.sendMail(
 				emailAddr, 
-				StringUtils.substringBefore(request.getRequestURL().toString(), request.getContextPath()) + "/" + request.getContextPath() + "/login/confirmMailAuth",
+				StringUtils.substringBefore(request.getRequestURL().toString(), request.getServletPath()) + "/login/confirmMailAuth",
 				resourceLoader.getResource("/WEB-INF/view/login/mailConfirm.html").getFile().getPath());
 
 		response.setContentType("text/html; charset=UTF-8");
