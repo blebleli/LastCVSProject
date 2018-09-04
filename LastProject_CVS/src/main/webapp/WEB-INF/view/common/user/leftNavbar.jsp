@@ -1,4 +1,6 @@
-<!-- banner 공통 또는 비 공통 부분-->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- banner ê³µíµ ëë ë¹ ê³µíµ ë¶ë¶-->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 		<div class="w3l_banner_nav_left"> 
@@ -16,28 +18,32 @@
 				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 				
 					<ul class="nav navbar-nav nav_1">
-						<c:forEach items="${prodCtgy}" var="ctgy">
-						
-							<c:choose>
-								<c:when test="${ctgy.level == 1}">
-									<li class="dropdown mega-dropdown active">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">${ctgy.ctgy_name}<span class="caret"></span></a>
-								</c:when>
-								<c:when test="${ctgy.level ==2}" >
-									<div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-											<div class="w3ls_vegetables">
-											
-												<ul>	
-													<li><a href="vegetables.html">${ctgy.ctgy_name}</a></li>
-												</ul>
-											</div>                  
-										</div>				
-									</li>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-						
-					</ul>
+					<li><a href="#">전체</a></li>
+				<c:forEach items="${prodCtgy}" var="ctgy" varStatus="">
+					<li class="dropdown mega-dropdown active"><c:if
+							test="${ctgy.ctgy_id == ctgy.ctgy_level}">
+							<a href="/userProd/bestList?level=lg&ctgy_id=${ctgy.ctgy_id }&page=1&pageSize=32" class="dropdown-toggle" data-toggle="dropdown">${ctgy.ctgy_name}<span
+								class="caret"></span>
+								
+							</a>
+								<c:set value="${ctgy.ctgy_id }" var="ctgy_id"></c:set>
+						</c:if>
+						<div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
+							<div class="w3ls_vegetables">
+									<ul>
+										<c:forEach items="${prodCtgy }" var="prodCtgy">
+											<c:if test="${ctgy_id == prodCtgy.ctgy_parent }">
+											<li><a href="/userProd/bestList?level=md&ctgy_id=${prodCtgy.ctgy_id }&page=1&pageSize=32">${prodCtgy.ctgy_name}
+											</a></li>
+											</c:if>
+										</c:forEach>
+									</ul>
+							</div>
+						</div></li>
+
+				</c:forEach>
+
+			</ul>
 				</div>
 			</nav>
 		</div>		
