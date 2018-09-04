@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="prod">
+
+<!-- 카테고리 별 제품 리스트 조회  -->
+<select id="getCtgyProdList" parameterType="Map" resultType="prodVo">
+	SELECT * 
+		FROM
+			(SELECT a.*,ROWNUM rn 
+				FROM
+				(SELECT prod.*
+					FROM prod
+					ORDER BY prod_name)a
+					WHERE ${pr_class}=#{pr_class_id})
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+
+</select>
+
+<!-- 카테고리 별 제품의 갯수  -->
+<select id="getCtgyProdCount" parameterType="Map" resultType="Integer">
+	select count(*) 
+	from prod
+	where ${pr_class} = #{pr_class_id}
+	
+</select>
+
+
+
+
+
+
+
+</mapper>
