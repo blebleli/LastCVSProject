@@ -120,6 +120,8 @@ public class SearchController {
 		Map<String, Object> list = cvsSearchService.getCvsPageList(paramMap);
 		
 		logger.debug("{}=========================paramMap : " + paramMap);
+		logger.debug("{}=========================list : " + list);
+		logger.debug("{}=========================list.get(CvsPageList) : " + list.get("CvsPageList"));
 		
 //		model.addAttribute("list", list.get("CvsPageList"));
 		model.addAllAttributes(list);   

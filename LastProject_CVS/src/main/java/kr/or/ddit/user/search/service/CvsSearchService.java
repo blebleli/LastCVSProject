@@ -94,6 +94,19 @@ public class CvsSearchService implements CvsSearchServiceInf{
 		
 		logger.debug("{}=========================CvsPageList" , CvsPageList);
 		
+		
+//		logger.debug("MemberVo ========================================");
+//		for (MemberVo v : CvsPageList) {
+//			logger.debug(v.getMem_x());
+//			logger.debug(v.getMem_y());
+//			logger.debug("--------------------------");
+//			logger.debug( Double.parseDouble(v.getMem_x()) +"" );
+//			logger.debug( Double.parseDouble(v.getMem_y()) +"" );
+//			logger.debug("+++++++++++++++++++++++++++++++++++++++++++");
+//		}
+		
+		
+		
 		String mem_cvs_name = (String) map.get("mem_cvs_name");
 		// 게시글 전체 건수 조회
 		int totCnt = cvsSearchDao.TotCvsListCnt(mem_cvs_name);
