@@ -253,44 +253,44 @@ function searchList(pageNo){
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="searchService('jumpoDelivery', 'Y'); return false;"><img src="/images/store/icon_big_02_delivery.png" alt=""></a>
-											<a class="text" href="#" onclick="searchService('jumpoDelivery','Y'); return false;">택배 서비스</a>
+											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_02_delivery.png" alt=""></a>
+											<a class="text" href="#" onclick="myFunc(this); return false;">택배 서비스</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="searchService('jumpoBakery', 'Y'); return false;"><img src="/images/store/icon_big_03_bakery.png" alt=""></a>
-											<a class="text" href="#" onclick="searchService('jumpoBakery', 'Y'); return false;">베이커리 판매</a>
+											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_03_bakery.png" alt=""></a>
+											<a class="text" href="#" onclick="myFunc(this); return false;">베이커리 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="searchService('jumpoFry', 'Y'); return false;"><img src="/images/store/icon_big_04_fried.png" alt=""></a>
-											<a class="text" href="#" onclick="searchService('jumpoFry', 'Y'); return false;">튀김 판매</a>
+											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_04_fried.png" alt=""></a>
+											<a class="text" href="#" onclick="myFunc(this); return false;">튀김 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="searchService('jumpoCafe', 'Y'); return false;"><img src="/images/store/icon_big_05_coffee.png" alt=""></a>
-											<a class="text" href="#" onclick="searchService('jumpoCafe', 'Y'); return false;">에스프레소<br>커피 판매</a>
+											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_05_coffee.png" alt=""></a>
+											<a class="text" href="#" onclick="myFunc(this); return false;">에스프레소<br>커피 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="searchService('jumpoLotto', 'Y'); return false;"><img src="/images/store/icon_big_06_lotto.png" alt=""></a>
-											<a class="text" href="#" onclick="searchService('jumpoLotto', 'Y'); return false;">로또 판매</a>
+											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_06_lotto.png" alt=""></a>
+											<a class="text" href="#"  onclick="myFunc(this); return false;">로또 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="searchService('jumpoToto', 'Y'); return false;"><img src="/images/store/icon_big_07_toto.png" alt=""></a>
-											<a class="text" href="#" onclick="searchService('jumpoToto','Y'); return false;">스포츠토토</a>
+											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_07_toto.png" alt=""></a>
+											<a class="text" href="#"   onclick="myFunc(this); return false;">스포츠토토</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="searchService('jumpoCash', 'Y'); return false;"><img src="/images/store/icon_big_08_cash.png" alt=""></a>
-											<a class="text" href="#" onclick="searchService('jumpoCash', 'Y'); return false;">현금지급기</a>
+											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_08_cash.png" alt=""></a>
+											<a class="text" href="#"   onclick="myFunc(this); return false;">현금지급기</a>
 										</div>
 									</li>
 								</ul>
