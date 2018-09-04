@@ -130,6 +130,7 @@ paypal.minicart.cart.on('checkout', function (evt) {
 <!--  	</div> -->
 	<!-- //banner 공통 또는 비공통 -->
  	
+	<tiles:insertAttribute name="left" />
 	<tiles:insertAttribute name="content" />
 	
 	<tiles:insertAttribute name="bottom" />
