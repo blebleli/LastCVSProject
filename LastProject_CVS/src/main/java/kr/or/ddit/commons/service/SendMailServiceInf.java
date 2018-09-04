@@ -14,11 +14,11 @@ public interface SendMailServiceInf {
 	 */
 	public final String HOST = "smtp.naver.com";
 	public final String PROTOCOL = "smtp";
-	public final String USER_NAME = "";	// 보내는 메일 계정 아이디
-	public final String USER_PWD = "";	// 보내는 메일 계정 비번
+	public final String USER_NAME = "ddit_junit";	// 보내는 메일 계정 아이디
+	public final String USER_PWD = "ddit_junit1";	// 보내는 메일 계정 비번
 	
 	public final int PORT = 465;
-	public final String FROM = "";	// 보내는 메일 주소 (mail@mail.com)
+	public final String FROM = "ddit_junit@naver.com";	// 보내는 메일 주소 (mail@mail.com)
 	
 	public final boolean AUTH = true;
 	public final boolean SSL_ENABLE = true;
