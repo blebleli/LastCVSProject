@@ -314,25 +314,26 @@ function searchList(pageNo){
 						<th>지도 찾기</th>
 					</tr>						
 					</thead>
-					<tbody>									
+					<tbody>	
 						<c:forEach items="${CvsPageList}" var="vo">
 							<tr>
 								<td>
 									${vo.mem_cvs_name}/
 									${vo.mem_cvs_tel}<br>
-									<input type="hidden" name="mem_x" value="${vo.mem_x}">
-									<input type="hidden" name="mem_y" value="${vo.mem_y}">
+									${vo.mem_x}<br>
+									${vo.mem_y}<br>
 								</td>
 								<td>
-									${vo.mem_addr }<br>
+									${vo.mem_addr}<br>
 								</td>
 								<td>
-									<input id="clickCvs" type="button" value="지도찾기">
+									<input type="hidden" name="mem_x" id="mem_x" value="${vo.mem_x}">
+									<input type="hidden" name="mem_y" id="mem_y" value="${vo.mem_y}">
+									<button id ="clickCvs" name="clickCvs" onclick="fn_click(${vo.mem_x}, ${vo.mem_y});">위치</button>
 								</td>
 							</tr>
-								
 						</c:forEach>
-				</tbody>
+					</tbody>
 				</table>
 				</div>
 				
@@ -374,11 +375,47 @@ function searchList(pageNo){
 		
 	}
 	
-	$(function() {
-		$("#clickCvs").on("click",function(){
-			$("#mem_x")
-		});
-	});
+	// 위치 클릭했을때..
+	function fn_click(mem_x, mem_y){
+			
+			//소수로 형변환
+			var pointx = parseFloat(mem_x);
+			//소수로 형변환
+			var pointy = parseFloat(mem_y);
+			
+// 			alert("좌표x"+pointx+"좌표y"+pointy);
+
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new daum.maps.LatLng(pointy, pointx), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };
+
+			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+			var map = new daum.maps.Map(mapContainer, mapOption);
+// 		});
+		
+	}
+	
+// 	$(function click(e) {
+// 		$('[name="clickCvs"]').on("click",function(){
+// 			var mem_x = $('[name="mem_x"]').val();
+// 			var mem_y = $('[name="mem_y"]').val();
+			
+// 			var pointx = parseFloat(mem_x);
+// 			var pointy = parseFloat(mem_y);
+// 			alert("좌표x"+pointx+"좌표y"+pointy);
+// 			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+// 		    mapOption = { 
+// 		        center: new daum.maps.LatLng(pointy, pointx), // 지도의 중심좌표
+// 		        level: 3 // 지도의 확대 레벨
+// 		    };
+
+// 			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+// 			var map = new daum.maps.Map(mapContainer, mapOption);
+// 		});
+// 	});
+	
 </script>
 <script>
 $(document).ready(function(){
@@ -443,7 +480,7 @@ $(document).ready(function(){
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        center: new daum.maps.LatLng(36.283590305629914, 127.46614533232156), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
