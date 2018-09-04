@@ -184,6 +184,16 @@
   	</select>
   	
   	
+  	
+  	<!-- 
+  		아 이 디 : getListProdMember
+  		반 환 값 : cvsSearchVo
+  		매개변수 : String
+  		설    명 : 제품코드를 받아서 해당 제품의 수량이 존재하는 편의점정보를 반환한다.
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-05
+  	
+  	 -->
   	<select id="getListProdMember" parameterType="String" resultType="cvsSearchVo">
 		SELECT   
 		        -- 편의점  정보

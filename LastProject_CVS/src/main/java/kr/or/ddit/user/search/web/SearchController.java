@@ -1,10 +1,12 @@
 package kr.or.ddit.user.search.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
@@ -18,7 +20,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RequestMapping("/search")
@@ -72,9 +76,22 @@ public class SearchController {
 	 }
 	
 	
-	@RequestMapping("/storeSearch")
-	public List<CvsSearchVo> storeSearch(@RequestParam(value="prod_id") String prod_id, Model model){
-		List<CvsSearchVo> memList = cvsSearchService.getListProdMember(prod_id);
+	@RequestMapping(value="/search/storeSearch",method=RequestMethod.GET)
+	@ResponseBody
+	public List<CvsSearchVo> storeSearch(@RequestParam(value="prod") String prod_id, Model model){
+		List<CvsSearchVo> memList = new ArrayList<CvsSearchVo>();
+		CvsSearchVo vo = new CvsSearchVo();
+		vo.setMem_x("33.44975");
+		vo.setMem_y("126.56967");
+		vo.setMem_cvs_name("Test");
+		vo.setMem_intro("설명");
+		memList.add(vo);
+		
+//		List<CvsSearchVo> memList = cvsSearchService.getListProdMember(prod_id);
+		logger.debug("==============================================================================================");
+		logger.debug("memList==>{}",memList);
+		logger.debug("==============================================================================================");
+		
 		return memList;
 	}
 	

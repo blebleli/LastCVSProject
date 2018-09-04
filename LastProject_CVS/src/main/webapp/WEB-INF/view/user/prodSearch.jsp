@@ -40,31 +40,7 @@
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 </style>
 
-<script>
 
-	$(function(){
-		
-		// 제품 리스트 클릭 했을때
-		$("#searchList li").on("click",function(){
-			// 해당 제품 id 가져옴
-			var prod_id = $("#searchList li [name=prod_id]").val();
-			alert("prod_id" + prod_id);
-			
-		    $.ajax({
-		        type:"POST",
-		        url:"/search/storeSearch",
-		        data : {"prod_id" : prod_id},
-// 		        dataType : "xml",
-		        success: function(data){
-		         
-// 		        	$("#keyword").val(memList);
-		        	
-		        }
-		    });
-		});
-	});
-
-</script>
 
 <div class="map_wrap">
     <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
@@ -72,9 +48,6 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
-                <form id="frm" onsubmit="searchPlaces(); return false;">
-                	<input type="hidden" id="keyword">
-                </form>
                 <form action="/search/prodSearch">
                     키워드 : <input type="text" value="" id="prodSearch" size="15"> 
                     <button type="submit">검색하기</button> 
@@ -85,20 +58,16 @@
         <!-- 제품으로 변경  -->
 <!--         <ul id="placesList"> -->
         <ul id="searchList">
+                	<img src="F://image//product//meal//00bf8a18-51a1-4d92-9f4a-6190e5895257.png" width="50px;" height="50px;"/>
         	<c:forEach items="${searchList }" var="vo">
         		<li>
-        			<img src="${vo.file_path }/${vo.file_upname }">
-        			${vo.prod_name } <br/>
-        			${vo.prod_intro } <br/>
-<%--         			${vo.prod_id }       --%>
-<%-- 					${vo.prod_intro }    --%>
-<%-- 					${vo.prod_price }    --%>
-<%-- 					${vo.prod_exnum }    --%>
-<%-- 					${vo.pr_class_lg }   --%>
-<%-- 					${vo.pr_class_md }   --%>
-<%-- 					${vo.event_id }      --%>
-<%-- 					${vo.file_path }  <br/>   --%>
-<%-- 					${vo.file_upname }  <br/> --%>
+<%-- 	        		<span class="markerbg marker_' + (${vo.index+1 }) + '"></span> --%>
+                	<div class="info">
+<%--                 	<img src="${vo.file_path }\${vo.file_upname }" width="50px;" height="50px;"> --%>
+                	<h5>${vo.prod_name }</h5>
+        			<span>${vo.prod_intro }</span>
+      				<span class="tel">￦ ${vo.prod_price }</span>
+                 </div>           
         			<input type="hidden" name="prod_id" value="${vo.prod_id }">
 <%--         			<input type="hidden" name="prod_id" value="${vo.prod_name }"> --%>
 <%--         			<input type="hidden" name="prod_id" value="${vo.prod_intro }"> --%>
@@ -107,8 +76,8 @@
 <%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_lg }"> --%>
 <%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_md }"> --%>
 <%--         			<input type="hidden" name="prod_id" value="${vo.event_id }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.file_path }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.file_upname }"> --%>
+        			<input type="hidden" name="file_path" value="${vo.file_path }">
+        			<input type="hidden" name="file_upname" value="${vo.file_upname }">
         		</li>
         	</c:forEach>
         </ul>
@@ -118,227 +87,177 @@
         <div id="pagination"></div>
     </div>
 </div>
+ ${memList }
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=20ef2122f316faf3ee201ff1da312505&libraries=services"></script>
 
 <script>
-// 마커를 담을 배열입니다
-var markers = [];
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new daum.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+var MARKER_WIDTH = 33, // 기본, 클릭 마커의 너비
+MARKER_HEIGHT = 36, // 기본, 클릭 마커의 높이
+OFFSET_X = 12, // 기본, 클릭 마커의 기준 X좌표
+OFFSET_Y = MARKER_HEIGHT, // 기본, 클릭 마커의 기준 Y좌표
+OVER_MARKER_WIDTH = 40, // 오버 마커의 너비
+OVER_MARKER_HEIGHT = 42, // 오버 마커의 높이
+OVER_OFFSET_X = 13, // 오버 마커의 기준 X좌표
+OVER_OFFSET_Y = OVER_MARKER_HEIGHT, // 오버 마커의 기준 Y좌표
+SPRITE_MARKER_URL = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markers_sprites2.png', // 스프라이트 마커 이미지 URL
+SPRITE_WIDTH = 126, // 스프라이트 이미지 너비
+SPRITE_HEIGHT = 146, // 스프라이트 이미지 높이
+SPRITE_GAP = 10; // 스프라이트 이미지에서 마커간 간격
 
-// 지도를 생성합니다    
-var map = new daum.maps.Map(mapContainer, mapOption); 
+var markerSize = new daum.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 기본, 클릭 마커의 크기
+markerOffset = new daum.maps.Point(OFFSET_X, OFFSET_Y), // 기본, 클릭 마커의 기준좌표
+overMarkerSize = new daum.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // 오버 마커의 크기
+overMarkerOffset = new daum.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
+spriteImageSize = new daum.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 
-// 장소 검색 객체를 생성합니다
-var ps = new daum.maps.services.Places();  
+var positions = [  // 마커의 위치
+//     new daum.maps.LatLng(126.82453038844578, 35.20188756879909),
+//     new daum.maps.LatLng(33.450579, 126.56956),
+//     new daum.maps.LatLng(33.4506468, 126.5707)
+],
+selectedMarker = null; // 클릭한 마커를 담을 변수
 
-// 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
-var infowindow = new daum.maps.InfoWindow({zIndex:1});
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+mapOption = { 
+    center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
 
-// 키워드로 장소를 검색합니다
-searchPlaces();
+var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-// 키워드 검색을 요청하는 함수입니다
-function searchPlaces(keyword) {
-
-//     var keyword = document.getElementById('keyword').value;
-
-//     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-//         alert('키워드를 입력해주세요!');
-//         return false;
-//     }
-
-//     alert(placesSearchCB);
-    // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-    // 서버에 상점리스트를 ajax 로 요청 후 , 화면에 뿌려주기
-    // data 형식은 json 형식
-    ps.keywordSearch( keyword, placesSearchCB); 
-}
-
-// 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
-function placesSearchCB(data, status, pagination) {
-    if (status === daum.maps.services.Status.OK) {
-
-        // 정상적으로 검색이 완료됐으면
-        // 검색 목록과 마커를 표출합니다
-        displayPlaces(data);
-
-        // 페이지 번호를 표출합니다
-        displayPagination(pagination);
-
-    } else if (status === daum.maps.services.Status.ZERO_RESULT) {
-
-        alert('검색 결과가 존재하지 않습니다.');
-        return;
-
-    } else if (status === daum.maps.services.Status.ERROR) {
-
-        alert('검색 결과 중 오류가 발생했습니다.');
-        return;
-
-    }
-}
-
-// 검색 결과 목록과 마커를 표출하는 함수입니다
-function displayPlaces(places) {
-
-    var listEl = document.getElementById('placesList'), 
-    menuEl = document.getElementById('menu_wrap'),
-    fragment = document.createDocumentFragment(), 
-    bounds = new daum.maps.LatLngBounds(), 
-    listStr = '';
+//지도 위에 마커를 표시합니다
+// for (var i = 0, len = positions.length; i < len; i++) {
+// var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+//     originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+//     overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+//     normalOrigin = new daum.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+//     clickOrigin = new daum.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
+//     overOrigin = new daum.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
     
-    // 검색 결과 목록에 추가된 항목들을 제거합니다
-    removeAllChildNods(listEl);
+// // 마커를 생성하고 지도위에 표시합니다
+// addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
+// }
 
-    // 지도에 표시되고 있는 마커를 제거합니다
-    removeMarker();
-    
-    for ( var i=0; i<places.length; i++ ) {
+//마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
+function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
+alert("마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다");
+// 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
+var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+    overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+    clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
 
-        // 마커를 생성하고 지도에 표시합니다
-        var placePosition = new daum.maps.LatLng(places[i].y, places[i].x),
-            marker = addMarker(placePosition, i), 
-            itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+// 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+var marker = new daum.maps.Marker({
+    map: map,
+    position: position,
+    image: normalImage
+});
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        bounds.extend(placePosition);
+// 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+marker.normalImage = normalImage;
 
-        // 마커와 검색결과 항목에 mouseover 했을때
-        // 해당 장소에 인포윈도우에 장소명을 표시합니다
-        // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
-            daum.maps.event.addListener(marker, 'mouseover', function() {
-                displayInfowindow(marker, title);
-            });
+// 마커에 mouseover 이벤트를 등록합니다
+daum.maps.event.addListener(marker, 'mouseover', function() {
 
-            daum.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
+    // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
+    // 마커의 이미지를 오버 이미지로 변경합니다
+    if (!selectedMarker || selectedMarker !== marker) {
+        marker.setImage(overImage);
+    }
+});
 
-            itemEl.onmouseover =  function () {
-                displayInfowindow(marker, title);
-            };
+// 마커에 mouseout 이벤트를 등록합니다
+daum.maps.event.addListener(marker, 'mouseout', function() {
 
-            itemEl.onmouseout =  function () {
-                infowindow.close();
-            };
-        })(marker, places[i].place_name);
+    // 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
+    // 마커의 이미지를 기본 이미지로 변경합니다
+    if (!selectedMarker || selectedMarker !== marker) {
+        marker.setImage(normalImage);
+    }
+});
 
-        fragment.appendChild(itemEl);
+// 마커에 click 이벤트를 등록합니다
+daum.maps.event.addListener(marker, 'click', function() {
+
+    // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
+    // 마커의 이미지를 클릭 이미지로 변경합니다
+    if (!selectedMarker || selectedMarker !== marker) {
+
+        // 클릭된 마커 객체가 null이 아니면
+        // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+        !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+
+        // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+        marker.setImage(clickImage);
     }
 
-    // 검색결과 항목들을 검색결과 목록 Elemnet에 추가합니다
-    listEl.appendChild(fragment);
-    menuEl.scrollTop = 0;
-
-    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-    map.setBounds(bounds);
+    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+    selectedMarker = marker;
+});
 }
 
-// 검색결과 항목을 Element로 반환하는 함수입니다
-function getListItem(index, places) {
-
-    var el = document.createElement('li'),
-    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
-                '   <h5>' + places.place_name + '</h5>';
-
-    if (places.road_address_name) {
-        itemStr += '    <span>' + places.road_address_name + '</span>' +
-                   '   <span class="jibun gray">' +  places.address_name  + '</span>';
-    } else {
-        itemStr += '    <span>' +  places.address_name  + '</span>'; 
+//MakrerImage 객체를 생성하여 반환하는 함수입니다
+function createMarkerImage(markerSize, offset, spriteOrigin) {
+	alert("MakrerImage 객체를 생성하여 반환하는 함수입니다");
+var markerImage = new daum.maps.MarkerImage(
+    SPRITE_MARKER_URL, // 스프라이트 마커 이미지 URL
+    markerSize, // 마커의 크기
+    {
+        offset: offset, // 마커 이미지에서의 기준 좌표
+        spriteOrigin: spriteOrigin, // 스트라이프 이미지 중 사용할 영역의 좌상단 좌표
+        spriteSize: spriteImageSize // 스프라이트 이미지의 크기
     }
-                 
-      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                 '</div>';           
+);
 
-    el.innerHTML = itemStr;
-    el.className = 'item';
-
-    return el;
+return markerImage;
 }
 
-// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-function addMarker(position, idx, title) {
-    var imageSrc = 'http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
-        imageSize = new daum.maps.Size(36, 37),  // 마커 이미지의 크기
-        imgOptions =  {
-            spriteSize : new daum.maps.Size(36, 691), // 스프라이트 이미지의 크기
-            spriteOrigin : new daum.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
-            offset: new daum.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
-        },
-        markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imgOptions),
-            marker = new daum.maps.Marker({
-            position: position, // 마커의 위치
-            image: markerImage 
-        });
 
-    marker.setMap(map); // 지도 위에 마커를 표출합니다
-    markers.push(marker);  // 배열에 생성된 마커를 추가합니다
+	$(document).ready(function(){
+		// 제품 리스트 클릭 했을때
+		$("#searchList li").on("click",function(){
+			// 해당 제품 id 가져옴
+			var prod_id = $("#searchList li [name=prod_id]").val();
+			
+		    $.ajax({
+		        type:"get",
+		        url:"search/storeSearch",
+		        data : {"prod":prod_id},
+		        dataType : "json",
+		        success: function(data){
+		        	
+		        	alert("성공"+data);
+		        	 $.each(data,function(index,item){
+// 		        		 alert(item.mem_x);
+						positions.push(new daum.maps.LatLng(item.mem_x, item.mem_y));
+// 	        		    addMarker(positions[index], normalOrigin, overOrigin, clickOrigin);
+		        	 });
+		        	 alert(positions.length);
+		        	//지도 위에 마커를 표시합니다
+		        	 for (var i = 0, len = positions.length; i < len; i++) {
+		        	     alert("지도 위에 마커를 표시합니다");
+		        	 var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
+		        	     originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+		        	     overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+		        	     normalOrigin = new daum.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
+		        	     clickOrigin = new daum.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
+		        	     overOrigin = new daum.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
+			        	 // 마커를 생성하고 지도위에 표시합니다
+			        	 addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
+		        	 }
 
-    return marker;
-}
+		        	
+		        }
+			    ,error:function(e) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
 
-// 지도 위에 표시되고 있는 마커를 모두 제거합니다
-function removeMarker() {
-    for ( var i = 0; i < markers.length; i++ ) {
-        markers[i].setMap(null);
-    }   
-    markers = [];
-}
+			    	alert("실패");
 
-// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
-function displayPagination(pagination) {
-    var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment(),
-        i; 
+			    }
 
-    // 기존에 추가된 페이지번호를 삭제합니다
-    while (paginationEl.hasChildNodes()) {
-        paginationEl.removeChild (paginationEl.lastChild);
-    }
+		    });
+		});
+	});
 
-    for (i=1; i<=pagination.last; i++) {
-        var el = document.createElement('a');
-        el.href = "#";
-        el.innerHTML = i;
-
-        if (i===pagination.current) {
-            el.className = 'on';
-        } else {
-            el.onclick = (function(i) {
-                return function() {
-                    pagination.gotoPage(i);
-                }
-            })(i);
-        }
-
-        fragment.appendChild(el);
-    }
-    paginationEl.appendChild(fragment);
-}
-
-// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
-// 인포윈도우에 장소명을 표시합니다
-function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
-
-    infowindow.setContent(content);
-    infowindow.open(map, marker);
-}
-
- // 검색결과 목록의 자식 Element를 제거하는 함수입니다
-function removeAllChildNods(el) {   
-    while (el.hasChildNodes()) {
-        el.removeChild (el.lastChild);
-    }
-}
 </script>

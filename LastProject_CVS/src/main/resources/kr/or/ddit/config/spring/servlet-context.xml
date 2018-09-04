@@ -49,9 +49,8 @@
 	</context:component-scan>
 
 	<!-- json view -->
-	<bean id="jsonView"
-		class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-	</bean>
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
+	
 
 	<!-- excelDownload view -->
 <!-- 	<bean id="excelDawnloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView"></bean> -->
