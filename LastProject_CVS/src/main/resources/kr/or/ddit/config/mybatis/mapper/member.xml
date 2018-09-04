@@ -166,8 +166,8 @@
 						, MEM_CVS_NAME
 						, MEM_CVS_TEL
 						, MEM_INTRO
-						, MEM_X
-						, MEM_Y
+						, TO_CHAR(MEM_X) MEM_X
+						, TO_CHAR(MEM_Y) MEM_Y
 					 FROM MEMBER
 				    WHERE 1=1
 				    	AND MEM_KIND = '01'
