@@ -3,6 +3,7 @@ package kr.or.ddit.prod.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 
 
@@ -135,4 +136,40 @@ public interface ProdDaoInf {
 	 * Method 설명 : 해당 검색어를 포함한 상품 리스트를 검색하는 메서드
 	 */
 	List<ProdVo> getSearchProdList(String searchWord);
+	
+	/**
+	 * 
+	 * Method   : getCtgyProdList 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param map (page, pageSize, pr_class 종류, ctgy_id)
+	 * @return 
+	 * Method 설명 : 카테고리별 상품 목록 조회
+	 */
+	List<ProdVo> getCtgyProdList(Map<String, Object> map);
+	
+	/**
+	 * 
+	 * Method   : getCtgyProdCount 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param map (pr_class 종류, ctgy_id)
+	 * @return integer
+	 * Method 설명 : 카테고리별 상품 갯수
+	 */
+	int getCtgyProdCount(Map<String, String> pr_class);
+	
+	/**
+	 * 
+	 * Method   : getCtgyProdCount 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param String (카테고리 아이디)
+	 * @return CategoryVo
+	 * Method 설명 : 카테고리 조회
+	 */
+	CategoryVo getCtgy(String ctgy_id);
 }
