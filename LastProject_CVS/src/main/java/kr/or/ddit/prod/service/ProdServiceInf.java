@@ -1,7 +1,9 @@
 package kr.or.ddit.prod.service;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 
 public interface ProdServiceInf {
@@ -13,6 +15,22 @@ public interface ProdServiceInf {
 	int updateProd(ProdVo prodVo);
 	
 	int deleteProd(String PROD_ID);
+	
+	/**
+	 * Method			:getCtgyProdList
+	 * Method 설명  : 카테고리별 제품 목록 조회
+	 * 
+	 * 최초 작성일 : 2018. 9. 03.
+	 * 작성자 : 김현경
+	 * 변경 이력 : 신규 
+	 * @param map (카테고리 종류, 카테고리 아이디, page, pageSize)
+	 * @return List<ProdVo> (조건에 맞는 제품들)
+	 */
+	Map<String, Object> getCtgyProdList(Map<String, Object> map);
+	
+	CategoryVo getCtgy(String ctgy_id);
+	
+	
 	
 	/**
 	 * 
