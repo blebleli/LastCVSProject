@@ -320,8 +320,6 @@ function searchList(pageNo){
 								<td>
 									${vo.mem_cvs_name}/
 									${vo.mem_cvs_tel}<br>
-									${vo.mem_x}<br>
-									${vo.mem_y}<br>
 								</td>
 								<td>
 									${vo.mem_addr}<br>
