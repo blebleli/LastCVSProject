@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 
 
@@ -18,6 +18,7 @@
 				  </button>
 			   </div> 
 			   <!-- Collect the nav links, forms, and other content for toggling -->
+
 				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 					<ul class="nav navbar-nav nav_1">
 						<li><a href="products.html">간편식사</a></li>
@@ -63,6 +64,7 @@
 					</ul>
 				</div>
 			</section>
+			
 			<!-- flexSlider -->
 				<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen" property="" />
 				<script defer src="/js/jquery.flexslider.js"></script>
@@ -77,6 +79,7 @@
 				});
 			  </script>
 			<!-- //flexSlider -->
+			
 		</div>
 		<div class="clearfix"></div>
 	</div>
