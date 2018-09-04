@@ -15,8 +15,8 @@ public class MemberVo {
 	private String mem_cvs_name;                               // 편의점명
 	private String mem_cvs_tel;                               // 편의점연락처
 	private String mem_intro;                               // 소개
-	private int mem_x;                               // 좌표_x
-	private int mem_y;                               // 좌표_y
+	private String mem_x;                               // 좌표_x
+	private String mem_y;                               // 좌표_y
 	public MemberVo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -24,7 +24,7 @@ public class MemberVo {
 	public MemberVo(String mem_id, String mem_pw, String mem_kind,
 			String mem_name, String mem_tel, String mem_birth, String mem_gen,
 			int mem_zip, String mem_add, String mem_addr, String mem_cvs_name,
-			String mem_cvs_tel, String mem_intro, int mem_x, int mem_y) {
+			String mem_cvs_tel, String mem_intro, String mem_x, String mem_y) {
 		super();
 		this.mem_id = mem_id;
 		this.mem_pw = mem_pw;
@@ -120,16 +120,16 @@ public class MemberVo {
 	public void setMem_intro(String mem_intro) {
 		this.mem_intro = mem_intro;
 	}
-	public int getMem_x() {
+	public String getMem_x() {
 		return mem_x;
 	}
-	public void setMem_x(int mem_x) {
+	public void setMem_x(String mem_x) {
 		this.mem_x = mem_x;
 	}
-	public int getMem_y() {
+	public String getMem_y() {
 		return mem_y;
 	}
-	public void setMem_y(int mem_y) {
+	public void setMem_y(String mem_y) {
 		this.mem_y = mem_y;
 	}
 	@Override
