@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 
 @Repository("prodDao")
@@ -56,6 +57,22 @@ public class ProdDao implements ProdDaoInf {
 	public List<ProdVo> getListProdEvent(String event_id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public List<ProdVo> getCtgyProdList(Map<String, Object> map) {
+		List<ProdVo> ctgyProdList = session.selectList("prod.getCtgyProdList", map);
+		return ctgyProdList;
+	}
+
+	@Override
+	public int getCtgyProdCount(Map<String, String> pr_class) {
+		return session.selectOne("prod.getCtgyProdCount", pr_class);
+	}
+
+	@Override
+	public CategoryVo getCtgy(String ctgy_id) {
+		return session.selectOne("category.getCtgy", ctgy_id);
 	}
 
 	/**
