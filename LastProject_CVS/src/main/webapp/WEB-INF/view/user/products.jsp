@@ -4,17 +4,58 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 <script>
+$(function(){
+	
+	$("#prodImage").on("click", function(){
+		$("#detailFrm").submit();
+		console.log(prod_id);
+	});
+	
+	$("#nextPage").on("click", function(){
+		var pageIndex = $("#index").val();
+		pageIndex++;
+		var level = $("#level").val;
+		var ctgy_id = $("#ctgy_id").val;
+// 		var data ={};
+// 		pageIndex++;
+// 		data["page"]=pageIndex;
+// 		data["pageSize"]=32;
+// 		data["level"]=$("#level").val;
+// 		data["pr_class_id"]=$("#ctgy_id").val;
+		$.ajax({
+			url :"nextList",
+			method :"post",
+			contentType :"application/json; charset=UTF-8",
+// 			dataType : "json",
+// 			data : JSON.stringify(data),
+			data : {"page" : pageIndex, "pageSize" : 32, "level" : $("#level").val, "pr_class_id" : $("#ctgy_id").val },
+			success : function(responseData){
+				$("#nextPage").remove();
+				console.log(responseData);
+//	 			$(".col-md-3 w3ls_w3l_banner_left").append(responseData);
+				
+				
+			}
+		});
+	});
+});
 
 
 function nextList(){
+	var data ={};
 	var pageIndex = $("#index").val();
 	pageIndex++;
-	var levelStr = $("#level").val;
-	var id = $("#ctgy_id").val;
+	data["page"]=pageIndex;
+	data["pageSize"]=32;
+	data["level"]=$("#level").val;
+	data["ctgy_id"]=$("#ctgy_id").val;
 	$.ajax({
 		url :"/userProd/nextList",
-		type :"get",
-		data : {"page" : pageIndex, "pageSize" : 32 , "level" : "${level}", "ctgy_id" : "${ctgy_id}" },
+		method :"get",
+		contentType : "application/json; charset=utf-8",
+		data : JSON.stringify({"page" : pageIndex, "pageSize" : 32 , "level" : "${level}", "ctgy_id" : "${ctgy_id}" }),
+// 		data : JSON.stringify(data),
+		dataType : "json",
 		success : function(responseData){
 			$("#nextPage").remove();
 			console.log(responseData);
@@ -55,6 +96,56 @@ function nextList(){
 			<br>
 			<div class="w3ls_w3l_banner_nav_right_grid">
 				<h3>${category.ctgy_name}</h3>
+				<form action="#">
+				<div class="services">
+					<div class="w3ls_service_grids">
+						<div class="col-md-15 w3ls_service_grid_left">
+							<h4>상품 검색</h4>
+							<table summary="CU 매장 검색">
+<%-- 								<caption></caption> --%>
+								<colgroup>
+									<col style="width:17%;" />
+									<col style="width:69%;" />
+									<col style="width:14%;" />
+								</colgroup>
+								<tbody>
+									<tr>
+										<th scope="row">가격대 검색</th>
+										<td>										
+											<div>
+												<input type="radio" style="width:5%">1500원 이하 &nbsp;&nbsp;&nbsp;
+												<input type="radio" style="width:5%;" >1500원 ~ 3000원  &nbsp;&nbsp;&nbsp;
+												<input type="radio" style="width:5%;">5000원 이상  &nbsp;&nbsp;&nbsp;
+												
+												<input type="text" name="priceText1" style="width:7%">&nbsp;~&nbsp; <input type="text" name="priceText2" style="width:7%">
+											
+											<button type="submit" name="psBtn" class="btn btn-primary">검색</button>																																		
+											<button type="button" class="btn btn-default">초기화</button>		
+											</div>
+										</td>										
+									</tr>
+									<tr>
+										<th scope="row"><label for="store_name">검색</label></th>
+										<td >
+											<div class="form-row">
+											
+      												<form action="#" method="get">
+<!--     		  											<span class="input-group-btn"> -->
+			   												<input type="text" class="form-control" name="searchProd"  placeholder="Search for..." style="width:90%">
+<!-- 		      												<button class="btn btn-default" type="submit">Go!</button> -->
+<!-- 	      												</span> -->
+      												</form>
+   											</div>								
+
+												
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>	
+				</div>
+				</form>
 				<div class="w3ls_w3l_banner_nav_right_grid1">
 					<c:forEach items="${ctgyProdList }" var="prod">
 					
@@ -68,7 +159,7 @@ function nextList(){
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
-												<a href="/userProd/detail" id="prodImage"><img src="/images/5.png" alt=" " class="img-responsive" /></a>
+												<a href="/userProd/detail?prod_id=${prod.prod_id }" id="prodImage"><img src="/images/5.png" alt=" " class="img-responsive" /></a>
 												<p>${prod.prod_name }</p>
 												<h4>${prod.prod_price }</h4>
 											</div>
@@ -87,11 +178,11 @@ function nextList(){
 							</div>
 						</div>
 					</c:forEach>
-					<form action="/userProd/nextList" method="post" id="nextFrm" >
+					<form  id="nextFrm" >
 						<input type="hidden" id="index" value="1">
 						<input type="hidden" id="level" value="${level }">
 						<input type="hidden" id="ctgy_id" value="${ctgy_id }">
-						<input type="button" id="nextPage" value="더보기" onclick="nextList()">
+						<input type="button" id="nextPage" value="더보기">
 					</form>
 					
 					
