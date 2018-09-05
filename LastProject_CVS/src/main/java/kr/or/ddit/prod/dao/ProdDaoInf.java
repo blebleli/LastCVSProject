@@ -114,13 +114,13 @@ public interface ProdDaoInf {
 	 * Method 설명  :  제품 검색 기능 (조건 : 행사제품코드)
 	 *                            행사제품코드 : 일반 : 200, 1+1 : 201 , 2+1 : 202 , 증정 : 203 , 할인 : 204
 	 * 최초작성일    : 2018. 8. 29.
-	 * 작성자           : 조종원
+	 * 작성자           : 조종원 , 김현경
 	 * 변경이력       : 신규
-	 *조회              : List<ProdVo> getListProdEvent(String event_id)_제품 검색 기능 (조건 : 행사제품코드)
+	 *조회              : List<ProdVo> getListProdEvent(Map<String, Object>)_제품 검색 기능 (조건 : 행사제품코드, page, pageSize)
 	 * @param event_id
 	 * @return  List<ProdVo>(조건에 맞는 제품들)
 	 */
-	List<ProdVo> getListProdEvent(String event_id);
+	List<ProdVo> getListProdEvent(Map<String, Object> map);
 	
 	
 	// 조회================================================================
@@ -185,4 +185,56 @@ public interface ProdDaoInf {
 	 * Method 설명 : 제품Id로 제품 조회
 	 */
 	ProdVo getProd(String prod_id);
+	
+	/**
+	 * 
+	 * Method	: getAllProd
+	 * 최초작성일 : 2018. 9. 5.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * 
+	 * @param map(조건 : page, pageSize=32)
+	 * @return
+	 * Method 설명 : 전체 상품 조회
+	 */
+	List<ProdVo> getAllProd(Map<String, Object> map);
+	
+	/**
+	 * 
+	 * Method	: getAllEventProd
+	 * 최초작성일 : 2018. 9. 5.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * 
+	 * @param map(조건 : page, pageSize=32)
+	 * @return
+	 * Method 설명 : 전체 행사 상품 조회
+	 */
+	List<ProdVo> getAllEventProd(Map<String, Object> map);
+	
+	/**
+	 * 
+	 * Method	: getEventCtgyProd
+	 * 최초작성일 : 2018. 9. 5.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * 
+	 * @param map(조건 : page, pageSize=32, event 종류, 카테고리 종류, 카테고리 아이디)
+	 * @return
+	 * Method 설명 : 전체 행사 상품 조회
+	 */
+	List<ProdVo> getEventCtgyProd(Map<String, Object> map);
+	
+	/**
+	 * 
+	 * Method	: searchProd
+	 * 최초작성일 : 2018. 9. 5.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * 
+	 * @param map(조건 : page, pageSize=32, 최소금액, 최대금액, 상품명)
+	 * @return
+	 * Method 설명 : 상품조회에서 상품 검색
+	 */
+	List<ProdVo> searchProd(Map<String, Object> map);
 }
