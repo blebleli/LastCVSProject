@@ -26,7 +26,7 @@
 		<put-attribute name="content" value="/WEB-INF/view/login/userJoin.jsp" />
 	</definition>
    
-    <!-- 편의점 검색 -->
+	<!--조계환 편의점 검색 메인 화면  -->
 	<definition name="cvsSearch" extends="userLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/cvsSearch.jsp" />
 	</definition>
@@ -36,6 +36,20 @@
 	<put-attribute name="content" value="/WEB-INF/view/user/prodSearch.jsp" />
 	</definition>
 	
+	<!--조계환 공지사항 게시판 메인 화면 -->
+	<definition name="boardList" extends="userLayout">
+	<put-attribute name="content" value="/WEB-INF/view/user/board/board.jsp" />
+	</definition>
+	
+	<!--조계환 공지사항 게시물 작성 화면 -->
+	<definition name="newNoticePost" extends="userLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/board/newNoticePost.jsp" />
+	</definition>
+	
+	<!--조계환 공지사항 게시물 상세보기 화면 -->
+	<definition name="viewPost" extends="userLayout">
+	<put-attribute name="content" value="/WEB-INF/view/user/board/viewPost.jsp" />
+	</definition>
 	<!-- best 상품 -->
 	<definition name="bestProducts" extends="userLayout">
 		<put-attribute name="left" value="/WEB-INF/view/common/user/leftNavbar.jsp" />
