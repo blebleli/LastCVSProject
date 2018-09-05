@@ -91,6 +91,11 @@ public class ProdDao implements ProdDaoInf {
 	
 	}
 
+	@Override
+	public ProdVo getProd(String prod_id) {
+		return session.selectOne("prod.getProd", prod_id);
+	}
+
 
 	
 }
