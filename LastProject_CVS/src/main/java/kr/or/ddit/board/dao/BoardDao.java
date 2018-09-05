@@ -1,9 +1,13 @@
 package kr.or.ddit.board.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 
@@ -58,6 +62,35 @@ public class BoardDao implements BoardDaoInf {
 	public List<BoardVo> getListBoard() {
 		return template.selectList("board.getListBoard");
 	}
+	
+	/**
+	* Method : getBoardPageList
+	* Method 설명 :공지사항 게시판 페이징 처리
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param map
+	* @return
+	*/
+	@Override
+	public List<BoardVo> getBoardPageList(Map<String, Integer> map) {
+		return template.selectList("board.getBoardPageList",map);
+	}
+	
+	/**
+	* Method : getBoardListTotCnt
+	* Method 설명 :전체 공지사항 게시글 카운트
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @return
+	*/
+	@Override
+	public int getBoardListTotCnt() {
+		return template.selectOne("board.getWriteTotCnt");
+	}
 
 	@Override
 	public int updateBoard(BoardVo boardVo) {
@@ -77,10 +110,19 @@ public class BoardDao implements BoardDaoInf {
 		return null;
 	}
 
+	/**
+	* Method : getBoard
+	* Method 설명 :공지사항 게시글 상세보기에 필요한 메서드 원하는 게시물의 정보를 객체로 가져온다
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param bd_id
+	* @return
+	*/
 	@Override
 	public BoardVo getBoard(String bd_id) {
-		// TODO Auto-generated method stub
-		return null;
+		return template.selectOne("board.getBoard", bd_id);
 	}
 
 	@Override
@@ -106,5 +148,7 @@ public class BoardDao implements BoardDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 }
