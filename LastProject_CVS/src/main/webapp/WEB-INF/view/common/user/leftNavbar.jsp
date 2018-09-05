@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- banner ê³µíµ ëë ë¹ ê³µíµ ë¶ë¶-->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	
+
 		<div class="w3l_banner_nav_left"> 
 		<nav class="navbar nav_bottom">
 			 <!-- Brand and toggle get grouped for better mobile display -->
@@ -48,6 +48,6 @@
 			</nav>
 		</div>		
 						
-						
+					
 		
 		
