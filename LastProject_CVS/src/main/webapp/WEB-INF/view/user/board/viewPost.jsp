@@ -116,7 +116,10 @@
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<tbody>
-
+								<tr>
+									<td>조회수</td>
+									<td>${post.bd_views}</td>
+								</tr>
 								<tr>
 									<td>제목</td>
 									<td>${post.bd_title}</td>
@@ -127,18 +130,22 @@
 									<td>${post.bd_content}</td>
 								</tr>
 
-
-							</tbody>
 								<tr>
-									<td>
-										<form action="/board/newComment" method="post">
-											<input type="text" size="10" id="CM_CONTENT" name="CM_CONTENT"> 
-											<input type="hidden" name="REPLY_WRITER" value=""> 
-											<input type="hidden" name="POSTS_NO" value=""> 
-											<input type="submit" id="commentButton" class="btn btn-default" value="댓글 저장">
-										</form>
-									</td>
+									<td>댓글</td>
+									<c:forEach items="${commentsList}" var="vo">
+										<td>${vo.CM_CONTENT}</td>
+									</c:forEach>
 								</tr>
+							</tbody>
+							<tr>
+								<td>
+									<form action="/board/newComment" method="post">
+										<input type="text" size="100" id="cm_content"
+											name="cm_content"> <input type="submit"
+											id="commentButton" class="btn btn-default" value="댓글 저장">
+									</form>
+								</td>
+							</tr>
 						</table>
 					</div>
 				</div>

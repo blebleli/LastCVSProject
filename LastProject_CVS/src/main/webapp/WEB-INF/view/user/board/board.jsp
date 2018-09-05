@@ -144,7 +144,6 @@
 							</thead>
 							<tbody>
 								<c:forEach items="${boardList}" var="vo">
-
 									<c:if test="${vo.bd_del=='N'}">
 										<tr data-no="${vo.bd_id}" id="click">
 											<td>${vo.bd_id}</td>
