@@ -35,7 +35,7 @@
 	<definition name="prodSearch" extends="userLayout">
 	<put-attribute name="content" value="/WEB-INF/view/user/prodSearch.jsp" />
 	</definition>
-	
+			
 	<!--조계환 공지사항 게시판 메인 화면 -->
 	<definition name="boardList" extends="userLayout">
 	<put-attribute name="content" value="/WEB-INF/view/user/board/board.jsp" />
@@ -50,10 +50,16 @@
 	<definition name="viewPost" extends="userLayout">
 	<put-attribute name="content" value="/WEB-INF/view/user/board/viewPost.jsp" />
 	</definition>
+	
 	<!-- best 상품 -->
 	<definition name="bestProducts" extends="userLayout">
-		<put-attribute name="left" value="/WEB-INF/view/common/user/leftNavbar.jsp" />
+		<put-attribute name="left"    value="/WEB-INF/view/common/user/leftNavbar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/view/user/products.jsp" />
+	</definition>
+	
+	<!-- 상품상세 -->
+	<definition name="prodDetail" extends="userLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/productDetail.jsp" />
 	</definition>
 	
 	<!-- 마이페이지 -->
