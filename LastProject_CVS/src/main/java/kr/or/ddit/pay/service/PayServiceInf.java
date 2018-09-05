@@ -54,5 +54,15 @@ public interface PayServiceInf {
 	*/
 	int deletePay(String pay_id);
 
+	/**
+	 * 
+	 * Method   : getListMyPay 
+	 * 최초작성일  : 2018. 9. 5. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @return 
+	 * Method 설명 : userId로 결제내역 조회
+	 */
+	List<PayVo> getListMyPay(String mem_id);
 
 }

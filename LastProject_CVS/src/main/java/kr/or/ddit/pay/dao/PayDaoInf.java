@@ -49,7 +49,8 @@ public interface PayDaoInf {
 	* Method 설명 :결제 내역 리스트 출력 기능
 	* 최초작성일 : 2018. 8. 31.
 	* 작성자 : 조계환
-	* 변경이력 :신규
+	* 변경이력 :신규		
+	* 
 	* 조 회 :List<PayVo> getListPay()_결제 내역 리스트 출력 기능
 	* @return
 	*/
@@ -78,5 +79,16 @@ public interface PayDaoInf {
 	* @return
 	*/
 	int deletePay(String pay_id);
+	
+	/**
+	 * 
+	 * Method   : getListMyPay 
+	 * 최초작성일  : 2018. 9. 5. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @return 
+	 * Method 설명 : userId로 결제내역 조회
+	 */
+	List<PayVo> getListMyPay(String mem_id);
 
 }
