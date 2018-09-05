@@ -109,13 +109,37 @@ public class ProdService implements ProdServiceInf {
 	 */
 	@Override
 	public List<ProdVo> getSearchProdList(String searchWord) {
-		// TODO Auto-generated method stub
 		return prodDao.getSearchProdList(searchWord);
 	}
 
 	@Override
 	public ProdVo getProd(String prod_id) {
 		return prodDao.getProd(prod_id);
+	}
+
+	@Override
+	public List<ProdVo> getAllProd(Map<String, Object> map) {
+		return prodDao.getAllProd(map);
+	}
+
+	@Override
+	public List<ProdVo> getAllEventProd(Map<String, Object> map) {
+		return prodDao.getAllEventProd(map);
+	}
+
+	@Override
+	public List<ProdVo> getListProdEvent(Map<String, Object> map) {
+		return prodDao.getListProdEvent(map);
+	}
+
+	@Override
+	public List<ProdVo> getEventCtgyProd(Map<String, Object> map) {
+		return prodDao.getEventCtgyProd(map);
+	}
+
+	@Override
+	public List<ProdVo> searchProd(Map<String, Object> map) {
+		return prodDao.searchProd(map);
 	}
 
 }
