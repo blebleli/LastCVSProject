@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -109,30 +108,4 @@
 		</div>
 	</div>
 </div>
-
-
-<!-- script-for sticky-nav -->
-<script>
-	$(document).ready(function() {
-		var navoffeset = $(".agileits_header").offset().top;
-		
-		$(window).scroll(function() {
-			var scrollpos = $(window).scrollTop();
-			if (scrollpos >= navoffeset) {
-				$(".agileits_header").addClass("fixed");
-			} else {
-				$(".agileits_header").removeClass("fixed");
-			}
-		});
-
-	});	
-	
-   $("#collapseDiv").hover(function(){
-	   $('#collapseThree').collapse('show');
-   },function(){
-	   $('#collapseThree').collapse('hide');
-   }); 
-
-</script>
-<!-- //header 공통부분 -->
 

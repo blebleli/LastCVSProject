@@ -8,13 +8,25 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
+<!-- 달력  -->
+<link rel="stylesheet" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
 <style type="text/css">
 	div.field {width:850px;}
 </style>
 
+<!-- 달력 -->
+<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
+<script src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
+
 <script type="text/javascript">
+
+var contextPath = "${pageContext.request.contextPath}";
+
 $(document).ready(function() {
 
+	// 달력
+	$("#mem_birth").calendar();
+	
 	// 이메일 인증 결과 Message
 	if("${resultMessage}" != null && "${resultMessage}" != "") {
 		alert("${resultMessage}");
@@ -69,7 +81,7 @@ $(document).ready(function() {
 	// 사용자 저장
 	$("#btnRegist").on("click", function() {
 		
-		var isSuccess = false;
+		var isSuccess = true;
 		
 		// 중복체크 확인
 		if($("#chkMemId").val() == '') {
@@ -121,6 +133,20 @@ $(document).ready(function() {
 			$("#mem_tel").focus();
 			isSuccess = false;
 		}
+
+		// 우편번호
+		if($("#mem_zip").val() == '') {
+			fn_errMessage($("#mem_zip"), "우편번호는 필수 입력사항입니다.");
+			$("#mem_zip").focus();
+			isSuccess = false;
+		}
+		
+		// 상세주소
+		if($("#mem_addr").val() == '') {
+			fn_errMessage($("#mem_addr"), "상세주소는 필수 입력사항입니다.");
+			$("#mem_addr").focus();
+			isSuccess = false;
+		}
 		
 		if(!isSuccess) {
 			return false;
@@ -129,6 +155,9 @@ $(document).ready(function() {
 		if(!confirm("저장하시겠습니까?")) {
 			return false;
 		}
+		
+		// 날짜에서 '-' 제거
+		$("#mem_birth").val($("#mem_birth").val().replace(/-/gi, ''));
 		
 		$.ajax({
             type : "POST",
@@ -142,6 +171,9 @@ $(document).ready(function() {
             	else {
             		alert("사용자 등록이 실패하였습니다.")
             	}
+            	
+            	// 날짜형식 복원
+            	$( "#mem_birth" ).datepicker({ dateFormat: 'yy-mm-dd' });
             },
             error: function(request, status, error) {
                 alert(error);
@@ -208,6 +240,54 @@ $(document).ready(function() {
 		fn_errMessage($(this), "");
 	});
 	
+	/** 
+	 *	daum 주소검색 api
+	 */
+	 $("#btnOpenSearchZip").on("click", function() {
+
+		    new daum.Postcode({
+		        oncomplete: function(data) {
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+
+		        	 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var fullAddr = ''; // 최종 주소 변수
+	                var extraAddr = ''; // 조합형 주소 변수
+
+	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    fullAddr = data.roadAddress;
+
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    fullAddr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    //법정동명이 있을 경우 추가한다.
+	                    if(data.bname !== ''){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있을 경우 추가한다.
+	                    if(data.buildingName !== ''){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('mem_zip').value = data.zonecode; //5자리 새우편번호 사용
+	                document.getElementById('mem_add').value = fullAddr;
+
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById('mem_addr').focus();
+		        }
+		    }).open(); 
+	 });
+	
+	
 });
 
 /**
@@ -223,6 +303,12 @@ function fn_errMessage(_obj, _text) {
 	_obj.closest("div.field").find(".msg_wrap").find(".error_txt").text(_text);
 }
 </script>
+
+<!-- 인증결과 Attribute 삭제 -->
+<c:remove var="resultMessage" scope="page" />
+
+<!-- 주소검색 -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <div id="wrap">
 
@@ -250,7 +336,7 @@ function fn_errMessage(_obj, _text) {
 									<legend>항목입력</legend>
 									<div class="field">
 										<span class="label">이메일 아이디 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
-										<div class="insert">
+										<div>
 											<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 											<button id="btnDuplicateMemId" type="button" class="btn small normal"><span>중복체크</span></button>
@@ -259,21 +345,21 @@ function fn_errMessage(_obj, _text) {
 									</div>
 									<div class="field">
 										<label for="mem_pw" class="label">비밀번호 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-										<div class="insert">
+										<div>
 											<input type="password" id="mem_pw" name="mem_pw" title="비밀번호 입력" value="" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
 										<label for="mem_pw_confirm" class="label">비밀번호확인 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-										<div class="insert">
+										<div>
 											<input type="password" id="mem_pw_confirm" title="비밀번호 재입력" value="" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
 										<label for="mem_kind" class="label">사용자유형 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-										<div class="insert">
+										<div>
 											<input type="radio" id="mem_kind" name="mem_kind" title="사용자 유형" value="02" class="input_text small" readonly="readonly" checked="checked" />
 											<label for="mem_kind" class="label">일반사용자</label>
 											<span id="chk_mbr_nm_msg" class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
@@ -281,14 +367,14 @@ function fn_errMessage(_obj, _text) {
 									</div>
 									<div class="field">
 										<label for="mem_name" class="label">이름 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-										<div class="insert">
+										<div>
 											<input type="text" id="mem_name" name="mem_name" title="이름 입력" value="" class="input_text small" style="width:234px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
 										<label for="mem_birth" class="label">성별<img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-										<div class="insert">
+										<div>
 											<select id="mem_gen" name="mem_gen" class="select small" style="width:86px">
 												<option value="">선택</option>
 												<option value="1">남자</option>
@@ -299,7 +385,7 @@ function fn_errMessage(_obj, _text) {
 									</div>
 									<div class="field">
 										<label for="mem_tel" class="label">휴대폰 번호 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-										<div class="insert">
+										<div>
 											<div>
 												<select id="mem_tel_1" title="휴대폰 첫자리 선택" class="select small" style="width:86px">
 													<option value="010" selected="selected">010</option>
@@ -316,61 +402,25 @@ function fn_errMessage(_obj, _text) {
 												<span id="errorTxtCnts" class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 												<input type="hidden" id="mem_tel" name="mem_tel" value="" />
 											</div>
-											<!-- 
-											<div id="errorTxtOtp" style="display:none" class="msg_wrap">
-											    <div class="error_txt medium warning">이미 다른 아이디에 등록된 휴대폰번호입니다.<br>점유인증을 하시면, 기존에 인증한 아이디의 휴대폰번호는 초기화됩니다.</div>
-											</div>
-											<div id="otpNoWrap" class="phone_auth_code" style="display:none">
-											    <input id="otpNo" name="otpNo" type="text" title="인증번호 입력" placeholder="인증번호 입력" class="input_text small" style="width:110px" />
-											    <a href="javascript:reqOtp();" class="btn txt_btn">재발송</a>
-											    <a href="javascript:initOtp();" class="btn small normal slightest"><span>취소</span></a>
-											    <a href="javascript:otpCert.chkOtp();" class="btn small normal"><span>확인</span></a>
-											    <em id="remainTime" class="auth_code_noti"></em>
-											</div>
-											 -->
 										</div>
-										<!-- 
-										<input type="hidden" id="mbrCntsMobileDto.cntsTypeCd" name="mbrCntsMobileDto.cntsTypeCd" value="20">
-										<input type="hidden" id="token" name="token">
-										<input type="hidden" id="phonenum" name="phonenum">
-										<input type="hidden" id="cntsCertYn" name="mbrCntsMobileDto.cntsCertYn">
-										 -->
 									</div>
 									<div class="field">
 										<label for="mem_birth" class="label">생년월일 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
-										<div class="insert">
-											<input type="text" id="mem_birth" name="mem_birth" title="이름 입력" value="19870903" class="input_text small" style="width:234px" />
+										<div>
+											<input type="text" id="mem_birth" name="mem_birth" title="이름 입력" value="" class="input_text small" style="width:234px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
 										<label for="zipcd" class="label">주소</label>
-										<div class="insert">
-											<input type="hidden" id="zipcdSeq" name="zipcdSeq" value="">
-											<input type="hidden" id="oldZipcd" name="oldZipcd" value="">
-											<input type="hidden" id="roadNmBascAddr" name="roadNmBascAddr" value="">
-											<input type="hidden" id="roadNmDtlAddr" name="roadNmDtlAddr" value="">
-											<input type="hidden" id="lotnoBascAddr" name="lotnoBascAddr" value="">
-											<input type="hidden" id="lotnoDtlAddr" name="lotnoDtlAddr" value="">
-											<input type="hidden" id="mbrIptAddrTypeCd" name="mbrIptAddrTypeCd" value="">
-											<input type="hidden" id="mbrIptAddr" name="mbrIptAddr" value="">
-											<input type="hidden" id="addrExamRstCd" name="addrExamRstCd" value="">
-											<input type="hidden" id="searchZipcdYn" value="N">
-											
-											
-											<input type="hidden" name="mem_add" value="테스트주소1">
-											<input type="hidden" name="mem_addr" value="테스트주소2">
-											
+										<div>
 											<div>
-												<input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="12345" class="input_text small searchZipCdHomeClick" style="width:110px" readonly="readonly" />
-												<a href="javascript:void(0);" id="searchZipCdHomeBtn" class="btn small normal searchZipCdHomeClick" title="새창열림"><span>우편번호찾기</span></a>
+												<input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="" class="input_text small" style="width:60px" readonly="readonly" />
+												<a href="javascript:void(0);" id="btnOpenSearchZip" class="btn txt small" title="새창열림"><span>우편번호찾기</span></a>
+												<input type="text" id="mem_add" name="mem_add" title="기본주소" value="" class="input_text small" style="width:440px" readonly="readonly" />
+												<br />
+												<input type="text" id="mem_addr" name="mem_addr" title="상세주소" value="" class="input_text small" style="width:600px;" />
 											</div>
-											<div class="addr_info" style="display:none">
-			                                	<strong class="info_tit">도로명</strong>
-			                                	<span id="roadNmAddr" name="roadNmAddr" class="info_cont"></span>
-			                                    <strong class="info_tit">지번</strong>
-			                                    <span id="lotnoAddr" name="lotnoAddr" class="info_cont"></span>
-			                                </div>
 			                                <div id="errorTxtAddr" class="msg_wrap">
 												<div class="error_txt medium"></div>
 											</div>
