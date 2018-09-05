@@ -1,5 +1,6 @@
 package kr.or.ddit.prod.web.userProd;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/userProd")
 @SessionAttributes({"category", "prodCtgy"})
 public class UserProdController {
+	private Logger logger = LoggerFactory.getLogger(UserProdController.class);
 	
 	@Resource(name="commonService")
 	private CommonsServiceInf comService;
@@ -40,7 +44,19 @@ public class UserProdController {
 	}
 
 	@RequestMapping("/view")
-	public String view(Model model){
+	public String view(@RequestParam(value="i")String i,@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="32")int pageSize, Model model){
+		model.addAttribute("i",i );
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		if(i.equals("1")||i.equals("2")){
+			
+			List<ProdVo> allProdList = prodService.getAllProd(paramMap);
+			model.addAttribute("ctgyProdList", allProdList);
+		}else{
+			List<ProdVo> EventAllList = prodService.getAllEventProd(paramMap);
+			model.addAttribute("ctgyProdList", EventAllList);
+		}
 		return "bestProducts";
 	}
 	
@@ -52,31 +68,36 @@ public class UserProdController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/nextList", method=RequestMethod.POST )
+	@RequestMapping(value="/nextList", method=RequestMethod.GET )
 	@ResponseBody
-	public Map<String, Object> bestCtgyProdList(@RequestBody int page, @RequestBody int pageSize, @RequestBody String level, @RequestBody String pr_class_id, Model model){
+	public List<ProdVo> bestCtgyProdList(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="32")int pageSize,@RequestParam(value="level")String level, @RequestParam(value="pr_class_id")String pr_class_id, @RequestParam(value="i")String i, Model model){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<String, Object>();
+		List<ProdVo> ctgyProdList = new ArrayList<ProdVo>();
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
 		String pr_class = "";
-		
-//		String level = (String) requestMap.get("level");
-		if(level.equals("lg")){
-			pr_class="pr_class_lg"; 
+		if(i.equals("")){
+			if(level.equals("lg")){
+				pr_class="pr_class_lg"; 
+			}else{
+				pr_class="pr_class_md";
+			}
+			paramMap.put("pr_class", pr_class);
+			paramMap.put("pr_class_id", pr_class_id);
+			
+			CategoryVo category = prodService.getCtgy(pr_class_id);
+			model.addAttribute("category", category);
+			
+			result = prodService.getCtgyProdList(paramMap);
+			ctgyProdList = (List<ProdVo>) result.get("ctgyProdList");
+			
 		}else{
-			pr_class="pr_class_md";
+			
+			ctgyProdList = prodService.getAllProd(paramMap);
 		}
-//		requestMap.put("pr_class", pr_class);
-		paramMap.put("pr_class", pr_class);
-		paramMap.put("pr_class_id", pr_class_id);
 		
-//		CategoryVo category = prodService.getCtgy((String)requestMap.get("pr_class_id"));
-		CategoryVo category = prodService.getCtgy(pr_class_id);
-		model.addAttribute("category", category);
-		
-		Map<String, Object> result = prodService.getCtgyProdList(paramMap);
-		
-		return result;
+		return ctgyProdList;
 	}
 	
 	@RequestMapping("/bestList")
@@ -96,20 +117,33 @@ public class UserProdController {
 		paramMap.put("pr_class_id", ctgy_id);
 		
 		CategoryVo category = prodService.getCtgy(ctgy_id);
-		model.addAttribute("category", category);
+//		model.addAttribute("category", category);
 		
 		Map<String, Object> result = prodService.getCtgyProdList(paramMap);
 		mav.addObject("ctgyProdList", result.get("ctgyProdList"));
 		mav.addObject("pagination", result.get("pagination"));
-		mav.addObject("level", level);
+		mav.addObject("ctgylevel", level);
 		mav.addObject("ctgy_id", ctgy_id);
+//		mav.addObject("category", category);
 		mav.setViewName("bestProducts");
 		
 		return mav;
 	}
 	
-	@RequestMapping("/userMypage")
-	public String mypageView(){
-		return "userMypage";
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	@ResponseBody
+	public List<ProdVo> searchProd(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="32")int pageSize, @RequestParam(value="min_price", defaultValue="0")String min, @RequestParam(value="max_price", defaultValue="1000000")String max, @RequestParam(value="searchfor", defaultValue="")String prodName  ){
+//		ModelAndView mav = new ModelAndView();
+		Map<String, Object>paramMap = new HashMap<String, Object>();
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("min_price", Integer.parseInt(min));
+		paramMap.put("max_price", Integer.parseInt(max));
+		paramMap.put("searchfor", prodName);
+		
+		List<ProdVo> searchList = prodService.searchProd(paramMap);
+//		mav.setViewName("bestProducts");
+//		mav.addObject("ctgyProdList", searchList);
+		return searchList;
 	}
 }
