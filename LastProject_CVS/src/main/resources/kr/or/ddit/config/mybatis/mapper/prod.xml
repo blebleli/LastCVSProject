@@ -27,6 +27,18 @@
 	
 </select>
 
+<!-- 제품아이디로 제품 조회 -->
+<select id = "getProd" parameterType="String" resultType="prodVo">
+	SELECT * 
+	FROM prod
+	WHERE prod_id=#{prod_id}
+</select>
+
+<select id="getEventProd" parameterType="String" resultType="prodVo">
+	SELECT * 
+		FROM prod
+		WHERE event_id=#{event_id}
+</select>
 
 
 
