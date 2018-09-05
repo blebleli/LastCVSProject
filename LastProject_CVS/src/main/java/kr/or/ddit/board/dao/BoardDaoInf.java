@@ -114,6 +114,18 @@ public interface BoardDaoInf {
 	BoardVo getBoard(String bd_id);
 	
 	/**
+	* Method : updateBoardView
+	* Method 설명 :조회수 업데이트
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param bd_id
+	* @return
+	*/
+	int updateBoardView(String bd_id);
+	
+	/**
 	* Method : setInsertComments
 	* Method 설명 :회원이 작성할 신규 댓글
 	* 최초작성일 : 2018. 8. 30.

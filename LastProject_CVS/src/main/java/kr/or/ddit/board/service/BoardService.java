@@ -90,13 +90,24 @@ public class BoardService implements BoardServiceInf {
 	*/
 	@Override
 	public BoardVo getBoard(String bd_id) {
+		
+		boardDao.updateBoardView(bd_id);
 		return boardDao.getBoard(bd_id);
 	}
 
+	/**
+	* Method : setInsertComments
+	* Method 설명 :신규 댓글 작성 
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param commentsVo
+	* @return
+	*/
 	@Override
 	public int setInsertComments(CommentsVo commentsVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boardDao.setInsertComments(commentsVo);
 	}
 
 	@Override
@@ -105,10 +116,18 @@ public class BoardService implements BoardServiceInf {
 		return 0;
 	}
 
+	/**
+	* Method : getListComments
+	* Method 설명 :댓글 리스트 출력 
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @return
+	*/
 	@Override
 	public List<CommentsVo> getListComments() {
-		// TODO Auto-generated method stub
-		return null;
+		return boardDao.getListComments();
 	}
 
 	@Override
@@ -187,6 +206,5 @@ public class BoardService implements BoardServiceInf {
 
 		return pageNaviStr.toString();
 	}
-
 
 }

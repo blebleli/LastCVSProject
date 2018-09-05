@@ -1,6 +1,7 @@
 package kr.or.ddit.board.web.adBoard;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -109,19 +110,43 @@ public class AdBoardController {
 	public String postView(@RequestParam(value="bd_id")String bd_id, Model model){
 		
 		logger.debug("{}bd_id========================",bd_id);
+		
 		//클릭한 게시글의 정보를 객체로 가져옴
 		BoardVo post = boardService.getBoard(bd_id);
 		
+		//댓글 리스트 출력
+//		List<CommentsVo> commentsList = boardService.getListComments();
+//		model.addAttribute("commentsList",commentsList);
+		
 		model.addAttribute("post",post);
 		
-		return "viewPost";
+		return "redirect:/board/view";
 	}
 	
-	@RequestMapping("/newComment")
-	public String newComment(CommentsVo commentsVo){
+	/**
+	* Method : newComment
+	* Method 설명 :신규 댓글 작성
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param commentsVo
+	* @return
+	*/
+	@RequestMapping(value="/newComment",method=RequestMethod.POST)
+	public String newComment(CommentsVo commentsVo, Model model){
 		
-		boardService.setInsertComments(commentsVo);
+		logger.debug("commentsVo.getCm_content()" + commentsVo.getCm_content());
 		
-		return "";
+		//댓글 작성에 필요한 댓글 내용을 가져옴
+		String content = commentsVo.getCm_content();
+		
+		//댓글 작성 메서드를 실행
+		int cnt = boardService.setInsertComments(commentsVo);
+		
+		//댓글 리스트 출력
+//		List<CommentsVo> commentsList = boardService.getListComments();
+//		model.addAttribute("commentsList",commentsList);
+		return "viewPost";
 	}
 }

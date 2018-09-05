@@ -124,11 +124,37 @@ public class BoardDao implements BoardDaoInf {
 	public BoardVo getBoard(String bd_id) {
 		return template.selectOne("board.getBoard", bd_id);
 	}
+	
+	/**
+	* Method : updateBoardView
+	* Method 설명 :게시물 조회수 업데이트 
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :
+	* 조 회 :
+	* @param bd_id
+	* @return
+	*/
+	@Override
+	public int updateBoardView(String bd_id) {
+		return template.update("board.updateBoardView",bd_id);
+	}
 
+	
+	/**
+	* Method : setInsertComments
+	* Method 설명 :신규 댓글 작성
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param commentsVo
+	* @return
+	
+	*/
 	@Override
 	public int setInsertComments(CommentsVo commentsVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("comments.newComments",commentsVo);
 	}
 
 	@Override
@@ -137,10 +163,18 @@ public class BoardDao implements BoardDaoInf {
 		return 0;
 	}
 
+	/**
+	* Method : getListComments
+	* Method 설명 :댓글 리스트 출력 
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @return
+	*/
 	@Override
 	public List<CommentsVo> getListComments() {
-		// TODO Auto-generated method stub
-		return null;
+		return template.selectList("comments.getListComments");
 	}
 
 	@Override
@@ -148,6 +182,7 @@ public class BoardDao implements BoardDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 	
 
