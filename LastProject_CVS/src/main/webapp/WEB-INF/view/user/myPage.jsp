@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+'<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -9,7 +10,7 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.css" rel="stylesheet">
  -->
-<!-- products-breadcrumb -->
+
 <div class="products-breadcrumb">
 	<div class="container">
 		<ul>
@@ -49,14 +50,14 @@
 			<!-- /.navbar-collapse -->
 		</nav>
 	</div>
-
+	
 	<div class="w3l_banner_nav_right">
 		<!-- about -->
 		<div class="privacy about">
 			<h3>
 				My<span>Page</span>
 			</h3>
-			<br> <br>
+			<br><br>
 			<div class="col-md-10 col-sm-7 col-xs-12 profile_details">
 				<div class="well profile_view">
 					<div class="col-md-15 col-sm-12">
@@ -88,7 +89,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6 emphasis">
 							<button type="button" class="btn btn-success btn-xs">
-								2180 P <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
+								${shipVo.memship_point} <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
 							</button>
 							<button type="button" class="btn btn-primary btn-xs">
 								<i class="fa fa-user"> </i> 사용내역
@@ -131,18 +132,18 @@
 									</div>
 									<div class="x_content">							
 											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12">이름
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" >이름
 													: </label>
 												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" class="form-control" readonly="readonly"
+													<input type="text" class="form-control" readonly
 														placeholder="${member.mem_name}">
 												</div>
 											</div>
 											<div class="form-group">
-												<label class="control-label col-md-3 col-sm-3 col-xs-12">E-Mail
+												<label class="control-label col-md-3 col-sm-3 col-xs-12" >E-Mail
 													: </label>
 												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" class="form-control" readonly="readonly"
+													<input type="text" class="form-control" readonly
 														placeholder="${member.mem_id}">
 												</div>
 											</div>
@@ -155,10 +156,18 @@
 												</div>
 											</div>
 											<div class="form-group">
+												<label class="control-label col-md-3 col-sm-3 col-xs-12">비밀번호 확인
+													: </label>
+												<div class="col-md-9 col-sm-9 col-xs-12">
+													<input type="password" class="form-control"
+														value="passwordonetwo">
+												</div>
+											</div>
+											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12">생년
 													월일 : </label>
 												<div class="col-md-9 col-sm-9 col-xs-12">
-													<input type="text" class="form-control" readonly="readonly"
+													<input type="text" class="form-control" readonly
 														placeholder="${member.mem_birth}">
 												</div>
 											</div>

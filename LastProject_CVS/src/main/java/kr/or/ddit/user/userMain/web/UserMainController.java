@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.BookmarkVo;
+import kr.or.ddit.model.MemberShipVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.pay.service.PayServiceInf;
@@ -26,10 +27,11 @@ public class UserMainController {
 	private  PayServiceInf payService;
 	
 	@RequestMapping("/test")	
-	 public String myPageView(String mem_id,Model model) {
+	 public String myPageView(String mem_id,String mem_pw, Model model) {
 		
 		//임시 아이디 지정
 		mem_id= "hsj";
+		mem_pw="1";
 		
 		//로그인한 회원 정보
 		MemberVo member = memberService.getMyPage(mem_id);
@@ -66,11 +68,18 @@ public class UserMainController {
 		starList.add(star1);
 		starList.add(star2);
 		starList.add(star3);
-		starList.add(star4);		
+		starList.add(star4);
+		
+		MemberShipVo shipVo = new MemberShipVo();
+		shipVo.setMemship_id("shipID");
+		shipVo.setMem_id(mem_id);
+		shipVo.setMemship_point(7777);
+		
 		
 		model.addAttribute("member", member);
 		model.addAttribute("myPayList", myPayList);
 		model.addAttribute("starList", starList);
+		model.addAttribute("shipVo", shipVo);
 
 		 return "myPage";
 	 }

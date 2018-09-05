@@ -92,12 +92,8 @@
 			 , MEM_X
 			 , MEM_Y
 		  FROM MEMBER
-		  
-	  --  WHERE MEM_ID = #{mem_id} AND MEM_PW = #{mem_pw}        -- 변경전
-	  
-	      WHERE MEM_ID = #{mem_id}
-	      AND MEM_PW = CRYPTPACK.DECRYPT(#{mem_pw},#{mem_id})	 -- 변경후 : 복호화 패키지 사용(2018-09-05-jw)
-	</select>
+		  WHERE MEM_ID = #{mem_id} 
+		</select>
 	
 	<!-- 사용자목록 페이징 조회 -->
 	<select id="getMemberPageList" parameterType="map" resultType="boardVo">  	
