@@ -9,4 +9,20 @@
 		WHERE PROD_NAME LIKE '%'||#{searchWord}||'%'
 	</select>
 	
+	<!-- 상품조회페이지내에서 검색 -->
+	<select id="searchProd" parameterType="Map" resultType="prodVo">
+	SELECT * 
+		FROM
+			(SELECT a.*,ROWNUM rn 
+				FROM
+				(SELECT prod.*
+					FROM prod
+					ORDER BY prod_name)a
+          WHERE prod_price BETWEEN #{min_price} AND #{max_price}
+          AND prod_name LIKE '%'||#{searchfor}||'%'
+          )
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+	
+	</select>
+	
 </mapper>	
