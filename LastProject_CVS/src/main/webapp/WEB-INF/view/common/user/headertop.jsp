@@ -80,9 +80,9 @@
 		<div class="panel-group" id="accordion" role="tablist"
 			aria-multiselectable="true">
 
-			<div class="panel panel-default">
+			<div id="collapseDiv" class="panel panel-default">
 
-				<div id="collapseDiv"class="panel-heading" role="tab" id="headingThree">
+				<div class="panel-heading" role="tab" id="headingThree">
 					<nav class="navbar navbar-light bg-light" data-toggle="collapse"
 						data-target="#collapseThree" aria-expanded="false"
 						aria-controls="collapseThree">
