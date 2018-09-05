@@ -92,8 +92,11 @@
 			 , MEM_X
 			 , MEM_Y
 		  FROM MEMBER
-	     WHERE MEM_ID = #{mem_id}
-	       AND MEM_PW = #{mem_pw}
+		  
+	  --  WHERE MEM_ID = #{mem_id} AND MEM_PW = #{mem_pw}        -- 변경전
+	  
+	      WHERE MEM_ID = #{mem_id}
+	      AND MEM_PW = CRYPTPACK.DECRYPT(#{mem_pw},#{mem_id})	 -- 변경후 : 복호화 패키지 사용(2018-09-05-jw)
 	</select>
 	
 	<!-- 사용자목록 페이징 조회 -->
@@ -209,7 +212,7 @@
 		        ,MEM.MEM_CVS_TEL  -- 매장번호
 		        ,MEM.MEM_INTRO    -- 매장소개
 		        ,MEM.MEM_X        -- 매장X좌표
-		        ,MEM.MEM_Y        -- 매장Y좌표
+		        ,MEM.MEM_Y        -- 매장Y좌표 				
 		        
 		        -- 제품 정보
 		        ,STL.STCKLIST_ID      -- 재고리스트코드
