@@ -43,4 +43,17 @@ public interface ProdServiceInf {
 	 * Method 설명 : 해당 검색어를 포함한 상품 리스트를 검색하는 메서드
 	 */
 	List<ProdVo> getSearchProdList(String searchWord);
+	
+	/**
+	 * 
+	 * Method	: getProd
+	 * 최초작성일 : 2018. 9. 4.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * 
+	 * @param prod_id
+	 * @return
+	 * Method 설명 : 제품Id로 제품 조회
+	 */
+	ProdVo getProd(String prod_id);
 }
