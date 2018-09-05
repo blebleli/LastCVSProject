@@ -42,6 +42,7 @@ public class ProdService implements ProdServiceInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 
 	@Override
 	public Map<String, Object> getCtgyProdList(Map<String, Object> map) {
@@ -110,6 +111,11 @@ public class ProdService implements ProdServiceInf {
 	public List<ProdVo> getSearchProdList(String searchWord) {
 		// TODO Auto-generated method stub
 		return prodDao.getSearchProdList(searchWord);
+	}
+
+	@Override
+	public ProdVo getProd(String prod_id) {
+		return prodDao.getProd(prod_id);
 	}
 
 }
