@@ -82,7 +82,7 @@
 
 			<div class="panel panel-default">
 
-				<div class="panel-heading" role="tab" id="headingThree">
+				<div id="collapseDiv"class="panel-heading" role="tab" id="headingThree">
 					<nav class="navbar navbar-light bg-light" data-toggle="collapse"
 						data-target="#collapseThree" aria-expanded="false"
 						aria-controls="collapseThree">
@@ -94,11 +94,16 @@
 				<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree">						
 					<ul class="list-group" style= "margin-left: 200px ; float: left;">
 					  <li class="list-group-item"><a href="#">Best상품</a></li>
-					  <li class="list-group-item"><a href="#">이벤트</a></li>
-					  <li class="list-group-item"><a href="#">상품</a></li>		  
-					  <li class="list-group-item"><a href="#">편의점찾기</a></li>
-					  <li class="list-group-item"><a href="#">마이페이지</a></li>						  
-					</ul>						
+					  <li class="list-group-item"><a href="#">이벤트상품</a></li>
+					  <li class="list-group-item"><a href="#">상품</a></li>		  					  
+					</ul>
+					<ul class="list-group" style= "float: left;">
+					  <li class="list-group-item"><a href="#">편의점찾기상품</a></li>					  
+					</ul>
+					<ul class="list-group" style= "float: left;">
+					  <li class="list-group-item"><a href="#">맴버쉽</a></li>
+					  <li class="list-group-item"><a href="#">결제내역</a></li>							  
+					</ul>							
 				</div>
 			</div>
 		</div>
@@ -122,7 +127,7 @@
 
 	});	
 	
-   $(".navbar-brand").hover(function(){
+   $("#collapseDiv").hover(function(){
 	   $('#collapseThree').collapse('show');
    },function(){
 	   $('#collapseThree').collapse('hide');

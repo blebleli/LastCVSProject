@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+
+
  <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="/css/font-awesome.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="/css/custom.min.css" rel="stylesheet">
-</head>
-<%@include file="/WEB-INF/view/common/user/headertop.jsp" %>
+
 <!-- products-breadcrumb -->
 	<div class="products-breadcrumb">
 		<div class="container">
@@ -241,10 +239,7 @@
                     	  </div>	
                       
 						 </div>
-			<!-- ----------------------------------------------------------------------------------------------------------- -->
-			
-			<!-- ----------------------------------------------------------------------------------------------------------- -->
-					 <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+				 <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
 					 	<table class="data table table-striped no-margin">
 					 		<thead>
 					 			<tr>
@@ -395,21 +390,16 @@
 
 				</tbody></table>
 					</div>
-			<!-- ----------------------------------------------------------------------------------------------------------- -->
-			
-			<!-- ----------------------------------------------------------------------------------------------------------- -->
-						  </div>
+					  </div>
 					</div>
 				</div>
-				</div>	
+			</div>	
 		</div>
 <!-- //about -->
 		</div>
 		<div class="clearfix"></div>
-	</div>
-<!-- //banner -->
 
-<%@include file="/WEB-INF/view/common/user/newsAndbttom.jsp" %>
+<!-- //banner -->
 
 </body>
 </html>
