@@ -172,4 +172,17 @@ public interface ProdDaoInf {
 	 * Method 설명 : 카테고리 조회
 	 */
 	CategoryVo getCtgy(String ctgy_id);
+	
+	/**
+	 * 
+	 * Method	: getProd
+	 * 최초작성일 : 2018. 9. 4.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * 
+	 * @param prod_id
+	 * @return
+	 * Method 설명 : 제품Id로 제품 조회
+	 */
+	ProdVo getProd(String prod_id);
 }
