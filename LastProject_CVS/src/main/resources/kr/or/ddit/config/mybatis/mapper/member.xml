@@ -31,7 +31,8 @@
 		)
 		VALUES (
 		      #{mem_id, jdbcType=VARCHAR}			<!--//  일반:이메일, 점주:사업자번호, 관리자:일괄부여  -->
-			, #{mem_pw, jdbcType=VARCHAR}			<!--// 비밀번호  -->
+            , CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR})<!--// 비밀번호  -->
+			<!--, #{mem_pw, jdbcType=VARCHAR}			// 비밀번호  -->
 			, #{mem_kind, jdbcType=VARCHAR}		<!--// 관리자 : 00, 점주 : 01, 일반 : 02  -->
 			, #{mem_name, jdbcType=VARCHAR}		<!--// 일반:일반회원 점주:점주이름  -->
 			, #{mem_tel, jdbcType=VARCHAR}		<!--// 연락처  -->
