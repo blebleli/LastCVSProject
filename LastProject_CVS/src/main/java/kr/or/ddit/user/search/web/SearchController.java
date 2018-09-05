@@ -76,19 +76,51 @@ public class SearchController {
 	 }
 	
 	
+	/** 
+	 * Method   : storeSearch 
+	 * 최초작성일  : 2018. 9. 5. 
+	 * 작성자 :  조종원
+	 * 변경이력 : 
+	 * @param prod_id
+	 * @param model
+	 * @return 
+	 * Method 설명 : 지도 좌표 리턴 하는 ajax
+	 */
 	@RequestMapping(value="/search/storeSearch",method=RequestMethod.GET)
 	@ResponseBody
 	public List<CvsSearchVo> storeSearch(@RequestParam(value="prod") String prod_id, Model model){
 		List<CvsSearchVo> memList = new ArrayList<CvsSearchVo>();
 		CvsSearchVo vo = new CvsSearchVo();
-		vo.setMem_x("33.44975");
-		vo.setMem_y("126.56967");
+		vo.setMem_x("37.51611462229465");
+		vo.setMem_y("126.8623145541774");
 		vo.setMem_cvs_name("Test");
 		vo.setMem_intro("설명");
 		memList.add(vo);
 		
+		CvsSearchVo vo1 = new CvsSearchVo();
+		vo1.setMem_x("37.834923212484");
+		vo1.setMem_y("127.07046656123137");
+		vo1.setMem_cvs_name("?????");
+		vo1.setMem_intro("???");
+		memList.add(vo1);
+		
+		CvsSearchVo vo3 = new CvsSearchVo();
+		vo3.setMem_x("37.71641879348723");
+		vo3.setMem_y("126.939721774693");
+		vo3.setMem_cvs_name("?????");
+		vo3.setMem_intro("???");
+		memList.add(vo3);
+		
+		CvsSearchVo vo4 = new CvsSearchVo();
+		vo4.setMem_x("37.520235651304596");
+		vo4.setMem_y("127.0585242406477");
+		vo4.setMem_cvs_name("?????");
+		vo4.setMem_intro("???");
+		memList.add(vo4);
+		
 //		List<CvsSearchVo> memList = cvsSearchService.getListProdMember(prod_id);
 		logger.debug("==============================================================================================");
+		logger.debug("memList==>{}",memList.size());
 		logger.debug("memList==>{}",memList);
 		logger.debug("==============================================================================================");
 		
