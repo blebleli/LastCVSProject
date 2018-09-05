@@ -6,12 +6,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import kr.or.ddit.maeum.board.dao.BoardDaoInf;
-import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
 import kr.or.ddit.user.search.model.CvsSearchVo;
-import kr.or.ddit.user.search.web.SearchController;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +36,8 @@ public class CvsSearchService implements CvsSearchServiceInf{
 	
 	private Logger logger = LoggerFactory.getLogger(CvsSearchService.class);
 
-	@Resource(name="cvsSearchService")
-	private CvsSearchServiceInf userSearchService;
-
 	@Resource(name="cvsSearchDao")
 	private CvsSearchDaoInf cvsSearchDao;
-	
 	
 	/**
 	 * Method : getListProdMember
@@ -104,8 +97,6 @@ public class CvsSearchService implements CvsSearchServiceInf{
 //			logger.debug( Double.parseDouble(v.getMem_y()) +"" );
 //			logger.debug("+++++++++++++++++++++++++++++++++++++++++++");
 //		}
-		
-		
 		
 		String mem_cvs_name = (String) map.get("mem_cvs_name");
 		// 게시글 전체 건수 조회
