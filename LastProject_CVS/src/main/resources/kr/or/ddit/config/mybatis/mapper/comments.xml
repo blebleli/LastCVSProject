@@ -4,4 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="comments">
 
+	<insert id="newComments" parameterType="commentsVo">
+		INSERT INTO Comments(CM_ID,BD_ID,MEM_ID,CM_CONTENT,CM_DATE,CM_DELNY,CM_OPENNY )
+		VALUES ('1','1','admin',#{CM_CONTENT},'2018/09/05','N','Y')
+	</insert>
+	
+	<select id="getListComments" resultType="commentsVo">
+		select * from comments
+	</select>
+
 </mapper>
