@@ -71,19 +71,38 @@
         </div>
         <hr>
         <!-- 제품으로 변경  -->
+
 <!--         <ul id="placesList"> -->
         <ul id="searchList">
-                	<img src="F://image//product//meal//00bf8a18-51a1-4d92-9f4a-6190e5895257.png" width="50px;" height="50px;"/>
         	<c:forEach items="${searchList }" var="vo">
         		<li>
+			    <div class="body"> 
+			           <div class="img">
+		                	<img src="/Image/product/biscuit/00eae441-4662-4048-8e03-30c147a777b8.png" width="73" height="70"/>
+<!-- 			               <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70"> -->
+			                상품이미지
+			           </div> 
+			           <div class="desc"> 
+			               <div class="ellipsis">제품 : 제품명</div> 
+			               <div class="ellipsis">수량 : 1</div> 
+			               <div class="jibun ellipsis">제품설명</div> 
+			           </div>
+	   		    </div>
+	   		    <input type="hidden" name="prod_id" value="${vo.prod_id }">
+        		</li>
+        	
+        	
+<!--         		<li> -->
+<!--         		<a href="D://image//product//meal//00bf8a18-51a1-4d92-9f4a-6190e5895257.png"></a> -->
+<!--         		<img src="/Image/product/biscuit/00eae441-4662-4048-8e03-30c147a777b8.png" /> -->
 <%-- 	        		<span class="markerbg marker_' + (${vo.index+1 }) + '"></span> --%>
-                	<div class="info">
+<!--                 	<div class="info"> -->
 <%--                 	<img src="${vo.file_path }\${vo.file_upname }" width="50px;" height="50px;"> --%>
-                	<h5>${vo.prod_name }</h5>
-        			<span>${vo.prod_intro }</span>
-      				<span class="tel">￦ ${vo.prod_price }</span>
-                 </div>           
-        			<input type="hidden" name="prod_id" value="${vo.prod_id }">
+<%--                 	<h5>${vo.prod_name }</h5> --%>
+<%--         			<span>${vo.prod_intro }</span> --%>
+<%--       				<span class="tel">￦ ${vo.prod_price }</span> --%>
+<!--                  </div>            -->
+        			
 <%--         			<input type="hidden" name="prod_id" value="${vo.prod_name }"> --%>
 <%--         			<input type="hidden" name="prod_id" value="${vo.prod_intro }"> --%>
 <%--         			<input type="hidden" name="prod_id" value="${vo.prod_price }"> --%>
@@ -91,9 +110,9 @@
 <%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_lg }"> --%>
 <%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_md }"> --%>
 <%--         			<input type="hidden" name="prod_id" value="${vo.event_id }"> --%>
-        			<input type="hidden" name="file_path" value="${vo.file_path }">
-        			<input type="hidden" name="file_upname" value="${vo.file_upname }">
-        		</li>
+<%--         			<input type="hidden" name="file_path" value="${vo.file_path }"> --%>
+<%--         			<input type="hidden" name="file_upname" value="${vo.file_upname }"> --%>
+<!--         		</li> -->
         	</c:forEach>
         </ul>
         
@@ -103,6 +122,7 @@
     </div>
 </div>
  ${memList }
+
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=20ef2122f316faf3ee201ff1da312505&libraries=services"></script>
 
@@ -273,11 +293,13 @@ var content="";
 						            '        </div>' + 
 						            '        <div class="body">' + 
 						            '            <div class="img">' +
-						            '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+						            '                <img src="/Image/product/biscuit/00eae441-4662-4048-8e03-30c147a777b8.png" width="73" height="70">' +
+// 						            '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
 						            '                 상품이미지'+
 						            '            </div>' + 
 						            '            <div class="desc">' + 
-						            '                <div class="ellipsis">수량 : '+item.stcklist_amount+'</div>' + 
+						            '                <div class="ellipsis">수량 : 1</div>' + 
+// 						            '                <div class="ellipsis">수량 : '+item.stcklist_amount+'</div>' + 
 						            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
 						            '                <div><a href="http://www.kakaocorp.com/main" target="_blank" class="link">상세보기? 링크</a></div>' + 
 						            '            </div>' + 

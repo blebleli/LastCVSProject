@@ -93,12 +93,12 @@
 				</div>
 				<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree">						
 					<ul class="list-group" style= "margin-left: 200px ; float: left;">
-					  <li class="list-group-item"><a href="#">Best상품</a></li>
-					  <li class="list-group-item"><a href="#">이벤트상품</a></li>
+					  <li class="list-group-item"><a href="/userProd/view">Best상품</a></li>
+					  <li class="list-group-item"><a href="/Web-INF/view/user/eventProducts.jsp">이벤트상품</a></li>
 					  <li class="list-group-item"><a href="#">상품</a></li>		  					  
 					</ul>
 					<ul class="list-group" style= "float: left;">
-					  <li class="list-group-item"><a href="#">편의점찾기상품</a></li>					  
+					  <li class="list-group-item"><a href="/search/cvsSearch">편의점찾기상품</a></li>					  
 					</ul>
 					<ul class="list-group" style= "float: left;">
 					  <li class="list-group-item"><a href="#">맴버쉽</a></li>
