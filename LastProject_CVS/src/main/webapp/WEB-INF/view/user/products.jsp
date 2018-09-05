@@ -140,7 +140,7 @@ $(function(){
 										<td>										
 											<div>
 												<input type="text" id="min_price" style="width:10%">&nbsp; ~ &nbsp; <input type="text" id="max_price" style="width:10%">&nbsp;&nbsp;&nbsp;
-												<input type="button" id="searchBtn" name="psBtn" class="btn btn-primary">검색</button>																																		
+												<input type="button" id="searchBtn" name="psBtn" class="btn btn-primary" value="검색">																																		
 <!-- 												<button type="button" class="btn btn-default">초기화</button>		 -->
 											</div>
 										</td>										
