@@ -4,7 +4,7 @@
 
 <html>
 
-<%@include file="/WEB-INF/view/common/user/userTop.jsp" %>
+<%-- <%@include file="/WEB-INF/view/common/user/userTop.jsp" %> --%>
 <!-- products-breadcrumb -->
 	<div class="products-breadcrumb">
 		<div class="container">
@@ -114,6 +114,6 @@
 	</div>
 <!-- //banner -->
 
-<%@include file="/WEB-INF/view/common/user/userBottom.jsp" %>
+<%-- <%@include file="/WEB-INF/view/common/user/userBottom.jsp" %> --%>
 </body>
 </html>
