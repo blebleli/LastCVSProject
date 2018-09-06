@@ -47,12 +47,6 @@ public class ProdDao implements ProdDaoInf {
 		return null;
 	}
 
-	@Override
-	public List<ProdVo> getListProdBestCategory(Map<String, String> pr_class) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	//행사 종류별 상품 조회
 	@Override
 	public List<ProdVo> getListProdEvent(Map<String, Object> map) {
@@ -77,6 +71,24 @@ public class ProdDao implements ProdDaoInf {
 		return session.selectOne("category.getCtgy", ctgy_id);
 	}
 
+
+	/**
+	 * 
+	 * Method   : getListProdBestCategory 
+	 * 최초작성일  : 2018. 9. 6. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @param map -카테고리명, 원하는 갯수
+	 * @return 
+	 * Method 설명 : 카테고리별 평점평균 베스트
+	 */
+	@Override
+	public List<ProdVo> getCategoryBestProdList(Map<String, String> map) {
+		List<ProdVo> bestCategoryProdList = session.selectList("prod.getListProdBestCategory", map);
+		return bestCategoryProdList;
+	}
+	
+	
 	/**
 	 * 
 	 * Method   : getSearchProdList 

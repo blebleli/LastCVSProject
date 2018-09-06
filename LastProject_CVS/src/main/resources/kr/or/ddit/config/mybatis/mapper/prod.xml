@@ -16,7 +16,6 @@
 					ORDER BY prod_name)a
 					WHERE ${pr_class}=#{pr_class_id})
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
-
 </select>
 
 <!-- 카테고리 별 제품의 갯수  -->
@@ -47,6 +46,7 @@
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 
 </select>
+
 <!-- 행사종류별  전체상품 조회 -->
 <select id="getEventProd" parameterType="Map" resultType="prodVo">
 	SELECT * 
@@ -90,6 +90,33 @@ SELECT *
 </select>
 
 
+<!-- parameter: 카테고리 평점평균순으로  -->
+<select id="getListProdBestCategory" parameterType="Map" resultType="prodVo">
+SELECT * FROM
+	(SELECT a.*, ROWNUM rn FROM
+        (SELECT TBL0.* FROM
+            (SELECT P.PROD_ID         
+			       ,PROD_NAME
+			       ,PROD_INTRO
+			       ,PROD_INFO
+			       ,PROD_PRICE
+			       ,PROD_EXNUM
+			       ,PR_CLASS_LG
+			       ,PR_CLASS_MD
+			       ,EVENT_ID
+			       ,FILE_PATH
+			       ,FILE_UPNAME
+			       ,FILE_NAME
+                   , (SELECT ROUND(AVG(B.BD_RATING),2) FROM BOARD B WHERE B.PROD_ID = P.PROD_ID) BD_RATING
+              FROM  prod P
+            ) TBL0
+            WHERE TBL0.BD_RATING IS NOT NULL
+            ORDER BY TBL0.BD_RATING DESC
+          )a
+            WHERE PR_CLASS_LG=#{category}
+        )
+WHERE rn &lt;= #{wantNum}
+</select>
 
 
 

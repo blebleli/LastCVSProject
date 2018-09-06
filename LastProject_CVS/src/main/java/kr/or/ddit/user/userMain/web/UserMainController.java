@@ -1,7 +1,9 @@
 package kr.or.ddit.user.userMain.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,7 +11,9 @@ import kr.or.ddit.model.BookmarkVo;
 import kr.or.ddit.model.MemberShipVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.pay.service.PayServiceInf;
+import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.user.userMain.service.UserMainServiceInf;
 
 import org.springframework.stereotype.Controller;
@@ -26,6 +30,9 @@ public class UserMainController {
 	@Resource(name="payService")
 	private  PayServiceInf payService;
 	
+	@Resource(name="prodService")
+	private ProdServiceInf prodService;
+	
 	/**
 	 * 
 	 * Method   : main 
@@ -36,7 +43,17 @@ public class UserMainController {
 	 * Method 설명 : usermain 으로 이동
 	 */
 	@RequestMapping("/main")
-	public String main(){
+	public String main(Model model){
+		
+		HashMap<String, String> ctgyNum = new HashMap<String, String>();		
+		ctgyNum.put("category", "CA07760000001");
+		ctgyNum.put("wantNum", "4");
+		
+
+		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
+		
+		//model.addAttribute("ctgrName",ctgrName);
+		model.addAttribute("bestProd",bestProd);
 		return "userMain";
 	}
 	
@@ -99,7 +116,6 @@ public class UserMainController {
 		shipVo.setMemship_id("shipID");
 		shipVo.setMem_id(mem_id);
 		shipVo.setMemship_point(7777);
-		
 		
 		model.addAttribute("member", member);
 		model.addAttribute("myPayList", myPayList);

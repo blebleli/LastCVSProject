@@ -30,6 +30,18 @@ public interface ProdServiceInf {
 	
 	CategoryVo getCtgy(String ctgy_id);
 	
+	/**
+	 * 
+	 * Method   : getListProdBestCategory 
+	 * 최초작성일  : 2018. 9. 6. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @param map -카테고리명, 원하는 갯수
+	 * @return 
+	 * Method 설명 : 카테고리별 평점평균 베스트
+	 */
+	List<ProdVo> getCategoryBestProdList(Map<String, String> map );
+
 	
 	
 	/**

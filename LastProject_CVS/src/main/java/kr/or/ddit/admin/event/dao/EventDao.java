@@ -2,21 +2,38 @@ package kr.or.ddit.admin.event.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.model.EventVo;
 
-
+@Repository("eventDao")
 public class EventDao implements EventDaoInf {
 
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
+	
 	@Override
 	public int setInsertEvnet(EventVo eventVo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * 
+	 * Method   : getListEvent 
+	 * 최초작성일  : 2018. 9. 6. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @return 
+	 * Method 설명 : 이벤트 전
+	 */
 	@Override
 	public List<EventVo> getListEvent() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return template.selectOne("member.getMember");
 	}
 
 	@Override

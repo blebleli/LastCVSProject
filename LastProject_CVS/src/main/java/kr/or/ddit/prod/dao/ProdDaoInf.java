@@ -96,18 +96,17 @@ public interface ProdDaoInf {
 	/**
 	 * Method           : getListProdBestCategory
 	 * Method 설명  : 제품 카테고리별 평점 높은 순으로 조회 기능
-	 * 최초작성일    : 2018. 8. 29.
-	 * 작성자           : 조종원
-	 * 변경이력       :  신규
-	 *조회             :  List<ProdVo> getListProdBestCategory(Map<String, String> pr_class )_제품 카테고리별 평점 높은 순으로 조회 기능
+	 * 최초작성일   : 2018. 8. 29.
+	 * 작성자       : 조종원
+	 * 변경이력     :  신규
+	 *조회          :  List<ProdVo> getListProdBestCategory(Map<String, String> pr_class )_제품 카테고리별 평점 높은 순으로 조회 기능
 	 * @param    Map<String, String> pr_class 
 	 * 						      key                value
 	 *                      "pr_class_lg"       "대분류코드"
-	 *                      "pr_class_md"     "중분류코드"
-	 *                      "pr_class_sm"     "소분류코드"
+	 *                      "pr_class_md"       "중분류코드"
 	 * @return List<ProdVo> (조건에 맞는 제품들)  
 	 */
-	List<ProdVo> getListProdBestCategory(Map<String, String> pr_class );
+	List<ProdVo> getCategoryBestProdList(Map<String, String> map );
 	
 	/**
 	 * Method           : getListProdEvent

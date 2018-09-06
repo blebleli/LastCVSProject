@@ -54,50 +54,83 @@
 	<div class="w3l_banner_nav_right">
 		<!-- about -->
 		<div class="privacy about">
-			<h3>
+		<!-- 	<h3>
 				My<span>Page</span>
 			</h3>
-			<br><br>
-			<div class="col-md-10 col-sm-7 col-xs-12 profile_details">
-				<div class="well profile_view">
-					<div class="col-md-15 col-sm-12">
-						<div class="left col-xs-5 text-center">
-							<img src="/images/img.jpg" alt=""
-								class="img-circle img-responsive">
-						</div>
-						<div class="right col-xs-6">
-							<h3>${member.mem_name}</h3>
-							<p>
-								<strong>About: </strong> Web Designer / UX / Graphic Artist /
-								Coffee Lover
-							</p>
-							<ul class="list-unstyled">
-								<li><i class="fa fa-building"></i> Address: ${member.mem_add}</li>
-								<li><i class="fa fa-phone"></i> Phone #: ${member.mem_tel}</li>
-							</ul>
-						</div>
-					</div>
-					<div class=" col-md-15 col-xs-12 bottom text-center">
-						<div class="col-xs-12 col-sm-6 emphasis">
-							<p class="ratings">
-								<a>4.0</a> <a href="#"><span class="fa fa-star"></span></a> 
-								<a href="#"><span class="fa fa-star"></span></a> 
-								<a href="#"><span class="fa fa-star"></span></a> 
-								<a href="#"><span class="fa fa-star"></span></a> 
-								<a href="#"><span class="fa fa-star-o"></span></a>
-							</p>
-						</div>
-						<div class="col-xs-12 col-sm-6 emphasis">
-							<button type="button" class="btn btn-success btn-xs">
-								${shipVo.memship_point} <i class="fa fa-user"> </i> <i class="fa fa-comments-o"></i>
-							</button>
-							<button type="button" class="btn btn-primary btn-xs">
-								<i class="fa fa-user"> </i> 사용내역
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
+			<br><br> -->
+			<div class="col-md-9 col-sm-7 col-xs-12 profile_details">
+				<div class="row user-infos user3">
+					<div class="panel panel-primary">
+	                    <div class="panel-heading">
+	                        <h3 class="panel-title">User information</h3>
+	                    </div>
+	                    <div class="panel-body">
+	                        <div class="row">
+	                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+	                                <img class="img-circle"
+	                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
+	                                     alt="User Pic">
+	                            </div>
+	                            <div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
+	                                <img class="img-circle"
+	                                     src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=50"
+	                                     alt="User Pic">
+	                            </div>
+	                            <div class="col-xs-10 col-sm-10 hidden-md hidden-lg">
+	                                <strong>Cyruxx</strong><br>
+	                                <dl>
+	                                    <dt>User level:</dt>
+	                                    <dd>Administrator</dd>
+	                                    <dt>Registered since:</dt>
+	                                    <dd>11/12/2013</dd>
+	                                    <dt>Topics</dt>
+	                                    <dd>15</dd>
+	                                    <dt>Warnings</dt>
+	                                    <dd>0</dd>
+	                                </dl>
+	                            </div>
+	                            <div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">
+	                                <strong>Cyruxx</strong><br>
+	                                <table class="table table-user-information">
+	                                    <tbody>
+	                                    <tr>
+	                                        <td>User level:</td>
+	                                        <td>Administrator</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>Registered since:</td>
+	                                        <td>11/12/2013</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>Topics</td>
+	                                        <td>15</td>
+	                                    </tr>
+	                                    <tr>
+	                                        <td>Warnings</td>
+	                                        <td>0</td>
+	                                    </tr>
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="panel-footer">
+	                        <button class="btn btn-sm btn-primary" type="button"
+	                                data-toggle="tooltip"
+	                                data-original-title="Send message to user"><i class="glyphicon glyphicon-envelope"></i></button>
+	                        <span class="pull-right">
+	                            <button class="btn btn-sm btn-warning" type="button"
+	                                    data-toggle="tooltip"
+	                                    data-original-title="Edit this user"><i class="glyphicon glyphicon-edit"></i></button>
+	                            <button class="btn btn-sm btn-danger" type="button"
+	                                    data-toggle="tooltip"
+	                                    data-original-title="Remove this user"><i class="glyphicon glyphicon-remove"></i></button>
+	                        </span>
+	                    </div>
+	               </div>
+	           </div>
+	       </div>
+
 <!-- 탭메뉴 -------------------------------------------------------------------------------------------------------- -->
 			<div class="col-md-15 col-sm-10 col-xs-12">
 
@@ -121,11 +154,12 @@
 					</ul>
 					<div id="myTabContent" class="tab-content col-md-15 col-sm-9 col-xs-12"
 						style="width: 100%">
-						<div role="tabpanel" class="tab-pane fade active in"
+						
+					<div role="tabpanel" class="tab-pane fade active in"
 							id="tab_content1" aria-labelledby="home-tab">
 <!-- 나의정보 -------------------------------------------------------------------------------------------------------- -->
-							<div class="col-md-15 col-sm-10 col-xs-12">
-								<div class="x_panel">
+						<div class="col-md-15 col-sm-10 col-xs-12">
+							<div class="x_panel">
 									<div class="x_title">
 										<h2>나의 정보</h2>
 										<div class="clearfix"></div>
@@ -212,8 +246,6 @@
 									</div>
 								</div>
 							</div>
-
-
 						</div>
 <!-- 나의주머니 -------------------------------------------------------------------------------------------------------- -->
 						<div role="tabpanel" class="tab-pane fade" id="tab_content2"
