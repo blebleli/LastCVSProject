@@ -87,7 +87,7 @@
 						aria-controls="collapseThree">
 						<a class="navbar-brand" href="/userProd/view?i=1&page=1&pageSize=32">상품</a> 
 						<a class="navbar-brand" href="#">편의점/서비스</a> 
-						<a class="navbar-brand" href="#">마이페이지</a>
+						<a class="navbar-brand" href="/user/mypage">마이페이지</a>
 					</nav>
 				</div>
 				<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree">						
@@ -97,7 +97,8 @@
 					  <li class="list-group-item"><a href="/userProd/view?i=1&page=1&pageSize=32">상품</a></li>		  					  
 					</ul>
 					<ul class="list-group" style= "float: left;">
-					  <li class="list-group-item"><a href="#">편의점찾기상품</a></li>					  
+					  <li class="list-group-item"><a href="/search/prodSearch">제품찾기</a></li>	
+					  <li class="list-group-item"><a href="/search/cvsSearch">편의점찾기</a></li>					  					  
 					</ul>
 					<ul class="list-group" style= "float: left;">
 					  <li class="list-group-item"><a href="#">맴버쉽</a></li>

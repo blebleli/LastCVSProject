@@ -40,13 +40,23 @@ public class UserMainController {
 		return "userMain";
 	}
 	
-	
-	@RequestMapping("/Mypage")	
-	 public String myPageView(String mem_id,String mem_pw, Model model) {
+	/**
+	 * 
+	 * Method   : myPageView 
+	 * 최초작성일  : 2018. 9. 6. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param mem_id
+	 * @param model
+	 * @return 
+	 * Method 설명 : mypage로 이동
+	 */
+	@RequestMapping("/mypage")	
+	 public String myPageView(String mem_id, Model model) {
 		
 		//임시 아이디 지정
 		mem_id= "hsj";
-		mem_pw="1";
+		//mem_pw="1";
 		
 		//로그인한 회원 정보
 		MemberVo member = memberService.getMyPage(mem_id);

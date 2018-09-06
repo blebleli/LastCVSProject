@@ -36,13 +36,7 @@ public class SearchController {
 	
 	@Resource(name="cvsSearchService")
 	private CvsSearchServiceInf cvsSearchService;
-	
-	@RequestMapping("/test")
-	 public String bView() {
-		
-		 return "userMain";
-	 }
-	
+
 	@RequestMapping("/cvsSearch")
 	 public String cvsSearch() {
 		
