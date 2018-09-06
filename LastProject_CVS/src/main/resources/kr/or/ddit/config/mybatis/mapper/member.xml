@@ -2,14 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
 
-	<!-- 사용자ID 중복 조회 -->
+	
+	
+	<!-- 	아 이 디 : getMemIdCnt
+	  		반 환 값 : int
+	  		매개변수 : string(mem_id)
+	  		설    명 : 사용자ID 중복 조회 (해당 아이디가 있는지 조회 개수반환) 
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
 	<select id="getMemIdCnt" parameterType="string" resultType="int">
 		SELECT COUNT(*)
 		  FROM MEMBER
 		 WHERE MEM_ID = #{mem_id}
 	</select>
 	
-	<!-- 사용자정보 등록-별 -->
+
+	<!-- 	아 이 디 : setInsertSignUpUser
+	  		매개변수 : memberVo
+	  		반 환 값 : 없음
+	  		설    명 : 사용자정보 등록 (회원가입시 입력한 사용자정보 등록) 
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
 	<insert id="setInsertSignUpUser" parameterType="memberVo">
 		INSERT INTO MEMBER
 		(
@@ -49,7 +64,14 @@
 		)
 	</insert>
 	
-	<!-- 사용자 비밀번호 수정 -->
+
+	<!-- 	아 이 디 : setUpdateMember
+	  		매개변수 : memberVo
+	  		반 환 값 : 없음
+	  		설    명 : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
 	<update id="setUpdateMember" parameterType="memberVo">
 		UPDATE MEMBER
 		   SET MEM_PW = #{mem_pw}
@@ -57,6 +79,13 @@
 		   AND MEM_PW = #{old_mem_pw}
 	</update>
 	
+	<!-- 	아 이 디 : setUpdateMemberPw
+	  		매개변수 : memberVo
+	  		반 환 값 : 없음
+	  		설    명 : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
 	<update id="setUpdateMemberPw" parameterType="memberVo">
 		UPDATE MEMBER
 		   SET MEM_KIND = #{mem_kind}
@@ -76,9 +105,15 @@
 	</update>
 	
 	
-	<!-- 사용자 조회 -->
+	<!-- 	아 이 디 : getMember
+	  		매개변수 : String(mem_id)
+	  		반 환 값 : memberVo
+	  		설    명 : 한 사용자 정보 조회
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
 	<select id="getMember" resultType="memberVo" parameterType="String">
-		SELECT CRYPTPACK.DECRYPT(#{mem_pw}, #{mem_id}) as mem_pw 
+		SELECT CRYPTPACK.DECRYPT(mem_pw, #{mem_id}) as mem_pw 
 			 , MEM_ID
 		   --, MEM_PW
 			 , MEM_KIND
@@ -98,8 +133,15 @@
 		  WHERE MEM_ID = #{mem_id} 
 		</select>
 	
-	<!-- 사용자목록 페이징 조회 -->
-	<select id="getMemberPageList" parameterType="map" resultType="boardVo">  	
+
+	<!-- 	아 이 디 : getMemberPageList
+	  		매개변수 : map (mem_kind , mem_name / page , pageSize)
+	  		반 환 값 : memberVo
+	  		설    명 : 사용자 사용자목록 페이징 조회
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
+	<select id="getMemberPageList" parameterType="map" resultType="memberVo">  	
 		SELECT *
 		FROM (SELECT a.*, ROWNUM rn
 			  FROM
@@ -132,18 +174,27 @@
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
-	<!-- 사용자 목록 총 건수 -->
-  	<select id="getMemberListTotalCnt" resultType="int">
-		SELECT count(*) AS tot_cnt
-		  FROM MEMBER
-		 WHERE 1=1
-		 <if test="mem_kind != null and mem_kind != ''">
-		   AND MEM_KIND = #{mem_kind}
-		 </if>
-		 <if test="mem_name != null and mem_name != ''">
-		   AND MEM_NAME = #{mem_name}
-		  </if>
-  	</select>
+
+	<!-- 	아 이 디 : getMemberListTotalCnt 
+	  		매개변수 : 
+	  		반 환 값 : int
+	  		설    명 : 사용자 목록 총 건수   
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
+<!--   	<select id="getMemberListTotalCnt" resultType="int"> -->
+<!-- 		SELECT count(*) AS tot_cnt -->
+<!-- 		  FROM MEMBER -->
+<!-- 		 WHERE 1=1 -->
+<!-- 		 <if test="mem_kind != null and mem_kind != ''"> -->
+<!-- 		   AND MEM_KIND = #{mem_kind} -->
+<!-- 		 </if> -->
+<!-- 		 <if test="mem_name != null and mem_name != ''"> -->
+<!-- 		   AND MEM_NAME = #{mem_name} -->
+<!-- 		  </if> -->
+<!--   	</select> -->
+  	
+  	
   	
   	<!-- 편의점 이름을 앞뒤로 포함한 검색  -->
   	<select id="searchCvsName" parameterType="String" resultType="memberVo">
