@@ -221,7 +221,7 @@ public interface ProdDaoInf {
 	 * 
 	 * @param map(조건 : page, pageSize=32, event 종류, 카테고리 종류, 카테고리 아이디)
 	 * @return
-	 * Method 설명 : 전체 행사 상품 조회
+	 * Method 설명 : 행사종류 및 카테고리별 상품 조회
 	 */
 	List<ProdVo> getEventCtgyProd(Map<String, Object> map);
 	
@@ -237,4 +237,19 @@ public interface ProdDaoInf {
 	 * Method 설명 : 상품조회에서 상품 검색
 	 */
 	List<ProdVo> searchProd(Map<String, Object> map);
+	
+	/**
+	 * 
+	 * Method	: getCgEventProd
+	 * 최초작성일 : 2018. 9. 5.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * 
+	 * @param map(조건 : page, pageSize=32,카테고리 종류, 카테고리아이디)
+	 * @return
+	 * Method 설명 : 카테고리별 행사 상품 조회
+	 */
+	List<ProdVo> getCgEventProd(Map<String, Object> map);
+	
+	
 }
