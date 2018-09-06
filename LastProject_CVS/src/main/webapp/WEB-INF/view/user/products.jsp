@@ -81,15 +81,16 @@ $(function(){
 	
 	$("#opoBtn").on("click", function(){
 		$("#event_id").val("201");
-		$("#eventCtgyFrm").submit;
+		alert($("#event_id").val());
+		$("#eventCtgyFrm").submit();
 	})
 	$("#tpoBtn").on("click", function(){
 		$("#event_id").val("202");
-		$("#eventCtgyFrm").submit;
+		$("#eventCtgyFrm").submit();
 	})
 	$("#discountBtn").on("click", function(){
 		$("#event_id").val("203");
-		$("#eventCtgyFrm").submit;
+		$("#eventCtgyFrm").submit();
 	})
 });
 
@@ -139,6 +140,10 @@ $(function(){
 						<input type="button" class="col-md-4 btn btn-primary" name="event" id="tpoBtn" value="2+1">
 						<input type="button" class="col-md-4 btn btn-primary" name="event" id="discountBtn" value="할인">
 						<input type="hidden" id="event_id" name="event_id">
+						<c:if test="${category != null }">
+							<input type="hidden" name="ctgy_id" value="${ctgy_id }" >
+							<input type="hidden" name="level" value="${ctgylevel }" >
+						</c:if>
 					</form>
 				</c:if>
 				<br>
@@ -192,6 +197,11 @@ $(function(){
 				</form>
 				<div class="w3ls_w3l_banner_nav_right_grid1">
 					<div class="list">
+					<c:if test="${ctgyProdList == null }">
+						<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >
+							해당 상품이 없습니다.
+						</div>
+					</c:if>
 					<c:forEach items="${ctgyProdList }" var="prod">
 					
 						<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >
@@ -224,13 +234,16 @@ $(function(){
 						</div>
 					</c:forEach>
 					</div>
-					<form  id="nextFrm" >
-						<input type="hidden" id="index" value="1">
-						<input type="hidden" id="i" value="${i }">
-						<input type="hidden" id="level" value="${ctgylevel }">
-						<input type="hidden" id="ctgy_id" value="${ctgy_id }">
-						<input type="button" id="nextPage" value="더보기">
-					</form>
+					<c:if test="${ctgyProdList != null }">
+					
+						<form  id="nextFrm" >
+							<input type="hidden" id="index" value="1">
+							<input type="hidden" id="i" value="${i }">
+							<input type="hidden" id="level" value="${ctgylevel }">
+							<input type="hidden" id="ctgy_id" value="${ctgy_id }">
+							<input type="button" id="nextPage" value="더보기">
+						</form>
+					</c:if>
 					
 					
 					<div class="clearfix"> </div>
