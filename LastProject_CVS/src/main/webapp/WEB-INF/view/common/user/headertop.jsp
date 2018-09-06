@@ -85,7 +85,7 @@
 					<nav class="navbar navbar-light bg-light" data-toggle="collapse"
 						data-target="#collapseThree" aria-expanded="false"
 						aria-controls="collapseThree">
-						<a class="navbar-brand" href="/userProd/view?i=1&page=1&pageSize=32">상품</a> 
+						<a class="navbar-brand" href="#">상품</a> 
 						<a class="navbar-brand" href="#">편의점/서비스</a> 
 						<a class="navbar-brand" href="/user/mypage">마이페이지</a>
 					</nav>
