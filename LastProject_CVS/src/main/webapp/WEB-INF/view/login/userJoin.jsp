@@ -78,7 +78,7 @@ $(document).ready(function() {
         });
 	});
 	
-	// 사용자 저장
+	// 사용자 저장버튼
 	$("#btnRegist").on("click", function() {
 		
 		var isSuccess = true;
@@ -158,6 +158,7 @@ $(document).ready(function() {
 		
 		// 날짜에서 '-' 제거
 		$("#mem_birth").val($("#mem_birth").val().replace(/-/gi, ''));
+		
 		
 		$.ajax({
             type : "POST",
@@ -317,7 +318,7 @@ function fn_errMessage(_obj, _text) {
 		<div id="content" class="content_primary forgot_user_information">
 			 
 			<div class="section_wrap">
-				<form id="registForm" action="<c:url value='/login/loginProcess' />" method="post">
+				<form id="registForm" action="<c:url value='/login/joinProcess' />" method="post">
 					<div class="section welcome_section">				
 						<h3 class="tit tit_v">GoGo CVS에 오신 것을 환영합니다!</h3>
 					</div>		
@@ -412,7 +413,7 @@ function fn_errMessage(_obj, _text) {
 										</div>
 									</div>
 									<div class="field">
-										<label for="zipcd" class="label">주소</label>
+										<label for="zipcd" class="label">주소 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
 										<div>
 											<div>
 												<input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="" class="input_text small" style="width:60px" readonly="readonly" />
@@ -436,7 +437,7 @@ function fn_errMessage(_obj, _text) {
 						</div>
 						
 						<div class="bn_ar">
-							<a id="btnRegist" href="javascript:void(0);" class="bn medium color1">저장</a>
+							<a id="btnRegist" href="javascript:void(0);" class="bn medium color1">회원가입 하기</a>
 						</div>
 						
 					</div>

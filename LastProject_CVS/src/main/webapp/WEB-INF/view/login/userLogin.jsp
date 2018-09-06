@@ -2,7 +2,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<style type="text/css">
+		#error{
+			color:red;
+			font-size:10pt;
+		}
+</style>
+	
 <script type="text/javascript">
+	// 암호화 키가 없으면 loginview 재호출
+	var __rsaPrivateKey__ = "${sessionScope.__rsaPrivateKey__}"
+	if(__rsaPrivateKey__ == null || __rsaPrivateKey__ == '') {
+		location.href = "<c:url value='login/loginView' />";
+	}
+	
+	
 $(document).ready(function() {
 	
 	/**
@@ -33,6 +47,46 @@ $(document).ready(function() {
         });
 	});
 	
+	/**
+	* 로그인버튼 클릭 - 공
+	*/
+	$("#btnLogin").on('click', function() {
+   		
+   		if($("#userId").val() == null || $("#userId").val() == '') {
+   			alert("ID를 입력하세요.");
+   			$("#userId").focus();
+   			return false;
+   		}
+   		if($("#password").val() == null || $("#password").val() == '') {
+   			alert("비밀번호를 입력하세요.");
+   			$("#password").focus();
+   			return false;
+   		}
+   		
+   		// 암호화
+   	   	var rsaPublicKeyModulus = $("#rsaPublicKeyModulus").val();
+   	   	var rsaPublicKeyExponent = $("#rsaPublicKeyExponent").val();
+   	   	var encPassword = fnRsaEnc($("#password").val(), rsaPublicKeyModulus, rsaPublicKeyExponent);
+   	   	$("#password").val(encPassword);
+   	   	console.log($("#password").val() + " >> " + encPassword);
+   	   	
+   	   	$("#loginForm").submit();
+	});
+   	
+	
+   	/**
+   	 * 암호화
+   	 */
+   	function fnRsaEnc(value, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
+   	    var rsa = new RSAKey();
+   	    rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
+		var encValue = rsa.encrypt(value);     // 사용자ID와 비밀번호를 RSA로 암호화한다.
+		return encValue;
+   	}
+	
+	
+	
+	
 });
 </script>
 
@@ -48,17 +102,23 @@ $(document).ready(function() {
 
 				<div class="form">
 					<h2>로그인 하기</h2>
-					<form id="loginForm" action="#" method="post">
-						<!-- submit 로그인 클릭시  이동 경로 주기(메인화면) ★  -->
-						<input type="text" name="Username" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
-						<input type="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
-						<input type="submit" value="로그인 >">
+					<form id="loginForm" action="<c:url value='/login/loginProcess' />" method="post">
+					
+						<!-- 암호화처리 : 공 -->
+		        		<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}">
+						<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
+						
+						<!-- submit 로그인 클릭시  이동 경로 주기() ★  -->
+						<input type="text"  id="userId" name="userId" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
+						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
+						<div id="error">${errMsg}</div>
+						<input type="submit" value="로그인 >" id="btnLogin" >
 					</form>
 				</div>
 
-				<div class="form">
+				<div class="form"> <!-- 이메일 형식의 폼으로 적용 못함  -->
 					<div class="content">
-						<form id="emailAuthForm" method="post" action="<c:url value='/login/sendEmail' />">
+						<form id="emailAuthForm" action="<c:url value='/login/sendEmail' />"  method="post" >
 							<input type="hidden" name="mbrTypeCd" value="60">
 							<div class="medium_bx">
 								<h4>사용자 이메일 인증으로 회원 가입하기</h4>
@@ -116,7 +176,7 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="cta">
-					<a href="/jsp/userInfoSearch.jsp">아이디/비밀번호 찾기</a>
+					<a href="/login/">아이디/비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>
