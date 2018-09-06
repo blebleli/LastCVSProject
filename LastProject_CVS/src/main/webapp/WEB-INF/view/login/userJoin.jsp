@@ -18,6 +18,8 @@
 <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
 <script src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
 
+
+	
 <script type="text/javascript">
 
 var contextPath = "${pageContext.request.contextPath}";
@@ -378,8 +380,8 @@ function fn_errMessage(_obj, _text) {
 										<div>
 											<select id="mem_gen" name="mem_gen" class="select small" style="width:86px">
 												<option value="">선택</option>
-												<option value="1">남자</option>
-												<option value="2">여자</option>												
+												<option value="M">남자</option>
+												<option value="F">여자</option>												
 											</select>
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>

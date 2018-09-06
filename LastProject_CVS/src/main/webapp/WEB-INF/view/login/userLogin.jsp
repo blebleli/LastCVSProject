@@ -2,14 +2,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- 암호화 -->
+<script type="text/javascript" src="<c:url value='/js/rsa/js/jsbn.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/rsa/js/rsa.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/rsa/js/prng4.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/rsa/js/rng.js' />"></script>
+	
 <style type="text/css">
 		#error{
 			color:red;
 			font-size:10pt;
 		}
 </style>
+
+
 	
 <script type="text/javascript">
+
 	// 암호화 키가 없으면 loginview 재호출
 	var __rsaPrivateKey__ = "${sessionScope.__rsaPrivateKey__}"
 	if(__rsaPrivateKey__ == null || __rsaPrivateKey__ == '') {
@@ -46,7 +55,10 @@ $(document).ready(function() {
             }
         });
 	});
-	
+
+});
+
+
 	/**
 	* 로그인버튼 클릭 - 공
 	*/
@@ -72,9 +84,10 @@ $(document).ready(function() {
    	   	
    	   	$("#loginForm").submit();
 	});
-   	
+
+
 	
-   	/**
+	/**
    	 * 암호화
    	 */
    	function fnRsaEnc(value, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
@@ -82,12 +95,10 @@ $(document).ready(function() {
    	    rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
 		var encValue = rsa.encrypt(value);     // 사용자ID와 비밀번호를 RSA로 암호화한다.
 		return encValue;
-   	}
+   	} 
 	
-	
-	
-	
-});
+
+
 </script>
 
 	<!-- login 비공통 -->
@@ -107,12 +118,14 @@ $(document).ready(function() {
 						<!-- 암호화처리 : 공 -->
 		        		<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}">
 						<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
-						
+										
 						<!-- submit 로그인 클릭시  이동 경로 주기() ★  -->
 						<input type="text"  id="userId" name="userId" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
 						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
 						<div id="error">${errMsg}</div>
-						<input type="submit" value="로그인 >" id="btnLogin" >
+<!-- 						<input type="submit" value="로그인 >" id="btnLogin" > -->
+						<input type="button" value="로그인 >" id="btnLogin" >
+				
 					</form>
 				</div>
 
