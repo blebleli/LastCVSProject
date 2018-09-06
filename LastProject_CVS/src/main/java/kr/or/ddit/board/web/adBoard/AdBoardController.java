@@ -115,12 +115,13 @@ public class AdBoardController {
 		BoardVo post = boardService.getBoard(bd_id);
 		
 		//댓글 리스트 출력
-//		List<CommentsVo> commentsList = boardService.getListComments();
-//		model.addAttribute("commentsList",commentsList);
+		List<CommentsVo> commentsList = boardService.getListComments();
+		model.addAttribute("commentsList",commentsList);
+		logger.debug("{}=====================commentsList : ",commentsList);
 		
 		model.addAttribute("post",post);
 		
-		return "redirect:/board/view";
+		return "viewPost";
 	}
 	
 	/**
@@ -141,12 +142,16 @@ public class AdBoardController {
 		//댓글 작성에 필요한 댓글 내용을 가져옴
 		String content = commentsVo.getCm_content();
 		
+		logger.debug("content========= : "+content);
+		
 		//댓글 작성 메서드를 실행
 		int cnt = boardService.setInsertComments(commentsVo);
 		
+		logger.debug("==============cnt : "+cnt);
+		
 		//댓글 리스트 출력
-//		List<CommentsVo> commentsList = boardService.getListComments();
-//		model.addAttribute("commentsList",commentsList);
+		List<CommentsVo> commentsList = boardService.getListComments();
+		model.addAttribute("commentsList",commentsList);
 		return "viewPost";
 	}
 }
