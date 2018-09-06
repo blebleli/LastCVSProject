@@ -108,9 +108,6 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			session.setAttribute("userInfo", memberVo);
 
-			// 왼쪽메뉴 게시판목록 생성
-//			List<BoardVo> boardList = boardService.selectLeftMenuBoardList();
-//			request.getSession().setAttribute("menuBoardList", boardList);
 
 			return "userMain";
 
@@ -182,7 +179,7 @@ public class LoginController {
 	 * @throws IOException  
 	 */
 	@RequestMapping("/joinProcess")
-	public String joinProcess( HttpServletRequest request
+	public String JoinProcess( HttpServletRequest request
 							, HttpServletResponse response
 							, @ModelAttribute("memberVo") MemberVo memberVo
 							, Model model) throws IOException {
