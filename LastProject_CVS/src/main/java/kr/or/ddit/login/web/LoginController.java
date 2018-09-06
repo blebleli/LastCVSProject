@@ -62,9 +62,6 @@ public class LoginController {
 		return "/login/userLogin";
 	}
 	
-
-	
-	
 	/**
 	 * 로그인 처리 -공
 	 * 고객정보로 (로그인성공시 메인화면, 실패시 다시 로그인화면 )
@@ -179,7 +176,7 @@ public class LoginController {
 	 * @throws IOException  
 	 */
 	@RequestMapping("/joinProcess")
-	public String JoinProcess( HttpServletRequest request
+	public void joinProcess( HttpServletRequest request
 							, HttpServletResponse response
 							, @ModelAttribute("memberVo") MemberVo memberVo
 							, Model model) throws IOException {
@@ -193,8 +190,6 @@ public class LoginController {
 		response.setCharacterEncoding("UTF-8");
 		
 		response.getWriter().print(result);
-		
-		return "forward:/login/loginView";
 	}
 	
 	
@@ -211,11 +206,12 @@ public class LoginController {
 
 		logger.debug("requestUrl : {}", request.getRequestURL().toString());
 		
-		
+		String serverPath = StringUtils.substringBefore(request.getRequestURL().toString(), request.getServletPath());
 		// param : 받는사람 메일 주소, 인증 Url, 메일 본문 html
 		sendMailService.sendMail(
 				emailAddr, 
-				StringUtils.substringBefore(request.getRequestURL().toString(), request.getServletPath()) + "/login/confirmMailAuth",
+				serverPath + "/login/confirmMailAuth",
+				serverPath,
 				resourceLoader.getResource("/WEB-INF/view/login/mailConfirm.html").getFile().getPath());
 
 		response.setContentType("text/html; charset=UTF-8");

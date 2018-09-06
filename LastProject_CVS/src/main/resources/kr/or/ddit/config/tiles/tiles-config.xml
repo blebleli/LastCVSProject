@@ -17,15 +17,10 @@
 	</definition>
 	
 	<!-- login/*으로 호출하면 login 폴더안에 들어있는 모든 jsp파일에 userBasicLayout템플릿 적용  -->	
-	<definition name="login/*" extends="userBasicLayout">
+	<definition name="/login/*" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" />
 	</definition>
 	
-	<definition name="/login/userLogin" extends="userBasicLayout">
-		<put-attribute name="content" value="/WEB-INF/view/login/userLogin.jsp" />
-	</definition>
-
-   
 	<!--조계환 편의점 검색 메인 화면  -->
 	<definition name="cvsSearch" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/cvsSearch.jsp" />

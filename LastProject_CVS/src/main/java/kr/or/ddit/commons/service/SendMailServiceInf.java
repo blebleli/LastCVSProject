@@ -31,7 +31,7 @@ public interface SendMailServiceInf {
 	 * @throws MessagingException
 	 * @throws Exception 
 	 */
-	public void sendMail(String to, String authUrl, String contentFilePath) throws MessagingException, Exception;
+	public void sendMail(String to, String authUrl, String serverPath, String contentFilePath) throws MessagingException, Exception;
 	
 	/**
 	 * 이메일 인증 확인

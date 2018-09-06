@@ -30,6 +30,18 @@ import org.springframework.stereotype.Service;
 public class SendMailService implements SendMailServiceInf {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	private String mailAddr;
+	private String authUrl;
+	private String serverPath;
+	private String contentFilePath;
+
+	public void setParam(String mailAddr, String authUrl, String serverPath, String contentFilePath) {
+		this.mailAddr = mailAddr;
+		this.authUrl = authUrl;
+		this.serverPath = serverPath;
+		this.contentFilePath = contentFilePath;
+	}
 
 	/**
 	 * 
@@ -43,8 +55,9 @@ public class SendMailService implements SendMailServiceInf {
 	 * @throws Exception
 	 * Method 설명 : 인증메일 전송
 	 */
-	public void sendMail(String to, String authUrl, String contentFilePath) throws Exception {
-
+	public void sendMail(String mailAddr, String authUrl, String serverPath, String contentFilePath) throws Exception {
+		setParam(mailAddr, authUrl, serverPath, contentFilePath);
+		
 		logger.debug("Sending mail...");
 
 		Properties props = System.getProperties();
@@ -70,14 +83,14 @@ public class SendMailService implements SendMailServiceInf {
 		MimeMessage message = new MimeMessage(mailSession);
 		message.setSubject("HTML  mail with images");
 		message.setFrom(new InternetAddress(FROM));
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailAddr));
 
 		// This HTML mail have to 2 part, the BODY and the embedded image
 		MimeMultipart multipart = new MimeMultipart("related");
 
 		// first part  (the html)
 		BodyPart messageBodyPart = new MimeBodyPart();
-		String htmlText = getMailContent(to, authUrl, contentFilePath);
+		String htmlText = getMailContent();
 		messageBodyPart.setContent(htmlText, "text/html");
 
 		// add it
@@ -114,7 +127,7 @@ public class SendMailService implements SendMailServiceInf {
 	/**
 	 * 메일 본문 가져오기
 	 */
-	public String getMailContent(String mailAddr, String authUrl, String contentFilePath) throws Exception {
+	public String getMailContent() throws Exception {
 
 		String content = "";
 		try {
@@ -142,6 +155,8 @@ public class SendMailService implements SendMailServiceInf {
 			// 메일본문에 암호화된 Random 문자열 적용
 			content = StringUtils.replace(content, "%mailAuthUrl%", authUrl + "?authVal=" + encAuthVal);
 			content = StringUtils.replace(content, "%validDateTime%", validDateTime);
+			content = StringUtils.replace(content, "#serverPath", serverPath);
+			
 
 			// 메일인증 요청정보 저장
 			saveMailAuthRequestInfo(mailAddr, authVal, validDateTimeStr);
