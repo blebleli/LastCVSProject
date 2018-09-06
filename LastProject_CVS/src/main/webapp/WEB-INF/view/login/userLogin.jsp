@@ -9,37 +9,35 @@
 <script type="text/javascript" src="<c:url value='/js/rsa/rng.js' />"></script>
 	
 <style type="text/css">
-		#error{
-			color:red;
-			font-size:10pt;
-		}
-		
-  #btnLogin {
-  background:#84C639;
-  width: 100%;
-  border: 0;
-  padding: 10px 15px;
-  color: #ffffff;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-  font-size:18px;
-  font-weight:bold;
-      -webkit-appearance: button;
-    cursor: pointer;
+#error {
+	color: red;
+	font-size: 10pt;
+}
+
+#btnLogin {
+	background: #84C639;
+	width: 100%;
+	border: 0;
+	padding: 10px 15px;
+	color: #ffffff;
+	-webkit-transition: 0.3s ease;
+	transition: 0.3s ease;
+	font-size: 18px;
+	font-weight: bold;
+	-webkit-appearance: button;
+	cursor: pointer;
 }
 
 #btnLogin:hover {
-    background: #f39c12;
+	background: #f39c12;
 }
-
-
 </style>
 
 
 	
 <script type="text/javascript">
 
-	// 암호화 키가 없으면 loginview 재호출
+	// 암호화 키가 없으면 loginview 재호출 - 공
 	var __rsaPrivateKey__ = "${sessionScope.__rsaPrivateKey__}"
 	if(__rsaPrivateKey__ == null || __rsaPrivateKey__ == '') {
 		location.href = "<c:url value='login/loginView' />";
@@ -49,7 +47,7 @@
 $(document).ready(function() {
 	
 	/**
-	* 메일 전송
+	* 메일 전송 - 공
 	*/
 	$("#btnEmailAuth").on('click', function() {
 		
@@ -108,7 +106,7 @@ $(document).ready(function() {
 
 	
 	/**
-   	 * 암호화
+   	 * 암호화 - 공
    	 */
    	function fnRsaEnc(value, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
    	    var rsa = new RSAKey();
@@ -143,7 +141,7 @@ $(document).ready(function() {
 						<input type="text"  id="userId" name="userId" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
 						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
 						<div id="error">${errMsg}</div>
-<!-- 						<input type="submit" value="로그인 >" id="btnLogin1" > -->
+<!-- 					    <input type="submit" value="로그인 >" id="btnLogin1" > -->
 						<input type="button" value="로그인 >" id="btnLogin" >
 				
 					</form>
