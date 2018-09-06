@@ -58,7 +58,7 @@ $(function(){
 			data : {"page":1, "pageSize":32, "min_price": $("#min_price").val(), "max_price" : $("#max_price").val(), "searchfor" : $("#searchName").val() },
 			success : function(responseData){
 				console.log(responseData);
-				$("div [name= liiist]").remove();
+				$(".liiist").remove();
 				var content ='';
 				$.each(responseData, function(index,item){
 					content ='<div class="col-md-3 w3ls_w3l_banner_left"><div class="hover14 column"><div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid"><div class="agile_top_brand_left_grid_pos"><img src="/images/offer.png" alt=" " class="img-responsive" /></div><div class="agile_top_brand_left_grid1"><figure><div class="snipcart-item block"><div class="snipcart-thumb">'+'<a href="/userProd/detail?prod_id='+item.prod_id+'" id="prodImage"><img src="/images/5.png" alt=" " class="img-responsive" /></a>' +
@@ -78,6 +78,19 @@ $(function(){
 			
 		});
 	});
+	
+	$("#opoBtn").on("click", function(){
+		$("#event_id").val("201");
+		$("#eventCtgyFrm").submit;
+	})
+	$("#tpoBtn").on("click", function(){
+		$("#event_id").val("202");
+		$("#eventCtgyFrm").submit;
+	})
+	$("#discountBtn").on("click", function(){
+		$("#event_id").val("203");
+		$("#eventCtgyFrm").submit;
+	})
 });
 
 
@@ -120,6 +133,17 @@ $(function(){
 			</div>
 			<br>
 			<div class="w3ls_w3l_banner_nav_right_grid">
+				<c:if test="${i =='3' }">
+					<form action="/userProd/eventList" method="get" id="eventCtgyFrm">
+						<input type="button" class="col-md-4 btn btn-primary" name="event" id="opoBtn" value="1+1">
+						<input type="button" class="col-md-4 btn btn-primary" name="event" id="tpoBtn" value="2+1">
+						<input type="button" class="col-md-4 btn btn-primary" name="event" id="discountBtn" value="할인">
+						<input type="hidden" id="event_id" name="event_id">
+					</form>
+				</c:if>
+				<br>
+				<br>
+				<br>
 				<h3>${category.ctgy_name}</h3>
 			<form id="searchFrm">
 				<div class="services">
@@ -170,7 +194,7 @@ $(function(){
 					<div class="list">
 					<c:forEach items="${ctgyProdList }" var="prod">
 					
-						<div class="col-md-3 w3ls_w3l_banner_left" name="liiist">
+						<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >
 							<div class="hover14 column">
 							<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
 								<div class="agile_top_brand_left_grid_pos">
