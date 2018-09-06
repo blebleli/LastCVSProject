@@ -126,8 +126,8 @@ public class BoardService implements BoardServiceInf {
 	* @return
 	*/
 	@Override
-	public List<CommentsVo> getListComments() {
-		return boardDao.getListComments();
+	public List<CommentsVo> getListComments(String bd_id) {
+		return boardDao.getListComments(bd_id);
 	}
 
 	@Override

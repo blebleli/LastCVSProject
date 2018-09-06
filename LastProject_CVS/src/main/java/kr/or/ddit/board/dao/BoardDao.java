@@ -172,8 +172,8 @@ public class BoardDao implements BoardDaoInf {
 	* @return
 	*/
 	@Override
-	public List<CommentsVo> getListComments() {
-		return template.selectList("comments.getListComments");
+	public List<CommentsVo> getListComments(String bd_id) {
+		return template.selectList("comments.getListComments",bd_id);
 	}
 
 	@Override

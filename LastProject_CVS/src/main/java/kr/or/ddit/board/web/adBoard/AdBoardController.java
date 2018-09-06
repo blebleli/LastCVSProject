@@ -109,13 +109,13 @@ public class AdBoardController {
 	@RequestMapping(value="/view" ,method=RequestMethod.POST)
 	public String postView(@RequestParam(value="bd_id")String bd_id, Model model){
 		
-		logger.debug("{}bd_id========================",bd_id);
+		logger.debug("{}bd_id======================== : " + bd_id);
 		
 		//클릭한 게시글의 정보를 객체로 가져옴
 		BoardVo post = boardService.getBoard(bd_id);
 		
 		//댓글 리스트 출력
-		List<CommentsVo> commentsList = boardService.getListComments();
+		List<CommentsVo> commentsList = boardService.getListComments(bd_id);
 		model.addAttribute("commentsList",commentsList);
 		logger.debug("{}=====================commentsList : ",commentsList);
 		
@@ -137,20 +137,20 @@ public class AdBoardController {
 	@RequestMapping(value="/newComment",method=RequestMethod.POST)
 	public String newComment(CommentsVo commentsVo, Model model){
 		
-		logger.debug("commentsVo.getCm_content()" + commentsVo.getCm_content());
-		
 		//댓글 작성에 필요한 댓글 내용을 가져옴
 		String content = commentsVo.getCm_content();
-		
 		logger.debug("content========= : "+content);
+		
+		//댓글 불러오기에 필요한 게시글 번호를 가져옴
+		String id = commentsVo.getBd_id();
+		logger.debug("id == = = = = ="+id);
 		
 		//댓글 작성 메서드를 실행
 		int cnt = boardService.setInsertComments(commentsVo);
-		
 		logger.debug("==============cnt : "+cnt);
 		
 		//댓글 리스트 출력
-		List<CommentsVo> commentsList = boardService.getListComments();
+		List<CommentsVo> commentsList = boardService.getListComments(commentsVo.getBd_id());
 		model.addAttribute("commentsList",commentsList);
 		return "viewPost";
 	}

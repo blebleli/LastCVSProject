@@ -158,7 +158,7 @@ public interface BoardDaoInf {
 	* 조 회 :List<CommentsVo> getListComments()_작성된 댓글 리스트 출력
 	* @return
 	*/
-	List<CommentsVo> getListComments();
+	List<CommentsVo> getListComments(String bd_id);
 	
 	/**
 	* Method : deleteComments
