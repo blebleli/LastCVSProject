@@ -21,15 +21,24 @@ public class SignUpService implements SignUpServiceInf {
 		return signUpDao.getMemIdCnt(mem_id);
 	}
 	
+
 	/**
-	 * 사용자정보 조회
+	 * 
+	 * Method 	  : getMember
+	 * Method 설명  : 회원아이디로 한명의 회원 정보 조회
+	 * 최초작성일 : 2018. 9. 6.
+	 * 작성자 	  : pc24
+	 * 변경이력   :
+	 *
+	 * @param mem_id
+	 * @return
 	 */
 	@Override
-	public MemberVo getMember(MemberVo memberVo) {
-		// TODO Auto-generated method stub
-		return null;
+	public MemberVo getMember(String mem_id) {
+		return signUpDao.getMember(mem_id);
 	}
 
+	
 	/**
 	 * 사용자 등록
 	 */
@@ -55,5 +64,8 @@ public class SignUpService implements SignUpServiceInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
 
 }

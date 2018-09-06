@@ -1,13 +1,16 @@
 package kr.or.ddit.login.web;
 
 import java.io.IOException;
+import java.security.PrivateKey;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.commons.service.SendMailServiceInf;
+import kr.or.ddit.commons.util.RSA;
 import kr.or.ddit.login.service.SignUpServiceInf;
 import kr.or.ddit.model.MemberVo;
 
@@ -38,37 +41,90 @@ public class LoginController {
 	@Autowired 
 	private ResourceLoader resourceLoader;
 	
-	@RequestMapping("/loginView")
-	public String loginView(){
-		return "userLogin";
-	}
 	
 	/**
-	 * 회원가입 화면
+	 * 로그인 화면 -공
+	 * 
 	 * @param request
 	 * @param response
-	 * @param resultMessage
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/userJoin")
-	public String userJoin(HttpServletRequest request, HttpServletResponse response, Model model){
-
-		String mailAuthResult = StringUtils.defaultString(request.getParameter("mailAuthResult"));
-		String mem_id = StringUtils.defaultString(request.getParameter("mailAddr"));
+	@RequestMapping("/loginView")
+	public String loginView(HttpServletRequest request, HttpServletResponse response, Model model){
+		logger.debug("requestUrl : {}", request.getRequestURL());
 		
-		if(mailAuthResult.equals("SUCCESS")) {
-			model.addAttribute("resultMessage", "이메일 인증되었습니다.");
-			MemberVo memberVo = new MemberVo();
-			memberVo.setMem_id(mem_id);
-			model.addAttribute("memberVo", memberVo);
-		}
+		RSA rsa = RSA.getEncKey();
+		model.addAttribute("publicKeyModulus", rsa.getPublicKeyModulus());
+		model.addAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
+		request.getSession().setAttribute("__rsaPrivateKey__", rsa.getPrivateKey());
 		
-		return "userJoin";
+		return "/login/userLogin";
 	}
 	
+
+	
+	
 	/**
-	 * 사용자 ID 중복 조회
+	 * 로그인 처리 -공
+	 * 고객정보로 (로그인성공시 메인화면, 실패시 다시 로그인화면 )
+	 * @param request
+	 * @param memberVo
+	 * @param model
+	 * @return
+	 * @throws IOException  
+	 */
+	@RequestMapping("/loginProcess")
+	public String loginProcess( HttpServletRequest request
+							, HttpServletResponse response
+//							, @ModelAttribute("memberVo") MemberVo memberVo
+							, Model model) throws IOException {
+		
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		
+		String mem_id = request.getParameter("userId");
+		String encPassword = request.getParameter("Password"); //암호화된 비밀번호
+		String decPassword = "";
+		
+		logger.debug("userId : {}", mem_id);
+		logger.debug("encPassword : {}", encPassword);
+		
+		try {
+			//암호화된 비밀번호를 복호화한다.
+			decPassword = RSA.decryptRsa((PrivateKey) request.getSession().getAttribute("__rsaPrivateKey__"), encPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		MemberVo memberVo = signUpService.getMember(mem_id);
+		memberVo = (memberVo == null) ? memberVo = new MemberVo() : memberVo;
+		
+		if( memberVo.validateUser(mem_id, decPassword) ){
+
+			//● 리퀘스트 객체에서 세션을 얻어온다 / 로그인한 사용자 정보를 가지고 메인 고고~
+			HttpSession session = request.getSession();
+			session.setAttribute("userInfo", memberVo);
+
+			// 왼쪽메뉴 게시판목록 생성
+//			List<BoardVo> boardList = boardService.selectLeftMenuBoardList();
+//			request.getSession().setAttribute("menuBoardList", boardList);
+
+			return "userMain";
+
+		}else {
+			model.addAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			return "forward:/login/loginView";
+		}
+
+	}
+	
+	
+	/**
+	 * 사용자 ID 중복 조회 -공
+	 * 회원가입 화면에서 사용자 ID 중복조회 ajax처리
 	 * @param request
 	 * @param response
 	 * @param mem_id
@@ -88,16 +144,45 @@ public class LoginController {
 		response.getWriter().print(signUpService.getMemIdCnt(mem_id));
 	}
 	
+	
 	/**
-	 * 로그인 처리
+	 * 회원가입 화면 -공
+	 * (/confirmMailAuth 에서 인증성공시 -> 회원가입 폼 )
+	 * @param request
+	 * @param response
+	 * @param resultMessage
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/userJoin")
+	public String userJoin(HttpServletRequest request, HttpServletResponse response, Model model){
+
+		String mailAuthResult = StringUtils.defaultString(request.getParameter("mailAuthResult"));
+		String mem_id = StringUtils.defaultString(request.getParameter("mailAddr"));
+		
+		if(mailAuthResult.equals("SUCCESS")) {
+			model.addAttribute("resultMessage", "이메일 인증되었습니다.");
+			MemberVo memberVo = new MemberVo();
+			memberVo.setMem_id(mem_id);
+			model.addAttribute("memberVo", memberVo);
+		}
+		
+		return "/login/userJoin";
+	}
+	
+	
+	
+	/**
+	 * 회원가입 처리 -공
+	 * (처리 후 로그인 화면이동)
 	 * @param request
 	 * @param memberVo
 	 * @param model
 	 * @return
 	 * @throws IOException  
 	 */
-	@RequestMapping("/loginProcess")
-	public void loginProcess( HttpServletRequest request
+	@RequestMapping("/joinProcess")
+	public String joinProcess( HttpServletRequest request
 							, HttpServletResponse response
 							, @ModelAttribute("memberVo") MemberVo memberVo
 							, Model model) throws IOException {
@@ -111,10 +196,13 @@ public class LoginController {
 		response.setCharacterEncoding("UTF-8");
 		
 		response.getWriter().print(result);
+		
+		return "forward:/login/loginView";
 	}
 	
+	
 	/**
-	 * 인증 메일 보내기
+	 * 인증 메일 보내기 -공
 	 * 
 	 * @param request
 	 * @param model
@@ -140,8 +228,8 @@ public class LoginController {
 	}
 	
 	/**
-	 * 인증 확인
-	 * 
+	 * 인증 확인 -공
+	 * 인증성공시 회원가입화면 / 실패시 로그인화면이동 
 	 * @param request
 	 * @param model
 	 * @return

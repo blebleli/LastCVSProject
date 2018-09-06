@@ -144,6 +144,13 @@ public class MemberVo {
 				+ ", mem_y=" + mem_y + "]";
 	}
 	
+	public boolean validateUser(String  mem_id, String decPassword){
+		if (mem_id.equals(this.getMem_id())  && decPassword.equals(this.getMem_pw()))
+			return true;
+		else 
+			return false; 
+	}
+
 	
 
 }
