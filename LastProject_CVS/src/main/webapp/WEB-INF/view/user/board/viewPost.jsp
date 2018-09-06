@@ -133,16 +133,15 @@
 								<tr>
 									<td>댓글</td>
 									<c:forEach items="${commentsList}" var="vo">
-										<td>${vo.CM_CONTENT}</td>
+										<td>${vo.cm_content}</td>
 									</c:forEach>
 								</tr>
 							</tbody>
 							<tr>
 								<td>
 									<form action="/board/newComment" method="post">
-										<input type="text" size="100" id="cm_content"
-											name="cm_content"> <input type="submit"
-											id="commentButton" class="btn btn-default" value="댓글 저장">
+										<input type="text" size="100" id="cm_content" name="cm_content"> 
+										<input type="submit" id="commentButton" class="btn btn-default" value="댓글 저장">
 									</form>
 								</td>
 							</tr>

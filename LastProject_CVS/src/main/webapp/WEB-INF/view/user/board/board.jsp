@@ -105,7 +105,6 @@
 	$(function() {
 		$("#click").on("click", function() {
 			$("#bd_id").val($(this).data("no"));
-			console.log($("#bd_id").val());
 			$("#frm").submit();
 		});
 	});
