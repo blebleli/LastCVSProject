@@ -2,8 +2,8 @@
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-<!-- 사용자 -->
-	<definition name="userLayout" template="/WEB-INF/view/common/user/userBasicLayout.jsp">
+<!-- 사용자 기본 레이아웃 -->
+	<definition name="userBasicLayout" template="/WEB-INF/view/common/user/userBasicLayout.jsp">
 		<put-attribute name="top" 		value="/WEB-INF/view/common/user/headertop.jsp" />
 <!-- 		<put-attribute name="left" 		value="/WEB-INF/view/common/user/leftNavbar.jsp" /> -->
 		<put-attribute name="left" 		value="" />
@@ -12,60 +12,57 @@
 	</definition>
 	
 	<!-- 메인 -->
-	<definition name="userMain" extends="userLayout">
+	<definition name="userMain" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/common/main/userMain.jsp" />
 	</definition>
 	
-	<!-- 로그인 -->
-	<definition name="userLogin" extends="userLayout">
-		<put-attribute name="content" value="/WEB-INF/view/login/userLogin.jsp" />
+	<!-- login/*으로 호출하면 login 폴더안에 들어있는 모든 jsp파일에 userBasicLayout템플릿 적용  -->	
+	<definition name="login/*" extends="userBasicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" />
 	</definition>
-	
-	<!-- 회원가입 -->
-	<definition name="userJoin" extends="userLayout">
-		<put-attribute name="content" value="/WEB-INF/view/login/userJoin.jsp" />
-	</definition>
+
    
 	<!--조계환 편의점 검색 메인 화면  -->
-	<definition name="cvsSearch" extends="userLayout">
+	<definition name="cvsSearch" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/cvsSearch.jsp" />
 	</definition>
 	
 	 <!-- 상품 검색 -->	
-	<definition name="prodSearch" extends="userLayout">
+	<definition name="prodSearch" extends="userBasicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/user/prodSearch.jsp" />
 	</definition>
 			
 	<!--조계환 공지사항 게시판 메인 화면 -->
-	<definition name="boardList" extends="userLayout">
+	<definition name="boardList" extends="userBasicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/user/board/board.jsp" />
 	</definition>
 	
 	<!--조계환 공지사항 게시물 작성 화면 -->
-	<definition name="newNoticePost" extends="userLayout">
+	<definition name="newNoticePost" extends="userBasicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/board/newNoticePost.jsp" />
 	</definition>
 	
 	<!--조계환 공지사항 게시물 상세보기 화면 -->
-	<definition name="viewPost" extends="userLayout">
+	<definition name="viewPost" extends="userBasicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/user/board/viewPost.jsp" />
 	</definition>
 	
 	<!-- best 상품 -->
-	<definition name="bestProducts" extends="userLayout">
+	<definition name="bestProducts" extends="userBasicLayout">
 		<put-attribute name="left"    value="/WEB-INF/view/common/user/leftNavbar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/view/user/products.jsp" />
 	</definition>
 	
 	<!-- 상품상세 -->
-	<definition name="prodDetail" extends="userLayout">
+	<definition name="prodDetail" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/productDetail.jsp" />
 	</definition>
 	
 	<!-- 마이페이지 -->
-	<definition name="myPage" extends="userLayout">
+	<definition name="myPage" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/myPage.jsp" />
 	</definition>
+	
 	
 <!-- 	<definition name="cvs_basicLayout" template="/WEB-INF/view/common/cvs/cvs_basicLayout.jsp"> -->
 <!-- 		<put-attribute name="cvs_top" value="/WEB-INF/view/common/cvs/cvs_left.jsp" /> -->
@@ -73,27 +70,7 @@
 <!-- 		<put-attribute name="content" value="" /> -->
 <!-- 	</definition> -->
 	
-	<!-- Login -->
-<!-- 	<definition name="loginLayout" template="/WEB-INF/view/login/layout/loginLayout.jsp"> -->
-<!-- 		<put-attribute name="top" value="/WEB-INF/view/login/layout/headertop.jsp" /> -->
-<!-- 		<put-attribute name="left" value="/WEB-INF/view/login/layout/leftNavbar.jsp" /> -->
-<!-- 		<put-attribute name="content" value="" /> -->
-<!-- 		<put-attribute name="bottom" value="/WEB-INF/view/login/layout/newsAndbttom.jsp" /> -->
-<!-- 	</definition> -->
-	
-	<!-- Main -->
-<!-- 	<definition name="mainLayout" template="/WEB-INF/view/common/main/mainLayout.jsp"> -->
-<!-- 		<put-attribute name="content" value="" /> -->
-<!-- 	</definition> -->
-	
-<!-- 	<definition name="login/*" extends="loginLayout"> -->
-<!-- 		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" /> -->
-<!-- 	</definition> -->
-	
-	<!-- Main -->
-<!-- 	<definition name="main/*" extends="mainLayout"> -->
-<!-- 		<put-attribute name="content" value="/WEB-INF/view/{1}.jsp" /> -->
-<!-- 	</definition> -->
+
 	
 <!-- 	<definition name="cvs_index" extends="cvs_basicLayout"> -->
 <!-- 		<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_index.jsp"/>	 -->

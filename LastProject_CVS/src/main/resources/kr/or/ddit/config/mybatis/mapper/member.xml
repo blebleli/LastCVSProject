@@ -9,7 +9,7 @@
 		 WHERE MEM_ID = #{mem_id}
 	</select>
 	
-	<!-- 사용자정보 등록 -->
+	<!-- 사용자정보 등록-별 -->
 	<insert id="setInsertSignUpUser" parameterType="memberVo">
 		INSERT INTO MEMBER
 		(
@@ -31,18 +31,18 @@
 		)
 		VALUES (
 		      #{mem_id, jdbcType=VARCHAR}			<!--//  일반:이메일, 점주:사업자번호, 관리자:일괄부여  -->
-            , CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR})<!--// 비밀번호  -->
-			<!--, #{mem_pw, jdbcType=VARCHAR}			// 비밀번호  -->
-			, #{mem_kind, jdbcType=VARCHAR}		<!--// 관리자 : 00, 점주 : 01, 일반 : 02  -->
-			, #{mem_name, jdbcType=VARCHAR}		<!--// 일반:일반회원 점주:점주이름  -->
-			, #{mem_tel, jdbcType=VARCHAR}		<!--// 연락처  -->
+            , CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) <!--// 비밀번호  -->
+		  --, #{mem_pw, jdbcType=VARCHAR}			<!--// 비밀번호  -->
+			, #{mem_kind, jdbcType=VARCHAR}			<!--// 관리자 : 00, 점주 : 01, 일반 : 02  -->
+			, #{mem_name, jdbcType=VARCHAR}			<!--// 일반:일반회원 점주:점주이름  -->
+			, #{mem_tel, jdbcType=VARCHAR}			<!--// 연락처  -->
 			, #{mem_birth, jdbcType=VARCHAR}		<!--// 생년월일  -->
-			, #{mem_gen, jdbcType=CHAR}		<!--// 성별  -->
-			, #{mem_zip, jdbcType=NUMERIC}		<!--// 일반: 개인집주소, 점주:편의점주소  -->
-			, #{mem_add, jdbcType=VARCHAR}		<!--// 일반: 개인집주소, 점주:편의점주소  -->
-			, #{mem_addr, jdbcType=VARCHAR}		<!--// 일반: 개인집주소, 점주:편의점주소  -->
-			, #{mem_cvs_name, jdbcType=VARCHAR}	<!--// 편의점명  -->
-			, #{mem_cvs_tel, jdbcType=VARCHAR}	<!--// 편의점연락처  -->
+			, #{mem_gen, jdbcType=CHAR}				<!--// 성별  -->
+			, #{mem_zip, jdbcType=NUMERIC}			<!--// 일반: 개인집주소, 점주:편의점주소  -->
+			, #{mem_add, jdbcType=VARCHAR}			<!--// 일반: 개인집주소, 점주:편의점주소  -->
+			, #{mem_addr, jdbcType=VARCHAR}			<!--// 일반: 개인집주소, 점주:편의점주소  -->
+			, #{mem_cvs_name, jdbcType=VARCHAR}		<!--// 편의점명  -->
+			, #{mem_cvs_tel, jdbcType=VARCHAR}		<!--// 편의점연락처  -->
 			, #{mem_intro, jdbcType=VARCHAR}		<!--// 소개  -->
 			, #{mem_x, jdbcType=NUMERIC}			<!--// 좌표_x  -->
 			, #{mem_y, jdbcType=NUMERIC}			<!--// 좌표_y  -->
@@ -75,10 +75,12 @@
 		 WHERE MEM_ID = #{mem_id}
 	</update>
 	
+	
 	<!-- 사용자 조회 -->
-	<select id="getMember" resultType="memberVo">
-		SELECT MEM_ID
-			 , MEM_PW
+	<select id="getMember" resultType="memberVo" parameterType="String">
+		SELECT CRYPTPACK.DECRYPT(#{mem_pw}, #{mem_id}) as mem_pw 
+			 , MEM_ID
+		   --, MEM_PW
 			 , MEM_KIND
 			 , MEM_NAME
 			 , MEM_TEL
