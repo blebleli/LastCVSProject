@@ -141,6 +141,7 @@
 								<td>
 									<form action="/board/newComment" method="post">
 										<input type="text" size="100" id="cm_content" name="cm_content"> 
+										<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}">
 										<input type="submit" id="commentButton" class="btn btn-default" value="댓글 저장">
 									</form>
 								</td>
