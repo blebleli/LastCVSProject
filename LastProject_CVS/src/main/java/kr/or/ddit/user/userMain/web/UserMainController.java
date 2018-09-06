@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RequestMapping("/myPage")
+@RequestMapping("/user")
 @Controller("userMainController")
 public class UserMainController {
 	
@@ -26,7 +26,22 @@ public class UserMainController {
 	@Resource(name="payService")
 	private  PayServiceInf payService;
 	
-	@RequestMapping("/test")	
+	/**
+	 * 
+	 * Method   : main 
+	 * 최초작성일  : 2018. 9. 6. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @return 
+	 * Method 설명 : usermain 으로 이동
+	 */
+	@RequestMapping("/main")
+	public String main(){
+		return "userMain";
+	}
+	
+	
+	@RequestMapping("/Mypage")	
 	 public String myPageView(String mem_id,String mem_pw, Model model) {
 		
 		//임시 아이디 지정
