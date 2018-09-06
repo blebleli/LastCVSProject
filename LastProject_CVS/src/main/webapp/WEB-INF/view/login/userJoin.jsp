@@ -164,7 +164,7 @@ $(document).ready(function() {
 		
 		$.ajax({
             type : "POST",
-            url : "<c:url value='/login/loginProcess' />",
+            url : "<c:url value='/login/joinProcess' />",
             dataType : "json",
             data : $("#registForm").serialize(),
             success : function(data){
@@ -177,8 +177,12 @@ $(document).ready(function() {
             	
             	// 날짜형식 복원
             	$( "#mem_birth" ).datepicker({ dateFormat: 'yy-mm-dd' });
+            	
+            	location.href = "<c:url value='/login/loginView' />";
             },
             error: function(request, status, error) {
+            	// 날짜형식 복원
+            	$( "#mem_birth" ).datepicker({ dateFormat: 'yy-mm-dd' });
                 alert(error);
             }
         });

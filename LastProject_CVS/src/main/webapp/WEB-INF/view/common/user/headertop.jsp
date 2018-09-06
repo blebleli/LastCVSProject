@@ -48,7 +48,14 @@
 				<div class="mega-dropdown-menu">
 					<div class="w3ls_vegetables">
 						<ul class="dropdown-menu drp-mnu">
-							<li><a href="/login/loginView">로그인</a></li>
+							<c:choose>
+								<c:when test="${empty sessionScope.userInfo}">
+									<li><a href="<c:url value='/login/loginView' />">로그인</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="<c:url value='/login/logout' />">로그아웃</a></li>
+								</c:otherwise>
+							</c:choose>
 							<!-- 							<li><a href="userLogin.jsp">회원가입</a></li> -->
 						</ul>
 					</div>

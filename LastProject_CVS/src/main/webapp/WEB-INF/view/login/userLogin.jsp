@@ -138,7 +138,7 @@ $(document).ready(function() {
 						<input type="hidden" id="rsaPublicKeyExponent" value="${publicKeyExponent}">
 										
 						<!-- submit 로그인 클릭시  이동 경로 주기() ★  -->
-						<input type="text"  id="userId" name="userId" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
+						<input type="text"  id="userId" name="userId" value="${userId}" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
 						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
 						<div id="error">${errMsg}</div>
 <!-- 					    <input type="submit" value="로그인 >" id="btnLogin1" > -->
