@@ -6,12 +6,12 @@
 
 	<insert id="newComments" parameterType="commentsVo">
 		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID, cm_content, CM_DATE, CM_DELNY, CM_OPENNY )
-		VALUES (COMMENT_NO.nextval,'1','admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),'2018/09/05','N','Y')
+		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),'2018/09/05','N','Y')
     
 	</insert>
 	
-	<select id="getListComments" resultType="commentsVo">
-		SELECT * FROM COMMENTS 
+	<select id="getListComments" parameterType="String" resultType="commentsVo">
+		SELECT * FROM COMMENTS where bd_id = #{bd_id}
 	</select>
 
 </mapper>
