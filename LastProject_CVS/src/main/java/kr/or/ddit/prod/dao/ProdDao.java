@@ -151,6 +151,11 @@ public class ProdDao implements ProdDaoInf {
 		return session.selectList("search.searchProd", map);
 	}
 
+	@Override
+	public List<ProdVo> getCgEventProd(Map<String, Object> map) {
+		return session.selectList("prod.getCgEventProd", map);
+	}
+
 
 	
 }
