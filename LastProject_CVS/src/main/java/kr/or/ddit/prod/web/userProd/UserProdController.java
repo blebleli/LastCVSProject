@@ -27,7 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/userProd")
-@SessionAttributes({"category", "prodCtgy"})
+@SessionAttributes({"prodCtgy", "i"})
 public class UserProdController {
 	private Logger logger = LoggerFactory.getLogger(UserProdController.class);
 	
@@ -104,36 +104,44 @@ public class UserProdController {
 	public ModelAndView bestProdList(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="32")int pageSize,@RequestParam(value="level")String level, @RequestParam(value="ctgy_id")String ctgy_id, Model model){
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		Map modelMap = model.asMap();
+		String i = (String) modelMap.get("i");
+		List<ProdVo> ctgyProdList = new ArrayList<ProdVo>();
 		String pr_class = "";
-		
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
-		if(level.equals("lg")){
-			pr_class="pr_class_lg"; 
-		}else{
-			pr_class="pr_class_md";
+		if (level.equals("lg")) {
+			pr_class = "pr_class_lg";
+		} else {
+			pr_class = "pr_class_md";
 		}
 		paramMap.put("pr_class", pr_class);
 		paramMap.put("pr_class_id", ctgy_id);
 		
+		if(i.equals("3")){
+			ctgyProdList= prodService.getCgEventProd(paramMap);
+			mav.addObject("ctgyProdList", ctgyProdList);
+		}else{
+			
+			Map<String, Object> result = prodService.getCtgyProdList(paramMap);
+			mav.addObject("ctgyProdList", result.get("ctgyProdList"));
+			mav.addObject("pagination", result.get("pagination"));
+		}
+
 		CategoryVo category = prodService.getCtgy(ctgy_id);
-//		model.addAttribute("category", category);
-		
-		Map<String, Object> result = prodService.getCtgyProdList(paramMap);
-		mav.addObject("ctgyProdList", result.get("ctgyProdList"));
-		mav.addObject("pagination", result.get("pagination"));
+
 		mav.addObject("ctgylevel", level);
 		mav.addObject("ctgy_id", ctgy_id);
-//		mav.addObject("category", category);
+		mav.addObject("category", category);
 		mav.setViewName("bestProducts");
-		
+
 		return mav;
 	}
 	
+	// 검색 ajax 
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	@ResponseBody
 	public List<ProdVo> searchProd(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="32")int pageSize, @RequestParam(value="min_price", defaultValue="0")String min, @RequestParam(value="max_price", defaultValue="1000000")String max, @RequestParam(value="searchfor", defaultValue="")String prodName  ){
-//		ModelAndView mav = new ModelAndView();
 		Map<String, Object>paramMap = new HashMap<String, Object>();
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
@@ -142,8 +150,39 @@ public class UserProdController {
 		paramMap.put("searchfor", prodName);
 		
 		List<ProdVo> searchList = prodService.searchProd(paramMap);
-//		mav.setViewName("bestProducts");
-//		mav.addObject("ctgyProdList", searchList);
 		return searchList;
+	}
+	
+	@RequestMapping("/eventList")
+	public ModelAndView eventList(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="32")int pageSize, @RequestParam(value="level", defaultValue="null")String level, @RequestParam(value="ctgy_id", defaultValue="null")String ctgy_id, @RequestParam(value="event_id", defaultValue="0")String event_id, Model model ){
+		ModelAndView mav = new ModelAndView("bestProducts");
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		List<ProdVo> eventList = new ArrayList<ProdVo>();
+		String pr_class = "";
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		if(level != null && ctgy_id != null){
+			
+			if (level.equals("lg")) {
+				pr_class = "pr_class_lg";
+			} else {
+				pr_class = "pr_class_md";
+			}
+			paramMap.put("pr_class", pr_class);
+			paramMap.put("pr_class_id", ctgy_id);
+			paramMap.put("event_id", event_id);
+			eventList = prodService.getEventCtgyProd(paramMap);
+			CategoryVo category = prodService.getCtgy(ctgy_id);
+			mav.addObject("category", category);
+			
+		}else{
+			
+			paramMap.put("event_id", event_id);
+			eventList = prodService.getListProdEvent(paramMap);
+		}
+		
+		mav.addObject("ctgyProdList", eventList);
+		
+		return mav;
 	}
 }
