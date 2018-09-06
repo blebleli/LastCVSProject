@@ -3,16 +3,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 암호화 -->
-<script type="text/javascript" src="<c:url value='/js/rsa/js/jsbn.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/rsa/js/rsa.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/rsa/js/prng4.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/rsa/js/rng.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/rsa/jsbn.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/rsa/rsa.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/rsa/prng4.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/rsa/rng.js' />"></script>
 	
 <style type="text/css">
 		#error{
 			color:red;
 			font-size:10pt;
 		}
+		
+  #btnLogin {
+  background:#84C639;
+  width: 100%;
+  border: 0;
+  padding: 10px 15px;
+  color: #ffffff;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+  font-size:18px;
+  font-weight:bold;
+      -webkit-appearance: button;
+    cursor: pointer;
+}
+
+#btnLogin:hover {
+    background: #f39c12;
+}
+
+
 </style>
 
 
@@ -56,7 +76,7 @@ $(document).ready(function() {
         });
 	});
 
-});
+
 
 
 	/**
@@ -97,7 +117,7 @@ $(document).ready(function() {
 		return encValue;
    	} 
 	
-
+});
 
 </script>
 
@@ -123,7 +143,7 @@ $(document).ready(function() {
 						<input type="text"  id="userId" name="userId" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
 						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
 						<div id="error">${errMsg}</div>
-<!-- 						<input type="submit" value="로그인 >" id="btnLogin" > -->
+<!-- 						<input type="submit" value="로그인 >" id="btnLogin1" > -->
 						<input type="button" value="로그인 >" id="btnLogin" >
 				
 					</form>
