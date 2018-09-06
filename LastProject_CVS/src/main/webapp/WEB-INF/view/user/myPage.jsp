@@ -10,7 +10,254 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.css" rel="stylesheet">
  -->
+<style>
 
+/* main : S */
+.main_wrap{position:relative;}
+.main_ban,
+.prod_tab{position:relative;width:960px;margin:auto}
+.colwrap{}
+.colwrap:after{content:''; display:block; visibility:hidden; clear:both;}
+.bg_gray{background: #f6f6f6}
+.mlb_ani,
+.gnb_bg{display: none}
+
+/* section_slide */
+.main_ban{height:430px;}
+.main_slide {width:720px; position:relative;}
+.right_banner {width:238px; height:430px; border-left:1px solid #e8e8e8; border-right:1px solid #e8e8e8; float:left; background:#f0f9f9;}
+.right_banner .banner_slide {width:238px; height:379px;}
+/* /////////////////  MAIN KV  ///////////////////// */
+.main_kv { width:720px; height:430px; position:relative;}
+.main_kv ul {position:absolute; width:720px; left:0px; bottom:0px; border-top:1px solid #dfdfdf; text-align:center;}
+.main_kv ul li {display:inline-block; width:160px; font-size:16px; text-align:center;}
+.main_kv ul li .mb_img{position:absolute;top:-380px;left:0;}
+.main_kv ul li .mb_img img{width:720px;height:379px;}
+.main_kv ul li a span {display:none}
+.main_kv ul li.active a {color:#397ca8; position:relative;font-weight: bold}
+.main_kv ul li.active a span {display:block; width:15px;height:8px; position:absolute; top:-8px; left:50%; margin-left:-7px; text-indent:-999em; background:url(/_ui/desktop/common/images/gscvs/main/ico_evt_menu.png) no-repeat;z-index:99;}
+.main_kv ul li a {display:block; height:50px; line-height:50px;color:#444;}
+.main_kv ul li .mb_img a {height:auto;} /* 20150817 add */
+
+.main_slide .btn {width:26px;height:26px; background:url(/_ui/desktop/common/images/gscvs/main/btn_kv.png) no-repeat 0 0; text-indent:-999em; position:absolute; z-index:10;}
+.main_slide .prv {background-position:0px -52px; left:10px; bottom:13px;}
+.main_slide .nxt {background-position:0px -78px; right:10px; bottom:13px;}
+.main_slide .play {background-position:0px -26px; left:0px; bottom:64px;}
+.main_slide .stop {background-position:0px 0px; left:0px; bottom:64px;}
+
+.main_wrap .all_wrap{background:#cbeef3;}
+.sub_menu{position:relative;width:960px;margin:auto;overflow:hidden;}
+
+/* products info */
+.prod_wrap{height:290px;}
+.prod_tab > ul{background: #ddf5fb;}
+.prod_tab{position:relative;background: #ddf5fb;}
+.prod_tab > ul > li > a{position:relative;display: block;width:240px;height:53px;line-height:53px;border-top:1px solid #29a8e9;background:#0091df ;}
+.prod_tab > ul > li > a .tab_arr{position:absolute;top:20px;right:20px;width:11px;height:19px;text-indent:-999em;background:url("/_ui/desktop/common/images/gscvs/main/ico_main.png") 2px -107px no-repeat;}
+.prod_tab > ul > li:first-child a{border:0;}
+.prod_tab li .tit{display:block;padding:0 28px;font-size: 20px;color:#a8e5ff;}
+.prod_tab li .txt{display:none;padding:0 10px 0 28px;font-size: 13px;color:#a8e5ff;}
+
+/* active */
+.prod_tab > ul > li.active > a{height:128px;line-height: 20px}
+.prod_tab li.active .tit{display:block;padding:28px 10px 13px 28px;font-size: 24px;font-weight: bold;color:#fff;}
+.prod_tab li.active .tit em{font-size: 30px;}
+.prod_tab li.active .txt{display:block;font-size: 13px;color:#fff;}
+.prod_tab li.active > a .tab_arr{position:absolute;top:23px;right:-11px;width:11px;height:19px;text-indent:-999em;background:url("/_ui/desktop/common/images/gscvs/main/ico_main.png") -49px -102px no-repeat;}
+.prod_tab .prd_lst{position:absolute;top:0;left:240px;width:720px;}
+.prod_tab .btn_more{display:inline-block;width:51px;height:20px;position: absolute;top:10px;right:0;padding-right:20px;background:url("/_ui/desktop/common/images/gscvs/main/ico_main.png") 36px -53px no-repeat;}
+
+.sb_wrap{position:absolute;top:50px;left:0;width:720px;height:240px;z-index:99;}
+.sbbox{float:left;width:180px;height:240px}
+.pro{position:relative;top:30px;background:url(/_ui/desktop/common/images/gscvs/main/gs25_probg.png) no-repeat 25px 20px;}
+.pro img{margin:40px 0 0 45px;width:95px;height:92px;}
+.pro a{height:175px;display:block}
+.pro .tip{display:table;position:absolute;top:15px;right:10px;width:46px;height:46px;color:#fff;font-size:18px;text-align:center;background:url(/_ui/desktop/common/images/gscvs/main/flag_bg.png) no-repeat;font-weight: bold}
+.pro .tip.typ1{background-position: 0 0}
+.pro .tip.typ2{background-position: -65px 0}
+.pro .tip.typ3{background-position: 0 -55px;font-size: 16px}
+.pro .tip span{display:table-cell;padding:3px 1px 0 0;vertical-align: middle;line-height: 16px}
+.pro .tip.typ3 span{padding:3px 4px 0 0;font-size: 14px}
+.pro .title{color:#222;text-align:center;display:block;position: absolute;top: 175px;left: 50%;margin-left: -90px;width: 100%;}
+.pro .title .mt{font-size:13px;display:block;background:url(/_ui/desktop/common/images/gscvs/main/gs25_tline.png) no-repeat 92% 1px;}
+.pro .title em{margin-top:5px;font-size:22px;display:block;}
+
+.sns_sect{overflow:hidden;margin-top:45px;position:relative;}
+.sns_sect .fb_box,
+.sns_sect .instar_box,/* 2015-10-26 수정 */
+.sns_sect .nvb_box{position:relative;float:left;width:307px;margin-left:19px;}
+.sns_sect .fb_box:first-child{margin-left:0;}
+.sns_sect h3{margin-bottom:16px;color:#222;font-weight: bold;font-size: 22px}
+.sns_sect .fb_box{border-top:2px solid #3c599b;}
+.sns_sect .instar_box{border-top:2px solid #9e2f9e;} /* 2017-07-05 수정 */
+.sns_sect .nvb_box{border-top:2px solid #2db400;}
+.sns_sect .box_tit{position:absolute;top:0;left:0;width:305px;height: 70px;line-height: 70px;border:1px solid #dfdfdf;border-top:0;background-color: #fff;}
+.sns_sect .box_tit h4{padding-left:67px;font-size: 16px;font-weight: bold;background: url("/_ui/desktop/common/images/gscvs/main/ico_sns.gif") no-repeat;}
+.sns_sect .box_tit .like_btn{position: absolute;top:23px;right:5px;}
+.sns_sect .fb_box h4{background-position: 20px 13px;}
+.sns_sect .instar_box h4{ width:0; background-position: 20px -48px; text-indent: -99999px; float:left; padding-left:78px; padding-left:68px\9;} /* 2015-11-13 수정 */
+.sns_sect .instar_box span { display:inline-block; margin-left:-12px; _margin-left:0; margin-left:-2px \9;}
+.sns_sect .instar_box span img { display:inline-block; height:22px; padding-top:25px; }  /* 2015-11-13 수정 */
+.sns_sect .nvb_box h4{background-position: 20px -107px;}
+.sns_sect .fb_box h4{color:#3c599b;}
+.sns_sect .instar_box h4{color:#00b1f1;} /* 2015-10-26 수정 */
+.sns_sect .instar_box .cnts_box { overflow-x: hidden; overflow-y: scroll;}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner { width:90%; padding:10px 0; margin:0 auto;}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner .line { border-bottom:1px solid #eeefef; padding:20px 0;}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner .line.first { padding-top:0}
+.sns_sect .instar_box .cnts_box .inner .top { overflow:hidden; padding-bottom:11px;}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner .top > a { float:left; }/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner .top .right { float:left; padding-left:7px; font-size:12px; padding-top:4px; }/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner .top .right .order01 a { display:block; font-size:13px; font-weight:bold; color:#0074be; padding-bottom:4px;}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner .top .right .order02 a { font-size:11px; color:#9197a3}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner ul li { line-height:20px; }/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner ul li p { padding-bottom:6px 0;}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner ul li p strong { font-weight:bold;}/* 2015-10-26 추가 */
+.sns_sect .instar_box .cnts_box .inner ul li img { width:100%; padding-top:6px;}/* 2015-10-26 추가 */
+.sns_sect .nvb_box h4{color:#2db400;}
+.sns_sect .cnts_box{height: 430px;border:1px solid #dfdfdf;border-top:0;margin-top: 70px;}/* 2015-10-26 수정 */
+.sns_sect .nvb_box .cnts_box{float:left;width:305px;margin-top:70px;height:430px;overflow-y:scroll}
+.sns_sect .nvb_box .cnts_box ul{width:90%;margin:auto;}
+.sns_sect .nvb_box .cnts_box ul li{padding:10px 0 10px 0;overflow:hidden;border-bottom:1px solid #dfdfdf;}
+.sns_sect .nvb_box .cnts_box ul li a{position:relative;color:#444;line-height:20px;display:block;}
+.sns_sect .nvb_box .cnts_box ul li .date{padding:5px 10px 0 0;color:#666;display:block;}
+
+
+.link_sect{margin-top:20px;}
+.link_sect .box{float:left;margin-left:20px;width:223px;border:1px solid #e8e8e8;text-align: center}
+.link_sect .box img{width:223px;height:338px;}
+.link_sect .box:first-child{margin-left:0;}
+.link_sect .box.popcard{margin-left:0;padding:0;width:223px;}
+.link_sect .box.drc{padding:0;width:223px;}
+.link_sect .box.gstv{padding:20px 0;width:223px;}
+.link_sect .box.gstv img{width:183px;height:242px;}
+.link_sect a span{display: block}
+.link_sect a .tit{padding-top:8px;font-size: 22px;font-weight: bold;color:#222;}
+.link_sect a .tit em{color:#397ca8;}
+.link_sect a .img{margin:37px 0;}
+.link_sect a .stit{padding-bottom:20px;font-size: 16px;font-weight: bold;color:#222;}
+.link_sect a .txt{padding-top:20px;background: url("/_ui/desktop/common/images/gscvs/main/ico_main.png") 82px -547px no-repeat;line-height: 20px;color:#666;}
+.link_sect .gstv .tit{padding-top:14px;color:#222;font-size:16px;font-weight: bold}
+.link_sect .gstv .txt{padding-top:8px;color:#666;}
+
+.etc_sect > div{float:left;width:470px;margin-top:20px;}
+.etc_sect > div:first-child{margin-right:20px;}
+.etc_sect .store_src,
+.etc_sect .frnch_call{overflow:hidden;border:1px solid #dfdfdf;}
+.etc_sect .store_src{padding:19px 30px;height:80px;margin-bottom: 20px}
+.etc_sect .store_src .form_search{margin-top:19px;overflow: hidden}
+.etc_sect .store_src .form_search input[type=text]{width:309px;}
+.etc_sect .store_src .form_search input[type=button]{background:#0074be;}
+@-moz-document url-prefix(){
+	.etc_sect .store_src .form_search input[type=button]{padding:6px 20px 7px;}/* firefox hack : padding  */
+}
+.etc_sect .frnch_call{padding: 26px 19px}
+.etc_sect .store_src h4,
+.etc_sect .frnch_call h4{display:table;font-size: 16px;font-weight: bold;color:#222;}
+.etc_sect .store_src span,
+.etc_sect .store_src label,
+.etc_sect .frnch_call span{display:table-cell;vertical-align: middle;}
+.etc_sect .store_src .ico_store{width:30px;height:22px;background: url("/_ui/desktop/common/images/gscvs/main/ico_main.png") 0 -248px no-repeat}
+.etc_sect .frnch_call .ico_call{width:30px;background: url("/_ui/desktop/common/images/gscvs/main/ico_main.png") -36px -250px no-repeat}
+.etc_sect .frnch_call p{margin-top:10px;font-size:22px;color:#d04001}
+.etc_sect .frnch_call > div,
+.etc_sect .frnch_call ul{float:left;}
+.etc_sect .frnch_call div:first-child{margin-top: 5px}
+.etc_sect .frnch_call ul{padding-left:29px;}
+.etc_sect .frnch_call ul li{padding-left:8px;background: url("/_ui/desktop/common/images/gscvs/main/ico_main.png") 0 -77px no-repeat;line-height: 22px;color:#666;}
+.etc_sect .frnch_call ul li.lst{background: none}
+
+.etc_sect .qsvs_box{overflow:hidden;border-top:1px solid #dfdfdf;border-left:1px solid #dfdfdf;width:468px;}
+.etc_sect .qsvs_box li{float:left;}
+.etc_sect .qsvs_box a{display:block;padding:32px 13px 0 20px;width:200px;height:97px;border-right:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;}
+.etc_sect .qsvs_box span{padding-left:65px;min-height:50px;color:#666;display:block;line-height:18px;background:url(/_ui/desktop/common/images/gscvs/main/ico_main.png) 0 -280px no-repeat;line-height: 20px}
+.etc_sect .qsvs_box strong{padding-bottom:5px;color:#222;font-size:16px;line-height:21px;display:block;}
+.etc_sect .qsvs_box .sv2{background-position:0 -345px;}
+.etc_sect .qsvs_box .sv3{background-position:0 -405px;}
+.etc_sect .qsvs_box .sv4{background-position:0 -470px;}
+.etc_sect .qsvs_box .sv3 strong,
+.etc_sect .qsvs_box .sv4 strong{padding:0 0 5px 0;}
+
+/* 나만의 냉장고 */
+.main_ban .fridge_sect{position:absolute;top:0;right:0;padding:27px 9px 0 27px;width:208px;height:401px;background:url("/_ui/desktop/common/images/gscvs/main/fridge_img1.gif") 0 0 no-repeat;} /* 2016-09-05 수정 */
+.fridge_sect .top{padding-top:10px;}
+.fridge_sect .fridge_box{ display:block; position:relative; width:208px;height:342px; padding:24px 0 0 1px;background:url("/_ui/desktop/common/images/gscvs/main/fridge_img4.gif") 3px 78px no-repeat;} /* 2016-09-05 수정 */
+.fridge_sect .fridge_box .point{position:absolute;top:125px;left:22px;width:70px;font-size: 18px;font-weight: bold;text-align: right;background: none;color:#222;padding: 0;} /* 2016-09-05 수정 */
+.fridge_sect .fridge_box .product{position:absolute;top:172px;left:10px;width:184px;text-align: center} /* 2016-09-05 수정 */
+.fridge_sect .fridge_box .product span{display:block;padding-top:6px;color:#5b737a;} /* 2016-09-05 수정 */
+.fridge_sect .fridge_box .date{position:absolute;top:287px;left:10px;width:184px;text-align: center} /* 2016-09-05 수정 */
+.fridge_sect .fridge_box .date span{padding-left:22px;background:url("/_ui/desktop/common/images/gscvs/main/ico_clock.png") 0 2px no-repeat;font-size: 20px;color:#00857c;font-weight: bold;}
+.fridge_sect .fridge_box .gift{position:absolute;bottom:0;left:1px;width:208px;height:40px;background: #f25822;color:#fff;line-height: 40px;text-align: center;} /* 2016-09-05 수정 */
+.fridge_sect .fridge_box .gift em{font-size: 18px}
+/* .fridge_sect .fridge_box .btn{background: none} 2016-09-05 삭제 */
+/* .fridge_sect .fridge_box .btn a{position: absolute;bottom:0;right:0;} 2016-09-05 삭제 */
+/* .fridge_sect .fridge_box .btn a:first-child{position: absolute;bottom:0;left:-98px;} 2016-09-05 삭제 */
+.fridge_sect .fridge_box .fridge_btn { overflow:hidden; position:absolute; bottom:0;} /* 2016-09-05 추가 */
+.fridge_sect .fridge_box .fridge_btn a{ display:inline-block;} /* 2016-09-05 추가 */
+.fridge_sect .fridge_box .fridge_btn a:first-child{ float:left;} /* 2016-09-05 추가 */
+.fridge_sect .login_on{cursor:pointer;}
+.fridge_sect .login_on .fridge_btm_new { position:absolute; left:1px; bottom:0;} /* 2016-09-05 추가 */
+/* .fridge_sect .login_off{background:url("/_ui/desktop/common/images/gscvs/main/fridge_img3.gif") 0 0 no-repeat;} 2016-09-05 삭제 */
+.fridge_sect .login_off .txt1{font-size: 18px;height:42px;text-align: center;padding:10px 0;line-height: 22px}
+.fridge_sect .login_off .qrcode{padding:16px 0;text-align: center;padding-right:4px;}
+.fridge_sect .login_off .txt2{color:#444;line-height: 18px;padding:0 10px 0 15px;margin-top: 32px;font-size: 12px}
+
+/* 2016-09-05 추가 */
+.fridge_box .fridge_inner .my_list { background:#fff; text-align:center; padding:8px 0; color:#505050; height:52px;}
+.fridge_box .fridge_inner .my_list .txt01 { font-size:14px; color:#dd5928; font-weight:bold; padding-bottom:6px; }
+
+/* 냉장고 팝업 */
+.pop_fridge{width:420px;height:735px;position: relative;}/* 2016-10-06 수정 */
+.pop_fridge .fridge_bg{position:absolute;bottom:0;width:369px;height:727px;background: url("/_ui/desktop/common/images/gscvs/main/pop_fridge_bg.png") no-repeat} /* 2016-10-06 수정 */
+.pop_fridge .btn_cls{position: absolute;top:0;right:0;left:inherit;display: inline-block;width:38px;height:38px;margin: 0}
+.pop_fridge .fridge_bg .box{position: absolute;top:163px;left:6px;width:356px;height:465px;} /* 2016-10-06 수정 */
+.pop_fridge .fridge_bg .box .storage{padding:10px 0;background: #978f8b;text-align: center;font-size: 16px;line-height: 18px;color:#fff;} /* 2016-10-06 수정 */
+.pop_fridge .fridge_bg .box .storage p:first-child{padding-bottom:5px;}
+.pop_fridge .fridge_bg .box .storage span{font-weight: 20px;font-size:20px;}
+.frg_pd_list{height:420px;overflow-y:scroll;} /* 2016-10-06 수정 */
+.no_storage .frg_pd_list{height:512px;overflow-y:scroll;}
+.no_storage .storage p{padding-bottom:0!important;}
+.frg_pd_list .pit_txt{padding:7px 0 10px 30px;height:20px;line-height: 30px;color:#666;background: url("/_ui/desktop/common/images/gscvs/main/pop_fridge_pit.gif") 11px 13px no-repeat}
+.frg_pd_list ul{overflow: hidden;margin:10px 0 0 6px;}
+.frg_pd_list li{float:left;margin:0 0 4px 4px;}
+.frg_pd_list .pd{width:126px;height:158px;padding:15px 10px;border:1px solid #d1d1d1;background: #fff;text-align: center;line-height: 18px}
+.frg_pd_list .pd .img{margin-bottom:10px;}
+.frg_pd_list .pd .tit{font-weight: 13px;color:#666;}
+.frg_pd_list .pd .date{font-weight: bold;font-style: 14px;color:#222;}
+
+/* main : E */
+
+/* Notice 추가 */
+.sub_menu .nt_wrap{margin-top:20px;overflow:hidden; position:relative;} /* 2017-01-24 수정 */
+.sub_menu .nt_wrap > a {float:left;} /* 2016-09-07 추가 */
+.sub_menu .nt_wrap img{float:left;margin-right:20px;}
+/* 2017-01-24 추가 */
+.sub_menu .nt_wrap .tip_voice { position:absolute; left:0; top:72px; background:url('/_ui/desktop/common/images/gsretail/main/ico_tip_voice.gif') no-repeat 15px 6px; height:60px; width:224px; border:1px solid #dfdfdf;}
+.sub_menu .nt_wrap .tip_voice a { display:block; font-size:15px; font-weight:bold; color:#525252; }
+.sub_menu .nt_wrap .tip_voice .tip { position:absolute; left:93px; top:13px;}
+.sub_menu .nt_wrap .tip_voice .tip a { width:93px; background:url('/_ui/desktop/common/images/gsretail/main/ico_top_arrow.gif') no-repeat right 2px; height:14px;}
+.sub_menu .nt_wrap .tip_voice .voice { position:absolute; left:93px; top:33px;}
+.sub_menu .nt_wrap .tip_voice .voice a { width:110px; background:url('/_ui/desktop/common/images/gsretail/main/ico_top_arrow.gif') no-repeat right 3px; height:14px;}
+/* //2017-01-24 추가 */
+.sub_menu .nt_box{position:relative;float:left;padding:20px;width:305px;height:92px;border:1px solid #dfdfdf;} /* 2016-05-18 수정 */
+.sub_menu .nt_box.first { margin-right:17px;} /* 2016-05-18 추가 */
+.sub_menu .nt_box strong{font-size:16px;}
+.sub_menu .nt_box ul{margin-top:12px;height:70px;overflow:hidden} /* 2016-05-18 수정 */
+.sub_menu .nt_box ul li{padding-left:10px;height:23px;background:url(/_ui/desktop/common/images/gsretail/main/ico_main.png) no-repeat -5px -80px; }
+.sub_menu .nt_box ul li a{color:#666; width:300px;display:block; width:290px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap; }/* 2016-05-18 수정 */
+.sub_menu .nt_box span{float:right}
+.sub_menu .nt_box .btn_more{position:absolute;top:20px;right:20px;height:20px;padding-right:20px;background:url(/_ui/desktop/common/images/gsretail/main/ico_main.png) no-repeat 100% -53px; }
+ /* 2016-05-18 추가 */
+.sub_menu .nt_box .news { padding-top:10px;}
+.sub_menu .nt_box .news .news_visual img { margin-right:10px; width:100px; overflow:hidden;}
+.sub_menu .nt_box .news .desc { padding-left:110px; font-size:12px !important; color:#666;}
+.sub_menu .nt_box .news .desc p a { display:block; color:#666; height:56px; overflow:hidden;} 
+.sub_menu .nt_box .news .desc .date { padding-top:5px;} 
+/* //2016-05-18 추가 */
+
+
+
+</style>
 <div class="products-breadcrumb">
 	<div class="container"></div>
 </div>
