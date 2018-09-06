@@ -32,8 +32,16 @@ public class SendMailService implements SendMailServiceInf {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 메일 전송
-	 * @throws Exception 
+	 * 
+	 * Method : sendMail
+	 * 최초작성일 : 2018. 9. 3.
+	 * 작성자 : pc24
+	 * 변경이력 :
+	 * @param to
+	 * @param authUrl
+	 * @param contentFilePath
+	 * @throws Exception
+	 * Method 설명 : 인증메일 전송
 	 */
 	public void sendMail(String to, String authUrl, String contentFilePath) throws Exception {
 

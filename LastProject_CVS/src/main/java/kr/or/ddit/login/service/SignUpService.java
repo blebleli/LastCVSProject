@@ -14,7 +14,15 @@ public class SignUpService implements SignUpServiceInf {
 	private SignUpDaoInf signUpDao;
 	
 	/**
-	 * 사용자Id 조회
+	 * 
+	 * Method 	  : getMemIdCnt
+	 * Method 설명  : 해당아이디가 있는지 여부 조회
+	 * 최초작성일 : 2018. 9. 6.
+	 * 작성자 	  : pc24
+	 * 변경이력   :
+	 *
+	 * @param mem_id
+	 * @return  int 아이디 수 반환
 	 */
 	@Override
 	public int getMemIdCnt(String mem_id) {

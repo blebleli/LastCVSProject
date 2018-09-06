@@ -3,8 +3,20 @@ package kr.or.ddit.login.service;
 import kr.or.ddit.model.MemberVo;
 
 public interface SignUpServiceInf {
-
+	
+	/**
+	 * 
+	 * Method 	  : getMemIdCnt
+	 * Method 설명  : 해당아이디가 있는지 여부 조회
+	 * 최초작성일 : 2018. 9. 6.
+	 * 작성자 	  : pc24
+	 * 변경이력   :
+	 *
+	 * @param mem_id
+	 * @return  int 아이디 수 반환
+	 */
 	int getMemIdCnt(String mem_id);
+	
 	
 	/**
 	 * 
@@ -15,7 +27,7 @@ public interface SignUpServiceInf {
 	 * 변경이력   :
 	 *
 	 * @param mem_id
-	 * @return
+	 * @return MemberVo
 	 */
 	MemberVo getMember(String mem_id);
 	

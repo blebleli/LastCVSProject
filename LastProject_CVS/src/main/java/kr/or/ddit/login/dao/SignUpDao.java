@@ -30,6 +30,7 @@ public class SignUpDao implements SignUpDaoInf {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 	
+	
 	/**
 	* Method : getMemIdCnt
 	* Method 설명 : 등록된 사용자 id 조회
@@ -38,7 +39,7 @@ public class SignUpDao implements SignUpDaoInf {
 	* 변경이력 :신규
 	* 조 회 :int getMemIdCnt(String mem_id)_등록된 사용자 id 조회
 	* @param mem_id
-	* @return
+	* @return  조회된 아이디 수 반환
 	*/
 	@Override
 	public int getMemIdCnt(String mem_id) {
