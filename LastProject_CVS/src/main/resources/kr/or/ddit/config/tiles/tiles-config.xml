@@ -20,6 +20,10 @@
 	<definition name="login/*" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" />
 	</definition>
+	
+	<definition name="/login/userLogin" extends="userBasicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/login/userLogin.jsp" />
+	</definition>
 
    
 	<!--조계환 편의점 검색 메인 화면  -->
