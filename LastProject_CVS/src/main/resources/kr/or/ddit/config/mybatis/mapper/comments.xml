@@ -5,12 +5,13 @@
 <mapper namespace="comments">
 
 	<insert id="newComments" parameterType="commentsVo">
-		INSERT INTO Comments(CM_ID,BD_ID,MEM_ID,CM_CONTENT,CM_DATE,CM_DELNY,CM_OPENNY )
-		VALUES ('1','1','admin',#{CM_CONTENT},'2018/09/05','N','Y')
+		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID, cm_content, CM_DATE, CM_DELNY, CM_OPENNY )
+		VALUES (COMMENT_NO.nextval,'1','admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),'2018/09/05','N','Y')
+    
 	</insert>
 	
 	<select id="getListComments" resultType="commentsVo">
-		select * from comments
+		SELECT * FROM COMMENTS 
 	</select>
 
 </mapper>

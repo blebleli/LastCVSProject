@@ -24,7 +24,7 @@
 	
 	<!-- 공지사항 게시글 전체 조회 -->
 	<select id="getListBoard" resultType="boardVo">
-		SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(bd_content), bd_date, bd_del, bd_rating, bd_views,
+		SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(BD_CONTENT), bd_date, bd_del, bd_rating, bd_views,
 			   bd_group, prod_id, mem_id, bd_parent, bd_kind_id
 		FROM board WHERE bd_kind_id ='44'
 	</select>
