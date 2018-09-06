@@ -12,13 +12,7 @@
  -->
 
 <div class="products-breadcrumb">
-	<div class="container">
-		<ul>
-			<li><i class="fa fa-home" aria-hidden="true"></i><a
-				href="index.html">Home</a><span>|</span></li>
-			<li>My Page</li>
-		</ul>
-	</div>
+	<div class="container"></div>
 </div>
 <!-- //products-breadcrumb -->
 
@@ -35,19 +29,6 @@
 						class="icon-bar"></span>
 				</button>
 			</div>
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-				<ul class="nav navbar-nav nav_1">
-					<li><a href="products.html">간편식사</a></li>
-					<li><a href="household.html">즉석조리</a></li>
-					<li><a href="kitchen.html">과자류</a></li>
-					<li><a href="short-codes.html">아이스크림</a></li>
-					<li><a href="pet.html">식품</a></li>
-					<li><a href="bread.html">음료</a></li>
-					<li><a href="bread.html">생활용품</a></li>
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
 		</nav>
 	</div>
 	

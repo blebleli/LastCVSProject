@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
-<title>사용자 로그인 화면 </title>
+<title>gogoCVS</title>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -110,8 +110,7 @@ $(document).ready(function(){
 	<!-- //banner 공통 또는 비공통 -->
  	
 	<tiles:insertAttribute name="left" />
-	<tiles:insertAttribute name="content" />
-	
+	<tiles:insertAttribute name="content" />	
 	<tiles:insertAttribute name="bottom" />
 	
 </body>

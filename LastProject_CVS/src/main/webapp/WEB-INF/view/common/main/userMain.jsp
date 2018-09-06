@@ -2,21 +2,45 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="c"     uri="http://java.sun.com/jsp/jstl/core"%>
 
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/cuTest.css' />" media="all"></link>
 
+<!-- boader------------------------------------------------------------------------------ -->
+<div class="products-breadcrumb">
+	<div class="container">
+
+	</div>
+</div>
+
+<!-- flexslider ------------------------------------------------------------------------------ -->
+<div class="flex-viewport" style="overflow: hidden; position: relative;">
 <section class="slider">
 	<div class="flexslider">
-
-		<div class="flex-viewport" style="overflow: hidden; position: relative;">
+		
+		  <ul class="slides">
+		    <li>
+		      <img src="/images/event1.jpg" />
+		    </li>
+		    <li>
+		      <img src="/images/event2.jpg" />
+		    </li>
+		    <li>
+		      <img src="/images/event3.jpg" />
+		    </li>
+		    <li>
+		      <img src="/images/event4.jpg" />
+		    </li>
+		  </ul>
+		<!-- <div class="flex-viewport" style="overflow: hidden; position: relative;">
 			<ul class="slides" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1492px, 0px, 0px);">
 				
 				<li class="clone" style="width: 746px; float: left; display: block;">
 					<div class="w3l_banner_nav_right_banner2">
 						<h3>
-							<!-- 이미지 옆 문구   -->
+							이미지 옆 문구  
 							 해당 <i>이벤트 내용_1</i>간략히  
 						</h3>
 						<div class="more">
-							<!-- 자세히 클릭 -->
+							자세히 클릭
 							<a href="#" class="button--saqui button--round-l button--text-thick" data-text="Shop now">자세히</a>
 						</div>
 					</div>
@@ -72,42 +96,179 @@
 					</div>
 				</li>
 			</ul>
-		</div>
-
-		<ol class="flex-control-nav flex-control-paging">
-			<li><a class="">1</a></li>
-			<li><a class="flex-active">2</a></li>
-			<li><a class="">3</a></li>
-		</ol>
-
-		<ul class="flex-direction-nav">
-			<li><a class="flex-prev" href="#">Previous</a></li>
-			<li><a class="flex-next" href="#">Next</a></li>
-		</ul>
-
+		</div> -->
 	</div>
 </section>
-<!-- flexSlider -->
-<link rel="stylesheet" href="/css/flexslider.css" type="text/css"
-	media="screen" property="">
-<script defer="" src="/js/common/jquery.flexslider.js"></script>
+</div>
+
+
+<!-- flexSlider js ------------------------------------------------------------------ -->
+<link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen">
+<script src="/js/common/jquery.flexslider.js"></script>
 <script type="text/javascript">
 	$(window).load(function() {
 		$('.flexslider').flexslider({
 			animation : "slide",
-			start : function(slider) {
+			itemWidth: 746,
+			itemMargin: 5,
+			maxItems: 2
+/* 			start : function(slider) {
 				$('body').removeClass('loading');
-			}
+			} */
 		});
 	});
 </script>
 <!-- //flexSlider -->
 
-<!-- banner -->
-<div class="wthree_banner_bottom_left_grid_sub"></div>
-<div class="wthree_banner_bottom_left_grid_sub1">
-	<div class="col-md-4 wthree_banner_bottom_left">
-		<div class="wthree_banner_bottom_left_grid">
+<div class="clearfix"></div>
+
+<br><br>
+
+<!-- best review------------------------------------------------------------------------------ -->
+
+	<div class="agile_top_brands_grids">
+		<div class="container">
+			<div class="row">
+				<h2 class="text-center">Best Product </h2>
+		        <hr/>
+			</div>
+		    <div class="row">
+		        <div class="col-sm-6 col-md-4">
+		            <div class="thumbnail">		          
+		                <img src="/images/event1.jpg" alt="...">              
+		                <div class="clearfix"></div>		              
+		            </div>
+		        </div>
+		        
+		        <div class="col-sm-6 col-md-4">
+		            <div class="thumbnail">
+		                <img src="/images/event2.jpg" alt="...">                             
+		                <div class="clearfix"></div>
+		            </div>
+		        </div>
+		        
+		        <div class="col-sm-6 col-md-4">
+		            <div class="thumbnail">
+		                <img src="/images/event3.jpg" alt="...">              
+		                <div class="clearfix"></div>
+		            </div>
+		        </div>
+		        
+		        <div class="col-sm-6 col-md-4">
+		            <div class="thumbnail">
+		                <img src="/images/event3.jpg" alt="...">              
+		                <div class="clearfix"></div>
+		            </div>
+		        </div>	
+		        
+		        <div class="col-sm-6 col-md-4">
+		            <div class="thumbnail">
+		                <img src="/images/event3.jpg" alt="...">              
+		                <div class="clearfix"></div>
+		            </div>
+		        </div>
+		        
+		        <div class="col-sm-6 col-md-4">
+		            <div class="thumbnail">
+		                <img src="/images/event3.jpg" alt="...">              
+		                <div class="clearfix"></div>
+		            </div>
+		        </div>			
+		    </div>
+		</div>
+	</div>
+
+
+<div class="clearfix"></div>
+
+<!-- 행사상품 TEST------------------------------------------------------------------------------ -->
+<div class="col-sm-6 col-md-4" style="float: left;">
+	<table class="table table-striped">
+	
+	<tr>
+		<td>제목입니다.</td>
+		<td>날짜</td>
+	</tr>
+	<tr>
+		<th>제목입니다.</th>
+		<th>날짜</th>
+	</tr>
+	<tr>
+		<th>제목입니다.</th>
+		<th>날짜</th>
+	</tr>
+	</table>
+</div>
+
+
+<div class="clearfix"></div>
+
+<!-- best review------------------------------------------------------------------------------ -->
+
+<div class="agile_top_brands_grids">
+	<div class="container">
+	<div class="row">
+		<h2 class="text-center">Best Review </h2>
+        <hr/>
+	</div>
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <h4>
+           
+                    <span class="label label-info info">
+                        <span data-toggle="tooltip" title="viewed">257 <b class="glyphicon glyphicon-eye-open"></b></span>
+                        <span data-toggle="tooltip" title="viewed">3 <b class="glyphicon glyphicon-star"></b></span>
+                      
+                    </span>
+                </h4>
+                <img src="/images/event1.jpg" alt="...">
+                 리뷰가들어갈 공간
+                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Snippet</a>
+                <div class="clearfix"></div>
+              
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <h4>
+                    
+                    <span class="label label-info info">
+                        <span data-toggle="tooltip" title="Viewed">433 <i class="glyphicon glyphicon-eye-open"></i></span>
+                        <span data-toggle="tooltip" title="Favorited">4 <i class="glyphicon glyphicon-star"></i></span>
+                      
+                    </span>
+                </h4>
+                <img src="/images/event2.jpg" alt="...">
+                리뷰가들어갈 공간
+                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Snippet</a>               
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <h4>                 
+                    <span class="label label-info info">
+                        <span data-toggle="tooltip" title="Viewed">2.1K <b class="glyphicon glyphicon-eye-open"></b></span>
+                        <span data-toggle="tooltip" title="Favorited">13 <b class="glyphicon glyphicon-star"></b></span>
+                     
+                    </span>
+                </h4>
+                <img src="/images/event3.jpg" alt="...">
+                 리뷰가들어갈 공간
+                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Snippet</a>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+	
+
+
+<!-- 		<div class="wthree_banner_bottom_left_grid">
 			<img src="/images/4.jpg" alt=" " class="img-responsive" />
 			<div class="wthree_banner_bottom_left_grid_pos">
 				<h4>
@@ -133,14 +294,17 @@
 				<h3>
 					Save <span>Upto</span> $10
 				</h3>
-			</div>
-		</div>
-	</div>
-	<div class="clearfix"></div>
+			</div> -->
+	
+
 </div>
+
+
 <div class="clearfix"></div>
+
+
 <!-- top-brands -->
-<h3>Hot Offers</h3>
+<h3>Best review</h3>
 <div class="agile_top_brands_grids">
 	
 	<c:forEach items="${bestProd}" var="vo">

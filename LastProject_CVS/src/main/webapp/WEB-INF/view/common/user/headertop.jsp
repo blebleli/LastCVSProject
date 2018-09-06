@@ -17,7 +17,7 @@
 <div class="agileits_header">
 	<div class="w3l_offers">
 		<!-- 링크 클릭시 ★ 이동 경로 주기(상품 화면)  -->
-		<a href="/cvs/main">오늘의 특별행사 !</a>
+		<a href="/user/main">오늘의 특별행사 !</a>
 	</div>
 	<div class="w3l_search">
 		<!-- submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->
@@ -87,7 +87,7 @@
 						aria-controls="collapseThree">
 						<a class="navbar-brand" href="#">상품</a> 
 						<a class="navbar-brand" href="#">편의점/서비스</a> 
-						<a class="navbar-brand" href="/user/mypage">마이페이지</a>
+						<a class="navbar-brand" href="#">마이페이지</a>
 					</nav>
 				</div>
 				<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree">						
@@ -101,8 +101,7 @@
 					  <li class="list-group-item"><a href="/search/cvsSearch">편의점찾기</a></li>					  					  
 					</ul>
 					<ul class="list-group" style= "float: left;">
-					  <li class="list-group-item"><a href="#">맴버쉽</a></li>
-					  <li class="list-group-item"><a href="#">결제내역</a></li>							  
+					  <li class="list-group-item"><a href="/search/cvsSearch">마이페이지</a></li>	
 					</ul>							
 				</div>
 			</div>
