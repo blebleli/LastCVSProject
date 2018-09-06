@@ -40,9 +40,9 @@ public class SearchControllerTest {
 
 		ModelAndView mav = result.getModelAndView();
 
-		String list=  (String)mav.getModel().get("searchCvsList");
+		String list = (String)mav.getModel().get("searchCvsList");
 
-		assertEquals("searchCvsList",list);
+		assertEquals(97,list);
 
 
 	}

@@ -2,11 +2,14 @@ package kr.or.ddit.board.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.BoardVo;
+import kr.or.ddit.model.CommentsVo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,14 +22,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 								 "classpath:kr/or/ddit/config/spring/datasource.xml"})
 public class BoardDaoTest {
 
-	@Resource(name="boardDaos")
+	@Resource(name="boardDao")
 	private BoardDaoInf boardDao;
 
-	@Test
-	public void binTest() {
-		assertNotNull(boardDao);
-	}
-	
 	/**
 	 * Method : setInsertBoardTest
 	 * 최초작성일 : 2018. 9. 2.
@@ -75,6 +73,95 @@ public class BoardDaoTest {
 			System.out.println(vo);
 		
 		/***Then***/
-		assertEquals(1, boardList.size());		
+		assertEquals(21, boardList.size());		
 	}	
+	
+	/**
+	* Method : getBoardPageList
+	* Method 설명 : 공지사항 게시판 페이징 처리 테스트
+	* 최초작성일 : 2018. 9. 6.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	*/
+	@Test
+	public void getBoardPageList(){
+		/***Given***/
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("page", 1);
+		map.put("pageSize", 10);
+
+		/***When***/
+		List<BoardVo> boardPageList = boardDao.getBoardPageList(map);
+
+		/***Then***/
+//		assertEquals(10, boardPageList.size());
+		
+	}
+	
+	/**
+	* Method : getBoardListTotCntTest
+	* Method 설명 :전체 게시글 페이징 처리를 위한 토탈 카운트
+	* 최초작성일 : 2018. 9. 6.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	*/
+	@Test
+	public void getBoardListTotCntTest(){
+		/***Given***/
+		int cnt = 21;
+
+		/***When***/
+		int tot = boardDao.getBoardListTotCnt();
+		/***Then***/
+		assertEquals(cnt, tot);
+
+	}
+	
+	/**
+	* Method : getBoardTest
+	* Method 설명 :클릭한 게시글의 정보를 가져오는 메서드
+	* 최초작성일 : 2018. 9. 6.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	*/
+	@Test
+	public void getBoardTest(){
+		/***Given***/
+		String bd_id = "3";
+		String test = "테스트3";
+
+		/***When***/
+		BoardVo board = boardDao.getBoard(bd_id);
+		
+		/***Then***/
+		assertEquals(test, board.getBd_title());
+
+	}
+	
+	/**
+	* Method : getListCommentsTest
+	* Method 설명 :전체 댓글 수 카운트
+	* 최초작성일 : 2018. 9. 6.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	*/
+	@Test
+	public void getListCommentsTest(){
+		/***Given***/
+		String bdid = "1";
+
+		/***When***/
+		List<CommentsVo>list = boardDao.getListComments(bdid);
+
+		/***Then***/
+		assertEquals(3,list.size());
+	}
+	
+	
+	
 }
