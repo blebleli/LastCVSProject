@@ -16,7 +16,7 @@
 				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 				
 					<ul class="nav navbar-nav nav_1">
-					<li><a href="#">전체</a></li>
+					<li><a href="/userProd/view?i=${i }">전체</a></li>
 				<c:forEach items="${prodCtgy}" var="ctgy" varStatus="">
 					<li class="dropdown mega-dropdown active"><c:if
 							test="${ctgy.ctgy_id == ctgy.ctgy_level}">
