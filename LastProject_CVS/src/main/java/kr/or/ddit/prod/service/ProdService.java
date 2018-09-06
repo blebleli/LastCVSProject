@@ -142,4 +142,9 @@ public class ProdService implements ProdServiceInf {
 		return prodDao.searchProd(map);
 	}
 
+	@Override
+	public List<ProdVo> getCgEventProd(Map<String, Object> map) {
+		return prodDao.getCgEventProd(map);
+	}
+
 }
