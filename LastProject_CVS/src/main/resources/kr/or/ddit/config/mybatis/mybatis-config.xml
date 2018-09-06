@@ -41,6 +41,7 @@
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/search.xml"/>  
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/prod.xml"/> 
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale.xml"/> 
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/comments.xml"/>  
   </mappers>
 
 </configuration>
