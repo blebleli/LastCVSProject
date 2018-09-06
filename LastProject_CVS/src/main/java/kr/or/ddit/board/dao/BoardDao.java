@@ -150,7 +150,6 @@ public class BoardDao implements BoardDaoInf {
 	* 조 회 :
 	* @param commentsVo
 	* @return
-	
 	*/
 	@Override
 	public int setInsertComments(CommentsVo commentsVo) {
