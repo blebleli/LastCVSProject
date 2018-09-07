@@ -62,14 +62,14 @@
 		SELECT count(*) FROM board WHERE bd_kind_id='44'
   	</select>
   	
-  	
-  	
-  	<select id="getBestProdReview" parameterType="String" resultType="boardVo" >
-			SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(bd_content), bd_date, bd_del, bd_rating, bd_views,
-			bd_group, prod_id, mem_id, bd_parent, bd_kind_id
-			FROM BOARD
-			WHERE bd_kind_id = '55'
-			ORDER BY bd_views DESC
+ 
+ 	  	
+  	<select id="getBestProdReview" parameterType="String" resultType="boardVo" >	
+  	 SELECT *FROM ( SELECT bd_id, bd_title, bd_date, bd_del, bd_rating, bd_views,prod_id, mem_id, bd_kind_id
+           FROM BOARD
+           WHERE bd_kind_id = '55'
+           ORDER BY bd_views DESC
+		)where ROWNUM &lt;=3
 	</select>
   	
 </mapper>

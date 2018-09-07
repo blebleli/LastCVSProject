@@ -182,7 +182,18 @@ public class BoardDao implements BoardDaoInf {
 		return 0;
 	}
 
-
-	
+	/**
+	 * 
+	 * Method   : getBestProdReview 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 신규
+	 * @return 
+	 * Method 설명 : 조회수best 리뷰 3건 조회하는 기능
+	 */
+	@Override
+	public List<BoardVo> getBestProdReview() {
+		return template.selectList("board.getBestProdReview");
+	}
 
 }

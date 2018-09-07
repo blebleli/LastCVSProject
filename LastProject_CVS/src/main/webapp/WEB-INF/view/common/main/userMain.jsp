@@ -494,13 +494,15 @@
         <hr/>
 	</div>
     <div class="row">
+    
+    
+    <c:forEach items="${bestReview}" var="vo">	
         <div class="col-sm-6 col-md-4" >
             <div class="thumbnail">
-                <h4>
-           
+                <h4>          
                     <span class="label label-info info">
-                        <span data-toggle="tooltip" title="viewed">257 <b class="glyphicon glyphicon-eye-open"></b></span>
-                        <span data-toggle="tooltip" title="viewed">3 <b class="glyphicon glyphicon-star"></b></span>
+                        <span data-toggle="tooltip" title="viewed">${vo.bd_views} <b class="glyphicon glyphicon-eye-open"></b></span>
+                        <span data-toggle="tooltip" title="viewed">${vo.bd_rating} <b class="glyphicon glyphicon-star"></b></span>
                       
                     </span>
                 </h4>
@@ -511,39 +513,10 @@
               
             </div>
         </div>
+    </c:forEach>
+
         
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <h4>
-                    
-                    <span class="label label-info info">
-                        <span data-toggle="tooltip" title="Viewed">433 <i class="glyphicon glyphicon-eye-open"></i></span>
-                        <span data-toggle="tooltip" title="Favorited">4 <i class="glyphicon glyphicon-star"></i></span>
-                      
-                    </span>
-                </h4>
-                <img src="/images/event2.jpg" alt="...">
-                리뷰가들어갈 공간
-                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Snippet</a>               
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <h4>                 
-                    <span class="label label-info info">
-                        <span data-toggle="tooltip" title="Viewed">2.1K <b class="glyphicon glyphicon-eye-open"></b></span>
-                        <span data-toggle="tooltip" title="Favorited">13 <b class="glyphicon glyphicon-star"></b></span>
-                     
-                    </span>
-                </h4>
-                <img src="/images/event3.jpg" alt="...">
-                 리뷰가들어갈 공간
-                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Snippet</a>
-                <div class="clearfix"></div>
-            </div>
-        </div>
+  
 
     </div>
 </div>

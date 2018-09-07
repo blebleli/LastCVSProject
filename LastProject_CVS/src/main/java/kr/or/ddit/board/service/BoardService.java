@@ -207,4 +207,18 @@ public class BoardService implements BoardServiceInf {
 		return pageNaviStr.toString();
 	}
 
+	/**
+	 * 
+	 * Method   : getBestProdReview 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @return 
+	 * Method 설명 : List<BoardVo> getBestProdReview()_조회수best 리뷰 3건 조회하는 기능
+	 */
+	@Override
+	public List<BoardVo> getBestProdReview() {
+		return boardDao.getBestProdReview();
+	}
+
 }

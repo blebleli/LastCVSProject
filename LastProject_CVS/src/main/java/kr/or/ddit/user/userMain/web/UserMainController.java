@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.board.service.BoardServiceInf;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.BookmarkVo;
 import kr.or.ddit.model.MemberShipVo;
 import kr.or.ddit.model.MemberVo;
@@ -33,6 +35,9 @@ public class UserMainController {
 	@Resource(name="prodService")
 	private ProdServiceInf prodService;
 	
+	@Resource(name="boardService")
+	private BoardServiceInf boardService;
+	
 	/**
 	 * 
 	 * Method   : main 
@@ -49,12 +54,16 @@ public class UserMainController {
 		ctgyNum.put("category", "CA07760000001");
 		ctgyNum.put("wantNum", "4");		
 
+		//카테고리별 평점best
 		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
 		
 		//best 조회수 리뷰
+		List<BoardVo> bestReview = boardService.getBestProdReview();
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProd",bestProd);
+		model.addAttribute("bestReview",bestReview);
+
 		return "userMain";
 	}
 	
