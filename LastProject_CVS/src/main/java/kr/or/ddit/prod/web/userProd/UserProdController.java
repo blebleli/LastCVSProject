@@ -7,7 +7,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.board.model.ReviewVo;
+import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.CommonsServiceInf;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
@@ -27,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/userProd")
-@SessionAttributes({"prodCtgy", "i"})
+@SessionAttributes({"prodCtgy", "i","user"})
 public class UserProdController {
 	private Logger logger = LoggerFactory.getLogger(UserProdController.class);
 	
@@ -36,6 +39,9 @@ public class UserProdController {
 	
 	@Resource(name="prodService")
 	private ProdServiceInf prodService;
+	
+	@Resource(name="boardService")
+	private BoardServiceInf boardService;
 	
 	@ModelAttribute("prodCtgy")
 	public List<CategoryVo> prodCtgyList(){
@@ -64,6 +70,8 @@ public class UserProdController {
 	public ModelAndView prodDetail(@RequestParam(value="prod_id")String prod_id){
 		ModelAndView mav = new ModelAndView("prodDetail");
 		ProdVo prod = prodService.getProd(prod_id);
+		List<ReviewVo> reviews = boardService.getReviewOfProd(prod_id);
+		mav.addObject("reviewList", reviews);
 		mav.addObject("prod", prod);
 		return mav;
 	}
