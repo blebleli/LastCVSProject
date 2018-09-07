@@ -106,20 +106,18 @@ public class AdBoardController {
 	* @param model
 	* @return
 	*/
-	@RequestMapping(value="/view" ,method=RequestMethod.POST)
+	@RequestMapping(value="/view")
 	public String postView(@RequestParam(value="bd_id")String bd_id, Model model){
-		
-		logger.debug("{}bd_id======================== : " + bd_id);
 		
 		//클릭한 게시글의 정보를 객체로 가져옴
 		BoardVo post = boardService.getBoard(bd_id);
 		
 		//댓글 리스트 출력
 		List<CommentsVo> commentsList = boardService.getListComments(bd_id);
-		logger.debug("{}=====================commentsList : ",commentsList);
 		
 		//게시글에 대한 정보를 뿌려주기 위함
 		model.addAttribute("post",post);
+		
 		//게시글에 대한 댓글들을 뿌려주기 위함
 		model.addAttribute("commentsList",commentsList);
 		
@@ -136,37 +134,18 @@ public class AdBoardController {
 	* @param commentsVo
 	* @return
 	*/
-	@RequestMapping(value="/newComment",method=RequestMethod.POST)
-	public String newComment(CommentsVo commentsVo, Model model){
-		
-		//댓글 작성에 필요한 댓글 내용을 가져옴
-		String content = commentsVo.getCm_content();
-		logger.debug("content========== : "+content);
-		
-		//댓글 불러오기에 필요한 게시글 번호를 가져옴
-		String id = commentsVo.getBd_id();
-		logger.debug("getBd_id()=============== : "+id);
-		
-		//댓글 공개 여부를 판단하기 위한 값을 불러옴
-		String open = commentsVo.getCm_openny();
-		logger.debug("open============= : "+open);
+	@RequestMapping(value="/newComment")
+	public String newComment(@RequestParam(value="bd_id")String bd_id , CommentsVo commentsVo, Model model){
 		
 		//댓글 작성 메서드를 실행
+		commentsVo.setCm_group("0");
+		commentsVo.setCm_id2("");
 		int cnt = boardService.setInsertComments(commentsVo);
-		logger.debug("cnt============== : "+cnt);
 		
-		//댓글 리스트 출력
-		List<CommentsVo> commentsList = boardService.getListComments(commentsVo.getBd_id());
-		model.addAttribute("commentsList",commentsList);
+		//리다이렉트해서 필요한 값을 넘겨주기 위함
+		model.addAttribute("bd_id",bd_id);
 		
-		//클릭한 게시글의 정보를 가져오기 위해 클릭한 게시글의 고유 아이디를 가져옴
-		String bd_id = commentsVo.getBd_id();
-		//클릭한 게시글의 정보를 객체로 가져옴
-		BoardVo post = boardService.getBoard(bd_id);
-		//게시물에 대한 정보를 뿌려주기 위함
-		model.addAttribute("post",post);
-		
-		return "viewPost";
+		return "redirect:/board/view";
 	}
 	
 	/**
@@ -180,13 +159,18 @@ public class AdBoardController {
 	* @param model
 	* @return
 	*/
-	@RequestMapping(value="/deleteComment",method=RequestMethod.POST)
-	public String deleteComment(CommentsVo commentsVo, Model model){
+	@RequestMapping(value="/deleteComment")
+	public String deleteComment(@RequestParam(value="bd_id")String bd_id, CommentsVo commentsVo, Model model){
 		
 		//댓글 삭제에 필요한 댓글 고유 id를 가져옴
 		String id = commentsVo.getCm_id();
-		logger.debug("id============== : " + id);
 		
-		return "viewPost";
+		//댓글 삭제 기능 메서드
+		int cnt = boardService.deleteComments(id);
+		
+		//리다이렉트해서 필요한 값을 넘겨주기 위함
+		model.addAttribute("bd_id",bd_id);
+		
+		return "redirect:/board/view";
 	}
 }
