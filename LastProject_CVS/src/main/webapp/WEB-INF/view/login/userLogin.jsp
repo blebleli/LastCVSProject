@@ -31,6 +31,10 @@
 #btnLogin:hover {
 	background: #f39c12;
 }
+
+#btnEmailAuth:hover{
+	background: #f39c12;
+}
 </style>
 
 
@@ -58,6 +62,8 @@ $(document).ready(function() {
             return false;
         }
 		
+	
+		
 		$.ajax({
             type : "POST",
             url : "<c:url value='/login/sendMailAuth' />",
@@ -66,6 +72,8 @@ $(document).ready(function() {
             success : function(data){
             	if(data == "SUCCESS") {
                     alert($("#emailAddr").val() + "로 인증 메일이 전송되었습니다.") ;
+            	}else {
+                    alert($("#emailAddr").val() + "은 이미 가입되어 있는 ID입니다. \n아이디/비밀번호 찾기를 이용해 주세요") ;
             	}
             },
             error: function(request, status, error) {
@@ -73,7 +81,6 @@ $(document).ready(function() {
             }
         });
 	});
-
 
 
 
@@ -111,7 +118,7 @@ $(document).ready(function() {
    	function fnRsaEnc(value, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
    	    var rsa = new RSAKey();
    	    rsa.setPublic(rsaPublicKeyModulus, rsaPpublicKeyExponent);
-		var encValue = rsa.encrypt(value);     // 사용자ID와 비밀번호를 RSA로 암호화한다.
+		var encValue = rsa.encrypt(value);     // 사용자 비밀번호를 RSA로 암호화한다.
 		return encValue;
    	} 
 	
@@ -126,7 +133,7 @@ $(document).ready(function() {
 			<div class="module form-module">
 				<div class="toggle">
 					<i class="fa fa-times fa-pencil"></i>
-					<div class="tooltip">회원가입</div>
+					<div class="tooltip" style="font-size:120%; font-weight: bold;">회원가입</div>
 				</div>
 
 				<div class="form">
