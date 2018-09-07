@@ -215,47 +215,6 @@
 											<br>
 										</form>
 									</c:if>
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
-										<form id="delect" action="/board/deleteComment" method="post">
-											${vo.mem_id} : ${vo.cm_content}/[${vo.cm_date}]
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
-											<br>
-										</form>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'Y'}">
-										삭제된 댓글입니다.<br>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-										<form id="delect" action="/board/deleteComment" method="post">
-											비공개 댓글 입니다.
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
-											<br>
-										</form>
-									</c:if>
-									${vo.cm_content}/[${vo.cm_date }]
-									<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
-									<br>
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
-										<form id="delect" action="/board/deleteComment" method="post">
-											${vo.mem_id} : ${vo.cm_content}/[${vo.cm_date}]
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
-											<br>
-										</form>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'Y'}">
-										삭제된 댓글입니다.<br>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-										<form id="delect" action="/board/deleteComment" method="post">
-											비공개 댓글 입니다.
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
-											<br>
-										</form>
-									</c:if>
 								</c:forEach>
 							</td>
 						</tr>
@@ -273,13 +232,6 @@
 										<input type="radio" name="cm_openny" value="N" >비공개
 									</form>
 								</div>
-								<form action="/board/newComment" method="post">
-									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
-									<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
-									<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
-									<input type="radio" name="cm_openny" value="Y" >공개
-									<input type="radio" name="cm_openny" value="N" >비공개
-								</form>
 							</td>
 						</tr>
 					</table>
