@@ -72,7 +72,7 @@ public class SignUpDao implements SignUpDaoInf {
 	 * 변경이력   :
 	 *
 	 * @param mem_id
-	 * @return
+	 * @return MemberVo
 	 */
 	@Override
 	public MemberVo getMember(String mem_id) {

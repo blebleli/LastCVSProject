@@ -59,6 +59,11 @@ public class LoginController {
 		model.addAttribute("publicKeyExponent", rsa.getPublicKeyExponent());
 		request.getSession().setAttribute("__rsaPrivateKey__", rsa.getPrivateKey());
 		
+		String resultMessage = StringUtils.defaultString(request.getParameter("resultMessage"));
+	      if(!"FAIL".equals(resultMessage)) {
+	          model.addAttribute("resultMessage", "이메일 인증이 실패하였습니다.");
+	       }
+		
 		return "/login/userLogin";
 	}
 	
@@ -206,6 +211,16 @@ public class LoginController {
 
 		logger.debug("requestUrl : {}", request.getRequestURL().toString());
 		
+		if(0 < signUpService.getMemIdCnt(emailAddr)) {
+
+		      response.setContentType("text/html; charset=UTF-8");
+		      response.setCharacterEncoding("UTF-8");
+		      
+		      response.getWriter().print("FAIL");
+
+		     return;
+		}
+		
 		String serverPath = StringUtils.substringBefore(request.getRequestURL().toString(), request.getServletPath());
 		// param : 받는사람 메일 주소, 인증 Url, 메일 본문 html
 		sendMailService.sendMail(
@@ -234,6 +249,7 @@ public class LoginController {
 		logger.debug("requestUrl : {}", request.getRequestURL());
 		logger.debug("authVal : " + authVal);
 		
+		
 		Map<String, String> result = sendMailService.validateMailAuth(authVal);
 		if("FAIL".equals(result.get("result"))) {
 			logger.warn("메일 인증 실패!!!!!!!!!!");
@@ -246,6 +262,32 @@ public class LoginController {
 			model.addAttribute("mailAddr", result.get("mailAddr"));
 			return "redirect:/login/userJoin";
 		}
-		
+	
 	}	
+	
+	
+	/**
+	 * 
+	 * Method  	 : logoutProcess
+	 * Method설명  : 로그아웃 처리
+	 * 최초작성일 : 2018. 9. 7.
+	 * 작 성 자   : 공은별 pc24
+	 * 변경이력   :
+	 * @param request
+	 * @param model
+	 * @return: String
+	 */
+	@RequestMapping("/logout")
+	public String logoutProcess(HttpServletRequest request, Model model){
+
+		logger.debug("requestUrl : {}", request.getRequestURL());
+
+		HttpSession session =  request.getSession();
+
+		// 기존의 session 을 초기화(무효화)
+		session.invalidate();
+
+		return "forward:/login/loginView";
+	}
+
 }
