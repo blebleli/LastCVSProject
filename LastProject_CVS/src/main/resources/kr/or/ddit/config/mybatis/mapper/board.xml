@@ -62,6 +62,40 @@
 		SELECT count(*) FROM board WHERE bd_kind_id='44'
   	</select>
   	
+  	<!-- 리뷰 작성 -->
+  	<insert id="insertReview" parameterType="boardVo">
+  		INSERT INTO board (bd_id, 
+  						   bd_content, 
+  						   bd_title,
+  						   bd_date,
+  						   bd_del,
+  						   bd_rating,
+  						   prod_id,
+  						   mem_id,
+  						   bd_kind_id,
+  						   bd_views)
+		VALUES(#{bd_id},
+				RAWTOHEX(#{bd_content}),
+				SUBSTR(#{bd_content},1,4),
+				sysdate,
+				#{bd_del},
+				#{bd_rating},
+				#{prod_id},
+				#{mem_id},
+				'55',
+				0)
+  	</insert>
+  	
+  	<!-- 리뷰 조회 -->
+  	<select id="getReviewOfProd" parameterType="String" resultType="reviewVo">
+  		SELECT a.bd_id, a.bd_title, UTL_RAW.CAST_TO_VARCHAR2(bd_content) AS bd_content, a.bd_date, a.bd_del, a.bd_rating, a.bd_views,
+			a.bd_group, a.prod_id, a.mem_id, a.bd_parent, a.bd_kind_id , b.mem_name
+			FROM board a, member b
+			WHERE prod_id = #{prod_id} AND a.mem_id = b.mem_id
+  	</select>
+  	
+  	
+  	
  
  	  	
   	<select id="getBestProdReview" parameterType="String" resultType="boardVo" >	
