@@ -1,6 +1,7 @@
 package kr.or.ddit.commons.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.EventVo;
@@ -29,6 +30,20 @@ import kr.or.ddit.model.EventVo;
 	//EventVo getEventPopUpOne()_메인화면에서 이벤트 팝업창에 출력될 이벤트(기간내에 하고 있는 이벤트 중 가나다 순으로 출력)
 
 public interface CommonsDaoInf {
+	
+	/** 
+	 * Method   : autoCode 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 :  조종원
+	 * 변경이력 :  신규
+	 * @param code
+	 * @return 
+	 * Method 설명 : 원하는 테이블에 컬럼명 입력시 해당 테이블의 pk 다음값
+	 * 				map.put("table", "테이블명");
+	 * 				map.put("codeId", "컬럼명");
+	 * 				map.put("기타")
+	 */
+	String autoCode(Map code);
 	
 	/**
 	* Method : getEventPopUpOne
