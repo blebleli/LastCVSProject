@@ -377,23 +377,29 @@ function searchList(pageNo){
 	// 위치 클릭했을때..
 	function fn_click(mem_x, mem_y){
 			
-			//소수로 형변환
-			var pointx = parseFloat(mem_x);
-			//소수로 형변환
-			var pointy = parseFloat(mem_y);
-			
-// 			alert("좌표x"+pointx+"좌표y"+pointy);
+		//소수로 형변환
+		var pointx = parseFloat(mem_x);
+		//소수로 형변환
+		var pointy = parseFloat(mem_y);
 
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = { 
-		        center: new daum.maps.LatLng(pointy, pointx), // 지도의 중심좌표
+				center: new daum.maps.LatLng(pointy, pointx), // 지도의 중심좌표
 		        level: 1 // 지도의 확대 레벨
 		    };
-
-			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-			var map = new daum.maps.Map(mapContainer, mapOption);
-// 		});
 		
+		var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
+		// 마커가 표시될 위치입니다 
+		var markerPosition  = new daum.maps.LatLng(pointy, pointx); 
+		
+		// 마커를 생성합니다
+		var marker = new daum.maps.Marker({
+		    position: markerPosition
+		});
+		
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
 	}
 	
 // 	$(function click(e) {
