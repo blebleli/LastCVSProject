@@ -3,6 +3,7 @@ package kr.or.ddit.board.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 
@@ -206,5 +207,29 @@ public interface BoardDaoInf {
 	 * Method 설명 : List<BoardVo> getBestProdReview()_조회수best 리뷰 3건 조회하는 기능
 	 */
 	List<BoardVo> getBestProdReview();
+	
+	/**
+	 * 
+	 * Method   : insertReview 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param BoardVo 리뷰 작성
+	 * @return integer
+	 * Method 설명 : 리뷰 작성
+	 */
+	int insertReview(BoardVo review);
+	
+	/**
+	 * 
+	 * Method   : insertReview 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param String prod_id 제품바코드
+	 * @return List<BoardVo>
+	 * Method 설명 : 제품에대한 리스트 목록 조회
+	 */
+	List<ReviewVo> getReviewOfProd(String prod_id);
 	
 }

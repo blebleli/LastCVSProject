@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 
@@ -194,6 +195,16 @@ public class BoardDao implements BoardDaoInf {
 	@Override
 	public List<BoardVo> getBestProdReview() {
 		return template.selectList("board.getBestProdReview");
+	}
+
+	@Override
+	public int insertReview(BoardVo review) {
+		return template.insert("board.insertReview", review);
+	}
+
+	@Override
+	public List<ReviewVo> getReviewOfProd(String prod_id) {
+		return template.selectList("board.getReviewOfProd", prod_id);
 	}
 
 }
