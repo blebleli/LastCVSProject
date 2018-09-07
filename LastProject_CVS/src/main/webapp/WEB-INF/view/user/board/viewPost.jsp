@@ -97,61 +97,87 @@
 	letter-spacing: -1px;
 	line-height: 1em;
 }
+
+#demoFont {
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 15px;
+	letter-spacing: -0.6px;
+	word-spacing: -3.8px;
+	color: #000000;
+	font-weight: 400;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+}
 </style>
 
-<!-- products-breadcrumb -->
-<!-- //products-breadcrumb -->
 <!-- banner -->
-<div class="banner">
-	<div class="w3l_banner_nav_left">
-		<!-- Collect the nav links, forms, and other content for toggling -->
-	</div>
-	<div class="w3l_banner_nav_right">
-		<!-- services -->
+<div class="col-sm-9 col-sm-offset-300 col-md-10 col-md-offset-2 main">
+
+	<div class="row">
 		<div class="services">
 			<h3>공지사항</h3>
 			<div class="w3ls_service_grids">
 
-				<div class="col-md-12 w3ls_service_grid_left">
-					<div class="table-responsive">
-						<table class="table table-striped table-hover">
-							<tbody>
-								<tr>
-									<td>조회수</td>
-									<td>${post.bd_views}</td>
-								</tr>
-								<tr>
-									<td>제목</td>
-									<td>${post.bd_title}</td>
-								</tr>
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+					
+						<tr>
+							<td id="demoFont" class="col-sm-1">작성자 : </td>
+							<td id="demoFont" class="col-sm-9">${post.mem_id}</td>
+						</tr>
+						
+						<tr>
+							<td id="demoFont" class="col-sm-1">작성일자 : </td>
+							<td id="demoFont" class="col-sm-9">${post.bd_date}</td>
+						</tr>
+						
+						<tr>
+							<td id="demoFont" class="col-sm-1">조회수 : </td>
+							<td id="demoFont" class="col-sm-9">${post.bd_views}</td>
+						</tr>
+						
+						<tr>
+							<td id="demoFont">제목</td>
+							<td id="demoFont">${post.bd_title}</td>
+						</tr>
 
-								<tr>
-									<td>글내용</td>
-									<td>${post.bd_content}</td>
-								</tr>
+						<tr>
+							<td id="demoFont">글내용</td>
+							<td id="demoFont">${post.bd_content}</td>
+						</tr>
 
-								<tr>
-									<td>댓글</td>
-									<c:forEach items="${commentsList}" var="vo">
-										<td>${vo.cm_content}</td>
-									</c:forEach>
-								</tr>
-							</tbody>
-							<tr>
-								<td>
-									<form action="/board/newComment" method="post">
-										<input type="text" size="100" id="cm_content" name="cm_content"> 
-										<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}">
-										<input type="submit" id="commentButton" class="btn btn-default" value="댓글 저장">
-									</form>
-								</td>
-							</tr>
-						</table>
-					</div>
+						<tr>
+							<td id="demoFont">댓글</td>
+							<td id="demoFont">
+								<c:forEach items="${commentsList}" var="vo">
+									${vo.cm_content}/[${vo.cm_date }]
+									<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
+									<br>
+								</c:forEach>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+							</td>	
+							<td>
+								<form action="/board/newComment" method="post">
+									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content">
+									<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
+									<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
+									<input type="radio" name="radio" value="open">공개
+									<input type="radio" name="radio" value="private">비공개
+								</form>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
 <!-- //services -->
 <div class="clearfix"></div>

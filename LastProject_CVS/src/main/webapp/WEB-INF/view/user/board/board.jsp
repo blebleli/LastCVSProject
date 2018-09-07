@@ -97,6 +97,19 @@
 	letter-spacing: -1px;
 	line-height: 1em;
 }
+
+#demoFont {
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 15px;
+	letter-spacing: -0.6px;
+	word-spacing: -3.8px;
+	color: #000000;
+	font-weight: 400;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+}
 </style>
 
 <link href="/css/login/common/JKH.css" rel="stylesheet">
@@ -133,12 +146,12 @@
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<thead>
-								<tr>
-									<th>게시글 번호</th>
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성일시</th>
-									<th>조회수</th>
+								<tr >
+									<th id="demoFont">게시글 번호</th>
+									<th id="demoFont">제목</th>
+									<th id="demoFont">작성자</th>
+									<th id="demoFont">작성일시</th>
+									<th id="demoFont">조회수</th>
 								</tr>
 							</thead>
 							<tbody>
