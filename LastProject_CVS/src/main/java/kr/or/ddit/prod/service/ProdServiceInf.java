@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 
 public interface ProdServiceInf {
 

@@ -10,12 +10,14 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 
 @Repository("prodDao")
 public class ProdDao implements ProdDaoInf {
 
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate session;
+	
 	
 	@Override
 	public int setInsertProd(ProdVo prodVo) {

@@ -24,6 +24,11 @@ public class CvsSearchVo {
     private String stck_date       ; // 날짜
     private String stcklist_info   ; // 비고
     
+    // 자료  정보
+    private String  file_upname    ; // 파일업로드명
+    private String  file_path      ; // 파일경로
+    private String  file_dot       ; // 파일확장자
+    
 	public CvsSearchVo() {
 		super();
 	}
@@ -33,7 +38,8 @@ public class CvsSearchVo {
 			String mem_addr, String mem_cvs_name, String mem_cvs_tel,
 			String mem_intro, String mem_x, String mem_y, String stcklist_id,
 			String stcklist_amount, String sicklist_exdate, String stck_date,
-			String stcklist_info) {
+			String stcklist_info, String file_upname, String file_path,
+			String file_dot) {
 		super();
 		this.mem_id = mem_id;
 		this.mem_name = mem_name;
@@ -53,6 +59,9 @@ public class CvsSearchVo {
 		this.sicklist_exdate = sicklist_exdate;
 		this.stck_date = stck_date;
 		this.stcklist_info = stcklist_info;
+		this.file_upname = file_upname;
+		this.file_path = file_path;
+		this.file_dot = file_dot;
 	}
 
 	public String getMem_id() {
@@ -199,6 +208,37 @@ public class CvsSearchVo {
 		this.stcklist_info = stcklist_info;
 	}
 
+
+	public String getFile_upname() {
+		return file_upname;
+	}
+
+
+	public void setFile_upname(String file_upname) {
+		this.file_upname = file_upname;
+	}
+
+
+	public String getFile_path() {
+		return file_path;
+	}
+
+
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
+	}
+
+
+	public String getFile_dot() {
+		return file_dot;
+	}
+
+
+	public void setFile_dot(String file_dot) {
+		this.file_dot = file_dot;
+	}
+
+
 	@Override
 	public String toString() {
 		return "CvsSearchVo [mem_id=" + mem_id + ", mem_name=" + mem_name
@@ -210,8 +250,13 @@ public class CvsSearchVo {
 				+ ", mem_y=" + mem_y + ", stcklist_id=" + stcklist_id
 				+ ", stcklist_amount=" + stcklist_amount + ", sicklist_exdate="
 				+ sicklist_exdate + ", stck_date=" + stck_date
-				+ ", stcklist_info=" + stcklist_info + "]";
+				+ ", stcklist_info=" + stcklist_info + ", file_upname="
+				+ file_upname + ", file_path=" + file_path + ", file_dot="
+				+ file_dot + "]";
 	}
+
+	
+	
 	
 	
 }

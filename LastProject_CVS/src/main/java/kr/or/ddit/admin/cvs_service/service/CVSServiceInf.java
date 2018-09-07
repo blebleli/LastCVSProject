@@ -3,6 +3,7 @@ package kr.or.ddit.admin.cvs_service.service;
 import java.util.List;
 
 import kr.or.ddit.model.CvsServiceVo;
+import kr.or.ddit.model.MemberVo;
 
 public interface CVSServiceInf {
 	
@@ -28,6 +29,17 @@ public interface CVSServiceInf {
 	* @return
 	*/
 	List<CvsServiceVo> getListCvsService();
+	
+	/** 
+	 * Method   : getListMember 
+	 * 최초작성일  : 2018. 9. 3. 
+	 * 작성자 : 조계환 
+	 * 변경이력 : 신규
+	 * @param mem_cvs_name
+	 * @return 
+	 * Method 설명 : 매개 변수로 가져온 검색어를 DB상에 포함 검색 (예:대흥점 검색하면 대흥점 포함한 편의점 이름 검색) 
+	 */
+	List<MemberVo> getListMember(String mem_cvs_name);
 	
 	/**
 	* Method : updateCvsService

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 
 
 /**
@@ -35,6 +36,8 @@ import kr.or.ddit.model.ProdVo;
 	//List<ProdVo> getListProdBestCategoryOne()_카테고리별 최고 평점 제품 1건씩 조회 기능
 public interface ProdDaoInf {
 
+	
+	
 	/**
 	* Method : setInsertProd
 	* Method 설명 : 관리자에 의한 신규 제품 생성 기능

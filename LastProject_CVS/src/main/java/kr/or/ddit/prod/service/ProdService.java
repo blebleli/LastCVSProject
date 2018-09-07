@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.dao.ProdDaoInf;
+import kr.or.ddit.user.search.model.CvsSearchVo;
 
 @Service("prodService")
 public class ProdService implements ProdServiceInf {
@@ -19,6 +20,8 @@ public class ProdService implements ProdServiceInf {
 	@Resource(name="prodDao")
 	private ProdDaoInf prodDao;
 
+	
+	
 	@Override
 	public int newProd(ProdVo prodVo) {
 		// TODO Auto-generated method stub

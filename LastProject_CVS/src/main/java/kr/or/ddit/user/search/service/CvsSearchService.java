@@ -63,8 +63,8 @@ public class CvsSearchService implements CvsSearchServiceInf{
 	 * Method 설명 :매개 변수로 가져온 검색어를 DB상에 포함 검색 (예:대흥점 검색하면 대흥점 포함한 편의점 이름 검색) 
 	 */
 	@Override
-	public List<MemberVo> getListMember(String word) {
-		return cvsSearchDao.getListMember(word);
+	public List<MemberVo> getListMember(String mem_cvs_name) {
+		return cvsSearchDao.getListMember(mem_cvs_name);
 	}
 
 	/** 
