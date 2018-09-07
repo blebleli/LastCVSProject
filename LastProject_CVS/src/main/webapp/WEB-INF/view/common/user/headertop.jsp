@@ -41,19 +41,36 @@
 	<div class="w3l_header_right">
 		<!-- 헤더 오른쪽 사람모양 마우스오버시 메뉴dropdown-menu  ★ 이동 경로 주기(로그인,회원가입화면) -->
 		<!-- 회원가입 이동 제거 2018-09-03-jw  -->
+		<!-- 로그아웃 추가 2018-09-07-별  -->
 		<ul>
-			<li class="dropdown profile_details_drop"><a href="#"
-				class="dropdown-toggle" data-toggle="dropdown"> <i
-					class="fa fa-user" aria-hidden="true"></i><span class="caret"></span></a>
+			<li class="dropdown profile_details_drop">
+			
+			<c:choose>
+				<c:when test="${empty sessionScope.userInfo}">
+					<a href="#"	class="dropdown-toggle" data-toggle="dropdown"> 
+					<i class="fa fa-user" aria-hidden="true"></i>
+					<span class="caret"></span>로그인/회원가입</a>
+				</c:when>
+				<c:otherwise>
+					<a href="#"	class="dropdown-toggle" data-toggle="dropdown"> 
+					<i class="fa fa-user" aria-hidden="true"></i>
+					<span class="caret"></span>${sessionScope.userInfo.mem_name}님</a>
+				</c:otherwise>
+			</c:choose>
+							
+<!-- 			<a href="#"	class="dropdown-toggle" data-toggle="dropdown">  -->
+<!-- 			<i class="fa fa-user" aria-hidden="true"></i> -->
+<!-- 			<span class="caret"></span>로그인/회원가입</a> -->
+			
 				<div class="mega-dropdown-menu">
 					<div class="w3ls_vegetables">
 						<ul class="dropdown-menu drp-mnu">
 							<c:choose>
 								<c:when test="${empty sessionScope.userInfo}">
-									<li><a href="<c:url value='/login/loginView' />">로그인</a></li>
+									<li><a href="<c:url value='/login/loginView' />" style="font-size:120%; font-weight: bold;" >로그인</a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="<c:url value='/login/logout' />">로그아웃</a></li>
+									<li><a href="<c:url value='/login/logout' />">로그아웃</a></li> 
 								</c:otherwise>
 							</c:choose>
 							<!-- 							<li><a href="userLogin.jsp">회원가입</a></li> -->
@@ -65,10 +82,10 @@
 	<div class="w3l_header_right1">
 		<!-- 관리자 문의하기 링크 /  삭제??????  -->
 		<!-- 추후 협의 2018-09-03-jw -->
-		<h2>
-			<a href="mail.html">뭐들어가지?</a>
-			<!-- 추후 협의 2018-09-03-jw -->
-		</h2>
+<!-- 		<h2> -->
+<!-- 			<a href="mail.html">뭐들어가지?</a> -->
+<!-- 			<!-- 추후 협의 2018-09-03-jw --> 
+<!-- 		</h2> -->
 	</div>
 	<div class="clearfix"></div>
 </div>
