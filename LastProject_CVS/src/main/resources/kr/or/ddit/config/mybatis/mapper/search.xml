@@ -2,11 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="search">
 
-	<!-- 사용자ID 중복 조회 -->
+
+	<!-- 	아 이 디 : getSearchProdList
+	  		반 환 값 : prodVo
+	  		매개변수 : string(제품명)
+	  		설    명 : 사용자가 입력한 값을 기준으로 제품에 포함한것을 모두 보여 주는 쿼리  
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-05     
+	 -->
 	<select id="getSearchProdList" parameterType="String" resultType="prodVo">
 		SELECT *
 		FROM PROD
 		WHERE PROD_NAME LIKE '%'||#{searchWord}||'%'
+	</select>
+	
+	
+	<!-- 	아 이 디 : getSearchplaceList
+	  		반 환 값 : 
+	  		매개변수 : String(제품코드)
+	  		설    명 : 제품코드로 해당 제품의 재고를 가지고 있는 편의점 정보 검색  
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-07     
+	 -->
+	<select id="getSearchplaceList" parameterType="String" resultType="cvsSearchVo">
+		SELECT  M.MEM_ID           -- 사업자번호
+		       ,M.MEM_NAME         -- 업주명
+		       ,M.MEM_TEL          -- 업주전화번호
+		       ,M.MEM_BIRTH        -- 업주 생년월일
+		       ,M.MEM_GEN          -- 업주 성별
+		       ,M.MEM_ZIP          -- 매장 우편번호
+		       ,M.MEM_ADD          -- 매장 구주소 
+		       ,M.MEM_ADDR         -- 매장 신주소
+		       ,M.MEM_CVS_NAME     -- 매장명
+		       ,M.MEM_CVS_TEL      -- 매장번호
+		       ,M.MEM_INTRO        -- 매장소개
+		       ,M.MEM_X            -- 매장X좌표
+		       ,M.MEM_Y            -- 매장Y좌표
+		       ,SL.STCKLIST_ID     -- 재고리스트코드
+		       ,SL.STCKLIST_AMOUNT -- 수량
+		       ,SL.SICKLIST_EXDATE -- 유통기한
+		       ,SL.STCK_DATE       -- 날짜
+		       ,SL.STCKLIST_INFO   -- 비고
+		       ,F.FILE_UPNAME  -- 파일업로드명
+		       ,F.FILE_PATH    -- 파일경로
+		       ,F.FILE_DOT     -- 파일확장자
+		        
+		FROM MEMBER M           -- 회원테이블
+		JOIN STOCK  S           -- 재고테이블
+		ON M.MEM_ID = S.MEM_ID
+		JOIN STOCK_LIST  SL     -- 재고리스트테이블
+		ON S.STOCK_ID = SL.STOCK_ID
+		JOIN FILEdATA F         -- 자료테이블
+		ON M.MEM_ID = F.MEM_ID
+		WHERE SL.STCK_DATE = SYSDATE   -- 현재날짜
+		  AND SL.STCKLIST_KIND = '888' -- 재고
+		  AND SL.STCKLIST_AMOUNT > 0   -- 재고1이상
+		  AND SL.PROD_ID   = #{prod_id}        -- 제품코드
+	
 	</select>
 	
 	<!-- 상품조회페이지내에서 검색 -->
