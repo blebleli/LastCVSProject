@@ -110,7 +110,6 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			session.setAttribute("userInfo", memberVo);
 
-
 			return "userMain";
 
 		}else {
@@ -211,6 +210,7 @@ public class LoginController {
 
 		logger.debug("requestUrl : {}", request.getRequestURL().toString());
 		
+		//인증하기 버튼 클릭시 사용자 이메일 중복 여부 조회
 		if(0 < signUpService.getMemIdCnt(emailAddr)) {
 
 		      response.setContentType("text/html; charset=UTF-8");
