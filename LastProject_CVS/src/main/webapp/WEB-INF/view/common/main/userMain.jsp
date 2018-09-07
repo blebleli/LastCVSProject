@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="c"     uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 
 </style>
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css' />" media="all"></link>
 
+
+
+<!-- 이벤트 부분 --- 클릭시 해당 이벤트종류 상품들 표시 ------------------------------------ -->
 <script type="text/javascript">
 	//<![CDATA[
 		$(document).ready(function(){
@@ -67,7 +70,6 @@
 </section>
 </div>
 
-
 <!-- flexSlider js ------------------------------------------------------------------ -->
 <link rel="stylesheet" href="/css/flexslider.css" type="text/css" media="screen">
 <script src="/js/common/jquery.flexslider.js"></script>
@@ -87,7 +89,7 @@
 
 <br><br>
 
-<!-- best review------------------------------------------------------------------------------ -->
+<!-- 카테고리별 best ------------------------------------------------------------------------------ -->
 
 	<div class="agile_top_brands_grids">
 		<div class="container">
@@ -156,7 +158,7 @@
 
 <div class="clearfix"></div>
 
-<!-- 행사상품 TEST------------------------------------------------------------------------------ -->
+<!-- 행사상품 ---------------------------------------------------------------------------------- -->
 
 <div class="all_wrap prod_wrap" style="background: #ddf5fb; ">
 <!-- 상품소개 -->
@@ -545,25 +547,25 @@
 <div class="clearfix"></div>
 
 <!-- 공지사항------------------------------------------------------------------------------ -->
+<div class="agile_top_brands_grids">
 
-<div class="fresh-vegetables">
-	<h3>공지사항</h3>
-	<div class="w3l_fresh_vegetables_grids">		
-		<div class="col-md-9 w3l_fresh_vegetables_grid_right">	
-				<table class="table"    style="text-align: center;">
+	<div class="container">
+		<div class="row">
+			<h3>CU25 소식</h3>
+				
+<%-- 				<table class="table" >
+				 <c:forEach items="${공지사항}" end="5" var="vo">	
 				<tr> 
-					<th>ddddddd</th>
-					<th>ddddddd</th>
-				</tr>
-				<tr> 
-					<td>ddddddd</td>
-					<td>ddddddd</td>
-				</tr>
-					
-				</table>
+					<th>${vo.bd_title}</th>
+					<th><fmt:formatDate value="${vo.bd_date}" pattern="yyyy-MM-dd" /></th>
+				</tr>	
+				</c:forEach>			
+				</table> --%>
 	
 		</div>
 		<div class="clearfix"></div>
 	</div>
 </div>
+
+
 <!-- //fresh-vegetables -->

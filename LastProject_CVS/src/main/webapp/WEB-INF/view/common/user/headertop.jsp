@@ -98,8 +98,7 @@
 			</h1>
 		</div>
 
-		<div class="panel-group" id="accordion" role="tablist"
-			aria-multiselectable="true">
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 			<div id="collapseDiv" class="panel panel-default">
 
@@ -123,7 +122,7 @@
 					  <li class="list-group-item"><a href="/search/cvsSearch">편의점찾기</a></li>					  					  
 					</ul>
 					<ul class="list-group" style= "float: left;">
-					  <li class="list-group-item"><a href="/search/cvsSearch">마이페이지</a></li>	
+					  <li class="list-group-item"><a href="/user/mypage">마이페이지</a></li>	
 					</ul>							
 				</div>
 			</div>
@@ -147,7 +146,7 @@ $(document).ready(function() {
 
 });	
 
-$(".navbar-brand").hover(function(){
+$(".panel-group").hover(function(){
    $('#collapseThree').collapse('show');
 },function(){
    $('#collapseThree').collapse('hide');
