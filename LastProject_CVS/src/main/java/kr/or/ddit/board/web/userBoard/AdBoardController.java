@@ -1,4 +1,4 @@
-package kr.or.ddit.board.web.adBoard;
+package kr.or.ddit.board.web.userBoard;
 
 import java.util.HashMap;
 import java.util.List;
