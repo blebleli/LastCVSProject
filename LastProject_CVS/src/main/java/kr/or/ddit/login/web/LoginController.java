@@ -235,13 +235,20 @@ public class LoginController {
 		response.getWriter().print("SUCCESS");
 	}
 	
+
 	/**
-	 * 인증 확인 -공
-	 * 인증성공시 회원가입화면 / 실패시 로그인화면이동 
+	 * 
+	 * Method  	 : confirmMailAuth
+	 * Method설명  :인증 확인 (인증성공시 회원가입화면 / 실패시 로그인화면이동 )
+	 * 최초작성일 : 2018. 9. 7.
+	 * 작 성 자   : 공은별(pc24)
+	 * 변경이력   :
 	 * @param request
+	 * @param authVal
 	 * @param model
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
+	 * 리턴타입   : String
 	 */
 	@RequestMapping("/confirmMailAuth")
 	public String confirmMailAuth(HttpServletRequest request, @RequestParam("authVal") String authVal, Model model) throws Exception {
