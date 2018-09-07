@@ -121,16 +121,8 @@ $(function(){
 		
 		<div class="w3l_banner_nav_right">
 			<div class="w3l_banner_nav_right_banner3">
-				<br>
-				<c:if test="${i =='1' }">
-					<h3>상품 소개<span class="blink_me"></span></h3>
-				</c:if>
-				<c:if test="${i =='2' }">
-					<h3>Best 상품<span class="blink_me"></span></h3>
-				</c:if>
-				<c:if test="${i =='3' }">
-					<h3>행사 상품<span class="blink_me"></span></h3>
-				</c:if>
+<!-- 				<br> -->
+				
 			</div>
 			<br>
 			<div class="w3ls_w3l_banner_nav_right_grid">
@@ -149,7 +141,15 @@ $(function(){
 				<br>
 				<br>
 				<br>
-				<h3>${category.ctgy_name}</h3>
+				<c:if test="${i =='1' }">
+					<h3>상품 소개&nbsp;<span class="blink_me">|</span>&nbsp;${category.ctgy_name}</h3>
+				</c:if>
+				<c:if test="${i =='2' }">
+					<h3>Best 상품&nbsp;<span class="blink_me">|</span>&nbsp;${category.ctgy_name}</h3>
+				</c:if>
+				<c:if test="${i =='3' }">
+					<h3>행사 상품&nbsp;<span class="blink_me">|</span>&nbsp;${category.ctgy_name}</h3>
+				</c:if>
 			<form id="searchFrm">
 				<div class="services">
 					<div class="w3ls_service_grids">
