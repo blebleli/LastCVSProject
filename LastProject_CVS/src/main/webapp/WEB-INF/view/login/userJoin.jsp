@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- login css -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link> 
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
-<!-- 달력  -->
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link>  --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link> --%>
+<!-- 달력 css  -->
 <link rel="stylesheet" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
 <style type="text/css">
 	div.field {width:850px;}
 </style>
 
-<!-- 달력 -->
+<!-- 달력 js -->
 <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
 <script src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
 
@@ -86,10 +86,10 @@ $(document).ready(function() {
 		var isSuccess = true;
 		
 		// 중복체크 확인
-		if($("#chkMemId").val() == '') {
-			fn_errMessage($("#mem_id"), "이메일 아이디 중복체크를 해주시기 바랍니다.");
-			isSuccess = false;
-		}
+// 		if($("#chkMemId").val() == '') {
+// 			fn_errMessage($("#mem_id"), "이메일 아이디 중복체크를 해주시기 바랍니다.");
+// 			isSuccess = false;
+// 		}
 		
 		// 이메일id
 		if($("#mem_id").val() == '') {
@@ -297,6 +297,7 @@ $(document).ready(function() {
 	
 });
 
+
 /**
  * 오류메시지
  */
@@ -325,11 +326,14 @@ function fn_errMessage(_obj, _text) {
 			 
 			<div class="section_wrap">
 				<form id="registForm" action="<c:url value='/login/joinProcess' />" method="post">
-					<div class="section welcome_section">				
+				
+					<div class="section welcome_section">
+						<h3 class="tit tit_v">───────── 회원가입 ─────────</h3>			
 						<h3 class="tit tit_v">GoGo CVS에 오신 것을 환영합니다!</h3>
 					</div>		
 					<div class="section email_info">
 						<div class="content_intro">
+						
 							<h3>개인정보 입력</h3>
 							<p class="join_txt">
 								회원가입을 하시려면 아래의 필수사항을 반드시 입력하신 후 확인 버튼을 클릭해 주시기 바랍니다.<br>
@@ -342,11 +346,12 @@ function fn_errMessage(_obj, _text) {
 								<fieldset class="fieldset medium">
 									<legend>항목입력</legend>
 									<div class="field">
+									<!-- 사용자아이디 고정 , 중복체크버튼 삭제 : 별 09.07 -->
 										<span class="label">이메일 아이디 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
 										<div>
-											<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" class="input_text small" style="width:337px" />
+											<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}"  readonly="readonly" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
-											<button id="btnDuplicateMemId" type="button" class="btn small normal"><span>중복체크</span></button>
+<!-- 											<button id="btnDuplicateMemId" type="button" class="btn small normal"><span>중복체크</span></button> -->
 											<input type="hidden" id="chkMemId" value="" />
 										</div>
 									</div>
@@ -414,12 +419,12 @@ function fn_errMessage(_obj, _text) {
 									<div class="field">
 										<label for="mem_birth" class="label">생년월일 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
 										<div>
-											<input type="text" id="mem_birth" name="mem_birth" title="이름 입력" value="" class="input_text small" style="width:234px" />
-											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
+											<input type="text" id="mem_birth" name="mem_birth" title="생년월일 입력" value="" class="input_text small" style="width:234px" />
+											<span id="errorTxtCnts" class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
-										<label for="zipcd" class="label">주소 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
+										<label for="zipcd" class="label">주소</label>
 										<div>
 											<div>
 												<input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="" class="input_text small" style="width:60px" readonly="readonly" />
@@ -428,8 +433,9 @@ function fn_errMessage(_obj, _text) {
 												<br />
 												<input type="text" id="mem_addr" name="mem_addr" title="상세주소" value="" class="input_text small" style="width:600px;" />
 											</div>
+											
 			                                <div id="errorTxtAddr" class="msg_wrap">
-												<div class="error_txt medium"></div>
+												<div class="error_txt small"></div>
 											</div>
 										</div>
 									</div>

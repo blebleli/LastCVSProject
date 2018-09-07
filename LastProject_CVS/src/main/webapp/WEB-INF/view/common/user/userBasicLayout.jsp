@@ -18,18 +18,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 <!-- //font-awesome icons -->
 
-<!-- login css
+<!-- login css  -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link> 
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
-  -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link> --%>
 
+<!-- css -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	<!-- font-awesome icons -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link>
+
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />"> <!-- 달력 : 별 09.07 -->
 
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -39,7 +41,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="<c:url value='/js/common/move-top.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
-<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> <!-- 달력 : 별 09.07 -->
+
 
 <script type="text/javascript" >
 $(document).ready(function(){
