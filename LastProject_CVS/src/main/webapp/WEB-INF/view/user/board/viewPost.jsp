@@ -193,7 +193,6 @@
 							<td id="demoFont">댓글</td>
 							<td id="demoFont2">
 								<c:forEach items="${commentsList}" var="vo">
-<<<<<<< .mine
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
 										<form id="delect" action="/board/deleteComment" method="post">
 											${vo.mem_id}님의 댓글 : ${vo.cm_content}/[${vo.cm_date}]
@@ -235,11 +234,9 @@
 											<br>
 										</form>
 									</c:if>
-||||||| .r39747
 									${vo.cm_content}/[${vo.cm_date }]
 									<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
 									<br>
-=======
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
 										<form id="delect" action="/board/deleteComment" method="post">
 											${vo.mem_id} : ${vo.cm_content}/[${vo.cm_date}]
@@ -259,7 +256,6 @@
 											<br>
 										</form>
 									</c:if>
->>>>>>> .r39748
 								</c:forEach>
 							</td>
 						</tr>
