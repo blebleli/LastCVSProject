@@ -121,6 +121,8 @@
 					<ul class="list-group" style= "float: left;">
 					  <li class="list-group-item"><a href="/search/prodSearch">제품찾기</a></li>	
 					  <li class="list-group-item"><a href="/search/cvsSearch">편의점찾기</a></li>					  					  
+					  <li class="list-group-item"><a href="#">공지사항</a></li>
+					  <li class="list-group-item"><a href="#">이벤트</a></li>
 					</ul>
 					<ul class="list-group" style= "float: left;">
 					  <li class="list-group-item"><a href="/user/mypage">마이페이지</a></li>	

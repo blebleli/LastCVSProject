@@ -78,42 +78,17 @@
         		<li>
 			    <div class="body"> 
 			           <div class="img">
-		                	<img src="/Image/product/biscuit/00eae441-4662-4048-8e03-30c147a777b8.png" width="73" height="70"/>
-<!-- 			               <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70"> -->
-			                상품이미지
+			           <!-- 임시주석 -->
+<%-- 		                	<img src="${vo.file_path +'/'+vo.file_name   }" width="73" height="70"/> --%>
 			           </div> 
 			           <div class="desc"> 
-			               <div class="ellipsis">제품 : 제품명</div> 
-			               <div class="ellipsis">수량 : 1</div> 
-			               <div class="jibun ellipsis">제품설명</div> 
+			               <div class="ellipsis">제품 : ${vo.prod_name }</div> 
+			               <div class="jibun ellipsis">${vo.prod_intro }</div> 
 			           </div>
 	   		    </div>
 	   		    <input type="hidden" name="prod_id" value="${vo.prod_id }">
         		</li>
-        	
-        	
-<!--         		<li> -->
-<!--         		<a href="D://image//product//meal//00bf8a18-51a1-4d92-9f4a-6190e5895257.png"></a> -->
-<!--         		<img src="/Image/product/biscuit/00eae441-4662-4048-8e03-30c147a777b8.png" /> -->
-<%-- 	        		<span class="markerbg marker_' + (${vo.index+1 }) + '"></span> --%>
-<!--                 	<div class="info"> -->
-<%--                 	<img src="${vo.file_path }\${vo.file_upname }" width="50px;" height="50px;"> --%>
-<%--                 	<h5>${vo.prod_name }</h5> --%>
-<%--         			<span>${vo.prod_intro }</span> --%>
-<%--       				<span class="tel">￦ ${vo.prod_price }</span> --%>
-<!--                  </div>            -->
-        			
-<%--         			<input type="hidden" name="prod_id" value="${vo.prod_name }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.prod_intro }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.prod_price }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.prod_exnum }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_lg }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.pr_class_md }"> --%>
-<%--         			<input type="hidden" name="prod_id" value="${vo.event_id }"> --%>
-<%--         			<input type="hidden" name="file_path" value="${vo.file_path }"> --%>
-<%--         			<input type="hidden" name="file_upname" value="${vo.file_upname }"> --%>
-<!--         		</li> -->
-        	</c:forEach>
+         	</c:forEach>
         </ul>
         
         
@@ -280,7 +255,7 @@ var content="";
 // 		        	alert("성공"+data);
 		        	 $.each(data,function(index,item){
 						// 리턴 받은 값 (좌표) set
-						positions.push(new daum.maps.LatLng(item.mem_x, item.mem_y));
+						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
 						alert(item.mem_x + " : " + item.mem_y);
 						// 커스텀 오버레이에 표시할 컨텐츠 입니다
 						// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
@@ -293,20 +268,17 @@ var content="";
 						            '        </div>' + 
 						            '        <div class="body">' + 
 						            '            <div class="img">' +
-						            '                <img src="/Image/product/biscuit/00eae441-4662-4048-8e03-30c147a777b8.png" width="73" height="70">' +
+						            '                <img src="'+item.file_path+'/'+file_upname+'.'+file_dot+'" width="73" height="70">' +
 // 						            '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-						            '                 상품이미지'+
 						            '            </div>' + 
 						            '            <div class="desc">' + 
-						            '                <div class="ellipsis">수량 : 1</div>' + 
-// 						            '                <div class="ellipsis">수량 : '+item.stcklist_amount+'</div>' + 
-						            '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' + 
-						            '                <div><a href="http://www.kakaocorp.com/main" target="_blank" class="link">상세보기? 링크</a></div>' + 
+						            '                <div class="ellipsis">수량 : '+item.stcklist_amount+'</div>' + 
+						            '                <div class="jibun ellipsis">(우)'+item.mem_zip+'(지번) '+item.mem_add+'</div>' + 
+// 						            '                <div><a href="http://www.kakaocorp.com/main" target="_blank" class="link">상세보기? 링크</a></div>' + 
 						            '            </div>' + 
 						            '        </div>' + 
 						            '    </div>' +    
 						            '</div>';
-
 		        	 });
 		        	 
 		        	 
