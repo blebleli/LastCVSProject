@@ -6,7 +6,7 @@
 
 	<insert id="newComments" parameterType="commentsVo">
 		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID, cm_content, CM_DATE, CM_DELNY, CM_OPENNY )
-		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),'2018/09/05','N','Y')
+		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),sysdate,'N',#{cm_openny})
     
 	</insert>
 	
