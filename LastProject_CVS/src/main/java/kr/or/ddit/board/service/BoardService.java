@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.BoardDaoInf;
+import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 
@@ -219,6 +220,16 @@ public class BoardService implements BoardServiceInf {
 	@Override
 	public List<BoardVo> getBestProdReview() {
 		return boardDao.getBestProdReview();
+	}
+
+	@Override
+	public int insertReview(BoardVo review) {
+		return boardDao.insertReview(review);
+	}
+
+	@Override
+	public List<ReviewVo> getReviewOfProd(String prod_id) {
+		return boardDao.getReviewOfProd(prod_id);
 	}
 
 }
