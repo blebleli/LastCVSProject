@@ -13,9 +13,9 @@
 
 <!-- 최상단  -->
 <div class="agileits_header">
-	<div class="w3l_offers">
+	<div class="w3l_offers" style="opacity: 0.0;">
 		<!-- 링크 클릭시 ★ 이동 경로 주기(상품 화면)  -->
-		<a href="/user/main">오늘의 특별행사 !</a>
+		<a href="/user/main"></a>
 	</div>
 	<div class="w3l_search">
 		<!-- submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->

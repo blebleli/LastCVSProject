@@ -252,10 +252,7 @@
 			<!-- //product list -->
 		</li>
 		
-		
-		
-		
-		
+	
 		
 <li class="" style="list-style: none">
 	<a href="#">
@@ -550,22 +547,41 @@
 <div class="agile_top_brands_grids">
 
 	<div class="container">
-		<div class="row">
-			<h3>CU25 소식</h3>
-				
-<%-- 				<table class="table" >
-				 <c:forEach items="${공지사항}" end="5" var="vo">	
+	<div class="col-md-6">
+	<h3>CU25 소식 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
+		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	
+		<div class="row">	
+			<table class="table table-condensed" >
+				 <c:forEach items="${notice}" end="5" var="vo">	
 				<tr> 
-					<th>${vo.bd_title}</th>
-					<th><fmt:formatDate value="${vo.bd_date}" pattern="yyyy-MM-dd" /></th>
+					<td>${vo.bd_title}</td>
+					<td>${vo.bd_date}</td>
+					<%-- <fmt:formatDate value="${vo.bd_date}" pattern="yyyy-MM-dd" /> --%>
 				</tr>	
 				</c:forEach>			
-				</table> --%>
-	
+			</table>
 		</div>
-		<div class="clearfix"></div>
+	</div>
+	
+	<div class="col-md-5" style="padding-left: 20px">
+	<h3>CU25 소식 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
+		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	
+		<div class="row">	
+			<table class="table table-condensed" >
+				 <c:forEach items="${notice}" end="5" var="vo">	
+				<tr> 
+					<td>${vo.bd_title}</td>
+					<td>${vo.bd_date}</td>
+					<%-- <fmt:formatDate value="${vo.bd_date}" pattern="yyyy-MM-dd" /> --%>
+				</tr>	
+				</c:forEach>			
+			</table>
+		</div>
+	</div>
+
+	
 	</div>
 </div>
 
-
-<!-- //fresh-vegetables -->
+<br>
+<br>

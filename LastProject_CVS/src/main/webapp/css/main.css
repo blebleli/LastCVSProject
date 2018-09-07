@@ -159,7 +159,7 @@
 .etc_sect .qsvs_box{overflow:hidden;border-top:1px solid #dfdfdf;border-left:1px solid #dfdfdf;width:468px;}
 .etc_sect .qsvs_box li{float:left;}
 .etc_sect .qsvs_box a{display:block;padding:32px 13px 0 20px;width:200px;height:97px;border-right:1px solid #dfdfdf;border-bottom:1px solid #dfdfdf;}
-.etc_sect .qsvs_box span{padding-left:65px;min-height:50px;color:#666;display:block;line-height:18px;background:url(/_ui/desktop/common/images/gscvs/main/ico_main.png) 0 -280px no-repeat;line-height: 20px}
+.etc_sect .qsvs_box span{padding-left:65px;min-height:50px;color:#666;display:block;line-height:18px;background:url() 0 -280px no-repeat;line-height: 20px}
 .etc_sect .qsvs_box strong{padding-bottom:5px;color:#222;font-size:16px;line-height:21px;display:block;}
 .etc_sect .qsvs_box .sv2{background-position:0 -345px;}
 .etc_sect .qsvs_box .sv3{background-position:0 -405px;}

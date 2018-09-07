@@ -148,7 +148,7 @@
 										<h2>나의 정보</h2>
 										<div class="clearfix"></div>
 									</div>
-									<div class="x_content">							
+									<div class="x_content">				
 											<div class="form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12" >이름
 													: </label>

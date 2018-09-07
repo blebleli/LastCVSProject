@@ -60,11 +60,13 @@ public class UserMainController {
 		//조회수 리뷰 best3
 		List<BoardVo> bestReview = boardService.getBestProdReview();
 		
+		List<BoardVo> notice = boardService.getListBoard();
 		//
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProd",bestProd);
 		model.addAttribute("bestReview",bestReview);
+		model.addAttribute("notice",notice);
 
 		return "userMain";
 	}
