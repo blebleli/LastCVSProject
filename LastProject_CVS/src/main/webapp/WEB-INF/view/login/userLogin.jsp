@@ -73,7 +73,9 @@ $(document).ready(function() {
             	if(data == "SUCCESS") {
                     alert($("#emailAddr").val() + "로 인증 메일이 전송되었습니다.") ;
             	}else {
-                    alert($("#emailAddr").val() + "은 이미 가입되어 있는 ID입니다. \n아이디/비밀번호 찾기를 이용해 주세요") ;
+                    $(".email_msg").css(
+                    		 			{ 'color':'red','display':'block'} 
+                    	                );
             	}
             },
             error: function(request, status, error) {
@@ -125,6 +127,16 @@ $(document).ready(function() {
 });
 
 </script>
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="index.html">Home</a><span>|</span></li>
+				<li>로그인 & 회원가입</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
 
 	<!-- login 비공통 -->
 	<div class="w3_login">
@@ -148,13 +160,13 @@ $(document).ready(function() {
 						<input type="text"  id="userId" name="userId" value="${userId}" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
 						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
 						<div id="error">${errMsg}</div>
-<!-- 					    <input type="submit" value="로그인 >" id="btnLogin1" > -->
+<!-- 					<input type="submit" value="로그인 >" id="btnLogin" > -->
 						<input type="button" value="로그인 >" id="btnLogin" >
 				
 					</form>
-				</div>
+				</div> <!-- //<div class="form">로그인  -->
 
-				<div class="form"> <!-- 이메일 형식의 폼으로 적용 못함  -->
+				<div class="form"> 
 					<div class="content">
 						<form id="emailAuthForm" action="<c:url value='/login/sendEmail' />"  method="post" >
 							<input type="hidden" name="mbrTypeCd" value="60">
@@ -164,7 +176,7 @@ $(document).ready(function() {
 								<fieldset class="fieldset">
 									<!-- <legend>이메일 인증</legend> -->
 									<div class="field">
-										<label for="emailIdNmStr" class="label">이메일 아이디</label>
+<!-- 										<label for="emailIdNmStr" class="label">이메일 아이디</label> -->
 										
 										<!-- 
 										<div class="insert">
@@ -197,24 +209,29 @@ $(document).ready(function() {
 									</div>
 								</fieldset>
 								<ul class="data_list small">
-									<li>회원가입 정보입력은 인증 메일을 통한 인증 후 가능합니다.</li>
+									<li style="font-size:12px;">회원가입 정보입력은 인증 메일을 통한 인증 후 가능합니다.</li><br/>
+								</ul>
+								
+								<ul>
+								<div>
+								 	<p class="email_msg"  style="display: none;">
+									<strong class="text">이미 가입되어 있는 이메일입니다. </strong></p>
+									
+									<p class="email_msg"  style="display: none; font-size: 12px;">
+									<strong class="text">다른 이메일을 입력 하시거나 로그인 또는 비밀번호 찾기를 선택해주세요.	</strong></p>
+								</div>
 								</ul>
 								<div class="bn_ar">
 									<a id="btnEmailAuth" href="javascript:;" class="bn medium color1">인증하기 </a>
 								</div>
-								<p class="email_msg" style="display: none;">
-									<strong class="text">이미 사용중인 이메일입니다. 다른 이메일을 입력 하시거나 로그인 또는 비밀번호 찾기를 선택해주세요.</strong>
-								</p>
-								<div id="btnFindIdPwWrap" class="bn_ar" style="display: none">
-									<a href="//member.ssg.com/member/login.ssg" class="bn color1">로그인 하기</a>&nbap;
-									<a href="//member.ssg.com/member/findIdPw.ssg?tabType=pw" class="bn color2">비밀번호 찾기</a>
-								</div>
+						
 							</div>
 						</form>
 					</div>
-				</div>
+				</div> <!-- //<div class="form">회원가입부분  -->
+				
 				<div class="cta">
-					<a href="/login/">아이디/비밀번호 찾기</a>
+					<a href="/login/userInfoSearch">아이디/비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>
