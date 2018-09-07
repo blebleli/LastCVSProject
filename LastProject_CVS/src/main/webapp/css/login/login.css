@@ -15,10 +15,11 @@
 .bn_ar button.bn.small{line-height:35px}
 .bn_ar button.bn.medium,
 .bn_ar button.bn.large{line-height:45px}
-.bn_ar .bn.color1{background-color:#3b3b3b;border-color:#3b3b3b;color:#fff}
+.bn_ar .bn.color1{background-color:#3b3b3b;border-color:#ffffff;color:#fff}
 .bn_ar .bn.color2{background-color:#f9f9f9;border-color:#ccc;color:#222}
 .bn_ar .bn.color3{background-color:#f14f4f;border-color:#f14f4f}
 .bn_ar .bn.txt_ty2{font-family:'³ª´®¹Ù¸¥°íµñ',NanumBarunGothic}
+
 
 .btn.txt {
   display: inline-block;
