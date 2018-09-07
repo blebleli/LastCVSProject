@@ -16,7 +16,7 @@
 		<put-attribute name="content" value="/WEB-INF/view/common/main/userMain.jsp" />
 	</definition>
 	
-	<!-- login/*으로 호출하면 login 폴더안에 들어있는 모든 jsp파일에 userBasicLayout템플릿 적용  -->	
+	<!--  login 폴더안에 들어있는 모든 jsp파일에 userBasicLayout템플릿 적용 :별  -->	
 	<definition name="/login/*" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" />
 	</definition>
