@@ -110,7 +110,48 @@
 	font-variant: normal;
 	text-transform: none;
 }
+
+#demoFont2 {
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: 15px;
+	letter-spacing: -0.6px;
+	word-spacing: -3.8px;
+	color: #000000;
+	font-weight: 400;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+}
 </style>
+
+<script>
+	$(function() {
+		$("#reCommentsbt").on("click", function() {
+			var cnt = $("td#demoFont2 input[id=cm_content]").size();
+			if(cnt == 1) {
+			    return false;
+		    }
+	        $("td#demoFont2").append($("<input type='text' size='80' style='height:50px' id='cm_content' name='cm_content["+cnt+"]' required='required' />"
+	        		+"<input type='submit' id='commentButton' style='height:50px' class='btn btn-default' value='댓글 저장'/>"));
+		});
+	});
+	
+	$(function() {
+		$("[id=commentButton]").on("click", function() {
+			var check = $(':input[name=cm_openny]:radio:checked').val();
+			if(check == "Y"){
+				return true;
+			}else if(check == "N"){
+				return true;
+			}else {
+				alert("공개 비공개를 선택하세요");
+				return false;
+			}
+		});
+	});
+</script>
+
 
 <!-- banner -->
 <div class="col-sm-9 col-sm-offset-300 col-md-10 col-md-offset-2 main">
@@ -148,10 +189,33 @@
 							<td id="demoFont">${post.bd_content}</td>
 						</tr>
 
-						<tr>
+						<tr id="comment">
 							<td id="demoFont">댓글</td>
-							<td id="demoFont">
+							<td id="demoFont2">
 								<c:forEach items="${commentsList}" var="vo">
+<<<<<<< .mine
+									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
+										<form id="delect" action="/board/deleteComment" method="post">
+											${vo.mem_id}님의 댓글 : ${vo.cm_content}/[${vo.cm_date}]
+											<input type="hidden" name="cm_id" value="${vo.cm_id}">
+											<input type="hidden" name="bd_id" value="${vo.bd_id}">
+											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
+											<input type="button" name="reCommentsbt" id="reCommentsbt" style="font-size:12px" class="btn btn-default" value="답글">
+											<br id="this">
+										</form>
+									</c:if>
+									<c:if test="${vo.cm_delny == 'Y'}">
+										삭제된 댓글입니다.<br>
+									</c:if>
+									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
+										<form id="delect" action="/board/deleteComment" method="post">
+											비공개 댓글 입니다.
+											<input type="hidden" name="cm_id" value="${vo.cm_id}">
+											<input type="hidden" name="bd_id" value="${vo.bd_id}">
+											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
+											<br>
+										</form>
+									</c:if>
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
 										<form id="delect" action="/board/deleteComment" method="post">
 											${vo.mem_id} : ${vo.cm_content}/[${vo.cm_date}]
@@ -171,6 +235,31 @@
 											<br>
 										</form>
 									</c:if>
+||||||| .r39747
+									${vo.cm_content}/[${vo.cm_date }]
+									<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
+									<br>
+=======
+									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
+										<form id="delect" action="/board/deleteComment" method="post">
+											${vo.mem_id} : ${vo.cm_content}/[${vo.cm_date}]
+											<input type="hidden" name="cm_id" value="${vo.cm_id}">
+											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
+											<br>
+										</form>
+									</c:if>
+									<c:if test="${vo.cm_delny == 'Y'}">
+										삭제된 댓글입니다.<br>
+									</c:if>
+									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
+										<form id="delect" action="/board/deleteComment" method="post">
+											비공개 댓글 입니다.
+											<input type="hidden" name="cm_id" value="${vo.cm_id}">
+											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
+											<br>
+										</form>
+									</c:if>
+>>>>>>> .r39748
 								</c:forEach>
 							</td>
 						</tr>
@@ -179,6 +268,15 @@
 							<td>
 							</td>	
 							<td>
+								<div id="reComments">
+									<form action="/board/newComment" method="post" name="cm_content[0]" id="cm_content">
+										<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
+										<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
+										<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
+										<input type="radio" name="cm_openny" value="Y" >공개
+										<input type="radio" name="cm_openny" value="N" >비공개
+									</form>
+								</div>
 								<form action="/board/newComment" method="post">
 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
 									<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
@@ -197,3 +295,4 @@
 </div>
 <!-- //services -->
 <div class="clearfix"></div>
+
