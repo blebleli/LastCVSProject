@@ -4,14 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="comments">
 
+	<!-- 새로운 댓글 -->
 	<insert id="newComments" parameterType="commentsVo">
-		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID, cm_content, CM_DATE, CM_DELNY, CM_OPENNY )
-		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),sysdate,'N',#{cm_openny})
-    
+		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID,cm_content, CM_DATE, CM_DELNY,CM_OPENNY, cm_group, cm_id2) 
+		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),sysdate,'N',#{cm_openny},#{cm_group}, #{cm_id2})
 	</insert>
 	
+	<!-- 선택한 개시글의 댓글 가져오기 -->
 	<select id="getListComments" parameterType="String" resultType="commentsVo">
 		SELECT * FROM COMMENTS where bd_id = #{bd_id}
 	</select>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteComment" parameterType="String">
+		UPDATE comments SET cm_delny = 'Y' WHERE cm_id=#{cm_id}
+	</update>
 
 </mapper>
