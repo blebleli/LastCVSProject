@@ -35,12 +35,14 @@
 	//]]>
 </script>
 	
+	
 <!-- boader------------------------------------------------------------------------------ -->
 <div class="products-breadcrumb">
 	<div class="container">
 
 	</div>
 </div>
+
 
 <!-- flexslider ------------------------------------------------------------------------------ -->
 <div class="flex-viewport" style="overflow: hidden; position: relative;">
@@ -143,9 +145,6 @@
 			itemWidth: 746,
 			itemMargin: 5,
 			maxItems: 2
-/* 			start : function(slider) {
-				$('body').removeClass('loading');
-			} */
 		});
 	});
 </script>
@@ -214,12 +213,11 @@
 
 <!-- 행사상품 TEST------------------------------------------------------------------------------ -->
 
-<div class="col-sm-12 col-md-12">
-	<div class="all_wrap prod_wrap">
-						<!-- 상품소개 -->
-						<div class="prod_tab" style="height: 280px;">
-							<ul>
-					    		<li class="">
+<div class="all_wrap prod_wrap" style="background: #ddf5fb; ">
+<!-- 상품소개 -->
+<div class="prod_tab" style="height: 280px;">
+	<ul>
+   		<li class="" style="list-style: none">
 	<a href="#">
 		<span class="tit"><em>1+1</em> 상품</span>
 		<span class="txt">행사상품 사면 하나 더</span>
@@ -228,7 +226,7 @@
 	<!-- product list -->
 	<!-- <div class="prd_lst"> -->
 	<div class="prd_lst" style="display: none;">
-		<ul>
+		<ul style="list-style: none">
 			<li>
 								<div class="sbbox pro">
 									<span class="tip typ1"><span>1+1</span></span>
@@ -285,7 +283,7 @@
 	        </div>
 	<!-- //product list -->
 </li>
-<li class="">
+<li class="" style="list-style: none">
 	<a href="#">
 		<span class="tit"><em>2+1</em> 상품</span>
 		<span class="txt">다양하고 놀라운 +1헹사</span>
@@ -294,7 +292,7 @@
 	<!-- product list -->
 	<!-- <div class="prd_lst"> -->
 	<div class="prd_lst" style="display: none;">
-		<ul>
+		<ul style="list-style: none">
 			<li>
 								<div class="sbbox pro">
 									<span class="tip typ2"><span>2+1</span></span>
@@ -352,16 +350,16 @@
 	        </div>
 	<!-- //product list -->
 </li>
-<li class="">
+<li class="" style="list-style: none">
 	<a href="#">
-		<span class="tit"><em>덤증정</em> 상품</span>
-		<span class="txt">덤상품과 함께 즐기는 혜택</span>
+		<span class="tit"><em>할인</em> 상품</span>
+		<span class="txt">할인상품과 함께 즐기는 혜택</span>
 		<span class="tab_arr"></span>
 	</a>
 	<!-- product list -->
 	<!-- <div class="prd_lst"> -->
 	<div class="prd_lst" style="display: none;">
-		<ul>
+		<ul style="list-style: none">
 			<li>
 								<div class="sbbox pro">
 									<span class="tip typ3"><span>덤<br>증정</span></span>
@@ -418,16 +416,16 @@
 	        </div>
 	<!-- //product list -->
 </li>
-<li class="active">
+<li class="" style="list-style: none">
 	<a href="#">
-		<span class="tit"><em>유어스(PB)</em> 상품</span>
+		<span class="tit"><em>CU25(PB)</em> 상품</span>
 		<span class="txt">CU25에만 있는 브랜드상품</span>
 		<span class="tab_arr"></span>
 	</a>
 	<!-- product list -->
 	<!-- <div class="prd_lst"> -->
 	<div class="prd_lst" style="display: block;">
-		<ul>
+		<ul style="list-style: none">
 			<li>
 								<div class="sbbox pro">
 									<a href="/gscvs/ko/products/youus-main"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8801128280068_001.jpg" alt="그랜드 리프레 상품"></a>
@@ -484,7 +482,6 @@
 </div>
 						<!-- //상품소개 -->
 					</div>
-</div>
 
 <div class="clearfix"></div>
 
@@ -497,7 +494,7 @@
         <hr/>
 	</div>
     <div class="row">
-        <div class="col-sm-6 col-md-4">
+        <div class="col-sm-6 col-md-4" >
             <div class="thumbnail">
                 <h4>
            
@@ -587,139 +584,24 @@
 
 <div class="clearfix"></div>
 
+<!-- 공지사항------------------------------------------------------------------------------ -->
 
-<!-- top-brands -->
-<h3>Best review</h3>
-<div class="agile_top_brands_grids">
-	
-	<c:forEach items="${bestProd}" var="vo">
-	<div class="col-md-3 top_brand_left">
-		<div class="hover14 column">
-			<div class="agile_top_brand_left_grid">
-				<div class="tag">
-					<img src="/images/tag.png" alt=" " class="img-responsive" />
-				</div>
-				<div class="agile_top_brand_left_grid1">
-					<figure>					
-						<div class="snipcart-item block">
-							<div class="snipcart-thumb">
-								<a href="single.html"><img title=" " alt=" "
-									src="/images/1.png" /></a>
-								<p>${vo.prod_name}</p>
-								<h4>
-									${vo.prod_price} <span>${vo.prod_price}</span>
-								</h4>
-							</div>
-							<div class="snipcart-details top_brand_home_details">
-								<form action="checkout.html" method="post">
-									<fieldset>
-										<input type="hidden" name="cmd" value="_cart" /> <input
-											type="hidden" name="add" value="1" /> <input type="hidden"
-											name="business" value=" " /> <input type="hidden"
-											name="item_name" value="Fortune Sunflower Oil" /> <input
-											type="hidden" name="amount" value="7.99" /> <input
-											type="hidden" name="discount_amount" value="1.00" /> <input
-											type="hidden" name="currency_code" value="USD" /> <input
-											type="hidden" name="return" value=" " /> <input
-											type="hidden" name="cancel_return" value=" " /> <input
-											type="submit" name="submit" value="Add to cart"
-											class="button" />
-									</fieldset>
-
-								</form>
-
-							</div>
-						</div>
-					</figure>
-				</div>
-			</div>
-		</div>
-	</div>
-	</c:forEach>
-
-</div>
-
-<div class="clearfix"></div>
-
-<!-- //top-brands -->
-<!-- fresh-vegetables -->
 <div class="fresh-vegetables">
-	<h3>Top Products</h3>
-	<div class="w3l_fresh_vegetables_grids">
-		<div
-			class="col-md-3 w3l_fresh_vegetables_grid w3l_fresh_vegetables_grid_left">
-			<div class="w3l_fresh_vegetables_grid2">
-				<ul>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="products.html">All Brands</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="vegetables.html">Vegetables</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="vegetables.html">Fruits</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="drinks.html">Juices</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="pet.html">Pet Food</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="bread.html">Bread & Bakery</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="household.html">Cleaning</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="products.html">Spices</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="products.html">Dry Fruits</a></li>
-					<li><i class="fa fa-check" aria-hidden="true"></i><a
-						href="products.html">Dairy Products</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="col-md-9 w3l_fresh_vegetables_grid_right">
-			<div class="col-md-4 w3l_fresh_vegetables_grid">
-				<div class="w3l_fresh_vegetables_grid1">
-					<img src="/images/8.jpg" alt=" " class="img-responsive" />
-				</div>
-			</div>
-			<div class="col-md-4 w3l_fresh_vegetables_grid">
-				<div class="w3l_fresh_vegetables_grid1">
-					<div class="w3l_fresh_vegetables_grid1_rel">
-						<img src="/images/7.jpg" alt=" " class="img-responsive" />
-						<div class="w3l_fresh_vegetables_grid1_rel_pos">
-							<div class="more m1">
-								<a href="products.html"
-									class="button--saqui button--round-l button--text-thick"
-									data-text="Shop now">Shop now</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="w3l_fresh_vegetables_grid1_bottom">
-					<img src="/images/10.jpg" alt=" " class="img-responsive" />
-					<div class="w3l_fresh_vegetables_grid1_bottom_pos">
-						<h5>Special Offers</h5>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 w3l_fresh_vegetables_grid">
-				<div class="w3l_fresh_vegetables_grid1">
-					<img src="/images/9.jpg" alt=" " class="img-responsive" />
-				</div>
-				<div class="w3l_fresh_vegetables_grid1_bottom">
-					<img src="/images/11.jpg" alt=" " class="img-responsive" />
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			<div class="agileinfo_move_text">
-				<div class="agileinfo_marquee">
-					<h4>
-						get <span class="blink_me">25% off</span> on first order and also
-						get gift voucher
-					</h4>
-				</div>
-				<div class="agileinfo_breaking_news">
-					<span> </span>
-				</div>
-				<div class="clearfix"></div>
-			</div>
+	<h3>공지사항</h3>
+	<div class="w3l_fresh_vegetables_grids">		
+		<div class="col-md-9 w3l_fresh_vegetables_grid_right">	
+				<table class="table"    style="text-align: center;">
+				<tr> 
+					<th>ddddddd</th>
+					<th>ddddddd</th>
+				</tr>
+				<tr> 
+					<td>ddddddd</td>
+					<td>ddddddd</td>
+				</tr>
+					
+				</table>
+	
 		</div>
 		<div class="clearfix"></div>
 	</div>
