@@ -11,8 +11,6 @@
 
 </style>
 
-
-
 <!-- 최상단  -->
 <div class="agileits_header">
 	<div class="w3l_offers">
@@ -132,4 +130,28 @@
 		</div>
 	</div>
 </div>
+
+<!-- 0907 한수정 collapse 하기위한 script 지우지마세요 -->
+<script>
+$(document).ready(function() {
+	var navoffeset = $(".agileits_header").offset().top;
+	
+	$(window).scroll(function() {
+		var scrollpos = $(window).scrollTop();
+		if (scrollpos >= navoffeset) {
+			$(".agileits_header").addClass("fixed");
+		} else {
+			$(".agileits_header").removeClass("fixed");
+		}
+	});
+
+});	
+
+$(".navbar-brand").hover(function(){
+   $('#collapseThree').collapse('show');
+},function(){
+   $('#collapseThree').collapse('hide');
+}); 
+
+</script>
 
