@@ -133,8 +133,7 @@ public class BoardService implements BoardServiceInf {
 
 	@Override
 	public int deleteComments(String cm_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boardDao.deleteComments(cm_id);
 	}
 
 	/**

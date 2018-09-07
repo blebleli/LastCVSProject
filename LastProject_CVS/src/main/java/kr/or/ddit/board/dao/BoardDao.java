@@ -179,8 +179,7 @@ public class BoardDao implements BoardDaoInf {
 
 	@Override
 	public int deleteComments(String cm_id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.update("comments.deleteComment",cm_id);
 	}
 
 	/**
@@ -206,5 +205,6 @@ public class BoardDao implements BoardDaoInf {
 	public List<ReviewVo> getReviewOfProd(String prod_id) {
 		return template.selectList("board.getReviewOfProd", prod_id);
 	}
+
 
 }

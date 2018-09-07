@@ -142,7 +142,7 @@
 			<h3>공지사항</h3>
 			<div class="w3ls_service_grids">
 
-				<div class="col-md-12 w3ls_service_grid_left">
+				<div class="col-md-10 w3ls_service_grid_left">
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<thead>

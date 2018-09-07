@@ -164,9 +164,11 @@ public class AdBoardController {
 		
 		//댓글 삭제에 필요한 댓글 고유 id를 가져옴
 		String id = commentsVo.getCm_id();
+		logger.debug("id============================"+id);
 		
 		//댓글 삭제 기능 메서드
 		int cnt = boardService.deleteComments(id);
+		logger.debug("cnt============================"+cnt);
 		
 		//리다이렉트해서 필요한 값을 넘겨주기 위함
 		model.addAttribute("bd_id",bd_id);
