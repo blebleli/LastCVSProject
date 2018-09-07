@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="table">
+
+
+	<!-- 	아 이 디 : boardCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : board 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-07
+	 -->
+	<select id="boardCode" resultType="String" parameterType="map">
+		SELECT  MAX(${codeId}) AS CODE FROM ${table};
+	</select>
+		
+	
+
+</mapper>
