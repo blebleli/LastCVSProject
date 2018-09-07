@@ -44,13 +44,14 @@ public class UserMainController {
 	 */
 	@RequestMapping("/main")
 	public String main(Model model){
-		
+		 //카테고리 best 제품리스트
 		HashMap<String, String> ctgyNum = new HashMap<String, String>();		
 		ctgyNum.put("category", "CA07760000001");
-		ctgyNum.put("wantNum", "4");
-		
+		ctgyNum.put("wantNum", "4");		
 
 		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
+		
+		//best 조회수 리뷰
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProd",bestProd);
