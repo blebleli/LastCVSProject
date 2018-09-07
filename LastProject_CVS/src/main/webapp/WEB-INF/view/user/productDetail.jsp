@@ -91,6 +91,9 @@
 							<h3>${prod.prod_price } 원 </h3>
 						</div>
 						<div class="snipcart-details agileinfo_single_right_details">
+<%-- 							<c:if test="${user == null }"> --%>
+<!-- 								<form -->
+<%-- 							</c:if> --%>
 							<form action="/userPay/pay" method="post" id="prodDetailFrm">
 								<fieldset>
 
