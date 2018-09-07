@@ -54,7 +54,7 @@
 .prod_tab li.active .txt{display:block;font-size: 13px;color:#fff;}
 .prod_tab li.active > a .tab_arr{position:absolute;top:23px;right:-11px;width:11px;height:19px;text-indent:-999em;background:url("/_ui/desktop/common/images/gscvs/main/ico_main.png") -49px -102px no-repeat;}
 .prod_tab .prd_lst{position:absolute;top:0;left:240px;width:720px;}
-.prod_tab .btn_more{display:inline-block;width:51px;height:20px;position: absolute;top:10px;right:0;padding-right:20px;background:url("/_ui/desktop/common/images/gscvs/main/ico_main.png") 36px -53px no-repeat;}
+.prod_tab .btn_more{display:inline-block;/* width:51px; */height:20px;position: absolute;top:10px;right:0;padding-right:20px;background:url("/_ui/desktop/common/images/gscvs/main/ico_main.png") 36px -53px no-repeat;}
 
 .sb_wrap{position:absolute;top:50px;left:0;width:720px;height:240px;z-index:99;}
 .sbbox{float:left;width:180px;height:240px}

@@ -63,73 +63,6 @@
 		      <img src="/images/event4.jpg" />
 		    </li>
 		  </ul>
-		<!-- <div class="flex-viewport" style="overflow: hidden; position: relative;">
-			<ul class="slides" style="width: 1000%; transition-duration: 0.6s; transform: translate3d(-1492px, 0px, 0px);">
-				
-				<li class="clone" style="width: 746px; float: left; display: block;">
-					<div class="w3l_banner_nav_right_banner2">
-						<h3>
-							이미지 옆 문구  
-							 해당 <i>이벤트 내용_1</i>간략히  
-						</h3>
-						<div class="more">
-							자세히 클릭
-							<a href="#" class="button--saqui button--round-l button--text-thick" data-text="Shop now">자세히</a>
-						</div>
-					</div>
-				</li>
-				
-				<li style="width: 746px; float: left; display: block;" class="">
-					<div class="w3l_banner_nav_right_banner">
-						<h3>
-							해당 <span>이벤트 내용_2</span>간략히
-						</h3>
-						<div class="more">
-							<a href="#"
-								class="button--saqui button--round-l button--text-thick"
-								data-text="Shop now">자세히</a>
-						</div>
-					</div>
-				</li>
-				<li style="width: 746px; float: left; display: block;"
-					class="flex-active-slide">
-					<div class="w3l_banner_nav_right_banner1">
-						<h3>
-							Make your <span>food</span> with Spicy.
-						</h3>
-						<div class="more">
-							<a href="#"
-								class="button--saqui button--round-l button--text-thick"
-								data-text="Shop now">자세히</a>
-						</div>
-					</div>
-				</li>
-				<li style="width: 746px; float: left; display: block;" class="">
-					<div class="w3l_banner_nav_right_banner2">
-						<h3>
-							upto <i>50%</i> off.
-						</h3>
-						<div class="more">
-							<a href="#"
-								class="button--saqui button--round-l button--text-thick"
-								data-text="Shop now">자세히</a>
-						</div>
-					</div>
-				</li>
-				<li style="width: 746px; float: left; display: block;" class="clone">
-					<div class="w3l_banner_nav_right_banner">
-						<h3>
-							Make your <span>food</span> with Spicy.
-						</h3>
-						<div class="more">
-							<a href="#"
-								class="button--saqui button--round-l button--text-thick"
-								data-text="Shop now">자세히</a>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div> -->
 	</div>
 </section>
 </div>
@@ -163,6 +96,18 @@
 		        <hr/>
 			</div>
 		    <div class="row">
+		    
+<%-- 		  <c:forEach items="${bestProduct}" var="vo">	
+		     
+		    	<div class="col-sm-6 col-md-4">
+		            <div class="thumbnail">		          
+		                <img src="/이미지경로 넣어주기" alt="...">              
+		                <div class="clearfix"></div>		              
+		            </div>
+		        </div>
+		        
+		     </c:forEach> --%>  
+		        
 		        <div class="col-sm-6 col-md-4">
 		            <div class="thumbnail">		          
 		                <img src="/images/event1.jpg" alt="...">              
@@ -218,71 +163,98 @@
 <div class="prod_tab" style="height: 280px;">
 	<ul>
    		<li class="" style="list-style: none">
-	<a href="#">
-		<span class="tit"><em>1+1</em> 상품</span>
-		<span class="txt">행사상품 사면 하나 더</span>
-		<span class="tab_arr"></span>
-	</a>
-	<!-- product list -->
-	<!-- <div class="prd_lst"> -->
-	<div class="prd_lst" style="display: none;">
-		<ul style="list-style: none">
-			<li>
-								<div class="sbbox pro">
-									<span class="tip typ1"><span>1+1</span></span>
-									<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8809329050015_016.jpg" alt="천지개벽숙취 상품"></a>
-												<span class="title">
-										<em class="mt">
-                                          천지개벽)숙취해소음료</em>
-										<em>5,000원</em>
-										</span>
-								</div>
-								<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
-							</li>
-						<li>
-								<div class="sbbox pro">
-									<span class="tip typ1"><span>1+1</span></span>
-									<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8809443210548_001.jpg" alt="디즈니카페베네 상품"></a>
-												<span class="title">
-										<em class="mt">
-                                          Y)디즈니썸썸카페베네아...
-                                              </em>
-										<em>2,900원</em>
-										</span>
-								</div>
-								<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
-							</li>
-						<li>
-								<div class="sbbox pro">
-									<span class="tip typ1"><span>1+1</span></span>
-									<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8801045640471_001.jpg" alt="Y)진짬뽕참치 상품"></a>
-												<span class="title">
-										<em class="mt">
-                                          유어스)진짬뽕참치150...
-                                              </em>
-										<em>3,200원</em>
-										</span>
-								</div>
-								<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
-							</li>
-						<li>
-								<div class="sbbox pro">
-									<span class="tip typ1"><span>1+1</span></span>
-									<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8801069185330_004.jpg" alt="Y)스와이스라임 상품"></a>
-												<span class="title">
-										<em class="mt">
-                                          유어스)스와이스라임탄산...
-                                              </em>
-										<em>1,500원</em>
-										</span>
-								</div>
-								<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
-							</li>
-						</ul>
-        <a href="/user/eventProducts" class="btn_more">더보기<span class="ico_more"></span></a>
-	        </div>
-	<!-- //product list -->
-</li>
+			<a href="#">
+				<span class="tit"><em>1+1</em> 상품</span>
+				<span class="txt">행사상품 사면 하나 더</span>
+				<span class="tab_arr"></span>
+			</a>
+			<!-- product list -->
+			<!-- <div class="prd_lst"> -->
+			<div class="prd_lst" style="display: none;">
+				<ul style="list-style: none">
+					
+					
+		<%-- 			<c:forEach items="${eventProduct-1+1}" var="vo">					
+					<li>
+						<div class="sbbox pro">
+							<span class="tip typ1"><span>1+1</span></span>
+							<a href="/gscvs/ko/products/event-goods"><img src="이미지경로 넣어주기" alt="${vo.prod_name }"></a>
+										<span class="title">
+								<em class="mt"> ${vo.prod_name }</em>
+								<em>${vo.paod_price }원</em>
+								</span>
+						</div>
+						<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+					</li>
+					</c:forEach> --%>
+					
+					
+				
+					<li>
+						<div class="sbbox pro">
+							<span class="tip typ1"><span>1+1</span></span>
+							<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8809329050015_016.jpg" alt="천지개벽숙취 상품"></a>
+										<span class="title">
+								<em class="mt">
+		                                      천지개벽)숙취해소음료</em>
+								<em>5,000원</em>
+								</span>
+						</div>
+						<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+					</li>
+					
+					
+					
+					<li>
+							<div class="sbbox pro">
+								<span class="tip typ1"><span>1+1</span></span>
+								<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8809443210548_001.jpg" alt="디즈니카페베네 상품"></a>
+											<span class="title">
+									<em class="mt">
+		                                       Y)디즈니썸썸카페베네아...
+		                                           </em>
+									<em>2,900원</em>
+									</span>
+							</div>
+							<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+						</li>
+					<li>
+						<div class="sbbox pro">
+							<span class="tip typ1"><span>1+1</span></span>
+							<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8801045640471_001.jpg" alt="Y)진짬뽕참치 상품"></a>
+										<span class="title">
+								<em class="mt">
+	                                       유어스)진짬뽕참치150...
+	                                           </em>
+								<em>3,200원</em>
+								</span>
+						</div>
+						<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+					</li>
+					<li>
+					<div class="sbbox pro">
+						<span class="tip typ1"><span>1+1</span></span>
+						<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8801069185330_004.jpg" alt="Y)스와이스라임 상품"></a>
+									<span class="title">
+							<em class="mt">
+		                                     유어스)스와이스라임탄산...
+		                                         </em>
+							<em>1,500원</em>
+							</span>
+					</div>
+					<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+					</li>
+				</ul>
+		        <a href="/user/eventProducts" class="btn_more">더보기<span class="glyphicon glyphicon-plus"></span></a>
+			</div>
+			<!-- //product list -->
+		</li>
+		
+		
+		
+		
+		
+		
 <li class="" style="list-style: none">
 	<a href="#">
 		<span class="tit"><em>2+1</em> 상품</span>
@@ -293,8 +265,25 @@
 	<!-- <div class="prd_lst"> -->
 	<div class="prd_lst" style="display: none;">
 		<ul style="list-style: none">
+							
+		<%-- 			<c:forEach items="${eventProduct-2+1}" var="vo">					
+					<li>
+						<div class="sbbox pro">
+							<span class="tip typ1"><span>1+1</span></span>
+							<a href="/gscvs/ko/products/event-goods"><img src="이미지경로 넣어주기" alt="${vo.prod_name }"></a>
+										<span class="title">
+								<em class="mt"> ${vo.prod_name }</em>
+								<em>${vo.paod_price }원</em>
+								</span>
+						</div>
+						<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+					</li>
+					</c:forEach> --%>
+		
+		
+		
 			<li>
-								<div class="sbbox pro">
+				<div class="sbbox pro">
 									<span class="tip typ2"><span>2+1</span></span>
 									<a href="/gscvs/ko/products/event-goods"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8809594420605_001.jpg" alt="Y)고사리소시지 상품"></a>
 												<span class="title">
@@ -360,6 +349,25 @@
 	<!-- <div class="prd_lst"> -->
 	<div class="prd_lst" style="display: none;">
 		<ul style="list-style: none">
+				<%-- 			<c:forEach items="${eventProduct-할인}" var="vo">					
+					<li>
+						<div class="sbbox pro">
+							<span class="tip typ1"><span>1+1</span></span>
+							<a href="/gscvs/ko/products/event-goods"><img src="이미지경로 넣어주기" alt="${vo.prod_name }"></a>
+										<span class="title">
+								<em class="mt"> ${vo.prod_name }</em>
+								<em>${vo.paod_price }원</em>
+								</span>
+						</div>
+						<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+					</li>
+					</c:forEach> --%>
+		
+
+		
+		
+		
+		
 			<li>
 								<div class="sbbox pro">
 									<span class="tip typ3"><span>덤<br>증정</span></span>
@@ -426,6 +434,21 @@
 	<!-- <div class="prd_lst"> -->
 	<div class="prd_lst" style="display: block;">
 		<ul style="list-style: none">
+		
+				<%-- <c:forEach items="${eventProduct-pb상품}" var="vo">					
+					<li>
+						<div class="sbbox pro">
+							<span class="tip typ1"><span>1+1</span></span>
+							<a href="/gscvs/ko/products/event-goods"><img src="이미지경로 넣어주기" alt="${vo.prod_name }"></a>
+										<span class="title">
+								<em class="mt"> ${vo.prod_name }</em>
+								<em>${vo.paod_price }원</em>
+								</span>
+						</div>
+						<!-- <a href="/gscvs/ko/products/event-goods" class="btn_more">더보기<span class="ico_more"></span></a> -->
+					</li>
+					</c:forEach> --%>
+
 			<li>
 								<div class="sbbox pro">
 									<a href="/gscvs/ko/products/youus-main"><img src="http://gs25appimg.gsretail.com/imgsvr/item/GD_8801128280068_001.jpg" alt="그랜드 리프레 상품"></a>
@@ -489,69 +512,33 @@
 
 <div class="agile_top_brands_grids">
 	<div class="container">
-	<div class="row">
-		<h2 class="text-center">Best Review </h2>
-        <hr/>
-	</div>
-    <div class="row">
-    
-    
-    <c:forEach items="${bestReview}" var="vo">	
-        <div class="col-sm-6 col-md-4" >
-            <div class="thumbnail">
-                <h4>          
-                    <span class="label label-info info">
-                        <span data-toggle="tooltip" title="viewed">${vo.bd_views} <b class="glyphicon glyphicon-eye-open"></b></span>
-                        <span data-toggle="tooltip" title="viewed">${vo.bd_rating} <b class="glyphicon glyphicon-star"></b></span>
-                      
-                    </span>
-                </h4>
-                <img src="/images/event1.jpg" alt="...">
-                 리뷰가들어갈 공간
-                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Snippet</a>
-                <div class="clearfix"></div>
-              
-            </div>
-        </div>
-    </c:forEach>
-
-        
-  
-
-    </div>
-</div>
-	
-
-
-<!-- 		<div class="wthree_banner_bottom_left_grid">
-			<img src="/images/4.jpg" alt=" " class="img-responsive" />
-			<div class="wthree_banner_bottom_left_grid_pos">
-				<h4>
-					Discount Offer <span>25%</span>
-				</h4>
-			</div>
+		<div class="row">
+			<h2 class="text-center">Best Review </h2>
+	        <hr/>
 		</div>
+	    <div class="row">
+	    
+	    
+	    <c:forEach items="${bestReview}" var="vo">	
+	        <div class="col-sm-6 col-md-4" >
+	            <div class="thumbnail">
+	                <h4>          
+	                    <span class="label label-info info">
+	                        <span data-toggle="tooltip" title="viewed">${vo.bd_views} <b class="glyphicon glyphicon-eye-open"></b></span>
+	                        <span data-toggle="tooltip" title="viewed">${vo.bd_rating} <b class="glyphicon glyphicon-star"></b></span>
+	                      
+	                    </span>
+	                </h4>
+	                <img src="/images/event1.jpg" alt="...">
+	                 리뷰가들어갈 공간{vo.bd_content}
+	                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Review</a>
+	                <div class="clearfix"></div>              
+	            </div>
+	        </div>
+	    </c:forEach>
+	    
+	    </div>
 	</div>
-	<div class="col-md-4 wthree_banner_bottom_left">
-		<div class="wthree_banner_bottom_left_grid">
-			<img src="/images/5.jpg" alt=" " class="img-responsive" />
-			<div class="wthree_banner_btm_pos">
-				<h3>
-					introducing <span>best store</span> for <i>groceries</i>
-				</h3>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4 wthree_banner_bottom_left">
-		<div class="wthree_banner_bottom_left_grid">
-			<img src="/images/6.jpg" alt=" " class="img-responsive" />
-			<div class="wthree_banner_btm_pos1">
-				<h3>
-					Save <span>Upto</span> $10
-				</h3>
-			</div> -->
-	
-
 </div>
 
 

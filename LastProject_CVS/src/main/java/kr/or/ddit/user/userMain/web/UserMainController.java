@@ -54,11 +54,13 @@ public class UserMainController {
 		ctgyNum.put("category", "CA07760000001");
 		ctgyNum.put("wantNum", "4");		
 
-		//카테고리별 평점best
+		//카테고리별 평점 best
 		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
 		
-		//best 조회수 리뷰
+		//조회수 리뷰 best3
 		List<BoardVo> bestReview = boardService.getBestProdReview();
+		
+		//
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProd",bestProd);
