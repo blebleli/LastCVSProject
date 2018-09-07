@@ -6,16 +6,27 @@
 
 
 	<!-- 	아 이 디 : boardCode
-	  		매개변수 : 없음
+	  		매개변수 : String
 	  		반 환 값 : String
 	  		설    명 : board 코드 마지막 pk 
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-07
 	 -->
-	<select id="boardCode" resultType="String" parameterType="map">
-		SELECT  MAX(${codeId}) AS CODE FROM ${table};
+	<select id="boardCode" resultType="String" parameterType="String">
+		SELECT  MAX(BD_ID) AS CODE FROM BOARD WHERE BD_ID LIKE ('%' || #{kind} ||'%');
 	</select>
 		
+
+	<!-- 	아 이 디 : commentsCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : COMMENTS 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-07
+	 -->
+    <select id="commentsCode" resultType="String" >
+		SELECT MAX(CM_ID) AS CODE FROM comments;
+	</select>
 	
 
 </mapper>

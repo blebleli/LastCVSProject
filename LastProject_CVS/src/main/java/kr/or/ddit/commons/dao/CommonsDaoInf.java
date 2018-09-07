@@ -67,5 +67,12 @@ public interface CommonsDaoInf {
 	 * @return   List<CategoryVo>
 	 */
 	List<CategoryVo> prodCtgyList();
+
+	/*코드 자동 생성*/
+	// board
+	String boardCode(String kind);
+
+	// comments
+	String commentsCode();
 	
 }
