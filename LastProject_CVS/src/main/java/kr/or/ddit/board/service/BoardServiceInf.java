@@ -183,7 +183,7 @@ public interface BoardServiceInf {
 	
 	/**
 	 * 
-	 * Method   : insertReview 
+	 * Method   : getReviewOfProd 
 	 * 최초작성일  : 2018. 9. 7. 
 	 * 작성자 : 김현경
 	 * 변경이력 : 신규
