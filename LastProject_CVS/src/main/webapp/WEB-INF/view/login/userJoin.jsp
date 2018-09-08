@@ -2,6 +2,32 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- login css  -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
+
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link> 
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
+
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	<!-- font-awesome icons -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link>
+
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />"> <!-- 달력 : 별 09.07 --> --%>
+
+<link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+
+<!-- js -->
+<script type="text/javascript" src="<c:url value='/js/common/jquery-1.11.1.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/common/move-top.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
+<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> <!-- 달력 : 별 09.07 -->
+
 
 <!-- 달력 css  -->
 <link rel="stylesheet" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
@@ -16,6 +42,8 @@
 
 	
 <script type="text/javascript">
+
+
 
 var contextPath = "${pageContext.request.contextPath}";
 
@@ -310,6 +338,18 @@ function fn_errMessage(_obj, _text) {
 	_obj.closest("div.field").find(".msg_wrap").find(".error_txt").text(_text);
 }
 </script>
+
+
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+				<li>회원가입</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
 
 <!-- 주소검색 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
