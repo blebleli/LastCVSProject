@@ -41,6 +41,7 @@
 			bd_group, prod_id, mem_id, bd_parent, bd_kind_id
 			FROM board
 			WHERE BD_ID = #{BD_ID}
+			order by bd_date asc
 	</select>
 	
 	<!-- 공지사항 게시판 정보 페이징 조회 -->
