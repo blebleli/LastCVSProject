@@ -1,212 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
-
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-   <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
-  </head>
-
-   <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="cvs_index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>John Doe</h2>
-              </div>
-            </div>
-            <!-- /menu profile quick info -->
-
-            <br />
-   <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <h3>General</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="cvs_index.html">Dashboard</a></li>
-                    </ul>
-                  </li> 
-                                                                      
-                  <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                   	  <li><a href="cvs_POS.html">POS</a></li>
-                       <li><a href="cvs_barcode_read.html">ì¸ì</a></li>
-                    </ul>               
-                  </li>
-                  
-                  <li><a><i class="fa fa-table"></i> ë´ì­ì <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                   	   <li><a href="cvs_table_stock.html">íì¬ì¬ê³ </a></li>
-                       <li><a href="cvs_table_in_supply.html">ìê³ ë´ì­</a></li>
-                       <li><a href="cvs_table_request_supply.html">ë°ì£¼ë´ì­</a></li>
-                    </ul>
-                  </li>  
-                  <li><a><i class="fa fa-bar-chart-o"></i> íµê³ <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="cvs_chart_day.html">ë ì§ë³</a></li>
-                      <li><a href="cvs_chart_prod.html">ì íë³</a></li>                 
-                    </ul>
-                  </li>
-                  
-                   <li><a><i class="fa fa fa-gears"></i> setting <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="cvs_form.html">setting</a></li>
-                    </ul>
-                  </li>                  
-                </ul>
-              </div>
-
-            </div>
-            <!-- /sidebar menu -->
-
-
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
-          </div>
-        </div>
-
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                  </ul>
-                </li>
-
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
@@ -236,7 +27,7 @@
               <div class="col-md-10 col-sm-10 col-xs-10">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>ìíë¦¬ì¤í¸ <small>basic table subtitle</small></h2>
+                    <h2>상품리스트 <small>basic table subtitle</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -263,11 +54,11 @@
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
                             <th class="column-title">NO </th>
-                            <th class="column-title">ìíëª </th>
-                            <th class="column-title">ë¨ê° </th>
-                            <th class="column-title">ìë </th>
-                            <th class="column-title">ê¸ì¡ </th>
-                            <th class="column-title">í ì¸ </th>
+                            <th class="column-title">상품명 </th>
+                            <th class="column-title">단가 </th>
+                            <th class="column-title">수량 </th>
+                            <th class="column-title">금액 </th>
+                            <th class="column-title">할인 </th>
                             
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -311,16 +102,16 @@
               </div>
               
               <div class="col-md-1 col-sm-1 col-xs-1">
-              <button type="button" class="btn btn-primary btn-lg" style="width:100px">ë³µí©ê²°ì </button>
-               <button type="button" class="btn btn-default btn-lg" style="width:100px">ì ì©ì¹´ë</button>
-               <button type="button" class="btn btn-default btn-lg"style="width:100px">íê¸</button>
-               <button type="button" class="btn btn-default btn-lg"style="width:100px">í¬ì¸í¸</button>
+              <button type="button" class="btn btn-primary btn-lg" style="width:100px">복합결제</button>
+               <button type="button" class="btn btn-default btn-lg" style="width:100px">신용카드</button>
+               <button type="button" class="btn btn-default btn-lg"style="width:100px">현금</button>
+               <button type="button" class="btn btn-default btn-lg"style="width:100px">포인트</button>
               </div>
 
 			<div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>ê²°ì ë´ì­ <small>Custom design</small></h2>
+                    <h2>결제내역 <small>Custom design</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -348,36 +139,36 @@
                 
                         <tr>
                        
-                          <td  rowspan="5" colspan="2">ë°ì½í¸íë©´</td>
-                          <td   colspan="3" >ìë ¥ì°½</td>
-                          <td   colspan="2" >ê³ì°</td>
+                          <td  rowspan="5" colspan="2">바코트화면</td>
+                          <td   colspan="3" >입력창</td>
+                          <td   colspan="2" >계산</td>
                          
                         </tr>
                         <tr>
                           <td>1</td>
                           <td>2</td>  
                           <td>3</td>                     
-                          <td>ë°ìê¸ì¡</td>
-                          <td>10,000ì</td>
+                          <td>받은금액</td>
+                          <td>10,000원</td>
                         </tr>
                         <tr>
                           <td>4</td>
                           <td>5</td> 
                           <td>6</td>
-                         <td>í ì¸ê¸ì¡</td>
-                          <td>-1,000ì</td>
+                         <td>할인금액</td>
+                          <td>-1,000원</td>
                         </tr>                                            
                         <tr>
                           <td>7</td>
                           <td>8</td> 
                           <td>9</td>    
-                           <td>ìíí©ê³</td>
-                          <td>2,000ì</td>
+                           <td>상품합계</td>
+                          <td>2,000원</td>
                         </tr>
                         <tr>
                        	   <td   colspan="3" >0</td>
-                       	   <td>ê±°ì¤ë¦ë</td>
-                          <td>9,000ì</td>
+                       	   <td>거스름돈</td>
+                          <td>9,000원</td>
                         </tr>
                   
                     </table>
@@ -402,8 +193,7 @@
           <div class="clearfix"></div>
         </footer>
         <!-- /footer content -->
-      </div>
-    </div>
+
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -418,5 +208,3 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-  </body>
-</html>

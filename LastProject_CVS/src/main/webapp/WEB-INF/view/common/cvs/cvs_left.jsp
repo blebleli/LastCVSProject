@@ -22,7 +22,7 @@
     <!-- /menu profile quick info -->
 
     <br />
-
+    
     <!-- sidebar menu -->
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
       <div class="menu_section">
@@ -36,29 +36,29 @@
                                                               
           <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	  <li><a href="cvs_POS.html">POS</a></li>
-               <li><a href="cvs_barcode_read.html">인식</a></li>
+           	  <li><a href="POS">POS</a></li>
+               <li><a href="barcode">인식</a></li>
             </ul>               
           </li>
           
           <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	   <li><a href="cvs_stock.html">현재재고</a></li>
-               <li><a href="cvs_supply_in.html">입고내역</a></li>
-               <li><a href="cvs_supply_request.html">발주내역</a></li>
-                <li><a href="cvs_dayend.html">마감</a></li>
+           	   <li><a href="stock">현재재고</a></li>
+               <li><a href="supplyIn">입고내역</a></li>
+               <li><a href="supplyReqest">발주내역</a></li>
+                <li><a href="dayend">마감</a></li>
             </ul>
           </li>  
           <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="cvs_chart_day.html">날자별</a></li>
-              <li><a href="cvs_chart_prod.html">제품별</a></li>                 
+              <li><a href="chartDay">날자별</a></li>
+              <li><a href="chartProd">제품별</a></li>                 
             </ul>
           </li>
           
            <li><a><i class="fa fa fa-gears"></i> setting <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="cvs_form.html">setting</a></li>
+              <li><a href="chartSetting">setting</a></li>
             </ul>
           </li>                  
         </ul>

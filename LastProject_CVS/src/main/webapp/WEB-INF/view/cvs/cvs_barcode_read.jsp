@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -62,21 +60,21 @@
                   <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                    	  <li><a href="cvs_POS.html">POS</a></li>
-                       <li><a href="cvs_barcode_read.html">ì¸ì</a></li>
+                       <li><a href="cvs_barcode_read.html">인식</a></li>
                     </ul>               
                   </li>
                   
-                  <li><a><i class="fa fa-table"></i> ë´ì­ì <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                   	   <li><a href="cvs_table_stock.html">íì¬ì¬ê³ </a></li>
-                       <li><a href="cvs_table_in_supply.html">ìê³ ë´ì­</a></li>
-                       <li><a href="cvs_table_request_supply.html">ë°ì£¼ë´ì­</a></li>
+                   	   <li><a href="cvs_table_stock.html">현재재고</a></li>
+                       <li><a href="cvs_table_in_supply.html">입고내역</a></li>
+                       <li><a href="cvs_table_request_supply.html">발주내역</a></li>
                     </ul>
                   </li>  
-                  <li><a><i class="fa fa-bar-chart-o"></i> íµê³ <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="cvs_chart_day.html">ë ì§ë³</a></li>
-                      <li><a href="cvs_chart_prod.html">ì íë³</a></li>                 
+                      <li><a href="cvs_chart_day.html">날짜별</a></li>
+                      <li><a href="cvs_chart_prod.html">제품별</a></li>                 
                     </ul>
                   </li>
                   
@@ -233,7 +231,7 @@
               <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>ë°ì½ë ì¸ì <small>different form elements</small></h2>
+                    <h2>바코드 인식 <small>different form elements</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -310,9 +308,9 @@
               <div class="col-md-8 col-sm-8 col-xs-9">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>ë°ì£¼ë¦¬ì¤í¸ <small>Custom design   </small></h2>
-                    <button class="btn btn-primary">ìíì¶ê°</button>
-                    <button class="btn btn-primary">ì íì­ì </button>
+                    <h2>발주리스트 <small>Custom design   </small></h2>
+                    <button class="btn btn-primary">상품추가</button>
+                    <button class="btn btn-primary">선택삭제</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                     
                     <!-- <ul class="nav navbar-right panel_toolbox">
@@ -344,12 +342,12 @@
                             <th>
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
-                            <th class="column-title">ìíëª </th>
-                            <th class="column-title">ìê³ ì¼ </th>
-                            <th class="column-title">ì íµê¸°íë§ë£ì¼ </th>
-                            <th class="column-title">ê°ê²© </th>
-                            <th class="column-title">ì¬ê³  </th>
-                            <th class="column-title">ì´ë²¤í¸ìí </th>
+                            <th class="column-title">상품명 </th>
+                            <th class="column-title">입고일 </th>
+                            <th class="column-title">유통기한만료일 </th>
+                            <th class="column-title">가격 </th>
+                            <th class="column-title">재고 </th>
+                            <th class="column-title">이벤트상태 </th>
                             <th class="column-title no-link last"><span class="nobr">Action</span>
                             </th>
                             <th class="bulk-actions" colspan="7">

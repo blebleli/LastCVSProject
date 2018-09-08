@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -72,21 +70,21 @@
                   <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                    	  <li><a href="cvs_POS.html">POS</a></li>
-                       <li><a href="cvs_barcode_read.html">ì¸ì</a></li>
+                       <li><a href="cvs_barcode_read.html">인식</a></li>
                     </ul>               
                   </li>
                   
-                  <li><a><i class="fa fa-table"></i> ë´ì­ì <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                   	   <li><a href="cvs_table_stock.html">íì¬ì¬ê³ </a></li>
-                       <li><a href="cvs_table_in_supply.html">ìê³ ë´ì­</a></li>
-                       <li><a href="cvs_table_request_supply.html">ë°ì£¼ë´ì­</a></li>
+                   	   <li><a href="cvs_table_stock.html">현재재고</a></li>
+                       <li><a href="cvs_table_in_supply.html">입고내역</a></li>
+                       <li><a href="cvs_table_request_supply.html">발주내역</a></li>
                     </ul>
                   </li>  
-                  <li><a><i class="fa fa-bar-chart-o"></i> íµê³ <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="cvs_chart_day.html">ë ì§ë³</a></li>
-                      <li><a href="cvs_chart_prod.html">ì íë³</a></li>                 
+                      <li><a href="cvs_chart_day.html">날짜별</a></li>
+                      <li><a href="cvs_chart_prod.html">제품별</a></li>                 
                     </ul>
                   </li>
                   
@@ -248,7 +246,7 @@
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 					   <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="picture">ì¬ì§ <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="picture">사진 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="picture" required="required" class="form-control col-md-7 col-xs-12">
@@ -256,21 +254,21 @@
                       </div>
                       
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">ë¹ë°ë²í¸ <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">비밀번호 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="password" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                        <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="passCheck">ë¹ë°ë²í¸ íì¸<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="passCheck">비밀번호 확인<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="passCheck" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tel">ì ì£¼ì°ë½ì² <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tel">점주연락처 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <input type="text" id="tel" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
@@ -278,10 +276,10 @@
                       </div>
                       
                   	   <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ìê°ê¸ <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">소개글 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea class="form-control" rows="3" placeholder="ìê°ê¸ì ìë ¥íì¸ì.."></textarea>
+                          <textarea class="form-control" rows="3" placeholder="소개글을 입력하세요.."></textarea>
                         </div>
                       </div>
                       

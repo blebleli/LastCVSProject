@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,12 +10,16 @@
     <title>DataTables | Gentelella</title>
 
     <!-- Bootstrap -->
+    
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
+    
     <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
+    
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
+    
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -69,21 +71,21 @@
                   <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                    	  <li><a href="cvs_POS.html">POS</a></li>
-                       <li><a href="cvs_barcode_read.html">ì¸ì</a></li>
+                       <li><a href="cvs_barcode_read.html">인식</a></li>
                     </ul>               
                   </li>
                   
-                  <li><a><i class="fa fa-table"></i> ë´ì­ì <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                   	   <li><a href="cvs_table_stock.html">íì¬ì¬ê³ </a></li>
-                       <li><a href="cvs_table_in_supply.html">ìê³ ë´ì­</a></li>
-                       <li><a href="cvs_table_request_supply.html">ë°ì£¼ë´ì­</a></li>
+                   	   <li><a href="cvs_table_stock.html">현재재고</a></li>
+                       <li><a href="cvs_table_in_supply.html">입고내역</a></li>
+                       <li><a href="cvs_table_request_supply.html">발주내역</a></li>
                     </ul>
                   </li>  
-                  <li><a><i class="fa fa-bar-chart-o"></i> íµê³ <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="cvs_chart_day.html">ë ì§ë³</a></li>
-                      <li><a href="cvs_chart_prod.html">ì íë³</a></li>                 
+                      <li><a href="cvs_chart_day.html">날짜별</a></li>
+                      <li><a href="cvs_chart_prod.html">제품별</a></li>                 
                     </ul>
                   </li>
                   
@@ -219,7 +221,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>ì ííµê³ <small>ì íë³ ìì íµê³ë¥¼ ë³¼ ì ìë íë©´ìëë¤.</small></h3>
+                <h3>제품통계 <small>제품별 순위 통계를 볼 수 있는 화면입니다.</small></h3>
               </div>
 
               <div class="title_right">
@@ -284,11 +286,11 @@
                     <table id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>ìì</th>  
-                          <th>ì íëª</th>              
-                          <th>ê°ê²©</th>
-                          <th>ì¬ê³ </th>
-                          <th>ì´ë²¤í¸ìí</th>
+                          <th>순위</th>  
+                          <th>제품명</th>              
+                          <th>가격</th>
+                          <th>재고</th>
+                          <th>이벤트상태</th>
                                         
                         </tr>
                   

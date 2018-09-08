@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,21 +59,21 @@
                   <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                    	  <li><a href="cvs_POS.html">POS</a></li>
-                       <li><a href="cvs_barcode_read.html">ì¸ì</a></li>
+                       <li><a href="cvs_barcode_read.html">인식</a></li>
                     </ul>               
                   </li>
                   
-                  <li><a><i class="fa fa-table"></i> ë´ì­ì <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                   	   <li><a href="cvs_table_stock.html">íì¬ì¬ê³ </a></li>
-                       <li><a href="cvs_table_in_supply.html">ìê³ ë´ì­</a></li>
-                       <li><a href="cvs_table_request_supply.html">ë°ì£¼ë´ì­</a></li>
+                   	   <li><a href="cvs_table_stock.html">현재재고</a></li>
+                       <li><a href="cvs_table_in_supply.html">입고내역</a></li>
+                       <li><a href="cvs_table_request_supply.html">발주내역</a></li>
                     </ul>
                   </li>  
-                  <li><a><i class="fa fa-bar-chart-o"></i> íµê³ <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="cvs_chart_day.html">ë ì§ë³</a></li>
-                      <li><a href="cvs_chart_prod.html">ì íë³</a></li>                 
+                      <li><a href="cvs_chart_day.html">날짜별</a></li>
+                      <li><a href="cvs_chart_prod.html">제품별</a></li>                 
                     </ul>
                   </li>
                   
@@ -232,7 +230,7 @@
               <div class="col-md-11 col-sm-11 col-xs-11">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>ìê°íë§¤</h2>
+                    <h2>월간판매</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>

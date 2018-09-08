@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,21 +59,21 @@
                   <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                    	  <li><a href="cvs_POS.html">POS</a></li>
-                       <li><a href="cvs_barcode_read.html">ì¸ì</a></li>
+                       <li><a href="cvs_barcode_read.html">인식</a></li>
                     </ul>               
                   </li>
                   
-                  <li><a><i class="fa fa-table"></i> ë´ì­ì <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                   	   <li><a href="cvs_table_stock.html">íì¬ì¬ê³ </a></li>
-                       <li><a href="cvs_table_in_supply.html">ìê³ ë´ì­</a></li>
-                       <li><a href="cvs_table_request_supply.html">ë°ì£¼ë´ì­</a></li>
+                   	   <li><a href="cvs_table_stock.html">현재재고</a></li>
+                       <li><a href="cvs_table_in_supply.html">입고내역</a></li>
+                       <li><a href="cvs_table_request_supply.html">발주내역</a></li>
                     </ul>
                   </li>  
-                  <li><a><i class="fa fa-bar-chart-o"></i> íµê³ <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="cvs_chart_day.html">ë ì§ë³</a></li>
-                      <li><a href="cvs_chart_prod.html">ì íë³</a></li>                 
+                      <li><a href="cvs_chart_day.html">날짜별</a></li>
+                      <li><a href="cvs_chart_prod.html">제품별</a></li>                 
                     </ul>
                   </li>
                   
@@ -269,8 +267,8 @@
                           From
                           <address>
                                           <strong>CU25 Retail</strong>
-                                          <br>ìì¸ì ê°ë¨êµ¬ ë¼íë¡ 508
-                                          <br>ì­ì¼ë 679ë²ì§ GSíì
+                                          <br>서울시 강남구 논현로 508
+                                          <br>역삼동 679번지 GS타워
                                           <br>Phone: 1 (804) 123-9876
                                           <br>Email: ironadmin.com
                                       </address>
@@ -279,16 +277,16 @@
                         <div class="col-sm-4 invoice-col">
                           To
                           <address>
-                                          <strong>GS25ëí¥ëì´ì¤ì </strong>
-                                          <br>ëì  ì¤êµ¬ ì¤êµë¡9, 101í¸
-                                          <br>ëí¥ë 504-5
+                                          <strong>GS25대흥나이스점</strong>
+                                          <br>대전 중구 중교로9, 101호
+                                          <br>대흥동 504-5
                                           <br>Phone: 1 (804) 123-9876
                                           <br>Email: jon@ironadmin.com
                                       </address>
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                          <b>ìê³ ë²í¸ #007612</b>
+                          <b>입고번호 #007612</b>
                           <br>
                           <br>
                    
@@ -307,11 +305,11 @@
                           <table class="table table-striped">
                             <thead>
                               <tr>
-                                <th>ìë</th>
-                                <th>ìíì´ë¦</th>
-                                <th>ìíë²í¸ #</th>
+                                <th>수량</th>
+                                <th>상품이름</th>
+                                <th>상품번호 #</th>
                                 <th style="width: 59%">Description</th>
-                                <th>í©ê³</th>
+                                <th>합계</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -367,19 +365,19 @@
                             <table class="table">
                               <tbody>
                                 <tr>
-                                  <th style="width:50%">í©ê³ :</th>
+                                  <th style="width:50%">합계 :</th>
                                   <td>$250.30</td>
                                 </tr>
                                 <tr>
-                                  <th>ì¸ê¸ (9.3%)</th>
+                                  <th>세금 (9.3%)</th>
                                   <td>$10.34</td>
                                 </tr>
                                 <tr>
-                                  <th>ë°°ì¡ë¹:</th>
+                                  <th>배송비:</th>
                                   <td>$5.80</td>
                                 </tr>
                                 <tr>
-                                  <th>ì´í©ê³:</th>
+                                  <th>총합계:</th>
                                   <td>$265.24</td>
                                 </tr>
                               </tbody>
@@ -429,7 +427,5 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    
-    
   </body>
 </html>
