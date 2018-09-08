@@ -33,6 +33,9 @@
 	
 	<!-- 리뷰 목록 조회 -->
   	<typeAlias type="kr.or.ddit.board.model.ReviewVo" 		alias="reviewVo"/>
+  	
+  	
+  	
 	
   </typeAliases>
 
@@ -43,7 +46,11 @@
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/search.xml"/>  
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/prod.xml"/> 
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale.xml"/> 
-	<mapper resource="kr/or/ddit/config/mybatis/mapper/comments.xml"/>  
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/comments.xml"/>
+	
+	<!-- 소스코드생성 -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/tableCode.xml"/>
+	
   </mappers>
 
 </configuration>
