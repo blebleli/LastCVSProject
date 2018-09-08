@@ -33,14 +33,13 @@
 <link rel="stylesheet" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
 <style type="text/css">
 	div.field {width:850px;}
+	span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
 </style>
 
 <!-- 달력 js -->
 <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
 <script src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
 
-
-	
 <script type="text/javascript">
 
 
@@ -195,6 +194,11 @@ $(document).ready(function() {
             dataType : "json",
             data : $("#registForm").serialize(),
             success : function(data){
+            	if(data == 'DUPLI') {
+            		$("#mem_id").parent().find(".msg_wrap").text("이미 가입되어 있는 이메일입니다.");
+            		$("#mem_id").parent().find(".msg_wrap").show();
+            		return false;
+            	}
             	if(data == "1") {
                     alert("저장되었습니다.");
             	}
@@ -263,7 +267,12 @@ $(document).ready(function() {
 	// 휴대폰번호 셋팅
 	$("*[id^=mem_tel_]").on("change", function() {
 		if($("#mem_tel_1").val() != '' && $("#mem_tel_2").val() && $("#mem_tel_3").val()) {
-			$("input[name=mem_tel]").val($("#mem_tel_1").val()+$("#mem_tel_2").val()+$("#mem_tel_3").val());
+			var mem_tel = $("#mem_tel_1").val() 
+						+ '-'
+						+ $("#mem_tel_2").val()
+						+ '-'
+						+ $("#mem_tel_3").val();
+			$("input[name=mem_tel]").val(mem_tel);
 		}
 	});
 	

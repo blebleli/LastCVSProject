@@ -106,3 +106,6 @@ ul.data_list.medium li{padding-left:8px;background:url(../../img/common/bullet_s
 ul.data_list.medium li{margin-top:2px}
 ul.data_list.medium li:first-child{margin-top:0}
 ul.data_list.medium li a{text-decoration:none}
+
+
+span.error_txt.small{display:inline;color:#21a0f9;font-size:10px;}
