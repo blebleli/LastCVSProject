@@ -169,7 +169,7 @@ $(function(){
 										<td>										
 											<div>
 												<input type="text" id="min_price" style="width:10%">&nbsp; ~ &nbsp; <input type="text" id="max_price" style="width:10%">&nbsp;&nbsp;&nbsp;
-												<input type="button" id="searchBtn" name="psBtn" class="btn btn-primary" value="검색">																																		
+												<input type="button" id="searchBtn" name="psBtn" class="btn btn-default" value="검색">																																		
 <!-- 												<button type="button" class="btn btn-default">초기화</button>		 -->
 											</div>
 										</td>										
@@ -195,7 +195,7 @@ $(function(){
 					</div>	
 				</div>
 				</form>
-				<div class="w3ls_w3l_banner_nav_right_grid1">
+				<div class="w3ls_w3l_banner_nav_center_grid1">
 					<div class="list">
 					<c:if test="${ctgyProdList == null }">
 						<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >
@@ -204,7 +204,7 @@ $(function(){
 					</c:if>
 					<c:forEach items="${ctgyProdList }" var="prod">
 					
-						<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >
+						<div class="col-md-4 w3ls_w3l_banner_left liiist" name="liiist" >
 							<div class="hover14 column">
 							<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
 								<div class="agile_top_brand_left_grid_pos">
