@@ -27,6 +27,7 @@
 		SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(BD_CONTENT), bd_date, bd_del, bd_rating, bd_views,
 			   bd_group, prod_id, mem_id, bd_parent, bd_kind_id
 		FROM board WHERE bd_kind_id ='44'
+		ORDER BY BD_DATE DESC
 	</select>
 	
 	<update id="updateBoardView" parameterType="String">
@@ -41,7 +42,7 @@
 			bd_group, prod_id, mem_id, bd_parent, bd_kind_id
 			FROM board
 			WHERE BD_ID = #{BD_ID}
-			order by bd_date asc
+			ORDER BY BD_DATE DESC
 	</select>
 	
 	<!-- 공지사항 게시판 정보 페이징 조회 -->
@@ -53,9 +54,10 @@
 				  		  mem_id, bd_date, bd_parent, bd_group, bd_del, bd_kind_id
 				   FROM board
 				   WHERE bd_kind_id='44' start with bd_parent is null connect by prior bd_id = bd_parent
-				   		 order siblings by bd_group )
+				   		 order siblings by bd_date DESC, bd_group)
 			  a )
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+		ORDER BY BD_DATE DESC
 	</select>
 	
 	<!-- 공지사항 전체 건수 -->
