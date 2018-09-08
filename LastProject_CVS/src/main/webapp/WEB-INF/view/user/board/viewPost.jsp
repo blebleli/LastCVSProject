@@ -191,6 +191,24 @@
 
 						<tr id="comment">
 							<td id="demoFont">댓글</td>
+							
+							<tr>
+							<td>
+							</td>	
+							<td>
+								<div id="reComments">
+									<form action="/board/newComment" method="post" name="cm_content[0]" id="cm_content">
+										<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
+										<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
+										<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
+										<input type="radio" name="cm_openny" value="Y" >공개
+										<input type="radio" name="cm_openny" value="N" >비공개
+									</form>
+								</div>
+							</td>
+							<td>
+							</td>
+						</tr>
 							<td id="demoFont2">
 								<c:forEach items="${commentsList}" var="vo">
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
@@ -219,21 +237,7 @@
 							</td>
 						</tr>
 						
-						<tr>
-							<td>
-							</td>	
-							<td>
-								<div id="reComments">
-									<form action="/board/newComment" method="post" name="cm_content[0]" id="cm_content">
-										<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
-										<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
-										<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
-										<input type="radio" name="cm_openny" value="Y" >공개
-										<input type="radio" name="cm_openny" value="N" >비공개
-									</form>
-								</div>
-							</td>
-						</tr>
+						
 					</table>
 				</div>
 			</div>
