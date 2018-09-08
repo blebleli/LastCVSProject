@@ -57,11 +57,14 @@ public class UserMainController {
 		//카테고리별 평점 best
 		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
 		
+		//이벤트별 리스트 들어가야함
+	
 		//조회수 리뷰 best3
 		List<BoardVo> bestReview = boardService.getBestProdReview();
 		
+		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();
-		//
+		
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProd",bestProd);
