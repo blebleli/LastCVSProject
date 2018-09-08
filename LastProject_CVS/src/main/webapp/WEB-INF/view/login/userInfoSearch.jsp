@@ -9,11 +9,19 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>아이디/비밀번호 찾기</title>
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/scom.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/main.css' />"></link> 
-<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/common/layout.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/common/common_layout.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/mem.css' />"></link>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/scom.css' />"></link> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/main.css' />"></link>  --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/common/layout.css' />"></link> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/common/common_layout.css' />"></link> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/mem.css' />"></link> --%>
+
+<!-- login css -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link> 
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
 
 <script type="text/javascript" src="<c:url value='/web/js/jquery-1.11.1.min.js' />"></script>
 

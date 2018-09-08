@@ -13,7 +13,7 @@
 <%-- <link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user/common/common_layout.css' />"></link> --%>
 <%-- <link rel="stylesheet" type="text/css" href="<c:url value='/web/css/user//mem.css' />"></link> --%>
 
-<script type="text/javascript" src="<c:url value='/web/js/jquery-1.11.1.min.js' />"></script>
+<%-- <script type="text/javascript" src="<c:url value='/web/js/jquery-1.11.1.min.js' />"></script> --%>
 
 </head>
 <body class="body_wide">

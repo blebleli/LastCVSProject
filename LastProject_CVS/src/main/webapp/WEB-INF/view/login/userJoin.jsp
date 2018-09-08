@@ -2,12 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- login css -->
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link>  --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link> --%>
+
 <!-- 달력 css  -->
 <link rel="stylesheet" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
 <style type="text/css">
