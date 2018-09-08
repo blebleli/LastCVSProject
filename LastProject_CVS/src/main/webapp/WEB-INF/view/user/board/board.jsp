@@ -110,6 +110,13 @@
 	font-variant: normal;
 	text-transform: none;
 }
+
+.services{
+
+	text-align: center;
+}
+
+.
 </style>
 
 <link href="/css/login/common/JKH.css" rel="stylesheet">
@@ -132,10 +139,6 @@
 </form>
 
 <div class="banner">
-	<div class="w3l_banner_nav_left">
-		<!-- Collect the nav links, forms, and other content for toggling -->
-	</div>
-
 	<div class="w3l_banner_nav_right">
 		<!-- services -->
 		<div class="services">
@@ -154,7 +157,7 @@
 									<th id="demoFont">조회수</th>
 								</tr>
 							</thead>
-							<tbodcy>
+							<tbody>
 								<c:forEach items="${boardList}" var="vo">
 									<c:if test="${vo.bd_del=='N'}">
 										<tr data-no="${vo.bd_id}" id="click">
@@ -178,13 +181,19 @@
 								</c:forEach>
 							</tbody>
 						</table>
+						
 					</div>
+
+
 				</div>
-				<a href="/board/createNoticePostView"
-					class="btn btn-default pull-right" id="newPosts">새글 등록</a>
-				<nav class="text-center">
-					<ul class="pagination">${pageNavi}</ul>
-				</nav>
+<!-- 				<a href="/board/createNoticePostView" -->
+<!-- 					class="btn btn-default pull-right" id="newPosts">새글 등록</a> -->
+<!-- 					<nav> -->
+<%-- 						<ul class="pagination">${pageNavi}</ul> --%>
+<!-- 					</nav> -->
+						<div class="text-center" id="page">
+							<ul class="pagination">${pageNavi}</ul>
+						</div>
 			</div>
 		</div>
 	</div>
