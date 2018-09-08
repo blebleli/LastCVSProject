@@ -42,5 +42,18 @@ public interface CommonsServiceInf {
 	List<CategoryVo> prodCtgyList();
 	
 	
+	/** 
+	 * Method   : transformationAddr 
+	 * 최초작성일  : 2018. 9. 8. 
+	 * 작성자 : 조종원 
+	 * 변경이력 : 신규
+	 * @param 좌표로변경할 주소
+	 * @return 주소에 해당하는 x, y 값
+	 *         map.put("x","127.1231")
+	 *         map.put("y","37.1231")
+	 * Method 설명 : 현 한글 주소를 입력하면 그에 해당하는 x,y 좌표 반환
+	 */
+	Map<String, String > transformationAddr(String add);
+	
 	
 }
