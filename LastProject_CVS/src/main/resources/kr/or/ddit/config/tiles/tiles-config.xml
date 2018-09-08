@@ -103,6 +103,11 @@
 	<definition name="cvs_barcode_read" extends="cvs_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_barcode_read.jsp"/>
 	</definition>
+	
+	<!-- 인보이스 -->
+	<definition name="cvs_invoice" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_invoice.jsp"/>
+	</definition>
 
 	<!--  현재재고-->
 	<definition name="cvs_stock" extends="cvs_basicLayout">

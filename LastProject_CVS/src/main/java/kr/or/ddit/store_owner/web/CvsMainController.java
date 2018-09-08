@@ -23,6 +23,11 @@ public class CvsMainController {
 		return "cvs_barcode_read";
 	}
 	
+	@RequestMapping("/inInvoice")
+	public String cvsSupplyInvoice(Model model){
+		return "cvs_invoice";
+	}
+	
 	@RequestMapping("/stock")
 	public String cvsStock(Model model){
 		return "cvs_stock";
@@ -53,8 +58,8 @@ public class CvsMainController {
 		return "cvs_chart_prod";
 	}	
 	
-	@RequestMapping("/chartSetting")
-	public String chartSetting(Model model){
+	@RequestMapping("/setting")
+	public String cvsSetting(Model model){
 		return "cvs_setting";
 	}	
 
