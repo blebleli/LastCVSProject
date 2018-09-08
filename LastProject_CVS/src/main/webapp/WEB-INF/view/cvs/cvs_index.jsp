@@ -1,7 +1,8 @@
+﻿
 
         <!-- page content -->
         <div class="right_col" role="main">
-      
+        메인 인코딩 테스트
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -43,7 +44,7 @@
 
                 <div class="row x_title">
                   <div class="col-md-6">
-                    <h3>  인코딩확인용<small>인코딩확인용</small></h3>
+                    <h3>Network Activities <small>Graph title sub-title</small></h3>
                   </div>
                   <div class="col-md-6">
                     <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
@@ -703,7 +704,6 @@
         </footer>
         <!-- /footer content -->
 
-
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -744,5 +744,4 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
-
+ 

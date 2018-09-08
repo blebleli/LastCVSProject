@@ -28,10 +28,7 @@
       <div class="menu_section">
         <h3>General</h3>
         <ul class="nav side-menu">
-          <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-              <li><a href="cvs_index.html">Dashboard</a></li>
-            </ul>
+          <li><a href="main"><i class="fa fa-home"></i> Home </a>
           </li> 
                                                               
           <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
@@ -54,12 +51,8 @@
               <li><a href="chartDay">날자별</a></li>
               <li><a href="chartProd">제품별</a></li>                 
             </ul>
-          </li>
-          
-           <li><a><i class="fa fa fa-gears"></i> setting <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-              <li><a href="chartSetting">setting</a></li>
-            </ul>
+          </li>         
+           <li><a href="setting"><i class="fa fa fa-gears"></i> setting </a>
           </li>                  
         </ul>
       </div>
