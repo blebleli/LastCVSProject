@@ -154,7 +154,7 @@
 									<th id="demoFont">조회수</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbodcy>
 								<c:forEach items="${boardList}" var="vo">
 									<c:if test="${vo.bd_del=='N'}">
 										<tr data-no="${vo.bd_id}" id="click">
