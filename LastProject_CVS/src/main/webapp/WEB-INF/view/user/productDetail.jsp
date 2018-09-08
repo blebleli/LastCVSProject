@@ -113,7 +113,7 @@
                     <br>
                     <h4><strong>상품 리뷰 </strong></h4>
                     <hr>
-                    	<c:if test="${user != null }">
+                    	<c:if test="${userInfo != null }">
                     		<form action="/review/write" method="POST">
 	                    		<div class="rating1">
 									<span class="starRating">
@@ -132,7 +132,7 @@
 	                    		<textarea name="reviewCont" class="form-control" rows="3" cols="3"></textarea>
 	                    		<input type="submit" value="write" name="saveReview" style="background-color:#1E90FF"/>
 	                    		<input type="hidden" value="${ctgy_id }" name="ctgy_id">
-	                    		<input type="hidden" value="${prod_id }" name="prod_id">
+	                    		<input type="hidden" value="${prod.prod_id }" name="prod_id">
                     		</form>
                     	
                     	</c:if>
@@ -162,15 +162,20 @@
 						              <td>${review.bd_date }</td>
 <%-- 						              <td><fmt:formatDate value="${review.bd_date }" pattern="yyyy-MM-dd"/></td> --%>
 						              <td>조회수:${review.bd_views }</td>
+						              <c:if test="${userInfo.mem_id == review.mem_id }">
+						              <td><a class="btn btn-danger" href="/review/delete?bd_id=${review.bd_id }" aria-label="Delete">
+  											<i class="fa fa-trash-o" aria-hidden="true"></i>
+										   </a></td>
+						              </c:if>
 						            </tr>
 						          <thead>
 						          <tbody>
 						            <tr>
 						              <td colspan="3" >${review.bd_content }</td>
 						            </tr>
-						            <c:if test="${user !=null }">
+						            <c:if test="${userInfo !=null }">
 							            <tr>
-							              <td colspan="3" >&nbsp;└<textarea name="reviews" class="col-md-3 col-sm-6 col-xs-12"></textarea></td>
+							              <td colspan="3" ><textarea name="reviewCont" class="form-control" rows="3" cols="4"></textarea></td>
 							            </tr>
 						            </c:if>
 						          </tbody>
