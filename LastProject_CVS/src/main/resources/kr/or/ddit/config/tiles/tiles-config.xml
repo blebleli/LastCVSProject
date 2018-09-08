@@ -53,6 +53,11 @@
 		<put-attribute name="content"
 			value="/WEB-INF/view/user/board/viewPost.jsp" />
 	</definition>
+	
+	<!--조계환 이벤트 게시판 메인 화면 -->
+	<definition name="eventList" extends="userBasicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/event/event.jsp" />
+	</definition>
 
 	<!-- best 상품 -->
 	<definition name="bestProducts" extends="userBasicLayout">
