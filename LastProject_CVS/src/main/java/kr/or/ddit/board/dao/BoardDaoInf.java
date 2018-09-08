@@ -232,4 +232,16 @@ public interface BoardDaoInf {
 	 */
 	List<ReviewVo> getReviewOfProd(String prod_id);
 	
+	/**
+	 * 
+	 * Method   : getUserReview 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param Map<String, Object> 게시글 번호와 사용자아이디
+	 * @return ReviewVo
+	 * Method 설명 : 사용자가 선택한 리뷰 조회
+	 */
+	ReviewVo getUserReview(Map<String, Object> map);
+	
 }
