@@ -115,7 +115,6 @@
 	<select id="getMember" resultType="memberVo" parameterType="String">
 		SELECT CRYPTPACK.DECRYPT(mem_pw, #{mem_id}) as mem_pw 
 			 , MEM_ID
-		   --, MEM_PW
 			 , MEM_KIND
 			 , MEM_NAME
 			 , MEM_TEL
@@ -130,8 +129,25 @@
 			 , MEM_X
 			 , MEM_Y
 		  FROM MEMBER
-		  WHERE MEM_ID = #{mem_id} 
-		</select>
+		  WHERE MEM_ID = #{mem_id}
+	</select>
+
+	<!-- 	아 이 디 : getSearchMemberId
+	  		매개변수 : memberVo
+	  		반 환 값 : memberVo
+	  		설    명 : 사용자ID찾기
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-08   
+	 -->
+	<select id="getSearchMemberId" resultType="memberVo" parameterType="memberVo">
+		SELECT MEM_ID
+			 , MEM_KIND
+			 , MEM_NAME
+			 , MEM_TEL
+		  FROM MEMBER
+		  WHERE MEM_NAME = #{mem_name}
+		    AND MEM_TEL = #{mem_tel}
+	</select>	
 	
 
 	<!-- 	아 이 디 : getMemberPageList
@@ -174,7 +190,6 @@
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
-
 	<!-- 	아 이 디 : getMemberListTotalCnt 
 	  		매개변수 : 
 	  		반 환 값 : int

@@ -31,6 +31,19 @@ public interface SignUpServiceInf {
 	 */
 	MemberVo getMember(String mem_id);
 	
+	/**
+	 * 
+	 * Method 	  : getSearchMemberId
+	 * Method 설명  : 사용자ID 찾기
+	 * 최초작성일 : 2018. 9. 8.
+	 * 작성자 	  : pc24
+	 * 변경이력   :
+	 *
+	 * @param mem_id
+	 * @return MemberVo
+	 */
+	MemberVo getSearchMemberId(MemberVo memberVo);
+	
 	int newMember(MemberVo memberVo);
 	
 	int updateMember(MemberVo memberVo);

@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.mail.MessagingException;
 
+import kr.or.ddit.commons.model.MailVo;
+
 public interface SendMailServiceInf {
 
 	// 인 메일정보 파일 저장 경로
@@ -31,7 +33,7 @@ public interface SendMailServiceInf {
 	 * @throws MessagingException
 	 * @throws Exception 
 	 */
-	public void sendMail(String to, String authUrl, String serverPath, String contentFilePath) throws MessagingException, Exception;
+	public void sendMail(MailVo mailVo) throws MessagingException, Exception;
 	
 	/**
 	 * 이메일 인증 확인

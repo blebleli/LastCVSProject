@@ -18,6 +18,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import kr.or.ddit.commons.model.MailVo;
 import kr.or.ddit.commons.util.AES256Util;
 
 import org.apache.commons.io.FileUtils;
@@ -36,11 +37,11 @@ public class SendMailService implements SendMailServiceInf {
 	private String serverPath;
 	private String contentFilePath;
 
-	public void setParam(String mailAddr, String authUrl, String serverPath, String contentFilePath) {
-		this.mailAddr = mailAddr;
-		this.authUrl = authUrl;
-		this.serverPath = serverPath;
-		this.contentFilePath = contentFilePath;
+	public void setParam(MailVo mailVo) {
+		this.mailAddr = mailVo.getMailAddr();
+		this.serverPath = mailVo.getServerPath();
+		this.authUrl = mailVo.getServerPath() + mailVo.getAuthUrl();
+		this.contentFilePath = mailVo.getContentFilePath();
 	}
 
 	/**
@@ -55,8 +56,8 @@ public class SendMailService implements SendMailServiceInf {
 	 * @throws Exception
 	 * Method 설명 : 인증메일 전송
 	 */
-	public void sendMail(String mailAddr, String authUrl, String serverPath, String contentFilePath) throws Exception {
-		setParam(mailAddr, authUrl, serverPath, contentFilePath);
+	public void sendMail(MailVo mailVo) throws Exception {
+		setParam(mailVo);
 		
 		logger.debug("Sending mail...");
 

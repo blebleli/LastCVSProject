@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.commons.model.MailVo;
 import kr.or.ddit.commons.service.SendMailServiceInf;
 import kr.or.ddit.commons.util.RSA;
 import kr.or.ddit.login.service.SignUpServiceInf;
@@ -24,6 +25,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Controller("LoginController")
@@ -188,8 +192,59 @@ public class LoginController {
 		logger.debug("requestUrl : {}", request.getRequestURL());
 		logger.debug("paramVo : " + memberVo.toString());
 		
+
+		//아이디 중복확인
+		if(0 < signUpService.getMemIdCnt(memberVo.getMem_id())) {
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().print("DUPLI");
+			return;
+		}
+		
 		int result = signUpService.newMember(memberVo);
 
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		response.getWriter().print(result);
+	}
+	
+	/**
+	 * ID/PASSWORD 찾기 화면이동
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @throws IOException
+	 */
+	@RequestMapping("/userInfoSearch")
+	public String userInfoSearchView( HttpServletRequest request
+			, HttpServletResponse response
+			, Model model) throws IOException {
+
+		return "/login/userInfoSearch";
+	}
+	
+	/**
+	 * ID 찾기
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping("/searchMemId")
+	public void searchMemId( HttpServletRequest request
+			, HttpServletResponse response
+			, @ModelAttribute("memberVo") MemberVo memberVo
+			, Model model) throws IOException {
+
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		logger.debug("paramVo : " + memberVo.toString());
+		
+		MemberVo resultVo = signUpService.getSearchMemberId(memberVo);
+		String result = new ObjectMapper().writeValueAsString(resultVo);
+		
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
@@ -223,11 +278,11 @@ public class LoginController {
 		
 		String serverPath = StringUtils.substringBefore(request.getRequestURL().toString(), request.getServletPath());
 		// param : 받는사람 메일 주소, 인증 Url, 메일 본문 html
-		sendMailService.sendMail(
-				emailAddr, 
-				serverPath + "/login/confirmMailAuth",
-				serverPath,
-				resourceLoader.getResource("/WEB-INF/view/login/mailConfirm.html").getFile().getPath());
+		MailVo mailVo = new MailVo(emailAddr, 
+									serverPath,
+									"/login/confirmMailAuth",
+									resourceLoader.getResource("/WEB-INF/view/login/mailConfirm.html").getFile().getPath());
+		sendMailService.sendMail(mailVo);
 
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");

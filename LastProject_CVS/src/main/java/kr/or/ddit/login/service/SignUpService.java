@@ -45,7 +45,22 @@ public class SignUpService implements SignUpServiceInf {
 	public MemberVo getMember(String mem_id) {
 		return signUpDao.getMember(mem_id);
 	}
-
+	
+	/**
+	 * 
+	 * Method 	  : getSearchMemberId
+	 * Method 설명  : 사용자ID 찾기
+	 * 최초작성일 : 2018. 9. 8.
+	 * 작성자 	  : pc24
+	 * 변경이력   :
+	 *
+	 * @param mem_id
+	 * @return MemberVo
+	 */
+	@Override
+	public MemberVo getSearchMemberId(MemberVo memberVo) {
+		return signUpDao.getSearchMemberId(memberVo);
+	}
 	
 	/**
 	 * 사용자 등록
