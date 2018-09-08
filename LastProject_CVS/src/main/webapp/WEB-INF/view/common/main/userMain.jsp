@@ -2,15 +2,12 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="c"     uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<style>
 
+<style>
 </style>
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css' />" media="all"></link>
 
-
-
-<!-- 이벤트 부분 --- 클릭시 해당 이벤트종류 상품들 표시 ------------------------------------ -->
 <script type="text/javascript">
 	//<![CDATA[
 		$(document).ready(function(){

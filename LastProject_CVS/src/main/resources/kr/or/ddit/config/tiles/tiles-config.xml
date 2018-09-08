@@ -83,16 +83,63 @@
 		<put-attribute name="content" value="/WEB-INF/view/user/myPage.jsp" />
 	</definition>
 
-	<!-- <definition name="cvs_basicLayout" template="/WEB-INF/view/common/cvs/cvs_basicLayout.jsp"> -->
-	<!-- <put-attribute name="cvs_top" value="/WEB-INF/view/common/cvs/cvs_left.jsp" 
-		/> -->
-	<!-- <put-attribute name="cvs_left" value="/WEB-INF/view/common/cvs/cvs_top.jsp" 
-		/> -->
-	<!-- <put-attribute name="content" value="" /> -->
-	<!-- </definition> -->
 
-	<!-- <definition name="cvs_index" extends="cvs_basicLayout"> -->
-	<!-- <put-attribute name="content" value="/WEB-INF/view/cvs/cvs_index.jsp"/> -->
-	<!-- </definition> -->
 
+	<!-- 점주 레이아웃======================================================= -->
+	<definition name="cvs_basicLayout" template="/WEB-INF/view/common/cvs/cvs_basicLayout.jsp">
+		<put-attribute name="cvs_top" value="/WEB-INF/view/common/cvs/cvs_left.jsp" />
+		<put-attribute name="cvs_left" value="/WEB-INF/view/common/cvs/cvs_top.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	<!--  점주 메인 -->
+	<definition name="cvs_index" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_index.jsp"/>
+	</definition>
+	
+	<!--  POS 화면 -->
+	<definition name="cvs_POS" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_POS.jsp"/>
+	</definition>
+	
+	<!--  바코드인식 -->
+	<definition name="cvs_barcode_read" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_barcode_read.jsp"/>
+	</definition>
+
+	<!--  현재재고-->
+	<definition name="cvs_stock" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_stock.jsp"/>
+	</definition>
+	
+	<!--  입고내역 -->
+	<definition name="cvs_supply_in" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_supply_in.jsp"/>
+	</definition>
+	
+	<!--  발주내역 -->
+	<definition name="cvs_supply_request" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_supply_request.jsp"/>
+	</definition>
+	
+	<!--  마감 -->
+	<definition name="cvs_dayend" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_dayend.jsp"/>
+	</definition>
+	
+	<!--  날짜별 -->
+	<definition name="cvs_chart_day" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_chart_day.jsp"/>
+	</definition>
+	
+	<!--  제품별 -->
+	<definition name="cvs_chart_prod" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_chart_prod.jsp"/>
+	</definition>
+	
+	<!--  셋팅 -->
+	<definition name="cvs_setting" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_setting.jsp"/>
+	</definition>
+	
 </tiles-definitions>
