@@ -221,14 +221,49 @@ public class BoardService implements BoardServiceInf {
 		return boardDao.getBestProdReview();
 	}
 
+	/**
+	 * 
+	 * Method   : insertReview 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param BoardVo 리뷰 작성
+	 * @return integer
+	 * Method 설명 : 리뷰 작성
+	 */
 	@Override
 	public int insertReview(BoardVo review) {
 		return boardDao.insertReview(review);
 	}
 
+	/**
+	 * 
+	 * Method   : getReviewOfProd 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param String prod_id 제품바코드
+	 * @return List<BoardVo>
+	 * Method 설명 : 제품에대한 리스트 목록 조회
+	 */
 	@Override
 	public List<ReviewVo> getReviewOfProd(String prod_id) {
 		return boardDao.getReviewOfProd(prod_id);
+	}
+
+	/**
+	 * 
+	 * Method   : getUserReview 
+	 * 최초작성일  : 2018. 9. 7. 
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param Map<String, Object> 게시글 번호와 사용자아이디
+	 * @return ReviewVo
+	 * Method 설명 : 사용자가 선택한 리뷰 조회
+	 */
+	@Override
+	public ReviewVo getUserReview(Map<String, Object> map) {
+		return boardDao.getUserReview(map);
 	}
 
 }
