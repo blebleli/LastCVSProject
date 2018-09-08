@@ -32,6 +32,10 @@ $(document).ready(function() {
 	// 이메일 인증 결과 Message
 	if("${resultMessage}" != null && "${resultMessage}" != "") {
 		alert("${resultMessage}");
+		<%
+			System.out.println(request.getAttribute("resultMessage"));
+			request.setAttribute("resultMessage", "");
+		%>
 	}
 	
 	//$("body").addClass("body_wide");
@@ -311,9 +315,6 @@ function fn_errMessage(_obj, _text) {
 	_obj.closest("div.field").find(".msg_wrap").find(".error_txt").text(_text);
 }
 </script>
-
-<!-- 인증결과 Attribute 삭제 -->
-<c:remove var="resultMessage" scope="page" />
 
 <!-- 주소검색 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

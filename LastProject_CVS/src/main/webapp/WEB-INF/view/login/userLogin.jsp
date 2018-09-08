@@ -73,9 +73,7 @@ $(document).ready(function() {
             	if(data == "SUCCESS") {
                     alert($("#emailAddr").val() + "로 인증 메일이 전송되었습니다.") ;
             	}else {
-                    $(".email_msg").css(
-                    		 			{ 'color':'red','display':'block'} 
-                    	                );
+                    $("#divMsg").show();
             	}
             },
             error: function(request, status, error) {
@@ -83,7 +81,10 @@ $(document).ready(function() {
             }
         });
 	});
-
+	
+	$("#emailAddr").on('keyup', function() {
+        $("#divMsg").hide();
+	});
 
 
 	/**
@@ -212,15 +213,14 @@ $(document).ready(function() {
 									<li style="font-size:12px;">회원가입 정보입력은 인증 메일을 통한 인증 후 가능합니다.</li><br/>
 								</ul>
 								
-								<ul>
-								<div>
-								 	<p class="email_msg"  style="display: none;">
-									<strong class="text">이미 가입되어 있는 이메일입니다. </strong></p>
-									
-									<p class="email_msg"  style="display: none; font-size: 12px;">
-									<strong class="text">다른 이메일을 입력 하시거나 로그인 또는 비밀번호 찾기를 선택해주세요.	</strong></p>
+								<div id="divMsg" style="display: none;">
+								 	<p class="email_msg" style="color: red;">
+										<strong class="text">
+											이미 가입되어 있는 이메일입니다.<br/>
+											<span style="font-size: 12px;">이메일을 입력 하시거나 로그인 또는 비밀번호 찾기를 선택해주세요.</span>
+										</strong>
+									</p>
 								</div>
-								</ul>
 								<div class="bn_ar">
 									<a id="btnEmailAuth" href="javascript:;" class="bn medium color1">인증하기 </a>
 								</div>
@@ -236,24 +236,23 @@ $(document).ready(function() {
 			</div>
 		</div>
 
-	<script>   /* <div class="toggle"> 클릭시 이벤트  로그인,회원가입 폼 전환 */
-		$('.toggle').click(function(){
-		  // Switches the Icon
-		  $(this).children('i').toggleClass('fa-pencil');
-		  // Switches the forms  
-		  $('.form').animate({
-			height: "toggle",
-			'padding-top': 'toggle',
-			'padding-bottom': 'toggle',
-			opacity: "toggle"
-		  }, "slow");
-		});
-	</script>
+<script>   /* <div class="toggle"> 클릭시 이벤트  로그인,회원가입 폼 전환 */
+	$('.toggle').click(function(){
+	  // Switches the Icon
+	  $(this).children('i').toggleClass('fa-pencil');
+	  // Switches the forms  
+	  $('.form').animate({
+		height: "toggle",
+		'padding-top': 'toggle',
+		'padding-bottom': 'toggle',
+		opacity: "toggle"
+	  }, "slow");
+	});
+</script>
 	
-	</div>
-	<!--	<div class="w3_login">  -->
-	<!-- //login 비공통-->
 </div>
+<!--	<div class="w3_login">  -->
+<!-- //login 비공통-->
 <!-- // <div class="w3l_banner_nav_right">  -->
 
-<div class="clearfix">
+<div class="clearfix"></div>
