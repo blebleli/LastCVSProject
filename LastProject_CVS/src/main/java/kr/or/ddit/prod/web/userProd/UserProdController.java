@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/userProd")
-@SessionAttributes({"prodCtgy", "i","user"})
+@SessionAttributes({"prodCtgy", "i","userInfo"})
 public class UserProdController {
 	private Logger logger = LoggerFactory.getLogger(UserProdController.class);
 	
