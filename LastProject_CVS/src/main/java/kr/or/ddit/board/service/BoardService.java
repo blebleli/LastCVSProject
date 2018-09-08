@@ -249,7 +249,7 @@ public class BoardService implements BoardServiceInf {
 	@Override
 	public List<ReviewVo> getReviewOfProd(String prod_id) {
 		return boardDao.getReviewOfProd(prod_id);
-	}
+	}	
 
 	/**
 	 * 
@@ -265,5 +265,4 @@ public class BoardService implements BoardServiceInf {
 	public ReviewVo getUserReview(Map<String, Object> map) {
 		return boardDao.getUserReview(map);
 	}
-
 }
