@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- /**
-* @Class Name : board.jsp
+* @Class Name : eventView.jsp
 *
 * @author 조계환
 * @since 2018. 9. 05
@@ -111,12 +111,9 @@
 	text-transform: none;
 }
 
-.services{
-
+.services {
 	text-align: center;
 }
-
-.
 </style>
 
 <link href="/css/login/common/JKH.css" rel="stylesheet">
@@ -138,100 +135,52 @@
 	<input type="hidden" name="bd_id" id="bd_id">
 </form>
 
-	<div class="banner">
-		<div class="w3l_banner_nav_right">
-<!-- events -->
+<div class="banner">
+	<div class="w3l_banner_nav_right">
+		<!-- events -->
 		<div class="events">
-			<h3>이벤트</h3>
-			<div class="w3agile_event_grids">
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-bullhorn" aria-hidden="true"></i>
-					</div>
-					
-					<!-- event 시작-------------------------------------------------------->
-					<!-- event 코드 나열 -->
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>cum soluta nobis eligendi</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
+			<h3>이벤트 상세보기</h3>
+			<br> <br>
+			<!-- 여기가 내용 -->
+			<div class="w3ls_service_grids">
+
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<tr>
+							<td id="demoFont" colspan="3">제목</td>
+						</tr>
+						
+						<tr>
+							<td id="demoFont" class="col-sm-1">작성자 :</td>
+							<td id="demoFont" class="col-sm-1">작성일자 :</td>
+							<td id="demoFont" class="col-sm-1">조회수 :</td>
+						</tr>
+						
+						<tr>
+							<td id="demoFont" colspan="3">글내용</td>
+						</tr>
+						
+						<tr>
+							<td id="demoFont" colspan="3"><a href="">첨부파일</a></td>
+						</tr>
+						<tr>
+							<td id="demoFont" colspan="3">이전글</td>
+						</tr>
+						<tr>
+							<td id="demoFont" colspan="3">다음글</td>
+						</tr>
+					</table>
 				</div>
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-bullseye" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>rerum hic tenetur a sapiente</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
 			</div>
-			<div class="w3agile_event_grids">
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-credit-card" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>earum rerum tenetur sapiente</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-eye" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>quibu aut officiis debitis</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="w3agile_event_grids">
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-cog" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>necessitatibus saepe eveniet</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-trophy" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>repudiandae sint et molestiae</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					
-					<!------ 이벤트  ENd ----------------------->
-					
-					
-					
-					
-					
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
+
+
+
+			<!-- 여기가 내용 끝 -->
 		</div>
-<!-- //events -->
-		</div>
-		<div class="clearfix"></div>
+
+		<!-- //events -->
 	</div>
+	<div class="clearfix"></div>
+</div>
 <!-- //services -->
 <div class="clearfix"></div>
