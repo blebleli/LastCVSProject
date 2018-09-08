@@ -2,16 +2,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-
 <!-- 암호화 -->
 <script type="text/javascript" src="<c:url value='/js/rsa/jsbn.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/rsa/rsa.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/rsa/prng4.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/rsa/rng.js' />"></script>
 
-
-	
 <style type="text/css">
 #error {
 	color: red;
@@ -116,7 +112,13 @@ $(document).ready(function() {
    	   	
    	   	$("#loginForm").submit();
 	});
-
+	
+	/**
+	 * ID/PASSWORD 찾기
+	 */
+	$("#searchMemInfo").on("click", function() {
+		location.href = "<c:url value='/login/userInfoSearch' />";
+	});
 
 	
 	/**
@@ -132,12 +134,11 @@ $(document).ready(function() {
 });
 
 </script>
-
 <!-- products-breadcrumb -->
 	<div class="products-breadcrumb">
 		<div class="container">
 			<ul>
-				<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="index.html">Home</a><span>|</span></li>
 				<li>로그인 & 회원가입</li>
 			</ul>
 		</div>
@@ -236,7 +237,7 @@ $(document).ready(function() {
 				</div> <!-- //<div class="form">회원가입부분  -->
 				
 				<div class="cta">
-					<a href="/login/userInfoSearch">아이디/비밀번호 찾기</a>
+					<a href="javascript:void(0);" id="searchMemInfo">아이디/비밀번호 찾기</a>
 				</div>
 			</div>
 		</div>
