@@ -91,7 +91,7 @@ public class BoardService implements BoardServiceInf {
 	*/
 	@Override
 	public BoardVo getBoard(String bd_id) {
-		
+		//조회수 상승 메서드 
 		boardDao.updateBoardView(bd_id);
 		return boardDao.getBoard(bd_id);
 	}
