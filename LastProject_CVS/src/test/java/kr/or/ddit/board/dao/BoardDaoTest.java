@@ -100,8 +100,7 @@ public class BoardDaoTest {
 		List<BoardVo> boardPageList = boardDao.getBoardPageList(map);
 
 		/***Then***/
-//		assertEquals(10, boardPageList.size());
-		
+		assertEquals(10, boardPageList.size());		
 	}
 	
 	/**
@@ -115,13 +114,12 @@ public class BoardDaoTest {
 	@Test
 	public void getBoardListTotCntTest(){
 		/***Given***/
-		int cnt = 21;
+		int cnt = 14;
 
 		/***When***/
 		int tot = boardDao.getBoardListTotCnt();
 		/***Then***/
 		assertEquals(cnt, tot);
-
 	}
 	
 	/**
@@ -147,24 +145,89 @@ public class BoardDaoTest {
 	}
 	
 	/**
+	* Method : updateBoardViewTest
+	* Method 설명 : 게시물 조회수 업데이트 
+	* 최초작성일 : 2018. 9. 8.
+	* 작성자 : 김마음
+	* 변경이력 : 신규
+	* 조 회 :
+	*/
+	@Test
+	public void updateBoardViewTest(){
+		/***Given***/
+		String bd_id = "NOTICE0000000000";
+
+		/***When***/
+		int cnt = boardDao.updateBoardView(bd_id);
+		
+		/***Then***/
+		assertEquals(cnt, 1);
+	}
+	
+	/**
+	* Method : setInsertCommentsTest
+	* Method 설명 : 신규 댓글 작성
+	* 최초작성일 : 2018. 9. 8.
+	* 작성자 : 김마음
+	* 변경이력 : 신규
+	* 조 회 :
+	*/
+	@Test
+	public void setInsertCommentsTest(){
+		/***Given***/
+		CommentsVo commentsVo = new CommentsVo();
+//		commentsVo.setCm_id("1"); // 시퀀스 처리
+		commentsVo.setBd_id("NOTICE0000000000");
+//		commentsVo.setMem_id("admin"); // 쿼리 내 처리
+		commentsVo.setCm_content("Junit 테스트");
+//		commentsVo.setCm_date(sysdate); // 쿼리 내 처리
+//		commentsVo.setCm_delny("N"); // 쿼리 내 처리
+		commentsVo.setCm_openny("Y"); // 공개여부
+		commentsVo.setCm_group("1"); // 그룹코드
+		commentsVo.setCm_id2(""); // 부모코드
+		
+		/***When***/
+		int cnt = boardDao.setInsertComments(commentsVo);
+		
+		/***Then***/
+		assertEquals(cnt, 1);		
+	}
+
+
+	
+	/**
 	* Method : getListCommentsTest
-	* Method 설명 :전체 댓글 수 카운트
+	* Method 설명 : 전체 댓글 수 카운트
 	* 최초작성일 : 2018. 9. 6.
 	* 작성자 : 조계환
-	* 변경이력 :신규
+	* 변경이력 : 신규
 	* 조 회 :
 	*/
 	@Test
 	public void getListCommentsTest(){
 		/***Given***/
-		String bdid = "1";
+		String bd_id = "NOTICE0000000000";
 
 		/***When***/
-		List<CommentsVo>list = boardDao.getListComments(bdid);
+		List<CommentsVo> list = boardDao.getListComments(bd_id);
 
 		/***Then***/
-		assertEquals(3,list.size());
+		assertEquals(1, list.size());
 	}
+	
+	/**
+	* Method : getBestProdReviewTest
+	* Method 설명 : 조회수 best 리뷰 3건 조회하는 기능
+	* 최초작성일 : 2018. 9. 8.
+	* 작성자 : 김마음
+	* 변경이력 : 신규
+	* 조 회 :
+	*/
+	@Test
+	public void getBestProdReviewTest(){
+		
+	}
+
 		
 	/**
 	* Method : getReviewOfProdTest
@@ -193,20 +256,7 @@ public class BoardDaoTest {
 //		FROM board WHERE bd_kind_id ='44'
 //	</select>
 //	
-//	<update id="updateBoardView" parameterType="String">
-//		update board set BD_VIEWS = BD_VIEWS+1 where bd_id = (SELECT bd_id
-//		FROM board
-//		WHERE BD_ID = #{BD_ID})
-//	</update>
-//	
-//	<!-- 공지사항 게시글 상세조회 -->
-//	<select id="getBoard" parameterType="String" resultType="boardVo" >
-//			SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(bd_content), bd_date, bd_del, bd_rating, bd_views,
-//			bd_group, prod_id, mem_id, bd_parent, bd_kind_id
-//			FROM board
-//			WHERE BD_ID = #{BD_ID}
-//	</select>
-//	
+//
 //	<!-- 공지사항 게시판 정보 페이징 조회 -->
 //	<select id="getBoardPageList" parameterType="map" resultType="boardVo">  	
 //		SELECT *
@@ -249,13 +299,5 @@ public class BoardDaoTest {
 //				'55',
 //				0)
 //  	</insert>
-
-//  	<select id="getBestProdReview" parameterType="String" resultType="boardVo" >	
-//  	 SELECT *FROM ( SELECT bd_id, bd_title, bd_date, bd_del, bd_rating, bd_views,prod_id, mem_id, bd_kind_id
-//           FROM BOARD
-//           WHERE bd_kind_id = '55'
-//           ORDER BY bd_views DESC
-//		)where ROWNUM &lt;=3
-//	</select>
 	
 }
