@@ -26,5 +26,160 @@
 		SELECT NVL(MAX(CM_ID))  AS CODE FROM comments;
 	</select>
 	
+	<!-- 	아 이 디 : sale_disCode
+	  		매개변수 : String
+	  		반 환 값 : String
+	  		설    명 : SALE_DIS 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+    <select id="sale_disCode" resultType="String" parameterType="String" >
+		SELECT MAX(SD_ID) AS CODE FROM  SALE_DIS WHERE SD_ID LIKE   ('%' || #{kind} ||'%');
+	</select>
+	
+	<!-- 	아 이 디 : sale_listCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : SALE_LIST 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="sale_listCode" resultType="String">
+		SELECT  MAX(SALE_ID) AS CODE  FROM SALE_LIST
+	</select>
+	
+	<!-- 	아 이 디 : disposal_list
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : disposal_list 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="disposal_listCode" resultType="String">
+		SELECT MAX(DISP_ID) AS CDOE FROM DISPOSAL_LIST
+	</select>
+	
+	<!-- 	아 이 디 : supply_listCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : SUPPLY_LIST 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="supply_listCode" resultType="String">
+		SELECT MAX(SPLYLIST_ID) AS CODE FROM SUPPLY_LIST
+	</select>
+
+
+	<!-- 	아 이 디 : filedataCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : FILEDATA 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="filedataCode" resultType="String">
+		SELECT  MAX(FILE_ID) AS CODE  FROM FILEDATA
+	</select>
+
+	<!-- 	아 이 디 : eventCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : EVENT 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="eventCode" resultType="String">
+		SELECT  MAX(EVENT_ID) AS CODE  FROM EVENT
+	</select>
+	
+	<!-- 	아 이 디 : categoryCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : CATEGORY 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="categoryCode" resultType="String">
+		SELECT  MAX(FILE_ID) AS CODE  FROM CATEGORY
+	</select>
+
+	<!-- 	아 이 디 : reserveCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : RESERVE 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="reserveCode" resultType="String">
+		SELECT  MAX(RESERVE_ID) AS CODE  FROM RESERVE
+	</select>
+
+	<!-- 	아 이 디 : stock_listCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : STOCK_LIST 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="stock_listCode" resultType="String">
+		SELECT  MAX(STCKLIST_ID) AS CODE  FROM STOCK_LIST
+	</select>
+
+	<!-- 	아 이 디 : stockCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : STOCK 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="stockCode" resultType="String">
+		SELECT  MAX(STOCK_ID) AS CODE  FROM STOCK
+	</select>
+	
+	<!-- 	아 이 디 : membershipCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : MEMBERSHIP 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="membershipCode" resultType="String">
+		SELECT  MAX(MEMSHIP_ID) AS CODE  FROM MEMBERSHIP
+	</select>
+	
+	<!-- 	아 이 디 : payCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : PAY 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="payCode" resultType="String">
+		SELECT  MAX(PAY_ID) AS CODE  FROM PAY
+	</select>
+	
+	<!-- 	아 이 디 : bookmarkCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : BOOKMARK 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="bookmarkCode" resultType="String">
+		SELECT  MAX(STAR_ID) AS CODE  FROM BOOKMARK
+	</select>
+	
+	<!-- 	아 이 디 : cvs_serviceCode
+	  		매개변수 : 없음
+	  		반 환 값 : String
+	  		설    명 : CVS_SERVICE 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-09
+	 -->
+	<select id="cvs_serviceCode" resultType="String">
+		SELECT  MAX(SERVICE_ID) AS CODE  FROM CVS_SERVICE
+	</select>
+
 
 </mapper>
