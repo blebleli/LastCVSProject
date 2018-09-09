@@ -3,8 +3,7 @@ package kr.or.ddit.store_owner.soMain.dao;
 import java.util.List;
 
 import kr.or.ddit.model.DisposalListVo;
-import kr.or.ddit.model.PayVo;
-import kr.or.ddit.model.SaleDisVo;
+import kr.or.ddit.store_owner.model.salelistJoinVo;
 
 /**
 * @Class Name : soMainDaoInf.java
@@ -40,7 +39,7 @@ public interface soMainDaoInf {
 	* 조 회 :List<SaleDisVo> getListSaleDis()_판매량 정보 리스트 출력 기능
 	* @return
 	*/
-	List<SaleDisVo> getListSaleDis();
+	List<salelistJoinVo> getListSaleDis();
 	
 	/**
 	* Method : getDisposalList

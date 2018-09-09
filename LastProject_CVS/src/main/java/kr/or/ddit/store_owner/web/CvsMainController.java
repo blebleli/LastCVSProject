@@ -1,5 +1,12 @@
 package kr.or.ddit.store_owner.web;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import kr.or.ddit.store_owner.model.salelistJoinVo;
+import kr.or.ddit.store_owner.soMain.service.soMainServiceInf;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/cvs")
 @Controller("cvsMainController")
 public class CvsMainController {
-
+	
+	@Resource(name="somainService")
+	private  soMainServiceInf somainService;
+	
 	@RequestMapping("/main")
 	public String cvsMain(Model model){
 		return "cvs_index";
@@ -48,13 +58,15 @@ public class CvsMainController {
 		return "cvs_dayend";
 	}
 	
-	@RequestMapping("/chartDay")
+	@RequestMapping("/chartDay") // 통계 (날짜별)
 	public String chartDay(Model model){
 		return "cvs_chart_day";
 	}
 	
-	@RequestMapping("/chartProd")
+	@RequestMapping("/chartProd") // 통계 (제품별)
 	public String chartProd(Model model){
+		List<salelistJoinVo> saleList = somainService.getListSaleDis();	// 제품 통계 List 저장
+		model.addAttribute("saleList",saleList);		
 		return "cvs_chart_prod";
 	}	
 	
