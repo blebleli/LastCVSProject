@@ -279,7 +279,9 @@ public class LoginController {
 			MailVo mailVo = new MailVo(memberVo.getMem_id(), 
 										serverPath,
 										"/login/confirmMailFindPw",
-										resourceLoader.getResource("/WEB-INF/view/login/mailFindPw.html").getFile().getPath());
+										resourceLoader.getResource("/WEB-INF/view/login/mailFindPw.html").getFile().getPath(),
+										"CVS 비밀번호찾기 인증메일"
+										);
 			sendMailService.sendMail(mailVo);
 		}
 		
@@ -354,7 +356,8 @@ public class LoginController {
 		MailVo mailVo = new MailVo(emailAddr, 
 									serverPath,
 									"/login/confirmMailAuth",
-									resourceLoader.getResource("/WEB-INF/view/login/mailConfirm.html").getFile().getPath());
+									resourceLoader.getResource("/WEB-INF/view/login/mailConfirm.html").getFile().getPath(),
+									"CVS 회원가입 인증메일");
 		sendMailService.sendMail(mailVo);
 
 		response.setContentType("text/html; charset=UTF-8");

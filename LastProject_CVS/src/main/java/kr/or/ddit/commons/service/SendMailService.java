@@ -36,12 +36,14 @@ public class SendMailService implements SendMailServiceInf {
 	private String authUrl;
 	private String serverPath;
 	private String contentFilePath;
+	private String subject;
 
 	public void setParam(MailVo mailVo) {
 		this.mailAddr = mailVo.getMailAddr();
 		this.serverPath = mailVo.getServerPath();
 		this.authUrl = mailVo.getServerPath() + mailVo.getAuthUrl();
 		this.contentFilePath = mailVo.getContentFilePath();
+		this.subject = mailVo.getSubject();
 	}
 
 	/**
@@ -82,8 +84,8 @@ public class SendMailService implements SendMailServiceInf {
 		Transport transport = mailSession.getTransport();
 
 		MimeMessage message = new MimeMessage(mailSession);
-		message.setSubject("HTML  mail with images");
-		message.setFrom(new InternetAddress(FROM));
+		message.setSubject(subject, "UTF-8");	// 메일제목
+		message.setFrom(new InternetAddress(FROM, "CVS", "UTF-8"));	//보내는사람메일주소, 보내는사람명
 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(mailAddr));
 
 		// This HTML mail have to 2 part, the BODY and the embedded image
@@ -92,7 +94,7 @@ public class SendMailService implements SendMailServiceInf {
 		// first part  (the html)
 		BodyPart messageBodyPart = new MimeBodyPart();
 		String htmlText = getMailContent();
-		messageBodyPart.setContent(htmlText, "text/html");
+		messageBodyPart.setContent(htmlText, "text/html; charset=UTF-8");
 
 		// add it
 		multipart.addBodyPart(messageBodyPart);
@@ -106,7 +108,7 @@ public class SendMailService implements SendMailServiceInf {
 		//			multipart.addBodyPart(messageBodyPart );
 		//			// put everything together
 		//		}
-		message.setContent(multipart);
+		message.setContent(multipart, "text/html; charset=UTF-8");
 
 		transport.connect();
 		transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
@@ -132,8 +134,7 @@ public class SendMailService implements SendMailServiceInf {
 
 		String content = "";
 		try {
-			content = FileUtils.readFileToString(new File(contentFilePath));
-
+			content = FileUtils.readFileToString(new File(contentFilePath), "UTF-8");
 			// Random 문자열 발생시켜 AES256 으로 암호화
 //			String authVal = randomStr();
 //			AES256Util encUtil = new AES256Util(AES256Util.AES256_KEY);

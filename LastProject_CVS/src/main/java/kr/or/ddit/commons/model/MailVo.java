@@ -15,15 +15,18 @@ public class MailVo {
 	private String serverPath;
 	/** 메일본문html경로 */
 	private String contentFilePath;
+	/** 메일제목 */
+	private String subject;
 	
 	public MailVo() {
 	}
 	
-	public MailVo(String mailAddr, String serverPath, String authUrl, String contentFilePath) {
+	public MailVo(String mailAddr, String serverPath, String authUrl, String contentFilePath, String subject) {
 		this.mailAddr = mailAddr;
 		this.serverPath = serverPath;
 		this.authUrl = authUrl;
 		this.contentFilePath = contentFilePath;
+		this.subject = subject;
 	}
 	
 	public String getMailAddr() {
@@ -50,6 +53,11 @@ public class MailVo {
 	public void setContentFilePath(String contentFilePath) {
 		this.contentFilePath = contentFilePath;
 	}
-	
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 	
 }
