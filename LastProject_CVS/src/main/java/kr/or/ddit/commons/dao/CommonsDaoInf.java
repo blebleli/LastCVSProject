@@ -31,20 +31,6 @@ import kr.or.ddit.model.EventVo;
 
 public interface CommonsDaoInf {
 	
-	/** 
-	 * Method   : autoCode 
-	 * 최초작성일  : 2018. 9. 7. 
-	 * 작성자 :  조종원
-	 * 변경이력 :  신규
-	 * @param code
-	 * @return 
-	 * Method 설명 : 원하는 테이블에 컬럼명 입력시 해당 테이블의 pk 다음값
-	 * 				map.put("table", "테이블명");
-	 * 				map.put("codeId", "컬럼명");
-	 * 				map.put("기타")
-	 */
-	String autoCode(Map code);
-	
 	/**
 	* Method : getEventPopUpOne
 	* Method 설명 : 메인화면에서 이벤트 팝업창에 출력될 이벤트(기간내에 하고 있는 이벤트 중 가나다 순으로 출력)
@@ -69,10 +55,51 @@ public interface CommonsDaoInf {
 	List<CategoryVo> prodCtgyList();
 
 	/*코드 자동 생성*/
-	// board
+	//1 board
 	String boardCode(String kind);
 
-	// comments
+	//2 comments
 	String commentsCode();
 	
+	//3 sale_disCode
+	String sale_disCode(String kind);
+
+	//4 sale_listCode
+	String sale_listCode();
+	
+	//5 disposal_list
+	String disposal_list();
+	
+	//6supply_list
+	String supply_listCode();
+	
+	//7 filedataCode
+	String 	filedataCode();
+
+	//8 eventCode
+	String eventCode();
+
+	//9 reserveCode
+	String reserveCode();
+
+	//10 categoryCode
+	String categoryCode();
+	
+	//11 stock_listCode
+	String stock_listCode();
+
+	//12 stockCode
+	String stockCode();
+
+	//13 membershipCode
+	String  membershipCode();
+	
+	//14 payCode
+	String payCode();
+
+	//15 bookmarkCode
+	String bookmarkCode();
+	
+	//16 cvs_serviceCode
+	String  cvs_serviceCode();
 }
