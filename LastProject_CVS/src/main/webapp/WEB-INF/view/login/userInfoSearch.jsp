@@ -3,13 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- login css -->
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link>  --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link> --%>
-<!-- 달력 css  -->
-<link rel="stylesheet" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
+
 <style type="text/css">
 	div.field{width:750px}
 	span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
@@ -86,16 +85,16 @@ $(document).ready(function() {
 		var isSuccess = true;
 		
 		// 이름
-		if($("#mem_name").val() == '') {
-			fn_errMessage($("#mem_name"), "이름은 필수 입력사항입니다.");
-			$("#mem_name").focus();
+		if($("#searchMemIdForm input[name=mem_name]").val() == '') {
+			fn_errMessage($("#searchMemIdForm input[name=mem_name]"), "이름은 필수 입력사항입니다.");
+			$("#searchMemIdForm input[name=mem_name]").focus();
 			isSuccess = false;
 		}
 		
 		// 휴대전화
-		if($("#mem_tel").val() == '') {
-			fn_errMessage($("#mem_tel"), "휴대폰 번호는 필수 입력사항입니다.");
-			$("#mem_tel").focus();
+		if($("#searchMemIdForm input[name=mem_tel]").val() == '') {
+			fn_errMessage($("#searchMemIdForm input[name=mem_tel]"), "휴대폰 번호는 필수 입력사항입니다.");
+			$("#searchMemIdForm input[name=mem_tel]").focus();
 			isSuccess = false;
 		}
 		
@@ -109,10 +108,17 @@ $(document).ready(function() {
             dataType : "json",
             data : $("#searchMemIdForm").serialize(),
             success : function(data){
-            	console.log(data.mem_id);
-            	console.log(data.mem_name);
-            	$("#id_section").find("span.msg_wrap").text(data.mem_id);
-            	$("#id_section").show();
+            	if(data != null && data != '' && data != undefined && data != 'undefined') {
+                	$("#id_section_y").find("span.msg_wrap").text(data.mem_id);
+                	$("#id_section_y").show();
+                	$("#id_section_n").hide();
+            	}
+            	else {
+                	$("#id_section_n").show();
+                	$("#id_section_y").hide();
+            	}
+    			fn_errMessage($("#searchMemIdForm input[name=mem_name]"), "");
+    			fn_errMessage($("#searchMemIdForm input[name=mem_tel]"), "");
             },
             error: function(request, status, error) {
                 alert(error);
@@ -125,19 +131,52 @@ $(document).ready(function() {
 	  * 비밀번호 찾기 확인 버튼 클릭
 	  */
 	 $("#btnSearchPw").on("click", function() {
-		if($("#mem_id").val() == '') {
-			alert("이메일아이디를 입력해주세요.");
-			$("#mem_id").focus();
-			return false;
+		 
+		var isSuccess = true;
+		
+		if($("#searchMemPwForm input[name=mem_id]").val() == '') {
+			fn_errMessage($("#searchMemPwForm input[name=mem_id]"), "이메일아이디는 필수 입력사항입니다.");
+			$("#searchMemPwForm input[name=mem_id]").focus();
+			isSuccess = false;
 		}
 		else {
 			var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-			if(!regEmail.test($("#mem_id").val())) {
-                alert('이메일아이디가 유효하지 않습니다');
-                $("#mem_id").focus();
-                return false;
+			if(!regEmail.test($("#searchMemPwForm input[name=mem_id]").val())) {
+				fn_errMessage($("#searchMemPwForm input[name=mem_id]"), "이메일아이디가 유효하지 않습니다.");
+                $("#searchMemIdForm input[name=mem_id]").focus();
+    			isSuccess = false;
             }
 		}
+
+		// 이름
+		if($("#searchMemPwForm input[name=mem_name]").val() == '') {
+			fn_errMessage($("#searchMemPwForm input[name=mem_name]"), "이름은 필수 입력사항입니다.");
+			$("#searchMemPwForm input[name=mem_name]").focus();
+			isSuccess = false;
+		}
+		
+		if(!isSuccess) {
+			return false;
+		}
+		
+		$.ajax({
+            type : "POST",
+            url : "<c:url value='/login/searchMemPw' />",
+            dataType : "json",
+            data : $("#searchMemPwForm").serialize(),
+            success : function(data){
+            	if(data != null && data != '' && data != undefined && data != 'undefined') {
+                    alert($("#searchMemPwForm input[name=mem_id]").val() + "로 인증 메일이 전송되었습니다.") ;
+                	$("#pw_section_n").hide();
+            	}else {
+                	$("#pw_section_n").show();
+            	}
+            },
+            error: function(request, status, error) {
+                alert(error);
+            }
+        });
+		
 	});
 	
 	
@@ -151,13 +190,23 @@ $(document).ready(function() {
 						+ $("#mem_tel_3").val();
 			$("input[name=mem_tel]").val(mem_tel);
 		}
+		else {
+			$("input[name=mem_tel]").val("");
+		}
 	});
 
 	/**
 	 * 오류메시지 초기화
 	 */
-	$("input select").on("change", function() {
+	$("input,select").on("change", function() {
 		fn_errMessage($(this), "");
+	});
+	
+	/**
+	 * 로그인화면이동
+	 */
+	$("#btnLoginView").on("click", function() {
+		location.href = "<c:url value='/login/loginView' />";
 	});
 	
 });
@@ -221,14 +270,14 @@ function fn_errMessage(_obj, _text) {
 								<fieldset class="fieldset">
 									<legend>이메일 간편가입회원 아이디 찾기 정보 입력</legend>
 									<div class="field">
-										<label for="user_name" class="label">이름</label>
+										<label for="mem_name" class="label">이름</label>
 										<div>
-											<input type="text" name="mem_name" id="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px">
+											<input type="text" id="mem_name" name="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px">
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
-										<label for="hp_num" class="label">휴대폰번호</label>
+										<label for="mem_tel_1" class="label">휴대폰번호</label>
 										<div>
 											<select id="mem_tel_1" title="휴대폰 첫자리 선택" class="select" style="width:82px">
 												<option value="010">010</option>
@@ -253,8 +302,29 @@ function fn_errMessage(_obj, _text) {
 							</form>
 						</div>
 						
-						<div id="id_section" class="section mem_id_pw" style="display:none;">
-							<span>가입된 이메일아이디 : <span class="msg_wrap"></span></span>
+						<!-- 이메일아이디 -->
+						<div id="id_section_y" class="section mem_id_pw" style="display:none;">
+							<fieldset class="fieldset">
+								<legend>이메일 간편가입회원 아이디</legend>
+								<div class="field">
+									<label class="label">
+										<font style="font-size: 18px;">가입된 이메일아이디  : </font>
+										<font style="font-size: 24px;color: #6633cc;"><span class="msg_wrap"></span></font>
+									</label>
+								</div>
+								<div class="bn_ar">
+									<a href="javascript:void(0);" class="bn color1 coop4Dev" id="btnLoginView">로그인</a>
+								</div>
+							</fieldset>
+						</div>
+						
+						<!-- 이메일아이디 -->
+						<div id="id_section_n" class="section mem_id_pw" style="display:none;">
+							<fieldset class="fieldset">
+								<div class="field">
+									<label for="user_name" class="label"><font style="font-size: 24px;color: #cc6666;">입력한 정보와 일치하는 이메일이아디가 없습니다.</font></label>
+								</div>
+							</fieldset>
 						</div>
 						
 						<!-- [D] ID.find_id_03 법인회원 아이디 찾기 선택했을 경우 -->
@@ -311,16 +381,16 @@ function fn_errMessage(_obj, _text) {
 								<fieldset class="fieldset">
 									<legend>이메일 간편가입회원 비밀번호 찾기 정보 입력</legend>
 									<div class="field">
-										<span class="label">이메일아이디</span>
+										<label for="mem_id_searchPw" class="label">이메일아이디</label>
 										<div>
-											<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}"  readonly="readonly" class="input_text small" style="width:337px" />
+											<input type="text" id="mem_id_searchPw" name="mem_id" title="아이디(이메일) 입력" class="input_text small" style="width:268px;" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
-										<label for="u_name" class="label">이름</label>
+										<label for="mem_name_searchPw" class="label">이름</label>
 										<div>
-											<input type="text" name="mem_name" id="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px">
+											<input type="text" id="mem_name_searchPw" name="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px;">
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
@@ -330,7 +400,15 @@ function fn_errMessage(_obj, _text) {
 								</fieldset>
 							</form>
 						</div>
-		
+						
+						<!-- 이메일아이디 -->
+						<div id="pw_section_n" class="section mem_id_pw" style="display:none;">
+							<fieldset class="fieldset">
+								<div class="field">
+									<label for="user_name" class="label"><font style="font-size: 24px;color: #cc6666;">입력한 정보와 일치하는 이메일이아디가 없습니다.</font></label>
+								</div>
+							</fieldset>
+						</div>
 						<!-- [D] ID.find_password_03 법인회원 비밀번호 찾기 선택했을 경우 -->
 						<!-- 
 						<div id="find_password_03" class="section mem_id_pw" style="display:none;">

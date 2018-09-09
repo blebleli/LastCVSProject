@@ -5,6 +5,7 @@ import java.security.PrivateKey;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -251,6 +252,78 @@ public class LoginController {
 		response.getWriter().print(result);
 	}
 	
+	/**
+	 * Password 찾기
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 * @throws Exception 
+	 * @throws MessagingException 
+	 */
+	@ResponseBody
+	@RequestMapping("/searchMemPw")
+	public void searchMemPw( HttpServletRequest request
+			, HttpServletResponse response
+			, @ModelAttribute("memberVo") MemberVo memberVo
+			, Model model) throws MessagingException, Exception {
+
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		logger.debug("paramVo : " + memberVo.toString());
+		
+		MemberVo resultVo = signUpService.getSearchMemberId(memberVo);
+		
+		if(resultVo != null && !"".equals(resultVo.getMem_id())) {
+			String serverPath = StringUtils.substringBefore(request.getRequestURL().toString(), request.getServletPath());
+			// param : 받는사람 메일 주소, 인증 Url, 메일 본문 html
+			MailVo mailVo = new MailVo(memberVo.getMem_id(), 
+										serverPath,
+										"/login/confirmMailFindPw",
+										resourceLoader.getResource("/WEB-INF/view/login/mailFindPw.html").getFile().getPath());
+			sendMailService.sendMail(mailVo);
+		}
+		
+		String result = new ObjectMapper().writeValueAsString(resultVo);
+
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(result);
+	}
+	
+	/**
+	 * 
+	 * Method  	 : confirmMailFindPw
+	 * Method설명  :인증 확인 (인증성공시 신규비밀번호입력화면 / 실패시 로그인화면이동 )
+	 * 최초작성일 : 2018. 9. 9.
+	 * 작 성 자   : 공은별(pc24)
+	 * 변경이력   :
+	 * @param request
+	 * @param authVal
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 * 리턴타입   : String
+	 */
+	@RequestMapping("/confirmMailFindPw")
+	public String confirmMailFindPw(HttpServletRequest request, @RequestParam("authVal") String authVal, Model model) throws Exception {
+		
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		logger.debug("authVal : " + authVal);
+		
+		Map<String, String> result = sendMailService.validateMailAuth(authVal);
+		if("FAIL".equals(result.get("result"))) {
+			logger.warn("메일 인증 실패!!!!!!!!!!");
+			model.addAttribute("resultMessage", result.get("result"));
+			return "forward:/login/loginView";
+		}
+		else {
+			logger.debug("메일 인증 성공!!!!!!!!!!!");
+			model.addAttribute("mailAuthResult", result.get("result"));
+			model.addAttribute("mailAddr", result.get("mailAddr"));
+			return "/login/newPassword";
+		}
+	
+	}	
 	
 	/**
 	 * 인증 메일 보내기 -공
@@ -326,6 +399,36 @@ public class LoginController {
 		}
 	
 	}	
+	
+	/**
+	 * 
+	 * Method  	 : newPassword
+	 * Method설명  : 신규 비밀번호 등록
+	 * 최초작성일 : 2018. 9. 9.
+	 * 작 성 자   : 공은별 pc24
+	 * 변경이력   :
+	 * @param request
+	 * @param model
+	 * @return: String
+	 * @throws IOException 
+	 */
+	@ResponseBody
+	@RequestMapping("/newPassword")
+	public void newPassword( HttpServletRequest request
+			, HttpServletResponse response
+			, @ModelAttribute("memberVo") MemberVo memberVo
+			, Model model) throws IOException {
+
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		logger.debug("paramVo : " + memberVo.toString());
+
+		int result = signUpService.updateMemberPw(memberVo);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		response.getWriter().print(result);
+	}
 	
 	
 	/**

@@ -20,6 +20,7 @@
 	</appender>
 
     <logger name="org" level="info" additivity="false"/>
+    <logger name="java.sql" level="debug" additivity="false"/>
     
     <logger name="kr.or.ddit" additivity="false">
         <level value="DEBUG"/>

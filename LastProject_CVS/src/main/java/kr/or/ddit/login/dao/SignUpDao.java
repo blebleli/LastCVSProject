@@ -62,6 +62,21 @@ public class SignUpDao implements SignUpDaoInf {
 		return 1;
 	}
 	
+	/**
+	 * 
+	 * Method 	  : setUpdateMemberPw
+	 * Method 설명  : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
+	 * 최초작성일 : 2018. 9. 9.
+	 * 작성자 	  : pc24
+	 * 변경이력   :
+	 *
+	 * @param mem_id
+	 * @return void
+	 */
+	@Override
+	public void setUpdateMemberPw(MemberVo memberVo) {
+		template.selectOne("member.setUpdateMemberPw", memberVo);
+	}
 
 	/**
 	 * 

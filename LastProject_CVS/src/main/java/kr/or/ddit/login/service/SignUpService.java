@@ -84,8 +84,8 @@ public class SignUpService implements SignUpServiceInf {
 
 	@Override
 	public int updateMemberPw(MemberVo memberVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		signUpDao.setUpdateMemberPw(memberVo);
+		return 1;
 	}
 
 

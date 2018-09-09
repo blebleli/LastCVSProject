@@ -55,8 +55,7 @@ $(document).ready(function() {
 	if("${resultMessage}" != null && "${resultMessage}" != "") {
 		alert("${resultMessage}");
 		<%
-			System.out.println(request.getAttribute("resultMessage"));
-			request.setAttribute("resultMessage", "");
+			request.removeAttribute("resultMessage");
 		%>
 	}
 	
@@ -274,12 +273,15 @@ $(document).ready(function() {
 						+ $("#mem_tel_3").val();
 			$("input[name=mem_tel]").val(mem_tel);
 		}
+		else {
+			$("input[name=mem_tel]").val("");
+		}
 	});
 	
 	/**
 	 * 오류메시지 초기화
 	 */
-	$("input select").on("change", function() {
+	$("input,select").on("change", function() {
 		fn_errMessage($(this), "");
 	});
 	
@@ -486,8 +488,11 @@ function fn_errMessage(_obj, _text) {
 									</div>
 									
 									<!-- 테스트용임시 -->
-									<input type="hidden" name="mem_x" value="112">
-									<input type="hidden" name="mem_y" value="223">
+									<input type="hidden" name="mem_cvs_name" value="테스트">
+									<input type="hidden" name="mem_cvs_tel" value="042-222-2222">
+									<input type="hidden" name="mem_intro" value="테스트">
+									<input type="hidden" name="mem_x" value="112.22222222222222">
+									<input type="hidden" name="mem_y" value="223.33333333333333">
 									
 								</fieldset>
 							</div>

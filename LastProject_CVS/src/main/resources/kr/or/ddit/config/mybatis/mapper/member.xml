@@ -47,7 +47,6 @@
 		VALUES (
 		      #{mem_id, jdbcType=VARCHAR}			--<!--//  일반:이메일, 점주:사업자번호, 관리자:일괄부여  -->
             , CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) --<!--// 비밀번호  -->
-		  --, #{mem_pw, jdbcType=VARCHAR}			--<!--// 비밀번호  -->
 			, #{mem_kind, jdbcType=VARCHAR}			--<!--// 관리자 : 00, 점주 : 01, 일반 : 02  -->
 			, #{mem_name, jdbcType=VARCHAR}			--<!--// 일반:일반회원 점주:점주이름  -->
 			, #{mem_tel, jdbcType=VARCHAR}			--<!--// 연락처  -->
@@ -59,8 +58,8 @@
 			, #{mem_cvs_name, jdbcType=VARCHAR}		--<!--// 편의점명  -->
 			, #{mem_cvs_tel, jdbcType=VARCHAR}		--<!--// 편의점연락처  -->
 			, #{mem_intro, jdbcType=VARCHAR}		--<!--// 소개  -->
-			, #{mem_x, jdbcType=NUMERIC}			--<!--// 좌표_x  -->
-			, #{mem_y, jdbcType=NUMERIC}			--<!--// 좌표_y  -->
+			, #{mem_x, jdbcType=NUMERIC, javaType=String}			--<!--// 좌표_x  -->
+			, #{mem_y, jdbcType=NUMERIC, javaType=String}			--<!--// 좌표_y  -->
 		)
 	</insert>
 	
@@ -73,20 +72,6 @@
 	  		일    시 : 2018-09-05     
 	 -->
 	<update id="setUpdateMember" parameterType="memberVo">
-		UPDATE MEMBER
-		   SET MEM_PW = #{mem_pw}
-		 WHERE MEM_ID = #{mem_id}
-		   AND MEM_PW = #{old_mem_pw}
-	</update>
-	
-	<!-- 	아 이 디 : setUpdateMemberPw
-	  		매개변수 : memberVo
-	  		반 환 값 : 없음
-	  		설    명 : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
-	  		작 성 자 : 공은별
-	  		일    시 : 2018-09-05     
-	 -->
-	<update id="setUpdateMemberPw" parameterType="memberVo">
 		UPDATE MEMBER
 		   SET MEM_KIND = #{mem_kind}
 			 , MEM_NAME = #{mem_name}
@@ -102,6 +87,20 @@
 			 , MEM_X = #{mem_x}
 			 , MEM_Y = #{mem_y}
 		 WHERE MEM_ID = #{mem_id}
+	</update>
+	
+	<!-- 	아 이 디 : setUpdateMemberPw
+	  		매개변수 : memberVo
+	  		반 환 값 : 없음
+	  		설    명 : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-05     
+	 -->
+	<update id="setUpdateMemberPw" parameterType="memberVo">
+		UPDATE MEMBER
+		   SET MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR})
+		 WHERE MEM_ID = #{mem_id}
+		   <!-- AND MEM_PW = #{old_mem_pw} -->
 	</update>
 	
 	
@@ -145,8 +144,16 @@
 			 , MEM_NAME
 			 , MEM_TEL
 		  FROM MEMBER
-		  WHERE MEM_NAME = #{mem_name}
+		  WHERE 1=1
+		  <if test="mem_id != null and mem_id != ''">
+		    AND MEM_ID = #{mem_id}
+		  </if>
+		  <if test="mem_name != null and mem_name != ''">
+		    AND MEM_NAME = #{mem_name}
+		  </if>
+		  <if test="mem_tel != null and mem_tel != ''">
 		    AND MEM_TEL = #{mem_tel}
+		  </if>
 	</select>	
 	
 
