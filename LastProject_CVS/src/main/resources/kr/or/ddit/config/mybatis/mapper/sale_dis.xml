@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="saledis">
+
+	<!-- 제품 통계 조회 -->
+	<select id="getListSaleDis" resultType="saledisjoinVo">
+		SELECT ROW_NUMBER() OVER(ORDER BY a.sale_sum DESC)
+				, c.prod_name
+				, a.sale_amount
+				, a.sale_sum
+			FROM sale_list a, sale_dis b, prod c
+			WHERE a.prod_id=c.prod_id
+			AND b.mem_id = '3630000-104-2015-00121'
+	</select>
+	
+	<!-- 제품 통계 조회 -->
+<!-- 	<select id="getListSaleDis" resultType="saledisjoinVo" parameterType="String"> -->
+<!-- 		SELECT ROW_NUMBER() OVER(ORDER BY a.sale_sum DESC) -->
+<!-- 				, c.prod_name -->
+<!-- 				, a.sale_amount -->
+<!-- 				, a.sale_sum -->
+<!-- 			FROM sale_list a, sale_dis b, prod c -->
+<!-- 			WHERE a.prod_id=c.prod_id -->
+<!-- 			AND b.mem_id = #{mem_id} -->
+<!-- 	</select> -->
+</mapper>

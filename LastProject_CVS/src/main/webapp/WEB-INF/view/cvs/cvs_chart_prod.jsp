@@ -1,4 +1,4 @@
-﻿
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- forEach가 안 먹혀서 한번 더 복사했음. -->
     <!-- Bootstrap -->
     
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-
+    
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
@@ -48,7 +48,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Button Example <small>Users</small></h2>
+                    <h2>제품판매량 TOP3 <small>Users</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -68,7 +68,7 @@
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
+						제품 판매량 TOP3입니다.
                     </p>
                     
                     
@@ -84,67 +84,78 @@
                  
                       
                       
-                      
+                    <!-- 어느 제품이 많이 팔렸는지 TOP5 형식으로 보여준다. -->
+                    <!-- (순위), 제품명, 판매수량, 판매금액, (이벤트상태) -->
                       
                       
                       
                     <table id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>순위</th>  
+<!--                           <th>순위</th>   -->
                           <th>제품명</th>              
-                          <th>가격</th>
-                          <th>재고</th>
-                          <th>이벤트상태</th>
+                          <th>판매수량</th>
+                          <th>판매금액</th>
+<!--                           <th>이벤트상태</th> -->
                                         
                         </tr>
                   
                       </thead>
-						<tr><td>1</td><td>	Jenette 		</td><td>	345,000	</td><td>30</td><td>200</td></tr>
-						<tr><td>1</td><td>	Yuri Berry		</td><td>	675,000	</td><td>40</td><td>200</td></tr>
-						<tr><td>1</td><td>	Caesar Vance	</td><td>	106,450	</td><td>21</td><td>200</td></tr>
-						<tr><td>1</td><td>	Doris Wilder	</td><td>	85,600	</td><td>23</td><td>200</td></tr>
-						<tr><td>1</td><td>	Angelica Ramos	</td><td>	1,200	</td><td>47</td><td>200</td></tr>
-						<tr><td>1</td><td>	Gavin Joyce		</td><td>	92,575	</td><td>42</td><td>200</td></tr>
-						<tr><td>1</td><td>	Jennifer Chang	</td><td>	357,650	</td><td>28</td><td>200</td></tr>
-						<tr><td>1</td><td>	Brenden Wagner	</td><td>	206,850	</td><td>28</td><td>200</td></tr>
-						<tr><td>1</td><td>	Fiona Green		</td><td>	850,000	</td><td>48</td><td>200</td></tr>
-						<tr><td>1</td><td>	Shou Itou		</td><td>	163,000	</td><td>20</td><td>200</td></tr>
-						<tr><td>1</td><td>	Michelle House	</td><td>	95,400	</td><td>37</td><td>200</td></tr>
-						<tr><td>1</td><td>	Suki Burks		</td><td>	114,500	</td><td>53</td><td>200</td></tr>
-						<tr><td>1</td><td>	Prescott 		</td><td>	145,000	</td><td>27</td><td>200</td></tr>
-						<tr><td>1</td><td>	Gavin Cortez	</td><td>	235,500	</td><td>22</td><td>200</td></tr>
-						<tr><td>1</td><td>	Martena Mccray	</td><td>	324,050	</td><td>46</td><td>200</td></tr>
-						<tr><td>1</td><td>	Unity Butler	</td><td>	85,675	</td><td>47</td><td>200</td></tr>
-						<tr><td>1</td><td>	Howard Hatfield	</td><td>	164,500	</td><td>51</td><td>200</td></tr>
-						<tr><td>1</td><td>	Hope Fuentes	</td><td>	109,850	</td><td>41</td><td>200</td></tr>
-						<tr><td>1</td><td>	Vivian Harrell	</td><td>	452,500	</td><td>62</td><td>200</td></tr>
-						<tr><td>1</td><td>	Timothy Mooney	</td><td>	136,200	</td><td>37</td><td>200</td></tr>
-						<tr><td>1</td><td>	Jackson 		</td><td>	645,750	</td><td>65</td><td>200</td></tr>
-						<tr><td>1</td><td>	Olivia Liang	</td><td>	234,500	</td><td>64</td><td>200</td></tr>
-						<tr><td>1</td><td>	Bruno Nash		</td><td>	163,500	</td><td>38</td><td>200</td></tr>
-						<tr><td>1</td><td>	Sakura Yamamoto	</td><td>	139,575	</td><td>37</td><td>200</td></tr>
-						<tr><td>1</td><td>	Thor Walton		</td><td>	98,540	</td><td>61</td><td>200</td></tr>
-						<tr><td>1</td><td>	Finn Camacho	</td><td>	87,500	</td><td>47</td><td>201</td></tr>
-						<tr><td>1</td><td>	Serge Baldwin	</td><td>	138,575	</td><td>64</td><td>201</td></tr>
-						<tr><td>1</td><td>	Zenaida Frank	</td><td>	125,250	</td><td>63</td><td>201</td></tr>
-						<tr><td>1</td><td>	Zorita Serrano	</td><td>	115,000	</td><td>56</td><td>201</td></tr>
-						<tr><td>1</td><td>	Jennifer Acosta	</td><td>	75,650	</td><td>43</td><td>202</td></tr>
-						<tr><td>1</td><td>	Cara Stevens	</td><td>	145,600	</td><td>46</td><td>202</td></tr>
-						<tr><td>1</td><td>	Hermione Butler	</td><td>	356,250	</td><td>47</td><td>202</td></tr>
-						<tr><td>1</td><td>	Lael Greer		</td><td>	103,500	</td><td>21</td><td>202</td></tr>
-						<tr><td>1</td><td>	Jonas Alexander	</td><td>	86,500	</td><td>30</td><td>202</td></tr>
-						<tr><td>1</td><td>	Shad Decker		</td><td>	183,000	</td><td>51</td><td>203</td></tr>
-						<tr><td>1</td><td>	Michael Bruce	</td><td>	183,000	</td><td>29</td><td>203</td></tr>
-						<tr><td>1</td><td>	Donna Snider	</td><td>	112,000	</td><td>27</td><td>203</td></tr>
-                      <tbody>
- 
+                      <tbody>               
+                      <c:forEach items="${saleList}" var="vo">
+						<tr>
+							<td>${vo.prod_name}</td>
+							<td>${vo.sale_amount}</td>
+							<td>${vo.sale_sum}</td>
+						</tr>
+                      </c:forEach>
                       </tbody>
                     </table>
+                      
+<!-- 						<tr><td>1</td><td>	Jenette 		</td><td>	345,000	</td><td>30</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Yuri Berry		</td><td>	675,000	</td><td>40</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Caesar Vance	</td><td>	106,450	</td><td>21</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Doris Wilder	</td><td>	85,600	</td><td>23</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Angelica Ramos	</td><td>	1,200	</td><td>47</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Gavin Joyce		</td><td>	92,575	</td><td>42</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Jennifer Chang	</td><td>	357,650	</td><td>28</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Brenden Wagner	</td><td>	206,850	</td><td>28</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Fiona Green		</td><td>	850,000	</td><td>48</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Shou Itou		</td><td>	163,000	</td><td>20</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Michelle House	</td><td>	95,400	</td><td>37</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Suki Burks		</td><td>	114,500	</td><td>53</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Prescott 		</td><td>	145,000	</td><td>27</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Gavin Cortez	</td><td>	235,500	</td><td>22</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Martena Mccray	</td><td>	324,050	</td><td>46</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Unity Butler	</td><td>	85,675	</td><td>47</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Howard Hatfield	</td><td>	164,500	</td><td>51</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Hope Fuentes	</td><td>	109,850	</td><td>41</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Vivian Harrell	</td><td>	452,500	</td><td>62</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Timothy Mooney	</td><td>	136,200	</td><td>37</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Jackson 		</td><td>	645,750	</td><td>65</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Olivia Liang	</td><td>	234,500	</td><td>64</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Bruno Nash		</td><td>	163,500	</td><td>38</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Sakura Yamamoto	</td><td>	139,575	</td><td>37</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Thor Walton		</td><td>	98,540	</td><td>61</td><td>200</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Finn Camacho	</td><td>	87,500	</td><td>47</td><td>201</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Serge Baldwin	</td><td>	138,575	</td><td>64</td><td>201</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Zenaida Frank	</td><td>	125,250	</td><td>63</td><td>201</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Zorita Serrano	</td><td>	115,000	</td><td>56</td><td>201</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Jennifer Acosta	</td><td>	75,650	</td><td>43</td><td>202</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Cara Stevens	</td><td>	145,600	</td><td>46</td><td>202</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Hermione Butler	</td><td>	356,250	</td><td>47</td><td>202</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Lael Greer		</td><td>	103,500	</td><td>21</td><td>202</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Jonas Alexander	</td><td>	86,500	</td><td>30</td><td>202</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Shad Decker		</td><td>	183,000	</td><td>51</td><td>203</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Michael Bruce	</td><td>	183,000	</td><td>29</td><td>203</td></tr> -->
+<!-- 						<tr><td>1</td><td>	Donna Snider	</td><td>	112,000	</td><td>27</td><td>203</td></tr> -->
+<!--                       <tbody> -->
+ 
+<!--                       </tbody> -->
+<!--                     </table> -->
                   </div>
                 </div>
-              </div>
-              
+              </div>              
             </div>
           </div>
         </div>
