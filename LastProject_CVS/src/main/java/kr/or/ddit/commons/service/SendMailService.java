@@ -146,13 +146,13 @@ public class SendMailService implements SendMailServiceInf {
 
 			// 인증 유효 시간
 			String validDateTimeStr = validDateTime();
-			
+
 			String validDateTime = validDateTimeStr.substring(0, 4) + "년 "
-									+ validDateTimeStr.substring(5, 6) + "월 "
-									+ validDateTimeStr.substring(7, 8) + "일 "
-									+ validDateTimeStr.substring(9, 10) + "시 "
-									+ validDateTimeStr.substring(11, 12) + "분 "
-									+ validDateTimeStr.substring(13, 14) + "초 ";
+									+ validDateTimeStr.substring(4, 6) + "월 "
+									+ validDateTimeStr.substring(6, 8) + "일 "
+									+ validDateTimeStr.substring(8, 10) + "시 "
+									+ validDateTimeStr.substring(10, 12) + "분 "
+									+ validDateTimeStr.substring(12, 14) + "초 ";
 			
 			// 메일본문에 암호화된 Random 문자열 적용
 			content = StringUtils.replace(content, "%mailAuthUrl%", authUrl + "?authVal=" + encAuthVal);
@@ -316,18 +316,27 @@ public class SendMailService implements SendMailServiceInf {
 		// param : 받는사람 메일주소, /webapp/mail/ 폴더에 있는 메일 본문 html 파일명;
 		//		mailService.mailSend("ㅇㅇㅇㅇㅇㅇ@gmail.com", "mailAuth");
 
-		//		String dateStr = "20180822121825";
-		//		SimpleDateFormat dt = new SimpleDateFormat("yyyyMMddhhmmss"); 
-		//		Date reqDtm = dt.parse(dateStr);	// 인증요청 시간
-		//		Date currDtm = new Date();	// 현재시간
-		//		
-		//		System.out.println(reqDtm.compareTo(currDtm));
-		//		System.out.println(currDtm.compareTo(reqDtm));
+//		String dateStr = "20180822121825";
+//		SimpleDateFormat dt = new SimpleDateFormat("yyyyMMddhhmmss"); 
+//		Date reqDtm = dt.parse(dateStr);	// 인증요청 시간
+//		Date currDtm = new Date();	// 현재시간
+//		
+//		System.out.println(reqDtm.compareTo(currDtm));
+//		System.out.println(currDtm.compareTo(reqDtm));
 
-		String path = SendMailServiceInf.class.getResource("").getPath();
-		String webapps = StringUtils.substringBefore(path, "target");
-		System.out.println(path);
-
+//		String path = SendMailServiceInf.class.getResource("").getPath();
+//		String webapps = StringUtils.substringBefore(path, "target");
+//		System.out.println(path);
+		
+		String validDateTimeStr = "20180910005851";
+		String validDateTime = validDateTimeStr.substring(0, 4) + "년 "
+								+ validDateTimeStr.substring(4, 6) + "월 "
+								+ validDateTimeStr.substring(6, 8) + "일 "
+								+ validDateTimeStr.substring(8, 10) + "시 "
+								+ validDateTimeStr.substring(10, 12) + "분 "
+								+ validDateTimeStr.substring(12, 14) + "초 ";
+		
+		System.out.println(validDateTime);
 	}
 
 }
