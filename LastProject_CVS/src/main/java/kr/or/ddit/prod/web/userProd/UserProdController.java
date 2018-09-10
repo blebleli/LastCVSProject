@@ -119,6 +119,7 @@ public class UserProdController {
 	
 	@RequestMapping("/bestList")
 	public ModelAndView bestProdList(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="32")int pageSize,@RequestParam(value="level")String level, @RequestParam(value="ctgy_id")String ctgy_id, Model model){
+	
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		Map modelMap = model.asMap();
@@ -135,14 +136,19 @@ public class UserProdController {
 		paramMap.put("pr_class", pr_class);
 		paramMap.put("pr_class_id", ctgy_id);
 		
-		if(i.equals("3")){
+		if(i.equals("3")){				// 이벤트
 			ctgyProdList= prodService.getCgEventProd(paramMap);
 			mav.addObject("ctgyProdList", ctgyProdList);
-		}else{
-			
+		}else if (i.equals("1")) {		//  상품
 			Map<String, Object> result = prodService.getCtgyProdList(paramMap);
 			mav.addObject("ctgyProdList", result.get("ctgyProdList"));
 			mav.addObject("pagination", result.get("pagination"));
+
+		} else if (i.equals("2")){		// 베스트
+			Map<String, Object> result = prodService.getListCtgyBestProdList(paramMap);
+			mav.addObject("ctgyProdList", result.get("ctgyProdList"));
+			mav.addObject("pagination", result.get("pagination"));
+			
 		}
 
 		CategoryVo category = prodService.getCtgy(ctgy_id);

@@ -49,6 +49,7 @@ public class ProdService implements ProdServiceInf {
 
 	@Override
 	public Map<String, Object> getCtgyProdList(Map<String, Object> map) {
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		int page = (int) map.get("page");
 		int pageSize = (int) map.get("pageSize");
@@ -148,6 +149,37 @@ public class ProdService implements ProdServiceInf {
 	@Override
 	public List<ProdVo> getCgEventProd(Map<String, Object> map) {
 		return prodDao.getCgEventProd(map);
+	}
+	
+	/**
+	 * Method : getListCtgyBestProdList
+	 * 최초작성일 : 2018. 9. 11.
+	 * 작성자 : 	조종원
+	 * 변경이력 :	신규
+	 * @param   : map
+	 * @return  : Map<String, Object>
+	 * Method 설명 : 카테고리별 베스트 상품
+	 */
+	public Map<String, Object> getListCtgyBestProdList(Map<String, Object> map){
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		int page = (int) map.get("page");
+		int pageSize = (int) map.get("pageSize");
+		String pr_class =(String) map.get("pr_class");
+		String pr_class_id = (String) map.get("pr_class_id");
+		
+		Map<String, String> cntMap = new HashMap<String, String>();
+		cntMap.put("pr_class", pr_class);
+		cntMap.put("pr_class_id", pr_class_id);
+		int cnt = prodDao.getCtgyProdCount(cntMap);
+		
+		result.put("pagination", pagination(page, pageSize, cnt));
+		
+		List<ProdVo> prodList = prodDao.getListCtgyBestProdList(map);
+		result.put("ctgyProdList", prodList);
+		
+		
+		return result;
 	}
 	
 	/**

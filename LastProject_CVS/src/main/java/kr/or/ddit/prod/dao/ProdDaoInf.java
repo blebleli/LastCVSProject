@@ -38,6 +38,17 @@ public interface ProdDaoInf {
 
 	
 	/**
+	 * Method : getListCtgyBestProdList
+	 * 최초작성일 : 2018. 9. 11.
+	 * 작성자 : 	조종원
+	 * 변경이력 :	신규
+	 * @param   : map
+	 * @return  : List<ProdVo>
+	 * Method 설명 : 카테고리별 베스트 상품
+	 */
+	List<ProdVo> getListCtgyBestProdList(Map<String, Object> map);
+	
+	/**
 	* Method : getListBestProd
 	* Method 설명 : 베스트 상품 전체
 	* 최초작성일 : 2018. 9. 10

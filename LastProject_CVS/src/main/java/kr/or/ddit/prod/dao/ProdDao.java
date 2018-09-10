@@ -72,6 +72,19 @@ public class ProdDao implements ProdDaoInf {
 	public CategoryVo getCtgy(String ctgy_id) {
 		return session.selectOne("category.getCtgy", ctgy_id);
 	}
+	
+	/**
+	 * Method : getListCtgyBestProdList
+	 * 최초작성일 : 2018. 9. 11.
+	 * 작성자 : 	조종원
+	 * 변경이력 :	신규
+	 * @param   : map
+	 * @return  : List<ProdVo>
+	 * Method 설명 : 카테고리별 베스트 상품
+	 */
+	public List<ProdVo> getListCtgyBestProdList(Map<String, Object> map){
+		return session.selectList("prod.getListCtgyBestProdList", map);
+	}
 
 	
 	/**
