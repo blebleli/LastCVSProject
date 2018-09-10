@@ -50,4 +50,9 @@ public class StockService implements StockServiceInf {
 		return stockDao.getListStockOne(stock_id);
 	}
 
+	@Override
+	public PresentStockListVo getStockProd(String prod_id) {
+		return stockDao.getStockProd(prod_id);
+	}
+
 }
