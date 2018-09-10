@@ -66,7 +66,7 @@ public class StockDao implements StockDaoInf {
 
 	@Override
 	public StockVo getStock(String mem_id) {
-		return template.selectOne(mem_id);
+		return template.selectOne("stock.getStock",mem_id);
 	}
 
 
