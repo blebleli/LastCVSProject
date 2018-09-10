@@ -1,13 +1,15 @@
 package kr.or.ddit.user.userMain.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import kr.or.ddit.board.service.BoardServiceInf;
+import kr.or.ddit.commons.util.PageNavi;
+import kr.or.ddit.commons.util.SessionUtil;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.BookmarkVo;
 import kr.or.ddit.model.MemberShipVo;
@@ -16,28 +18,34 @@ import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.prod.service.ProdServiceInf;
+import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
 import kr.or.ddit.user.userMain.service.UserMainServiceInf;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/user")
 @Controller("userMainController")
 public class UserMainController {
-	
+
 	@Resource(name="userMainService")
 	private  UserMainServiceInf memberService;
-	
+
 	@Resource(name="payService")
 	private  PayServiceInf payService;
-	
+
+	@Resource(name="bookmarkService")
+	private  BookmarkServiceInf bookmarkService;
+
 	@Resource(name="prodService")
 	private ProdServiceInf prodService;
-	
+
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
-	
+
 	/**
 	 * 
 	 * Method   : main 
@@ -49,23 +57,23 @@ public class UserMainController {
 	 */
 	@RequestMapping("/main")
 	public String main(Model model){
-		 //카테고리 best 제품리스트
+		//카테고리 best 제품리스트
 		HashMap<String, String> ctgyNum = new HashMap<String, String>();		
 		ctgyNum.put("category", "CA07760000001");
 		ctgyNum.put("wantNum", "4");		
 
 		//카테고리별 평점 best
 		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
-		
+
 		//이벤트별 리스트 들어가야함
-	
+
 		//조회수 리뷰 best3
 		List<BoardVo> bestReview = boardService.getBestProdReview();
-		
+
 		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();
-		
-		
+
+
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProd",bestProd);
 		model.addAttribute("bestReview",bestReview);
@@ -73,7 +81,7 @@ public class UserMainController {
 
 		return "userMain";
 	}
-	
+
 	/**
 	 * 
 	 * Method   : myPageView 
@@ -86,60 +94,63 @@ public class UserMainController {
 	 * Method 설명 : mypage로 이동
 	 */
 	@RequestMapping("/mypage")	
-	 public String myPageView(String mem_id, Model model) {
+	public String myPageView(HttpServletRequest request, 
+								@RequestParam(value="page", defaultValue="1") int page,
+								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+								Model model) {
 		
-		//임시 아이디 지정
-		mem_id= "hsj";
-		//mem_pw="1";
+		String mem_id = SessionUtil.getSessionMemberId(request);
+		if(mem_id == null || "".equals(mem_id)) {
+			return "redirect:/login/loginView";
+		}
 		
-		//로그인한 회원 정보
-		MemberVo member = memberService.getMyPage(mem_id);
+		//==============================================
+		//== 로그인한 회원 정보
+		model.addAttribute("member", memberService.getMyPage(mem_id));
+		//==============================================
+		
+		
+		//==============================================
+		//== 구매내역 목록 조회
+		PayVo paramPayVo = new PayVo();
+		paramPayVo.setPage(page);
+		paramPayVo.setPageSize(pageSize);
+		paramPayVo.setMem_id(mem_id);
 		
 		//로그인한 회원의 구매내역list
-		List<PayVo> myPayList= payService.getListMyPay(mem_id);		
+		List<PayVo> myPayList= payService.getMyPayPageList(paramPayVo);
+		model.addAttribute("myPayList", myPayList);	
 		
-		//로그인한 회원의 즐겨찾는 제품
-		List<BookmarkVo> starList = new ArrayList<BookmarkVo>();
-		BookmarkVo star1 = new BookmarkVo();
-		star1.setStar_id	 ("starid1");
-		star1.setMem_id		 ("hsj");
-		star1.setStar_kind   ("111" );
-		star1.setProd_id     ("necessities-b940bbe8-1236-4e49-b5ee-20f32d47deb1" );
+		int tot_cnt = 0;
+		if(myPayList != null) {
+			tot_cnt = myPayList.get(0).getTot_cnt();
+		}
 		
-		BookmarkVo star2 = new BookmarkVo();
-		star2.setStar_id	 ("starid2");
-		star2.setMem_id		 ("hsj");
-		star2.setStar_kind   ("111" );
-		star2.setProd_id     ("necessities-51a2fde8-02a4-4f1e-943b-666c5c9c4bfb" );
-	
-		BookmarkVo star3 = new BookmarkVo(); // 장소북마크
-		star3.setStar_id	 ("starid3");
-		star3.setMem_id		 ("hsj");
-		star3.setStar_kind   ("222" );
-		star3.setPlace_id	 ("4390000-104-2017-00091");
+		// 페이지 네비게이션 문자열 
+		PageNavi pageNavi = new PageNavi(page, pageSize, tot_cnt);
+		model.addAttribute("pageNaviPayList", pageNavi.getPageNavi(request, paramPayVo, "/user/mypage?tab=tab_content5"));
+		//==============================================
 		
-		BookmarkVo star4 = new BookmarkVo(); // 장소북마크
-		star4.setStar_id	 ("starid4");
-		star4.setMem_id		 ("hsj");
-		star4.setStar_kind   ("222" );
-		star4.setPlace_id	 ("4390000-104-2013-00022");
 
-		starList.add(star1);
-		starList.add(star2);
-		starList.add(star3);
-		starList.add(star4);
+		//==============================================
+		//== 로그인한 회원의 즐겨찾는 제품
+		List<BookmarkVo> bookmarkList = bookmarkService.getBookmarkList(mem_id);
+		model.addAttribute("bookmarkList", bookmarkList);
+		//==============================================
 		
+		
+		//==============================================
+		//== 로그인한 회원의 즐겨찾는 제품
 		MemberShipVo shipVo = new MemberShipVo();
 		shipVo.setMemship_id("shipID");
 		shipVo.setMem_id(mem_id);
 		shipVo.setMemship_point(7777);
-		
-		model.addAttribute("member", member);
-		model.addAttribute("myPayList", myPayList);
-		model.addAttribute("starList", starList);
 		model.addAttribute("shipVo", shipVo);
+		//==============================================
+		
+		model.addAttribute("tab", StringUtils.defaultString(request.getParameter("tab"), ""));
 
-		 return "myPage";
-	 }
-	
+		return "myPage";
+	}
+
 }

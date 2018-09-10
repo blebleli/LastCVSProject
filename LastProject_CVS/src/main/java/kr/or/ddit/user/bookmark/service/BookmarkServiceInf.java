@@ -8,7 +8,7 @@ public interface BookmarkServiceInf {
 	
 	int newBookmark(BookmarkVo bookmarkVo);
 	
-	List<BookmarkVo> getBookmarkList();
+	List<BookmarkVo> getBookmarkList(String mem_id);
 	
 	int updateBookmark(BookmarkVo bookmarkVo);
 	
