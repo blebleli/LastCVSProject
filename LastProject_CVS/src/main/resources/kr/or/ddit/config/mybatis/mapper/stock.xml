@@ -19,9 +19,16 @@
 	
 <!-- 편의점의 현재고 리스트 조회 -->
 <select id="getStockList" parameterType="String" resultType="presentStockListVo">
-	select a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
-	from prod a, supply b, stock_list c
-	where c.stock_id = #{stock_id} and c.prod_id = a.prod_id
+	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
+	FROM prod a, supply b, stock_list c
+	WHERE c.stock_id = #{stock_id} AND c.prod_id = a.prod_id
+</select>
+
+<!-- 재고 상품 조회 -->
+<select id="getStockProd" parameterType="String" resultType="presentStockListVo">
+	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
+	FROM prod a, supply b, stock_list c
+	WHERE a.prod_id =#{prod_id} and c.prod_id = a.prod_id 
 </select>
 
 
