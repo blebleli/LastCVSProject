@@ -1,6 +1,7 @@
 package kr.or.ddit.store_owner.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 담당 -- 김현경
@@ -48,7 +50,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyReqController")
-@SessionAttributes({"userInfo","myStock","myStockList"})
+@SessionAttributes({"userInfo","myStock","myStockList","requestList"})
 public class CvsSupplyReqController {
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
 	
@@ -57,6 +59,9 @@ public class CvsSupplyReqController {
 	
 	@Resource(name="stockService")
 	private StockServiceInf stockService;
+	
+	@Resource(name="prodService")
+	private ProdServiceInf prodService;
 	
 	
 	/**
@@ -93,14 +98,30 @@ public class CvsSupplyReqController {
 	public List<PresentStockListVo> myStockList(Model model){
 		Map modelMap = model.asMap();
 		StockVo myStock = (StockVo) modelMap.get("myStock");
+		logger.debug("myStock"+myStock);
 		List<PresentStockListVo> myStockList = stockService.getListStockOne(myStock.getStock_id());
 		return myStockList;
 	}
 	
+	@ModelAttribute("requestList")
+	public List<PresentStockListVo> requestList(){
+		List<PresentStockListVo> requestList = new ArrayList<PresentStockListVo>();
+		return requestList;
+	}
+	
 
 	@RequestMapping("/supplyReqest")
-	public String cvssupplyReqest(Model model){
-		return "cvs_supply_request";
+	public ModelAndView cvssupplyReqest(@RequestParam(value="page")int page, @RequestParam(value="pageSize")int pageSize, Model model){
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("cvs_supply_request");
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("page", page);
+		param.put("pageSize", pageSize);
+		
+		List<ProdVo> allProdList =prodService.getAllProd(param);
+		mav.addObject("allProdList", allProdList);
+		
+		return mav;
 	}
 	
 	
@@ -119,14 +140,18 @@ public class CvsSupplyReqController {
 	* 변경이력 :신규
 	* 
 	* @param 
-	* @return StockVo
+	* @return List<PresentStockListVo>
 	*/
 	@RequestMapping(value="/requestList", method=RequestMethod.GET )
 	@ResponseBody
-	public List<PresentStockListVo> requestList(@RequestParam(value="requestList")PresentStockListVo requestprod){
-		List<PresentStockListVo> requestList = new ArrayList<PresentStockListVo>();
-		requestList.add(requestprod);
-		logger.debug("prodVo ------"+requestList);
+	public List<PresentStockListVo> requestList(@RequestParam(value="requestProd")String requestprod, Model model){
+		Map modelMap = model.asMap();
+		List<PresentStockListVo> requestList = (List<PresentStockListVo>) modelMap.get("requestList");
+		PresentStockListVo ps = stockService.getStockProd(requestprod);
+		logger.debug("prodVo ------"+ps);
+		requestList.add(ps);
+		logger.debug("list ------"+requestList);
+		model.addAttribute("requestList", requestList);
 		return requestList;
 	}
 	
