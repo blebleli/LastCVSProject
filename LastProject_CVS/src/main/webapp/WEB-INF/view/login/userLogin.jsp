@@ -120,6 +120,14 @@ $(document).ready(function() {
 		location.href = "<c:url value='/login/userInfoSearch' />";
 	});
 
+	/**
+	 * Enter 입력
+	 */
+	$("#userId,#password").on("keyup", function(e) {
+		if(e.keyCode == 13) {
+			$("#btnLogin").click();
+		}
+	});
 	
 	/**
    	 * 암호화 - 공별
