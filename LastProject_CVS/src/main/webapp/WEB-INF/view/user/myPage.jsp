@@ -37,11 +37,12 @@ $(document).ready(function() {
 		else {
 			// 상세tr 전체삭제
 			$(this).parent().find('tr.subPaytr').each(function() {
-				$(this).remove();
+				$(this).hide("slow", function() { $(this).remove();});
 			});
 			// 상세tr 보여주기
-			var $subTr = $("<tr style='height:20px;' class='subPaytr'><td colspan='5'>뭘보여줘야지</td></tr>");
+			var $subTr = $("<tr style='height:20px;display:none;' class='subPaytr'><td colspan='5'>뭘보여줘야지</td></tr>");
 			$(this).after($($subTr));
+			$($subTr).show('slow');
 		}
 		
 	});
