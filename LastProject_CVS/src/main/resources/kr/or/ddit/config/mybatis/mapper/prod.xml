@@ -134,6 +134,40 @@ SELECT * FROM
 WHERE rn &lt;= #{wantNum}
 </select>
 
+<!-- 	아 이 디 : getListBestProd
+	  		반 환 값 : prodVo
+	  		매개변수 : 없음
+	  		설    명 : 베스트 상품 전체
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-10     
+	 -->
+<select id="getListBestProd" resultType="prodVo">
+		SELECT *
+		FROM (
+		        SELECT   T.PROD_ID
+		                ,T.PROD_NAME
+		                ,T.PROD_PRICE
+                    ,T.FILE_PATH
+                    ,T.FILE_UPNAME
+		                ,ROWNUM RN
+		        FROM (
+		                SELECT   P.PROD_ID
+		                        ,P.PROD_NAME
+		                        ,P.PROD_PRICE
+                            ,P.FILE_PATH
+                            ,P.FILE_UPNAME
+		                        ,SUM(BD_RATING) AS BD_RATING
+		                FROM PROD  P
+		                JOIN BOARD B
+		                ON P.PROD_ID = B.PROD_ID
+		                GROUP BY P.PROD_ID, P.PROD_NAME, P.PROD_PRICE ,P.FILE_PATH ,P.FILE_UPNAME
+		                ORDER BY BD_RATING DESC
+		              )T
+		      )
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+	
+</select>
+
 
 
 
