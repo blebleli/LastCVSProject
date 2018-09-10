@@ -20,9 +20,9 @@
 				<c:forEach items="${prodCtgy}" var="ctgy" varStatus="">
 					<li class="dropdown mega-dropdown active">
 						<c:if test="${ctgy.ctgy_id == ctgy.ctgy_level}">
-							<a href="/userProd/bestList?level=lg&ctgy_id=${ctgy.ctgy_id }&page=1&pageSize=24" class="dropdown-toggle" data-toggle="dropdown">${ctgy.ctgy_name}<span
+							<a href="/userProd/bestList?level=lg&ctgy_id=${ctgy.ctgy_id }&page=1&pageSize=24" >${ctgy.ctgy_name}<span
 								class="caret"></span>
-								
+<!-- 								class="dropdown-toggle" data-toggle="dropdown" -->
 							</a>
 								<c:set value="${ctgy.ctgy_id }" var="ctgy_id"></c:set>
 						</c:if>
@@ -32,7 +32,7 @@
 										<c:forEach items="${prodCtgy }" var="prodCtgy">
 											<c:if test="${ctgy_id == prodCtgy.ctgy_parent }">
 											<li>
-												<a href="/userProd/bestList?level=md&ctgy_id=${prodCtgy.ctgy_id }&page=1&pageSize=32">${prodCtgy.ctgy_name}</a>
+												<a href="/userProd/bestList?level=md&ctgy_id=${prodCtgy.ctgy_id }&page=1&pageSize=24">${prodCtgy.ctgy_name}</a>
 											</li>
 											</c:if>
 										</c:forEach>
