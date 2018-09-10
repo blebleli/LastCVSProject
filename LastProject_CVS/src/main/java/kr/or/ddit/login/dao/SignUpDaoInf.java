@@ -90,4 +90,18 @@ public interface SignUpDaoInf {
 	 */
 	MemberVo getSearchMemberId(MemberVo memberVo);
 	
+	/** 
+	 * Method   : getMemTelCnt 
+	 * 최초작성일  : 2018. 9. 10. 
+	 * 작성자 : 조종원 
+	 * 변경이력 : 신규
+	 * @param mem_tel
+	 * @return 해당 row 개수
+	 * Method 설명 : 테이블의 전화번호 개수 체크
+	 *               return 1 => 1개 있음
+	 *               return 0 => 가입가능 또는 정보조회 안됨
+	 *               return 2이상 => 데이터 오류
+	 */
+	int getMemTelCnt(String mem_tel);
+	
 }

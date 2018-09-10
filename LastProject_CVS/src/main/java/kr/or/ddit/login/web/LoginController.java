@@ -151,6 +151,27 @@ public class LoginController {
 		response.getWriter().print(signUpService.getMemIdCnt(mem_id));
 	}
 	
+	/**
+	 * 사용자 tel 중복 조회 - 조
+	 * 회원가입 화면에서 사용자 전화번호 중복조회 ajax처리
+	 * @param request
+	 * @param response
+	 * @param mem_tel
+	 * @param model
+	 * @throws IOException
+	 */
+	@RequestMapping("/chkMemTelDupli")
+	public void chkMemTelDupli( HttpServletRequest request
+							, HttpServletResponse response
+							, @RequestParam("mem_tel") String mem_tel
+							, Model model) throws IOException {
+
+		// 사용자 tel 중복 조회
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(signUpService.getMemTelCnt(mem_tel) );
+	}
+	
 	
 	/**
 	 * 회원가입 화면 -공
