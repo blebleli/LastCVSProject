@@ -105,6 +105,38 @@ $(document).ready(function() {
         });
 	});
 	
+	/**
+	 * 추가 : 2018.09.10-jw
+	 * member(회원) 테이블에 mem_tel 컬럼에 유니크 제약조건 추가 
+	 * ∴ 사용자한테 입력 받을 때 확인 
+	 * 사용자 전화번호 중복 조회
+	 */
+	 $("#mem_tel_3").on("blur", function() {
+		
+		 // 전화번호가 모두 입력이 되었을때 중복 체크 시작
+		 if($("#mem_tel_1").val() != '' && $("#mem_tel_2").val() && $("#mem_tel_3").val()) {
+			var mem_tel = $("#mem_tel_1").val() + '-' + $("#mem_tel_2").val() + '-'+ $("#mem_tel_3").val();
+			
+			$.ajax({
+	            type : "POST",
+	            url : "<c:url value='/login/chkMemTelDupli' />",
+	            dataType : "text",
+	            data : {mem_tel : mem_tel},
+	            success : function(data){
+	            	if(Number(data) > 0) {
+	        			fn_errMessage($("#mem_tel"), "이미 등록된 전화번호 입니다.");
+	                    $("#mem_tel_2").val("");
+	                    $("#mem_tel_3").val("");
+	            	}
+	            },
+	            error: function(request, status, error) {
+	                alert(error);
+	            }
+	        });
+			
+		}
+	});
+	
 	// 사용자 저장버튼
 	$("#btnRegist").on("click", function() {
 		
