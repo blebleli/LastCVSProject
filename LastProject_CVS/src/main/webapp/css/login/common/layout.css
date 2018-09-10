@@ -14,7 +14,8 @@ body li{*vertical-align:top}
 ul li{list-style:none}
 table{border-collapse:collapse}
 hr{display:none}
-h1,h2,h3{margin:0;padding:0;font-size:1em}
+/* h1,h2,h3{margin:0;padding:0 ; font-size:1em} */
+h1,h2,h3{margin:0;padding:0}
 input.ie_placeholder{color:#ababab !important}
 input.ie_placeholder:-ms-input-placeholder{color:#ababab}
 input.placeholder{color:#ababab !important}

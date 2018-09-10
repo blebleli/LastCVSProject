@@ -41,7 +41,7 @@
 	
 <script type="text/javascript">
 
-	// 암호화 키가 없으면 loginview 재호출 - 공
+	// 암호화 키가 없으면 loginview 재호출 - 공별
 	var __rsaPrivateKey__ = "${sessionScope.__rsaPrivateKey__}"
 	if(__rsaPrivateKey__ == null || __rsaPrivateKey__ == '') {
 		location.href = "<c:url value='login/loginView' />";
@@ -51,7 +51,7 @@
 $(document).ready(function() {
 	
 	/**
-	* 메일 전송 - 공
+	* 메일 전송 - 공별
 	*/
 	$("#btnEmailAuth").on('click', function() {
 		
@@ -88,7 +88,7 @@ $(document).ready(function() {
 
 
 	/**
-	* 로그인버튼 클릭 - 공
+	* 로그인버튼 클릭 - 공별
 	*/
 	$("#btnLogin").on('click', function() {
    		
@@ -122,7 +122,7 @@ $(document).ready(function() {
 
 	
 	/**
-   	 * 암호화 - 공
+   	 * 암호화 - 공별
    	 */
    	function fnRsaEnc(value, rsaPublicKeyModulus, rsaPpublicKeyExponent) {
    	    var rsa = new RSAKey();
@@ -138,12 +138,14 @@ $(document).ready(function() {
 	<div class="products-breadcrumb">
 		<div class="container">
 			<ul>
-				<li><i class="fa fa-home" aria-hidden="true"></i><a href="index.html">Home</a><span>|</span></li>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
 				<li>로그인 & 회원가입</li>
 			</ul>
 		</div>
 	</div>
 <!-- //products-breadcrumb -->
+
+
 
 	<!-- login 비공통 -->
 	<div class="w3_login">

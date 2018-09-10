@@ -9,9 +9,11 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
 
+
+
 <style type="text/css">
 	div.field{width:750px}
-	span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
+	span.error_txt.small{display:inline;color:#ef0202;font-size:10px;}
 </style>
 
 <!-- 달력 js -->
@@ -225,6 +227,16 @@ function fn_errMessage(_obj, _text) {
 }
 
 </script>
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+				<li>아이디 & 비밀번호 찾기</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
 
 <div id="wrap">
 
@@ -272,7 +284,7 @@ function fn_errMessage(_obj, _text) {
 									<div class="field">
 										<label for="mem_name" class="label">이름</label>
 										<div>
-											<input type="text" id="mem_name" name="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px">
+											<input type="text" id="mem_name" name="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px"><br />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
@@ -290,7 +302,7 @@ function fn_errMessage(_obj, _text) {
 											<span class="hypen">-</span>
 											<input type="text" title="가운데 자리 입력" id="mem_tel_2" value="" class="input_text small" maxlength="4" style="width:77px">
 											<span class="hypen">-</span>
-											<input type="text" title="마지막 자리 입력" id="mem_tel_3" value="" class="input_text small" maxlength="4" style="width:81px">
+											<input type="text" title="마지막 자리 입력" id="mem_tel_3" value="" class="input_text small" maxlength="4" style="width:81px"><br />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 											<input type="hidden" id="mem_tel" name="mem_tel" value="" />
 										</div>
@@ -312,8 +324,8 @@ function fn_errMessage(_obj, _text) {
 										<font style="font-size: 24px;color: #6633cc;"><span class="msg_wrap"></span></font>
 									</label>
 								</div>
-								<div class="bn_ar">
-									<a href="javascript:void(0);" class="bn color1 coop4Dev" id="btnLoginView">로그인</a>
+								<div class="bn_ar1">
+									<a href="javascript:void(0);" class="bn color1 coop4Dev" id="btnLoginView">로그인하기</a>
 								</div>
 							</fieldset>
 						</div>
@@ -322,7 +334,7 @@ function fn_errMessage(_obj, _text) {
 						<div id="id_section_n" class="section mem_id_pw" style="display:none;">
 							<fieldset class="fieldset">
 								<div class="field">
-									<label for="user_name" class="label"><font style="font-size: 24px;color: #cc6666;">입력한 정보와 일치하는 이메일이아디가 없습니다.</font></label>
+									<label for="user_name" class="label"><font style="font-size:16px; color: #e03333;"><strong>입력한 정보와 일치하는 이메일 아이디가 없습니다.</strong></font></label>
 								</div>
 							</fieldset>
 						</div>
@@ -381,16 +393,21 @@ function fn_errMessage(_obj, _text) {
 								<fieldset class="fieldset">
 									<legend>이메일 간편가입회원 비밀번호 찾기 정보 입력</legend>
 									<div class="field">
-										<label for="mem_id_searchPw" class="label">이메일아이디</label>
+									 <ul>
+										<li style="font-size:12px; list-style-type: disc;">회원정보와 입력하신 정보가 일치하면 이메일로 인증메일이 발송됩니다.</li><br>
+									</ul>
+<!-- 									<ul><li style="padding-bottom:20px;font-size: 12px;" >회원정보와 입력하신 정보가 일치하면 이메일로 인증메일이 발송됩니다.</li> </ul> -->
+									
+										<label for="mem_id_searchPw" class="label">이메일아이디  </label>
 										<div>
-											<input type="text" id="mem_id_searchPw" name="mem_id" title="아이디(이메일) 입력" class="input_text small" style="width:268px;" />
+											<input type="text" id="mem_id_searchPw" name="mem_id" title="아이디(이메일) 입력" class="input_text small" style="width:268px;" /><br />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
 									<div class="field">
 										<label for="mem_name_searchPw" class="label">이름</label>
 										<div>
-											<input type="text" id="mem_name_searchPw" name="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px;">
+											<input type="text" id="mem_name_searchPw" name="mem_name" title="이름을 입력해주세요" value="" class="input_text small" style="width:268px;"><br />   
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
@@ -405,7 +422,7 @@ function fn_errMessage(_obj, _text) {
 						<div id="pw_section_n" class="section mem_id_pw" style="display:none;">
 							<fieldset class="fieldset">
 								<div class="field">
-									<label for="user_name" class="label"><font style="font-size: 24px;color: #cc6666;">입력한 정보와 일치하는 이메일이아디가 없습니다.</font></label>
+									<label for="user_name" class="label"><font style="font-size: 18px;color: #e03333;">입력한 정보와 일치하는 이메일 아이디가 없습니다.</font></label>
 								</div>
 							</fieldset>
 						</div>

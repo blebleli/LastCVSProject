@@ -1,7 +1,6 @@
-
-'<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Bootstrap -->
 <!-- <link href="/css/bootstrap.css" rel="stylesheet"> -->
@@ -14,26 +13,22 @@
 
 </style>
 
-<div class="products-breadcrumb">
-	<div class="container"></div>
-</div>
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+				<li>마이페이지</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
+
+
 <!-- //products-breadcrumb -->
 
 <!-- banner -->
-<div class="banner">
-	<div class="w3l_banner_nav_left">
-		<nav class="navbar nav_bottom">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header nav_2">
-				<button type="button" class="navbar-toggle collapsed navbar-toggle1"
-					data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-			</div>
-		</nav>
-	</div>
+
 	
 	<div class="w3l_banner_nav_right">
 		<!-- about -->

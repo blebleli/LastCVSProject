@@ -1062,7 +1062,7 @@ button.submit.check_out{
 /*-- //newsletter --*/
 /*-- footer --*/
 .footer{
-	padding:4em 0;
+	padding:2em 0;
 	background:#212121;
 }
 .w3_footer_grid h3{
@@ -1163,15 +1163,15 @@ button.submit.check_out{
 	color:#999;
 }
 .wthree_footer_copy{
-	margin: 4em 0 0;
-    padding: 3em 0 0;
+	margin: 2em 0 0;
+    padding: 1em 0 0;
     text-align: center;
     border-top: 1px solid #3A3A3A;
 }
 .wthree_footer_copy p{
 	font-size:14px;
 	color:#999;
-	line-height:1.8em;
+	line-height:1em;
 }
 .wthree_footer_copy p a{
 	color:#fff;
