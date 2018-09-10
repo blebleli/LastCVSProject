@@ -141,7 +141,7 @@ WHERE rn &lt;= #{wantNum}
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-10     
 	 -->
-<select id="getListBestProd" resultType="prodVo">
+<select id="getListBestProd" resultType="prodVo" parameterType="Map">
 		SELECT *
 		FROM (
 		        SELECT   T.PROD_ID
@@ -166,6 +166,35 @@ WHERE rn &lt;= #{wantNum}
 		      )
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	
+</select>
+
+<!-- 카테고리 별 제품 리스트 조회  -->
+<select id="getListCtgyBestProdList" parameterType="Map" resultType="prodVo">
+	SELECT *
+	FROM (
+	        SELECT  T.PROD_ID
+                   ,T.PROD_NAME
+                   ,T.PROD_PRICE
+                   ,T.FILE_PATH
+                   ,T.FILE_UPNAME
+                   , ROWNUM RN
+	        FROM (
+	                SELECT   P.PROD_ID
+	                        ,P.PROD_NAME
+	                        ,P.PROD_PRICE
+	                        ,P.FILE_PATH
+	                        ,P.FILE_UPNAME
+	                        ,SUM(BD_RATING) AS BD_RATING
+	                FROM PROD  P
+	                JOIN BOARD B
+	                ON P.PROD_ID = B.PROD_ID
+	                WHERE ${pr_class}=#{pr_class_id}
+	                GROUP BY P.PROD_ID, P.PROD_NAME, P.PROD_PRICE ,P.FILE_PATH ,P.FILE_UPNAME
+	                ORDER BY BD_RATING DESC
+	              )T
+	      )
+	WHERE RN BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+
 </select>
 
 
