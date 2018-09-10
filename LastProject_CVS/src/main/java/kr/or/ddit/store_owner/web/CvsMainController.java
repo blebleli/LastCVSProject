@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("cvsMainController")
 public class CvsMainController {
 	
-	@Resource(name="somainService")
+/*	@Resource(name="somainService")
 	private  soMainServiceInf somainService;
 	
 	@RequestMapping("/main")
@@ -58,14 +58,14 @@ public class CvsMainController {
 		return "cvs_dayend";
 	}
 	
-	@RequestMapping("/chartDay") // Åë°è ³¯Â¥º°
+	@RequestMapping("/chartDay") // ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½
 	public String chartDay(Model model){
 		return "cvs_chart_day";
 	}
 	
-	@RequestMapping("/chartProd") // Åë°è Á¦Ç°º°
+	@RequestMapping("/chartProd") // ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½
 	public String chartProd(Model model){
-		List<salelistJoinVo> saleList = somainService.getListSaleDis();	// Á¦Ç°º° List ÀúÀå
+		List<salelistJoinVo> saleList = somainService.getListSaleDis();	// ï¿½ï¿½Ç°ï¿½ï¿½ List ï¿½ï¿½ï¿½ï¿½
 		model.addAttribute("saleList",saleList);		
 		return "cvs_chart_prod";
 	}	
@@ -73,6 +73,6 @@ public class CvsMainController {
 	@RequestMapping("/setting")
 	public String cvsSetting(Model model){
 		return "cvs_setting";
-	}	
+	}	*/
 
 }
