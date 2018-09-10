@@ -37,6 +37,16 @@ import kr.or.ddit.user.search.model.CvsSearchVo;
 public interface ProdDaoInf {
 
 	
+	/**
+	* Method : getListBestProd
+	* Method 설명 : 베스트 상품 전체
+	* 최초작성일 : 2018. 9. 10
+	* 작성자 : 조종원
+	* 변경이력 :신규
+	* @param  Map<String, Object> map
+	* @return List<ProdVo>
+	*/
+	List<ProdVo> getListBestProd(Map<String, Object> map);
 	
 	/**
 	* Method : setInsertProd

@@ -151,6 +151,18 @@ public class ProdService implements ProdServiceInf {
 	}
 	
 	/**
+	* Method : getListBestProd
+	* Method 설명 : 베스트 상품 전체
+	* 최초작성일 : 2018. 9. 10
+	* 작성자 : 조종원
+	* 변경이력 :신규
+	* @return prodVo
+	*/
+	public List<ProdVo> getListBestProd(Map<String, Object> map){
+		return prodDao.getListBestProd(map);
+	}
+	
+	/**
 	 * 
 	 * Method   : getListProdBestCategory 
 	 * 최초작성일  : 2018. 9. 6. 

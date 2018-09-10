@@ -49,17 +49,26 @@ public class UserProdController {
 		return prodCtgyList;
 	}
 
+	
+	// 전체 보기 클릭 했을때
+	
 	@RequestMapping("/view")
-	public String view(@RequestParam(value="i")String i,@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="32")int pageSize, Model model){
+	public String view(@RequestParam(value="i")String i,@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="24")int pageSize, Model model){
+		
+		// i ==> 1:상품, 2 : 베스트 상품, 3:이벤트상품
 		model.addAttribute("i",i );
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", page);
-		paramMap.put("pageSize", pageSize);
-		if(i.equals("1")||i.equals("2")){
-			
+		paramMap.put("page", page);				// 원하는 페이지
+		paramMap.put("pageSize", pageSize);		// 한번에 출력될 양
+		
+		
+		if(i.equals("1")){										// 상품 일경우
 			List<ProdVo> allProdList = prodService.getAllProd(paramMap);
 			model.addAttribute("ctgyProdList", allProdList);
-		}else{
+		}else if (i.equals("2")) { 								//	베스트상품 일경우
+			List<ProdVo> bestAllProdList = prodService.getListBestProd(paramMap);
+			model.addAttribute("ctgyProdList", bestAllProdList);
+		}else if (i.equals("3")){								// 이벤트 상품일 경우
 			List<ProdVo> EventAllList = prodService.getAllEventProd(paramMap);
 			model.addAttribute("ctgyProdList", EventAllList);
 		}

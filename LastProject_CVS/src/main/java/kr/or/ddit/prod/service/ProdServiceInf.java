@@ -17,6 +17,18 @@ public interface ProdServiceInf {
 	
 	int deleteProd(String PROD_ID);
 	
+	
+	/**
+	* Method : getListBestProd
+	* Method 설명 : 베스트 상품 전체
+	* 최초작성일 : 2018. 9. 10
+	* 작성자 : 조종원
+	* 변경이력 :신규
+	* @param  Map<String, Object> map
+	* @return List<ProdVo>
+	*/
+	List<ProdVo> getListBestProd(Map<String, Object> map);
+	
 	/**
 	 * Method			:getCtgyProdList
 	 * Method 설명  : 카테고리별 제품 목록 조회
