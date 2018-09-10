@@ -18,9 +18,9 @@
 					<ul class="nav navbar-nav nav_1">
 					<li><a href="/userProd/view?i=${i }">전체</a></li>
 				<c:forEach items="${prodCtgy}" var="ctgy" varStatus="">
-					<li class="dropdown mega-dropdown active"><c:if
-							test="${ctgy.ctgy_id == ctgy.ctgy_level}">
-							<a href="/userProd/bestList?level=lg&ctgy_id=${ctgy.ctgy_id }&page=1&pageSize=32" class="dropdown-toggle" data-toggle="dropdown">${ctgy.ctgy_name}<span
+					<li class="dropdown mega-dropdown active">
+						<c:if test="${ctgy.ctgy_id == ctgy.ctgy_level}">
+							<a href="/userProd/bestList?level=lg&ctgy_id=${ctgy.ctgy_id }&page=1&pageSize=24" class="dropdown-toggle" data-toggle="dropdown">${ctgy.ctgy_name}<span
 								class="caret"></span>
 								
 							</a>
@@ -31,8 +31,9 @@
 									<ul>
 										<c:forEach items="${prodCtgy }" var="prodCtgy">
 											<c:if test="${ctgy_id == prodCtgy.ctgy_parent }">
-											<li><a href="/userProd/bestList?level=md&ctgy_id=${prodCtgy.ctgy_id }&page=1&pageSize=32">${prodCtgy.ctgy_name}
-											</a></li>
+											<li>
+												<a href="/userProd/bestList?level=md&ctgy_id=${prodCtgy.ctgy_id }&page=1&pageSize=32">${prodCtgy.ctgy_name}</a>
+											</li>
 											</c:if>
 										</c:forEach>
 									</ul>
