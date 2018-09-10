@@ -26,6 +26,8 @@
   	<typeAlias type="kr.or.ddit.model.StockVo" 			alias="stockVo"/>
   	<typeAlias type="kr.or.ddit.model.SupplyListVo" 	alias="supplyListVo"/>
   	<typeAlias type="kr.or.ddit.model.SupplyVo" 		alias="supplyVo"/>
+  	<typeAlias type="kr.or.ddit.model.StockVo" 		alias="stockVo"/>
+  	<typeAlias type="kr.or.ddit.model.StockListVo" 		alias="stockListVo"/>
 <!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
 
 	<!-- 제품 검색 -->
@@ -51,6 +53,7 @@
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale.xml"/> 
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/comments.xml"/>
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale_dis.xml"/>	
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/stock.xml"/>	
 	<!-- 소스코드생성 -->
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/tableCode.xml"/>
 	
