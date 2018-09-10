@@ -19,24 +19,15 @@
     	$(document).ready(function(){
     		
     		$('.bulk_action input').on('ifChecked', function () {
-    			alert("check"+ $(this).val());
-    			var requestList = [];
-    			requestList.push($(this).val());
-    			console.log(requestList);
-    			
+    			var requestProd =$(this).val();
+    			console.log(requestProd);
     			$.ajax({
-	    			uri : "requestList",
+	    			url : "requestList",
 	    			method:"get",
-	    			data : {"requestList":requestList},
-	    			success : function(responsedata){
-	    				console.log(responsedata);
-	    				alert(responsedata);
-	    			}
+	    			data : {"requestProd": requestProd},
 	    		});
     			
    			});
-    		
-    		
     	});
     </script>
 
@@ -90,9 +81,9 @@
                   <div class="x_content">
 
                     <p><code>발주신청하고싶은 제품</code>을 선택하세요 
-                    	<button type="submit" name="supplyRequest" aria-hidden="true">
+                    	<a href="/cvs/supplyReqest?page=1&pageSize=15">
                     		<i class="fa fa-sign-out" aria-hidden="true"></i>발주신청
-                    	</button>
+                    	</a>
                     </p>
 
                     <div class="table-responsive">
@@ -121,7 +112,7 @@
                         	
 	                          <tr class="even pointer">
 	                            <td class="a-center ">
-	                              <input type="checkbox" class="flat" name="table_records" id="requestProd" value="${stock }">
+	                              <input type="checkbox" class="flat" name="table_records" id="requestProd" value="${stock.prod_id}">
 	                            </td>
 	                            <td class=" ">${stock.prod_name }</td>
 	                            <td class=" ">${stock.supply_date }</td>
