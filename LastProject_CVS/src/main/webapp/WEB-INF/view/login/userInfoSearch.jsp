@@ -5,9 +5,7 @@
 <!-- login css -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
 
 
 

@@ -20,12 +20,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- login css  -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link> 
 
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link> --%>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link> --%>
 
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	<!-- font-awesome icons -->
