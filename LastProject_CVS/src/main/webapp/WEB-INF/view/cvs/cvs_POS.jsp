@@ -122,21 +122,88 @@
                <button type="button" class="btn btn-default btn-lg"style="width:100px">포인트</button>
               </div>
 
-			<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="col-md-4 col-sm-4 col-xs-4">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>결제내역 <small>Custom design</small></h2>
+                    <h2>바코드인식 <small>Custom design</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="x_content">
+                   <video id="player" width="350" height="300"controls autoplay></video>
+				    <button id="capture">Capture</button>
+				    <canvas id="snapshot" width=500 height=500 ></canvas>				    				
+				        <button onclick="startCapture(this)">인식하기</button>   
+				    <script>
+<!-- 카메라로 인삭하는 div ======================================================================= -->				    
+				    	var intervalID;
+				    
+				    	function getImage(){
+				    		var context = snapshot.getContext('2d');
+				            // Draw the video frame to the canvas.
+				            context.drawImage(player, 0, 0, snapshotCanvas.width,
+				                snapshotCanvas.height);
+				            return snapshotCanvas.toDataURL();
+				    	}
+				    	
+		    			function sendImage(){
+		    				//ajax로 전송 
+		    				var image = getImage();
+		    				
+		    				var request = $.ajax({
+		    					  url: "/cvs/bcdRead",
+		    					  method: "POST",
+		    					  data: { file : image },
+		    					  dataType: "json",
+		    					  contentType : "application/x-www-form-urlencoded" ,
+		    					  success : function (data) {		    				           
+		    				            if(data.resultMsg == "noFound"){
+		    				            	sendImage();
+		    				            } else {
+		    				            	console.log(data.resultMsg);
+			    							clearInterval(intervalID);
+		    				            }
+		    				      },		 						
+								  error : function(){console.log("error");}		  
+								  });	    							    			
+		    			}		    			
+
+				    	function startCapture(e) {
+				    		intervalID = setInterval(sendImage, 2000);
+						}
+
+				        var player = document.getElementById('player');
+				        var snapshotCanvas = document.getElementById('snapshot');
+				        var captureButton = document.getElementById('capture');
+				        var handleSuccess = function (stream) {
+				            // Attach the video stream to the video element and autoplay.
+				            player.srcObject = stream;
+				        };
+				
+				        navigator.mediaDevices.getUserMedia({ video: true })
+				            .then(handleSuccess);
+
+				    </script>
+				    			
+
+	
+                  </div>
+                </div>      
+              </div>
+              
+              
+              <div class="col-md-4 col-sm-4 col-xs-4">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>입력창 <small>Custom design</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
@@ -146,51 +213,30 @@
 
                   <div class="x_content">
 
-                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
-
-                    <div class="table-responsive">
-                      <table class="table">
-                
-                        <tr>
-                       
-                          <td  rowspan="5" colspan="2">바코트화면</td>
-                          <td   colspan="3" >입력창</td>
-                          <td   colspan="2" >계산</td>
-                         
-                        </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>2</td>  
-                          <td>3</td>                     
-                          <td>받은금액</td>
-                          <td>10,000원</td>
-                        </tr>
-                        <tr>
-                          <td>4</td>
-                          <td>5</td> 
-                          <td>6</td>
-                         <td>할인금액</td>
-                          <td>-1,000원</td>
-                        </tr>                                            
-                        <tr>
-                          <td>7</td>
-                          <td>8</td> 
-                          <td>9</td>    
-                           <td>상품합계</td>
-                          <td>2,000원</td>
-                        </tr>
-                        <tr>
-                       	   <td   colspan="3" >0</td>
-                       	   <td>거스름돈</td>
-                          <td>9,000원</td>
-                        </tr>
-                  
-                    </table>
-                    </div>
-							
-						
+	
                   </div>
-                </div>
+                </div>      
+              </div>
+              
+              
+              <div class="col-md-4 col-sm-4 col-xs-4">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>결과창 <small>Custom design</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+
+                  <div class="x_content">
+
+	
+                  </div>
+                </div>      
               </div>
 
               

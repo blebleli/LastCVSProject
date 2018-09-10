@@ -54,61 +54,98 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+                  
+  				  <br />  
+ <!-- 바코드 인식 화면 =============================================================== -->                                                       
                   <div class="x_content">
-                    <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                 
+                    <video id="player" width="350" height="300"controls autoplay></video>
+				    <button id="capture">Capture</button>
+				    <canvas id="snapshot" width=500 height=500 ></canvas>
+				    <div>				    				
+				    <!-- set interval -->
+<!-- 				    <form method="POST" action="/cvs/bcdRead" enctype="application/x-www-form-urlencoded">
+				            <input type="text" name="file" id="image"/>
+				            <input type="submit" value="전송"/>	         
+				        </form> -->
+				        <button onclick="startCapture(this)">인식하기</button>
+				    </div>
+				    <div id="qrcdResult">
+				    	
+				    </div>
+				    				    
+				    <script>
+				    
+				    	var intervalID;
+				    	var qrCodeText;
+				    
+				    	function getImage(){
+				    		var context = snapshot.getContext('2d');
+				            // Draw the video frame to the canvas.
+				            context.drawImage(player, 0, 0, snapshotCanvas.width,
+				                snapshotCanvas.height);
+				            return snapshotCanvas.toDataURL();
+				    	}
+				    	
+		    			function sendImage(){
+		    				//ajax로 전송 
+		    				var image = getImage();
+		    				
+		    				var request = $.ajax({
+		    					  url: "/cvs/bcdRead",
+		    					  method: "json",
+		    					  data: { file : image },
+		    					  dataType: "json",
+		    					  contentType : "application/x-www-form-urlencoded",
+		    					  
+		    					})
+		    					.done(function(qrFound) { 		  				
+		    						if(qrFound=="noFound"){
+		    							console.log("인식실패");
+		    							sendImage(); 				//인식 실패시 다시 요청		    							
+		    						}else{
+		    							//alert(qrFound);				//인식 성공 -- 
+		    							//$("#qrcdResult").html(qrFound);
+		    							console.log(qrFound.message);
+		    							clearInterval(intervalID);  //qr코드 인식성공시 internal stop
+		    						}		    						
+		    					 })
+		    					 .fail(function() {	//서버통신실패
+		    						 sendImage();
+		    						 console.log("fail");
+		    					 });		    			
+		    			}
 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Name / Initial</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <div id="gender" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                            </label>
-                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                              <input type="radio" name="gender" value="female"> Female
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                        </div>
-                      </div>
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                      </div>
-
-                    </form>
+				    	function startCapture(e) {
+				    		intervalID = setInterval(sendImage, 2000);
+						}
+				    
+				 
+				        var player = document.getElementById('player');
+				        var snapshotCanvas = document.getElementById('snapshot');
+				        var captureButton = document.getElementById('capture');
+				        var handleSuccess = function (stream) {
+				            // Attach the video stream to the video element and autoplay.
+				            player.srcObject = stream;
+				        };
+				
+/* 				        captureButton.addEventListener('click', function () {
+				            var context = snapshot.getContext('2d');
+				            // Draw the video frame to the canvas.
+				            context.drawImage(player, 0, 0, snapshotCanvas.width,
+				                snapshotCanvas.height);
+				            document.getElementById("image").value = snapshotCanvas.toDataURL();
+				        }); */
+				
+				        navigator.mediaDevices.getUserMedia({ video: true })
+				            .then(handleSuccess);
+				    </script>
+				    				    
+           
                   </div>
                 </div>
               </div>
+
 
               <div class="col-md-8 col-sm-8 col-xs-9">
                 <div class="x_panel">
