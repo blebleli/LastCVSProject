@@ -17,6 +17,19 @@
 		 WHERE MEM_ID = #{mem_id}
 	</select>
 	
+	<!-- 	아 이 디 : getMemTelCnt
+	  		반 환 값 : int
+	  		매개변수 : String(mem_Tel)
+	  		설    명 : 사용자 전화번호 중복 조회 (해당 아이디가 있는지 조회 개수반환) 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-10     
+	 -->
+	<select id="getMemTelCnt" parameterType="string" resultType="int">
+		SELECT COUNT(*)getListProdMember
+		  FROM MEMBER
+		 WHERE MEM_TEL = #{mem_Tel}
+	</select>
+	
 
 	<!-- 	아 이 디 : setInsertSignUpUser
 	  		매개변수 : memberVo
