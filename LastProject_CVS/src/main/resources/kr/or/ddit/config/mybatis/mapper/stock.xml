@@ -11,7 +11,7 @@
 <!-- </insert> -->
 
 <!-- 재고 조회 -->
-<select id="getStock" parameterType="String">
+<select id="getStock" parameterType="String" resultType="stockVo">
 	SELECT * 
 	FROM stock 
 	WHERE mem_id=#{mem_id}
