@@ -40,6 +40,15 @@ public class CvsChartController {
 	
 	private Logger logger = LoggerFactory.getLogger(CvsChartController.class);
 	
+	/**
+	 * Method : chartDay
+	 * 최초작성일 : 2018. 9. 10.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param model
+	 * @return
+	 * Method 설명 : 점주가 통계 - 날짜별 조회 할 수 있다.
+	 */
 	@RequestMapping("/chartDay") // 통계 (날짜별)
 	public String chartDay(Model model){
 		String mem_id = "hsj";
@@ -51,26 +60,18 @@ public class CvsChartController {
 		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
 		model.addAttribute("saleList", saleList);
 		logger.debug("{}",saleList);
-		
-//		kr.or.ddit.store_owner.web.CvsChartController.chartDay:53]
-//				- [salelistJoinVo [prod_name=씨앤)블루투스이어폰로즈
-//				, sale_amount=0
-//				, sale_sum=39800
-//				, mem_id=hsj
-//				, sd_sum=74000
-//				, sd_date=Mon Sep 10 11:23:48 KST 2018]
-//						
-//						
-//				, salelistJoinVo [prod_name=씨앤)블루투스이어폰블랙
-//				, sale_amount=0
-//				, sale_sum=19900
-//				, mem_id=hsj
-//				, sd_sum=74000
-//				, sd_date=Mon Sep 10 11:23:48 KST 2018]
-
 		return "cvs_chart_day";
 	}
 	
+	/**
+	 * Method : chartProd
+	 * 최초작성일 : 2018. 9. 10.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param model
+	 * @return
+	 * Method 설명 : 점주가 통계 - 제품별 조회 할 수 있다.
+	 */
 	@RequestMapping("/chartProd") // 통계 (제품별)
 	public String chartProd(Model model){
 		String mem_id = "hsj";
