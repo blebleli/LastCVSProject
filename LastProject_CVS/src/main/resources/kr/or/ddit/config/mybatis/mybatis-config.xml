@@ -58,6 +58,7 @@
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale_dis.xml"/>	
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/stock.xml"/>	
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/supply.xml"/>	
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/bookmark.xml"/>	
 	
 	<!-- 소스코드생성 -->
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/tableCode.xml"/>

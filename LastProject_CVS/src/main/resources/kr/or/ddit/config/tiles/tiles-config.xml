@@ -23,6 +23,10 @@
 	<definition name="/login/*" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" />
 	</definition>
+	
+	<!-- 에러페이지 -KONG -->
+	<definition name="/common/error/error" template="/WEB-INF/view/common/error/error.jsp">
+	</definition>
 
 	<!--조계환 편의점 검색 메인 화면 -->
 	<definition name="cvsSearch" extends="userBasicLayout">

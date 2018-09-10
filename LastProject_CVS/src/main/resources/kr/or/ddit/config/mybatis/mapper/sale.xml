@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sale">
-
+	
 	<!-- 해당 id 사용자의 모든 결제내역 조회 -->
 	<select id="getMyPayList" parameterType="String" resultType="payVo">
+		SELECT PAY_ID
+			 , PAY_SUM
+			 , PAY_DATE
+			 , PAY_NY
+			 , MEM_ID
+			 , SD_ID
+			 , PAY_CASH
+			 , PAY_CARD
+			 , SHIPLIST_ID
+		 FROM PAY
+		WHERE MEM_ID = #{mem_id}
+	</select>
+	
+	<!-- 해당 id 사용자의 모든 결제내역 조회 -->
+	<select id="getMyPayPageList" parameterType="payVo" resultType="payVo">
 		SELECT *
-		  FROM PAY
-		 WHERE MEM_ID = #{mem_id}
+		FROM (SELECT a.*, ROWNUM rn
+			  FROM
+				  (SELECT COUNT(*) OVER() AS TOT_CNT
+				        , PAY_ID
+						, PAY_SUM
+						, PAY_DATE
+						, PAY_NY
+						, MEM_ID
+						, SD_ID
+						, PAY_CASH
+						, PAY_CARD
+						, SHIPLIST_ID
+					 FROM PAY
+					WHERE MEM_ID = #{mem_id}
+					ORDER BY pay_date DESC)
+			  a )
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
 </mapper>	
