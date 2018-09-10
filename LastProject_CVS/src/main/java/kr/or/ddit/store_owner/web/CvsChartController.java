@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 담당 --김마음
@@ -50,8 +51,9 @@ public class CvsChartController {
 	 * Method 설명 : 점주가 통계 - 날짜별 조회 할 수 있다.
 	 */
 	@RequestMapping("/chartDay") // 통계 (날짜별)
-	public String chartDay(Model model){
-		String mem_id = "hsj";
+	public String chartDay(@RequestParam("mem_id") String mem_id, Model model){
+		System.out.println("===================================> " + mem_id);
+//		String mem_id = "hsj";
 //		String sd_date = "2018-09-10";
 //		String sd_date2 = "2018-09-24";
 //		salelistJoinVo saleVo = new salelistJoinVo();
