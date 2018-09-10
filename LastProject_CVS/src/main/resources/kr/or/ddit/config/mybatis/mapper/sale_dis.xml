@@ -2,15 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="saledis">
 
+	<!-- 판매  -->
+
 	<!-- 제품 통계 조회 -->
-	<select id="getListSaleDis" resultType="saledisjoinVo">
-		SELECT ROW_NUMBER() OVER(ORDER BY a.sale_sum DESC)
-				, c.prod_name
-				, a.sale_amount
-				, a.sale_sum
-			FROM sale_list a, sale_dis b, prod c
-			WHERE a.prod_id=c.prod_id
-			AND b.mem_id = '3630000-104-2015-00121'
+	<select id="getListSaleDis" parameterType="String" resultType="saledisjoinVo">
+		SELECT distinct (sd_sum), prod_name, mem_id, sale_sum, sd_date
+		FROM  sale_dis   sale
+		JOIN  sale_list  salelist
+		ON    sale.sd_id = salelist.sd_id
+		JOIN  prod       prod
+		ON    salelist.prod_id = prod.prod_id
+	    WHERE sd_date BETWEEN TO_DATE('2018-09-10','YYYY-MM-DD') AND TO_DATE('2018-09-24','YYYY-MM-DD') + 0.99999
+	    AND sale.mem_id = #{mem_id}
+    	ORDER BY sale_sum DESC
 	</select>
 	
 	<!-- 제품 통계 조회 -->

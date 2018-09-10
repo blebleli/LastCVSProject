@@ -1,4 +1,4 @@
-﻿
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- forEach가 안 먹혀서 한번 더 복사했음. -->
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -8,6 +8,291 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <script src="../build/js/jquery-1.12.4.js"></script>
+    <script>
+    
+    $(function(){
+
+		
+		if( typeof (echarts) === 'undefined'){ return; }
+		console.log('init_echarts');
+	
+
+		  var theme = {
+		  color: [
+			  '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
+			  '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
+		  ],
+
+		  title: {
+			  itemGap: 8,
+			  textStyle: {
+				  fontWeight: 'normal',
+				  color: '#408829'
+			  }
+		  },
+
+		  dataRange: {
+			  color: ['#1f610a', '#97b58d']
+		  },
+
+		  toolbox: {
+			  color: ['#408829', '#408829', '#408829', '#408829']
+		  },
+
+		  tooltip: {
+			  backgroundColor: 'rgba(0,0,0,0.5)',
+			  axisPointer: {
+				  type: 'line',
+				  lineStyle: {
+					  color: '#408829',
+					  type: 'dashed'
+				  },
+				  crossStyle: {
+					  color: '#408829'
+				  },
+				  shadowStyle: {
+					  color: 'rgba(200,200,200,0.3)'
+				  }
+			  }
+		  },
+
+		  dataZoom: {
+			  dataBackgroundColor: '#eee',
+			  fillerColor: 'rgba(64,136,41,0.2)',
+			  handleColor: '#408829'
+		  },
+		  grid: {
+			  borderWidth: 0
+		  },
+
+		  categoryAxis: {
+			  axisLine: {
+				  lineStyle: {
+					  color: '#408829'
+				  }
+			  },
+			  splitLine: {
+				  lineStyle: {
+					  color: ['#eee']
+				  }
+			  }
+		  },
+
+		  valueAxis: {
+			  axisLine: {
+				  lineStyle: {
+					  color: '#408829'
+				  }
+			  },
+			  splitArea: {
+				  show: true,
+				  areaStyle: {
+					  color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
+				  }
+			  },
+			  splitLine: {
+				  lineStyle: {
+					  color: ['#eee']
+				  }
+			  }
+		  },
+		  timeline: {
+			  lineStyle: {
+				  color: '#408829'
+			  },
+			  controlStyle: {
+				  normal: {color: '#408829'},
+				  emphasis: {color: '#408829'}
+			  }
+		  },
+
+		  k: {
+			  itemStyle: {
+				  normal: {
+					  color: '#68a54a',
+					  color0: '#a9cba2',
+					  lineStyle: {
+						  width: 1,
+						  color: '#408829',
+						  color0: '#86b379'
+					  }
+				  }
+			  }
+		  },
+		  map: {
+			  itemStyle: {
+				  normal: {
+					  areaStyle: {
+						  color: '#ddd'
+					  },
+					  label: {
+						  textStyle: {
+							  color: '#c12e34'
+						  }
+					  }
+				  },
+				  emphasis: {
+					  areaStyle: {
+						  color: '#99d2dd'
+					  },
+					  label: {
+						  textStyle: {
+							  color: '#c12e34'
+						  }
+					  }
+				  }
+			  }
+		  },
+		  force: {
+			  itemStyle: {
+				  normal: {
+					  linkStyle: {
+						  strokeColor: '#408829'
+					  }
+				  }
+			  }
+		  },
+		  chord: {
+			  padding: 4,
+			  itemStyle: {
+				  normal: {
+					  lineStyle: {
+						  width: 1,
+						  color: 'rgba(128, 128, 128, 0.5)'
+					  },
+					  chordStyle: {
+						  lineStyle: {
+							  width: 1,
+							  color: 'rgba(128, 128, 128, 0.5)'
+						  }
+					  }
+				  },
+				  emphasis: {
+					  lineStyle: {
+						  width: 1,
+						  color: 'rgba(128, 128, 128, 0.5)'
+					  },
+					  chordStyle: {
+						  lineStyle: {
+							  width: 1,
+							  color: 'rgba(128, 128, 128, 0.5)'
+						  }
+					  }
+				  }
+			  }
+		  },
+		  gauge: {
+			  startAngle: 225,
+			  endAngle: -45,
+			  axisLine: {
+				  show: true,
+				  lineStyle: {
+					  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
+					  width: 8
+				  }
+			  },
+			  axisTick: {
+				  splitNumber: 10,
+				  length: 12,
+				  lineStyle: {
+					  color: 'auto'
+				  }
+			  },
+			  axisLabel: {
+				  textStyle: {
+					  color: 'auto'
+				  }
+			  },
+			  splitLine: {
+				  length: 18,
+				  lineStyle: {
+					  color: 'auto'
+				  }
+			  },
+			  pointer: {
+				  length: '90%',
+				  color: 'auto'
+			  },
+			  title: {
+				  textStyle: {
+					  color: '#333'
+				  }
+			  },
+			  detail: {
+				  textStyle: {
+					  color: 'auto'
+				  }
+			  }
+		  },
+		  textStyle: {
+			  fontFamily: 'Arial, Verdana, sans-serif'
+		  }
+	  };
+
+	  
+	  //echart Bar
+	  
+	if ($('#mainb').length ){
+	  
+		  var echartBar = echarts.init(document.getElementById('mainb'), theme);
+
+		  echartBar.setOption({
+			title: {
+			  text: 'Graph title',
+			  subtext: 'Graph Sub-text'
+			},
+			tooltip: {
+			  trigger: 'axis'
+			},
+			legend: {
+			  data: ['sales']
+			},
+			toolbox: {
+			  show: false
+			},
+			calculable: false,
+			xAxis: [{
+			  type: 'category',
+			  data: ['1주', '2주', '3주', '4주', '5주']
+			}],
+			yAxis: [{
+			  type: 'value'
+			}],
+			series: [{
+			  name: 'sales',
+			  type: 'bar',
+			  data: [1.1, 1.2, 1.3, 1.4, $("#sd_sum").val()],
+			  markPoint: {
+				data: [{
+				  type: 'max',
+				  name: '???'
+				}, {
+				  type: 'min',
+				  name: '???'
+				}]
+			  },
+			  markLine: {
+				data: [{
+				  type: 'average',
+				  name: '???'
+				}]
+			  }
+			}]
+		  });
+
+	}
+
+
+
+
+
+
+    	
+    });
+    
+    
+    </script>
  
 
         <!-- page content -->
@@ -15,7 +300,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Echarts <small>Some examples to get you started</small></h3>
+                <h3>날짜별 <small>주간, 월간, 연간 제품 판매액 통계입니다.</small></h3>
               </div>
 
               <div class="title_right">
@@ -56,8 +341,11 @@
                   </div>
                   <div class="x_content">
 
-                    <div id="mainb" style="height:350px;"></div>
-
+                    <div id="mainb" style="height:350px;">
+                    	<c:forEach items="${saleList}" var="vo">
+                    	<input type="text" id="sd_sum" name="sd_sum" value=${vo.sd_sum }>                    	
+                    	</c:forEach>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -89,4 +377,4 @@
     <script src="../vendors/echarts/map/js/world.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="../build/js/custom.js"></script>

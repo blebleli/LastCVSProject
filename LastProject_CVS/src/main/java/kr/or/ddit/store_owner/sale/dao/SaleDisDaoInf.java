@@ -34,7 +34,7 @@ public interface SaleDisDaoInf {
 	/**
 	* Method : setInsertSaleDis
 	* Method 설명 :제품이 새로이 판매되었을 때 신규 내역 작성 기능 (조건 : 판매 종류)
-	* 												SALE_KIND : 판매 : 88, 폐기 : 99
+	* 												SALE_KIND : 판매 : 88, 폐기 : 99, 온라인 : on, 오프라인 : off
 	* 최초작성일 : 2018. 8. 31.
 	* 작성자 : 조계환
 	* 변경이력 :신규

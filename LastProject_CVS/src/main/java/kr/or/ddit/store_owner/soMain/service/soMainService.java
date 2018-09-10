@@ -25,7 +25,7 @@ public class soMainService implements soMainServiceInf {
 	* @return
 	*/
 	@Override
-	public List<salelistJoinVo> getListSaleDis(){ 
-		return somainDao.getListSaleDis();
+	public List<salelistJoinVo> getListSaleDis(String mem_id){ 
+		return somainDao.getListSaleDis(mem_id);
 	}
 }

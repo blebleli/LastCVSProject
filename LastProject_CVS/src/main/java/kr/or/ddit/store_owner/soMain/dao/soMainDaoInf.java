@@ -39,7 +39,7 @@ public interface soMainDaoInf {
 	* 조 회 :List<SaleDisVo> getListSaleDis()_판매량 정보 리스트 출력 기능
 	* @return
 	*/
-	List<salelistJoinVo> getListSaleDis();
+	List<salelistJoinVo> getListSaleDis(String mem_id);
 	
 	/**
 	* Method : getDisposalList

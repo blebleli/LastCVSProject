@@ -25,8 +25,8 @@ public class soMainDao implements soMainDaoInf {
 	* @return
 	*/
 	@Override
-	public List<salelistJoinVo> getListSaleDis() {
-		return template.selectList("saledis.getListSaleDis");
+	public List<salelistJoinVo> getListSaleDis(String mem_id) {
+		return template.selectList("saledis.getListSaleDis",mem_id);
 	}
 
 	@Override
