@@ -37,14 +37,39 @@ public class CvsSupplyInController {
 	@Resource(name="supplyService")
 	private SupplyServiceInf suppltService;
 	
+	/**
+	* Method : cvsSupplyIn
+	* Method 설명 :입고 목록 리스트 화면으로 이동
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param model
+	* @return
+	*/
 	@RequestMapping("/supplyIn")
 	public String cvsSupplyIn(Model model){
 		
 		List<SupplyVo> supplyList = suppltService.getListSupply();
 		
 		model.addAttribute("supplyList",supplyList);
-		
 		return "cvs_supply_in";
+	}
+	
+	/**
+	* Method : cvsSupplyDetail
+	* Method 설명 :입고 리스트 상세보기
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param model
+	* @return
+	*/
+	@RequestMapping(value="/supplyDetail")
+	public String cvsSupplyDetail(Model model){
+		
+		return "";
 	}
 	
 }

@@ -142,5 +142,4 @@ public class UserMainController {
 		 return "myPage";
 	 }
 	
-	
 }
