@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.commons.model.MailVo;
+import kr.or.ddit.commons.service.CommonsServiceInf;
 import kr.or.ddit.commons.service.SendMailServiceInf;
 import kr.or.ddit.commons.util.RSA;
 import kr.or.ddit.login.service.SignUpServiceInf;
@@ -42,6 +43,9 @@ public class LoginController {
 	
 	@Resource(name="signUpService")
 	private SignUpServiceInf signUpService;
+	
+	@Resource(name="commonService")
+	private CommonsServiceInf commonService; 
 	
 	@Autowired 
 	private ResourceLoader resourceLoader;
@@ -201,6 +205,19 @@ public class LoginController {
 			response.getWriter().print("DUPLI");
 			return;
 		}
+
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
+		//  주소합침     =  기본주소             + 상세주소
+		String addSum = memberVo.getMem_add() + memberVo.getMem_addr();
+		
+		// 사용자가 입력한 주소로 좌표 반환하기
+		Map<String, String> resultCoordinate  = commonService.transformationAddr(addSum);
+		
+		// memberVO 에 값 Set
+		memberVo.setMem_x(resultCoordinate.get("x"));
+		memberVo.setMem_y(resultCoordinate.get("y"));
+		
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
 		
 		int result = signUpService.newMember(memberVo);
 
