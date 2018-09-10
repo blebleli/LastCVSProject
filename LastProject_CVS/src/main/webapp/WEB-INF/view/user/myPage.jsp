@@ -22,7 +22,7 @@ $(document).ready(function() {
 	if("${!empty tab}") {
 		$("ul#myTab > li > a[href=#${tab}]").trigger("click");
 		// focus 안먹네
-		$("div#${tab}").next().attr("tabindex", -1).focus();
+		//$("div#${tab}").next().attr("tabindex", -1).focus();
 	}
 	
 	/**
