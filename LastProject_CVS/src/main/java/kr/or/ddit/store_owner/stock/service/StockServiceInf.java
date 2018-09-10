@@ -39,4 +39,16 @@ public interface StockServiceInf {
 	* @return
 	*/
 	List<PresentStockListVo> getListStockOne(String stock_id);
+	
+	/**
+	* Method : getStockProd
+	* Method 설명 : 해당 편의점의 재고조회
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param String prod_id
+	* @return PresentStockListVo
+	*/
+	PresentStockListVo getStockProd(String prod_id);
 }
