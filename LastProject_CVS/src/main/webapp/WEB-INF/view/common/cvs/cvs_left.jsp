@@ -48,7 +48,7 @@
           </li>  
           <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="chartDay">날자별</a></li>
+              <li><a href="chartDay">날짜별</a></li>
               <li><a href="chartProd">제품별</a></li>                 
             </ul>
           </li>         

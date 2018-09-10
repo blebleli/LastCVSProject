@@ -58,14 +58,14 @@ public class CvsMainController {
 		return "cvs_dayend";
 	}
 	
-	@RequestMapping("/chartDay") // ν†µκ³„ (λ‚ μ§λ³„)
+	@RequestMapping("/chartDay") // Ελ°θ ³―Β¥Ί°
 	public String chartDay(Model model){
 		return "cvs_chart_day";
 	}
 	
-	@RequestMapping("/chartProd") // ν†µκ³„ (μ ν’λ³„)
+	@RequestMapping("/chartProd") // Ελ°θ Α¦Η°Ί°
 	public String chartProd(Model model){
-		List<salelistJoinVo> saleList = somainService.getListSaleDis();	// μ ν’ ν†µκ³„ List μ €μ¥
+		List<salelistJoinVo> saleList = somainService.getListSaleDis();	// Α¦Η°Ί° List ΐϊΐε
 		model.addAttribute("saleList",saleList);		
 		return "cvs_chart_prod";
 	}	
