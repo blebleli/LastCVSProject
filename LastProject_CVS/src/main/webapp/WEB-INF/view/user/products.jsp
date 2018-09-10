@@ -104,6 +104,7 @@ $(function(){
 	});
 	
 	$("#searchBtn").on("click", function(){
+		alert("검색 버튼");
 // 		var page = 1;
 // 		var pageSize = 32;
 // 		var min =$("#min_price").val();
@@ -116,29 +117,75 @@ $(function(){
 			method :"get",
 			data : {"page":1, "pageSize":24, "min_price": $("#min_price").val(), "max_price" : $("#max_price").val(), "searchfor" : $("#searchName").val() },
 			success : function(responseData){
+				alert("성공");
 				console.log(responseData);
 				
 				$("#proList").val("");
 				
-				var content ='';
-				$.each(responseData, function(index,item){
-					content ='<div class="col-md-3 w3ls_w3l_banner_left"><div class="hover14 column"><div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid"><div class="agile_top_brand_left_grid_pos"><img src="/images/offer.png" alt=" " class="img-responsive" /></div><div class="agile_top_brand_left_grid1"><figure><div class="snipcart-item block"><div class="snipcart-thumb">'+'<a href="/userProd/detail?prod_id='+item.prod_id+'" id="prodImage"><img src="/images/5.png" alt=" " class="img-responsive" /></a>' +
-					'<p>'+item.prod_name+'</p>'+
-					'<h4>'+item.prod_price+'</h4>'+
-					'</div>'+
-					'<div class="snipcart-details">'+
-					'<form action="#" method="post">'+
-					'<fieldset>'+
-					'<input type="hidden" name="prod_id" value="'+item.prod_id+'" />'+
-					'<input type="submit" name="submit" value="Add to cart" class="button" />'+
-					'</fieldset>'+
-					'</form></div></div></figure></div></div></div></div>';
-				})
+				var content =
+					 '<div class="w3ls_w3l_banner_nav_center_grid1" id="proList"> 	<div class="list" >'
+					if (responseData == null) {
+						content += '<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >'
+						+'				해당 상품이 없습니다.'
+						+'			</div></div></div> ' 
+					} else {
+						content += 
+							 '			<div class="col-md-4 w3ls_w3l_banner_left liiist" name="liiist" >'
+							+'				<div class="hover14 column">'
+							+'				<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">'
+						$.each(responseData, function(index,item){
+							content += 
+							 '					<div class="agile_top_brand_left_grid_pos">'
+							+'						<img src="'item.file_path+'/'+item.file_upname+''" alt=" " class="img-responsive" />'
+							+'					</div>'
+							+'					<div class="agile_top_brand_left_grid1">'
+							+'						<figure>'
+							+'							<div class="snipcart-item block">'
+							+'								<div class="snipcart-thumb">'
+							+'									<a href="/userProd/detail?prod_id='+item.prod_id+'" id="prodImage">'
+							+'										<img src="/images/5.png" alt=" " class="img-responsive" />'
+							+'									</a>'
+							+'									<p>'+item.prod_name+'</p>'
+							+'									<h4>'+item.prod_price+'</h4>'
+							+'								</div>'
+							+'								<div class="snipcart-details">'
+							+'									<form action="#" method="post">'
+							+'										<fieldset>'
+							+'											<input type="hidden" name="prod_id" value="'+item.prod_id+'" />'
+							+'											<input type="submit" name="submit" value="Add to cart" class="button" />'
+							+'										</fieldset>'
+							+'									</form>'
+							+'								</div>'
+							+'							</div>'
+							+'						</figure>'
+							+'					</div>'
+							+'				</div>'
+							
+								
+						}); //$.each(responseData, function(index,item){
+						content += 
+						'			</div>'
+						+'		</div>'
+						+'</div>'
+						+'<c:if test="${ctgyProdList != null }">'
+						+'	<form  id="nextFrm" >'
+						+'		<input type="hidden" id="index" value="1">'
+						+'		<input type="hidden" id="i" value="${i }">'
+						+'		<input type="hidden" id="level" value="${ctgylevel }">'
+						+'		<input type="hidden" id="ctgy_id" value="${ctgy_id }">'
+						+'		<input type="button" id="nextPage" value="더보기">'
+						+'	</form>'
+						+'</c:if>'
+						+'<div class="clearfix"> </div>'
+						+'</div>';
+					} // else {
 				$("#proList").val(content);
-			}
-			
-		});
-	});
+
+			} // 	success : function(responseData){
+		});	// $.ajax({
+	});	 //$("#searchBtn").on("click", function(){
+		
+		
 	
 	$("#opoBtn").on("click", function(){
 		$("#event_id").val("201");
@@ -272,8 +319,9 @@ $(function(){
 					</div>	
 				</div>
 				</form>
-				<div class="w3ls_w3l_banner_nav_center_grid1">
-					<div class="list" id="proList">
+				
+				<div class="w3ls_w3l_banner_nav_center_grid1" id="proList">
+					<div class="list" >
 					<c:if test="${ctgyProdList == null }">
 						<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >
 							해당 상품이 없습니다.
@@ -291,7 +339,9 @@ $(function(){
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
-												<a href="/userProd/detail?prod_id=${prod.prod_id }" id="prodImage"><img src="/images/5.png" alt=" " class="img-responsive" /></a>
+												<a href="/userProd/detail?prod_id=${prod.prod_id }" id="prodImage">
+													<img src="/images/5.png" alt=" " class="img-responsive" />
+												</a>
 												<p>${prod.prod_name }</p>
 												<h4>${prod.prod_price }</h4>
 											</div>
@@ -321,8 +371,6 @@ $(function(){
 							<input type="button" id="nextPage" value="더보기">
 						</form>
 					</c:if>
-					
-					
 					<div class="clearfix"> </div>
 				</div>
 				</div>
