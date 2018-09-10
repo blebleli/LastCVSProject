@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 담당 --김마음
@@ -50,8 +52,10 @@ public class CvsChartController {
 	 * @return
 	 * Method 설명 : 점주가 통계 - 날짜별 조회 할 수 있다.
 	 */
-	@RequestMapping("/chartDay") // 통계 (날짜별)
-	public String chartDay(@RequestParam("mem_id") String mem_id, Model model){
+	@RequestMapping(value="/cvs/chartDay",method=RequestMethod.GET) // 통계 (날짜별)	
+	@ResponseBody
+	public List<salelistJoinVo> chartDay(@RequestParam(value="mem_id") String mem_id, Model model){
+		
 		System.out.println("===================================> " + mem_id);
 //		String mem_id = "hsj";
 //		String sd_date = "2018-09-10";
@@ -60,9 +64,12 @@ public class CvsChartController {
 //		saleVo.setMem_id(mem_id);
 //		saleVo.setSd_date(sd_date);
 		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
-		model.addAttribute("saleList", saleList);
+//		model.addAttribute("saleList", saleList);
+//		model.addAttribute("mem_id",mem_id);
 		logger.debug("{}",saleList);
-		return "cvs_chart_day";
+		System.out.println("===================================>222222222222 " + mem_id);
+		
+		return saleList;
 	}
 	
 	/**

@@ -233,9 +233,9 @@
 	  
 	  //echart Bar
 	  
-	if ($('#mainb').length ){
+	if ($('#mainb2').length ){
 	  
-		  var echartBar = echarts.init(document.getElementById('mainb'), theme);
+		  var echartBar = echarts.init(document.getElementById('mainb2'), theme);
 
 		  echartBar.setOption({
 			title: {
@@ -341,10 +341,11 @@
                   </div>
                   <div class="x_content">
 
-                    <div id="mainb" style="height:350px;">
+                    <div id="mainb2" style="height:350px;">
                     	<c:forEach items="${saleList}" var="vo">
-                    	<input type="text" id="sd_sum" name="sd_sum" value=${vo.sd_sum }>                    	
+                    	<input type="text" id="sd_sum" name="sd_sum" value=${vo.sd_sum }> 
                     	</c:forEach>
+                    	<input type="text" id="sd_sum" name="sd_sum" value="${mem_id}">                   	
                     </div>
                   </div>
                 </div>

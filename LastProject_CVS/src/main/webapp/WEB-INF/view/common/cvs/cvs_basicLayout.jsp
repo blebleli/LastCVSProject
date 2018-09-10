@@ -37,25 +37,23 @@
     <!-- left의 날짜별을 누르면 날짜별 내 월별화면으로 간다. -->
     <script src="../build/js/jquery-1.12.4.js"></script>
     <script>
-    	$(function(){
-    		$("#chartDay").click(function(){
+		$(document).ready(function(){
+    		$("#chartDay").on("click", function(){
+    			var mem_id = "hsj";
+    			console.log(mem_id);
     			$.ajax({
-    				type : "POST",
     				url : "/cvs/chartDay",
-    				method : "json",
-    				data : {mem_id:"hsj"},
-    				dataType : "json",
-    				error : function(){
-    					alert("재시도바랍니다.");
-    				},
-    				success : function(data){
-    					alert("넘어간 값 : " + data);
-    				}
-    				
-    			});
-    			
+    				type : "GET",
+    		        dataType : "json",
+    				data : {"mem_id" : mem_id},
+    			    success : function(data) {
+    			    	alert("요청 성공");
+					},
+					error : function(data) {
+						alert("요청 실패");
+					}
+        		});
     		});
-    		
     	});
     </script>
   </head>
