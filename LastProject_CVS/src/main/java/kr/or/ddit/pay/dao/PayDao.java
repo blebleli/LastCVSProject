@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.model.PayVo;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-
-import kr.or.ddit.model.PayVo;
 
 @Repository("payDao")
 public class PayDao implements PayDaoInf {
@@ -53,6 +53,21 @@ public class PayDao implements PayDaoInf {
 	@Override
 	public List<PayVo> getListMyPay(String mem_id) {
 		return template.selectList("sale.getMyPayList", mem_id);
+	}
+	
+
+	/**
+	 * 
+	 * Method   : getMyPayPageList 
+	 * 최초작성일  : 2018. 9. 10. 
+	 * 작성자 : 공은별
+	 * 변경이력 : 
+	 * @return 
+	 * Method 설명 : userId로 결제내역 조회 Paging
+	 */
+	@Override
+	public List<PayVo> getMyPayPageList(PayVo paramVo) {
+		return template.selectList("sale.getMyPayPageList", paramVo);
 	}
 
 

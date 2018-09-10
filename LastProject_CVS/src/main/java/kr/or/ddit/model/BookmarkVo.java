@@ -12,6 +12,9 @@ public class BookmarkVo {
 	private String prod_id;                               // 제품바코드
 	private String place_id;                               // 편의점
 	
+	private String prod_name;
+	private String prod_price;
+	
 	public BookmarkVo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -102,6 +105,22 @@ public class BookmarkVo {
 
 	public void setPlace_id(String place_id) {
 		this.place_id = place_id;
+	}
+
+	public String getProd_name() {
+		return prod_name;
+	}
+
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
+	}
+
+	public String getProd_price() {
+		return prod_price;
+	}
+
+	public void setProd_price(String prod_price) {
+		this.prod_price = prod_price;
 	}
 
 	@Override

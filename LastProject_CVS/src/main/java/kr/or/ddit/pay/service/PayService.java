@@ -44,6 +44,12 @@ public class PayService implements PayServiceInf {
 		// TODO Auto-generated method stub
 		return payDao.getListMyPay(mem_id);
 	}
+	
+
+	@Override
+	public List<PayVo> getMyPayPageList(PayVo paramVo) {
+		return payDao.getMyPayPageList(paramVo);
+	}
 
 
 }

@@ -13,7 +13,7 @@ public class SessionUtil {
 		if(session == null) {
 			return null;
 		}
-		return (MemberVo) session.getAttribute("memberVo");
+		return (MemberVo) session.getAttribute("userInfo");
 	}
 	
 	public static String getSessionMemberId(HttpServletRequest request) {

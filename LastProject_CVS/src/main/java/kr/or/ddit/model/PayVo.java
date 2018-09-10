@@ -1,6 +1,6 @@
 package kr.or.ddit.model;
 
-public class PayVo {
+public class PayVo extends PageVo {
 	
 	private String pay_id;                      // 결제코드
 	private int pay_sum;                        // 결제금액
@@ -11,7 +11,7 @@ public class PayVo {
 	private String pay_cash   ;                               
 	private String pay_card   ;
 	private String shiplist_id;
-
+	
 	public PayVo() {	
 		super();
 		// TODO Auto-generated constructor stub

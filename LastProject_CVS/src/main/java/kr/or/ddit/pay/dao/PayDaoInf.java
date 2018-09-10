@@ -1,6 +1,7 @@
 package kr.or.ddit.pay.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.model.PayVo;
 
@@ -90,5 +91,16 @@ public interface PayDaoInf {
 	 * Method 설명 : userId로 결제내역 조회
 	 */
 	List<PayVo> getListMyPay(String mem_id);
+	
+	/**
+	 * 
+	 * Method   : getMyPayPageList 
+	 * 최초작성일  : 2018. 9. 10. 
+	 * 작성자 : 공은별
+	 * 변경이력 : 
+	 * @return 
+	 * Method 설명 : userId로 결제내역 조회 Paging
+	 */
+	List<PayVo> getMyPayPageList(PayVo paramVo);
 
 }
