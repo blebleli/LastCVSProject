@@ -13,19 +13,51 @@
 
 $(function () {
 
+	// 가격대 검색 바 설정
     $("#range").ionRangeSlider({
         hide_min_max: true,
         keyboard: true,
         min: 0,
-        max: 5000,
+        max: 50000,
         from: 1000,
-        to: 4000,
+        to: 5000,
         type: 'double',
-        step: 1,
-        prefix: "$",
+        step: 2,
+        prefix: "￦",
         grid: true
     });
-
+    
+	
+	// 검색바 변경시 아래 가격 변경
+    $("#range").on('change keyup paste', function() {
+		
+    	var range =  $("#range").val();
+    	
+    	var rangeSplit = range.split(";");
+    	$("#min_price").val(rangeSplit[0]);
+    	$("#max_price").val(rangeSplit[1]);
+    	
+	});
+    
+	
+	// ==;; 적용안됨...
+	$("#min_price").on('change', function() {
+		
+    	var min_price =  $("#min_price").val();
+    	var range =  $("#range").val();
+    	var rangeSplit = range.split(";");
+    	$("#range").val(min_price+";"+rangeSplit[1]);
+    	
+	});
+	// ==;; 적용안됨...	
+	$("#max_price").on('change', function() {
+		
+    	var max_price =  $("#max_price").val();
+    	var range =  $("#range").val();
+    	var rangeSplit = range.split(";");
+    	
+    	$("#range").val(rangeSplit[0]+";"+max_price);
+	});
 });
 
 
@@ -47,7 +79,7 @@ $(function(){
 		$.ajax({
 			url :"nextList",
 			method :"get",
-			data : {"page" : pageIndex, "pageSize" : 32, "level" : $("#level").val(), "pr_class_id" : $("#ctgy_id").val(),"i" : $("#i").val() },
+			data : {"page" : pageIndex, "pageSize" : 24, "level" : $("#level").val(), "pr_class_id" : $("#ctgy_id").val(),"i" : $("#i").val() },
 			success : function(responseData){
 				$("#nextPage").remove();
 				console.log(responseData);
@@ -82,10 +114,12 @@ $(function(){
 		$.ajax({
 			url :"search",
 			method :"get",
-			data : {"page":1, "pageSize":32, "min_price": $("#min_price").val(), "max_price" : $("#max_price").val(), "searchfor" : $("#searchName").val() },
+			data : {"page":1, "pageSize":24, "min_price": $("#min_price").val(), "max_price" : $("#max_price").val(), "searchfor" : $("#searchName").val() },
 			success : function(responseData){
 				console.log(responseData);
-				$(".liiist").remove();
+				
+				$("#proList").val("");
+				
 				var content ='';
 				$.each(responseData, function(index,item){
 					content ='<div class="col-md-3 w3ls_w3l_banner_left"><div class="hover14 column"><div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid"><div class="agile_top_brand_left_grid_pos"><img src="/images/offer.png" alt=" " class="img-responsive" /></div><div class="agile_top_brand_left_grid1"><figure><div class="snipcart-item block"><div class="snipcart-thumb">'+'<a href="/userProd/detail?prod_id='+item.prod_id+'" id="prodImage"><img src="/images/5.png" alt=" " class="img-responsive" /></a>' +
@@ -99,8 +133,8 @@ $(function(){
 					'<input type="submit" name="submit" value="Add to cart" class="button" />'+
 					'</fieldset>'+
 					'</form></div></div></figure></div></div></div></div>';
-					$(".list").append(content);
 				})
+				$("#proList").val(content);
 			}
 			
 		});
@@ -124,8 +158,6 @@ $(function(){
 
 
 </script>
-</head>
-<html>
 
 <!-- products-breadcrumb -->
 <!-- 	<div class="products-breadcrumb"> -->
@@ -191,19 +223,29 @@ $(function(){
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row">가격대 검색</th>
+										<th scope="row" rowspan="2">가격대 검색</th>
 										<br>
 										<td>										
-											<div>
-												<input type="text" id="min_price" style="width:10%">&nbsp; ~ &nbsp; <input type="text" id="max_price" style="width:10%">&nbsp;&nbsp;&nbsp;
-												<input type="button" id="searchBtn" name="psBtn" class="btn btn-default" value="검색">
-<!-- 												<button type="button" class="btn btn-default">초기화</button>		 -->
-											</div>
 											<div style="position: relative; ">
 											    <div>
-											       <input type="text" id="range" value="" name="range" class="irs-hidden-input" tabindex="-1" readonly="">
+											       <input type="hidden" id="range" value="" name="range" class="irs-hidden-input" tabindex="-1" >
+											       <br/><br/>
 											    </div>
 											</div>
+										</td>
+											
+									</tr>
+									<tr>
+										<td>
+											<input type="number" id="min_price" style="width:30%">원
+											&nbsp; ~ &nbsp; 
+											<input type="number" id="max_price" style="width:30%">원
+											&nbsp;&nbsp;&nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<br/><br/>
 										</td>
 									</tr>
 									<tr>
@@ -216,9 +258,12 @@ $(function(){
 <!-- 		      												<button class="btn btn-default" type="submit">Go!</button> -->
 <!-- 	      												</span> -->
 <!--       												</form> -->
-   											</div>								
-
+   											</div>
+											
 												
+										</td>
+										<td>
+											<input type="button" id="searchBtn" name="psBtn" class="btn btn-default" value="검색">
 										</td>
 									</tr>
 								</tbody>
@@ -228,7 +273,7 @@ $(function(){
 				</div>
 				</form>
 				<div class="w3ls_w3l_banner_nav_center_grid1">
-					<div class="list">
+					<div class="list" id="proList">
 					<c:if test="${ctgyProdList == null }">
 						<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist" >
 							해당 상품이 없습니다.
@@ -285,5 +330,3 @@ $(function(){
 		<div class="clearfix"></div>
 	</div>
 <!-- //banner -->
-
-</html>
