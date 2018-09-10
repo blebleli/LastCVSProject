@@ -491,8 +491,9 @@ function fn_errMessage(_obj, _text) {
 									<input type="hidden" name="mem_cvs_name" value="테스트">
 									<input type="hidden" name="mem_cvs_tel" value="042-222-2222">
 									<input type="hidden" name="mem_intro" value="테스트">
-									<input type="hidden" name="mem_x" value="112.22222222222222">
-									<input type="hidden" name="mem_y" value="223.33333333333333">
+									<!-- 자동 변환 LoginController 완성 2018.09.10-jw -->
+<!-- 									<input type="hidden" name="mem_x" value="112.22222222222222"> -->
+<!-- 									<input type="hidden" name="mem_y" value="223.33333333333333"> -->
 									
 								</fieldset>
 							</div>
