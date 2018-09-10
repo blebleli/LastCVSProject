@@ -4,7 +4,7 @@ public class StockListVo {
 	
 	private String stcklist_id;                               // 재고리스트코드
 	private int stcklist_amount;                               // 수량
-	private String sicklist_exdate;                               // 유통기한
+	private String stcklist_exdate;                               // 유통기한
 	private String stck_date;                               // 날짜
 	private String stcklist_info;                               // 비고
 	private String stcklist_kind;                               // 재고 : 888, 마감 : 999
@@ -20,7 +20,7 @@ public class StockListVo {
 		super();
 		this.stcklist_id = stcklist_id;
 		this.stcklist_amount = stcklist_amount;
-		this.sicklist_exdate = sicklist_exdate;
+		this.stcklist_exdate = sicklist_exdate;
 		this.stck_date = stck_date;
 		this.stcklist_info = stcklist_info;
 		this.stcklist_kind = stcklist_kind;
@@ -40,10 +40,10 @@ public class StockListVo {
 		this.stcklist_amount = stcklist_amount;
 	}
 	public String getSicklist_exdate() {
-		return sicklist_exdate;
+		return stcklist_exdate;
 	}
 	public void setSicklist_exdate(String sicklist_exdate) {
-		this.sicklist_exdate = sicklist_exdate;
+		this.stcklist_exdate = sicklist_exdate;
 	}
 	public String getStck_date() {
 		return stck_date;
@@ -78,7 +78,7 @@ public class StockListVo {
 	@Override
 	public String toString() {
 		return "StockListVo [stcklist_id=" + stcklist_id + ", stcklist_amount="
-				+ stcklist_amount + ", sicklist_exdate=" + sicklist_exdate
+				+ stcklist_amount + ", sicklist_exdate=" + stcklist_exdate
 				+ ", stck_date=" + stck_date + ", stcklist_info="
 				+ stcklist_info + ", stcklist_kind=" + stcklist_kind
 				+ ", stock_id=" + stock_id + ", prod_id=" + prod_id + "]";
