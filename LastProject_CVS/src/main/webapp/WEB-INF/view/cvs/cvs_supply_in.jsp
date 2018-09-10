@@ -29,6 +29,12 @@
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  	<select name="job" class="form-control">
+					    <option value="날짜별">날짜별</option>
+					    <option value="코드별">코드별</option>
+					    <option value="처리별">처리별</option>
+					</select>
+					 <span class="input-group-btn"></span>
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
@@ -78,14 +84,15 @@
                         </tr>
                   	
                       </thead>
-	                      <c:forEach items="${supplyList}" var="vo">
-	                      	<form action="/cvs/supplyDetail" method="post" name="cm_content[0]" id="cm_content">
+	                      <c:forEach items="${supplyList}" var="vo"> <!-- 전체 입고 목록들 -->
+	                      	<form action="/cvs/supplyDetail" method="post" enctype="multipart/form-data">
+	                      		<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}"> 
 								<tr>
-									<td>1</td>	<!-- 넘버 -->
+									<td></td>	<!-- 넘버 -->
 									<td>${vo.supply_bcd}</td>	<!-- 바코드 -->
 									<td>${vo.supply_date}</td>	<!-- 입고날짜 -->
 									<td>
-									<c:set var="kind" value="${vo.supply_state}"/>
+									<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 -->
 										<c:choose>
 											<c:when test="${vo.supply_state == 12 }">
 												입고
@@ -95,8 +102,9 @@
 										    </c:otherwise>
 										</c:choose>
 									</td>
-									<td>30</td>					<!-- 총수량 -->
-									<td>120000</td>				<!-- 가격 -->
+									<td></td>					<!-- 총수량 -->
+									<td></td>				<!-- 가격 -->
+									<!-- 원하는 입고 목록 상세보기 화면으로 전환-->
 									<td><input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View"></td>	 <!-- 상세보기 -->
 								</tr>
 							</form>

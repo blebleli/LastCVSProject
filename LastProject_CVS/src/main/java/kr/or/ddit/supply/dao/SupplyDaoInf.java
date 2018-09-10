@@ -70,7 +70,7 @@ public interface SupplyDaoInf {
 	* @param supply_bcd
 	* @return
 	*/
-	List<SupplyVo> getListSupply(String supply_bcd);
+	SupplyListVo getListSupply(String supply_bcd);
 	
 	/**
 	* Method : updateSupply

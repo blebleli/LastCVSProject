@@ -4,9 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.board.web.userBoard.AdBoardController;
+import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +38,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("cvsSupplyIn")
 public class CvsSupplyInController {
 	
+	private Logger logger = LoggerFactory.getLogger(CvsSupplyInController.class);
+	
 	@Resource(name="supplyService")
 	private SupplyServiceInf suppltService;
 	
@@ -50,6 +56,7 @@ public class CvsSupplyInController {
 	@RequestMapping("/supplyIn")
 	public String cvsSupplyIn(Model model){
 		
+		//입고 리스트 전체 출력 
 		List<SupplyVo> supplyList = suppltService.getListSupply();
 		
 		model.addAttribute("supplyList",supplyList);
@@ -67,9 +74,18 @@ public class CvsSupplyInController {
 	* @return
 	*/
 	@RequestMapping(value="/supplyDetail")
-	public String cvsSupplyDetail(Model model){
+	public String cvsSupplyDetail(SupplyVo vo, Model model){
 		
-		return "";
+		//선택한 입고 리스트의 고유키(바코드)가 잘가져오는지 확인
+		String bcd = vo.getSupply_bcd();
+		logger.debug("bcd===== : "+bcd);
+		
+		//클릭한 입고 리스트의 상세 내역 메서드 실행(상세보기)
+		SupplyListVo supplyListVo = suppltService.getListSupply(bcd);
+		
+		model.addAttribute("supplyListVo",supplyListVo);
+		
+		return "cvs_invoice";
 	}
 	
 }

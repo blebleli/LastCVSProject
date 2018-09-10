@@ -6,7 +6,12 @@
 
 	<!-- 입고 리스트 가져오는 쿼리 -->
 	<select id="getListSupply" resultType="supplyVo">
-		select * from supply
+		SELECT * FROM supply
+	</select>
+	
+	<!-- 선택한 입고 리스트의 상세내역 -->
+	<select id="supplyDetail" parameterType="String" resultType="supplyListVo">
+		SELECT * FROM supply_list WHERE SUPPLY_BCD = #{SUPPLY_BCD}
 	</select>
 
 </mapper>

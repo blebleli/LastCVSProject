@@ -37,10 +37,19 @@ public class SupplyService implements SupplyServiceInf {
 		return SupplyDao.getListSupply();
 	}
 
+	/**
+	* Method : getListSupply
+	* Method 설명 :입고 내역 상세보기
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
 	@Override
-	public List<SupplyVo> getListSupply(String supply_bcd) {
-		// TODO Auto-generated method stub
-		return null;
+	public SupplyListVo getListSupply(String supply_bcd) {
+		return SupplyDao.getListSupply(supply_bcd);
 	}
 
 	@Override

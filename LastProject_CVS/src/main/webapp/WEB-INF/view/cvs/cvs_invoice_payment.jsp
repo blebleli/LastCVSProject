@@ -62,9 +62,9 @@
                       <div class="row">
                         <div class="col-xs-12 invoice-header">
                           <h1>
-	                          <i class="fa fa-globe"></i>
-	                          <small class="pull-right">Date: 16/08/2016</small>
-                          </h1>
+                                          <i class="fa fa-globe"></i> Invoice.
+                                          <small class="pull-right">Date: 16/08/2016</small>
+                                      </h1>
                         </div>
                         <!-- /.col -->
                       </div>
@@ -93,7 +93,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-4 invoice-col">
-                          <b>입고번호 ${supplyListVo.supply_bcd }</b>
+                          <b>입고번호 #007612</b>
                           <br>
                           <br>
                    
@@ -167,7 +167,7 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-xs-6">
-                          <p class="lead">결제 2018/09/10</p>
+                          <p class="lead">Amount Due 2/22/2014</p>
                           <div class="table-responsive">
                             <table class="table">
                               <tbody>
