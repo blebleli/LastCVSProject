@@ -39,6 +39,9 @@
   	<!-- 편의점 제품 통계 판매량 조회 -->  	
   	<typeAlias type="kr.or.ddit.store_owner.model.salelistJoinVo"		alias="saledisjoinVo"/>
   	
+  	<!-- 편의점의 현재 재고 목록 -->
+  	<typeAlias type="kr.or.ddit.store_owner.model.PresentStockListVo"	alias="presentStockListVo"/>
+  	
   	
   	
 	
