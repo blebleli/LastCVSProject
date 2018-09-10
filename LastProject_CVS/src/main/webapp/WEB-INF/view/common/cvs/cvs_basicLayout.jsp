@@ -33,6 +33,31 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    
+    <!-- left의 날짜별을 누르면 날짜별 내 월별화면으로 간다. -->
+    <script src="../build/js/jquery-1.12.4.js"></script>
+    <script>
+    	$(function(){
+    		$("#chartDay").click(function(){
+    			$.ajax({
+    				type : "POST",
+    				url : "/cvs/chartDay",
+    				method : "json",
+    				data : {mem_id:"hsj"},
+    				dataType : "json",
+    				error : function(){
+    					alert("재시도바랍니다.");
+    				},
+    				success : function(data){
+    					alert("넘어간 값 : " + data);
+    				}
+    				
+    			});
+    			
+    		});
+    		
+    	});
+    </script>
   </head>
 
   <body class="nav-md">
