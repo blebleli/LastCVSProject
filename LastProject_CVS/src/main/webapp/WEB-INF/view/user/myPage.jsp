@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+'<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- Bootstrap -->
 <!-- <link href="/css/bootstrap.css" rel="stylesheet"> -->
@@ -12,6 +11,47 @@
 <style>
 
 </style>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	/** 
+	 * 초기 탭 클릭
+	 */ 
+	if("${!empty tab}") {
+		$("ul#myTab > li > a[href=#${tab}]").trigger("click");
+		// focus 안먹네
+		$("div#${tab}").next().attr("tabindex", -1).focus();
+	}
+	
+	/**
+	 * 구매내역 행 클릭
+	 */
+	$("tr.paytr").bind("click", function() {
+		
+		// 상세tr 삭제
+		if($(this).next().hasClass("subPaytr")) {
+			$(this).next().remove();
+		}
+		else {
+			// 상세tr 전체삭제
+			$(this).parent().find('tr.subPaytr').each(function() {
+				$(this).remove();
+			});
+			// 상세tr 보여주기
+			var $subTr = $("<tr style='height:20px;' class='subPaytr'><td colspan='5'>뭘보여줘야지</td></tr>");
+			$(this).after($($subTr));
+		}
+		
+	});
+});
+
+</script>
+
+<div class="products-breadcrumb">
+	<div class="container"></div>
+</div>
 
 <!-- products-breadcrumb -->
 	<div class="products-breadcrumb">
@@ -25,7 +65,6 @@
 <!-- //products-breadcrumb -->
 
 
-<!-- //products-breadcrumb -->
 
 <!-- banner -->
 
@@ -300,7 +339,7 @@
 									</tr>
 								</thead>
 								<tbody>									
-									<c:forEach items="${starList}" var="vo">
+									<c:forEach items="${bookmarkList}" var="vo">
 										<c:if test="${vo.star_kind eq '222'}">
 											<tr>
 												<td>${vo.star_id} </td>
@@ -335,13 +374,13 @@
 													<div class="agile_top_brand_left_grid1 ">
 														<figure>
 															<div class="snipcart-item block">
-															<c:forEach items="${starList}" var="vo">
+															<c:forEach items="${bookmarkList}" var="vo">
 																<c:if test="${vo.star_kind eq '111'}">
 																<div class="snipcart-thumb">
 																	<a href="/userProd/detail?prod_id=${vo.prod_id}">
 																	<img src="/images/5.png" alt=" " class="img-responsive" /></a>
-																	<p>상품이름</p>
-																	<h4>가격</h4>
+																	<p align="center">${vo.prod_name}</p>
+																	<h4 align="center">${vo.prod_price} 원</h4>
 																</div>
 																<div class="snipcart-details">
 																	<form action="#" method="post">
@@ -373,8 +412,7 @@
 							</div>
 						</div>
 <!-- 구매내역----------------------------------------------------------------------------------------------------------- -->
-						<div role="tabpanel" class="tab-pane fade" id="tab_content5"
-							aria-labelledby="profile-tab">
+						<div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-tab">
 							1. 구매내역이 보여진 후 클릭하면, 2. 상세 구매내역이 보여지도록 해야됨
 							--상세구매내역 아코디언으로
 							<table class="table table-hover">
@@ -388,19 +426,20 @@
 									</tr>
 								</thead>
 								<tbody>
-								
-									<c:forEach items="${myPayList}" var="vo">								
-										<tr>
+									<c:forEach items="${myPayList}" var="vo">
+										<tr class="paytr" style="cursor: pointer;">
 											<td>${vo.pay_id}</td>
 											<td>${vo.pay_date}의 결제내역</td>
-											<td>총수량예정</td>											
+											<td>총수량예정</td>
 											<td>총합계예정</td>
 											<td>${vo.pay_date}</td>
 										</tr> 
 								    </c:forEach>								
 								</tbody>							
 							</table>
-							3. 페이징처리 필요
+							<div class="text-center" id="page">
+								<ul class="pagination">${pageNaviPayList}</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -410,5 +449,5 @@
 	<!-- //about -->
 </div>
 <div class="clearfix"></div>
-
+<div style="margin-bottom: 100px;"></div>
 <!-- //banner -->
