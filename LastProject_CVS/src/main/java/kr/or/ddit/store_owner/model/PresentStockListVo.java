@@ -1,11 +1,13 @@
 package kr.or.ddit.store_owner.model;
 
+import java.util.Date;
+
 public class PresentStockListVo {
 
 	private String prod_id;
 	private String prod_name;                               // 이름
-	private String supply_date;                               // 날짜
-	private String stcklist_exdate;                               // 유통기한
+	private Date supply_date;                               // 날짜
+	private Date stcklist_exdate;                               // 유통기한
 	private int prod_price;                               // 가격
 	private int stcklist_amount;                               // 수량
 	private String event_id;                               // 행사제품코드
@@ -15,8 +17,10 @@ public class PresentStockListVo {
 		super();
 	}
 
+	
+
 	public PresentStockListVo(String prod_id, String prod_name,
-			String supply_date, String stcklist_exdate, int prod_price,
+			Date supply_date, Date stcklist_exdate, int prod_price,
 			int stcklist_amount, String event_id, String stcklist_id) {
 		super();
 		this.prod_id = prod_id;
@@ -28,6 +32,8 @@ public class PresentStockListVo {
 		this.event_id = event_id;
 		this.stcklist_id = stcklist_id;
 	}
+
+
 
 	public String getProd_id() {
 		return prod_id;
@@ -45,19 +51,19 @@ public class PresentStockListVo {
 		this.prod_name = prod_name;
 	}
 
-	public String getSupply_date() {
+	public Date getSupply_date() {
 		return supply_date;
 	}
 
-	public void setSupply_date(String supply_date) {
+	public void setSupply_date(Date supply_date) {
 		this.supply_date = supply_date;
 	}
 
-	public String getStcklist_exdate() {
+	public Date getStcklist_exdate() {
 		return stcklist_exdate;
 	}
 
-	public void setStcklist_exdate(String stcklist_exdate) {
+	public void setStcklist_exdate(Date stcklist_exdate) {
 		this.stcklist_exdate = stcklist_exdate;
 	}
 
