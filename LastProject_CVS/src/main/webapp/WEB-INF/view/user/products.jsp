@@ -1,9 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<head>
+
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/normalize.css' />" media="all"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/ion.rangeSlider.css' />" media="all"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/ion.rangeSlider.skinFlat.css' />" media="all"></link>
+<script type="text/javascript" src="<c:url value='/js/jquery-1.12.3.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/ion.rangeSlider.js' />"></script>
+
 <script>
+
+
+
+$(function () {
+
+    $("#range").ionRangeSlider({
+        hide_min_max: true,
+        keyboard: true,
+        min: 0,
+        max: 5000,
+        from: 1000,
+        to: 4000,
+        type: 'double',
+        step: 1,
+        prefix: "$",
+        grid: true
+    });
+
+});
+
+
+
+
 $(function(){
 	
 	$("#prodImage").on("click", function(){
@@ -169,10 +196,15 @@ $(function(){
 										<td>										
 											<div>
 												<input type="text" id="min_price" style="width:10%">&nbsp; ~ &nbsp; <input type="text" id="max_price" style="width:10%">&nbsp;&nbsp;&nbsp;
-												<input type="button" id="searchBtn" name="psBtn" class="btn btn-default" value="검색">																																		
+												<input type="button" id="searchBtn" name="psBtn" class="btn btn-default" value="검색">
 <!-- 												<button type="button" class="btn btn-default">초기화</button>		 -->
 											</div>
-										</td>										
+											<div style="position: relative; ">
+											    <div>
+											       <input type="text" id="range" value="" name="range" class="irs-hidden-input" tabindex="-1" readonly="">
+											    </div>
+											</div>
+										</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="store_name">검색</label></th>
