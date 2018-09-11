@@ -78,10 +78,19 @@ public class SupplyService implements SupplyServiceInf {
 		return 0;
 	}
 
+	/**
+	 * 
+	 * Method   : getListSupplyList 
+	 * 최초작성일  : 2018. 9. 11. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param supply_bcd
+	 * @return 
+	 * Method 설명 :
+	 */
 	@Override
-	public List<SupplyListVo> getListSupplyList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SupplyListVo> getListSupplyList(String supply_bcd) {
+		return SupplyDao.getListSupplyList(supply_bcd);
 	}
 
 	@Override

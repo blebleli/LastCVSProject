@@ -7,15 +7,27 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Base64.Decoder;
+import java.util.List;
+import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
+import kr.or.ddit.commons.dao.AutoCodeInf;
+import kr.or.ddit.commons.dao.CommonsDaoInf;
+import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.model.SupplyListVo;
+import kr.or.ddit.supply.service.SupplyServiceInf;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.zxing.BinaryBitmap;
@@ -49,6 +61,11 @@ import com.google.zxing.common.HybridBinarizer;
 @Controller("cvsBarcodeController")
 public class CvsBarcodeController {
 	
+	private Logger logger = LoggerFactory.getLogger(CvsBarcodeController.class);
+	
+	@Resource(name="supplyService")
+	private SupplyServiceInf supplyService;
+	
 	@RequestMapping("/barcode")
 	public String cvsBarcode(Model model){
 		return "cvs_barcode_read";
@@ -64,20 +81,9 @@ public class CvsBarcodeController {
 	 * @param model
 	 * @return 
 	 * Method 설명 : 바코드 이미지 코드를 읽어 상태반환
-	 */
-	/*@RequestMapping("/bcdRead")
-	 public ResponseEntity<String> bcdRead(@RequestParam("file") String file,
-			 				  Model model) {
-		String[] stringPart = file.split(",");	
-		Decoder decoder = Base64.getDecoder();
-		byte[] fileByte = decoder.decode(stringPart[1]);
-		String found = decode(fileByte);
-	
-       return new ResponseEntity<>(found, HttpStatus.OK);
-	 }*/
-	
-	
+	 */	
 	@RequestMapping("/bcdRead")
+	@ResponseBody
 	 public ModelAndView bcdRead(@RequestParam("file") String file,Model model) {
 		
 		ModelAndView mav = new ModelAndView("jsonView");
@@ -85,21 +91,17 @@ public class CvsBarcodeController {
 		String[] stringPart = file.split(",");	
 		Decoder decoder = Base64.getDecoder();
 		byte[] fileByte = decoder.decode(stringPart[1]);
-		String found = decode(fileByte);
-
-		mav.addObject("resultMsg", found);
-		mav.addObject("list", found);
-
+		Map<String, Object> found = decode(fileByte);
+		logger.debug("returnMsg ------"+found.get("returnMsg"));	
+		mav.addObject("returnMsg", found.get("returnMsg"));		
+	
+		if(found.get("returnMsg")!= null){
+			mav.addObject("supplyList", found.get("supplyList"));	
+		}
+		
 		return mav;
 	 }	 
 	 
-	
-	@RequestMapping("/bcdGenerator")
-	 public String bcdGenerator() {
-
-		 return "qrCodeGenerator";
-	 }
-
 
 	/**
 	 * 
@@ -111,19 +113,36 @@ public class CvsBarcodeController {
 	 * @return 
 	 * Method 설명 : 바코드읽은 결과를 boolean 형태로 반환하는 메서드
 	 */
-	private String decode(byte[] fileByte){
+	private HashMap<String, Object> decode(byte[] fileByte){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		ByteArrayInputStream by = new ByteArrayInputStream(fileByte);
+		
 		try {
 	        String decodedText = decodeQRCode(by);
 	        if(decodedText == null) {
-	            System.out.println("No QR Code found in the image");
-	            return "noFound";
+	        	
+	        	logger.debug("No QR Code found in the image");
+	            map.put("returnMsg", "noFound");
+	            return map;
+	            
 	        } else {
-	        	System.out.println("Decoded text = " + decodedText);      
-	            return decodedText;
+	        	
+	        	logger.debug("Decoded text = " + decodedText);	
+	        	map.put("returnMsg", decodedText);
+	        	
+	        	//입고리스트일때 처리
+	        	List<SupplyListVo> supplyList = supplyService.getListSupplyList(decodedText);
+	        	map.put("supplyList", supplyList);
+	        	
+	        	//상품바코드일때 처리
+	        	
+          return map;
 	        }
 	    } catch (IOException e) {
-	        System.out.println("Could not decode QR Code, IOException :: " + e.getMessage());
+	    	logger.debug("Could not decode QR Code, IOException :: " + e.getMessage());
+	    	map.put("returnMsg", "CouldNotDecode");
+	    	
 	    } finally {
 			try {
 				by.close();
@@ -131,7 +150,9 @@ public class CvsBarcodeController {
 				e.printStackTrace();
 			}
 		}
-		return "false";
+		map.put("returnMsg", "fail");
+		
+		return map;
 	}
 
 	/**
@@ -158,7 +179,21 @@ public class CvsBarcodeController {
             return null;
         }
     }
- 
+    
+    
+    /**
+     * 
+     * Method   : bcdGenerator 
+     * 최초작성일  : 2018. 9. 10. 
+     * 작성자 : PC06 
+     * 변경이력 : 
+     * @return 
+     * Method 설명 : 바코드 생성 예정
+     */
+	@RequestMapping("/bcdGenerator")
+	 public String bcdGenerator() {
+		 return "qrCodeGenerator";
+	 }
 
 
 	

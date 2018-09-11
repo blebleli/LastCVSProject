@@ -78,9 +78,8 @@ public class SupplyDao implements SupplyDaoInf {
 	}
 
 	@Override
-	public List<SupplyListVo> getListSupplyList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<SupplyListVo> getListSupplyList(String supply_bcd) {
+		return template.selectList("supply.supplyDetail",supply_bcd);
 	}
 
 	@Override

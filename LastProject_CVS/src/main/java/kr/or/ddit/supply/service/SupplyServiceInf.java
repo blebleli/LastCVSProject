@@ -97,12 +97,11 @@ public interface SupplyServiceInf {
 	* Method 설명 :수불 신청에 필요한 작성 내역 리스트 출력 기능
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
-	* 변경이력 :신규
+	* 변경이력 : 수정 0.11 --- 파라미터 있도록 변경
 	* 조 회 :List<SupplyListVo> getListSupplyList()_수불 신청에 필요한 작성 내역 리스트 출력 기능
 	* @return
 	*/
-	List<SupplyListVo> getListSupplyList();
-	
+	List<SupplyListVo> getListSupplyList(String supply_bcd);
 	/**
 	* Method : deleteSupplyList
 	* Method 설명 :수불 신청에 필요한 작성 내역 삭제 기능
