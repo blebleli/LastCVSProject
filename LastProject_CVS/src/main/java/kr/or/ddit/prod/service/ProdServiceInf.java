@@ -160,4 +160,6 @@ public interface ProdServiceInf {
 	 */
 	List<ProdVo> getCgEventProd(Map<String, Object> map);
 	
+	String pagination(int page, int pageSize, int cnt);
+	
 }
