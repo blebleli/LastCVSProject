@@ -11,10 +11,10 @@
 <!-- </insert> -->
 
 <!-- 재고 조회 -->
-<select id="getStock" parameterType="String" resultType="stockVo">
-	SELECT * 
-	FROM stock 
-	WHERE mem_id=#{mem_id}
+<select id="getStock" parameterType="Map" resultType="stockVo">
+	select * 
+	from stock 
+	where mem_id=#{mem_id} and to_char(stock_date,'yyyyMMdd') = #{stock_date}
 </select>
 	
 <!-- 편의점의 현재고 리스트 조회 -->
