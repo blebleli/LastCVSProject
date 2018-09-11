@@ -38,6 +38,7 @@
 
 <!-- 달력 js -->
 <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/common/jquery.form.js' />"></script>
 <script src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
 
 <script type="text/javascript">
@@ -137,6 +138,7 @@ $(document).ready(function() {
 		}
 	});
 	
+	
 	// 사용자 저장버튼
 	$("#btnRegist").on("click", function() {
 		
@@ -210,20 +212,51 @@ $(document).ready(function() {
 		if(!isSuccess) {
 			return false;
 		}
-		
-		if(!confirm("저장하시겠습니까?")) {
+
+		if(!confirm("회원가입이 완료된 후 로그인화면으로 이동합니다.\n저장하시겠습니까?")) {
 			return false;
 		}
-		
 		// 날짜에서 '-' 제거
 		$("#mem_birth").val($("#mem_birth").val().replace(/-/gi, ''));
 		
+		$('#registForm').submit();
 		
+		/*
+		$('#registForm').ajaxForm({ 
+			beforeSubmit: function (data, frm, opt) { 
+				return true; 
+			}, 	//보내기전 validation check가 필요할경우 
+			success: function(responseText, statusText){ 
+	        	if(responseText == 'DUPLI') {
+	        		$("#mem_id").parent().find(".msg_wrap").text("이미 가입되어 있는 이메일입니다.");
+	        		$("#mem_id").parent().find(".msg_wrap").show();
+	        		return false;
+	        	}
+	        	if(responseText == "1") {
+	                alert("저장되었습니다.");
+	        	}
+	        	else {
+	        		alert("사용자 등록이 실패하였습니다.")
+	        	}
+	        	
+	        	// 날짜형식 복원
+	        	$( "#mem_birth" ).datepicker({ dateFormat: 'yy-mm-dd' });
+	        	
+	        	location.href = "<c:url value='/login/loginView' />";
+	        }, 
+			error: function(){ 
+				alert("에러발생!!"); 
+			} 
+		});
+		*/
+		
+		/*
+		var formData = new FormData($("#registForm"));
 		$.ajax({
             type : "POST",
             url : "<c:url value='/login/joinProcess' />",
             dataType : "json",
-            data : $("#registForm").serialize(),
+            data : formData,
             success : function(data){
             	if(data == 'DUPLI') {
             		$("#mem_id").parent().find(".msg_wrap").text("이미 가입되어 있는 이메일입니다.");
@@ -248,6 +281,7 @@ $(document).ready(function() {
                 alert(error);
             }
         });
+		*/
 		
 	});	
 	
@@ -404,7 +438,7 @@ function fn_errMessage(_obj, _text) {
 		<div id="content" class="content_primary forgot_user_information">
 			 
 			<div class="section_wrap">
-				<form id="registForm" action="<c:url value='/login/joinProcess' />" method="post">
+				<form id="registForm" action="<c:url value='/login/joinProcess' />" method="post" enctype="multipart/form-data">
 				
 					<div class="section welcome_section">
 						<h3 class="tit tit_v">───────── 회원가입 ─────────</h3>			
@@ -428,9 +462,8 @@ function fn_errMessage(_obj, _text) {
 									<!-- 사용자아이디 고정 , 중복체크버튼 삭제 : 별 09.07 -->
 										<span class="label">이메일 아이디 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></span>
 										<div>
-											<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}"  readonly="readonly" class="input_text small" style="width:337px" />
+											<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" readonly="readonly" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
-<!-- 											<button id="btnDuplicateMemId" type="button" class="btn small normal"><span>중복체크</span></button> -->
 											<input type="hidden" id="chkMemId" value="" />
 										</div>
 									</div>
@@ -516,6 +549,13 @@ function fn_errMessage(_obj, _text) {
 			                                <div id="errorTxtAddr" class="msg_wrap">
 												<div class="error_txt small"></div>
 											</div>
+										</div>
+									</div>
+									
+									<div class="field">
+										<label for="mem_birth" class="label">사진<img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
+										<div>
+											<input type="file" id="upload_file" name="upload_file" title="사진등록" value="" class="" style="width:234px" />
 										</div>
 									</div>
 									

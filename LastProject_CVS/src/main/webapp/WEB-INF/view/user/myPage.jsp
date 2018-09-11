@@ -1,3 +1,8 @@
+<%@page import="java.io.IOException"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.File"%>
+<%@page import="java.io.BufferedOutputStream"%>
+<%@page import="java.io.BufferedInputStream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -99,9 +104,12 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+							<!-- 
 								<img class="img-circle"
 									src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
 									alt="User Pic">
+							 -->
+							 <img class="img-circle" src="<c:url value='/images/userpic/${member.pic_name}' />" alt="User Pic" width="130px;" height="130px;" />
 							</div>
 							<div class="col-xs-2 col-sm-2 hidden-md hidden-lg">
 								<img class="img-circle"
