@@ -98,14 +98,14 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
 }
 .w3l_search{
 	float: left;
-    width: 27%;
-    margin:.1em 0 0em 10em;
+    width: 30%;
+    margin:.1em 0 0em 18em;
 }
 .w3l_search input[type="text"]{
 	outline: none;
-    padding: 10px;
+    padding: 15px;
     color: #212121;
-    font-size: 14px;
+    font-size: 15px;
     width: 85%;
     background: #fff;
     border: 1px solid #999;
@@ -162,7 +162,9 @@ ul.dropdown-menu.drp-mnu li a i {
 }
 .w3ls_logo_products_left{
 	float:left;
-	margin-right: 7em;
+/* 	margin-right: 7em; */
+    margin-right: 1em;
+    margin-left: 5em;
 }
 .w3ls_logo_products_left h1 a{
 	font-size: 1.5em;
@@ -256,8 +258,9 @@ ul.dropdown-menu.drp-mnu li a i {
 	width:80%;
 }
 .w3l_banner_nav_right{
-	float:right;
-	width:80%;
+	float: right;
+    width: 85%;
+    padding-left: 50px;
 }
 .navbar-nav > li {
     float: none;
@@ -502,10 +505,10 @@ ul.dropdown-menu.drp-mnu li a i {
 	content: '';
     background: #FA1818;
     height: 2px;
-    width: 8%;
+    width: 25%;
     position: absolute;
-    bottom: 0%;
-    left: 46%;
+    bottom: 2%;
+    left: 37.5%;
 }
 .agile_top_brand_left_grid{
 	background: #FFFFFF;
@@ -551,7 +554,7 @@ ul.dropdown-menu.drp-mnu li a i {
 /*-- cart --*/
 .product_list_header {
     float: left;
-    margin-left: 7em;
+    margin-left: 17em;
 }
 .snipcart-details {
     text-align: center;
@@ -582,10 +585,10 @@ ul.dropdown-menu.drp-mnu li a i {
     font-size: 14px;
     outline: none;
     text-transform: capitalize;
-    padding: .5em 2.5em .5em 1em;
-    border: 1px solid #84c639;
+/*     padding: .5em 2.5em .5em 1em; */
+    border: 1px solid #84c63905;
     margin: .35em 0 0;
-    background: url(../images/cart.png) no-repeat 116px 9px;
+    background: url(../images/cart.png) no-repeat 116px 11px;
 }
 #PPMiniCart form {
     width: 590px !important;
@@ -1943,7 +1946,7 @@ h2.typoh2{
 .panel-body {
     padding: 2em;
     font-size: 14px;
-    line-height: 2em;
+    line-height: 4em;
     color: #999;
 }
 a.pa_italic label {
