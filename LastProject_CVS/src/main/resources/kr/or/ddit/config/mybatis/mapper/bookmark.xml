@@ -5,7 +5,13 @@
 <mapper namespace="bookmark">
 
 
-	<!-- 즐겨찾는 제품 목록 조회 -->
+	<!-- 	아 이 디 : getListBookmark
+	  		반 환 값 : bookmarkVo
+	  		매개변수 : string(mem_id)
+	  		설    명 : 즐겨찾는 제품 목록 조회 
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-11     
+	 -->
 	<select id="getListBookmark" parameterType="String" resultType="bookmarkVo">
 		SELECT A.STAR_ID
 		     , A.MEM_ID

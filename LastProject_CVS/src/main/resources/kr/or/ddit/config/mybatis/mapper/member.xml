@@ -210,6 +210,45 @@
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
+	
+	<!-- 	아 이 디 : getListBookmark
+	  		반 환 값 : bookmarkVo
+	  		매개변수 : string(mem_id)
+	  		설    명 : 회원 id로 회원정보 및 프로필 사진 가져오기 
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-11     
+	 -->
+	<select id="getMember" parameterType="String" resultType="memberVo">
+		SELECT A.STAR_ID
+		     , A.MEM_ID
+		     , A.STAR_KIND
+		     , A.PLACE_ID
+		     , B.PROD_ID
+		     , B.PROD_NAME
+		     , B.PROD_INTRO
+		     , B.PROD_INFO
+		     , B.PROD_PRICE
+		     , B.PROD_EXNUM
+		     , B.PR_CLASS_LG
+		     , B.PR_CLASS_MD
+		     , B.EVENT_ID
+		     , B.FILE_PATH
+		     , B.FILE_UPNAME
+		     , B.FILE_NAME
+		  FROM BOOKMARK A, PROD B
+		 WHERE A.PROD_ID = B.PROD_ID
+		   AND A.MEM_ID = #{mem_id}
+		 ORDER BY B.PROD_NAME
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- 	아 이 디 : getMemberListTotalCnt 
 	  		매개변수 : 
 	  		반 환 값 : int
