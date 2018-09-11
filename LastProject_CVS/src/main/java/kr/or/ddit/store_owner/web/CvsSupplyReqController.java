@@ -104,14 +104,14 @@ public class CvsSupplyReqController {
 	}
 	
 	@ModelAttribute("requestList")
-	public List<PresentStockListVo> requestList(){
-		List<PresentStockListVo> requestList = new ArrayList<PresentStockListVo>();
+	public List<ProdVo> requestList(){
+		List<ProdVo> requestList = new ArrayList<ProdVo>();
 		return requestList;
 	}
 	
 
 	@RequestMapping("/supplyReqest")
-	public ModelAndView cvssupplyReqest(@RequestParam(value="page")int page, @RequestParam(value="pageSize")int pageSize, Model model){
+	public ModelAndView cvssupplyReqest(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="15")int pageSize, Model model){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("cvs_supply_request");
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -144,10 +144,10 @@ public class CvsSupplyReqController {
 	*/
 	@RequestMapping(value="/requestList", method=RequestMethod.GET )
 	@ResponseBody
-	public List<PresentStockListVo> requestList(@RequestParam(value="requestProd")String requestprod, Model model){
+	public List<ProdVo> requestList(@RequestParam(value="requestProd")String requestprod, Model model){
 		Map modelMap = model.asMap();
-		List<PresentStockListVo> requestList = (List<PresentStockListVo>) modelMap.get("requestList");
-		PresentStockListVo ps = stockService.getStockProd(requestprod);
+		List<ProdVo> requestList = (List<ProdVo>) modelMap.get("requestList");
+		ProdVo ps = prodService.getProd(requestprod);
 		logger.debug("prodVo ------"+ps);
 		requestList.add(ps);
 		logger.debug("list ------"+requestList);
