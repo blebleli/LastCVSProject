@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.model.CategoryVo;
@@ -18,6 +20,7 @@ public class ProdDao implements ProdDaoInf {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate session;
 	
+	private Logger logger = LoggerFactory.getLogger(ProdDao.class);
 	
 	@Override
 	public int setInsertProd(ProdVo prodVo) {
@@ -195,6 +198,46 @@ public class ProdDao implements ProdDaoInf {
 	public List<ProdVo> getCgEventProd(Map<String, Object> map) {
 		return session.selectList("prod.getCgEventProd", map);
 	}
+
+	
+	
+	@Override
+	public List<ProdVo> getListAllSearchProd(Map<String, Object> map) {
+		List<ProdVo> result = session.selectList("prod.getListAllSearchProd", map);
+		return result;
+	}
+
+	
+	/**
+	 * 
+	 * Method	: getListBestSearchProd
+	 * 최초작성일 : 2018. 09. 11.
+	 * 작성자 :   조종원
+	 * 변경이력 : 신규
+	 * 
+	 * @param 
+	 * 				paramMap.put("page", page);                      
+					paramMap.put("pageSize", pageSize);              
+					paramMap.put("min_price", Integer.parseInt(min));
+					paramMap.put("max_price", Integer.parseInt(max));
+					paramMap.put("searchfor", prodName);             
+					paramMap.put("mealChk"	, mealChk       );       
+					paramMap.put("iceChk"	, iceChk        );       
+					paramMap.put("foodChk"	, foodChk       );       
+					paramMap.put("drinkChk"	, drinkChk      );       
+					paramMap.put("iKind"	, iKind         );       
+					paramMap.put("biscuitChk", biscuitChk    );      
+					paramMap.put("necessitiesChk", necessitiesChk);  
+	 * 			
+	 * @return
+	 * Method 설명 : 카테고리별 베스트 제품 검색
+	 */
+	@Override
+	public List<ProdVo> getListBestSearchProd(Map<String, Object> map) {
+		List<ProdVo> result = session.selectList("prod.getListBestSearchProd", map);
+		return result;
+	}
+
 
 
 	

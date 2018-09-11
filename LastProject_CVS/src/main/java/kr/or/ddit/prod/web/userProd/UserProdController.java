@@ -164,18 +164,46 @@ public class UserProdController {
 	// 검색 ajax 
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	@ResponseBody
-	public List<ProdVo> searchProd(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="24")int pageSize, @RequestParam(value="min_price", defaultValue="0")String min, @RequestParam(value="max_price", defaultValue="1000000")String max, @RequestParam(value="searchfor", defaultValue="")String prodName  ){
-		
-		logger.debug("검색 버튼 ajax ================= ");
+	public List<ProdVo> searchProd(	 @RequestParam(value="page"		 	 , defaultValue="1")       int    page
+								   , @RequestParam(value="pageSize"	  	 , defaultValue="24")      int    pageSize
+								   , @RequestParam(value="min_price"	 , defaultValue="0")       String min
+								   , @RequestParam(value="max_price"	 , defaultValue="1000000") String max
+								   , @RequestParam(value="searchName"	 , defaultValue="")        String prodName  
+								   , @RequestParam(value="mealChk"       , defaultValue="")        String mealChk           
+								   , @RequestParam(value="biscuitChk"    , defaultValue="")        String biscuitChk        
+								   , @RequestParam(value="iceChk"        , defaultValue="")        String iceChk          
+								   , @RequestParam(value="foodChk"       , defaultValue="")        String foodChk           
+								   , @RequestParam(value="drinkChk"      , defaultValue="")        String drinkChk          
+								   , @RequestParam(value="necessitiesChk", defaultValue="")        String necessitiesChk
+								   , @RequestParam(value="iKind"		 , defaultValue="1")       String iKind
+								   , Model model
+		){
 		
 		Map<String, Object>paramMap = new HashMap<String, Object>();
+		
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
 		paramMap.put("min_price", Integer.parseInt(min));
 		paramMap.put("max_price", Integer.parseInt(max));
-		paramMap.put("searchfor", prodName);
+		
+		if (prodName == null) {
+			prodName = "";
+		}
+		paramMap.put("prodName", prodName);
+		paramMap.put("iKind"	, iKind         );
+		
+		paramMap.put("mealChk",mealChk);
+		paramMap.put("iceChk",iceChk);
+		paramMap.put("foodChk",foodChk);
+		paramMap.put("drinkChk",drinkChk);
+		paramMap.put("biscuitChk",biscuitChk);
+		paramMap.put("necessitiesChk",necessitiesChk);
+		String  category =mealChk+iceChk+foodChk+drinkChk+biscuitChk+necessitiesChk;
+		paramMap.put("category", category.trim());
+		
 		
 		List<ProdVo> searchList = prodService.searchProd(paramMap);
+		logger.debug("searchList==> {}",searchList);
 		return searchList;
 	}
 	

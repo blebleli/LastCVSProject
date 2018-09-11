@@ -273,6 +273,59 @@ public interface ProdDaoInf {
 	 * Method 설명 : 카테고리별 행사 상품 조회
 	 */
 	List<ProdVo> getCgEventProd(Map<String, Object> map);
+
 	
+	/**
+	 * 
+	 * Method	: getListAllSearchProd
+	 * 최초작성일 : 2018. 09. 11.
+	 * 작성자 :   조종원
+	 * 변경이력 : 신규
+	 * 
+	 * @param 
+	 * 				paramMap.put("page", page);                      
+					paramMap.put("pageSize", pageSize);              
+					paramMap.put("min_price", Integer.parseInt(min));
+					paramMap.put("max_price", Integer.parseInt(max));
+					paramMap.put("searchfor", prodName);             
+					paramMap.put("mealChk"	, mealChk       );       
+					paramMap.put("iceChk"	, iceChk        );       
+					paramMap.put("foodChk"	, foodChk       );       
+					paramMap.put("drinkChk"	, drinkChk      );       
+					paramMap.put("iKind"	, iKind         );       
+					paramMap.put("biscuitChk", biscuitChk    );      
+					paramMap.put("necessitiesChk", necessitiesChk);  
+	 * 			
+	 * @return
+	 * Method 설명 : 카테고리별 전체 제품 검색
+	 */
+	List<ProdVo> getListAllSearchProd(Map<String, Object> map);
+
+	/**
+	 * 
+	 * Method	: getListAllSearchProd
+	 * 최초작성일 : 2018. 09. 11.
+	 * 작성자 :   조종원
+	 * 변경이력 : 신규
+	 * 
+	 * @param 
+	 * 				paramMap.put("page", page);                      
+					paramMap.put("pageSize", pageSize);              
+					paramMap.put("min_price", Integer.parseInt(min));
+					paramMap.put("max_price", Integer.parseInt(max));
+					paramMap.put("searchfor", prodName);             
+					paramMap.put("mealChk"	, mealChk       );       
+					paramMap.put("iceChk"	, iceChk        );       
+					paramMap.put("foodChk"	, foodChk       );       
+					paramMap.put("drinkChk"	, drinkChk      );       
+					paramMap.put("iKind"	, iKind         );       
+					paramMap.put("biscuitChk", biscuitChk    );      
+					paramMap.put("necessitiesChk", necessitiesChk);  
+	 * 			
+	 * @return
+	 * Method 설명 : 카테고리별 베스트 제품 검색
+	 */
+	List<ProdVo> getListBestSearchProd(Map<String, Object> map);
+
 	
 }

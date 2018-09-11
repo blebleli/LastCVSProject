@@ -140,8 +140,21 @@ public interface ProdServiceInf {
 	 * 최초작성일 : 2018. 9. 5.
 	 * 작성자 : 김현경
 	 * 변경이력 : 신규
+	 *            변경 : 조종원 09-11
+	 * @param map
+	 * 				paramMap.put("page", page);                      
+					paramMap.put("pageSize", pageSize);              
+					paramMap.put("min_price", Integer.parseInt(min));
+					paramMap.put("max_price", Integer.parseInt(max));
+					paramMap.put("searchfor", prodName);             
+					paramMap.put("mealChk"	, mealChk       );       
+					paramMap.put("iceChk"	, iceChk        );       
+					paramMap.put("foodChk"	, foodChk       );       
+					paramMap.put("drinkChk"	, drinkChk      );       
+					paramMap.put("iKind"	, iKind         );       
+					paramMap.put("biscuitChk", biscuitChk    );      
+					paramMap.put("necessitiesChk", necessitiesChk);  
 	 * 
-	 * @param map(조건 : page, pageSize=32, 최소금액, 최대금액, 상품명)
 	 * @return
 	 * Method 설명 : 상품조회에서 상품 검색
 	 */

@@ -204,6 +204,101 @@ WHERE rn &lt;= #{wantNum}
 
 
 
+<!-- 	아 이 디 : getListBestProd
+  		반 환 값 : prodVo
+  		매개변수 : map : 가격,  카테고리, 제목
+  		설    명 : 베스트 상품 전체
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-11    
+-->
+<select id="getListBestSearchProd" resultType="prodVo" parameterType="map">
+SELECT  *
+FROM (
+        SELECT   T.*
+                ,ROWNUM RN
+        FROM (
+              SELECT   P.PROD_ID
+                      ,P.PROD_NAME
+                      ,P.FILE_PATH
+                      ,P.FILE_UPNAME
+                      ,P.PROD_PRICE
+                      ,SUM(B.BD_RATING) AS TOT
+              FROM PROD P
+              JOIN BOARD  B
+              ON   P.PROD_ID = B.PROD_ID
+              WHERE 
+              		<if test="category == ''">
+              			1=1
+              		</if>
+              	<if test="category != ''">
+	                    P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{mealChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{iceChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{foodChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{drinkChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{biscuitChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{necessitiesChk}))
+                </if>
+              AND B.BD_KIND_ID = '55'
+                
+                AND P.PROD_PRICE  BETWEEN  #{min_price} AND #{max_price}
+                AND P.PROD_NAME  LIKE '%'|| #{prodName}  ||'%'
+              GROUP BY P.PROD_ID ,P.PROD_NAME ,P.FILE_PATH ,P.FILE_UPNAME ,P.PROD_PRICE
+              ORDER BY TOT DESC
+        )T
+)
+WHERE rn BETWEEN (#{page}-1) * #{pageSize}+1 AND #{page} * #{pageSize}
+</select>
+
+<!-- 	아 이 디 : getListBestProd
+  		반 환 값 : prodVo
+  		매개변수 : map : 가격,  카테고리, 제목
+  		설    명 : 전체 또는 이벤트 상품 전체
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-11    
+-->
+<select id="getListAllSearchProd" resultType="prodVo" parameterType="map">
+SELECT  *
+FROM (
+        SELECT   T.*
+                ,ROWNUM RN
+        FROM (
+              SELECT   P.PROD_ID
+                      ,P.PROD_NAME
+                      ,P.FILE_PATH
+                      ,P.FILE_UPNAME
+                      ,P.PROD_PRICE
+              FROM PROD P
+              WHERE 
+           		<if test="category == ''">
+           			1=1
+           		</if>
+              	<if test="category != ''">
+	                    P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{mealChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{iceChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{foodChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{drinkChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{biscuitChk}))
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{necessitiesChk}))
+                </if>
+                <if test="event_id == '200'">
+	            	AND EVENT_ID = '200'
+	            </if>
+	            <if test="event_id != '200'">
+	            	AND EVENT_ID != '200'
+	            </if>
+	            
+                AND P.PROD_PRICE  BETWEEN  #{min_price} AND #{max_price}
+                AND P.PROD_NAME  LIKE '%'|| #{prodName}  ||'%'
+              GROUP BY P.PROD_ID ,P.PROD_NAME ,P.FILE_PATH ,P.FILE_UPNAME ,P.PROD_PRICE
+              ORDER BY P.PROD_ID
+        )T
+)
+WHERE rn BETWEEN (#{page}-1) * #{pageSize}+1 AND #{page} * #{pageSize}
+
+
+</select>
+
+
 
 
 </mapper>

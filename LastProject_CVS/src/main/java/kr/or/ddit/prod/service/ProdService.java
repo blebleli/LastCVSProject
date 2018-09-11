@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.model.CategoryVo;
@@ -20,6 +22,7 @@ public class ProdService implements ProdServiceInf {
 	@Resource(name="prodDao")
 	private ProdDaoInf prodDao;
 
+	private  Logger logger = LoggerFactory.getLogger(ProdService.class);
 	
 	
 	@Override
@@ -141,9 +144,50 @@ public class ProdService implements ProdServiceInf {
 		return prodDao.getEventCtgyProd(map);
 	}
 
+	
+	/**
+	 * 
+	 * Method	: searchProd
+	 * 최초작성일 : 2018. 9. 5.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 *            변경 : 조종원 09-11
+	 * @param map
+	 * 				paramMap.put("page", page);                      
+					paramMap.put("pageSize", pageSize);              
+					paramMap.put("min_price", Integer.parseInt(min));
+					paramMap.put("max_price", Integer.parseInt(max));
+					paramMap.put("searchfor", prodName);             
+					paramMap.put("mealChk"	, mealChk       );       
+					paramMap.put("iceChk"	, iceChk        );       
+					paramMap.put("foodChk"	, foodChk       );       
+					paramMap.put("drinkChk"	, drinkChk      );       
+					paramMap.put("iKind"	, iKind         );       
+					paramMap.put("biscuitChk", biscuitChk    );      
+					paramMap.put("necessitiesChk", necessitiesChk);  
+	 * 
+	 * @return
+	 * Method 설명 : 상품조회에서 상품 검색
+	 */
 	@Override
 	public List<ProdVo> searchProd(Map<String, Object> map) {
-		return prodDao.searchProd(map);
+		
+		List<ProdVo> result = null;
+		String iKind = (String) map.get("iKind");
+		
+		if (iKind.equals("1")) {	// 전체
+			map.put("event_id", "200");
+			result = prodDao.getListAllSearchProd(map); 
+		} else if (iKind.equals("2")) {	// 베스트
+			map.put("pageSize", 30);
+			result = prodDao.getListBestSearchProd(map); 
+		} else if (iKind.equals("3")) {	// 이벤트
+			map.put("event_id", "0000");
+			result = prodDao.getListAllSearchProd(map);  
+		}
+		logger.debug("result==> {}",result);
+		return result;
+		
 	}
 
 	@Override
