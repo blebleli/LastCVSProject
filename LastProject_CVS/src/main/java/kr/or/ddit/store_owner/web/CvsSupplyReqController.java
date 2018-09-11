@@ -1,5 +1,6 @@
 package kr.or.ddit.store_owner.web;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +11,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.commons.service.CommonsServiceInf;
 import kr.or.ddit.store_owner.model.PageNavi;
+import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
@@ -67,6 +70,9 @@ public class CvsSupplyReqController {
 	@Resource(name="prodService")
 	private ProdServiceInf prodService;
 	
+	@Resource(name="commonService")
+	private CommonsServiceInf commonsService;
+	
 	
 	/**
 	* Method : myStock
@@ -86,9 +92,13 @@ public class CvsSupplyReqController {
 //		String mem_id = userInfo.getMem_id();
 		Map<String, Object> map = new HashMap<String, Object>();
 		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		
+		logger.debug("date---------------------------------------------"+sdf.format(date));
 		map.put("mem_id", "3630000-104-2015-00121");
-		map.put("date", date);
+		map.put("stock_date", sdf.format(date));
 		StockVo myStock = stockService.getStock(map);
+		logger.debug("stock --------------"+ myStock);
 		return myStock;
 	}
 	
@@ -111,6 +121,16 @@ public class CvsSupplyReqController {
 		return myStockList;
 	}
 	
+	/**
+	* Method : requestList
+	* Method 설명 : 현재 재고 목록에서 발주 신청하고 싶은 목록을 저장할 List<ProdVo>
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return StockVo
+	*/
 	@ModelAttribute("requestList")
 	public List<ProdVo> requestList(){
 		List<ProdVo> requestList = new ArrayList<ProdVo>();
@@ -118,24 +138,35 @@ public class CvsSupplyReqController {
 	}
 	
 
+	/**
+	* Method : cvssupplyReqest
+	* Method 설명 :발주 신청을 위해 전체 상품 리스트와 카테고리 목록, 재고목록에서 선택한 목록이 기본으로 넘어간다
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return List<ProdVo> , List<CategoryVo>
+	*/
 	@RequestMapping("/supplyReqest")
-	public ModelAndView cvssupplyReqest(HttpServletRequest request, @RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="15")int pageSize, Model model){
+	public ModelAndView cvssupplyReqest(@RequestParam(value="page",defaultValue="1")int page, @RequestParam(value="pageSize",defaultValue="15")int pageSize, Model model){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("cvs_supply_request");
+		
 		Map<String, Object> param = new HashMap<String, Object>();
-		int totCnt = stockService.totalCountProd();
-		ProdVo prod = new ProdVo();
-		prod.setPage(page);
-		prod.setPageSize(pageSize);
-		
-		PageNavi pagination = new PageNavi(page, pageSize, totCnt);
 		param.put("page", page);
-		param.put("pageSize", pageSize);
-		
+		param.put("pageSize",pageSize);
 		List<ProdVo> allProdList =prodService.getAllProd(param);
-		mav.addObject("allProdList", allProdList);
-		mav.addObject("pagination", pagination.getPageNavi(request, prod, "/cvs/supplyReqest"));
 		
+		List<CategoryVo> category = commonsService.prodCtgyList();
+		List<CategoryVo> lgCtgy = new ArrayList<CategoryVo>();
+		for(int i =0; i < category.size(); i++){
+			if(category.get(i).getCtgy_parent() == null){
+				lgCtgy.add(category.get(i));
+			}
+		}
+		mav.addObject("allProdList", allProdList);
+		mav.addObject("lgCtgy", lgCtgy);
 		return mav;
 	}
 	
@@ -145,8 +176,7 @@ public class CvsSupplyReqController {
 		return "cvs_stock";
 	}
 	
-	/**
-	* Method : requestList
+	/** Method : requestList
 	* Method 설명 : 재고 목록에서 선택한 재고상품 리스트에 추가
 	* 최초작성일 : 2018. 9. 10.
 	* 작성자 : 김현경
@@ -167,6 +197,15 @@ public class CvsSupplyReqController {
 		return requestList;
 	}
 	
+	/** Method : searchList
+	* Method 설명 : 검색한 상품의 결과 목록 ajax
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return Map<String, Object>
+	*/
 	@RequestMapping(value="/searchProd", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> searchList(@RequestParam(value="searchTxt")String searchTxt, Model model){
