@@ -1,6 +1,7 @@
 package kr.or.ddit.store_owner.stock.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
@@ -26,7 +27,7 @@ public interface StockServiceInf {
 	* @param String mem_id
 	* @return StockVo
 	*/
-	StockVo getStock(String mem_id);
+	StockVo getStock(Map<String, Object> map);
 	
 	/**
 	* Method : getListStockList
@@ -51,4 +52,15 @@ public interface StockServiceInf {
 	* @return PresentStockListVo
 	*/
 	PresentStockListVo getStockProd(String prod_id);
+	
+	/**
+	* Method : totalCountProd
+	* Method 설명 : 전체 상품 갯수
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @return int
+	*/
+	int totalCountProd();
 }

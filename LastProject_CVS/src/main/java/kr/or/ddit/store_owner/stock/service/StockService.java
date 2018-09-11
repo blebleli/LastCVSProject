@@ -1,6 +1,8 @@
 package kr.or.ddit.store_owner.stock.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -41,8 +43,11 @@ public class StockService implements StockServiceInf {
 	}
 
 	@Override
-	public StockVo getStock(String mem_id) {
-		return stockDao.getStock(mem_id);
+	public StockVo getStock(Map<String, Object> map) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		map.put("stock_date", sdf.format(map.get("date")));
+		
+		return stockDao.getStock(map);
 	}
 
 	@Override
@@ -53,6 +58,11 @@ public class StockService implements StockServiceInf {
 	@Override
 	public PresentStockListVo getStockProd(String prod_id) {
 		return stockDao.getStockProd(prod_id);
+	}
+
+	@Override
+	public int totalCountProd() {
+		return stockDao.totalCountProd();
 	}
 
 }
