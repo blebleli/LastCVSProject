@@ -48,7 +48,9 @@
           </li>  
           <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="chartDay" id="chartDay">날짜별</a></li> <!-- 날짜별을 누르면 월별 초기화면이 뜬다. -->
+              <li><a href="chartDay">날짜별
+<!--               <input type="hidden" name="mem_id" value="hsj"> --> <!-- 보류입니다. -->
+              </a></li> <!-- 날짜별을 누르면 월별 초기화면이 뜬다. -->
               <li><a href="chartProd">제품별</a></li>                 
             </ul>
           </li>         

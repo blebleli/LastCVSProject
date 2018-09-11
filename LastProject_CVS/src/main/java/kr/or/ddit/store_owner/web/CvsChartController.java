@@ -12,9 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 담당 --김마음
@@ -52,24 +49,26 @@ public class CvsChartController {
 	 * @return
 	 * Method 설명 : 점주가 통계 - 날짜별 조회 할 수 있다.
 	 */
-	@RequestMapping(value="/cvs/chartDay",method=RequestMethod.GET) // 통계 (날짜별)	
-	@ResponseBody
-	public List<salelistJoinVo> chartDay(@RequestParam(value="mem_id") String mem_id, Model model){
-		
-		System.out.println("===================================> " + mem_id);
-//		String mem_id = "hsj";
-//		String sd_date = "2018-09-10";
-//		String sd_date2 = "2018-09-24";
-//		salelistJoinVo saleVo = new salelistJoinVo();
-//		saleVo.setMem_id(mem_id);
-//		saleVo.setSd_date(sd_date);
+//	@RequestMapping(value="/chartDay",method=RequestMethod.GET) // 통계 (날짜별)	
+//	@ResponseBody
+//	public String chartDay(@RequestParam(value="mem_id") String mem_id, Model model){
+	
+	@RequestMapping("/chartDay") // 통계 (날짜별)
+	public String chartDay(Model model){		
+		String mem_id = "hsj";		
 		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
-//		model.addAttribute("saleList", saleList);
-//		model.addAttribute("mem_id",mem_id);
-		logger.debug("{}",saleList);
-		System.out.println("===================================>222222222222 " + mem_id);
 		
-		return saleList;
+		System.out.println("saleList ================> " + saleList.size());
+			for (int i = 0; i < saleList.size(); i++){
+			model.addAttribute("week"+(i+1), saleList.get(i).getSd_sum());
+			System.out.println("week"+(i+1) + saleList.get(i).getSd_sum());				
+			}	
+		
+		model.addAttribute("saleList", saleList);
+		model.addAttribute("mem_id", mem_id);
+		logger.debug("{}",saleList);
+		logger.debug("{}",mem_id);		
+		return "cvs_chart_day";
 	}
 	
 	/**
