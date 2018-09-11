@@ -1,6 +1,6 @@
 package kr.or.ddit.model;
 
-public class ProdVo {
+public class ProdVo extends PageVo {
 	
 	private String file_path;                               // 
 	private String file_upname;                               // 
