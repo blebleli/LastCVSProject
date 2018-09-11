@@ -13,9 +13,89 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
  
+ 
+ <style>
+ table, tbody, tr, td, button {
+  margin: 0;
+  padding: 0;
+}
+button {
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
+  color: #333;
+  border: 1px solid #bbb;
+  cursor: pointer;
+}
+
+.wrap {
+  width: 410px;
+  margin: 50px auto 0 auto;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+.input-box {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  padding: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #efefef;
+}
+.show-box {
+  color: #757575;
+  text-align: right;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+#numInput {
+  position: absolute;
+  left: 7px;
+  bottom: 5px;
+  display: inline-block;
+  padding: 3px;
+  width: 94%;
+  height: 60px;
+  color: #fff;
+  text-align: right;
+  font-size: 50px;
+  box-sizing: border-box;
+  border: none;
+  background-color: #202020;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+button.number {
+  background-color: #efefef;
+}
+button.number:hover {
+  background: #ddd;
+}
+button.number:active {
+  background-color: #ccc;
+}
+button.op {
+  background-color: #FF9B22;
+}
+button.op:hover {
+  background-color: #f99112;
+}
+button.op:active {
+  background-color: #EB7016;
+}
+.col2 button {
+  width: 201px;
+}
+.col3 button {
+  width: 303px;
+}
+
+ </style>
         <!-- page content -->
         <div class="right_col" role="main">
-          <div class="">
+        
             <div class="page-title">
               <div class="title_left">
                 <h3> POS <small>Some examples to get you started</small></h3>
@@ -108,6 +188,18 @@
          
                         
                         </tbody>
+                        <tfoot>
+                        <tr>         
+                        	<td colspan="4" style="text-align: center;
+							color: #fff;
+						    background-color: #449d44;
+						    border-color: #398439;"> 합계 수량/ 금액 / 할인 </td>                       
+                            <td>0  </td>
+                            <td>0  </td>
+                            <td>0  </td>
+                        <tr>
+                        </tfoot>
+                        
                       </table>
 
                   </div>
@@ -116,11 +208,16 @@
               </div>
               
               <div class="col-md-1 col-sm-1 col-xs-1">
-              <button type="button" class="btn btn-primary btn-lg" style="width:100px">복합결제</button>
-               <button type="button" class="btn btn-default btn-lg" style="width:100px">신용카드</button>
-               <button type="button" class="btn btn-default btn-lg"style="width:100px">현금</button>
-               <button type="button" class="btn btn-default btn-lg"style="width:100px">포인트</button>
+               <button type="button" class="op">삭제</button>
+               <button type="button" class="op">결제<br>선택</button>
+               <button type="button"class="op" >주머니</button>
+               <button type="button" class="op">폐기</button>
               </div>
+           </div>   
+<!-- 
+               <div class="clearfix"></div> -->
+
+<!-- 카메라로 인삭하는 div ======================================================================= -->	
 
 			<div class="col-md-4 col-sm-4 col-xs-4">
                 <div class="x_panel">
@@ -134,14 +231,18 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
+				   
 
                   <div class="x_content">
-                   <video id="player" width="350" height="300"controls autoplay></video>
-				    <button id="capture">Capture</button>
-				    <canvas id="snapshot" width=500 height=500 ></canvas>				    				
-				        <button onclick="startCapture(this)">인식하기</button>   
-				    <script>
-<!-- 카메라로 인삭하는 div ======================================================================= -->				    
+                  
+                   <video id="player" width="300" height="300"controls></video>
+				   <button onclick="startCapture(this)">인식</button>  
+				   
+				   <button id="capture" style="display: none">Capture</button>
+				   <canvas id="snapshot" width=500 height=500 style="display: none"></canvas>				    				
+				   
+			    
+				     <script>
 				    	var intervalID;
 				    
 				    	function getImage(){
@@ -162,12 +263,31 @@
 		    					  data: { file : image },
 		    					  dataType: "json",
 		    					  contentType : "application/x-www-form-urlencoded" ,
-		    					  success : function (data) {		    				           
-		    				            if(data.resultMsg == "noFound"){
-		    				            	sendImage();
+		    					  success : function (data) {
+		    				            if(data.returnMsg == "noFound"){
+		    				            	console.log("data sendImage ---- :"+data.returnMsg);
 		    				            } else {
-		    				            	console.log(data.resultMsg);
+		    				            	console.log("data clearInterval ---- :"+data.returnMsg);
 			    							clearInterval(intervalID);
+			    							
+			    							$.each(data.supplyList,function(index, item){
+			    								$("#testDiv").append(
+			    									      
+			    									     '<tr class="even pointer">'+
+			    				                         '  <td class="a-center "> '+                                               
+			    				                         '    <input type="checkbox" class="flat" name="table_records">'+
+			    				                         '  </td>'+
+			    				                         '  <td class=" ">'+item.splylist_id+'</td>'+
+			    				                         '  <td class=" ">'+item.splylist_exdate+'</td> '+
+			    				                         '  <td class=" ">'+item.splylist_sum+'</td> '+ 
+			    				                         '  <td class=" ">'+item.supply_bcd+'</td> '+
+			    				                         '  <td class=" ">'+item.prod_id+'</td> '+			    				                      
+			    				                         '  <td class=" last"><a href="cvs_invoice.html">View</a>'+
+			    				                         '  </td>'+
+			    				                         '</tr>'
+			    								                                                                                     
+			    								);
+			    		    				})
 		    				            }
 		    				      },		 						
 								  error : function(){console.log("error");}		  
@@ -175,7 +295,7 @@
 		    			}		    			
 
 				    	function startCapture(e) {
-				    		intervalID = setInterval(sendImage, 2000);
+				    		intervalID = setInterval(sendImage, 1000);
 						}
 
 				        var player = document.getElementById('player');
@@ -190,15 +310,13 @@
 				            .then(handleSuccess);
 
 				    </script>
-				    			
 
-	
                   </div>
                 </div>      
               </div>
               
-              
-              <div class="col-md-4 col-sm-4 col-xs-4">
+<!-- 입력창 및 계산기 ======================================================================= -->	              
+              <div class="col-md-3 col-sm-3 col-xs-3">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>입력창 <small>Custom design</small></h2>
@@ -213,13 +331,45 @@
 
                   <div class="x_content">
 
+            	  <table>
+				    <tbody>
+				      <tr>
+						<td colspan="3" class="col3">
+						<input class="input-box" type="text"></input>
+						</td>
+				      </tr>
+				      <tr>
+				        <td><button class="number">7</button></td>
+				        <td><button class="number">8</button></td>
+				        <td><button class="number">9</button></td>
+
+				      </tr>
+				      <tr>
+				        <td><button class="number">4</button></td>
+				        <td><button class="number">5</button></td>
+				        <td><button class="number">6</button></td>
+
+				      </tr>
+				      <tr>
+				        <td><button class="number">1</button></td>
+				        <td><button class="number">2</button></td>
+				        <td><button class="number">3</button></td>
+
+				      </tr>
+				      <tr>
+				        <td colspan="2" class="col2"><button class="number">0</button></td>
+				        <td><button class="number">지움</button></td>
+
+				      </tr>
+				    </tbody>
+				  </table>
 	
                   </div>
                 </div>      
               </div>
               
               
-              <div class="col-md-4 col-sm-4 col-xs-4">
+              <div class="col-md-3 col-sm-3 col-xs-3">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>결과창 <small>Custom design</small></h2>
@@ -233,17 +383,36 @@
                   </div>
 
                   <div class="x_content">
-
+					
+					<table>
+				    <tbody>
+				      <tr>
+				        <td><button class="number">직접<br>입력</button></td>
+				        <td><input class="input-box" type="text"></td>				      
+				      </tr>
+				      <tr>
+				        <td><button class="number">받을<br>금액</button></td>
+				        <td>원</td>
+				      </tr>
+				      <tr>
+				        <td><button class="number">받은<br>금액</button></td>
+				     <td>원</td>
+				      </tr>
+				      <tr>
+				       	<td><button class="number">거스<br>름돈</button></td>
+				      <td>원</td>
+				      </tr>
+				    </tbody>
+				  </table>
 	
                   </div>
                 </div>      
               </div>
 
-              
-            </div>
           </div>
-        </div>
+  
         <!-- /page content -->
+
 
         <!-- footer content -->
         <footer>

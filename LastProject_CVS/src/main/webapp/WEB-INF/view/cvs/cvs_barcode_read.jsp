@@ -58,26 +58,16 @@
   				  <br />  
  <!-- 바코드 인식 화면 =============================================================== -->                                                       
                   <div class="x_content">
-                 
-                    <video id="player" width="350" height="300"controls autoplay></video>
-				    <button id="capture">Capture</button>
-				    <canvas id="snapshot" width=500 height=500 ></canvas>
-				    <div>				    				
-				    <!-- set interval -->
-<!-- 				    <form method="POST" action="/cvs/bcdRead" enctype="application/x-www-form-urlencoded">
-				            <input type="text" name="file" id="image"/>
-				            <input type="submit" value="전송"/>	         
-				        </form> -->
-				        <button onclick="startCapture(this)">인식하기</button>
-				    </div>
-				    <div id="qrcdResult">
-				    	
-				    </div>
-				    				    
-				    <script>
-				    
+                  
+                   <video id="player" width="350" height="300"controls autoplay></video>
+				   <button onclick="startCapture(this)">인식하기</button>  
+				   
+				   <button id="capture" style="display: none">Capture</button>
+				   <canvas id="snapshot" width=500 height=500 style="display: none"></canvas>				    				
+				   
+			    
+				     <script>
 				    	var intervalID;
-				    	var qrCodeText;
 				    
 				    	function getImage(){
 				    		var context = snapshot.getContext('2d');
@@ -93,34 +83,45 @@
 		    				
 		    				var request = $.ajax({
 		    					  url: "/cvs/bcdRead",
-		    					  method: "json",
+		    					  method: "POST",
 		    					  data: { file : image },
 		    					  dataType: "json",
-		    					  contentType : "application/x-www-form-urlencoded",
-		    					  
-		    					})
-		    					.done(function(qrFound) { 		  				
-		    						if(qrFound=="noFound"){
-		    							console.log("인식실패");
-		    							sendImage(); 				//인식 실패시 다시 요청		    							
-		    						}else{
-		    							//alert(qrFound);				//인식 성공 -- 
-		    							//$("#qrcdResult").html(qrFound);
-		    							console.log(qrFound.message);
-		    							clearInterval(intervalID);  //qr코드 인식성공시 internal stop
-		    						}		    						
-		    					 })
-		    					 .fail(function() {	//서버통신실패
-		    						 sendImage();
-		    						 console.log("fail");
-		    					 });		    			
-		    			}
+		    					  contentType : "application/x-www-form-urlencoded" ,
+		    					  success : function (data) {
+		    				            if(data.returnMsg == "noFound"){
+		    				            	console.log("data sendImage ---- :"+data.returnMsg);
+		    				            } else {
+		    				            	console.log("data clearInterval ---- :"+data.returnMsg);
+			    							clearInterval(intervalID);
+			    							
+			    							$.each(data.supplyList,function(index, item){
+			    								$("#testDiv").append(
+			    									      
+			    									     '<tr class="even pointer">'+
+			    				                         '  <td class="a-center "> '+                                               
+			    				                         '    <input type="checkbox" class="flat" name="table_records">'+
+			    				                         '  </td>'+
+			    				                         '  <td class=" ">'+item.splylist_id+'</td>'+
+			    				                         '  <td class=" ">'+item.splylist_exdate+'</td> '+
+			    				                         '  <td class=" ">'+item.splylist_sum+'</td> '+ 
+			    				                         '  <td class=" ">'+item.supply_bcd+'</td> '+
+			    				                         '  <td class=" ">'+item.prod_id+'</td> '+			    				                      
+			    				                         '  <td class=" last"><a href="cvs_invoice.html">View</a>'+
+			    				                         '  </td>'+
+			    				                         '</tr>'
+			    								                                                                                     
+			    								);
+			    		    				})
+		    				            }
+		    				      },		 						
+								  error : function(){console.log("error");}		  
+								  });	    							    			
+		    			}		    			
 
 				    	function startCapture(e) {
-				    		intervalID = setInterval(sendImage, 2000);
+				    		intervalID = setInterval(sendImage, 1000);
 						}
-				    
-				 
+
 				        var player = document.getElementById('player');
 				        var snapshotCanvas = document.getElementById('snapshot');
 				        var captureButton = document.getElementById('capture');
@@ -129,19 +130,11 @@
 				            player.srcObject = stream;
 				        };
 				
-/* 				        captureButton.addEventListener('click', function () {
-				            var context = snapshot.getContext('2d');
-				            // Draw the video frame to the canvas.
-				            context.drawImage(player, 0, 0, snapshotCanvas.width,
-				                snapshotCanvas.height);
-				            document.getElementById("image").value = snapshotCanvas.toDataURL();
-				        }); */
-				
 				        navigator.mediaDevices.getUserMedia({ video: true })
 				            .then(handleSuccess);
+
 				    </script>
-				    				    
-           
+
                   </div>
                 </div>
               </div>
@@ -155,21 +148,6 @@
                     <button class="btn btn-primary">선택삭제</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                     
-                    <!-- <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul> -->
                     <div class="clearfix"></div>
                   </div>
 
@@ -184,12 +162,11 @@
                             <th>
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
-                            <th class="column-title">상품명 </th>
-                            <th class="column-title">입고일 </th>
-                            <th class="column-title">유통기한만료일 </th>
-                            <th class="column-title">가격 </th>
-                            <th class="column-title">재고 </th>
-                            <th class="column-title">이벤트상태 </th>
+                            <th class="column-title">ID </th>
+                            <th class="column-title">exdate </th>
+                            <th class="column-title">sum </th>
+                            <th class="column-title">supplyBCD</th>
+                            <th class="column-title">prodID </th>
                             <th class="column-title no-link last"><span class="nobr">Action</span>
                             </th>
                             <th class="bulk-actions" colspan="7">
@@ -198,7 +175,8 @@
                           </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="testDiv">    
+                                                                   
                           <tr class="even pointer">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
@@ -207,7 +185,6 @@
                             <td class=" ">May 23, 2014 11:47:56 PM </td>
                             <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
                             <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
                             <td class="a-right a-right ">$7.45</td>
                             <td class=" last"><a href="cvs_invoice.html">View</a>
                             </td>
@@ -218,123 +195,17 @@
                             </td>
                             <td class=" ">121000039</td>
                             <td class=" ">May 23, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
+                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i></td>
                             <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
                             <td class="a-right a-right ">$741.20</td>
                             <td class=" last"><a href="cvs_invoice.html">View</a>
                             </td>
                           </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000038</td>
-                            <td class=" ">May 24, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000037</td>
-                            <td class=" ">May 24, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 24, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 26, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="error fa fa-long-arrow-down"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000038</td>
-                            <td class=" ">May 26, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000037</td>
-                            <td class=" ">May 26, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 27, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 28, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
+                                              
                         </tbody>
                       </table>
+                      
+                      
                     </div>
 							
 						
