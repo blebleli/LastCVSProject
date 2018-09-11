@@ -13,7 +13,8 @@ public class FiledataVo {
 	private String bd_id;                               // 게시판코드
 	private String mem_id;                               // 아이디
 	
-	private MultipartFile[] uplodaFile;
+	private String[] flag;	// 추가/삭제여부
+	private MultipartFile[] upload_file;
 	
 	public FiledataVo() {
 		super();
@@ -80,11 +81,17 @@ public class FiledataVo {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
-	public MultipartFile[] getUplodaFile() {
-		return uplodaFile;
+	public String[] getFlag() {
+		return flag;
 	}
-	public void setUplodaFile(MultipartFile[] uplodaFile) {
-		this.uplodaFile = uplodaFile;
+	public void setFlag(String[] flag) {
+		this.flag = flag;
+	}
+	public MultipartFile[] getUpload_file() {
+		return upload_file;
+	}
+	public void setUpload_file(MultipartFile[] upload_file) {
+		this.upload_file = upload_file;
 	}
 	@Override
 	public String toString() {

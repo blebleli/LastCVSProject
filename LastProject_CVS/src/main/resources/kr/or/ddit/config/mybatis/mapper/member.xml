@@ -140,6 +140,7 @@
 			 , MEM_INTRO
 			 , MEM_X
 			 , MEM_Y
+			 , (SELECT FILE_UPNAME FROM FILEDATA WHERE MEM_ID = #{mem_id} AND ROWNUM = 1) as pic_name
 		  FROM MEMBER
 		  WHERE MEM_ID = #{mem_id}
 	</select>

@@ -126,7 +126,7 @@ public class UserMainController {
 		model.addAttribute("myPayList", myPayList);	
 		
 		int tot_cnt = 0;
-		if(myPayList != null) {
+		if(myPayList != null && myPayList.size() > 0) {
 			tot_cnt = myPayList.get(0).getTot_cnt();
 		}
 		

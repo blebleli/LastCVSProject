@@ -26,6 +26,7 @@ public class FileDao implements FileDaoInf {
 	 */
 	@Override
 	public int insertFile(FiledataVo fileVo) {
+		template.insert("filedata.insertFiledata", fileVo);
 		return 1;
 	}
 	
@@ -41,7 +42,7 @@ public class FileDao implements FileDaoInf {
 	 */
 	@Override
 	public List<FiledataVo> getFrofilePicList(String mem_id) {
-		return null;
+		return template.selectList("filedata.getFrofilePicList", mem_id);
 	}
 	
 	
@@ -56,7 +57,8 @@ public class FileDao implements FileDaoInf {
 	 */
 	@Override
 	public int deleteFile(FiledataVo fileVo) {
-		return 0;
+		template.insert("filedata.deleteFiledata", fileVo);
+		return 1;
 	}
 	
 	

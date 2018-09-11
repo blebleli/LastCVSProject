@@ -4,6 +4,8 @@ public class FileUtil {
 	
 	// 파일 업로드 경로
 	public final static String fileUploadPath = "C:/W/A_TeachingMaterial/7.JspSrpgin/fileUpload";
+	// 사용자 사진 업로드 경로
+	public final static String memberPicUploadPath = "C:/W/A_TeachingMaterial/7.JspSrpgin/fileUpload";
 	
 
 	/**

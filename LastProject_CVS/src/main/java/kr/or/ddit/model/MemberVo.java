@@ -21,6 +21,8 @@ public class MemberVo {
 	private String mem_x;                               // 좌표_x
 	private String mem_y;                               // 좌표_y
 	
+	private String pic_name;	// 사용자 사진 저장명
+	
 	private List<FiledataVo> fileList = new ArrayList<FiledataVo>();
 	
 	public MemberVo() {
@@ -144,6 +146,12 @@ public class MemberVo {
 	public void setFileList(List<FiledataVo> fileList) {
 		this.fileList = fileList;
 	}
+	public String getPic_name() {
+		return pic_name;
+	}
+	public void setPic_name(String pic_name) {
+		this.pic_name = pic_name;
+	}
 	@Override
 	public String toString() {
 		return "MemberVo [mem_id=" + mem_id + ", mem_pw=" + mem_pw
@@ -163,6 +171,5 @@ public class MemberVo {
 			return false; 
 	}
 
-	
 
 }
