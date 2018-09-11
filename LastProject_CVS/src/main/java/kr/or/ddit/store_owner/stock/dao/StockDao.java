@@ -1,6 +1,7 @@
 package kr.or.ddit.store_owner.stock.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -65,13 +66,18 @@ public class StockDao implements StockDaoInf {
 	}
 
 	@Override
-	public StockVo getStock(String mem_id) {
-		return template.selectOne("stock.getStock",mem_id);
+	public StockVo getStock(Map<String, Object> map) {
+		return template.selectOne("stock.getStock",map);
 	}
 
 	@Override
 	public PresentStockListVo getStockProd(String prod_id) {
 		return template.selectOne("stock.getStockProd", prod_id);
+	}
+
+	@Override
+	public int totalCountProd() {
+		return template.selectOne("prod.totalCountProd");
 	}
 
 
