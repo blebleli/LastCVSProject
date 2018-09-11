@@ -4,9 +4,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import kr.or.ddit.board.web.userBoard.AdBoardController;
+import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+import kr.or.ddit.supply.model.SupplyProdVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * 담당 -- 조계환
@@ -33,7 +36,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 
  * </pre>
  */
-
+@SessionAttributes({"SupplyList"})
 @RequestMapping("/cvs")
 @Controller("cvsSupplyIn")
 public class CvsSupplyInController {
@@ -59,6 +62,7 @@ public class CvsSupplyInController {
 		//입고 리스트 전체 출력 
 		List<SupplyVo> supplyList = suppltService.getListSupply();
 		
+		//입고 전체 목록
 		model.addAttribute("supplyList",supplyList);
 		return "cvs_supply_in";
 	}
@@ -73,19 +77,38 @@ public class CvsSupplyInController {
 	* @param model
 	* @return
 	*/
-	@RequestMapping(value="/supplyDetail")
+	@RequestMapping(value="/supplyDetail", method=RequestMethod.GET)
 	public String cvsSupplyDetail(SupplyVo vo, Model model){
 		
-		//선택한 입고 리스트의 고유키(바코드)가 잘가져오는지 확인
-		String bcd = vo.getSupply_bcd();
-		logger.debug("bcd===== : "+bcd);
+		//입고 리스트중 원하는 입고 내역을 클릭했을때 클릭한 입고에 대한 수불 바코드 정보를 가져온다. 
+		String supply_bcd = vo.getSupply_bcd();
+		logger.debug("supply_bcd : "+supply_bcd);
+		//입고 리스트중 원하는 입고 내역을 클릭했을때 클릭한 입고에 대한 편의점 코드를 가져온다.
+		String place_id = vo.getPlace_id();
+		logger.debug("place_id" + place_id);
+		//입고 리스트중 원하는 입고 내역을 클릭했을때 클릭한 입고에 대한 날짜를 가져온다.
+		String supply_date = vo.getSupply_date();
+		logger.debug("supply_date" + supply_date);
 		
-		//클릭한 입고 리스트의 상세 내역 메서드 실행(상세보기)
-		SupplyListVo supplyListVo = suppltService.getListSupply(bcd);
+		//입고 상세보기 화면에서 발주 신청한 제품들의 정보 가져오기
+		List<SupplyProdVo> prodList = suppltService.getSupplyProdInfo(supply_bcd);
 		
-		model.addAttribute("supplyListVo",supplyListVo);
+		for (SupplyProdVo supplyProdVo : prodList) {
+			logger.debug("supplyProdVo.getProd_id() : "+supplyProdVo.getProd_id());
+		}
+		
+		//수불바코드 
+		model.addAttribute("supply_bcd",supply_bcd);
+		//편의점 코드
+		model.addAttribute("place_id",place_id);
+		//수불 날짜
+		model.addAttribute("supply_date",supply_date);
+		//입고 리스트 상세내역에 필요한 정보들(수량,제품이름,제품코드)
+		model.addAttribute("prodList",prodList);
 		
 		return "cvs_invoice";
 	}
+	
+	
 	
 }

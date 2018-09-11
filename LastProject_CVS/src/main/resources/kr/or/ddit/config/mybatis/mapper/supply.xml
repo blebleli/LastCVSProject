@@ -4,14 +4,51 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="supply">
 
-	<!-- 입고 리스트 가져오는 쿼리 -->
+	<!-- 	아 이 디 : getListSupply
+	  		반 환 값 : supplyVo
+	  		매개변수 : 
+	  		설    명 : 입고 목록 전체 출력 
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-11     
+	 -->
 	<select id="getListSupply" resultType="supplyVo">
 		SELECT * FROM supply
 	</select>
 	
-	<!-- 선택한 입고 리스트의 상세내역 -->
+	<!-- 	아 이 디 : supplyDetail
+	  		반 환 값 : supplyListVo
+	  		매개변수 : string(supply_bcd)
+	  		설    명 : 입고 목록중 하나를 클릭했을때 정보 출력
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-11     
+	 -->
 	<select id="supplyDetail" parameterType="String" resultType="supplyListVo">
-		SELECT * FROM supply_list WHERE SUPPLY_BCD = #{SUPPLY_BCD}
+		SELECT * FROM supply_list WHERE supply_bcd = #{supply_bcd}
+	</select>
+	
+	<!-- 	아 이 디 : supplyDetailProdList
+	  		반 환 값 : supplyListVo
+	  		매개변수 : string(supply_bcd)
+	  		설    명 : 입고 목록중 하나를 클릭했을때 그에 대한 정보를 가져온다(supply_list) 
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-11     
+	 -->
+	<select id="supplyDetailProdList" parameterType="String" resultType="supplyListVo">
+		SELECT * FROM supply_list WHERE supply_bcd=#{supply_bcd}  
+	</select>
+	
+	<!-- 	아 이 디 : supplyProdInfo
+	  		반 환 값 : SupplyProdVo
+	  		매개변수 : string(supply_bcd)
+	  		설    명 : 입고 상세 보기 내역에서 필요한 정보(수량,제품이름,제품코드)를 가져오는 쿼리
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-11     
+	 -->
+	<select id="supplyProdInfo" parameterType="String" resultType="SupplyProdVo">
+		SELECT a.prod_id, a.prod_name, b.splylist_sum
+		FROM prod a, supply_list  b
+		WHERE b.supply_bcd=#{supply_bcd}
+		AND a.prod_id = b.prod_id
 	</select>
 
 </mapper>

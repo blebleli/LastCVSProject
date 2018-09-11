@@ -85,8 +85,6 @@
                   	
                       </thead>
 	                      <c:forEach items="${supplyList}" var="vo"> <!-- 전체 입고 목록들 -->
-	                      	<form action="/cvs/supplyDetail" method="post" enctype="multipart/form-data">
-	                      		<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}"> 
 								<tr>
 									<td></td>	<!-- 넘버 -->
 									<td>${vo.supply_bcd}</td>	<!-- 바코드 -->
@@ -105,9 +103,15 @@
 									<td></td>					<!-- 총수량 -->
 									<td></td>				<!-- 가격 -->
 									<!-- 원하는 입고 목록 상세보기 화면으로 전환-->
-									<td><input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View"></td>	 <!-- 상세보기 -->
+									<td>
+										<form action="/cvs/supplyDetail" method="get">
+											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}"> 
+											<input type="hidden" name="place_id" value="${vo.place_id}"> 
+											<input type="hidden" name="supply_date" value="${vo.supply_date}"> 
+											<input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">
+										</form>
+									</td>	 <!-- 상세보기 -->
 								</tr>
-							</form>
 	                      </c:forEach>
                       <tbody>                                                                                                                                  
  

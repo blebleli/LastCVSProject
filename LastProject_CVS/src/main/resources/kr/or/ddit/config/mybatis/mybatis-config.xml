@@ -28,6 +28,7 @@
   	<typeAlias type="kr.or.ddit.model.SupplyVo" 		alias="supplyVo"/>
   	<typeAlias type="kr.or.ddit.model.StockVo" 		alias="stockVo"/>
   	<typeAlias type="kr.or.ddit.model.StockListVo" 		alias="stockListVo"/>
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo" 		alias="SupplyProdVo"/>
 <!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
 
 	<!-- 제품 검색 -->

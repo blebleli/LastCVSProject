@@ -2,8 +2,10 @@ package kr.or.ddit.supply.dao;
 
 import java.util.List;
 
+import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+import kr.or.ddit.supply.model.SupplyProdVo;
 
 /**
 * @Class Name : SupplyDaoInf.java
@@ -70,7 +72,7 @@ public interface SupplyDaoInf {
 	* @param supply_bcd
 	* @return
 	*/
-	SupplyListVo getListSupply(String supply_bcd);
+	List<SupplyListVo> getListSupply(String supply_bcd);
 	
 	/**
 	* Method : updateSupply
@@ -142,5 +144,32 @@ public interface SupplyDaoInf {
 	* @return
 	*/
 	int deleteSupplyList(String splylist_id);
+	
+	
+	/**
+	* Method : getSupplyDetailProdList
+	* Method 설명 :입고 상세보기 내역에서 물품리스트 
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param splylist_id
+	* @return
+	*/
+	List<SupplyListVo> getSupplyDetailProdList(String splylist_id);
+	
+	/**
+	* Method : getSupplyProdInfo
+	* Method 설명 :입고 상세 보기에서 발주 신청한 제품들의 정보르 가져오는 메서드
+	* 최초작성일 : 2018. 9. 11.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	List<SupplyProdVo> getSupplyProdInfo(String supply_bcd);
+	
+	
 	
 }
