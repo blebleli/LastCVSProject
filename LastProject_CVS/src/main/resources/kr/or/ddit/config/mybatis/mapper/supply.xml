@@ -50,5 +50,6 @@
 		WHERE b.supply_bcd=#{supply_bcd}
 		AND a.prod_id = b.prod_id
 	</select>
+	
 
 </mapper>
