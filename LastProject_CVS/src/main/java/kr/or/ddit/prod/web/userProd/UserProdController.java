@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.CommonsServiceInf;
-import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
@@ -20,7 +19,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,8 +48,7 @@ public class UserProdController {
 	}
 
 	
-	// 전체 보기 클릭 했을때
-	
+	// 전체 보기 클릭 했을때, 메인에서 처음 들어 왔을때
 	@RequestMapping("/view")
 	public String view(@RequestParam(value="i")String i,@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="24")int pageSize, Model model){
 		
@@ -65,9 +62,12 @@ public class UserProdController {
 		if(i.equals("1")){										// 상품 일경우
 			List<ProdVo> allProdList = prodService.getAllProd(paramMap);
 			model.addAttribute("ctgyProdList", allProdList);
+			
 		}else if (i.equals("2")) { 								//	베스트상품 일경우
 			List<ProdVo> bestAllProdList = prodService.getListBestProd(paramMap);
+			logger.debug("bestAllProdList====> {}",bestAllProdList);
 			model.addAttribute("ctgyProdList", bestAllProdList);
+			
 		}else if (i.equals("3")){								// 이벤트 상품일 경우
 			List<ProdVo> EventAllList = prodService.getAllEventProd(paramMap);
 			model.addAttribute("ctgyProdList", EventAllList);
@@ -87,7 +87,7 @@ public class UserProdController {
 	
 	@RequestMapping(value="/nextList", method=RequestMethod.GET )
 	@ResponseBody
-	public List<ProdVo> bestCtgyProdList(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="32")int pageSize,@RequestParam(value="level")String level, @RequestParam(value="pr_class_id")String pr_class_id, @RequestParam(value="i")String i, Model model){
+	public List<ProdVo> bestCtgyProdList(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="24")int pageSize,@RequestParam(value="level")String level, @RequestParam(value="pr_class_id")String pr_class_id, @RequestParam(value="i")String i, Model model){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		Map<String, Object> result = new HashMap<String, Object>();
 		List<ProdVo> ctgyProdList = new ArrayList<ProdVo>();
@@ -118,7 +118,7 @@ public class UserProdController {
 	}
 	
 	@RequestMapping("/bestList")
-	public ModelAndView bestProdList(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="32")int pageSize,@RequestParam(value="level")String level, @RequestParam(value="ctgy_id")String ctgy_id, Model model){
+	public ModelAndView bestProdList(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="24")int pageSize,@RequestParam(value="level")String level, @RequestParam(value="ctgy_id")String ctgy_id, Model model){
 	
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -164,7 +164,10 @@ public class UserProdController {
 	// 검색 ajax 
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	@ResponseBody
-	public List<ProdVo> searchProd(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="32")int pageSize, @RequestParam(value="min_price", defaultValue="0")String min, @RequestParam(value="max_price", defaultValue="1000000")String max, @RequestParam(value="searchfor", defaultValue="")String prodName  ){
+	public List<ProdVo> searchProd(@RequestParam(value="page", defaultValue="1")int page,@RequestParam(value="pageSize", defaultValue="24")int pageSize, @RequestParam(value="min_price", defaultValue="0")String min, @RequestParam(value="max_price", defaultValue="1000000")String max, @RequestParam(value="searchfor", defaultValue="")String prodName  ){
+		
+		logger.debug("검색 버튼 ajax ================= ");
+		
 		Map<String, Object>paramMap = new HashMap<String, Object>();
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
@@ -177,7 +180,7 @@ public class UserProdController {
 	}
 	
 	@RequestMapping("/eventList")
-	public ModelAndView eventList(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="32")int pageSize, @RequestParam(value="level", defaultValue="null")String level, @RequestParam(value="ctgy_id", defaultValue="null")String ctgy_id, @RequestParam(value="event_id", defaultValue="0")String event_id, Model model ){
+	public ModelAndView eventList(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="24")int pageSize, @RequestParam(value="level", defaultValue="null")String level, @RequestParam(value="ctgy_id", defaultValue="null")String ctgy_id, @RequestParam(value="event_id", defaultValue="0")String event_id, Model model ){
 		ModelAndView mav = new ModelAndView("bestProducts");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		List<ProdVo> eventList = new ArrayList<ProdVo>();
