@@ -192,8 +192,8 @@
 			<div class="" role="tabpanel" data-example-id="togglable-tabs">
 				<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
 					<li role="presentation" class="active"><a href="#tab_content1"
-						id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">나의
-							정보</a></li>
+						id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">
+						나의정보</a></li>
 					<li role="presentation" class=""><a href="#tab_content2"
 						role="tab" id="profile-tab" data-toggle="tab"
 						aria-expanded="false">나의 주머니</a></li>
