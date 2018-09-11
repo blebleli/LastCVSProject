@@ -77,33 +77,15 @@ public class CvsSupplyInController {
 	* @param model
 	* @return
 	*/
-	@RequestMapping(value="/supplyDetail", method=RequestMethod.GET)
+	@RequestMapping(value="/supplyDetail", method=RequestMethod.POST)
 	public String cvsSupplyDetail(SupplyVo vo, Model model){
 		
-		//입고 리스트중 원하는 입고 내역을 클릭했을때 클릭한 입고에 대한 수불 바코드 정보를 가져온다. 
-		String supply_bcd = vo.getSupply_bcd();
-		logger.debug("supply_bcd : "+supply_bcd);
-		//입고 리스트중 원하는 입고 내역을 클릭했을때 클릭한 입고에 대한 편의점 코드를 가져온다.
-		String place_id = vo.getPlace_id();
-		logger.debug("place_id" + place_id);
-		//입고 리스트중 원하는 입고 내역을 클릭했을때 클릭한 입고에 대한 날짜를 가져온다.
-		String supply_date = vo.getSupply_date();
-		logger.debug("supply_date" + supply_date);
-		
 		//입고 상세보기 화면에서 발주 신청한 제품들의 정보 가져오기
-		List<SupplyProdVo> prodList = suppltService.getSupplyProdInfo(supply_bcd);
+		List<SupplyProdVo> prodList = suppltService.getSupplyProdInfo(vo.getSupply_bcd());
 		
-		for (SupplyProdVo supplyProdVo : prodList) {
-			logger.debug("supplyProdVo.getProd_id() : "+supplyProdVo.getProd_id());
-		}
-		
-		//수불바코드 
-		model.addAttribute("supply_bcd",supply_bcd);
-		//편의점 코드
-		model.addAttribute("place_id",place_id);
-		//수불 날짜
-		model.addAttribute("supply_date",supply_date);
-		//입고 리스트 상세내역에 필요한 정보들(수량,제품이름,제품코드)
+		//입고 리스트 상세내역에서 날짜,편의점코드,수불바코드를 넘겨준다.
+		model.addAttribute("vo",vo);
+		//입고 리스트 상세내역에 필요한 정보들(수량,제품이름,제품코드,제품가격)
 		model.addAttribute("prodList",prodList);
 		
 		return "cvs_invoice";
