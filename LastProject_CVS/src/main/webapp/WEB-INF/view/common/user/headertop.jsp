@@ -2,7 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+ 
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/mbs/css/main.css' />" />
+   
+<script type="text/javascript" src="<c:url value='/js/mbs/jquery-1.10.2.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/mbs/common.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/mbs/jquery.bxslider.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/mbs/jquery.blockUI.js' />"></script>
+   
 <!-- header 공통부분 -->
 <!-- style.css -->
 
@@ -75,31 +83,114 @@
 							<!-- 							<li><a href="userLogin.jsp">회원가입</a></li> -->
 						</ul>
 					</div>
-				</div></li>
+				</div>
+			</li>
 		</ul>
 	</div>
-	<div class="w3l_header_right1">
+	
+<!-- 	<div class="w3l_header_right1"> -->
 		<!-- 관리자 문의하기 링크 /  삭제??????  -->
 		<!-- 추후 협의 2018-09-03-jw -->
 <!-- 		<h2> -->
 <!-- 			<a href="mail.html">뭐들어가지?</a> -->
 <!-- 			<!-- 추후 협의 2018-09-03-jw --> 
 <!-- 		</h2> -->
-	</div>
+<!-- 	</div> -->
 	<div class="clearfix"></div>
 </div>
 
-
-<div class="logo_products">
 	<div class="container">
-		<div class="w3ls_logo_products_left">
-			<!--  로고 클릭시 ★ 이동 경로 주기(메인화면) -->
-			<h1>
-				<a href="/user/main"><span>GoGo</span>CVS</a>
-			</h1>
-		</div>
+<!-- <div class="logo_products"> -->
 
-		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<!-- 		<div class="w3ls_logo_products_left"> -->
+<!-- 			<!--  로고 클릭시 ★ 이동 경로 주기(메인화면) --> -->
+<!-- 			<h1> -->
+<!-- 				<a href="/user/main"><span>GoGo</span>CVS</a> -->
+<!-- 			</h1> -->
+<!-- 		</div> -->
+<!-- </div> -->
+
+
+ <!--head-->
+<div id="head" style="background-color: transparent;">
+        <div id="header">
+        
+            <div id="gnbarea">
+             <div class="logo_products">
+					<div class="w3ls_logo_products_left">
+                      <h1>
+                        <a id="logoLink" href="/user/main"><span>GoGo</span>CVS</a>
+                      </h1>
+					</div> 
+			</div> 
+<!--gnb-->
+<div id="gnb">
+    <ul>
+
+    <li class="gnb01"><a href="#" class="">상     품</a>
+            <ul style="display: none;">
+                <li>
+                    <a href="<c:url value='/search/prodSearch' />">주변 제품찾기</a>
+                </li>
+                <li>
+                    <a href="<c:url value='/userProd/view?i=2&page=1&pageSize=32' />">Best상품</a>
+                </li>
+				<li>
+                    <a href="<c:url value='/userProd/view?i=3&page=1&pageSize=32' />">이벤트상품</a>
+                </li>
+				<li>
+                    <a href="<c:url value='/userProd/view?i=1&page=1&pageSize=32' />">전체상품</a>
+                </li>
+           </ul>
+    </li>
+            		
+
+	        <li class="gnb02"><a href="#" class="">편의점/서비스</a>
+	            <ul style="display: none;">
+		         <li>
+	                        <a href="<c:url value='/search/cvsSearch' />">전국편의점찾기</a>
+	                        </li>
+	                <li>
+	                        <a href="<c:url value='/board/boardMain' />">공지사항</a>
+	                        </li>
+	                <li>
+	                        <a href="<c:url value='/event/view' />">이벤트&행사</a>
+	                   </li>
+	       
+	              </ul>
+	         </li>
+
+         
+					  
+		        <li class="gnb03"><a href="#">My CVS</a>
+		            <ul style="display: none;">
+						 <li>
+		                       <a href="<c:url value='/user/mypage' />">마이페이지</a>
+		                 </li>
+		<!--                 <li> -->
+		<!--                         <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050100000000">회원정보 관리</a> -->
+		<!--                         </li> -->
+		<!--                 <li> -->
+		<!--                         <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050200000000">포인트조회</a> -->
+		<!--                         </li> -->
+		<!--                 <li> -->
+		<!--                         <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050300000000">구매내역 조회</a> -->
+		<!--                         </li> -->
+		            </ul>
+		        </li>
+
+    
+    </ul>
+</div>
+<!--//gnb-->
+            </div>
+        </div>
+        <div class="gnb_bg" style="display: none;"><p style="display: none;"></p></div>
+    </div>
+ <!--//head-->
+	
+
+	<!-- 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 			<div id="collapseDiv" class="panel panel-default">
 
@@ -122,7 +213,7 @@
 					  <li class="list-group-item"><a href="/search/prodSearch">제품찾기</a></li>	
 					  <li class="list-group-item"><a href="/search/cvsSearch">편의점찾기</a></li>					  					  
 					  <li class="list-group-item"><a href="/board/boardMain">공지사항</a></li>	
-					  <!-- 조계환 EventController -->				  					  
+					  조계환 EventController				  					  
 					  <li class="list-group-item"><a href="/event/view">이벤트</a></li>
 					</ul>
 					<ul class="list-group" style= "float: left;">
@@ -130,9 +221,12 @@
 					</ul>							
 				</div>
 			</div>
-		</div>
+		</div> -->
+		
+		
+		
 	</div>
-</div>
+<!-- </div> -->
 
 <!-- 0907 한수정 collapse 하기위한 script 지우지마세요 -->
 <script>
