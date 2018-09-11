@@ -24,7 +24,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>입고 <small>현재 완료된 입고 목록 리스트 페이지 입니다.</small></h3>
+                <h3>입고 <small>귀하 편의점의 입고 리스트 내역 페이지 입니다.</small></h3>
               </div>
 
               <div class="title_right">
@@ -93,10 +93,10 @@
 									<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 -->
 										<c:choose>
 											<c:when test="${vo.supply_state == 12 }">
-												입고
+												입고완료
 											</c:when>
 											<c:otherwise>
-										    	미처리
+										    	입고미완료
 										    </c:otherwise>
 										</c:choose>
 									</td>
@@ -104,10 +104,11 @@
 									<td></td>				<!-- 가격 -->
 									<!-- 원하는 입고 목록 상세보기 화면으로 전환-->
 									<td>
-										<form action="/cvs/supplyDetail" method="get">
+										<form action="/cvs/supplyDetail" method="post">
 											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}"> 
 											<input type="hidden" name="place_id" value="${vo.place_id}"> 
 											<input type="hidden" name="supply_date" value="${vo.supply_date}"> 
+											<input type="hidden" name="supply_state" value="${vo.supply_state}"> 
 											<input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">
 										</form>
 									</td>	 <!-- 상세보기 -->
