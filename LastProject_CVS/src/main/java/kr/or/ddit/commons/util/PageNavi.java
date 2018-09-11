@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
-
+/* 09.11  KONG */
 public class PageNavi {
 
 	public int page = 1;
@@ -57,8 +57,8 @@ public class PageNavi {
 	
 	/**
 	 * Method : pageNavi
-	 * 최초작성일 : 2018. 7. 25.
-	 * 작성자 : PC07
+	 * 최초작성일 : 2018. 09.11
+	 * 작성자 : PC24
 	 * 변경이력 :
 	 * @param page
 	 * @param pageSize
@@ -128,6 +128,8 @@ public class PageNavi {
 	}
 	
 	/**
+	 * 2018.09.11
+	 * PC24
 	 * Vo의 속성값으로 parameter 셋팅
 	 * @param obj
 	 * @return

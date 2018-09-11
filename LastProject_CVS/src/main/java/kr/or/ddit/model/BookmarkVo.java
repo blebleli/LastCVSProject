@@ -1,5 +1,6 @@
 package kr.or.ddit.model;
 
+// 09.11 KONG : prod_name , prod_price 항목 추가함
 public class BookmarkVo {
 	
 	private String star_id;                               // 즐겨찾기코드

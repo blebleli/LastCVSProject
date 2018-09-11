@@ -22,10 +22,16 @@ public class BookmarkService implements BookmarkServiceInf {
 		return 0;
 	}
 
+
 	/**
-	 * Kong
+	 * 
+	 * Method : getBookmarkList
+	 * 최초작성일 : 2018. 9. 110.
+	 * 작성자 : Kong
+	 * 변경이력 :
 	 * @param mem_id
-	 * @return
+	 * @return List<BookmarkVo>
+	 * Method 설명 : 회원이 즐겨찾기한 리스트
 	 */
 	@Override
 	public List<BookmarkVo> getBookmarkList(String mem_id) {

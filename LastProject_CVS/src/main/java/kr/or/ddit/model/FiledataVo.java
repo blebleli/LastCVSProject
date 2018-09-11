@@ -10,6 +10,7 @@ public class FiledataVo {
 	private String file_dot;                               // 확장자
 	private String bd_id;                               // 게시판코드
 	private String mem_id;                               // 아이디
+	
 	public FiledataVo() {
 		super();
 		// TODO Auto-generated constructor stub

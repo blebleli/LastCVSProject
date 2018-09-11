@@ -1,5 +1,6 @@
 package kr.or.ddit.model;
 
+/* 09.11 KONG :  extends PageVo 추가  */
 public class PayVo extends PageVo {
 	
 	private String pay_id;                      // 결제코드

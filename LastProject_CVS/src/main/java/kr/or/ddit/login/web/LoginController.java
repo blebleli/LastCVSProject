@@ -1,20 +1,28 @@
 package kr.or.ddit.login.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.PrivateKey;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import kr.or.ddit.commons.model.MailVo;
+import kr.or.ddit.commons.model.MailVo;
+import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.commons.service.CommonsServiceInf;
 import kr.or.ddit.commons.service.SendMailServiceInf;
 import kr.or.ddit.commons.util.RSA;
+import kr.or.ddit.filedata.FileUtil;
 import kr.or.ddit.login.service.SignUpServiceInf;
+import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.model.MemberVo;
 
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +32,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,8 +42,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-@Controller("LoginController")
+
+
 @RequestMapping("/login")
+@Controller("loginController")
 public class LoginController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -52,8 +64,8 @@ public class LoginController {
 	
 	
 	/**
-	 * 로그인 화면 -공
-	 * 
+	 * 로그인 화면 -공별
+	 * loginView
 	 * @param request
 	 * @param response
 	 * @param model
@@ -240,6 +252,68 @@ public class LoginController {
 		
 		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
 		
+		
+		// 프로필 첨부파일 정보 생성 및 파일저장 ========================================================================== 
+		FiledataVo fileVo = null;
+		
+			try {
+				for (Part part : request.getParts()) { 
+					if (part.getName().equals("file_upname") && part.getSize() > 0) { 
+						fileVo = new FiledataVo();
+
+						String contentDisposition =  part.getHeader("Content-Disposition");
+						String fileName = FileUtil.getFileName(contentDisposition);
+						
+						String fileExt = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+						
+						AutoCodeCreate autoCodeCreate = new AutoCodeCreate();
+						String file_id = autoCodeCreate.autoCode("FD");
+						
+						fileVo.setFile_id(file_id);
+						fileVo.setFile_path(FileUtil.fileUploadPath);
+						fileVo.setFile_name(fileName);
+						fileVo.setFile_upname(UUID.randomUUID().toString()+fileExt);
+						fileVo.setFile_size((int) part.getSize());
+						fileVo.setFile_dot(fileExt);
+						fileVo.setBd_id("1");
+						fileVo.setMem_id(memberVo.getMem_id());
+						
+						
+						// 디렉토리 없을 경우 생성
+						if(!new File(FileUtil.fileUploadPath).exists()) {
+							new File(FileUtil.fileUploadPath).mkdirs();
+						}
+
+//					logger.debug("filePath :::::::::: {}", fileVo.getFile_path());
+//					logger.debug("fileRenm :::::::::: {}", fileVo.getFile_renm());
+//					logger.debug("fileUpnm :::::::::: {}", fileVo.getFile_upnm());
+//					logger.debug("fileSize :::::::::: {}", fileVo.getFile_size());
+
+//					postsVo.getFileList().add(fileVo);
+
+//					part.write(fileVo.getFile_path() + File.separator + fileVo.getFile_upnm());
+//					part.delete();
+					}
+				}
+			} catch (ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+//		// 게시글 등록
+//		int posts_no = postsService.insertPosts(postsVo);   // 게시판 insert 작업
+//		logger.debug("등록된 posts_no : {}", posts_no);
+//		postsVo.setPosts_no(posts_no);
+//		
+//		// 게시물 상세조회화면으로 이동
+//		request.setAttribute("posts_no", posts_no);
+//		model.addAttribute("posts_no", posts_no);
+//		model.addAttribute("postsVo", postsVo);
+//
+//		return "forward:/posts/detailPosts.do";
+		
+		
 		int result = signUpService.newMember(memberVo);
 
 		response.setContentType("text/html; charset=UTF-8");
@@ -247,6 +321,14 @@ public class LoginController {
 		
 		response.getWriter().print(result);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * ID/PASSWORD 찾기 화면이동

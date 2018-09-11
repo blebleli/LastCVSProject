@@ -16,6 +16,8 @@ public class SessionUtil {
 		return (MemberVo) session.getAttribute("userInfo");
 	}
 	
+	
+	
 	public static String getSessionMemberId(HttpServletRequest request) {
 		return getMemberSession(request).getMem_id();
 	}

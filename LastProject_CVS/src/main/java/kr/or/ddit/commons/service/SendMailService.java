@@ -50,7 +50,7 @@ public class SendMailService implements SendMailServiceInf {
 	 * 
 	 * Method : sendMail
 	 * 최초작성일 : 2018. 9. 3.
-	 * 작성자 : pc24
+	 * 작성자 : pc24(공은별)
 	 * 변경이력 :
 	 * @param to
 	 * @param authUrl

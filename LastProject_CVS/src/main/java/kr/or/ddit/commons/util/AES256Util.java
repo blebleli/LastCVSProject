@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
  
 /*
-Copyright ? ▄?┌╛К╙? 
+Copyright ?О©╫О©╫?О©╫О©╫О©╫? 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -28,11 +28,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
  
+/* 09.03  KONG : Л²╦Л╕²К╘■Л²╪Л═└Л├║ Л▀° Л²╢К╘■Л²╪ Л∙■КЁ╣М≥■ */
 public class AES256Util {
     private String iv;
     private Key keySpec;
     
-    // ╬о/╨╧хёх╜ Key
+    // О©╫О©╫/О©╫О©╫хёх╜ Key
     public final static String AES256_KEY = "LAST_PROJECT_TEAM3";
     
     public AES256Util(String key) throws UnsupportedEncodingException {
@@ -50,7 +51,7 @@ public class AES256Util {
         this.keySpec = keySpec;
     }
  
-    // ╬охёх╜
+    // О©╫О©╫хёх╜
     public String aesEncode(String str) throws java.io.UnsupportedEncodingException, 
                                                     NoSuchAlgorithmException, 
                                                     NoSuchPaddingException, 
@@ -67,7 +68,7 @@ public class AES256Util {
         return enStr;
     }
  
-    //КЁ╣М≤╦?≥■
+    //КЁ╣М≤╦?О©╫О©╫
     public String aesDecode(String str) throws java.io.UnsupportedEncodingException,
                                                         NoSuchAlgorithmException,
                                                         NoSuchPaddingException, 

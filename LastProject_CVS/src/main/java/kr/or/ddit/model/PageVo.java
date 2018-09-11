@@ -1,5 +1,6 @@
 package kr.or.ddit.model;
 
+/* 09.11 KONG : PageVo 추가  */
 public class PageVo {
 
 	private int page;

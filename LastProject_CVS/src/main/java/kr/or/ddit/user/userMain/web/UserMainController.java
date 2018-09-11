@@ -22,6 +22,8 @@ import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
 import kr.or.ddit.user.userMain.service.UserMainServiceInf;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -87,7 +89,7 @@ public class UserMainController {
 	 * Method   : myPageView 
 	 * 최초작성일  : 2018. 9. 6. 
 	 * 작성자 : PC06 
-	 * 변경이력 : 
+	 * 변경이력 : 2018.09.11  공은별 수정 
 	 * @param mem_id
 	 * @param model
 	 * @return 
@@ -98,8 +100,11 @@ public class UserMainController {
 								@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
 								Model model) {
+		Logger logger = LoggerFactory.getLogger(this.getClass());
+		logger.debug("requestUrl : {}", request.getRequestURL());
 		
-		String mem_id = SessionUtil.getSessionMemberId(request);
+		String mem_id = "hsj";    //SessionUtil.getSessionMemberId(request);
+		
 		if(mem_id == null || "".equals(mem_id)) {
 			return "redirect:/login/loginView";
 		}

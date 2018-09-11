@@ -14,9 +14,6 @@ import javax.annotation.Resource;
 import kr.or.ddit.commons.dao.CommonsDaoInf;
 import kr.or.ddit.model.CategoryVo;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
 @Service(value="commonService")
@@ -91,5 +88,6 @@ public class CommonsService implements CommonsServiceInf {
         }
         return coordinate;
 	}
+
 
 }

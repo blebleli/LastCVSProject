@@ -92,6 +92,7 @@ public interface PayDaoInf {
 	 */
 	List<PayVo> getListMyPay(String mem_id);
 	
+	
 	/**
 	 * 
 	 * Method   : getMyPayPageList 

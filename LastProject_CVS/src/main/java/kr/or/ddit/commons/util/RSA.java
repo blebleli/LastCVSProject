@@ -11,6 +11,7 @@ import java.security.spec.RSAPublicKeySpec;
 
 import javax.crypto.Cipher;
 
+/* 09.06  KONG : 로그인시 비밀번호 암복화 */
 public class RSA {
    
    private String publicKeyModulus = "";
