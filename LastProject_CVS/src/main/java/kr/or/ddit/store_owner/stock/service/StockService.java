@@ -44,9 +44,6 @@ public class StockService implements StockServiceInf {
 
 	@Override
 	public StockVo getStock(Map<String, Object> map) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		map.put("stock_date", sdf.format(map.get("date")));
-		
 		return stockDao.getStock(map);
 	}
 
