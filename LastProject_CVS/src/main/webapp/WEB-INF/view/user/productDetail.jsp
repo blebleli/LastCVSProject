@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
@@ -65,7 +64,7 @@
 			<div class="agileinfo_single">
 				<h5>${prod.prod_name }</h5>
 				<div class="col-md-4 agileinfo_single_left">
-					<img id="example" src="/images/76.png" alt=" " class="img-responsive" />
+					<img id="example" src="${prod.file_path }/${prod.file_upname}" alt=" " class="img-responsive" />
 				</div>
 				<div class="col-md-8 agileinfo_single_right">
 					<div class="rating1">

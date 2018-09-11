@@ -27,11 +27,28 @@
 	
 </select>
 
-<!-- 제품아이디로 제품 조회 -->
+<!--  -->
+
+
+<!-- 	아 이 디 : getProd
+  		반 환 값 : 
+  		매개변수 : 상품 코드
+  		설    명 : 제품아이디로 제품 조회
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-12    
+-->
 <select id = "getProd" parameterType="String" resultType="prodVo">
 	SELECT * 
 	FROM prod
 	WHERE prod_id=#{prod_id}
+	
+	-- SELECT P.PROD_ID
+	--       ,SUM(B.BD_RATING) AS BD_RATING
+	-- FROM  PROD P
+	-- JOIN  BOARD B
+	-- ON  P.PROD_ID = B.PROD_ID
+	-- WHERE B.PROD_ID =''
+	-- GROUP BY P.PROD_ID;
 </select>
 
 <!-- 전체 행사 상품 조회 -->
@@ -294,9 +311,9 @@ FROM (
         )T
 )
 WHERE rn BETWEEN (#{page}-1) * #{pageSize}+1 AND #{page} * #{pageSize}
-
-
 </select>
+
+
 
 
 

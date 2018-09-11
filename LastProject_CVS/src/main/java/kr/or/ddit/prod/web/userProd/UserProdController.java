@@ -75,10 +75,15 @@ public class UserProdController {
 		return "bestProducts";
 	}
 	
+	
+	//  상품 이미지 클릭 했을때 
 	@RequestMapping("/detail")
 	public ModelAndView prodDetail(@RequestParam(value="prod_id")String prod_id){
+		
 		ModelAndView mav = new ModelAndView("prodDetail");
+		
 		ProdVo prod = prodService.getProd(prod_id);
+		
 		List<ReviewVo> reviews = boardService.getReviewOfProd(prod_id);
 		mav.addObject("reviewList", reviews);
 		mav.addObject("prod", prod);
