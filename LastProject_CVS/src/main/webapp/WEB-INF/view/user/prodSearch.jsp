@@ -256,7 +256,7 @@ var content="";
 		        	 $.each(data,function(index,item){
 						// 리턴 받은 값 (좌표) set
 						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
-						alert(item.mem_x + " : " + item.mem_y);
+// 						alert(item.mem_x + " : " + item.mem_y);
 						// 커스텀 오버레이에 표시할 컨텐츠 입니다
 						// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 						// 별도의 이벤트 메소드를 제공하지 않습니다 

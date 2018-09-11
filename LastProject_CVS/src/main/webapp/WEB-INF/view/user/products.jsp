@@ -63,72 +63,209 @@
 
 	$(function() {
 
-		// 이미지 클릭
-		// 	$("#prodImage").on("click", function(){
-		// 		$("#detailFrm").submit();
-		// 		console.log(prod_id);
-		// 	});
+// 		이미지 클릭
+		$("#prodImage").on("click", function(){
+			$("#detailFrm").submit();
+			console.log(prod_id);
+		});
 
-		// 더보기
-		// 	$("#nextPage").on("click", function(){
-		// 		var pageIndex = $("#index").val();
-		// 		pageIndex++;
-		// 		$("#index").val(pageIndex);
-		// 		var level = $("#level").val();
-		// 		var ctgy_id = $("#ctgy_id").val();
-		// 		$.ajax({
-		// 			url :"nextList",
-		// 			method :"get",
-		// 			data : {"page" : pageIndex, "pageSize" : 24, "level" : $("#level").val(), "pr_class_id" : $("#ctgy_id").val(),"i" : $("#i").val() },
-		// 			success : function(responseData){
-		// 				$("#nextPage").remove();
-		// 				console.log(responseData);
-		// 				var content = '';
-		// 				$.each(responseData, function(index,item){
-		// 					content ='<div class="col-md-3 w3ls_w3l_banner_left"><div class="hover14 column"><div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid"><div class="agile_top_brand_left_grid_pos"><img src="/images/offer.png" alt=" " class="img-responsive" /></div><div class="agile_top_brand_left_grid1"><figure><div class="snipcart-item block"><div class="snipcart-thumb">'+'<a href="/userProd/detail?prod_id='+item.prod_id+'" id="prodImage"><img src="/images/5.png" alt=" " class="img-responsive" /></a>' +
-		// 									'<p>'+item.prod_name+'</p>'+
-		// 									'<h4>'+item.prod_price+'</h4>'+
-		// 									'</div>'+
-		// 									'<div class="snipcart-details">'+
-		// 									'<form action="#" method="post">'+
-		// 									'<fieldset>'+
-		// 									'<input type="hidden" name="prod_id" value="'+item.prod_id+'" />'+
-		// 									'<input type="submit" name="submit" value="Add to cart" class="button" />'+
-		// 									'</fieldset>'+
-		// 									'</form></div></div></figure></div></div></div></div>';
-		// 					$(".list").append(content);
-		// 				})
+// 		더보기
+		$("#nextPage").on("click", function(){
+			
+			// 카테고리
+			var mealChk        =   $("#mealChk").val();
+			var biscuitChk     =   $("#biscuitChk").val();
+			var iceChk         =   $("#iceChk").val();
+			var foodChk        =   $("#foodChk").val();
+			var drinkChk       =   $("#drinkChk").val();
+			var necessitiesChk =   $("#necessitiesChk").val();
+			
+			// 가격
+			var min_price   = $("#min_price").val();
+			var max_price   = $("#max_price").val();
+			
+			// 상품명
+			var searchName  = $("#searchName").val();
+			
+			// 페이지
+			var page = $("#page").val();
+			if (page == 0) {
+				page = 2; 
+			}
+			
+			
+			var pageSize = 24;
+			// 페이지 종류
+			var iKind = $("#iKind").val();
+			
+			$.ajax({
+				url :"search",
+				method :"get",
+				data : {
+					 "mealChk"        :   mealChk          		
+			        ,"biscuitChk"     :   biscuitChk    
+			        ,"iceChk"         :   iceChk        
+			        ,"foodChk"        :   foodChk       
+			        ,"drinkChk"       :   drinkChk      
+			        ,"necessitiesChk" :   necessitiesChk
+			
+			        ,"min_price"      :   min_price
+			        ,"max_price" 	  :   max_price
+			        ,"searchName" 	  :   searchName
+			        
+			        ,"page"			  :   page
+			        ,"pageSize"		  :	  pageSize
+			        
+			        , "iKind"         :   iKind
+			 
+			}, 
+					
+				success : function(responseData){
+					
+					
+					console.log(responseData);
+					var content = '';
+					$.each(responseData, function(index,item){
+						content += '		<div class="col-md-4 w3ls_w3l_banner_left liiist" name="liiist">'
+							+'			<div class="hover14 column">'
+							+'				<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">'
+							+'					<div class="agile_top_brand_left_grid_pos">'
+							+'					</div>'
+							+'					<div class="agile_top_brand_left_grid1">'
+							+'	<figure>'
+							+'		<div class="snipcart-item block">'
+							+'			<div class="snipcart-thumb">'
+							+'				<a href="/userProd/detail?prod_id='+item.prod_id+'"	id="prodImage">'
+							+'					 <img src="'+item.file_path+'/'+item.file_upname+'" alt=" " class="img-responsive" width="200px" height="150px" />'
+							+'				</a>'
+							+'				<p>' +item.prod_name +'</p>'
+							+'				<h4>'+item.prod_price +'</h4>'
+							+'			</div>'
+							+'			<div class="snipcart-details">'
+							+'				<form action="#" method="post">'
+							+'					<fieldset>'
+							+'						<input type="hidden" name="prod_id" value="'+item.prod_id+'" />'
+							+'						<input type="submit" name="submit" value="Add to cart" class="button" />'
+							+'					</fieldset>'
+							+'				</form>'
+							+'			</div>'
+							+'		</div>'
+							+'	</figure>'
+							+'					</div>'
+							+'				</div>'
+							+'			</div>'
+							+'		</div>';
+					}); //$.each(responseData, function(index,item){
+						$(".list").append(content);
+						
+					
+	
+					$("#page").val(parseInt(page) + 1);		
+				} // success : function(responseData){
+			});
+		}); 
 
-		// 			}
-		// 		});
-		// 	});
+		//  검색
+		$("#searchBtn").on("click", function(){
+			
+			// 카테고리
+			var mealChk        =   $("#mealChk").val();
+			var biscuitChk     =   $("#biscuitChk").val();
+			var iceChk         =   $("#iceChk").val();
+			var foodChk        =   $("#foodChk").val();
+			var drinkChk       =   $("#drinkChk").val();
+			var necessitiesChk =   $("#necessitiesChk").val();
+			
+			// 가격
+			var min_price   = $("#min_price").val();
+			var max_price   = $("#max_price").val();
+			
+			// 상품명
+			var searchName  = $("#searchName").val();
+			
+			// 페이지
+			var page = 1;
+			var pageSize = 24;
+			
+			// 페이지 종류
+			var iKind = $("#iKind").val();
 
-		// 	$("#searchBtn").on("click", function(){
-		// 		alert("검색 버튼");
-		// // 		var page = 1;
-		// // 		var pageSize = 32;
-		// // 		var min =$("#min_price").val();
-		// // 		var max =$("#max_price").val();
-		// // 		var searchName = $("#searchName").val();
-		// 		console.log($("#min_price").val(), $("#max_price").val(),  $("#searchName").val()  );
-
-		// 		$.ajax({
-		// 			url :"search",
-		// 			method :"get",
-		// 			data : {"page":1, "pageSize":24, "min_price": $("#min_price").val(), "max_price" : $("#max_price").val(), "searchfor" : $("#searchName").val() },
-		// 			success : function(responseData){
-		// 				alert("성공");
-		// 				console.log(responseData);
-
-		// 				$("#proList").val("");
-
-		// 				var content =
-		// 					} // else {
-		// 				$("#proList").val(content);
-
-		// 			} // 	success : function(responseData){
-		// 		});	// $.ajax({
-		// 	});	 //$("#searchBtn").on("click", function(){
+			$.ajax({
+				url :"search",
+				method :"get",
+				data : {
+							 "mealChk"        :   mealChk          		
+					        ,"biscuitChk"     :   biscuitChk    
+					        ,"iceChk"         :   iceChk        
+					        ,"foodChk"        :   foodChk       
+					        ,"drinkChk"       :   drinkChk      
+					        ,"necessitiesChk" :   necessitiesChk
+					
+					        ,"min_price"      :   min_price
+					        ,"max_price" 	  :   max_price
+					        ,"searchName" 	  :   searchName
+					        
+					        ,"page"			  :   page
+					        ,"pageSize"		  :	  pageSize
+					        
+					        , "iKind"         :   iKind
+					 
+				},
+				
+				success : function(data){
+					// 성공시 기존 내용 삭제
+					$("#proList").html("");
+					
+					// 새로운 내용 담을 변수
+					var content = '<div class="w3ls_w3l_banner_nav_center_grid1" id="proList"> <div class="list">';
+					
+					if (data == null) {
+						content += '<div class="col-md-3 w3ls_w3l_banner_left liiist" name="liiist">'
+						+'해당 상품이 없습니다.</div></div></div>';
+					} else {
+						
+						$.each(data,function(index,item){
+						content += '		<div class="col-md-4 w3ls_w3l_banner_left liiist" name="liiist">'
+								+'			<div class="hover14 column">'
+								+'				<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">'
+								+'					<div class="agile_top_brand_left_grid_pos">'
+								+'					</div>'
+								+'					<div class="agile_top_brand_left_grid1">'
+								+'	<figure>'
+								+'		<div class="snipcart-item block">'
+								+'			<div class="snipcart-thumb">'
+								+'				<a href="/userProd/detail?prod_id='+item.prod_id+'"	id="prodImage">'
+								+'					 <img src="'+item.file_path+'/'+item.file_upname+'" alt=" " class="img-responsive" width="200px" height="150px" />'
+								+'				</a>'
+								+'				<p>' +item.prod_name +'</p>'
+								+'				<h4>'+item.prod_price +'</h4>'
+								+'			</div>'
+								+'			<div class="snipcart-details">'
+								+'				<form action="#" method="post">'
+								+'					<fieldset>'
+								+'						<input type="hidden" name="prod_id" value="'+item.prod_id+'" />'
+								+'						<input type="submit" name="submit" value="Add to cart" class="button" />'
+								+'					</fieldset>'
+								+'				</form>'
+								+'			</div>'
+								+'		</div>'
+								+'	</figure>'
+								+'					</div>'
+								+'				</div>'
+								+'			</div>'
+								+'		</div>';
+								
+						});	// $.each(data,function(index,item){
+							
+						content += '</div>'
+								+'<div class="clearfix"></div>'
+								+'</div>';	
+					}	// } else {
+					$("#page").val("2");
+					$("#proList").html(content);
+				} // 	success : function(responseData){
+			});	// $.ajax({
+		});	 //$("#searchBtn").on("click", function(){
 
 		$("#opoBtn").on("click", function() {
 			$("#event_id").val("201");
@@ -145,13 +282,6 @@
 		})
 	});
 		
-//	카테고리 관련 스크립트
-// 	 $(function() {
-// 		 $("#meal").on("click", function() {
-// 			$("#meal").css({'-webkit-filter':'grayscale(0)', 'filter' : 'gray'})
-// 		});
-// 	});
-	
 
 // 카테고리 클릭 이벤트
 $(document).ready(function(){
@@ -224,7 +354,7 @@ $(document).ready(function(){
 		    $("#necessitiesChk").val("");
 		} else {
 		    $("#necessitiesLb").show();
-	 		$("#necessitiesChk").val("");
+	 		$("#necessitiesChk").val("생활용품");
 		}
  	});
   
@@ -272,7 +402,7 @@ $(document).ready(function(){
 	<input type="hidden" name="prod_id" value="${prod.prod_id }" />
 </form>
 
-<!-- 카테고리 -->
+<!-- 카테고리 & 더보기-->
 <form>
 	<input type="hidden" id="mealChk" value="">
 	<input type="hidden" id="biscuitChk" value="">
@@ -280,6 +410,15 @@ $(document).ready(function(){
 	<input type="hidden" id="foodChk" value="">
 	<input type="hidden" id="drinkChk" value="">
 	<input type="hidden" id="necessitiesChk" value="">
+	<input type="hidden" id="iKind" value="${i }">
+	
+	<input type="hidden" id="page" value="">
+	
+	<input type="hidden" id="index" value="1"> 
+	<input type="hidden" id="i" value="${i }"> 
+	<input type="hidden" id="level" value="${ctgylevel }">
+	<input type="hidden" id="ctgy_id" value="${ctgy_id }">
+	
 </form>
 
 <!-- 상단 배너 -->
@@ -386,10 +525,9 @@ $(document).ready(function(){
 											</td>
 											
 										</tr>
-										
 										<!-- 가격 -->									
 										<tr>
-											<th scope="row" rowspan="2" align="center">가격</th>
+											<th scope="row" rowspan="2" align="center">금액</th>
 											<br>
 											<td>
 												<div style="position: relative;">
@@ -412,12 +550,11 @@ $(document).ready(function(){
 										<!-- 상품명 -->
 										<tr>
 											<th scope="row"><label for="store_name">상품명</label></th>
-											<td id=>
+											<td >
 												<div class="form-row">
 													<!--       												<form action="#" method="get"> -->
 													<!--     		  											<span class="input-group-btn"> -->
-													<input type="text" class="form-control" id="searchName"
-														placeholder="Search for..." style="width: 90%">
+													<input type="text" class="form-control" id="searchName" placeholder="Search for..." style="width: 90%">
 													<!-- 		      												<button class="btn btn-default" type="submit">Go!</button> -->
 													<!-- 	      												</span> -->
 													<!--       												</form> -->
@@ -425,8 +562,7 @@ $(document).ready(function(){
 
 
 											</td>
-											<td><input type="button" id="searchBtn" name="psBtn"
-												class="btn btn-default" value="검색"></td>
+											<td><input type="button" id="searchBtn" name="psBtn" class="btn btn-default" value="검색"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -434,6 +570,7 @@ $(document).ready(function(){
 						</div>
 				</form>
 
+				<!-- ========================================================================================================================= -->
 				<div class="w3ls_w3l_banner_nav_center_grid1" id="proList">
 					<div class="list">
 						<c:if test="${ctgyProdList == null }">
@@ -478,18 +615,11 @@ $(document).ready(function(){
 							</div>
 						</c:forEach>
 					</div>
-					<c:if test="${ctgyProdList != null }">
-
-						<form id="nextFrm">
-							<input type="hidden" id="index" value="1"> <input
-								type="hidden" id="i" value="${i }"> <input type="hidden"
-								id="level" value="${ctgylevel }"> <input type="hidden"
-								id="ctgy_id" value="${ctgy_id }"> <input type="button"
-								id="nextPage" value="더보기">
-						</form>
-					</c:if>
+					
 					<div class="clearfix"></div>
 				</div>
+				<!-- ========================================================================================================================= -->
+						<input type="button" id="nextPage" value="더보기">
 			</div>
 		</div>
 		<div class="clearfix"></div>
