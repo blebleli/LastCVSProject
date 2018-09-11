@@ -1,14 +1,18 @@
 package kr.or.ddit.store_owner.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.store_owner.model.PageNavi;
 import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
@@ -80,7 +84,11 @@ public class CvsSupplyReqController {
 //		MemberVo userInfo = (MemberVo) modelMap.get("userInfo");
 //		
 //		String mem_id = userInfo.getMem_id();
-		StockVo myStock = stockService.getStock("3630000-104-2015-00121");
+		Map<String, Object> map = new HashMap<String, Object>();
+		Date date = new Date();
+		map.put("mem_id", "3630000-104-2015-00121");
+		map.put("date", date);
+		StockVo myStock = stockService.getStock(map);
 		return myStock;
 	}
 	
@@ -111,15 +119,22 @@ public class CvsSupplyReqController {
 	
 
 	@RequestMapping("/supplyReqest")
-	public ModelAndView cvssupplyReqest(@RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="15")int pageSize, Model model){
+	public ModelAndView cvssupplyReqest(HttpServletRequest request, @RequestParam(value="page", defaultValue="1")int page, @RequestParam(value="pageSize", defaultValue="15")int pageSize, Model model){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("cvs_supply_request");
 		Map<String, Object> param = new HashMap<String, Object>();
+		int totCnt = stockService.totalCountProd();
+		ProdVo prod = new ProdVo();
+		prod.setPage(page);
+		prod.setPageSize(pageSize);
+		
+		PageNavi pagination = new PageNavi(page, pageSize, totCnt);
 		param.put("page", page);
 		param.put("pageSize", pageSize);
 		
 		List<ProdVo> allProdList =prodService.getAllProd(param);
 		mav.addObject("allProdList", allProdList);
+		mav.addObject("pagination", pagination.getPageNavi(request, prod, "/cvs/supplyReqest"));
 		
 		return mav;
 	}
@@ -127,8 +142,6 @@ public class CvsSupplyReqController {
 	
 	@RequestMapping("/stock")
 	public String cvsStock(Model model){
-//		ProdVo prod = prodService.getProd("necessities-59ed647b-25d7-4b14-8276-a2d53d56018d");
-//		model.addAttribute("prod", prod);
 		return "cvs_stock";
 	}
 	
@@ -148,11 +161,20 @@ public class CvsSupplyReqController {
 		Map modelMap = model.asMap();
 		List<ProdVo> requestList = (List<ProdVo>) modelMap.get("requestList");
 		ProdVo ps = prodService.getProd(requestprod);
-		logger.debug("prodVo ------"+ps);
 		requestList.add(ps);
 		logger.debug("list ------"+requestList);
 		model.addAttribute("requestList", requestList);
 		return requestList;
+	}
+	
+	@RequestMapping(value="/searchProd", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> searchList(@RequestParam(value="searchTxt")String searchTxt, Model model){
+		List<ProdVo> searchList = prodService.getSearchProdList(searchTxt);
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("searchList", searchList);
+		
+		return searchMap;
 	}
 	
 	
