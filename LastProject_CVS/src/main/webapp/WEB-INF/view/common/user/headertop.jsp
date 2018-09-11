@@ -114,9 +114,9 @@
 				</div>
 				<div id="collapseThree" class="panel-collapse collapse" aria-labelledby="headingThree">						
 					<ul class="list-group" style= "margin-left: 200px ; float: left;">
-					  <li class="list-group-item"><a href="/userProd/view?i=2&page=1&pageSize=32">Best상품</a></li>
-					  <li class="list-group-item"><a href="/userProd/view?i=3&page=1&pageSize=32">이벤트상품</a></li>
-					  <li class="list-group-item"><a href="/userProd/view?i=1&page=1&pageSize=32">상품</a></li>		  					  
+					  <li class="list-group-item"><a href="/userProd/view?i=2&page=1&pageSize=24">Best상품</a></li>
+					  <li class="list-group-item"><a href="/userProd/view?i=3&page=1&pageSize=24">이벤트상품</a></li>
+					  <li class="list-group-item"><a href="/userProd/view?i=1&page=1&pageSize=24">상품</a></li>		  					  
 					</ul>
 					<ul class="list-group" style= "float: left;">
 					  <li class="list-group-item"><a href="/search/prodSearch">제품찾기</a></li>	
