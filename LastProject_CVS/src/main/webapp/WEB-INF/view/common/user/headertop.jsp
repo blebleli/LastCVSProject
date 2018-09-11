@@ -38,9 +38,9 @@
 		<!-- submit버튼 클릭시  ★ 이동 경로 주기(장바구니 화면) -->
 		<form action="#" method="post" class="last">
 			<fieldset>
-				<input type="hidden" name="cmd" value="_cart" /> <input
-					type="hidden" name="display" value="1" /> <input type="submit"
-					name="submit" value="장바구니 보기" class="button" />
+				<input type="hidden" name="cmd" value="_cart" /> 
+				<input type="hidden" name="display" value="1" /> 
+				<input type="submit" name="submit" value="장바구니 보기" class="button" />
 			</fieldset>
 		</form>
 	</div>
@@ -103,7 +103,7 @@
 <!-- <div class="logo_products"> -->
 
 <!-- 		<div class="w3ls_logo_products_left"> -->
-<!-- 			<!--  로고 클릭시 ★ 이동 경로 주기(메인화면) --> -->
+<!-- 			<!--  로고 클릭시 ★ 이동 경로 주기(메인화면) --> -
 <!-- 			<h1> -->
 <!-- 				<a href="/user/main"><span>GoGo</span>CVS</a> -->
 <!-- 			</h1> -->
@@ -127,10 +127,10 @@
 <div id="gnb">
     <ul>
 
-    <li class="gnb01"><a href="#" class="">상     품</a>
+    <li class="gnb01"><a href="#" class="">상품안내</a>
             <ul style="display: none;">
                 <li>
-                    <a href="<c:url value='/search/prodSearch' />">주변 제품찾기</a>
+                    <a href="<c:url value='/search/prodSearch' />">내주변 제품찾기</a>
                 </li>
                 <li>
                     <a href="<c:url value='/userProd/view?i=2&page=1&pageSize=32' />">Best상품</a>
@@ -165,7 +165,7 @@
 		        <li class="gnb03"><a href="#">My CVS</a>
 		            <ul style="display: none;">
 						 <li>
-		                       <a href="<c:url value='/user/mypage' />">마이페이지</a>
+		                       <a id="btnMypage" href="<c:url value='/user/mypage' />">마이페이지</a>
 		                 </li>
 		<!--                 <li> -->
 		<!--                         <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050100000000">회원정보 관리</a> -->
