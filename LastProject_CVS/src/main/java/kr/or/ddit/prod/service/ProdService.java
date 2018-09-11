@@ -70,7 +70,7 @@ public class ProdService implements ProdServiceInf {
 		return result;
 	}
 	
-	private String pagination(int page, int pageSize, int cnt){
+	public String pagination(int page, int pageSize, int cnt){
 		int c = cnt/pageSize;
 		int m = cnt%pageSize;
 		if(m >0){
