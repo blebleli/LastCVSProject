@@ -4,7 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.filedata.dao.FileDaoInf;
 import kr.or.ddit.login.dao.SignUpDaoInf;
+import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.model.MemberVo;
 
 @Service("signUpService")
@@ -12,6 +14,9 @@ public class SignUpService implements SignUpServiceInf {
 	
 	@Resource(name="signUpDao")
 	private SignUpDaoInf signUpDao;
+	
+	@Resource(name="fileDao")
+	private FileDaoInf fileDao;
 	
 	/**
 	 * 
@@ -83,7 +88,14 @@ public class SignUpService implements SignUpServiceInf {
 	 */
 	@Override
 	public int newMember(MemberVo memberVo) {
-		return signUpDao.setInsertSignUpUser(memberVo);
+		int result = signUpDao.setInsertSignUpUser(memberVo);
+		// 사용자 사진 업로드
+		if(result > 0) {
+			for(FiledataVo fileDataVo : memberVo.getFileList()) {
+				fileDao.insertFile(fileDataVo);
+			}
+		}
+		return result;
 	}
 
 	@Override

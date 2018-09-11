@@ -167,7 +167,7 @@ $(document).ready(function() {
 
 				<div class="form">
 					<h2>로그인 하기</h2>
-					<form id="loginForm" action="<c:url value='/login/loginProcess' />" method="post">
+					<form id="loginForm" action="<c:url value='/login/loginProcess' />" method="post" enctype="multipart/form-data">
 					
 						<!-- 암호화처리 : 공 -->
 		        		<input type="hidden" id="rsaPublicKeyModulus" value="${publicKeyModulus}">

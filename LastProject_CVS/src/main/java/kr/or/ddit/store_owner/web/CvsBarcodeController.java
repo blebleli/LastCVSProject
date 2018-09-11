@@ -4,9 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Base64;
 import java.util.HashMap;
-import java.util.Base64.Decoder;
 import java.util.List;
 import java.util.Map;
 
@@ -89,15 +87,15 @@ public class CvsBarcodeController {
 		ModelAndView mav = new ModelAndView("jsonView");
 
 		String[] stringPart = file.split(",");	
-		Decoder decoder = Base64.getDecoder();
-		byte[] fileByte = decoder.decode(stringPart[1]);
-		Map<String, Object> found = decode(fileByte);
-		logger.debug("returnMsg ------"+found.get("returnMsg"));	
-		mav.addObject("returnMsg", found.get("returnMsg"));		
+//		Decoder decoder = Base64.getDecoder();
+//		byte[] fileByte = decoder.decode(stringPart[1]);
+//		Map<String, Object> found = decode(fileByte);
+//		logger.debug("returnMsg ------"+found.get("returnMsg"));	
+//		mav.addObject("returnMsg", found.get("returnMsg"));		
 	
-		if(found.get("returnMsg")!= null){
-			mav.addObject("supplyList", found.get("supplyList"));	
-		}
+//		if(found.get("returnMsg")!= null){
+//			mav.addObject("supplyList", found.get("supplyList"));	
+//		}
 		
 		return mav;
 	 }	 

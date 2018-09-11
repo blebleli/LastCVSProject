@@ -1,5 +1,8 @@
 package kr.or.ddit.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MemberVo {
 	
 	private String mem_id;                               // 일반:이메일, 점주:사업자번호, 관리자:일괄부여
@@ -17,6 +20,9 @@ public class MemberVo {
 	private String mem_intro;                               // 소개
 	private String mem_x;                               // 좌표_x
 	private String mem_y;                               // 좌표_y
+	
+	private List<FiledataVo> fileList = new ArrayList<FiledataVo>();
+	
 	public MemberVo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -131,6 +137,12 @@ public class MemberVo {
 	}
 	public void setMem_y(String mem_y) {
 		this.mem_y = mem_y;
+	}
+	public List<FiledataVo> getFileList() {
+		return fileList;
+	}
+	public void setFileList(List<FiledataVo> fileList) {
+		this.fileList = fileList;
 	}
 	@Override
 	public String toString() {

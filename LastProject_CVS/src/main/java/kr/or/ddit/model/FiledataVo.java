@@ -1,5 +1,7 @@
 package kr.or.ddit.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class FiledataVo {
 	
 	private String file_id;                               // 자료코드
@@ -10,6 +12,8 @@ public class FiledataVo {
 	private String file_dot;                               // 확장자
 	private String bd_id;                               // 게시판코드
 	private String mem_id;                               // 아이디
+	
+	private MultipartFile[] uplodaFile;
 	
 	public FiledataVo() {
 		super();
@@ -75,6 +79,12 @@ public class FiledataVo {
 	}
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
+	}
+	public MultipartFile[] getUplodaFile() {
+		return uplodaFile;
+	}
+	public void setUplodaFile(MultipartFile[] uplodaFile) {
+		this.uplodaFile = uplodaFile;
 	}
 	@Override
 	public String toString() {

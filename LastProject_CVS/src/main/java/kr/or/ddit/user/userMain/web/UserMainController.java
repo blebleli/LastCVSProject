@@ -2,7 +2,6 @@ package kr.or.ddit.user.userMain.web;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,6 @@ import kr.or.ddit.commons.util.SessionUtil;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.BookmarkVo;
 import kr.or.ddit.model.MemberShipVo;
-import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.pay.service.PayServiceInf;
@@ -103,7 +101,8 @@ public class UserMainController {
 		Logger logger = LoggerFactory.getLogger(this.getClass());
 		logger.debug("requestUrl : {}", request.getRequestURL());
 		
-		String mem_id = "hsj";    //SessionUtil.getSessionMemberId(request);
+		String mem_id = SessionUtil.getSessionMemberId(request);
+		logger.debug("mem_id : {}", mem_id);
 		
 		if(mem_id == null || "".equals(mem_id)) {
 			return "redirect:/login/loginView";

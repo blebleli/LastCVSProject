@@ -19,6 +19,10 @@ public class SessionUtil {
 	
 	
 	public static String getSessionMemberId(HttpServletRequest request) {
+		MemberVo memberVo = getMemberSession(request);
+		if(memberVo == null) {
+			return "";
+		}
 		return getMemberSession(request).getMem_id();
 	}
 	

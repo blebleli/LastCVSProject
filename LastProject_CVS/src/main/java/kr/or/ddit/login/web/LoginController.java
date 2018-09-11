@@ -8,13 +8,10 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
-import kr.or.ddit.commons.model.MailVo;
 import kr.or.ddit.commons.model.MailVo;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.commons.service.CommonsServiceInf;
@@ -25,6 +22,7 @@ import kr.or.ddit.login.service.SignUpServiceInf;
 import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.model.MemberVo;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,12 +30,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
-
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -58,6 +55,9 @@ public class LoginController {
 	
 	@Resource(name="commonService")
 	private CommonsServiceInf commonService; 
+	
+	@Resource(name="autoCodeCreate")
+	private AutoCodeCreate autoCodeCreate;
 	
 	@Autowired 
 	private ResourceLoader resourceLoader;
@@ -225,7 +225,8 @@ public class LoginController {
 	public void joinProcess( HttpServletRequest request
 							, HttpServletResponse response
 							, @ModelAttribute("memberVo") MemberVo memberVo
-							, Model model) throws IOException {
+							, @ModelAttribute("fileDataVo") FiledataVo fileDataVo
+							, Model model) throws Exception {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
 		logger.debug("paramVo : " + memberVo.toString());
@@ -251,68 +252,46 @@ public class LoginController {
 		memberVo.setMem_y(resultCoordinate.get("y"));
 		
 		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
-		
-		
-		// 프로필 첨부파일 정보 생성 및 파일저장 ========================================================================== 
-		FiledataVo fileVo = null;
-		
-			try {
-				for (Part part : request.getParts()) { 
-					if (part.getName().equals("file_upname") && part.getSize() > 0) { 
-						fileVo = new FiledataVo();
+		// 사용자 사진 업로드 ========================================================================== 
+		if(fileDataVo.getUplodaFile() != null) {
+			for(MultipartFile file : fileDataVo.getUplodaFile()) {
 
-						String contentDisposition =  part.getHeader("Content-Disposition");
-						String fileName = FileUtil.getFileName(contentDisposition);
-						
-						String fileExt = fileName.substring(fileName.lastIndexOf("."), fileName.length());
-						
-						AutoCodeCreate autoCodeCreate = new AutoCodeCreate();
-						String file_id = autoCodeCreate.autoCode("FD");
-						
-						fileVo.setFile_id(file_id);
-						fileVo.setFile_path(FileUtil.fileUploadPath);
-						fileVo.setFile_name(fileName);
-						fileVo.setFile_upname(UUID.randomUUID().toString()+fileExt);
-						fileVo.setFile_size((int) part.getSize());
-						fileVo.setFile_dot(fileExt);
-						fileVo.setBd_id("1");
-						fileVo.setMem_id(memberVo.getMem_id());
-						
-						
-						// 디렉토리 없을 경우 생성
-						if(!new File(FileUtil.fileUploadPath).exists()) {
-							new File(FileUtil.fileUploadPath).mkdirs();
-						}
+				if (file.getSize() > 0) { 
+					
+					String fileName = file.getOriginalFilename();
+					String fileExt = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 
-//					logger.debug("filePath :::::::::: {}", fileVo.getFile_path());
-//					logger.debug("fileRenm :::::::::: {}", fileVo.getFile_renm());
-//					logger.debug("fileUpnm :::::::::: {}", fileVo.getFile_upnm());
-//					logger.debug("fileSize :::::::::: {}", fileVo.getFile_size());
+					fileDataVo.setMem_id(memberVo.getMem_id());
+					fileDataVo.setFile_id(autoCodeCreate.autoCode("FD"));
+					fileDataVo.setFile_path(FileUtil.fileUploadPath);
+					fileDataVo.setFile_name(fileName);
+					fileDataVo.setFile_upname(UUID.randomUUID().toString()+fileExt);
+					fileDataVo.setFile_size((int) (long) file.getSize());
+					fileDataVo.setFile_dot(fileExt);
 
-//					postsVo.getFileList().add(fileVo);
+					// 디렉토리 없을 경우 생성
+					if(!new File(FileUtil.fileUploadPath).exists()) {
+						new File(FileUtil.fileUploadPath).mkdirs();
+					}
 
-//					part.write(fileVo.getFile_path() + File.separator + fileVo.getFile_upnm());
-//					part.delete();
+					logger.debug("file_path :::::::::: {}", fileDataVo.getFile_path());
+					logger.debug("file_name :::::::::: {}", fileDataVo.getFile_name());
+					logger.debug("file_upname :::::::::: {}", fileDataVo.getFile_upname());
+					logger.debug("file_size :::::::::: {}", fileDataVo.getFile_size());
+
+					memberVo.getFileList().add(fileDataVo);
+					
+					// 파일 저장
+					try {
+						FileUtils.writeByteArrayToFile(new File(fileDataVo.getFile_path(), fileDataVo.getFile_upname()), file.getBytes());
+					} catch (IOException e) {
+						e.printStackTrace();
+						throw new Exception(file.getName() + " 파일 저장 실패");
 					}
 				}
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
 			}
-		
-		
-//		// 게시글 등록
-//		int posts_no = postsService.insertPosts(postsVo);   // 게시판 insert 작업
-//		logger.debug("등록된 posts_no : {}", posts_no);
-//		postsVo.setPosts_no(posts_no);
-//		
-//		// 게시물 상세조회화면으로 이동
-//		request.setAttribute("posts_no", posts_no);
-//		model.addAttribute("posts_no", posts_no);
-//		model.addAttribute("postsVo", postsVo);
-//
-//		return "forward:/posts/detailPosts.do";
-		
+		}
 		
 		int result = signUpService.newMember(memberVo);
 
