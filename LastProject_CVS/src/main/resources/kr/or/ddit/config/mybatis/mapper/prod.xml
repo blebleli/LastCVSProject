@@ -197,7 +197,10 @@ WHERE rn &lt;= #{wantNum}
 
 </select>
 
-
+<!-- 전체 상품 갯수 -->
+<select id="totalCountProd" resultType="Integer">
+	select count(*) from prod
+</select>
 
 
 
