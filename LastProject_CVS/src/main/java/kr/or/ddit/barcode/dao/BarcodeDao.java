@@ -2,13 +2,22 @@ package kr.or.ddit.barcode.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.model.BarcodeVo;
 
+@Repository("barcodeDao")
 public class BarcodeDao implements BarcodeDaoInf {
 
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
+	
 	@Override
 	public int setInsertBarcode(BarcodeVo barcodeVo) {
-		return 0;
+		return template.insert("barcode.insertBarcode", barcodeVo);
 	}
 
 	@Override
