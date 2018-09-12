@@ -4,7 +4,6 @@ public class ProdVo extends PageVo {
 	
 	private String file_path;                               // 
 	private String file_upname;                               // 
-	private String file_name;                               // 
 	private String prod_id;                               // 제품바코드
 	private String prod_name;                               // 이름
 	private String prod_intro;                               // 설명
@@ -15,11 +14,22 @@ public class ProdVo extends PageVo {
 	private String pr_class_md;                               // 중분류
 	private String pr_class_sm;                               // 소분류
 	private String event_id;                               // 행사제품코드
+	
+	// 제품 상세 보기 평점 처리 위해서 추가 -2018.09.12-jw
+	private double bd_rating;		// 평점
+	
+	public double getBd_rating() {
+		return bd_rating;
+	}
+	public void setBd_rating(double bd_rating) {
+		this.bd_rating = bd_rating;
+	}
+	
+	// 제품 상세 보기 평점 처리 위해서 추가 -2018.09.12-jw
 	public ProdVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public ProdVo(String file_path, String file_upname, String file_name,
+	public ProdVo(String file_path, String file_upname, 
 			String prod_id, String prod_name, String prod_intro,
 			String prod_info, int prod_price, int prod_exnum,
 			String pr_class_lg, String pr_class_md, String pr_class_sm,
@@ -27,7 +37,6 @@ public class ProdVo extends PageVo {
 		super();
 		this.file_path = file_path;
 		this.file_upname = file_upname;
-		this.file_name = file_name;
 		this.prod_id = prod_id;
 		this.prod_name = prod_name;
 		this.prod_intro = prod_intro;
@@ -50,12 +59,6 @@ public class ProdVo extends PageVo {
 	}
 	public void setFile_upname(String file_upname) {
 		this.file_upname = file_upname;
-	}
-	public String getFile_name() {
-		return file_name;
-	}
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
 	}
 	public String getProd_id() {
 		return prod_id;
@@ -120,15 +123,13 @@ public class ProdVo extends PageVo {
 	@Override
 	public String toString() {
 		return "ProdVo [file_path=" + file_path + ", file_upname="
-				+ file_upname + ", file_name=" + file_name + ", prod_id="
+				+ file_upname + ", prod_id="
 				+ prod_id + ", prod_name=" + prod_name + ", prod_intro="
 				+ prod_intro + ", prod_info=" + prod_info + ", prod_price="
 				+ prod_price + ", prod_exnum=" + prod_exnum + ", pr_class_lg="
 				+ pr_class_lg + ", pr_class_md=" + pr_class_md
 				+ ", pr_class_sm=" + pr_class_sm + ", event_id=" + event_id
-				+ "]";
+				+ ", bd_rating=" + bd_rating + "]";
 	}
-	
-	
 
 }
