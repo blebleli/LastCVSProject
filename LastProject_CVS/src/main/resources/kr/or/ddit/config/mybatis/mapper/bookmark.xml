@@ -28,7 +28,6 @@
 		     , B.EVENT_ID
 		     , B.FILE_PATH
 		     , B.FILE_UPNAME
-		     , B.FILE_NAME
 		  FROM BOOKMARK A, PROD B
 		 WHERE A.PROD_ID = B.PROD_ID
 		   AND A.MEM_ID = #{mem_id}
