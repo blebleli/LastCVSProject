@@ -44,7 +44,7 @@
           ,P.EVENT_ID    
           ,P.FILE_PATH   
           ,P.FILE_UPNAME
-          ,( SELECT NVL(AVG(BD_RATING),1) FROM BOARD WHERE PROD_ID = P.PROD_ID ) AS BD_RATING
+          ,( SELECT NVL(  ROUND(AVG(BD_RATING)) ,1) FROM BOARD WHERE PROD_ID = P.PROD_ID ) AS BD_RATING
      FROM  PROD P
      WHERE P.PROD_ID =#{prod_id}
 </select>
