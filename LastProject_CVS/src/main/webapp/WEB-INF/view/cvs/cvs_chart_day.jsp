@@ -21,6 +21,119 @@
 	rel="stylesheet">
 <script src="../build/js/jquery-1.12.4.js"></script>
 <script>
+	
+	function chart(){
+		
+		if( typeof (echarts) === 'undefined'){ return; }
+		console.log('init_echarts');
+		  var theme = {
+		  color: [ '#26B99A', '#34495E', '#BDC3C7', '#3498DB', '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'],
+		  title: { itemGap: 8, textStyle: { fontWeight: 'normal', color: '#408829' } },
+		  dataRange: { color: ['#1f610a', '#97b58d'] },
+		  toolbox: { color: ['#408829', '#408829', '#408829', '#408829'] },
+		  tooltip: { backgroundColor: 'rgba(0,0,0,0.5)', axisPointer: { type: 'line', lineStyle: { color: '#408829', type: 'dashed' },
+				  crossStyle: { color: '#408829' }, shadowStyle: { color: 'rgba(200,200,200,0.3)' } } },
+		  dataZoom: { dataBackgroundColor: '#eee', fillerColor: 'rgba(64,136,41,0.2)', handleColor: '#408829' },
+		  grid: { borderWidth: 0 },
+		  categoryAxis: { axisLine: { lineStyle: { color: '#408829' } },
+			  splitLine: { lineStyle: { color: ['#eee'] } } },
+		  valueAxis: { axisLine: { lineStyle: { color: '#408829' } },
+			  splitArea: { show: true,
+				  areaStyle: { color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)'] } },
+			  splitLine: { lineStyle: { color: ['#eee'] } } },
+		  timeline: { lineStyle: { color: '#408829' },
+			  controlStyle: { normal: {color: '#408829'}, emphasis: {color: '#408829'} } },
+		  k: { itemStyle: { normal: { color: '#68a54a', color0: '#a9cba2', lineStyle: { width: 1, color: '#408829', color0: '#86b379' } } } },
+		  map: { itemStyle: { normal: { areaStyle: { color: '#ddd' }, label: { textStyle: { color: '#c12e34' } } },
+				  emphasis: { areaStyle: { color: '#99d2dd' }, label: { textStyle: { color: '#c12e34' } } } } },
+		  force: { itemStyle: { normal: { linkStyle: { strokeColor: '#408829' } } } },
+		  chord: { padding: 4, itemStyle: { normal: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' },
+					  chordStyle: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' } } },
+				  emphasis: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' },
+					  chordStyle: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' } } } } },
+		  gauge: { startAngle: 225, endAngle: -45, axisLine: { show: true, lineStyle: {
+					  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
+					  width: 8 } },
+			  axisTick: { splitNumber: 10, length: 12, lineStyle: { color: 'auto' } },
+			  axisLabel: { textStyle: { color: 'auto' } },
+			  splitLine: { length: 18, lineStyle: { color: 'auto' } },
+			  pointer: { length: '90%', color: 'auto' },
+			  title: { textStyle: { color: '#333' } },
+			  detail: { textStyle: { color: 'auto' } } },
+		  textStyle: { fontFamily: 'Arial, Verdana, sans-serif' }
+	  };
+		  //echart Bar (그래프)
+		  
+	      if ($('#mainb2').length ){
+	    	  
+		      var json_data = []; // 배열 초기화
+			
+		      for (var i = 0; i < 5; i++){ // 1주 ~ 5주 for문
+				json_data[i] = { // i 값 넣기
+		       		  "title": i+1+"주",
+		       		  "금액" : $("#sd_sum"+(i+1)).val()};
+		  	  }
+		      
+		      if($("#sd_sum5").val()==null){ // 5주차가 값이 없다면
+		    	  json_data.splice(4, 1); // 만들지 않기
+		      }
+		  
+	      var col_title = ""; // 타이틀?
+	      var col_data = []; // "금액" 배열 초기화
+	      var col_data_name = []; // 처음부터 열 번째 값 필드, ["판매", "두 값"]; ???????????
+
+	      var chart_title = new Array(); // '1주', '2주' ... Array 생성 
+	      var chart_data = new Array(); // 데이터 값 Array 생성
+	      
+	      var col = 0;
+	      for(var key in json_data[0]){ // json_data 각 배열 값은 key에 있다?
+		      if(col==0) // col이 0이면
+              col_title = key; // col_title 에 key 저장
+		      else{ // 아니라면
+              col_data.push(key); // col_data.push에 키 저장?
+              col_data_name.push(key); // col_data_name.push에 키 저장?
+				  }
+          col++;
+	      }
+	      
+	      for(var i = 0; i < col_data.length; i++){ // col_data 길이 for문
+	          chart_data[i] = { // value값 넣기
+                 "name": col_data_name[i],
+                 "type":"bar",
+                 "data": [] //[5, 20, 40, 10, 10, 20]	      
+	          };
+	      }
+	      
+	      for(var i = 0; i < json_data.length; i++){
+          	chart_title.push(json_data[i]["title"]); // 타이틀 배열 값 넣기
+	      	for(var j = 0; j < col_data.length; j++){
+              var col_name = col_data[j];
+              chart_data[j].data.push(json_data[i][col_name]);
+          };
+	      };
+      
+		  var echartBar = echarts.init(document.getElementById('mainb2'), theme);
+
+		  echartBar.setOption({
+			// 각 주 총금액
+			title: { text: 'Graph title', subtext: '총금액' },
+			tooltip: { trigger: 'axis' },
+			legend: { data: ['sales'] },
+			toolbox: { show: false },
+			calculable: false,
+			// 1주~5주
+			xAxis: [{ type: 'category', data: chart_title }],
+			yAxis: [{ type: 'value' }],
+			// 1주~5주 각 총금액
+			series : chart_data });	
+	}
+	}
+
+    $(function(){
+	  chart(); // 초기 월간화면 출력
+    });   
+    </script>
+<script>
     	$(function(){
     		
     		// 일간(days) 누를시  현재 주간치를 초기화면으로 보여준다.
@@ -56,6 +169,8 @@
     							 +'	</div>';
 
         				$("#chartList").html(content);
+        				
+        				
     			} // success : function(responseData){    
     		}); // $.ajax({  			
     	}); //$("#days").on("click", function(){
@@ -74,25 +189,20 @@
     				},
     				
     			success : function(data){
-    				console.log(data);
+    				console.log(data.week1);
     				
     				// 성공시 기존 내용 삭제
     				$("#chartList").html("");
-    				var content ='					<div id="chartList">';
+    				var content ='';
     				// 새로운 내용 담을 변수
     				 content +='						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'    				 
 	    				 	 +'							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
 							 +'							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
 							 +'							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
-							 +'							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">'
-							 +'						</div>'
-							 +'					</div>'
-							 +'				</div>'
-							 +'			</div>'
-							 +'		</div>'
-							 +'	</div>';
+							 +'							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
 
     				$("#chartList").html(content);
+    				chart();
     			} // success : function(responseData){    
     		}); // $.ajax({  			
     	}); //$("#week").on("click", function(){  
@@ -172,114 +282,6 @@
     	}); //$("#years").on("click", function(){
     		
     	}); // $(function(){
-    </script>
-<script>
-    $(function(){
-		if( typeof (echarts) === 'undefined'){ return; }
-		console.log('init_echarts');
-		  var theme = {
-		  color: [ '#26B99A', '#34495E', '#BDC3C7', '#3498DB', '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'],
-		  title: { itemGap: 8, textStyle: { fontWeight: 'normal', color: '#408829' } },
-		  dataRange: { color: ['#1f610a', '#97b58d'] },
-		  toolbox: { color: ['#408829', '#408829', '#408829', '#408829'] },
-		  tooltip: { backgroundColor: 'rgba(0,0,0,0.5)', axisPointer: { type: 'line', lineStyle: { color: '#408829', type: 'dashed' },
-				  crossStyle: { color: '#408829' }, shadowStyle: { color: 'rgba(200,200,200,0.3)' } } },
-		  dataZoom: { dataBackgroundColor: '#eee', fillerColor: 'rgba(64,136,41,0.2)', handleColor: '#408829' },
-		  grid: { borderWidth: 0 },
-		  categoryAxis: { axisLine: { lineStyle: { color: '#408829' } },
-			  splitLine: { lineStyle: { color: ['#eee'] } } },
-		  valueAxis: { axisLine: { lineStyle: { color: '#408829' } },
-			  splitArea: { show: true,
-				  areaStyle: { color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)'] } },
-			  splitLine: { lineStyle: { color: ['#eee'] } } },
-		  timeline: { lineStyle: { color: '#408829' },
-			  controlStyle: { normal: {color: '#408829'}, emphasis: {color: '#408829'} } },
-		  k: { itemStyle: { normal: { color: '#68a54a', color0: '#a9cba2', lineStyle: { width: 1, color: '#408829', color0: '#86b379' } } } },
-		  map: { itemStyle: { normal: { areaStyle: { color: '#ddd' }, label: { textStyle: { color: '#c12e34' } } },
-				  emphasis: { areaStyle: { color: '#99d2dd' }, label: { textStyle: { color: '#c12e34' } } } } },
-		  force: { itemStyle: { normal: { linkStyle: { strokeColor: '#408829' } } } },
-		  chord: { padding: 4, itemStyle: { normal: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' },
-					  chordStyle: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' } } },
-				  emphasis: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' },
-					  chordStyle: { lineStyle: { width: 1, color: 'rgba(128, 128, 128, 0.5)' } } } } },
-		  gauge: { startAngle: 225, endAngle: -45, axisLine: { show: true, lineStyle: {
-					  color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
-					  width: 8 } },
-			  axisTick: { splitNumber: 10, length: 12, lineStyle: { color: 'auto' } },
-			  axisLabel: { textStyle: { color: 'auto' } },
-			  splitLine: { length: 18, lineStyle: { color: 'auto' } },
-			  pointer: { length: '90%', color: 'auto' },
-			  title: { textStyle: { color: '#333' } },
-			  detail: { textStyle: { color: 'auto' } } },
-		  textStyle: { fontFamily: 'Arial, Verdana, sans-serif' }
-	  };
-	  
-	  //echart Bar (그래프)
-	  
-	      if ($('#mainb2').length ){
-	    	  
-		      var json_data = []; // 배열 초기화
-			
-		      for (var i = 0; i < 5; i++){ // 1주 ~ 5주 for문
-				json_data[i] = { // i 값 넣기
-		       		  "title": i+1+"주",
-		       		  "금액" : $("#sd_sum"+(i+1)).val()};
-		  	  }
-		      
-		      if($("#sd_sum5").val()==null){ // 5주차가 값이 없다면
-		    	  json_data.splice(4, 1); // 만들지 않기
-		      }
-		  
-	      var col_title = ""; // 타이틀?
-	      var col_data = []; // "금액" 배열 초기화
-	      var col_data_name = []; // 처음부터 열 번째 값 필드, ["판매", "두 값"]; ???????????
-
-	      var chart_title = new Array(); // '1주', '2주' ... Array 생성 
-	      var chart_data = new Array(); // 데이터 값 Array 생성
-	      
-	      var col = 0;
-	      for(var key in json_data[0]){ // json_data 각 배열 값은 key에 있다?
-		      if(col==0) // col이 0이면
-                col_title = key; // col_title 에 key 저장
-		      else{ // 아니라면
-                col_data.push(key); // col_data.push에 키 저장?
-                col_data_name.push(key); // col_data_name.push에 키 저장?
-				  }
-            col++;
-  	      }
-	      
-	      for(var i = 0; i < col_data.length; i++){ // col_data 길이 for문
-	          chart_data[i] = { // value값 넣기
-                   "name": col_data_name[i],
-                   "type":"bar",
-                   "data": [] //[5, 20, 40, 10, 10, 20]	      
-	          };
-	      }
-	      
-	      for(var i = 0; i < json_data.length; i++){
-            	chart_title.push(json_data[i]["title"]); // 타이틀 배열 값 넣기
-  	      	for(var j = 0; j < col_data.length; j++){
-                var col_name = col_data[j];
-                chart_data[j].data.push(json_data[i][col_name]);
-            };
-  	      };
-        
-		  var echartBar = echarts.init(document.getElementById('mainb2'), theme);
-
-		  echartBar.setOption({
-			// 각 주 총금액
-			title: { text: 'Graph title', subtext: '총금액' },
-			tooltip: { trigger: 'axis' },
-			legend: { data: ['sales'] },
-			toolbox: { show: false },
-			calculable: false,
-			// 1주~5주
-			xAxis: [{ type: 'category', data: chart_title }],
-			yAxis: [{ type: 'value' }],
-			// 1주~5주 각 총금액
-			series : chart_data });	
-	}
-    });   
     </script>
 
 <!-- page content ======================================================================== -->
