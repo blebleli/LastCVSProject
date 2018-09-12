@@ -60,6 +60,24 @@
 		AND a.prod_id = b.prod_id
 	</select>
 	
+	<!-- 	아 이 디 : insertSupply
+	  		반 환 값 : int
+	  		매개변수 : supplyVo
+	  		설    명 : 발주(10) 결제(11) 입고(12) insert
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-11     
+	 -->
+	<insert id="insertSupply" parameterType="supplyVo">
+	INSERT INTO supply(SUPPLY_BCD, 
+					   SUPPLY_STATE, 
+					   supply_date, 
+					   place_id) 
+				VALUES(#{supply_bcd},
+					   #{supply_state}, 
+					   sysdate, 
+					   #{place_id})
+	</insert>
+	
 	<!-- 	아 이 디 : sumProdPrice
 	  		반 환 값 : Integer
 	  		매개변수 : string(supply_bcd)
