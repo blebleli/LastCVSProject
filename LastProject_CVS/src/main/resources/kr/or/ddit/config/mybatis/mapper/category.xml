@@ -18,4 +18,5 @@
 		WHERE ctgy_id=#{ctgy_id}
 </select>
 
+
 </mapper>
