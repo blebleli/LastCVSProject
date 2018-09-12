@@ -1,5 +1,7 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <title>Gentelella Alela! |</title>
+
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -66,9 +68,9 @@
 							<div class="row">
 								<div class="col-xs-12 invoice-header">
 									<h1>
-										<i class="fa fa-globe">입고 상품</i> 
+										<i class="fa fa-globe">입고 상품 내역</i> 
 										<small class="pull-right">
-											Date:${supply_date}
+											날짜:${vo.supply_date}
 										</small>
 									</h1>
 								</div>
@@ -81,7 +83,6 @@
 									<address>
 										<strong>gogoCVS</strong>
 										<br>관리자(본사)
-										<br>${place_id}
 									</address>
 								</div>
 								<!-- /.col -->
@@ -95,7 +96,7 @@
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
-									<b>수불바코드 : ${supply_bcd}</b> <br> <br> <br>
+									<b>수불바코드 : ${vo.supply_bcd}</b> <br> <br> <br>
 
 									<br>
 
@@ -111,9 +112,10 @@
 										<thead>
 											<tr>
 												<th>수량</th>
-												<th>상품이름</th>
-												<th>상품코드</th>
-												<th style="width: 50%">비고</th>
+												<th style="width: 20%">상품이름</th>
+												<th style="width: 30%">상품코드</th>
+												<th style="width: 30%">비고</th>
+												<th>가격</th>
 												<th>합계</th>
 											</tr>
 										</thead>
@@ -124,7 +126,8 @@
 													<td>${vo.prod_name}</td>
 													<td>${vo.prod_id}</td>
 													<td></td>
-													<td>￦64.50</td>
+													<td>￦${vo.prod_price}</td>
+													<td>￦${vo.splylist_sum * vo.prod_price}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -137,16 +140,28 @@
 							<div class="row">
 								<!-- accepted payments column -->
 								<div class="col-xs-6">
-									<p class="lead">Payment Methods:</p>
-									<p class="text-muted well well-sm no-shadow"
-										style="margin-top: 10px;">Etsy doostang zoodles disqus
-										groupon greplin oooj voxy zoodles, weebly ning heekya handango
-										imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo
-										ifttt zimbra.</p>
+									<p class="lead">
+										<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 -->
+											<c:choose>
+												<c:when test="${vo.supply_state == 12 }">
+													입고상태
+													<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+													입고가 완료되었습니다.
+												</p>
+												</c:when>
+												<c:otherwise>
+										    		입고상태
+												<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+													입고가 완료 되지 않았습니다. 입고를 확인하여 주세요.
+													<a href="javascript:popupOpen();" > 바코드 확인창 </a>
+												</p>
+										   		</c:otherwise>
+											</c:choose>
+									</p>
 								</div>
 								<!-- /.col -->
 								<div class="col-xs-6">
-									<p class="lead">결제 2018/09/10</p>
+									<p class="lead">명세서</p>
 									<div class="table-responsive">
 										<table class="table">
 											<tbody>
@@ -155,7 +170,7 @@
 													<td>$250.30</td>
 												</tr>
 												<tr>
-													<th>세금 (9.3%)</th>
+													<th>세금 (10%)</th>
 													<td>$10.34</td>
 												</tr>
 												<tr>
@@ -219,3 +234,13 @@
 
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
+
+<script type="text/javascript">
+function popupOpen(){
+	var popUrl = "http://localhost:8180/cvs/barcode";	//팝업창에 출력될 페이지 URL
+
+	var popOption = "width=1400, height=1000, resizable=, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+
+		window.open(popUrl,"",popOption);
+	}
+</script>
