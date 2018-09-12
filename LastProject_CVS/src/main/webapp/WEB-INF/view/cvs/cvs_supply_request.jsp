@@ -18,18 +18,22 @@
     <link href="/vendors/datatables.net-bs/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="/vendors/datatables.net-bs/scroller.bootstrap.min.css" rel="stylesheet">
 
+	<script src="/js/common/jquery-1.12.4.js"></script>
     <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
      <script src="/js/common/jquery-1.12.4.js"></script>
     <script>
-    	$(document).ready(function(){
-    		$(".evenpointer").on("click", function(){
-    			var requestProd =$(this).data("id");
+    	$(function(){
+    		
+//     		$(".evenpointer").on("click", function(){
+    		$("#datatable tbody").on("click", "tr", function(){
+    			var requestProd =$(this).data("class");
+    			alert(requestProd);
     			console.log(requestProd);
     			$.ajax({
 	    			url : "requestList",
 	    			method:"get",
-	    			data : {"requestProd": requestProd},
+	    			data : {"requestProd": requestProd },
 	    			success : function(responseData){
     					console.log(responseData);
 	    				$("#datatable-buttons2 > tbody").empty();
@@ -38,42 +42,46 @@
 	    					$("#datatable-buttons2 > tbody").append('<tr>'+
 	    																'<td>'+item.prod_name+'</td>'+
 	    																'<td>'+item.prod_price+'</td>'+
-	    																'<td><input type="text" name="amount"></td>'+
+	    																'<td><input type="number" name="amount"></td>'+
 	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
 	    															+"</tr>");
 	    				})
 	    			}
 	    		});
     		});
-    		
-    		$("#search").on("click", function(){
-    			var text = $("#searchTxt").val();
-    			alert(text);
+  //----------------------------------------------------------------------------------------------  		
+    		$("select[name=lgCtgyBtn]").val("${param.lgCtgyBtn}").prop("selected",true);
+    		$("select[name=lgCtgyBtn]").on("change", function(){
+    			alert($("select[name=lgCtgyBtn]").val());
+    			
+    			var lgC = $("select[name=lgCtgyBtn]").val();
     			$.ajax({
-	    			url : "searchProd",
+	    			url : "selectLgCtgy",
 	    			method:"get",
-	    			data : {"searchTxt": text},
+	    			data : {"ctgy_id": lgC},
 	    			success : function(responseData){
     					console.log(responseData);
-	    				$("#datatable-buttons > tbody").empty();
-	    				
-	    				$.each(responseData,function(index, item){
-	    					$("#datatable-buttons > tbody").append('<tr>'+
+    					$("select[name=mdCtgyBtn]").empty();
+	    				$.each(responseData.mdCategory,function(index, item){
+	    					$("select[name=mdCtgyBtn]").append(
+	    							'<option value="'+item.ctgy_id+'">'+item.ctgy_name+'</option></select>'
+								);
+	    				})
+	    				$("#datatable > tbody").empty();
+	    				$.each(responseData.lgList,function(index, item){
+	    					$("#datatable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
 	    																'<td>'+item.prod_name+'</td>'+
 	    																'<td>'+item.prod_price+'</td>'+
 	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
-	    															+"</tr>");
+	    															+'</tr>'
+							);
 	    				})
-	    			}
+	    			}	
 	    		});
-    			
-    		});
-    		
-    		$("li[name=lgCtgy]").on("click", function(){
-    			var lgC = $("#lgCtgy").html();
-    			alert(lgC);
-    			$("#lgCtgyBtn").html(lgC);
     		})
+ //------------------------------------------------------------------------------------------------   		
+    		
+    		
     	});
     </script>
   </head>
@@ -127,11 +135,13 @@
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
-                      	<div class="btn-group open">
-						  <select class="btn btn-primary" id="lgCtgyBtn">대분류
+                      	<div class="btn-group open" id="ctgy">
+						  <select class="btn btn-primary" name="lgCtgyBtn">대분류
 						  	<c:forEach items="${lgCtgy }" var="ctgy">
-						  		<option value="${ctgy.ctgy_name  }">${ctgy.ctgy_name  }</option>
+						  		<option value="${ctgy.ctgy_id}">${ctgy.ctgy_name}</option>
 						  	</c:forEach>
+						  </select>
+						  <select class="btn btn-primary" name="mdCtgyBtn">
 						  </select>
 						</div>
                     </p>
@@ -147,13 +157,12 @@
 						
                       <tbody>
                       	<c:forEach items="${allProdList}" var="prod">
-							<tr data-id="${prod.prod_id }" class="evenpointer">
+							<tr data-class="${prod.prod_id }" class="evenpointer" name="prod_id">
 								<td>${prod.prod_name }	</td>
 								<td> ${prod.prod_price}</td> 
 								<td>  <a href="cvs_invoice.html">View</a> </td>	
 							</tr>
                       	</c:forEach>
-						
  
                       </tbody>
                     </table>
@@ -201,7 +210,7 @@
                       <c:if test="${requestList != null }">
                       	<c:forEach items="${requestList }" var="request">
                       		
-						<tr class="evenpointer">
+						<tr class="evenpointer2">
 							<td>	${request.prod_name }		</td>
 							<td>  ${request.prod_price }</td> 
 							<td><input type="text" name="amount"></td>
