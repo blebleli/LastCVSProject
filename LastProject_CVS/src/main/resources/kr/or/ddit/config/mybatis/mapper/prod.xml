@@ -137,7 +137,6 @@ SELECT * FROM
                 ,EVENT_ID
                 ,FILE_PATH
                 ,FILE_UPNAME
-                ,FILE_NAME
                    , (SELECT ROUND(AVG(B.BD_RATING),2) FROM BOARD B WHERE B.PROD_ID = P.PROD_ID) BD_RATING
               FROM  prod P
             ) TBL0
