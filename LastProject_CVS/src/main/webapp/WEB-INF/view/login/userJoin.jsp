@@ -285,6 +285,7 @@ $(document).ready(function() {
 		
 	});	
 	
+	
 	/**
 	 * 이메일아이디 중복체크
 	 */
@@ -553,13 +554,13 @@ function fn_errMessage(_obj, _text) {
 									</div>
 									
 									<div class="field">
-										<label for="mem_birth" class="label">사진<img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
+										<label for="mem_pic" class="label">사진<img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
 										<div>
 											<input type="file" id="upload_file" name="upload_file" title="사진등록" value="" class="" style="width:234px" />
 										</div>
 									</div>
 									
-									<!-- 테스트용임시 -->
+									<!-- 널 허용값 테스트용임시 -->
 									<input type="hidden" name="mem_cvs_name" value="테스트">
 									<input type="hidden" name="mem_cvs_tel" value="042-222-2222">
 									<input type="hidden" name="mem_intro" value="테스트">
