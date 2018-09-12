@@ -6,7 +6,7 @@ import kr.or.ddit.model.BarcodeVo;
 
 public interface BarcodeServiceInf {
 	
-	int newBarcode(BarcodeVo barcodeVo);
+	int setInsertBarcode(BarcodeVo barcodeVo);
 
 	List<BarcodeVo> getBarcodeList();
 	
