@@ -61,9 +61,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class CvsSupplyReqController {
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
 	
-	@Resource(name="autoCodeCreate")
-	private AutoCodeCreate autoCode;
-	
 	@Resource(name="stockService")
 	private StockServiceInf stockService;
 	
@@ -96,7 +93,8 @@ public class CvsSupplyReqController {
 		
 		logger.debug("date---------------------------------------------"+sdf.format(date));
 		map.put("mem_id", "3630000-104-2015-00121");
-		map.put("stock_date", sdf.format(date));
+//		map.put("stock_date", sdf.format(date));
+		map.put("stock_date", "20180911");
 		StockVo myStock = stockService.getStock(map);
 		logger.debug("stock --------------"+ myStock);
 		return myStock;
@@ -167,6 +165,7 @@ public class CvsSupplyReqController {
 		}
 		mav.addObject("allProdList", allProdList);
 		mav.addObject("lgCtgy", lgCtgy);
+//		model.addAttribute("lgCtgy", lgCtgy);
 		return mav;
 	}
 	
@@ -189,9 +188,19 @@ public class CvsSupplyReqController {
 	@ResponseBody
 	public List<ProdVo> requestList(@RequestParam(value="requestProd")String requestprod, Model model){
 		Map modelMap = model.asMap();
+		ProdVo ps = null;
+		ps = prodService.getProd(requestprod);
 		List<ProdVo> requestList = (List<ProdVo>) modelMap.get("requestList");
-		ProdVo ps = prodService.getProd(requestprod);
+		logger.debug("requestprod --------"+requestprod);
+		if(requestList !=null){
+			for(int i = 0; i < requestList.size(); i++){
+				if(!requestList.get(i).getProd_id().equals(requestprod)){
+					logger.debug("prod not same -----"+requestList.get(i).getProd_id());
+				}
+			}
+		}
 		requestList.add(ps);
+		
 		logger.debug("list ------"+requestList);
 		model.addAttribute("requestList", requestList);
 		return requestList;
@@ -214,6 +223,30 @@ public class CvsSupplyReqController {
 		searchMap.put("searchList", searchList);
 		
 		return searchMap;
+	}
+	
+	@RequestMapping(value="/selectLgCtgy", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> mdCategory(@RequestParam(value="ctgy_id")String ctgy_id, Model model){
+		List<CategoryVo> category = commonsService.prodCtgyList();
+		List<CategoryVo> mdCategory = new ArrayList<CategoryVo>();
+		for(int i = 0 ; i < category.size(); i++){
+			if(category.get(i).getCtgy_parent() !=null && category.get(i).getCtgy_parent().equals(ctgy_id)){
+				mdCategory.add(category.get(i));
+			}
+		}
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("mdCategory", mdCategory);
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pr_class", "pr_class_lg");
+		paramMap.put("pr_class_id", ctgy_id);
+		paramMap.put("page", 1);
+		paramMap.put("pageSize", 15);
+		List<ProdVo> lgProd = (List<ProdVo>) prodService.getCtgyProdList(paramMap).get("ctgyProdList");
+		resultMap.put("lgList", lgProd);
+
+		return resultMap;
 	}
 	
 	
