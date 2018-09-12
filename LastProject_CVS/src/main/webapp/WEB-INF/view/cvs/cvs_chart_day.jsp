@@ -23,6 +23,43 @@
 <script>
     	$(function(){
     		
+    		// 일간(days) 누를시  현재 주간치를 초기화면으로 보여준다.
+    		$("#days").on("click", function(){
+    			
+    			// 편의점 점주 아이디(임의)
+    			var mem_id = $("#mem_id").val();
+    			
+    			$.ajax({
+    				url : "days",
+    				method : "get",
+    				data : {
+    					"mem_id" : mem_id
+    				},
+    				
+        			success : function(data){
+        				console.log(data);
+        				
+        				// 성공시 기존 내용 삭제
+        				$("#chartList").html("");
+        				var content ='					<div id="chartList">';
+        				// 새로운 내용 담을 변수
+        				 content +='						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'    				 
+    	    				 	 +'							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
+    							 +'							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
+    							 +'							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
+    							 +'							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">'
+    							 +'						</div>'
+    							 +'					</div>'
+    							 +'				</div>'
+    							 +'			</div>'
+    							 +'		</div>'
+    							 +'	</div>';
+
+        				$("#chartList").html(content);
+    			} // success : function(responseData){    
+    		}); // $.ajax({  			
+    	}); //$("#days").on("click", function(){
+    		
     		// 주간(week) 누를시 현재 주간치를 초기화면으로 보여준다.
     		$("#week").on("click", function(){
     			
@@ -78,25 +115,19 @@
         				
         				// 성공시 기존 내용 삭제
         				$("#chartList").html("");
-        				var content ='				<div id="chartList" class="x_content">';
+        				var content ='					<div id="chartList">';
         				// 새로운 내용 담을 변수
-        				content +='					<div" class="col-md-4">'
-									+'					<div id="reportrange_right" class="pull-left"'
-    			    				+'						style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">'
-    			    				+'						<i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>December'
-    			    				+'							30, 2014 - January 28, 20152</span> <b class="caret"></b>'
-    			    				+'					</div>'
-    			    				+'				</div>'
-    			    				+'				<div id="mainb2" style="height: 350px;"></div>'
-    			    				+'				<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
-    			    				+'				<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
-    			    				+'				<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
-    			    				+'				<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
-    			    				+'				<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">'
-    			    				+'			</div>'
-    			    				+'		</div>'
-    			    				+'	</div>'
-    			    				+'</div>';
+        				 content +='						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'    				 
+    	    				 	 +'							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
+    							 +'							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
+    							 +'							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
+    							 +'							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">'
+    							 +'						</div>'
+    							 +'					</div>'
+    							 +'				</div>'
+    							 +'			</div>'
+    							 +'		</div>'
+    							 +'	</div>';
 
         				$("#chartList").html(content);
     			} // success : function(responseData){    
@@ -121,24 +152,19 @@
         				
         				// 성공시 기존 내용 삭제
         				$("#chartList").html("");
-        				var content ='				<div id="chartList" class="col-md-4">';
+        				var content ='					<div id="chartList">';
         				// 새로운 내용 담을 변수
-        				 content +='					<div id="reportrange_right" class="pull-left"'
-    			    				+'						style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">'
-    			    				+'						<i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>December'
-    			    				+'							30, 2014 - January 28, 20151</span> <b class="caret"></b>'
-    			    				+'					</div>'
-    			    				+'				</div>'
-    			    				+'				<div id="mainb2" style="height: 350px;"></div>'
-    			    				+'				<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
-    			    				+'				<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
-    			    				+'				<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
-    			    				+'				<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
-    			    				+'				<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">'
-    			    				+'			</div>'
-    			    				+'		</div>'
-    			    				+'	</div>'
-    			    				+'</div>';
+        				 content +='						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'    				 
+    	    				 	 +'							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
+    							 +'							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
+    							 +'							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
+    							 +'							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">'
+    							 +'						</div>'
+    							 +'					</div>'
+    							 +'				</div>'
+    							 +'			</div>'
+    							 +'		</div>'
+    							 +'	</div>';
 
         				$("#chartList").html(content);
     			} // success : function(responseData){    
