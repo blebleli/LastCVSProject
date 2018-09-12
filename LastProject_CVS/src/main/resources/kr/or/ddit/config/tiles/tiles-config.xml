@@ -127,9 +127,14 @@
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_invoice.jsp"/>
 	</definition>
 	
-	<!--  발주내역 -->
+	<!--  발주신청 -->
 	<definition name="cvs_supply_request" extends="cvs_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_supply_request.jsp"/>
+	</definition>
+	
+	<!--  발주내역 -->
+	<definition name="cvs_supply_request_list" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_supply_request_list.jsp"/>
 	</definition>
 	
 	<!--  마감 -->
