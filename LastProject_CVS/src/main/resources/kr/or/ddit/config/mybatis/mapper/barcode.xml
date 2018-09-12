@@ -4,4 +4,24 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="barcode">
 
+<!-- 바코드 insert-->
+<!-- 	아 이 디 : insertBarcode
+	  		반 환 값 : int
+	  		매개변수 : barcodeVo
+	  		설    명 : 바코드 테이블에 바코드 추가 (kind : 제품:100, 저장소:101, 수불:102)
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-10     
+	 -->
+<insert id="insertBarcode" parameterType="barcodeVo">
+	INSERT INTO barcode(bcd_id, 
+						bcd_content, 
+						bcd_path, 
+						bcd_info, 
+						bcd_kind) 
+				VALUES(#{bcd_id}, 
+					  DBMS_LOB.SUBSTR(#{bcd_content},4000,1),
+					  #{bcd_path},
+					  #{bcd_info},
+					  #{bcd_kind})
+</insert>
 </mapper>
