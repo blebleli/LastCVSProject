@@ -7,17 +7,15 @@ public class PresentStockListVo {
 	private String prod_id;
 	private String prod_name;                               // 이름
 	private Date supply_date;                               // 날짜
-	private Date stcklist_exdate;                               // 유통기한
-	private int prod_price;                               // 가격
-	private int stcklist_amount;                               // 수량
-	private String event_id;                               // 행사제품코드
-	private String stcklist_id;                               // 재고리스트코드
+	private Date stcklist_exdate;                           // 유통기한
+	private int prod_price;                                 // 가격
+	private int stcklist_amount;                            // 수량
+	private String event_id;                                // 행사제품코드
+	private String stcklist_id;                             // 재고리스트코드
 	
 	public PresentStockListVo(){
 		super();
 	}
-
-	
 
 	public PresentStockListVo(String prod_id, String prod_name,
 			Date supply_date, Date stcklist_exdate, int prod_price,

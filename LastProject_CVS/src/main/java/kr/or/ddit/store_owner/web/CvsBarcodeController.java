@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,8 @@ import kr.or.ddit.commons.dao.AutoCodeInf;
 import kr.or.ddit.commons.dao.CommonsDaoInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.SupplyListVo;
+import kr.or.ddit.store_owner.model.PresentStockListVo;
+import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
@@ -64,10 +68,16 @@ public class CvsBarcodeController {
 	@Resource(name="supplyService")
 	private SupplyServiceInf supplyService;
 	
+	@Resource(name="stockService")
+	private StockServiceInf stockService;
+	
+	
 	@RequestMapping("/barcode")
 	public String cvsBarcode(Model model){
 		return "cvs_barcode_read";
 	}
+
+	
 	
 	/**
 	 * 
@@ -85,17 +95,36 @@ public class CvsBarcodeController {
 	 public ModelAndView bcdRead(@RequestParam("file") String file,Model model) {
 		
 		ModelAndView mav = new ModelAndView("jsonView");
-
+		
+		//받아온 img 데이타를 해석
 		String[] stringPart = file.split(",");	
-//		Decoder decoder = Base64.getDecoder();
-//		byte[] fileByte = decoder.decode(stringPart[1]);
-//		Map<String, Object> found = decode(fileByte);
-//		logger.debug("returnMsg ------"+found.get("returnMsg"));	
-//		mav.addObject("returnMsg", found.get("returnMsg"));		
-	
-//		if(found.get("returnMsg")!= null){
-//			mav.addObject("supplyList", found.get("supplyList"));	
-//		}
+		Decoder decoder = Base64.getDecoder();
+		byte[] fileByte = decoder.decode(stringPart[1]);
+		
+		Map<String, String> found = decode(fileByte);
+		
+		//메세지
+		String returnMsg =found.get("returnMsg");
+		
+		//메세지 add
+		logger.debug("returnMsg ------"+returnMsg);	
+		mav.addObject("returnMsg", returnMsg);		
+			
+		//해석코드 add
+		if(returnMsg.equals("decodedText")){
+			String decoded = found.get("decodedText"); 
+			
+			//코드확인용
+			mav.addObject("decodedText", decoded);				
+
+	    	//입고리스트일때
+	    	List<SupplyListVo> supplyList = supplyService.getListSupplyList(decoded);
+ 			mav.addObject("supplyList", supplyList);
+	    	
+	    	//상품바코드일때 처리
+ 			PresentStockListVo prodVo = stockService.getBarcodeProd(decoded);
+ 			mav.addObject("prodVo", prodVo);
+		}
 		
 		return mav;
 	 }	 
@@ -109,38 +138,28 @@ public class CvsBarcodeController {
 	 * 변경이력 : 
 	 * @param fileByte
 	 * @return 
-	 * Method 설명 : 바코드읽은 결과를 boolean 형태로 반환하는 메서드
+	 * Method 설명 : 바코드읽은 결과메세지를 map 형태로 반환하는 메서드
 	 */
-	private HashMap<String, Object> decode(byte[] fileByte){
+	private HashMap<String, String> decode(byte[] fileByte){
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		ByteArrayInputStream by = new ByteArrayInputStream(fileByte);
 		
-		try {
+		try {					//qr코드를 찾지 못한경우
 	        String decodedText = decodeQRCode(by);
-	        if(decodedText == null) {
-	        	
+	        if(decodedText == null) {	        	
 	        	logger.debug("No QR Code found in the image");
 	            map.put("returnMsg", "noFound");
-	            return map;
-	            
-	        } else {
-	        	
+	            return map;	            
+	        } else { 			//코드 해석한경우	        	
 	        	logger.debug("Decoded text = " + decodedText);	
-	        	map.put("returnMsg", decodedText);
-	        	
-	        	//입고리스트일때 처리
-	        	List<SupplyListVo> supplyList = supplyService.getListSupplyList(decodedText);
-	        	map.put("supplyList", supplyList);
-	        	
-	        	//상품바코드일때 처리
-	        	
+	        	map.put("returnMsg", "decodedText");
+	        	map.put("decodedText", decodedText);	        	
           return map;
 	        }
-	    } catch (IOException e) {
+	    } catch (IOException e) { //코드를 해석하지 못했을경우 & 기타
 	    	logger.debug("Could not decode QR Code, IOException :: " + e.getMessage());
-	    	map.put("returnMsg", "CouldNotDecode");
-	    	
+	    	map.put("returnMsg", "CouldNotDecode");	    	
 	    } finally {
 			try {
 				by.close();
@@ -148,8 +167,7 @@ public class CvsBarcodeController {
 				e.printStackTrace();
 			}
 		}
-		map.put("returnMsg", "fail");
-		
+		map.put("returnMsg", "fail");		
 		return map;
 	}
 
@@ -168,7 +186,6 @@ public class CvsBarcodeController {
         BufferedImage bufferedImage = ImageIO.read(qrCodeimage);
         LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
         try {
             Result result = new MultiFormatReader().decode(bitmap);
             return result.getText();

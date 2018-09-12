@@ -46,10 +46,27 @@
 	  		작 성 자 : 김현경
 	  		일    시 : 2018-09-10     
 	 -->
+	 
 <select id="getStockProd" parameterType="String" resultType="presentStockListVo">
 	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
 	FROM prod a, supply b, stock_list c
 	WHERE a.prod_id =#{prod_id} and c.prod_id = a.prod_id AND b.supply_state = '12'
+</select>
+
+
+
+<!-- 바코드조회한 상품 조회 -->
+<!-- 	아 이 디 : getBarcodeProd
+	  		반 환 값 : presentStockListVo
+	  		매개변수 : String(재고바코드)
+	  		설    명 : 재고 상품 조회
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-12     
+	 -->	 
+<select id="getBarcodeProd" parameterType="String" resultType="presentStockListVo">
+	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
+	FROM prod a, supply b, stock_list c
+	WHERE c.stcklist_id =#{stcklist_id} and c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
 
 

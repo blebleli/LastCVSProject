@@ -3,6 +3,7 @@ package kr.or.ddit.store_owner.web;
 import javax.annotation.Resource;
 
 import kr.or.ddit.store_owner.soMain.service.soMainServiceInf;
+import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,8 @@ public class CvsPosMainController {
 	
 	@Resource(name="somainService")
 	private  soMainServiceInf somainService;
+
+
 	
 	@RequestMapping("/main")
 	public String cvsMain(Model model){

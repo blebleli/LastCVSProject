@@ -63,4 +63,17 @@ public interface StockServiceInf {
 	* @return int
 	*/
 	int totalCountProd();
+	
+	/**
+	* Method : getBarcodeProd
+	* Method 설명 : 해당 편의점의 재고조회
+	* 최초작성일 : 2018. 9. 12.
+	* 작성자 : 한수정
+	* 변경이력 :신규
+	* 
+	* @param String prod_id
+	* @return PresentStockListVo
+	*/
+	PresentStockListVo getBarcodeProd(String prod_id);
+	
 }

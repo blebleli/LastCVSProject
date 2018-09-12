@@ -80,5 +80,10 @@ public class StockDao implements StockDaoInf {
 		return template.selectOne("prod.totalCountProd");
 	}
 
+	@Override
+	public PresentStockListVo getBarcodeProd(String prod_id) {
+		return template.selectOne("stock.getBarcodeProd", prod_id);
+	}
+
 
 }

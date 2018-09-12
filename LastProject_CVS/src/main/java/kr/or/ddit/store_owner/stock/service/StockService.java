@@ -1,17 +1,15 @@
 package kr.or.ddit.store_owner.stock.service;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Service;
-
-import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.dao.StockDaoInf;
+
+import org.springframework.stereotype.Service;
 
 @Service("stockService")
 public class StockService implements StockServiceInf {
@@ -60,6 +58,11 @@ public class StockService implements StockServiceInf {
 	@Override
 	public int totalCountProd() {
 		return stockDao.totalCountProd();
+	}
+
+	@Override
+	public PresentStockListVo getBarcodeProd(String prod_id) {
+		return stockDao.getBarcodeProd(prod_id);
 	}
 
 }
