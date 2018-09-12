@@ -16,12 +16,12 @@ public class ProdVo extends PageVo {
 	private String event_id;                               // 행사제품코드
 	
 	// 제품 상세 보기 평점 처리 위해서 추가 -2018.09.12-jw
-	private double bd_rating;		// 평점
+	private int bd_rating;		// 평점
 	
-	public double getBd_rating() {
+	public int getBd_rating() {
 		return bd_rating;
 	}
-	public void setBd_rating(double bd_rating) {
+	public void setBd_rating(int bd_rating) {
 		this.bd_rating = bd_rating;
 	}
 	
