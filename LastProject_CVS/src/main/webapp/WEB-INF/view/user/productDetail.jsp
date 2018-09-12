@@ -3,8 +3,9 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
+
+
+
 
  <!-- Bootstrap -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -55,6 +56,17 @@
     </script>
 </head>
 
+<!-- top 이랑 구분 해주면서 현재 창의 카테고리 출력 -->
+<div class="products-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><i class="fa fa-home" aria-hidden="true"></i>
+			<a href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+			<li>상품 정보 &nbsp; ▷ ${prod.pr_class_lg } ▷ ${prod.pr_class_md } ▷ ${prod.prod_name }</li>
+		</ul>
+	</div>
+</div>
+<!-- top 이랑 구분 해주면서 현재 창의 카테고리 출력 -->
 
 
 
@@ -66,10 +78,11 @@
 				<div class="col-md-4 agileinfo_single_left">
 					<img id="example" src="${prod.file_path }/${prod.file_upname}" alt=" " class="img-responsive" />
 				</div>
+				
 				<div class="col-md-8 agileinfo_single_right">
 					<div class="rating1">
 						<span class="starRating">
-							<input id="rating5" type="radio" name="rating" value="5">
+							<input id="rating5" type="radio" name="rating" value="5" >
 							<label for="rating5">5</label>
 							<input id="rating4" type="radio" name="rating" value="4">
 							<label for="rating4">4</label>
@@ -81,8 +94,10 @@
 							<label for="rating1">1</label>
 						</span>
 					</div>
+					
+					
 					<div class="w3agile_description">
-						<h4>상품 정보 :</h4>
+						<h3>상품 정보</h3>
 						<p>${prod.prod_intro }</p>
 					</div>
 					<div class="snipcart-item block">
