@@ -114,7 +114,49 @@ button.op:active {
             </div>
 
             <div class="clearfix"></div>
+            
+       <!-- 테이블 계산에 사용될 script ============================================  -->           
+                 <script type="text/javascript">
+                 $(document).ready(function () {
+                	 
+                //총수량 계산
+                 $("#posTable").on('input', '.amount', function () {
+                     var total_sum = 0;
 
+                     $("#posTable .amount").each(function () {
+                         var amount = $(this).val();
+                         if ($.isNumeric(amount)) {
+                            total_sum += parseFloat(amount);
+                            }                  
+                          });
+                            $("#amount_sum").html(total_sum);
+                  });
+                
+                //상품별합계 계산
+                    $("#posTable").on('input', '.subtot', function () {
+		           var mult = 0;
+		           // for each row:
+		           $("#posTable .subtot").each(function () {
+		               // get the values from this row:
+		               var val1 = $('.price1', this).val();
+		               var val2 = $('.amount', this).val();
+		               console.log('val1 ---'+val1);
+		               var total = (val1 * 1) * (val2 * 1);
+		               
+		               // set total for the row
+		               $('.subtot', this).text(total);
+		               mult += total;
+		           });
+		           
+		           $("#subtot_sum").html(mult);
+                    });
+                	
+                
+                
+                 });
+              
+                 </script>
+                  
             <div class="row">
             
             
@@ -141,48 +183,46 @@ button.op:active {
                   </div>
                   <div class="x_content">
 
-            		<table class="table table-striped jambo_table bulk_action">
+            		<table id="posTable" class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
                             <th>
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
-                            <th class="column-title">NO </th>
+                            <th id="tableRow" class="column-title">NO </th>
                             <th class="column-title">상품명 </th>
                             <th class="column-title">단가 </th>
                             <th class="column-title">수량 </th>
                             <th class="column-title">금액 </th>
-                            <th class="column-title">할인 </th>
-                            
+                            <th class="column-title">할인 </th>                            
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                             </th>
                           </tr>
                         </thead>
 
-                        <tbody>
-                          <tr class="even pointer">
+                        <tbody id="prodList">
+                          <tr class="calc">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
-                            <td class=" ">121000040</td>
+                            <td class=" ">121000039</td>
                             <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
+                            <td class=" "><input type="text" class='price1' value='100'></td>
+                            <td class=" "><input type="text" class='amount' value='3'></td>
+                            <td class=" "><input type="text" class='subtot' value='1'></td>
                             <td class="a-right a-right ">$7.45</td>
 
                           </tr>
-                          <tr class="odd pointer">
+                          <tr class="calc">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
                             <td class=" ">121000039</td>
                             <td class=" ">May 23, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
+                            <td class=" "><input type="text" class='price1' value='10'></td>
+                            <td class=" "><input type="text" class='amount' value='1'></td>
+                            <td class=" "><input type="text" class='subtot' value='1'></td>
                             <td class="a-right a-right ">$741.20</td>                        
                           </tr>
          
@@ -194,15 +234,17 @@ button.op:active {
 							color: #fff;
 						    background-color: #449d44;
 						    border-color: #398439;"> 합계 수량/ 금액 / 할인 </td>                       
-                            <td>0  </td>
-                            <td>0  </td>
-                            <td>0  </td>
+                            <td><b><span id="amount_sum"></span></b></td>
+                            <td><b><span id="subtot_sum"></span></b></td>
+                            <td>할인합계  </td>
                         <tr>
                         </tfoot>
                         
                       </table>
 
                   </div>
+
+                  
 
                 </div>
               </div>
@@ -219,7 +261,7 @@ button.op:active {
 
 <!-- 카메라로 인삭하는 div ======================================================================= -->	
 
-			<div class="col-md-4 col-sm-4 col-xs-4">
+			<div class="col-md-3 col-sm-3 col-xs-3">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>바코드인식 <small>Custom design</small></h2>
@@ -234,14 +276,16 @@ button.op:active {
 				   
 
                   <div class="x_content">
-                  
-                   <video id="player" width="300" height="300"controls></video>
-				   <button onclick="startCapture(this)">인식</button>  
+                   <button onclick="startCapture(this)">인식</button>  
+				   <button onclick="stopCapture(this)">완료</button> 
 				   
+				   <div class="clearfix"></div>
+				   
+                   <video id="player" width="300" height="300"></video>
+  
 				   <button id="capture" style="display: none">Capture</button>
 				   <canvas id="snapshot" width=500 height=500 style="display: none"></canvas>				    				
-				   
-			    
+				   			    
 				     <script>
 				    	var intervalID;
 				    
@@ -264,39 +308,34 @@ button.op:active {
 		    					  dataType: "json",
 		    					  contentType : "application/x-www-form-urlencoded" ,
 		    					  success : function (data) {
-		    				            if(data.returnMsg == "noFound"){
-		    				            	console.log("data sendImage ---- :"+data.returnMsg);
-		    				            } else {
-		    				            	console.log("data clearInterval ---- :"+data.returnMsg);
+		    				            if(data.returnMsg == "decodedText"){
+		    				            	console.log("data decodedText ---- :"+data.decodedText);
+		    				            	console.log("data prodVo ---- :"+data.prodVo);
 			    							clearInterval(intervalID);
-			    							
-			    							$.each(data.supplyList,function(index, item){
-			    								$("#testDiv").append(
-			    									      
+			    				
+			    								$("#prodList").append(		    								
 			    									     '<tr class="even pointer">'+
 			    				                         '  <td class="a-center "> '+                                               
 			    				                         '    <input type="checkbox" class="flat" name="table_records">'+
+			    				                         ' <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; '+
+			    				                         '	width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>'+
 			    				                         '  </td>'+
-			    				                         '  <td class=" ">'+item.splylist_id+'</td>'+
-			    				                         '  <td class=" ">'+item.splylist_exdate+'</td> '+
-			    				                         '  <td class=" ">'+item.splylist_sum+'</td> '+ 
-			    				                         '  <td class=" ">'+item.supply_bcd+'</td> '+
-			    				                         '  <td class=" ">'+item.prod_id+'</td> '+			    				                      
-			    				                         '  <td class=" last"><a href="cvs_invoice.html">View</a>'+
-			    				                         '  </td>'+
-			    				                         '</tr>'
-			    								                                                                                     
-			    								);
-			    		    				})
+			    				                         '  <td class=" ">'+ data.prodVo.prod_id+'</td>'+
+			    				                         '  <td class=" ">'+ data.prodVo.prod_name+'</td> '+
+			    				                         '  <td class=" "><input type="text" class="price1" value="'+data.prodVo.prod_price+'"></td>'+ 
+			    				                         '  <td class=" "><input type="text" class="amount" value="'+data.prodVo.stcklist_amount+'"></td>'+    				                         
+			    				                         '  <td class=" ">'+ '금액예정'+'</td> '+
+			    				                         '  <td class=" ">'+ data.prodVo.event_id+'</td> '+			    				                      
+			    				                         '</tr>'			    								                                                                                     
+			    								);		    									    		    				
+		    				            } else {
+		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
 		    				            }
 		    				      },		 						
 								  error : function(){console.log("error");}		  
 								  });	    							    			
 		    			}		    			
 
-				    	function startCapture(e) {
-				    		intervalID = setInterval(sendImage, 1000);
-						}
 
 				        var player = document.getElementById('player');
 				        var snapshotCanvas = document.getElementById('snapshot');
@@ -305,7 +344,19 @@ button.op:active {
 				            // Attach the video stream to the video element and autoplay.
 				            player.srcObject = stream;
 				        };
-				
+								        
+						//인식버튼
+				    	function startCapture(e) {
+				    		player.play(); 
+				    		intervalID = setInterval(sendImage, 1000);
+						}
+				    	
+						//멈춤버튼
+				    	function stopCapture(e) {
+				    		player.pause(); 
+				    		clearInterval(intervalID);
+						}				    	
+				    	
 				        navigator.mediaDevices.getUserMedia({ video: true })
 				            .then(handleSuccess);
 
@@ -369,7 +420,7 @@ button.op:active {
               </div>
               
               
-              <div class="col-md-3 col-sm-3 col-xs-3">
+              <div class="col-md-4 col-sm-4 col-xs-4">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>결과창 <small>Custom design</small></h2>

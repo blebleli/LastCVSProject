@@ -87,13 +87,11 @@
 		    					  data: { file : image },
 		    					  dataType: "json",
 		    					  contentType : "application/x-www-form-urlencoded" ,
-		    					  success : function (data) {
-		    				            if(data.returnMsg == "noFound"){
-		    				            	console.log("data sendImage ---- :"+data.returnMsg);
-		    				            } else {
-		    				            	console.log("data clearInterval ---- :"+data.returnMsg);
+		    					  success : function (data) {		    						  
+		    						 	 if(data.returnMsg == "decodedText"){
+		    						 		console.log("data clearInterval ---- :"+data.decodedText);
 			    							clearInterval(intervalID);
-			    							
+
 			    							$.each(data.supplyList,function(index, item){
 			    								$("#testDiv").append(
 			    									      
@@ -108,10 +106,12 @@
 			    				                         '  <td class=" ">'+item.prod_id+'</td> '+			    				                      
 			    				                         '  <td class=" last"><a href="cvs_invoice.html">View</a>'+
 			    				                         '  </td>'+
-			    				                         '</tr>'
-			    								                                                                                     
+			    				                         '</tr>'	                                                                                     
 			    								);
 			    		    				})
+		    				            	
+		    				            } else {
+		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
 		    				            }
 		    				      },		 						
 								  error : function(){console.log("error");}		  
@@ -143,8 +143,7 @@
               <div class="col-md-8 col-sm-8 col-xs-9">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>발주리스트 <small>Custom design   </small></h2>
-                    <button class="btn btn-primary">상품추가</button>
+                    <h2>입고리스트 <small>Custom design   </small></h2>
                     <button class="btn btn-primary">선택삭제</button>
                     <button type="submit" class="btn btn-success">Submit</button>
                     
