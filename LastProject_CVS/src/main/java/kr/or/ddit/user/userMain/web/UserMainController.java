@@ -46,6 +46,7 @@ public class UserMainController {
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
 
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	/**
 	 * 
 	 * Method   : main 
@@ -56,12 +57,16 @@ public class UserMainController {
 	 * Method 설명 : usermain 으로 이동
 	 */
 	@RequestMapping("/main")
-	public String main(Model model){
+	public String main(Model model, HttpServletRequest request){
+		
 		//카테고리 best 제품리스트
 		HashMap<String, String> ctgyNum = new HashMap<String, String>();		
 		ctgyNum.put("category", "CA07760000001");
 		ctgyNum.put("wantNum", "4");		
 
+	
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		
 		//카테고리별 평점 best
 		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
 
@@ -98,11 +103,11 @@ public class UserMainController {
 								@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
 								Model model) {
-		Logger logger = LoggerFactory.getLogger(this.getClass());
+		
 		logger.debug("requestUrl : {}", request.getRequestURL());
 		
 		String mem_id = SessionUtil.getSessionMemberId(request);
-		logger.debug("mem_id : {}", mem_id);
+		logger.debug("mypage >> mem_id : {}", mem_id);
 		
 		if(mem_id == null || "".equals(mem_id)) {
 			return "redirect:/login/loginView";

@@ -58,6 +58,17 @@ public interface SignUpServiceInf {
 	 */
 	int getMemTelCnt(String mem_tel);
 	
+	
+	/**
+	 * 
+	 * Method  	 : newMember
+	 * Method설명  : 사용자 등록
+	 * 최초작성일 : 2018. 9. 10.
+	 * 작 성 자   : 공은별 pc24
+	 * 변경이력   :
+	 * @param memberVo
+	 * @return int
+	 */
 	int newMember(MemberVo memberVo);
 	
 	int updateMember(MemberVo memberVo);

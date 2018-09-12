@@ -21,8 +21,7 @@ public class MemberVo {
 	private String mem_x;                               // 좌표_x
 	private String mem_y;                               // 좌표_y
 	
-	private String pic_name;	// 사용자 사진 저장명
-	
+	private String pic_name;	// 사용자 사진 저장명, 파일리스트  09.11 추가 - KONG
 	private List<FiledataVo> fileList = new ArrayList<FiledataVo>();
 	
 	public MemberVo() {

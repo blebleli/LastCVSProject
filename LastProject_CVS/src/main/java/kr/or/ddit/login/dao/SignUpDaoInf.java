@@ -47,9 +47,10 @@ public interface SignUpDaoInf {
 	* 변경이력 :신규
 	* 조 회 :int signUpUser(MemberVo memberVo)_일반 유저 회원가입 화면에서 입력한 값들을 객체에 담아 DB에 저장
 	* @param memberVo
-	* @return
+	* @return int
 	*/
 	int setInsertSignUpUser(MemberVo memberVo);
+	
 	
 	/**
 	 * 

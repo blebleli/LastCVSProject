@@ -83,8 +83,16 @@ public class SignUpService implements SignUpServiceInf {
 		return signUpDao.getMemTelCnt(mem_tel);
 	}
 	
+
 	/**
-	 * 사용자 등록
+	 * 
+	 * Method  	 : newMember
+	 * Method설명  : 사용자 등록
+	 * 최초작성일 : 2018. 9. 10.
+	 * 작 성 자   : 공은별 pc24
+	 * 변경이력   :
+	 * @param memberVo
+	 * @return int
 	 */
 	@Override
 	public int newMember(MemberVo memberVo) {
@@ -97,6 +105,8 @@ public class SignUpService implements SignUpServiceInf {
 		}
 		return result;
 	}
+	
+	
 
 	@Override
 	public int updateMember(MemberVo memberVo) {

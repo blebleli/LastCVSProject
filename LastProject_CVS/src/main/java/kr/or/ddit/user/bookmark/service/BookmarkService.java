@@ -26,7 +26,7 @@ public class BookmarkService implements BookmarkServiceInf {
 	/**
 	 * 
 	 * Method : getBookmarkList
-	 * 최초작성일 : 2018. 9. 110.
+	 * 최초작성일 : 2018. 9. 10.
 	 * 작성자 : Kong
 	 * 변경이력 :
 	 * @param mem_id
