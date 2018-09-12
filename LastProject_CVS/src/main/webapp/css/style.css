@@ -98,8 +98,8 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
 }
 .w3l_search{
 	float: left;
-    width: 30%;
-    margin:.1em 0 0em 18em;
+    width: 26%;
+    margin:.1em 0 0em 32em;
 }
 .w3l_search input[type="text"]{
 	outline: none;
@@ -114,7 +114,7 @@ input[type="submit"],#PPMiniCart .minicart-submit,.w3ls_vegetables ul li a,input
 .w3l_search input[type="submit"]{
 	outline: none;
     padding: 10px 0 9px;
-    width: 15%;
+    width: 12%;
     border: 1px solid;
     position: relative;
     background: url(../images/img-sp.png) no-repeat 14px 5px #FA1818;
