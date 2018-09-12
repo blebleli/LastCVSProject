@@ -30,7 +30,9 @@
   	<typeAlias type="kr.or.ddit.model.StockListVo" 		alias="stockListVo"/>
   	<typeAlias type="kr.or.ddit.model.FiledataVo" 		alias="filedataVo"/>
   	<!-- 조계환 입고 상세보기 화면에 필요한 정보들(supplylist에 있는 수량과 제품 바코드, prod에 있는 제품이름을 동시에 가져와야 하기 때문에 만든 객체) -->
-  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo" 		alias="SupplyProdVo"/>
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo" 		alias="supplyProdVo"/>
+  	<!-- 조계환 입고 리스트에서 뿌려줄 입고에 대한 정보들  -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupplySumProdVo" 		alias="supplySumProdVo"/>
 <!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
 
 	<!-- 제품 검색 -->

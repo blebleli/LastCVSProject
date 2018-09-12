@@ -7,10 +7,12 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplySumProdVo;
 
 @Repository("supplyDao")
 public class SupplyDao implements SupplyDaoInf {
@@ -34,7 +36,7 @@ public class SupplyDao implements SupplyDaoInf {
 	* @return
 	*/
 	@Override
-	public List<SupplyVo> getListSupply() {
+	public List<SupplySumProdVo> getListSupply() {
 		return template.selectList("supply.getListSupply");
 	}
 
@@ -116,6 +118,26 @@ public class SupplyDao implements SupplyDaoInf {
 	@Override
 	public List<SupplyProdVo> getSupplyProdInfo(String supply_bcd) {
 		return template.selectList("supply.supplyProdInfo",supply_bcd);
+	}
+
+	/**
+	* Method : sumProdPrice
+	* Method 설명 :입고 상세 내역에서 제품들의 가격의 총합을 구하는 메서드
+	* 최초작성일 : 2018. 9. 12.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	@Override
+	public int sumProdPrice(String supply_bcd) {
+		return template.selectOne("supply.sumProdPrice",supply_bcd);
+	}
+
+	@Override
+	public MemberVo supplyMemberInfo(String supply_bcd) {
+		return template.selectOne("supply.supplyMemberInfo",supply_bcd);
 	}
 
 

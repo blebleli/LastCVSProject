@@ -6,12 +6,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.dao.SupplyDao;
 import kr.or.ddit.supply.dao.SupplyDaoInf;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplySumProdVo;
 
 @Service("supplyService")
 public class SupplyService implements SupplyServiceInf {
@@ -35,7 +37,7 @@ public class SupplyService implements SupplyServiceInf {
 	* @return
 	*/
 	@Override
-	public List<SupplyVo> getListSupply() {
+	public List<SupplySumProdVo> getListSupply() {
 		return SupplyDao.getListSupply();
 	}
 
@@ -128,6 +130,26 @@ public class SupplyService implements SupplyServiceInf {
 	@Override
 	public List<SupplyProdVo> getSupplyProdInfo(String supply_bcd) {
 		return SupplyDao.getSupplyProdInfo(supply_bcd);
+	}
+
+	/**
+	* Method : sumProdPrice
+	* Method 설명 :입고 상세 내역에서 제품들의 가격의 총합을 구하는 메서드
+	* 최초작성일 : 2018. 9. 12.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	@Override
+	public int sumProdPrice(String supply_bcd) {
+		return SupplyDao.sumProdPrice(supply_bcd);
+	}
+
+	@Override
+	public MemberVo supplyMemberInfo(String supply_bcd) {
+		return SupplyDao.supplyMemberInfo(supply_bcd);
 	}
 	
 }

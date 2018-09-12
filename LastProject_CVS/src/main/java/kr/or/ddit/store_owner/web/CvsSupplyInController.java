@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplySumProdVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
@@ -60,7 +62,15 @@ public class CvsSupplyInController {
 	public String cvsSupplyIn(Model model){
 		
 		//입고 리스트 전체 출력 
-		List<SupplyVo> supplyList = suppltService.getListSupply();
+		List<SupplySumProdVo> supplyList = suppltService.getListSupply();
+//		for (SupplySumProdVo supplySumProdVo : supplyList) {
+//			logger.debug("supplySumProdVo.getRnum( : "+supplySumProdVo.getRnum());
+//			logger.debug("supplySumProdVo.getSum() : "+supplySumProdVo.getSum());
+//			logger.debug("supplySumProdVo.getSplylist_sum() : "+supplySumProdVo.getSplylist_sum());
+//			logger.debug("supplySumProdVo.getSupply_bcd() : "+supplySumProdVo.getSupply_bcd());
+//			logger.debug("supplySumProdVo.getSupply_date() : "+supplySumProdVo.getSupply_date());
+//			logger.debug("supplySumProdVo.getSupply_state() : "+supplySumProdVo.getSupply_state());
+//		}
 		
 		//입고 전체 목록
 		model.addAttribute("supplyList",supplyList);
@@ -77,7 +87,7 @@ public class CvsSupplyInController {
 	* @param model
 	* @return
 	*/
-	@RequestMapping(value="/supplyDetail", method=RequestMethod.POST)
+	@RequestMapping(value="/supplyDetail", method=RequestMethod.GET)
 	public String cvsSupplyDetail(SupplyVo vo, Model model){
 		
 		//입고 상세보기 화면에서 발주 신청한 제품들의 정보 가져오기
@@ -87,6 +97,16 @@ public class CvsSupplyInController {
 		model.addAttribute("vo",vo);
 		//입고 리스트 상세내역에 필요한 정보들(수량,제품이름,제품코드,제품가격)
 		model.addAttribute("prodList",prodList);
+		
+		//입고 상세 내역에서 제품들 가격의 총합을 구하는 메서드 실행
+		int sum = suppltService.sumProdPrice(vo.getSupply_bcd());
+		logger.debug("sum = = = = = : " + sum);
+		
+		//입고 상세 내역에서 점주의 정보를 가져오는 메서드
+		MemberVo supplyMemInfo = suppltService.supplyMemberInfo(vo.getSupply_bcd());
+		
+		model.addAttribute("supplyMemInfo",supplyMemInfo);
+		model.addAttribute("sum",sum);
 		
 		return "cvs_invoice";
 	}

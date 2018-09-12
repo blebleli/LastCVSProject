@@ -62,7 +62,7 @@
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
-
+						<!-- 최상단 부분 날짜와 입고 상품 내역이 시작되는 부분  -->
 						<section class="content invoice">
 							<!-- title row -->
 							<div class="row">
@@ -76,7 +76,7 @@
 								</div>
 								<!-- /.col -->
 							</div>
-							<!-- info row -->
+							<!-- 상단부분 입고되어 온곳부터 입고 편의점 정보 출력 부분 + 수불 바코드 출력 부분  -->
 							<div class="row invoice-info">
 								<div class="col-sm-4 invoice-col">
 									From
@@ -89,32 +89,32 @@
 								<div class="col-sm-4 invoice-col">
 									To
 									<address>
-										<strong>GS25대흥나이스점</strong> <br>대전 중구 중교로9, 101호 <br>대흥동
-										504-5 <br>Phone: 1 (804) 123-9876 <br>Email:
-										jon@ironadmin.com
+										<strong>${supplyMemInfo.mem_cvs_name}</strong> 
+										<br>${supplyMemInfo.mem_addr} 
+										<br>Phone: ${supplyMemInfo.mem_cvs_tel} 
+										<br>담당자 : ${supplyMemInfo.mem_name}
 									</address>
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
 									<b>수불바코드 : ${vo.supply_bcd}</b> <br> <br> <br>
-
 									<br>
-
 								</div>
 								<!-- /.col -->
 							</div>
+							<!-- 상단 부분 끝 -->
 							<!-- /.row -->
 
-							<!-- Table row -->
+							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 -->
 							<div class="row">
 								<div class="col-xs-12 table">
 									<table class="table table-striped">
 										<thead>
 											<tr>
-												<th>수량</th>
 												<th style="width: 20%">상품이름</th>
 												<th style="width: 30%">상품코드</th>
 												<th style="width: 30%">비고</th>
+												<th>수량</th>
 												<th>가격</th>
 												<th>합계</th>
 											</tr>
@@ -122,26 +122,26 @@
 										<tbody>
 											<c:forEach items="${prodList}" var="vo">
 												<tr>
-													<td>${vo.splylist_sum}</td>
-													<td>${vo.prod_name}</td>
-													<td>${vo.prod_id}</td>
-													<td></td>
-													<td>￦${vo.prod_price}</td>
-													<td>￦${vo.splylist_sum * vo.prod_price}</td>
+													<td>${vo.prod_name}</td> <!-- 상품이름 -->
+													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
+													<td></td>				<!-- 비고 -->
+													<td>${vo.splylist_sum}</td>	<!-- 수량 -->
+													<td>￦${vo.prod_price}</td>	<!-- 가격 -->
+													<td>￦${vo.splylist_sum * vo.prod_price}</td>	<!-- 합계 -->
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
-								<!-- /.col -->
 							</div>
-							<!-- /.row -->
-
+							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 끝-->
+							
+							<!-- 하단 부분 -->
 							<div class="row">
-								<!-- accepted payments column -->
+								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 -->
 								<div class="col-xs-6">
 									<p class="lead">
-										<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 -->
+										<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 11=결제 10=발주 -->
 											<c:choose>
 												<c:when test="${vo.supply_state == 12 }">
 													입고상태
@@ -159,7 +159,8 @@
 											</c:choose>
 									</p>
 								</div>
-								<!-- /.col -->
+								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 끝-->
+								<!-- 명세서 부분 -->
 								<div class="col-xs-6">
 									<p class="lead">명세서</p>
 									<div class="table-responsive">
@@ -167,27 +168,27 @@
 											<tbody>
 												<tr>
 													<th style="width: 50%">합계 :</th>
-													<td>$250.30</td>
+													<td>￦${sum}</td>
 												</tr>
 												<tr>
-													<th>세금 (10%)</th>
-													<td>$10.34</td>
+													<th>세금(10%)</th>
+													<td>￦${sum/10}</td>
 												</tr>
 												<tr>
 													<th>배송비:</th>
-													<td>$5.80</td>
+													<td>￦5000</td>
 												</tr>
 												<tr>
 													<th>총합계:</th>
-													<td>$265.24</td>
+													<td>￦${sum + (sum/10) + 5000}</td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<!-- /.col -->
+								<!-- 명세서 부분 끝 -->
 							</div>
-							<!-- /.row -->
+							<!-- 하단 부분 끝-->
 
 							<!-- this row will not appear when printing -->
 							<div class="row no-print">
@@ -204,6 +205,7 @@
 									</button>
 								</div>
 							</div>
+							<!-- 최하단 부분 끝 -->
 						</section>
 					</div>
 				</div>
@@ -239,7 +241,7 @@
 function popupOpen(){
 	var popUrl = "http://localhost:8180/cvs/barcode";	//팝업창에 출력될 페이지 URL
 
-	var popOption = "width=1400, height=1000, resizable=, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+	var popOption = "width=1500, height=900, resizable=, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 
 		window.open(popUrl,"",popOption);
 	}

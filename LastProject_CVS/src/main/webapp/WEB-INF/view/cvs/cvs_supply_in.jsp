@@ -52,7 +52,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>입고 리스트 </h2>
+                    <h2>입고 리스트<small><a href="javascript:popupOpen();" > 바코드 확인창 </a></small> </h2> 
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -75,7 +75,7 @@
                       <thead>
                         <tr>
                           <th>No.</th>
-                          <th>바코드</th>
+                          <th>수불바코드</th>
                           <th>입고날짜</th>
                           <th>처리상황</th>
                           <th>총수량</th>
@@ -86,7 +86,7 @@
                       </thead>
 	                      <c:forEach items="${supplyList}" var="vo"> <!-- 전체 입고 목록들 -->
 								<tr>
-									<td></td>	<!-- 넘버 -->
+									<td>${vo.rnum}</td>	<!-- 넘버 -->
 									<td>${vo.supply_bcd}</td>	<!-- 바코드 -->
 									<td>${vo.supply_date}</td>	<!-- 입고날짜 -->
 									<td>
@@ -100,15 +100,15 @@
 										    </c:otherwise>
 										</c:choose>
 									</td>
-									<td></td>					<!-- 총수량 -->
-									<td></td>				<!-- 가격 -->
+									<td>${vo.splylist_sum}</td>					<!-- 총수량 -->
+									<td>￦${vo.sum}</td>				<!-- 가격 -->
 									<!-- 원하는 입고 목록 상세보기 화면으로 전환-->
 									<td>
-										<form action="/cvs/supplyDetail" method="post">
-											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}"> 
-											<input type="hidden" name="place_id" value="${vo.place_id}"> 
-											<input type="hidden" name="supply_date" value="${vo.supply_date}"> 
-											<input type="hidden" name="supply_state" value="${vo.supply_state}"> 
+										<form action="/cvs/supplyDetail" method="get">
+											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}">  	<!-- 수불바코드 -->
+<%-- 											<input type="hidden" name="place_id" value="${vo.place_id}"> 		<!-- 편의점 코드 --> --%>
+											<input type="hidden" name="supply_date" value="${vo.supply_date}"> 	<!-- 수불 날짜 -->
+											<input type="hidden" name="supply_state" value="${vo.supply_state}"><!-- 수불 상태 --> 
 											<input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">
 										</form>
 									</td>	 <!-- 상세보기 -->
@@ -162,6 +162,16 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    
+    <script type="text/javascript">
+		function popupOpen(){
+		var popUrl = "http://localhost:8180/cvs/barcode";	//팝업창에 출력될 페이지 URL
+	
+		var popOption = "width=1500, height=900, resizable=, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+	
+			window.open(popUrl,"",popOption);
+		}
+	</script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>

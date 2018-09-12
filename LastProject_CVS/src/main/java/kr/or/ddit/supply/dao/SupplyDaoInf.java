@@ -2,10 +2,12 @@ package kr.or.ddit.supply.dao;
 
 import java.util.List;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplySumProdVo;
 
 /**
 * @Class Name : SupplyDaoInf.java
@@ -60,7 +62,7 @@ public interface SupplyDaoInf {
 	* 조 회 :List<SupplyVo> getListSupply()_관리자가 각 점주들이 신청한 수불 내역 리스트를 보기 위한 메서드
 	* @return
 	*/
-	List<SupplyVo> getListSupply();
+	List<SupplySumProdVo> getListSupply();
 	
 	/**
 	* Method : getListSupply
@@ -170,6 +172,29 @@ public interface SupplyDaoInf {
 	*/
 	List<SupplyProdVo> getSupplyProdInfo(String supply_bcd);
 	
+	/**
+	* Method : sumProdPrice
+	* Method 설명 :입고 상세 내역에서 제품들의 가격의 총합을 구하는 메서드
+	* 최초작성일 : 2018. 9. 12.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	int sumProdPrice(String supply_bcd);
+	
+	/**
+	* Method : supplyMemberInfo
+	* Method 설명 :입고 상세 내역에서 편의점 점주에 대한 정보를 가져오는 메서드
+	* 최초작성일 : 2018. 9. 12.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	MemberVo supplyMemberInfo(String supply_bcd);
 	
 	
 }
