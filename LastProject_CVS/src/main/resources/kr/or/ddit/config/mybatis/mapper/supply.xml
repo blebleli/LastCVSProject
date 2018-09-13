@@ -117,13 +117,17 @@
 	 -->
 	<insert id="insertSupplyList" parameterType="supplyListVo">
 		INSERT INTO supply_list(splylist_id,
-                        		prod_id,
+								splylist_info,
+								splylist_exdate,
                         		splylist_sum, 
-                        		supply_bcd) 
+                        		supply_bcd, 
+                        		prod_id)
                 		VALUES(#{splylist_id},
-                			   #{prod_id},
+                			   #{splylist_info},
+                			   #{splylist_exdate},
                 			   #{splylist_sum},
-                			   #{supply_bcd})
+                			   #{supply_bcd},
+                			   #{prod_id})
 	</insert>
 	
 </mapper>
