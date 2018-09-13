@@ -15,6 +15,13 @@ import org.springframework.stereotype.Service;
 @Service("autoCodeCreate")
 public class AutoCodeCreate {
 
+
+	public static void main(String[] args) {
+		AutoCodeCreate ac  = new AutoCodeCreate();
+		String returncode = ac.autoCode("SUP", "mem_id");
+		System.out.println(returncode);		
+	}
+	
 	@Resource(name="commonsDao")
 	private CommonsDaoInf commonsDao;
 	
