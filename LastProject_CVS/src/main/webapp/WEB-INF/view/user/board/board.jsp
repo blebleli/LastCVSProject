@@ -131,12 +131,22 @@
 </script>
 
 <!-- products-breadcrumb -->
+<div class="products-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/user/main' />">Home</a><span>|</span></li>
+			<li>공지사항</li>
+		</ul>
+	</div>
+</div>
 <!-- //products-breadcrumb -->
+
 <!-- banner -->
 
 <form action="/board/view" method="post" id="frm">
 	<input type="hidden" name="bd_id" id="bd_id">
 </form>
+
 
 <div class="banner">
 	<div class="w3l_banner_nav_right">

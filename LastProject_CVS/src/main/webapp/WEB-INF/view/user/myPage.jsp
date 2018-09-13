@@ -5,6 +5,7 @@
 <%@ page import="java.io.BufferedInputStream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- =======<tiles: ="content" /> ============> 마이페이지  myPage.jsp  -->
 <!-- login css  -->
@@ -55,30 +56,21 @@ span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
 
 $(document).ready(function() {
 
-		// 	 $('#myTabContent div').hide();
-
-		// 	 $("#myTab li a").click(function (e) {
-		// 		  e.preventDefault();
-		// 		  $(this).tab('show');
-		// 		  $("#myTabContent div").show();
-
-		// 		})
-		/** 
-		 * 초기 탭 클릭
-		 */
-		if ("${!empty tab}") {
-			$("ul#myTab > li > a[href=#${tab}]").trigger(
-					"click");
-			// focus 안먹네
-			//$("div#${tab}").next().attr("tabindex", -1).focus();
-		}
+	/** 
+	 * 초기 탭 클릭
+	 */
+	if ("${!empty tab}") {
+		$("ul#myTab > li > a[href=#${tab}]").trigger("click");
+		// focus 안먹네
+		//$("div#${tab}").next().attr("tabindex", -1).focus();
+	}
 
 		
 		/**
 		 * ∴ 사용자한테 입력 받을 때 확인 
 		 * 사용자 전화번호 중복 조회
 		 */
-		$("#mem_tel_3").on("blur",function() {
+	/* 	$("#mem_tel_3").on("blur",function() {
 			// 전화번호가 모두 입력이 되었을때 중복 체크 시작
 			if ($("#mem_tel_1").val() != '' && $("#mem_tel_2").val() && $("#mem_tel_3").val()) {
 				var mem_tel = $("#mem_tel_1").val()+ '-'+ $("#mem_tel_2").val()	+ '-'+ $("#mem_tel_3").val();
@@ -107,7 +99,7 @@ $(document).ready(function() {
 
 			}
 		});
-
+ */
 			
 		// 사용자 저장버튼
 		$("#btnRegist").on("click", function() {
@@ -195,16 +187,16 @@ $(document).ready(function() {
 
 		// 휴대폰번호 셋팅
 		$("*[id^=mem_tel_]").on("change",function() {
-					if ($("#mem_tel_1").val() != ''
-							&& $("#mem_tel_2").val()
-							&& $("#mem_tel_3").val()) {
-						var mem_tel = $("#mem_tel_1").val()
-								+ '-' + $("#mem_tel_2").val()
-								+ '-' + $("#mem_tel_3").val();
-						$("input[name=mem_tel]").val(mem_tel);
-					} else {
-						$("input[name=mem_tel]").val("");
-					}
+			if ($("#mem_tel_1").val() != ''
+					&& $("#mem_tel_2").val()
+					&& $("#mem_tel_3").val()) {
+				var mem_tel = $("#mem_tel_1").val()
+						+ '-' + $("#mem_tel_2").val()
+						+ '-' + $("#mem_tel_3").val();
+				$("input[name=mem_tel]").val(mem_tel);
+			} else {
+				$("input[name=mem_tel]").val("");
+			}
 		});
 
 		
@@ -220,9 +212,10 @@ $(document).ready(function() {
 		/** 
 		 *	daum 주소검색 api
 		 */
-		$("#btnOpenSearchZip").on("click",function() {
+		$("#btnOpenSearchZip").on("click", function() {
 
-			 new daum.Postcode( {oncomplete : function(data) {
+			 new daum.Postcode({
+				 oncomplete : function(data) {
 						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
 						// 예제를 참고하여 다양한 활용법을 확인해 보세요.
 		
@@ -268,28 +261,28 @@ $(document).ready(function() {
 			 }).open();
 		});
 
-						/**
-						 * 구매내역 행 클릭
-						 */
-						$("tr.paytr").bind("click",function() {
+		/**
+		 * 구매내역 행 클릭
+		 */
+		$("tr.paytr").bind("click",function() {
 
-								// 상세tr 삭제
-								if ($(this).next().hasClass("subPaytr")) {
-									$(this).next().remove();
-								} else {
-									// 상세tr 전체삭제
-									$(this).parent().find('tr.subPaytr').each(function() {
-														$(this).hide("slow",function() {
-																			$(this).remove();
-														});
-									});
-									// 상세tr 보여주기
-									var $subTr = $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
-									$(this).after($($subTr));
-									$($subTr).show('slow');
-								}
+				// 상세tr 삭제
+				if ($(this).next().hasClass("subPaytr")) {
+					$(this).next().remove();
+				} else {
+					// 상세tr 전체삭제
+					$(this).parent().find('tr.subPaytr').each(function() {
+										$(this).hide("slow",function() {
+															$(this).remove();
+										});
+					});
+					// 상세tr 보여주기
+					var $subTr = $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
+					$(this).after($($subTr));
+					$($subTr).show('slow');
+				}
 
-						});
+		});
 
 });
 
@@ -375,6 +368,8 @@ $(document).ready(function() {
 									<dt>CSS</dt>
 									<dd>
 										<em>Cascading Style Sheets</em>
+									</dd>
+								</dl>
 							</div>
 							
 							<div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">  <!-- 데스크탑 사이즈에서 보임  -->
@@ -445,14 +440,15 @@ $(document).ready(function() {
 				
 				<!-- Tab panes -->
 				<div id="myTabContent" class="tab-content col-md-15 col-sm-9 col-xs-12" style="width: 100%">
-
+<!-- 주소검색 -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 					<!-- 나의정보 -------------------------------------------------------------------------------------------------------- -->
-					<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+	<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 						
 		<div id="content" class="content_primary forgot_user_information">
 			 
 			<div class="section_wrap">
-				<form id="registForm" action="<c:url value='/login/loginView' />" method="post" enctype="multipart/form-data">
+				<form id="registForm" action="<c:url value='/login/updateProcess' />" method="post" enctype="multipart/form-data">
 					
 					<div class="section email_info">
 							<h3>나의정보 수정</h3><br />
@@ -465,9 +461,8 @@ $(document).ready(function() {
 										<span class="label">이메일 아이디</span>
 										<div>
 <%-- 										<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" readonly="readonly" class="input_text small" style="width:337px" /> --%>
-											<label id="mem_id" name="mem_id" title="아이디(이메일) 입력"  class="label" style="width:337px" >${member.mem_id}</label>
-											<input type="hidden" id="chkMemId" value="" />
-											<input type="hidden" id="mem_id" value="${member.mem_id}" />
+											<label id="mem_id" title="아이디(이메일) 입력"  class="label" style="width:337px" >${member.mem_id}</label>
+											<input type="hidden" name="mem_id" value="${member.mem_id}" />
 										</div>
 									</div>
 									
@@ -491,8 +486,8 @@ $(document).ready(function() {
 										<label for="mem_name" class="label">이름 </label>
 										<div>
 <!-- 										<input type="text" id="mem_name" name="mem_name" title="이름 입력" value="" class="input_text small" style="width:234px" /> -->
-											<label id="mem_name" name="mem_name" title="이름 입력"  class="label" style="width:234px" > ${member.mem_name}</label>
-											<input type="hidden" id="mem_name" value="${member.mem_name}" />
+											<label id="mem_name" title="이름 입력" class="label" style="width:234px" > ${member.mem_name}</label>
+											<input type="hidden" name="mem_name" value="${member.mem_name}" />
 										</div>
 									</div>
 									
@@ -500,20 +495,23 @@ $(document).ready(function() {
 										<label for="mem_tel" class="label">휴대폰 번호 </label>
 										<div>
 											<div>
+											<c:set var="str_mem_tel" value="${member.mem_tel}"/>
+											<c:set var="array" value="${ fn:split(str_mem_tel, '-') }" />
 												<select id="mem_tel_1" title="휴대폰 첫자리 선택" class="select small" style="width:86px">
-													<option value="010" selected="selected">010</option>
-													<option value="011">011</option>
-													<option value="016">016</option>
-													<option value="017">017</option>
-													<option value="018">018</option>
-													<option value="019">019</option>
+													<option value="010"<c:if test="${fn:split(str_mem_tel,'-')[0] eq '010'}"> selected="selected" </c:if>>010</option>
+													<option value="011"<c:if test="${fn:split(str_mem_tel,'-')[0] eq '011'}"> selected="selected" </c:if>>011</option>
+													<option value="016"<c:if test="${fn:split(str_mem_tel,'-')[0] eq '016'}"> selected="selected" </c:if>>016</option>
+													<option value="017"<c:if test="${fn:split(str_mem_tel,'-')[0] eq '017'}"> selected="selected" </c:if>>017</option>
+													<option value="018"<c:if test="${fn:split(str_mem_tel,'-')[0] eq '018'}"> selected="selected" </c:if>>018</option>
+													<option value="019"<c:if test="${fn:split(str_mem_tel,'-')[0] eq '019'}"> selected="selected" </c:if>>019</option>
 												</select>
 												<span>-</span>
-												<input type="text" title="휴대폰 중간자리 입력" id="mem_tel_2" value="" class="input_text small" style="width:100px" maxlength="4" />
-												<span>-</span>
-												<input type="text" title="휴대폰 마지막자리 입력" id="mem_tel_3" value="" class="input_text small" style="width:100px" maxlength="4" />
+												<input type="text" title="휴대폰 중간자리 입력" id="mem_tel_2" value="${fn:split(str_mem_tel,'-')[1]}" class="input_text small" style="width:100px" maxlength="4" />
+												<span>-</span> 
+
+												<input type="text" title="휴대폰 마지막자리 입력" id="mem_tel_3" value="${ fn:substring(str_mem_tel, 9,13 ) }" class="input_text small" style="width:100px" maxlength="4" />
 												<span id="errorTxtCnts" class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
-												<input type="hidden" id="mem_tel" name="mem_tel" value="" />
+												<input type="hidden" id="mem_tel" name="mem_tel" value="${member.mem_tel }" />
 											</div>
 										</div>
 									</div>
@@ -523,7 +521,7 @@ $(document).ready(function() {
 										<div>
 <!-- 											<input type="text" id="mem_birth" name="mem_birth" title="생년월일 입력" value="" class="input_text small" style="width:234px" /> -->
 											<label id="mem_birth" name="mem_birth" title="생년월일 입력"  class="label" style="width:234px" >${member.mem_birth}</label>
-											<input type="hidden" id="mem_tel" name="mem_tel" value="${member.mem_birth}" />
+											<input type="hidden" id="mem_birth" name="mem_birth" value="${member.mem_birth}" />
 										</div>
 									</div>
 									
@@ -546,7 +544,7 @@ $(document).ready(function() {
 									<div class="field">
 										<label for="mem_pic" class="label">프로필 사진</label>
 										<div>
-											<input type="file" id="upload_file" name="upload_file" title="사진등록" value="${member.pic_name}" class="" style="width:234px" />
+											<input type="file" id="upload_file" name="upload_file" title="사진등록" value="" class="" style="width:234px" />
 										</div>
 									</div>
 									
