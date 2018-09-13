@@ -48,7 +48,18 @@
 	<!-- 파일데이터 삭제 -->
 	<delete id="deleteFiledata" parameterType="filedataVo">
 		DELETE FROM FILEDATA
-		WHERE FILE_ID = #{file_id}
+		WHERE 1=1
+		<choose>
+			<when test="file_id != null and file_id != ''">
+			AND  FILE_ID = #{file_id}
+			</when>
+			<when test="mem_id != null and mem_id != ''">
+			AND  MEM_ID = #{mem_id}
+			</when>
+			<otherwise>
+			AND 1=2
+			</otherwise>
+		</choose>
 	</delete>
 	
   	

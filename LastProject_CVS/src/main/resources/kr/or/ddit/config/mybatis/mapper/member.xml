@@ -80,27 +80,24 @@
 	<!-- 	아 이 디 : setUpdateMember
 	  		매개변수 : memberVo
 	  		반 환 값 : 없음
-	  		설    명 : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
+	  		설    명 : 사용자 정보 수정
 	  		작 성 자 : 공은별
-	  		일    시 : 2018-09-05     
+	  		일    시 : 2018-09-13     
 	 -->
 	<update id="setUpdateMember" parameterType="memberVo">
 		UPDATE MEMBER
-		   SET MEM_KIND = #{mem_kind}
-			 , MEM_NAME = #{mem_name}
+		   SET 
+		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR})
 			 , MEM_TEL = #{mem_tel}
-			 , MEM_BIRTH = #{mem_birth}
-			 , MEM_GEN = #{mem_gen}
 			 , MEM_ZIP = #{mem_zip}
 			 , MEM_ADD = #{mem_add}
 			 , MEM_ADDR = #{mem_addr}
-			 , MEM_CVS_NAME = #{mem_cvs_name}
-			 , MEM_CVS_TEL = #{mem_cvs_tel}
-			 , MEM_INTRO = #{mem_intro}
 			 , MEM_X = #{mem_x}
 			 , MEM_Y = #{mem_y}
 		 WHERE MEM_ID = #{mem_id}
 	</update>
+	
+	
 	
 	<!-- 	아 이 디 : setUpdateMemberPw
 	  		매개변수 : memberVo
