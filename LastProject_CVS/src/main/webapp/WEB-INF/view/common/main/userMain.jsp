@@ -279,9 +279,9 @@
 	                      
 	                    </span>
 	                </h4>
-	                <img src="/images/event1.jpg" alt="...">
-	                 리뷰가들어갈 공간{vo.bd_content}
-	                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">View Review</a>
+	                <img src="${vo.file_path }/${vo.file_upname}" alt="..." width="200" height="200">
+	                 ${vo.bd_content}
+	                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">${vo.bd_title }</a>
 	                <div class="clearfix"></div>              
 	            </div>
 	        </div>
