@@ -1,16 +1,25 @@
 package kr.or.ddit.login.service;
 
-import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
 
 import kr.or.ddit.filedata.dao.FileDaoInf;
 import kr.or.ddit.login.dao.SignUpDaoInf;
 import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.model.MemberVo;
 
+import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
 @Service("signUpService")
 public class SignUpService implements SignUpServiceInf {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Resource(name="signUpDao")
 	private SignUpDaoInf signUpDao;
@@ -110,8 +119,33 @@ public class SignUpService implements SignUpServiceInf {
 
 	@Override
 	public int updateMember(MemberVo memberVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = signUpDao.updateMember(memberVo);
+		
+		// 사용자 사진 업로드
+		if(result > 0) {
+			
+			if(memberVo.getFileList() != null && memberVo.getFileList().size() > 0) {
+				// 기존파일 조회
+				List<FiledataVo> pic = fileDao.getFrofilePicList(memberVo.getMem_id());
+				if(pic != null && pic.size() > 0) {
+					FiledataVo deleteVo = new FiledataVo();
+					deleteVo.setMem_id(memberVo.getMem_id());
+					fileDao.deleteFile(deleteVo);
+					
+					try {
+						FileUtils.forceDelete(new File(pic.get(0).getFile_path(), pic.get(0).getFile_upname()));
+					} catch (IOException e) {
+						logger.error("사용자 이미지 파일 삭제 중 오류가 발생하였습니다. {}", e);
+					}
+				}
+			}
+			
+			
+			for(FiledataVo fileDataVo : memberVo.getFileList()) {
+				fileDao.insertFile(fileDataVo);
+			}
+		}
+		return result;
 	}
 
 	@Override

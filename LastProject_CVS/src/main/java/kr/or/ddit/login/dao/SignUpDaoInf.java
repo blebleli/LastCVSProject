@@ -105,4 +105,17 @@ public interface SignUpDaoInf {
 	 */
 	int getMemTelCnt(String mem_tel);
 	
+	/**
+	 * 
+	 * Method 	  : updateMember
+	 * Method 설명  : 회원 정보 수정
+	 * 최초작성일 : 2018. 9. 14.
+	 * 작성자 	  : 공은별(pc24)
+	 * 변경이력   :
+	 *
+	 * @param memberVo
+	 * @return
+	 */
+	int updateMember(MemberVo memberVo);
+	
 }

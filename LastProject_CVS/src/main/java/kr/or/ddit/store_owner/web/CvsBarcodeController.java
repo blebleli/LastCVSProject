@@ -1,6 +1,7 @@
 package kr.or.ddit.store_owner.web;
 
 import java.awt.image.BufferedImage;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,9 +14,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
-import kr.or.ddit.commons.dao.AutoCodeInf;
-import kr.or.ddit.commons.dao.CommonsDaoInf;
-import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
@@ -23,8 +21,6 @@ import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -218,8 +218,9 @@ public class LoginController {
 
 
 	/**
-	 * 회원가입 처리 -공
+	 * 회원가입 처리 -
 	 * (처리 후 로그인 화면이동)
+	 * 작 성 자   : 공은별(pc24)
 	 * @param request
 	 * @param memberVo
 	 * @param model
@@ -313,9 +314,101 @@ public class LoginController {
 
 		return "redirect:/login/loginView";
 	}
+	
+	
+	/**
+	 * 회원정보 수정
+	 * (처리 후 로그인 화면이동)
+	 * 작 성 자   : 공은별(pc24)
+	 * @param request
+	 * @param memberVo
+	 * @param model
+	 * @return
+	 * @throws IOException  
+	 */
+	@RequestMapping("/updateProcess")
+	public String updateProcess( HttpServletRequest request
+			, HttpServletResponse response
+			, @ModelAttribute("memberVo") MemberVo memberVo
+			, @ModelAttribute("filedataVo") FiledataVo filedataVo
+			, Model model) throws Exception {
 
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		logger.debug("paramVo : " + memberVo.toString());
+
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
+		//  주소합침     =  기본주소             + 상세주소
+		String addSum = memberVo.getMem_add() + memberVo.getMem_addr();
+
+		// 사용자가 입력한 주소로 좌표 반환하기
+		Map<String, String> resultCoordinate  = commonService.transformationAddr(addSum);
+
+		// memberVO 에 값 Set
+		memberVo.setMem_x(resultCoordinate.get("x"));
+		memberVo.setMem_y(resultCoordinate.get("y"));
+
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
+		
+		String tempSavePath = "";
+		// 사용자 사진 업로드 09.11 - KONG========================================================================== 
+		if(filedataVo.getUpload_file() != null) {
+			for(MultipartFile file : filedataVo.getUpload_file()) {
+				
+				if(file.getOriginalFilename() == null || file.getOriginalFilename().equals("") ) {
+					continue;
+				}
+				
+				String fileName = file.getOriginalFilename();
+				String fileExt = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+				
+				//★  서버 이미지 경로 /images/userpic/ 에 저장
+//				tempSavePath = request.getSession().getServletContext().getRealPath("/images/userpic");	 // 소스가 배포된 경로 - 실제 서버운영 시 이걸로 해야함
+//				tempSavePath = "C:/Storage/workspaces/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+				tempSavePath = "D:/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+								
+				
+				filedataVo.setMem_id(memberVo.getMem_id());
+				filedataVo.setFile_id(autoCodeCreate.autoCode("FD")); //파일코드
+				filedataVo.setFile_path(tempSavePath);    
+				filedataVo.setFile_name(fileName); 
+				filedataVo.setFile_upname(UUID.randomUUID().toString()+fileExt); 
+				filedataVo.setFile_size((int) (long) file.getSize()); 
+				filedataVo.setFile_dot(fileExt); // 확장자
+
+				// 디렉토리 없을 경우 생성
+				if(!new File(FileUtil.fileUploadPath).exists()) {
+					new File(FileUtil.fileUploadPath).mkdirs();
+				}
+
+				logger.debug("file_path :::::::::: {}", filedataVo.getFile_path());
+				logger.debug("file_name :::::::::: {}", filedataVo.getFile_name());
+				logger.debug("file_upname :::::::::: {}", filedataVo.getFile_upname());
+				logger.debug("file_size :::::::::: {}", filedataVo.getFile_size());
+
+				memberVo.getFileList().add(filedataVo);
+
+				// 파일 저장
+				try {
+					FileUtils.writeByteArrayToFile(new File(filedataVo.getFile_path(), filedataVo.getFile_upname()), file.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+					throw new Exception(file.getName() + " 파일 저장 실패");
+				}
+			}
+		}
+
+		int result = signUpService.updateMember(memberVo);
+		
+		logger.debug("signUpService.newMember - result : {}", result );
+
+		return "redirect:/login/loginView";
+	}
+
+	
+	
 	/**
 	 * ID/PASSWORD 찾기 화면이동
+	 * 작 성 자   : 공은별(pc24)
 	 * @param request
 	 * @param response
 	 * @param model
@@ -331,6 +424,7 @@ public class LoginController {
 
 	/**
 	 * ID 찾기
+	 * 작 성 자   : 공은별(pc24)
 	 * @param request
 	 * @param response
 	 * @param model
@@ -358,6 +452,7 @@ public class LoginController {
 
 	/**
 	 * Password 찾기
+	 * 작 성 자   : 공은별(pc24)
 	 * @param request
 	 * @param response
 	 * @param model
@@ -433,7 +528,7 @@ public class LoginController {
 
 	/**
 	 * 인증 메일 보내기 -공
-	 * 
+	 * 작 성 자   : 공은별(pc24)
 	 * @param request
 	 * @param model
 	 * @return
