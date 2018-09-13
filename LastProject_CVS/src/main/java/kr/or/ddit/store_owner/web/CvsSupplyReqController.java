@@ -10,18 +10,23 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.commons.service.CommonsServiceInf;
 import kr.or.ddit.store_owner.model.PageNavi;
+import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
+import kr.or.ddit.model.SupplyListVo;
+import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
+import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +62,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyReqController")
-@SessionAttributes({"userInfo","myStock","myStockList","requestList"})
+@SessionAttributes({"myStock","myStockList","requestList", "todaySupply"})
 public class CvsSupplyReqController {
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
 	
@@ -70,35 +75,17 @@ public class CvsSupplyReqController {
 	@Resource(name="commonService")
 	private CommonsServiceInf commonsService;
 	
+	@Resource(name="autoCodeCreate")
+	private AutoCodeCreate autoCode;
 	
-	/**
-	* Method : myStock
-	* Method 설명 : 현재 재고 목록
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return StockVo
-	*/
-	@ModelAttribute("myStock")
-	public StockVo myStock(Model model){
-//		Map modelMap = model.asMap();
-//		MemberVo userInfo = (MemberVo) modelMap.get("userInfo");
-//		
-//		String mem_id = userInfo.getMem_id();
-		Map<String, Object> map = new HashMap<String, Object>();
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		
-		logger.debug("date---------------------------------------------"+sdf.format(date));
-		map.put("mem_id", "3630000-104-2015-00121");
-//		map.put("stock_date", sdf.format(date));
-		map.put("stock_date", "20180911");
-		StockVo myStock = stockService.getStock(map);
-		logger.debug("stock --------------"+ myStock);
-		return myStock;
-	}
+	@Resource(name="barcodeService")
+	private BarcodeServiceInf barcodeService;
+	
+	@Resource(name="supplyService")
+	private SupplyServiceInf supplyService;
+	
+	private Date today = new Date();
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	
 	/**
 	* Method : myStockList
@@ -114,7 +101,7 @@ public class CvsSupplyReqController {
 	public List<PresentStockListVo> myStockList(Model model){
 		Map modelMap = model.asMap();
 		StockVo myStock = (StockVo) modelMap.get("myStock");
-		logger.debug("myStock"+myStock);
+		logger.debug("myStock----"+myStock);
 		List<PresentStockListVo> myStockList = stockService.getListStockOne(myStock.getStock_id());
 		return myStockList;
 	}
@@ -149,6 +136,27 @@ public class CvsSupplyReqController {
 	@RequestMapping("/supplyReqest")
 	public ModelAndView cvssupplyReqest(@RequestParam(value="page",defaultValue="1")int page, @RequestParam(value="pageSize",defaultValue="15")int pageSize, Model model){
 		ModelAndView mav = new ModelAndView();
+		
+		BarcodeVo supBarcode = new BarcodeVo();
+		supBarcode.setBcd_id(autoCode.barcode("SUPPLY"));
+		supBarcode.setBcd_content("발주 신청");
+		supBarcode.setBcd_kind("102");
+		supBarcode.setBcd_path("/barcode/supply");
+		supBarcode.setBcd_info("연습 발주");
+		int barResult = barcodeService.setInsertBarcode(supBarcode);
+		
+		if(barResult > 0){
+			SupplyVo supply = new SupplyVo();
+			supply.setSupply_bcd(supBarcode.getBcd_id());
+			supply.setSupply_date(sdf.format(today));
+			supply.setSupply_state("10");
+			supply.setPlace_id("3630000-104-2015-00121");
+			int supResult=supplyService.setInsertSupply(supply);
+			if(supResult > 0){
+				model.addAttribute("todaySupply", supply);
+			}
+		}
+		
 		mav.setViewName("cvs_supply_request");
 		
 		Map<String, Object> param = new HashMap<String, Object>();
@@ -165,7 +173,6 @@ public class CvsSupplyReqController {
 		}
 		mav.addObject("allProdList", allProdList);
 		mav.addObject("lgCtgy", lgCtgy);
-//		model.addAttribute("lgCtgy", lgCtgy);
 		return mav;
 	}
 	
@@ -186,7 +193,7 @@ public class CvsSupplyReqController {
 	*/
 	@RequestMapping(value="/requestList", method=RequestMethod.GET )
 	@ResponseBody
-	public List<ProdVo> requestList(@RequestParam(value="requestProd")String requestprod, Model model){
+	public ProdVo requestList(@RequestParam(value="requestProd")String requestprod, Model model){
 		Map modelMap = model.asMap();
 		ProdVo ps = null;
 		ps = prodService.getProd(requestprod);
@@ -203,7 +210,7 @@ public class CvsSupplyReqController {
 		
 		logger.debug("list ------"+requestList);
 		model.addAttribute("requestList", requestList);
-		return requestList;
+		return ps;
 	}
 	
 	/** Method : searchList
@@ -225,6 +232,16 @@ public class CvsSupplyReqController {
 		return searchMap;
 	}
 	
+	
+	/** Method : mdCategory
+	* Method 설명 : 대분류에 따른 상품 목록, 대분류에 속하는 중분류 목록 ajax
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return Map<String, Object>
+	*/
 	@RequestMapping(value="/selectLgCtgy", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> mdCategory(@RequestParam(value="ctgy_id")String ctgy_id, Model model){
@@ -246,6 +263,32 @@ public class CvsSupplyReqController {
 		List<ProdVo> lgProd = (List<ProdVo>) prodService.getCtgyProdList(paramMap).get("ctgyProdList");
 		resultMap.put("lgList", lgProd);
 
+		return resultMap;
+	}
+	
+	/** Method : mdCategoryList
+	* Method 설명 :중분류에대한 상품 목록 ajax
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return Map<String, Object>
+	*/
+	@RequestMapping(value="/selectmdCtgy", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> mdCategoryList(@RequestParam(value="ctgy_id")String ctgy_id, Model model){
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("pr_class", "pr_class_md");
+		paramMap.put("pr_class_id", ctgy_id);
+		paramMap.put("page", 1);
+		paramMap.put("pageSize", 15);
+		List<ProdVo> lgProd = (List<ProdVo>) prodService.getCtgyProdList(paramMap).get("ctgyProdList");
+		resultMap.put("mdList", lgProd);
+		
 		return resultMap;
 	}
 	
