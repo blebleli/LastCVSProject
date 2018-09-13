@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- =========================<tiles:insertAttribute name="bottom" /> 부분이다  footer -->
 	<div class="footer">
 		<div class="container">
 			<div class="col-md-3 w3_footer_grid">
@@ -35,5 +36,5 @@
 			</div>
 		</div>
 	</div>
-<!-- //footer -->
+<!-- //footer=========================== 끝 -->
 

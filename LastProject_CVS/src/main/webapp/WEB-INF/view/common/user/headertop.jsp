@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!-- ========================= userBasicLayout.jsp + <tiles:insertAttribute name="top" /> 부분 -->
+
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
  
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/mbs/css/main.css' />" />
@@ -11,22 +13,12 @@
 <script type="text/javascript" src="<c:url value='/js/mbs/jquery.bxslider.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/mbs/jquery.blockUI.js' />"></script>
    
-<!-- header 공통부분 -->
-<!-- style.css -->
-
-<style>
-
-
-</style>
 
 <!-- 최상단  -->
 <div class="agileits_header">
-	<div class="w3l_offers" style="opacity: 0.0;">
-		<!-- 링크 클릭시 ★ 이동 경로 주기(상품 화면)  -->
-		<a href="/user/main"></a>
-	</div>
+
 	<div class="w3l_search">
-		<!-- submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->
+		<!-- 검색하기 submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->
 		<form action="/search/prodSearch" method="post">
 			<input type="text" name="Product" value="검색하기"
 				onfocus="this.value = '';"
@@ -34,8 +26,9 @@
 			<input type="submit" value="">
 		</form>
 	</div>
+	
 	<div class="product_list_header">
-		<!-- submit버튼 클릭시  ★ 이동 경로 주기(장바구니 화면) -->
+		<!-- 장바구니 submit버튼 클릭시  ★ 이동 경로 주기(장바구니 화면) -->
 		<form action="#" method="post" class="last">
 			<fieldset>
 				<input type="hidden" name="cmd" value="_cart" /> 
@@ -44,6 +37,7 @@
 			</fieldset>
 		</form>
 	</div>
+	
 	<div class="w3l_header_right">
 		<!-- 헤더 오른쪽 사람모양 마우스오버시 메뉴dropdown-menu  ★ 이동 경로 주기(로그인,회원가입화면) -->
 		<!-- 회원가입 이동 제거 2018-09-03-jw  -->
@@ -64,10 +58,6 @@
 					<span class="caret"></span>${sessionScope.userInfo.mem_name}님</a>
 				</c:otherwise>
 			</c:choose>
-							
-<!-- 			<a href="#"	class="dropdown-toggle" data-toggle="dropdown">  -->
-<!-- 			<i class="fa fa-user" aria-hidden="true"></i> -->
-<!-- 			<span class="caret"></span>로그인/회원가입</a> -->
 			
 				<div class="mega-dropdown-menu">
 					<div class="w3ls_vegetables">
@@ -80,7 +70,7 @@
 									<li><a href="<c:url value='/login/logout' />">로그아웃</a></li> 
 								</c:otherwise>
 							</c:choose>
-							<!-- 							<li><a href="userLogin.jsp">회원가입</a></li> -->
+							  <!-- <li><a href="userLogin.jsp">회원가입</a></li> -->
 						</ul>
 					</div>
 				</div>
@@ -88,20 +78,14 @@
 		</ul>
 	</div>
 	
-<!-- 	<div class="w3l_header_right1"> -->
-		<!-- 관리자 문의하기 링크 /  삭제??????  -->
-		<!-- 추후 협의 2018-09-03-jw -->
-<!-- 		<h2> -->
-<!-- 			<a href="mail.html">뭐들어가지?</a> -->
-<!-- 			<!-- 추후 협의 2018-09-03-jw --> 
-<!-- 		</h2> -->
-<!-- 	</div> -->
+
 	<div class="clearfix"></div>
-</div>
+</div> <!-- //<div class="agileits_header"> 최상단   -->
 
-	<div class="container">
+
+
+<div class="container">
 <!-- <div class="logo_products"> -->
-
 <!-- 		<div class="w3ls_logo_products_left"> -->
 <!-- 			<!--  로고 클릭시 ★ 이동 경로 주기(메인화면) -->
 <!-- 			<h1> -->
@@ -111,86 +95,89 @@
 <!-- </div> -->
 
 
- <!--head-->
-<div id="head" style="background-color: transparent;">
-        <div id="header">
-        
-            <div id="gnbarea">
-             <div class="logo_products">
-					<div class="w3ls_logo_products_left">
-                      <h1>
-                        <a id="logoLink" href="/user/main"><span>GoGo</span>CVS</a>
-                      </h1>
-					</div> 
-			</div> 
-<!--gnb-->
-<div id="gnb">
-    <ul>
-
-    <li class="gnb01"><a href="#" class="">상품안내</a>
-            <ul style="display: none;">
-                <li>
-                    <a href="<c:url value='/search/prodSearch' />">내주변 제품찾기</a>
-                </li>
-                <li>
-                    <a href="<c:url value='/userProd/view?i=2&page=1&pageSize=32' />">Best상품</a>
-                </li>
-				<li>
-                    <a href="<c:url value='/userProd/view?i=3&page=1&pageSize=32' />">이벤트상품</a>
-                </li>
-				<li>
-                    <a href="<c:url value='/userProd/view?i=1&page=1&pageSize=32' />">전체상품</a>
-                </li>
-           </ul>
-    </li>
-            		
-
-	        <li class="gnb02"><a href="#" class="">편의점/서비스</a>
-	            <ul style="display: none;">
-		         <li>
-	                        <a href="<c:url value='/search/cvsSearch' />">전국편의점찾기</a>
-	                        </li>
-	                <li>
-	                        <a href="<c:url value='/board/boardMain' />">공지사항</a>
-	                        </li>
-	                <li>
-	                        <a href="<c:url value='/event/view' />">이벤트&행사</a>
-	                   </li>
-	       
-	              </ul>
-	         </li>
-
-         
-					  
-		        <li class="gnb03"><a href="#">My CVS</a>
-		            <ul style="display: none;">
-						 <li>
-		                       <a id="btnMypage" href="<c:url value='/user/mypage' />">마이페이지</a>
-		                 </li>
-		<!--                 <li> -->
-		<!--                         <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050100000000">회원정보 관리</a> -->
-		<!--                         </li> -->
-		<!--                 <li> -->
-		<!--                         <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050200000000">포인트조회</a> -->
-		<!--                         </li> -->
-		<!--                 <li> -->
-		<!--                         <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050300000000">구매내역 조회</a> -->
-		<!--                         </li> -->
-		            </ul>
-		        </li>
-
-    
-    </ul>
-</div>
-<!--//gnb-->
-            </div>
-        </div>
-        <div class="gnb_bg" style="display: none;"><p style="display: none;"></p></div>
-    </div>
- <!--//head-->
+	<!--head   기존 메뉴 모양  수정  -->
+	<div id="head" style="background-color: transparent;">
+		  <div id="header">
+	            <div id="gnbarea">
+			             <div class="logo_products">
+								<div class="w3ls_logo_products_left">
+			                     	 <h1>
+			                       		 <a id="logoLink" href="/user/main"><span>GoGo</span>CVS</a>
+			                     	 </h1>
+								</div> 
+						</div> 
+					
+						<!--gnb-->
+						<div id="gnb">
+						    <ul>
+				
+							    <li class="gnb01"><a href="#" class="">상품안내</a>
+							            <ul style="display: none;">
+							                <li>
+							                    <a href="<c:url value='/search/prodSearch' />">내주변 제품찾기</a>
+							                </li>
+							                <li>
+							                    <a href="<c:url value='/userProd/view?i=2&page=1&pageSize=32' />">Best상품</a>
+							                </li>
+											<li>
+							                    <a href="<c:url value='/userProd/view?i=3&page=1&pageSize=32' />">이벤트상품</a>
+							                </li>
+											<li>
+							                    <a href="<c:url value='/userProd/view?i=1&page=1&pageSize=32' />">전체상품</a>
+							                </li>
+							           </ul>
+							    </li>
+				            		
+				
+						        <li class="gnb02"><a href="#" class="">편의점/서비스</a>
+						            <ul style="display: none;">
+							         <li>
+						                        <a href="<c:url value='/search/cvsSearch' />">전국편의점찾기</a>
+						                        </li>
+						                <li>
+						                        <a href="<c:url value='/board/boardMain' />">공지사항</a>
+						                        </li>
+						                <li>
+						                        <a href="<c:url value='/event/view' />">이벤트&행사</a>
+						                   </li>
+						       
+						              </ul>
+						         </li>
+				
+				         
+									  
+						        <li class="gnb03"><a href="#">My CVS</a>
+						            <ul style="display: none;">
+										 <li>
+						                       <a id="btnMypage" href="<c:url value='/user/mypage' />">마이페이지</a>
+						                 </li>
+						<!--             <li> -->
+						<!--                   <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050100000000">회원정보 관리</a> -->
+						<!--             </li> -->
+						<!--             <li> -->
+						<!--                    <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050200000000">포인트조회</a> -->
+						<!--             </li> -->
+						<!--             <li> -->
+						<!--                    <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050300000000">구매내역 조회</a> -->
+						<!--             </li> -->
+						            </ul>
+						        </li>
+					   	  </ul>
+						</div>
+						<!--//gnb-->
+		
+	            </div>
+	            <!-- //<div id="gnbarea">  -->
+		 </div> 
+		 <!-- // <div id="header">  -->
+		 
+		 <div class="gnb_bg" style="display: none;"><p style="display: none;"></p></div>
+		 
+	</div>
+	 <!--// head-->
 	
-
-	<!-- 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	<!-- 기존 메뉴 모양    -->
+	<!-- <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
 			<div id="collapseDiv" class="panel panel-default">
 
@@ -223,10 +210,9 @@
 			</div>
 		</div> -->
 		
-		
-		
-	</div>
-<!-- </div> -->
+</div> <!-- //<div class="container">  -->
+
+
 
 <!-- 0907 한수정 collapse 하기위한 script 지우지마세요 -->
 <script>
@@ -252,3 +238,4 @@ $(".panel-group").hover(function(){
 
 </script>
 
+<!-- ========================= userBasicLayout.jsp + <tiles:insertAttribute name="top" /> 부분 끝 -->

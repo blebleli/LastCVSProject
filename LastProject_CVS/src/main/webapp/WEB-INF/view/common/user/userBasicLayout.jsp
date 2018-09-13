@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -16,7 +16,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 	function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
-<!-- //font-awesome icons -->
+
 
 <!-- login css  -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
@@ -27,7 +27,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link>
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />"> <!-- 달력 : 별 09.07 -->
+<!-- 달력 css : 별 09.07 -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />"> 
 
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -37,7 +38,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="<c:url value='/js/common/move-top.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
-<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> <!-- 달력 : 별 09.07 -->
+<!-- 달력 js : 별 09.07 -->
+<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> 
 
 
 <script type="text/javascript" >
@@ -89,18 +91,7 @@ $(document).ready(function(){
 
 <body>
 
-<tiles:insertAttribute name="top" />
-
-	<!-- products-breadcrumb 유저의 위치를 보여주는 부차적인 네비게이션________ -->
-<!-- 	<div class="products-breadcrumb"> -->
-<!-- 		<div class="container"> -->
-<!-- 			<ul> -->
-<!-- 				<li><i class="fa fa-home" aria-hidden="true"></i><a href="/cvs/main">Home</a><span>|</span></li> -->
-<!-- 				<li>로그인 & 회원가입</li> -->
-<!-- 			</ul> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-	<!-- //products-breadcrumb_____________________ -->
+	<tiles:insertAttribute name="top" />
 
 	<!-- banner 공통 또는 비 공통 부분 -->
 <!-- 	<div class="banner"> -->
@@ -109,7 +100,9 @@ $(document).ready(function(){
 	<!-- //banner 공통 또는 비공통 -->
  	
 	<tiles:insertAttribute name="left" />
+	
 	<tiles:insertAttribute name="content" />	
+	
 	<tiles:insertAttribute name="bottom" />
 	
 </body>
