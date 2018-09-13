@@ -64,6 +64,8 @@ public class CvsSupplyReqListController {
 	@ResponseBody
 	public int requestComplete(@RequestParam(value="prod_id")String prod_id, @RequestParam(value="amount")int amount, Model model){
 		logger.debug("complete");
+		logger.debug("supplyprod_id---"+prod_id);
+		logger.debug("amount---"+amount);
 		Map modelMap = model.asMap();
 		
 		SupplyVo todaySupply = (SupplyVo) modelMap.get("todaySupply");
