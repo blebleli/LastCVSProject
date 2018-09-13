@@ -18,6 +18,7 @@ import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
+import kr.or.ddit.user.model.MainReviewsVo;
 import kr.or.ddit.user.userMain.service.UserMainServiceInf;
 
 import org.apache.commons.lang.StringUtils;
@@ -90,13 +91,11 @@ public class UserMainController {
 		List<ProdVo> eventProd4 = prodService.getEventList(map);
 		
 		
-		logger.debug("eventProd1 ====> {}",  eventProd1);
-		logger.debug("eventProd2 ====> {}",  eventProd2);
-		logger.debug("eventProd3 ====> {}",  eventProd3);
-		logger.debug("eventProd4 ====> {}",  eventProd4);
 		
 		//조회수 리뷰 best3
-		List<BoardVo> bestReview = boardService.getBestProdReview();
+//		List<BoardVo> bestReview = boardService.getBestProdReview();
+		List<MainReviewsVo> bestReview = boardService.getReviewTop3();
+		logger.debug("bestReview ====> {}",  bestReview);
 
 		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();

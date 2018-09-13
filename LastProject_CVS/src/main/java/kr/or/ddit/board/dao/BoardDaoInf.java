@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
+import kr.or.ddit.user.model.MainReviewsVo;
 
 
 /**
@@ -243,5 +244,18 @@ public interface BoardDaoInf {
 	 * Method 설명 : 사용자가 선택한 리뷰 조회
 	 */
 	ReviewVo getUserReview(Map<String, Object> map);
+	
+	/**
+	 * 
+	 * Method	: getReviewTop3
+	 * 최초작성일 : 2018. 9. 13.
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * 
+	 * @return
+	 * Method 설명 : 메인  리뷰  top3
+	 */
+	List<MainReviewsVo> getReviewTop3();
+
 	
 }

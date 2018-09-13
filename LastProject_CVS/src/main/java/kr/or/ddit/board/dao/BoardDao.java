@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
+import kr.or.ddit.user.model.MainReviewsVo;
 
 /**
  * BoardDao.java
@@ -240,6 +241,21 @@ public class BoardDao implements BoardDaoInf {
 	@Override
 	public ReviewVo getUserReview(Map<String, Object> map) {
 		return template.selectOne("board.getUserReview", map);
+	}
+	
+	/**
+	 * 
+	 * Method	: getReviewTop3
+	 * 최초작성일 : 2018. 9. 13.
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * 
+	 * @return
+	 * Method 설명 : 메인  리뷰  top3
+	 */
+	@Override
+	public List<MainReviewsVo> getReviewTop3() {
+		return template.selectList("board.getReviewTop3");
 	}
 
 

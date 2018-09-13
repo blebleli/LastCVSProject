@@ -96,17 +96,39 @@
 			FROM board a, member b
 			WHERE prod_id = #{prod_id} AND a.mem_id = b.mem_id
   	</select>
-  	
-  	
-  	
- 
- 	  	
+  		  	
   	<select id="getBestProdReview" parameterType="String" resultType="boardVo" >	
   	 SELECT *FROM ( SELECT bd_id, bd_title, bd_date, bd_del, bd_rating, bd_views,prod_id, mem_id, bd_kind_id
            FROM BOARD
            WHERE bd_kind_id = '55'
            ORDER BY bd_views DESC
 		)where ROWNUM &lt;=3
+	</select>
+	
+	<!--  -->
+	
+	<select id="getReviewTop3" resultType="mainReviewsVo">
+	
+		SELECT    
+	            P.PROD_ID
+	           ,P.FILE_PATH
+	           ,P.FILE_UPNAME
+	           ,B.BD_ID
+	           ,B.BD_TITLE
+	           ,SUBSTR(UTL_RAW.CAST_TO_VARCHAR2(B.BD_CONTENT),0,30) AS BD_CONTENT
+	           ,B.BD_DATE
+	           ,B.BD_VIEWS
+	           ,B.BD_KIND_ID
+	           ,b.BD_RATING
+	    FROM BOARD B
+	    JOIN PROD P
+	    ON B.PROD_ID = P.PROD_ID
+	    WHERE B.BD_KIND_ID = '55'
+	      AND B.BD_VIEWS != 0
+	      AND  ROWNUM &lt; 4
+	    ORDER  BY B.BD_VIEWS DESC
+	
+	
 	</select>
   	
 </mapper>

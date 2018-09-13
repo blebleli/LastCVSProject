@@ -47,6 +47,9 @@
   	<!-- 편의점의 현재 재고 목록 -->
   	<typeAlias type="kr.or.ddit.store_owner.model.PresentStockListVo"	alias="presentStockListVo"/>
   	
+  	<!-- 리뷰+제품(파일) -->
+  	<typeAlias type="kr.or.ddit.user.model.MainReviewsVo"	alias="mainReviewsVo"/>
+  	
   	
   	
 	
