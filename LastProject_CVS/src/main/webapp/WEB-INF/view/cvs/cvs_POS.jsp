@@ -119,42 +119,12 @@ button.op:active {
                  <script type="text/javascript">
                  $(document).ready(function () {
                 	 
-                //총수량 계산
-                 $("#posTable").on('input', '.amount', function () {
-                     var total_sum = 0;
-
-                     $("#posTable .amount").each(function () {
-                         var amount = $(this).val();
-                         if ($.isNumeric(amount)) {
-                            total_sum += parseFloat(amount);
-                            }                  
-                          });
-                            $("#amount_sum").html(total_sum);
-                  });
-                
-                //상품별합계 계산
-                    $("#posTable").on('input', '.subtot', function () {
-		           var mult = 0;
-		           // for each row:
-		           $("#posTable .subtot").each(function () {
-		               // get the values from this row:
-		               var val1 = $('.price1', this).val();
-		               var val2 = $('.amount', this).val();
-		               console.log('val1 ---'+val1);
-		               var total = (val1 * 1) * (val2 * 1);
-		               
-		               // set total for the row
-		               $('.subtot', this).text(total);
-		               mult += total;
-		           });
-		           
-		           $("#subtot_sum").html(mult);
-                    });
-                	
-                
-                
+			    	/* 샘플 데이터 */
+			    	addRow({prodVo : {prod_id : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
+			    	addRow({prodVo : {prod_id : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
+ 				  
                  });
-              
+       
                  </script>
                   
             <div class="row">
@@ -201,33 +171,9 @@ button.op:active {
                           </tr>
                         </thead>
 
-                        <tbody id="prodList">
-                          <tr class="calc">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" "><input type="text" class='price1' value='100'></td>
-                            <td class=" "><input type="text" class='amount' value='3'></td>
-                            <td class=" "><input type="text" class='subtot' value='1'></td>
-                            <td class="a-right a-right ">$7.45</td>
-
-                          </tr>
-                          <tr class="calc">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 23, 2014 11:30:12 PM</td>
-                            <td class=" "><input type="text" class='price1' value='10'></td>
-                            <td class=" "><input type="text" class='amount' value='1'></td>
-                            <td class=" "><input type="text" class='subtot' value='1'></td>
-                            <td class="a-right a-right ">$741.20</td>                        
-                          </tr>
-         
-                        
-                        </tbody>
+				<!-- 상품리스트=================  -->
+                        <tbody id="prodList"> </tbody>
+                       
                         <tfoot>
                         <tr>         
                         	<td colspan="4" style="text-align: center;
@@ -235,26 +181,21 @@ button.op:active {
 						    background-color: #449d44;
 						    border-color: #398439;"> 합계 수량/ 금액 / 할인 </td>                       
                             <td><b><span id="amount_sum"></span></b></td>
-                            <td><b><span id="subtot_sum"></span></b></td>
-                            <td>할인합계  </td>
+                            <td><b><span class="subtot_sum"></span></b></td>
+                            <td><b><span id="discount_sum"></span></b>  </td>
                         <tr>
-                        </tfoot>
-                        
+                        </tfoot>                       
                       </table>
 
                   </div>
-
-                  
-
                 </div>
-              </div>
-              
-              <div class="col-md-1 col-sm-1 col-xs-1">
-               <button type="button" class="op">삭제</button>
-               <button type="button" class="op">결제<br>선택</button>
-               <button type="button"class="op" >주머니</button>
-               <button type="button" class="op">폐기</button>
-              </div>
+              </div>              
+	              <div class="col-md-1 col-sm-1 col-xs-1">
+	               <button type="button" class="op">삭제</button>
+	               <button type="button" class="op">결제<br>선택</button>
+	               <button type="button"class= "op">주머니</button>
+	               <button type="button" class="op">폐기</button>
+	              </div>
            </div>   
 <!-- 
                <div class="clearfix"></div> -->
@@ -296,11 +237,123 @@ button.op:active {
 				                snapshotCanvas.height);
 				            return snapshotCanvas.toDataURL();
 				    	}
+
+				    	/*amount change listener */
+				    	function registerAmountChange(){			    		
+				    		 $("#posTable").on('change', '.amount', function () {
+				    			 amountSum();
+				    			 rowSum();
+				    			 subtot_sum()
+				    		 });
+				    	}
+				    		
+				    	/* 상품바코드추가 */
+				    	function addRow(data){
+							$("#prodList").append(		    								
+								     '<tr>'+
+			                         '  <td> '+                                               
+			                         '    <input type="checkbox" name="table_records">'+
+			                         '  </td>'+
+			                         '  <td>'+ data.prodVo.prod_id+'</td>'+
+			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
+			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</td>'+ 
+			                         '  <td ><input type="text" class="amount" value="' +data.prodVo.stcklist_amount+'"></td>'+    				                         
+			                         '  <td ><span class="subtot">합계예정</span></td> '+
+			                         '  <td ><span class="distot">'+ data.prodVo.event_id+'</span></td> '+			    				                      
+			                         '</tr>'			    								                                                                                     
+							);
+							
+							registerAmountChange();
+							amountSum();
+							rowSum();
+							subtot_sum();
+				    	}
+				    	      
+				    	/* 수량합계 계산*/
+				    	function amountSum(){
+		                     var total_sum = 0;
+
+		                     $("#posTable .amount").each(function () {
+		                         var amount = $(this).val();
+		                         
+		                         if ($.isNumeric(amount)) {
+		                            total_sum += parseFloat(amount);
+		                            }                  
+		                          });
+		                      $("#amount_sum").html(total_sum);					    		
+				    	};
+
+				    	 /* 단가 * 수량 */
+				    	 function rowSum(){
+
+		                     $("#posTable tbody tr").each(function () {
+		                    	 
+		                         var trElement = $(this)//.val();		                         
+		                         var inputPrice = trElement.find('.price1');
+
+		                         var inputAmount = trElement.find('.amount');
+		                         var price1 = 0; 
+		                         var amount = 0;  
+		                         
+		                         if ($.isNumeric(inputPrice.text())) {
+		                        	 price1 = parseFloat(inputPrice.text());
+		                         }
+		                         if ($.isNumeric(inputAmount.val())) {
+		                        	 amount = parseFloat(inputAmount.val());
+		                         }
+		                      	 
+		                        
+		                       
+		                         var rowSum = price1 * amount;		                         
+		                         trElement.find('.subtot').html(rowSum);
+		                      
+		                     });		                  
+				    	 }
+				    	 
+			    	 
+				    	/* subtot 합계 계산*/
+				    	function subtot_sum(){
+		                     var subtot_sum = 0;
+		                     $("#posTable .subtot").each(function () {
+		                         var subtot = $(this).text();
+		                         
+		                         if ($.isNumeric(subtot)) {
+		                        	 subtot_sum += parseFloat(subtot);
+		                            }                  
+		                          });
+		                     
+		                     $(".subtot_sum").html(subtot_sum);					    		
+				    	};
+				    	 
 				    	
+				    	/* 할인 합계 계산*/
+				    	function amountDiscount(){		    		
+		                     var total_sum = 0;
+		                     $("#posTable .distot").each(function () {
+		                         var discount = $(this).text();		                      
+		                         if ($.isNumeric(discount)) {
+		                            total_sum += parseFloat(discount);
+		                            }                  
+		                          });
+		                      $("#discount_sum").html(total_sum);					    		
+				    	};
+				    	
+				    	
+				    	/*  */
+				    	function amountDiscount(){		    		
+		                     var total_sum = 0;
+		                     $("#posTable .distot").each(function () {
+		                         var discount = $(this).text();		                      
+		                         if ($.isNumeric(discount)) {
+		                            total_sum += parseFloat(discount);
+		                            }                  
+		                          });
+		                      $("#discount_sum").html(total_sum);					    		
+				    	};
+				    	
+				    	/* 바코드 img 해석*/
 		    			function sendImage(){
-		    				//ajax로 전송 
 		    				var image = getImage();
-		    				
 		    				var request = $.ajax({
 		    					  url: "/cvs/bcdRead",
 		    					  method: "POST",
@@ -308,29 +361,16 @@ button.op:active {
 		    					  dataType: "json",
 		    					  contentType : "application/x-www-form-urlencoded" ,
 		    					  success : function (data) {
-		    				            if(data.returnMsg == "decodedText"){
+		    				         if(data.returnMsg == "decodedText"){
 		    				            	console.log("data decodedText ---- :"+data.decodedText);
 		    				            	console.log("data prodVo ---- :"+data.prodVo);
-			    							clearInterval(intervalID);
-			    				
-			    								$("#prodList").append(		    								
-			    									     '<tr class="even pointer">'+
-			    				                         '  <td class="a-center "> '+                                               
-			    				                         '    <input type="checkbox" class="flat" name="table_records">'+
-			    				                         ' <ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; '+
-			    				                         '	width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>'+
-			    				                         '  </td>'+
-			    				                         '  <td class=" ">'+ data.prodVo.prod_id+'</td>'+
-			    				                         '  <td class=" ">'+ data.prodVo.prod_name+'</td> '+
-			    				                         '  <td class=" "><input type="text" class="price1" value="'+data.prodVo.prod_price+'"></td>'+ 
-			    				                         '  <td class=" "><input type="text" class="amount" value="'+data.prodVo.stcklist_amount+'"></td>'+    				                         
-			    				                         '  <td class=" ">'+ '금액예정'+'</td> '+
-			    				                         '  <td class=" ">'+ data.prodVo.event_id+'</td> '+			    				                      
-			    				                         '</tr>'			    								                                                                                     
-			    								);		    									    		    				
-		    				            } else {
+			    							
+		    				            	clearInterval(intervalID);
+			    							addRow(data);
+			    							
+		    				          } else {
 		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
-		    				            }
+		    				          }
 		    				      },		 						
 								  error : function(){console.log("error");}		  
 								  });	    							    			
@@ -443,15 +483,15 @@ button.op:active {
 				      </tr>
 				      <tr>
 				        <td><button class="number">받을<br>금액</button></td>
-				        <td>원</td>
+				        <td><b><span class="subtot_sum"></span></b>원</td>
 				      </tr>
 				      <tr>
 				        <td><button class="number">받은<br>금액</button></td>
-				     <td>원</td>
+				     	<td><input class="input-box" type="text">원</td>
 				      </tr>
 				      <tr>
 				       	<td><button class="number">거스<br>름돈</button></td>
-				      <td>원</td>
+				     	<td>원</td>
 				      </tr>
 				    </tbody>
 				  </table>
