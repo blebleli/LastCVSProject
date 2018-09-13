@@ -22,8 +22,7 @@ public class SupplyDao implements SupplyDaoInf {
 
 	@Override
 	public int setInsertSupply(SupplyVo supplyVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("supply.insertSupply", supplyVo);
 	}
 
 	/**
