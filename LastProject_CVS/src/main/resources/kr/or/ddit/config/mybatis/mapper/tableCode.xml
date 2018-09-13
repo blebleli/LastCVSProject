@@ -23,7 +23,7 @@
 	  		일    시 : 2018-09-07
 	 -->
     <select id="commentsCode" resultType="String" >
-		SELECT NVL(MAX(CM_ID))  AS CODE FROM comments;
+		SELECT NVL(MAX(CM_ID), '0')  AS CODE FROM comments;
 	</select>
 	
 	<!-- 	아 이 디 : sale_disCode
@@ -34,7 +34,7 @@
 	  		일    시 : 2018-09-09
 	 -->
     <select id="sale_disCode" resultType="String" parameterType="String" >
-		SELECT MAX(SD_ID) AS CODE FROM  SALE_DIS WHERE SD_ID LIKE   ('%' || #{kind} ||'%');
+		SELECT NVL(MAX(SD_ID),'0') AS CODE FROM  SALE_DIS WHERE SD_ID LIKE   ('%' || #{kind} ||'%');
 	</select>
 	
 	<!-- 	아 이 디 : sale_listCode
@@ -45,7 +45,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="sale_listCode" resultType="String">
-		SELECT  MAX(SALE_ID) AS CODE  FROM SALE_LIST
+		SELECT  NVL( MAX(SALE_ID), '0') AS CODE  FROM SALE_LIST
 	</select>
 	
 	<!-- 	아 이 디 : disposal_list
@@ -56,7 +56,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="disposal_listCode" resultType="String">
-		SELECT MAX(DISP_ID) AS CDOE FROM DISPOSAL_LIST
+		SELECT NVL( MAX(DISP_ID), '0') AS CDOE FROM DISPOSAL_LIST
 	</select>
 	
 	<!-- 	아 이 디 : supply_listCode
@@ -67,7 +67,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="supply_listCode" resultType="String">
-		SELECT MAX(SPLYLIST_ID) AS CODE FROM SUPPLY_LIST
+		SELECT NVL( MAX(SPLYLIST_ID), '0') AS CODE FROM SUPPLY_LIST
 	</select>
 
 
