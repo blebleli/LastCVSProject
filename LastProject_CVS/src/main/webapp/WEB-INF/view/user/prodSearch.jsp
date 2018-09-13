@@ -64,7 +64,7 @@
         <div class="option">
             <div>
                 <form action="/search/prodSearch">
-                    키워드 : <input type="text" value="" id="prodSearch" size="15"> 
+                    키워드 : <input type="text" value="" id="Product" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -79,7 +79,7 @@
 			    <div class="body"> 
 			           <div class="img">
 			           <!-- 임시주석 -->
-<%-- 		                	<img src="${vo.file_path +'/'+vo.file_name   }" width="73" height="70"/> --%>
+		                	<img src="${vo.file_path }/${vo.file_upname }" width="73" height="70"/>
 			           </div> 
 			           <div class="desc"> 
 			               <div class="ellipsis">제품 : ${vo.prod_name }</div> 
@@ -248,7 +248,7 @@ var content="";
 		    $.ajax({
 		        type:"get",
 		        url:"search/storeSearch",
-		        data : {"prod":prod_id},
+		        data : {"prod_id":prod_id},
 		        dataType : "json",
 		        success: function(data){
 		        	
@@ -267,10 +267,13 @@ var content="";
 						            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 						            '        </div>' + 
 						            '        <div class="body">' + 
-						            '            <div class="img">' +
-						            '                <img src="'+item.file_path+'/'+file_upname+'.'+file_dot+'" width="73" height="70">' +
-// 						            '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
-						            '            </div>' + 
+						            '            <div class="img">';
+						            				if(item.file_path != null || item.file_path ==  ""){
+						//content  += '                <img src="'+item.file_path+'/'+file_upname+'.jsp'" width="73" height="70">';
+						            				} else {
+						content  += '                <img src="http://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">';
+						            				}
+						content  += '            </div>' + 
 						            '            <div class="desc">' + 
 						            '                <div class="ellipsis">수량 : '+item.stcklist_amount+'</div>' + 
 						            '                <div class="jibun ellipsis">(우)'+item.mem_zip+'(지번) '+item.mem_add+'</div>' + 
