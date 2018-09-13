@@ -55,7 +55,7 @@
 	 -->
 	<select id="supplyProdInfo" parameterType="map" resultType="supplyProdVo">
 		SELECT rownum rnum,T.*
-    	FROM (SELECT a.prod_id, a.prod_name, a.prod_price, b.splylist_sum
+    	FROM (SELECT a.prod_id,b.splylist_info, a.prod_name, a.prod_price, b.splylist_sum
 		FROM prod a, supply_list  b
 		WHERE b.supply_bcd=#{supply_bcd}
 		AND a.prod_id = b.prod_id) T WHERE rownum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
