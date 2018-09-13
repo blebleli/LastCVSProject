@@ -42,7 +42,14 @@
             <ul class="nav child_menu">
            	   <li><a href="stock">현재재고</a></li>
                <li><a href="supplyIn">입고내역</a></li>
-               <li><a href="supplyReqest">발주내역</a></li>
+               <li><a href="#">발주<span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <li class="sub_menu"><a href="supplyReqest">발주 신청</a>
+                    </li>
+                    <li><a href="reqList">발주 내역</a>
+                    </li>
+                  </ul>
+               </li>
                 <li><a href="dayend">마감</a></li>
             </ul>
           </li>  
