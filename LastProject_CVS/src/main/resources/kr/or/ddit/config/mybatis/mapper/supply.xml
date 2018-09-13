@@ -108,4 +108,22 @@
 		AND a.mem_id = b.place_id
 	</select>
 	
+	<!-- 	아 이 디 : insertSupplyList
+	  		반 환 값 : int
+	  		매개변수 : supplyListVo
+	  		설    명 :  수불 SupplyList insert
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-11     
+	 -->
+	<insert id="insertSupplyList" parameterType="supplyListVo">
+		INSERT INTO supply_list(splylist_id,
+                        		prod_id,
+                        		splylist_sum, 
+                        		supply_bcd) 
+                		VALUES(#{splylist_id},
+                			   #{prod_id},
+                			   #{splylist_sum},
+                			   #{supply_bcd})
+	</insert>
+	
 </mapper>
