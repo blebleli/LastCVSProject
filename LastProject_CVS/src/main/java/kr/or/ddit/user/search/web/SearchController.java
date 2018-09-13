@@ -55,13 +55,10 @@ public class SearchController {
 	 * Method 설명 : 지도 왼쪽에 제품 리스트 출력 기능
 	 */
 	@RequestMapping("/prodSearch")
-	 public String prodSearch(@RequestParam(value="Product",defaultValue="티머니") String prodSearch
-			 								,Model model) {
+	 public String prodSearch(@RequestParam(value="Product",defaultValue="  ") String Product ,Model model) {
 
-		List<ProdVo> searchList = prodService.getSearchProdList(prodSearch);
-//		System.out.println("=================================================");
-//		System.out.println(searchList);
-//		System.out.println(searchList.size());
+		List<ProdVo> searchList = prodService.getSearchProdList(Product);
+		logger.debug("prodSearch == > " +Product );
 		
 		model.addAttribute("searchList", searchList);
 //		model.addAllAttributes(searchList);
@@ -82,7 +79,7 @@ public class SearchController {
 	 */
 	@RequestMapping(value="/search/storeSearch",method=RequestMethod.GET)
 	@ResponseBody
-	public List<CvsSearchVo> storeSearch(@RequestParam(value="prod") String prod_id, Model model){
+	public List<CvsSearchVo> storeSearch(@RequestParam(value="prod_id") String prod_id, Model model){
 //		List<CvsSearchVo> memList = new ArrayList<CvsSearchVo>();
 //		CvsSearchVo vo = new CvsSearchVo();
 //		vo.setMem_x("37.51611462229465");
@@ -90,9 +87,10 @@ public class SearchController {
 //		vo.setMem_cvs_name("Test");
 //		vo.setMem_intro("설명");
 //		memList.add(vo);
- 		
+ 		logger.debug("storeSearch=================================================================================");
 		List<CvsSearchVo> memList = cvsSearchService.getListProdMember(prod_id);
-		logger.debug("==============================================================================================");
+		
+		logger.debug("넘어오는 값==>{}",prod_id);
 		logger.debug("memList==>{}",memList.size());
 		logger.debug("memList==>{}",memList);
 		logger.debug("==============================================================================================");
