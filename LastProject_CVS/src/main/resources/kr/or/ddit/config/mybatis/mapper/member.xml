@@ -300,12 +300,10 @@
 		       ,M.MEM_Y            -- 매장Y좌표
 		       ,SL.STCKLIST_ID     -- 재고리스트코드
 		       ,SL.STCKLIST_AMOUNT -- 수량
-		       ,SL.SICKLIST_EXDATE -- 유통기한
 		       ,SL.STCK_DATE       -- 날짜
 		       ,SL.STCKLIST_INFO   -- 비고
 		       ,F.FILE_UPNAME  -- 파일업로드명
 		       ,F.FILE_PATH    -- 파일경로
-		       ,F.FILE_DOT     -- 파일확장자
 		        
 		FROM MEMBER M           -- 회원테이블
 		JOIN STOCK  S           -- 재고테이블
