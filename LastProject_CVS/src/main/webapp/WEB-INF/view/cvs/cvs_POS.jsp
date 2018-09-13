@@ -15,6 +15,7 @@
  
  
  <style>
+ 
  table, tbody, tr, td, button {
   margin: 0;
   padding: 0;
@@ -206,7 +207,7 @@
 					</button>
 
 					<!-- 결제선택 modal ==================================== -->
-					<div class="modal fade modal-sm" id="saleSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal fade" id="saleSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-sm" style="text-align: center">
 					    <div class="modal-content">
 					      <div class="modal-header">
@@ -230,7 +231,7 @@
 				   </button>
 					
 					<!-- 주머니 modal ==================================== -->
-					<div class="modal fade modal-sm" id="myPocket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal fade" id="myPocket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-sm" style="text-align: center">
 					    <div class="modal-content">
 					      <div class="modal-header">
@@ -324,7 +325,8 @@
 				    		var dataProdId = data.prodVo.prod_id;
 				    		
 				    		$("#posTable .prodID").each(function () {				    			
-					    		if(dataProdId){
+					    		var addedID = $(this).val();
+				    			if(dataProdId){
 					    			
 					    		}
 				    		});
