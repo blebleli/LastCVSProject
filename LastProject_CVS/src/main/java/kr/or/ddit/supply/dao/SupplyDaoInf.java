@@ -1,7 +1,9 @@
 package kr.or.ddit.supply.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
@@ -195,6 +197,53 @@ public interface SupplyDaoInf {
 	* @return
 	*/
 	MemberVo supplyMemberInfo(String supply_bcd);
+	
+	/**
+	* Method : getSupplyPageList
+	* Method 설명 :입고 리스트 페이징 처리
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param map
+	* @return
+	*/
+	List<SupplySumProdVo> getSupplyPageList(Map<String, Integer> paramMap);
+	
+	
+	/**
+	* Method : getSupplyListTotCnt
+	* Method 설명 :입고 목록 토탈 카운트
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @return
+	*/
+	int getSupplyListTotCnt();
+	
+	/**
+	* Method : getSupplyProdPageList
+	* Method 설명 :입고 상세 내역에서 제품들 리스트 페이징 처리
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param paramMap
+	* @return
+	*/
+	List<SupplyProdVo> getSupplyProdPageList(Map<String, Object> paramMap);
+	
+	/**
+	* Method : getSupplyProdListTotCnt
+	* Method 설명 :입고 상세 내역에서 제품들 전체 카운트
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @return
+	*/
+	int getSupplyProdListTotCnt(String supply_bcd);
 	
 	
 }
