@@ -110,7 +110,7 @@ $(document).ready(function() {
 
 			
 		// 사용자 저장버튼
-		$("#btnRegist").on("click",function() {
+		$("#btnRegist").on("click", function() {
 
 				var isSuccess = true;
 
@@ -452,7 +452,7 @@ $(document).ready(function() {
 		<div id="content" class="content_primary forgot_user_information">
 			 
 			<div class="section_wrap">
-				<form id="registForm" action="<c:url value='/login/joinProcess' />" method="post" enctype="multipart/form-data">
+				<form id="registForm" action="<c:url value='/login/loginView' />" method="post" enctype="multipart/form-data">
 					
 					<div class="section email_info">
 							<h3>나의정보 수정</h3><br />
@@ -467,13 +467,14 @@ $(document).ready(function() {
 <%-- 										<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" readonly="readonly" class="input_text small" style="width:337px" /> --%>
 											<label id="mem_id" name="mem_id" title="아이디(이메일) 입력"  class="label" style="width:337px" >${member.mem_id}</label>
 											<input type="hidden" id="chkMemId" value="" />
+											<input type="hidden" id="mem_id" value="${member.mem_id}" />
 										</div>
 									</div>
 									
 									<div class="field">
 										<label for="mem_pw" class="label">비밀번호</label>
 										<div>
-											<input type="password" id="mem_pw" name="mem_pw" title="비밀번호 입력" value="" class="input_text small" style="width:337px" />
+											<input type="password" id="mem_pw" name="mem_pw" title="비밀번호 입력" value="${member.mem_pw}" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
@@ -481,7 +482,7 @@ $(document).ready(function() {
 									<div class="field">
 										<label for="mem_pw_confirm" class="label">비밀번호확인 </label>
 										<div>
-											<input type="password" id="mem_pw_confirm" title="비밀번호 재입력" value="" class="input_text small" style="width:337px" />
+											<input type="password" id="mem_pw_confirm" title="비밀번호 재입력" value="${member.mem_pw}" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
@@ -491,6 +492,7 @@ $(document).ready(function() {
 										<div>
 <!-- 										<input type="text" id="mem_name" name="mem_name" title="이름 입력" value="" class="input_text small" style="width:234px" /> -->
 											<label id="mem_name" name="mem_name" title="이름 입력"  class="label" style="width:234px" > ${member.mem_name}</label>
+											<input type="hidden" id="mem_name" value="${member.mem_name}" />
 										</div>
 									</div>
 									
@@ -521,6 +523,7 @@ $(document).ready(function() {
 										<div>
 <!-- 											<input type="text" id="mem_birth" name="mem_birth" title="생년월일 입력" value="" class="input_text small" style="width:234px" /> -->
 											<label id="mem_birth" name="mem_birth" title="생년월일 입력"  class="label" style="width:234px" >${member.mem_birth}</label>
+											<input type="hidden" id="mem_tel" name="mem_tel" value="${member.mem_birth}" />
 										</div>
 									</div>
 									
@@ -528,11 +531,11 @@ $(document).ready(function() {
 										<label for="zipcd" class="label">주소</label>
 										<div>
 											<div>
-												<input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="" class="input_text small" style="width:60px" readonly="readonly" />
+												<input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="${member.mem_zip}" class="input_text small" style="width:60px" readonly="readonly" />
 												<a href="javascript:void(0);" id="btnOpenSearchZip" class="btn txt small" title="새창열림"><span>우편번호찾기</span></a>
-												<input type="text" id="mem_add" name="mem_add" title="기본주소" value="" class="input_text small" style="width:440px" readonly="readonly" />
+												<input type="text" id="mem_add" name="mem_add" title="기본주소" value="${member.mem_add}" class="input_text small" style="width:440px" readonly="readonly" />
 												<br />
-												<input type="text" id="mem_addr" name="mem_addr" title="상세주소" value="" class="input_text small" style="width:600px;" />
+												<input type="text" id="mem_addr" name="mem_addr" title="상세주소" value="${member.mem_addr}" class="input_text small" style="width:600px;" />
 											</div>
 			                                <div id="errorTxtAddr" class="msg_wrap">
 												<div class="error_txt small"></div>
@@ -543,7 +546,7 @@ $(document).ready(function() {
 									<div class="field">
 										<label for="mem_pic" class="label">프로필 사진</label>
 										<div>
-											<input type="file" id="upload_file" name="upload_file" title="사진등록" value="" class="" style="width:234px" />
+											<input type="file" id="upload_file" name="upload_file" title="사진등록" value="${member.pic_name}" class="" style="width:234px" />
 										</div>
 									</div>
 									
@@ -562,7 +565,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 						
-					</div>
+					</div> 
 					
 					<!-- 나의주머니 -------------------------------------------------------------------------------------------------------- -->
 					<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-mypocket">
