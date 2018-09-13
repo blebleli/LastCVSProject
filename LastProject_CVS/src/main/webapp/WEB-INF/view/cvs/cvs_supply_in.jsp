@@ -29,18 +29,27 @@
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  	<select name="job" class="form-control">
-					    <option value="날짜별">날짜별</option>
-					    <option value="코드별">코드별</option>
-					    <option value="처리별">처리별</option>
-					</select>
-					 <span class="input-group-btn"></span>
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
+	               	<div class="input-group">
+	                  	<select name="search" class="form-control">
+						    <option value="date">날짜별</option>
+						    <option value="code">코드별</option>
+						    <option value="supply">처리별</option>
+						</select>
+						<span class="input-group-btn">
+	                  		<select name="search" class="btn btn-default">
+							    <option value="y">입고완료</option>
+							    <option value="n">입고확인바람</option>
+							</select>
+	                  	</span>
+					</div>
+					
+	                <div class="input-group">
+	                  <input type="text" class="form-control" placeholder="Search for...">
+	                  <span class="input-group-btn">
+	                  	<button class="btn btn-default" type="button">Go!</button>
+	                  </span>
+	                </div>
+                  
                 </div>
               </div>
             </div>
@@ -96,7 +105,7 @@
 												입고완료
 											</c:when>
 											<c:otherwise>
-										    	입고미완료
+										    	입고확인바람
 										    </c:otherwise>
 										</c:choose>
 									</td>

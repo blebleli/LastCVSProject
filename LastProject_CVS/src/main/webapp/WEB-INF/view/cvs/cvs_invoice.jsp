@@ -125,7 +125,7 @@
 													<td>${vo.rnum}</td>
 													<td>${vo.prod_name}</td> <!-- 상품이름 -->
 													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
-													<td></td>				<!-- 비고 -->
+													<td>${vo.splylist_info}</td>				<!-- 비고 -->
 													<td>${vo.splylist_sum}</td>	<!-- 수량 -->
 													<td>￦${vo.prod_price}</td>	<!-- 가격 -->
 													<td>￦${vo.splylist_sum * vo.prod_price}</td>	<!-- 합계 -->
