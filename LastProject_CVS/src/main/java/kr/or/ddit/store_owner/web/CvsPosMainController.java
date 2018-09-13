@@ -88,6 +88,7 @@ public class CvsPosMainController {
 		map.put("stock_date", "20180911");
 		StockVo myStock = stockService.getStock(map);
 		logger.debug("stock --------------"+ myStock);
+		model.addAttribute("myStock", myStock);
 		return myStock;
 	}
 
