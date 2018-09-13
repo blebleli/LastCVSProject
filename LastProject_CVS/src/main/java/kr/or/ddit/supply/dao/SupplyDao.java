@@ -1,12 +1,14 @@
 package kr.or.ddit.supply.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
@@ -137,6 +139,65 @@ public class SupplyDao implements SupplyDaoInf {
 	@Override
 	public MemberVo supplyMemberInfo(String supply_bcd) {
 		return template.selectOne("supply.supplyMemberInfo",supply_bcd);
+	}
+
+	/**
+	* Method : getSupplyPageList
+	* Method 설명 :입고 목록 페이징 처리(한페이지에  10개씩)
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param map
+	* @return
+	*/
+	@Override
+	public List<SupplySumProdVo> getSupplyPageList(Map<String, Integer> paramMap) {
+		return template.selectList("supply.getListSupply",paramMap);
+	}
+
+	/**
+	* Method : getSupplyListTotCnt
+	* Method 설명 :입고 목록 전체 토탈 카운트
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @return
+	*/
+	@Override
+	public int getSupplyListTotCnt() {
+		return template.selectOne("supply.supplyListTotCnt");
+	}
+
+	/**
+	* Method : getSupplyProdPageList
+	* Method 설명 :입고 상세 내역에서 제품들 리스트 페이징 처리
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param paramMap
+	* @return
+	*/
+	@Override
+	public List<SupplyProdVo> getSupplyProdPageList(Map<String, Object> paramMap) {
+		return template.selectList("supply.supplyProdInfo",paramMap);
+	}
+
+	/**
+	* Method : getSupplyProdListTotCnt
+	* Method 설명 :입고 상세 내역에서 제품들의 전체 카운트
+	* 최초작성일 : 2018. 9. 13.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	@Override
+	public int getSupplyProdListTotCnt(String supply_bcd) {
+		return template.selectOne("supply.supplyProdTotCnt",supply_bcd);
 	}
 
 
