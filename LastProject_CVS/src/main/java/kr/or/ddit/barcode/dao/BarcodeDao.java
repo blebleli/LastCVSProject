@@ -17,7 +17,9 @@ public class BarcodeDao implements BarcodeDaoInf {
 	
 	@Override
 	public int setInsertBarcode(BarcodeVo barcodeVo) {
-		return template.insert("barcode.insertBarcode", barcodeVo);
+		int result =template.insert("barcode.insertBarcode", barcodeVo);
+		template.close();
+		return result;
 	}
 
 	@Override
