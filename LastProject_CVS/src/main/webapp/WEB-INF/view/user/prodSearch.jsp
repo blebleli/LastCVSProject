@@ -64,7 +64,7 @@
         <div class="option">
             <div>
                 <form action="/search/prodSearch">
-                    키워드 : <input type="text" value="" id="Product" size="15"> 
+                    키워드 : <input type="text" id="Product" name="Product" size="15"> 
                     <button type="submit">검색하기</button> 
                 </form>
             </div>
@@ -244,7 +244,8 @@ var content="";
 		$("#searchList li").on("click",function(){
 			// 해당 제품 id 가져옴
 			var prod_id = $("#searchList li [name=prod_id]").val();
-			
+			//String x = "";
+        	//String y = "";
 		    $.ajax({
 		        type:"get",
 		        url:"search/storeSearch",
@@ -256,6 +257,9 @@ var content="";
 		        	 $.each(data,function(index,item){
 						// 리턴 받은 값 (좌표) set
 						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
+// 						x = item.mem_x+"";
+// 						y = item.mem_y+"";
+						
 // 						alert(item.mem_x + " : " + item.mem_y);
 						// 커스텀 오버레이에 표시할 컨텐츠 입니다
 						// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
@@ -298,6 +302,14 @@ var content="";
 			        	 // 마커를 생성하고 지도위에 표시합니다
 			        	 addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
 		        	 }
+		        	
+		        	
+		        	// 맨 마지막 편의점으로 이동
+		        	// 이동할 위도 경도 위치를 생성합니다 
+// 	        	    var moveLatLon = new daum.maps.LatLng(y, x);
+	        	    
+	        	    // 지도 중심을 이동 시킵니다
+	        	    //map.setCenter(moveLatLon);
 
 		        	
 		        }
