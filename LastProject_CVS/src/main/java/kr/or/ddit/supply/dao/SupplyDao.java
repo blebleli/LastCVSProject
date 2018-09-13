@@ -22,7 +22,9 @@ public class SupplyDao implements SupplyDaoInf {
 
 	@Override
 	public int setInsertSupply(SupplyVo supplyVo) {
-		return template.insert("supply.insertSupply", supplyVo);
+		int result =template.insert("supply.insertSupply", supplyVo);
+		template.close();
+		return result;
 	}
 
 	/**
