@@ -25,10 +25,8 @@
     <script>
     	$(function(){
     		
-//     		$(".evenpointer").on("click", function(){
     		$("#datatable tbody").on("click", "tr", function(){
     			var requestProd =$(this).data("class");
-    			alert(requestProd);
     			console.log(requestProd);
     			$.ajax({
 	    			url : "requestList",
@@ -36,23 +34,19 @@
 	    			data : {"requestProd": requestProd },
 	    			success : function(responseData){
     					console.log(responseData);
-	    				$("#datatable-buttons2 > tbody").empty();
 	    				
-	    				$.each(responseData,function(index, item){
-	    					$("#datatable-buttons2 > tbody").append('<tr>'+
-	    																'<td>'+item.prod_name+'</td>'+
-	    																'<td>'+item.prod_price+'</td>'+
+	    					$("#datatable-buttons2 > tbody").append('<tr data-class="'+responseData.prod_id +'">'+
+	    																'<td>'+responseData.prod_name+'</td>'+
+	    																'<td>'+responseData.prod_price+'</td>'+
 	    																'<td><input type="number" name="amount"></td>'+
 	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
-	    															+"</tr>");
-	    				})
+	    															+'</tr>');
 	    			}
 	    		});
     		});
   //----------------------------------------------------------------------------------------------  		
     		$("select[name=lgCtgyBtn]").val("${param.lgCtgyBtn}").prop("selected",true);
     		$("select[name=lgCtgyBtn]").on("change", function(){
-    			alert($("select[name=lgCtgyBtn]").val());
     			
     			var lgC = $("select[name=lgCtgyBtn]").val();
     			$.ajax({
@@ -80,7 +74,49 @@
 	    		});
     		})
  //------------------------------------------------------------------------------------------------   		
-    		
+    		$("select[name=mdCtgyBtn]").on("change", function(){
+    			alert($("select[name=mdCtgyBtn]").val());
+    			
+    			var mdC = $("select[name=mdCtgyBtn]").val();
+    			$.ajax({
+	    			url : "selectmdCtgy",
+	    			method:"get",
+	    			data : {"ctgy_id": mdC},
+	    			success : function(responseData){
+    					console.log(responseData);
+    					
+	    				$("#datatable > tbody").empty();
+	    				$.each(responseData.mdList,function(index, item){
+	    					$("#datatable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
+	    																'<td>'+item.prod_name+'</td>'+
+	    																'<td>'+item.prod_price+'</td>'+
+	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
+	    															+'</tr>'
+							);
+	    				})
+	    			}	
+	    		});
+    		})
+ //------------------------------------------------------------------------------------------------   		
+    		$("#request").on("click", function(){
+    			var amounts =new Array();
+    			$("#datatable-buttons2 > tbody > tr").each(function(){
+    				var trElement = $(this);
+    				var td = trElement.find(".amount").val();
+    				var prod_id = $(this).data("class");
+    				amounts.push({"prod_id": prod_id, "amount" : td});
+    				console.log("td----"+td);
+    				console.log("prod_id----"+prod_id);
+    				console.log("amounts----"+amounts);
+    				
+	    			$.ajax({
+	    				url : "request",
+	    				data : {"prod_id" : prod_id, "amount" : td}
+	    				
+	    			});	//ajax end
+    			})  // each end
+    			
+    		})
     		
     	});
     </script>
@@ -110,7 +146,7 @@
 
             <div class="clearfix"></div>
 
-<!--             <div class="row"> -->
+            <div class="row">
        
               <div class="col-md-6 col-sm-5 col-xs-9">
                 <div class="x_panel">
@@ -210,10 +246,10 @@
                       <c:if test="${requestList != null }">
                       	<c:forEach items="${requestList }" var="request">
                       		
-						<tr class="evenpointer2">
+						<tr class="evenpointer2" data-class="${request.prod_id }">
 							<td>	${request.prod_name }		</td>
 							<td>  ${request.prod_price }</td> 
-							<td><input type="text" name="amount"></td>
+							<td><input type="number" name="amount" class="amount"></td>
 							<td>  <a href="cvs_invoice.html">View</a> </td>	
 						</tr>
                       	</c:forEach>
@@ -224,16 +260,14 @@
                     
                   </div>
                   <ul class="nav navbar-right panel_toolbox">
-               		<a href="#">
+               		<button class="btn btn-default" id="request">
              		<i class="fa fa-sign-out" aria-hidden="true"></i>발주신청
-             		</a>
+               		</button>
               	  </ul>
                  </div>
               </div>
               
-              
-              
-<!--             </div> -->
+            </div>
           </div>
         </div>
         <!-- /page content -->
