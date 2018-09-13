@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- =======<tiles: ="content" /> ============> 비밀번호 재설정   newPassword.jsp   -->
 <!-- login css -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
@@ -169,3 +170,5 @@ function fn_errMessage(_obj, _text) {
 		</div>
 	</div>
 </div>
+
+<!-- =======<tiles: ="content" /> ============> 새 비밀번호 재설정   newPassword.jsp  끝  -->

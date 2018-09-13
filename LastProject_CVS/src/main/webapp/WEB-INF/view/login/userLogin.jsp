@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<!-- =======<tiles: ="content" /> ============> 로그인 userLogin.jsp   -->
 <!-- 암호화 -->
 <script type="text/javascript" src="<c:url value='/js/rsa/jsbn.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/rsa/rsa.js' />"></script>
@@ -142,6 +142,7 @@ $(document).ready(function() {
 });
 
 </script>
+
 <!-- products-breadcrumb -->
 	<div class="products-breadcrumb">
 		<div class="container">
@@ -267,8 +268,8 @@ $(document).ready(function() {
 </script>
 	
 </div>
-<!--	<div class="w3_login">  -->
-<!-- //login 비공통-->
-<!-- // <div class="w3l_banner_nav_right">  -->
+
 
 <div class="clearfix"></div>
+
+<!-- =======<tiles: ="content" /> ============> userLogin.jsp 끝   -->

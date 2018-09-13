@@ -2,6 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<!-- =======<tiles: ="content" /> ============> 회원가입 userJoin.jsp 끝  -->
 <!-- login css  -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
 
@@ -16,10 +17,6 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link>
 
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />"> <!-- 달력 : 별 09.07 --> --%>
-
-<link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 
 <!-- js -->
 <script type="text/javascript" src="<c:url value='/js/common/jquery-1.11.1.min.js' />"></script>
@@ -30,7 +27,7 @@
 
 
 <!-- 달력 css  -->
-<link rel="stylesheet" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
 <style type="text/css">
 	div.field {width:850px;}
 	span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
@@ -41,9 +38,9 @@
 <script type="text/javascript" src="<c:url value='/js/common/jquery.form.js' />"></script>
 <script src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
 
+
+
 <script type="text/javascript">
-
-
 
 var contextPath = "${pageContext.request.contextPath}";
 
@@ -584,5 +581,4 @@ function fn_errMessage(_obj, _text) {
 	</div>
 </div>
 
-</body>
-</html>
+<!-- =======<tiles: ="content" /> ============> userJoin.jsp 끝  -->
