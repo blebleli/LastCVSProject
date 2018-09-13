@@ -114,10 +114,14 @@
 									</td>	 <!-- 상세보기 -->
 								</tr>
 	                      </c:forEach>
-                      <tbody>                                                                                                                                  
- 
+	                      
+                      <tbody> 
+                                                                                                                                                      
                       </tbody>
                     </table>
+                    <div class="text-center" id="page">
+							<ul class="pagination">${pageNavi}</ul>
+					</div> 
                   </div>
                 </div>
               </div>

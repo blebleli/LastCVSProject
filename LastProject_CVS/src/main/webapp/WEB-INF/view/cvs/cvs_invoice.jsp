@@ -90,9 +90,9 @@
 									To
 									<address>
 										<strong>${supplyMemInfo.mem_cvs_name}</strong> 
-										<br>${supplyMemInfo.mem_addr} 
-										<br>Phone: ${supplyMemInfo.mem_cvs_tel} 
-										<br>담당자 : ${supplyMemInfo.mem_name}
+										<br>${supplyMemInfo.mem_addr}  <!-- 편의점 주소 -->
+										<br>Phone: ${supplyMemInfo.mem_cvs_tel}	<!-- 편의점 연락처 -->
+										<br>담당자 : ${supplyMemInfo.mem_name}	<!-- 점주 이름 -->
 									</address>
 								</div>
 								<!-- /.col -->
@@ -110,7 +110,7 @@
 								<div class="col-xs-12 table">
 									<table class="table table-striped">
 										<thead>
-											<tr>
+											<tr><th>번호</th>
 												<th style="width: 20%">상품이름</th>
 												<th style="width: 30%">상품코드</th>
 												<th style="width: 30%">비고</th>
@@ -122,6 +122,7 @@
 										<tbody>
 											<c:forEach items="${prodList}" var="vo">
 												<tr>
+													<td>${vo.rnum}</td>
 													<td>${vo.prod_name}</td> <!-- 상품이름 -->
 													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
 													<td></td>				<!-- 비고 -->
@@ -132,6 +133,9 @@
 											</c:forEach>
 										</tbody>
 									</table>
+									<div class="text-center" id="page">
+										<ul class="pagination">${pageNavi}</ul>
+									</div> 
 								</div>
 							</div>
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 끝-->
