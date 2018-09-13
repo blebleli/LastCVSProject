@@ -6,6 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<!-- =======<tiles: ="content" /> ============> 마이페이지  myPage.jsp  -->
 <!-- login css  -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
 
@@ -20,10 +21,6 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link>
 
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />"> <!-- 달력 : 별 09.07 --> --%>
-
-<link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 
 <!-- js -->
 <script type="text/javascript" src="<c:url value='/js/common/jquery-1.11.1.min.js' />"></script>
@@ -34,263 +31,280 @@
 
 
 <style>
-.col-lg-3 {
-    width: 20%;
+/* .col-lg-3 { */
+/*     width: 20%; */
+/* } */
+
+.label {
+	display: inline;
+	padding: .2em .6em .3em;
+	font-size: 75%;
+	font-weight: bold;
+	line-height: 1;
+	color: #fff;
+	text-align: left;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
 }
+span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
 </style>
 
+
 <script type="text/javascript">
+
 $(document).ready(function() {
-	
-// 	 $('#myTabContent div').hide();
-		
-// 	 $("#myTab li a").click(function (e) {
-// 		  e.preventDefault();
-// 		  $(this).tab('show');
-// 		  $("#myTabContent div").show();
-		 
-// 		})
-	/** 
-	 * 초기 탭 클릭
-	 */
-	if ("${!empty tab}") {
-		$("ul#myTab > li > a[href=#${tab}]").trigger("click");
-		// focus 안먹네
-		//$("div#${tab}").next().attr("tabindex", -1).focus();
-	}
 
-	 
-	/**
-	 * ∴ 사용자한테 입력 받을 때 확인 
-	 * 사용자 전화번호 중복 조회
-	 */
-	 $("#mem_tel_3").on("blur", function() {
-		
-		 // 전화번호가 모두 입력이 되었을때 중복 체크 시작
-		 if($("#mem_tel_1").val() != '' && $("#mem_tel_2").val() && $("#mem_tel_3").val()) {
-			var mem_tel = $("#mem_tel_1").val() + '-' + $("#mem_tel_2").val() + '-'+ $("#mem_tel_3").val();
-			
-			$.ajax({
-	            type : "POST",
-	            url : "<c:url value='/login/chkMemTelDupli' />",
-	            dataType : "text",
-	            data : {mem_tel : mem_tel},
-	            success : function(data){
-	            	if(Number(data) > 0) {
-	        			fn_errMessage($("#mem_tel"), "이미 등록된 전화번호 입니다.");
-	                    $("#mem_tel_2").val("");
-	                    $("#mem_tel_3").val("");
-	            	}
-	            },
-	            error: function(request, status, error) {
-	                alert(error);
-	            }
-	        });
-			
+		// 	 $('#myTabContent div').hide();
+
+		// 	 $("#myTab li a").click(function (e) {
+		// 		  e.preventDefault();
+		// 		  $(this).tab('show');
+		// 		  $("#myTabContent div").show();
+
+		// 		})
+		/** 
+		 * 초기 탭 클릭
+		 */
+		if ("${!empty tab}") {
+			$("ul#myTab > li > a[href=#${tab}]").trigger(
+					"click");
+			// focus 안먹네
+			//$("div#${tab}").next().attr("tabindex", -1).focus();
 		}
-	});
+
 		
-	
-		// 사용자 저장버튼
-		$("#btnRegist").on("click", function() {
-			
-			var isSuccess = true;
+		/**
+		 * ∴ 사용자한테 입력 받을 때 확인 
+		 * 사용자 전화번호 중복 조회
+		 */
+		$("#mem_tel_3").on("blur",function() {
+			// 전화번호가 모두 입력이 되었을때 중복 체크 시작
+			if ($("#mem_tel_1").val() != '' && $("#mem_tel_2").val() && $("#mem_tel_3").val()) {
+				var mem_tel = $("#mem_tel_1").val()+ '-'+ $("#mem_tel_2").val()	+ '-'+ $("#mem_tel_3").val();
 
+				$.ajax({
+						type : "POST",
+						url : "<c:url value='/login/chkMemTelDupli' />",
+						dataType : "text",
+						data : {
+							mem_tel : mem_tel
+						},
+						success : function(data) {
+							if (Number(data) > 0) {
+								fn_errMessage($("#mem_tel"),"이미 등록된 전화번호 입니다.");
+								$("#mem_tel_2").val("");
+								$("#mem_tel_3").val("");
+							}
+						},
+						error : function(
+								request,
+								status,
+								error) {
+							alert(error);
+						}
+					   });
 
-			// 비밀번호
-			if($("#mem_pw").val() == '') {
-				fn_errMessage($("#mem_pw"), "비밀번호는 필수 입력사항입니다.");
-				$("#mem_pw").focus();
-				isSuccess = false;
 			}
-			else {
-				if($("#mem_pw_confirm").val() != $("#mem_pw").val()) {
-					fn_errMessage($("#mem_pw_confirm"), "비밀번호가 일치하지 않습니다.");
+		});
+
+			
+		// 사용자 저장버튼
+		$("#btnRegist").on("click",function() {
+
+				var isSuccess = true;
+
+				// 비밀번호
+				if ($("#mem_pw").val() == '') {
+					fn_errMessage($("#mem_pw"),"비밀번호는 필수 입력사항입니다.");
 					$("#mem_pw").focus();
 					isSuccess = false;
+				} else {
+					if ($("#mem_pw_confirm").val() != $("#mem_pw").val()) {
+						fn_errMessage($("#mem_pw_confirm"),"비밀번호가 일치하지 않습니다.");
+						$("#mem_pw").focus();
+						isSuccess = false;
+					}
+				}
+
+				// 휴대전화
+				if ($("#mem_tel").val() == '') {
+					fn_errMessage($("#mem_tel"),"휴대폰 번호는 필수 입력사항입니다.");
+					$("#mem_tel").focus();
+					isSuccess = false;
+				}
+
+				// 우편번호
+				if ($("#mem_zip").val() == '') {
+					fn_errMessage($("#mem_zip"),"우편번호는 필수 입력사항입니다.");
+					$("#mem_zip").focus();
+					isSuccess = false;
+				}
+
+				// 상세주소
+				if ($("#mem_addr").val() == '') {
+					fn_errMessage($("#mem_addr"),"상세주소는 필수 입력사항입니다.");
+					$("#mem_addr").focus();
+					isSuccess = false;
+				}
+
+				if (!isSuccess) {
+					return false;
+				}
+
+				if (!confirm("회원정보가 수정 완료된 후 로그인화면으로 이동합니다.\n저장하시겠습니까?")) {
+					return false;
+				}
+
+				$('#registForm').submit();
+
+	   }); /*//$("#btnRegist").on("click", function()  */
+
+				  
+				  
+		/**
+		 * 비밀번호 유효성 검증
+		 */
+		$("#mem_pw").on("blur",function() {
+				if ($("#mem_pw").val() != '') {
+					var reg_pwd = /^.*(?=.{6,12})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+					if (!reg_pwd.test($("#mem_pw").val())) {
+						fn_errMessage($("#mem_pw"),"비밀번호는 영문,숫자를 혼합하여 6~12자 이내로 입력하시기 바랍니다.");
+						$("#mem_pw").val("");
+						$("#mem_pw").focus();
+						return false;
+					} else {
+						fn_errMessage($("#mem_pw"),"");
+					}
+				}
+		});
+
+		/**
+		 * 비밀번호 확인
+		 */
+		$("#mem_pw_confirm").on("blur", function() {
+			if ($("#mem_pw").val() != '') {
+				if ($(this).val() != $("#mem_pw").val()) {
+					fn_errMessage($(this), "비밀번호가 일치하지 않습니다.");
+					$("#mem_pw_confirm").focus();
+				} else {
+					fn_errMessage($(this), "");
 				}
 			}
-			
-			// 휴대전화
-			if($("#mem_tel").val() == '') {
-				fn_errMessage($("#mem_tel"), "휴대폰 번호는 필수 입력사항입니다.");
-				$("#mem_tel").focus();
-				isSuccess = false;
-			}
-	
-			// 우편번호
-			if($("#mem_zip").val() == '') {
-				fn_errMessage($("#mem_zip"), "우편번호는 필수 입력사항입니다.");
-				$("#mem_zip").focus();
-				isSuccess = false;
-			}
-			
-			// 상세주소
-			if($("#mem_addr").val() == '') {
-				fn_errMessage($("#mem_addr"), "상세주소는 필수 입력사항입니다.");
-				$("#mem_addr").focus();
-				isSuccess = false;
-			}
-			
-			if(!isSuccess) {
-				return false;
-			}
-			
-			if(!confirm("회원정보가 수정 완료된 후 로그인화면으로 이동합니다.\n저장하시겠습니까?")) {
-				return false;
-			}
-			
-			
-			$('#registForm').submit();
-	
-		});	/*//$("#btnRegist").on("click", function()  */
-				
-				
-	
+		});
 
-	
-	/**
-	 * 비밀번호 유효성 검증
-	 */
-	$("#mem_pw").on("blur", function() {
-		if($("#mem_pw").val() != '') {
-			var reg_pwd = /^.*(?=.{6,12})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
-			if(!reg_pwd.test($("#mem_pw").val())){
-				fn_errMessage($("#mem_pw"), "비밀번호는 영문,숫자를 혼합하여 6~12자 이내로 입력하시기 바랍니다.");
-				$("#mem_pw").val("");
-				$("#mem_pw").focus();
-				return false;
-			}
-			else {
-    			fn_errMessage($("#mem_pw"), "");
-			}
-		}
-	});
-	
-	/**
-	 * 비밀번호 확인
-	 */
-	$("#mem_pw_confirm").on("blur", function() {
-		if($("#mem_pw").val() != '') {
-			if($(this).val() != $("#mem_pw").val()) {
-				fn_errMessage($(this), "비밀번호가 일치하지 않습니다.");
-				$("#mem_pw_confirm").focus();
-			}
-			else {
-				fn_errMessage($(this), "");
-			}
-		}
-	});
-	
-	// 휴대폰번호 셋팅
-	$("*[id^=mem_tel_]").on("change", function() {
-		if($("#mem_tel_1").val() != '' && $("#mem_tel_2").val() && $("#mem_tel_3").val()) {
-			var mem_tel = $("#mem_tel_1").val() 
-						+ '-'
-						+ $("#mem_tel_2").val()
-						+ '-'
-						+ $("#mem_tel_3").val();
-			$("input[name=mem_tel]").val(mem_tel);
-		}
-		else {
-			$("input[name=mem_tel]").val("");
-		}
-	});
-	
-	/**
-	 * 오류메시지 초기화
-	 */
-	$("input,select").on("change", function() {
-		fn_errMessage($(this), "");
-	});
-	
-	/** 
-	 *	daum 주소검색 api
-	 */
-	 $("#btnOpenSearchZip").on("click", function() {
+		// 휴대폰번호 셋팅
+		$("*[id^=mem_tel_]").on("change",function() {
+					if ($("#mem_tel_1").val() != ''
+							&& $("#mem_tel_2").val()
+							&& $("#mem_tel_3").val()) {
+						var mem_tel = $("#mem_tel_1").val()
+								+ '-' + $("#mem_tel_2").val()
+								+ '-' + $("#mem_tel_3").val();
+						$("input[name=mem_tel]").val(mem_tel);
+					} else {
+						$("input[name=mem_tel]").val("");
+					}
+		});
 
-		    new daum.Postcode({
-		        oncomplete: function(data) {
-		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-
-		        	 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
-
-	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    fullAddr = data.roadAddress;
-
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    fullAddr = data.jibunAddress;
-	                }
-
-	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    //법정동명이 있을 경우 추가한다.
-	                    if(data.bname !== ''){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있을 경우 추가한다.
-	                    if(data.buildingName !== ''){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                }
-
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('mem_zip').value = data.zonecode; //5자리 새우편번호 사용
-	                document.getElementById('mem_add').value = fullAddr;
-
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById('mem_addr').focus();
-		        }
-		    }).open(); 
-	 });
-	
-	
-	/**
-	 * 구매내역 행 클릭
-	 */
-	$("tr.paytr").bind("click", function() {
 		
-		// 상세tr 삭제
-		if ($(this).next().hasClass("subPaytr")) {
-			$(this).next().remove();
-		} else {
-			// 상세tr 전체삭제
-			$(this).parent().find('tr.subPaytr').each(function() {
-				$(this).hide("slow", function() {
-					$(this).remove();
-				});
-			});
-			// 상세tr 보여주기
-			var $subTr = $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
-			$(this).after($($subTr));
-			$($subTr).show('slow');
-		}
+		/**
+		 * 오류메시지 초기화
+		 */
+		$("input,select").on("change", function() {
+			fn_errMessage($(this), "");
+		});
 
-	});
-	
+		
+		
+		/** 
+		 *	daum 주소검색 api
+		 */
+		$("#btnOpenSearchZip").on("click",function() {
+
+			 new daum.Postcode( {oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+						// 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var fullAddr = ''; // 최종 주소 변수
+						var extraAddr = ''; // 조합형 주소 변수
+		
+						// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							fullAddr = data.roadAddress;
+		
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							fullAddr = data.jibunAddress;
+						}
+		
+						// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+						if (data.userSelectedType === 'R') {
+							//법정동명이 있을 경우 추가한다.
+							if (data.bname !== '') {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있을 경우 추가한다.
+							if (data.buildingName !== '') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName
+										: data.buildingName);
+							}
+							// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+							fullAddr += (extraAddr !== '' ? ' ('
+									 + extraAddr
+									 + ')'
+									 : '');
+						}
+		
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('mem_zip').value = data.zonecode; //5자리 새우편번호 사용
+						document.getElementById('mem_add').value = fullAddr;
+		
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById('mem_addr').focus();
+						}
+			 }).open();
+		});
+
+						/**
+						 * 구매내역 행 클릭
+						 */
+						$("tr.paytr").bind("click",function() {
+
+								// 상세tr 삭제
+								if ($(this).next().hasClass("subPaytr")) {
+									$(this).next().remove();
+								} else {
+									// 상세tr 전체삭제
+									$(this).parent().find('tr.subPaytr').each(function() {
+														$(this).hide("slow",function() {
+																			$(this).remove();
+														});
+									});
+									// 상세tr 보여주기
+									var $subTr = $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
+									$(this).after($($subTr));
+									$($subTr).show('slow');
+								}
+
+						});
+
 });
 
-
-
-/**
- * 오류메시지
- */
-function fn_errMessage(_obj, _text) {
-	if(_text != null && _text != '') {
-		_obj.closest("div.field").find(".msg_wrap").show();
+	/**
+	 * 오류메시지
+	 */
+	function fn_errMessage(_obj, _text) {
+		if (_text != null && _text != '') {
+			_obj.closest("div.field").find(".msg_wrap").show();
+		} else {
+			_obj.closest("div.field").find(".msg_wrap").hide();
+		}
+		_obj.closest("div.field").find(".msg_wrap").find(".error_txt").text(
+				_text);
 	}
-	else {
-		_obj.closest("div.field").find(".msg_wrap").hide();
-	}
-	_obj.closest("div.field").find(".msg_wrap").find(".error_txt").text(_text);
-}
 </script>
 
 
@@ -441,21 +455,21 @@ function fn_errMessage(_obj, _text) {
 				<form id="registForm" action="<c:url value='/login/joinProcess' />" method="post" enctype="multipart/form-data">
 					
 					<div class="section email_info">
-							<h3>나의정보 수정</h3>
+							<h3>나의정보 수정</h3><br />
 						<div class="section">
 							<h3 class="blind">항목입력</h3>
 							<div class="content">
 								<fieldset class="fieldset medium">
 									
 									<div class="field">
-									
 										<span class="label">이메일 아이디</span>
 										<div>
 <%-- 										<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" readonly="readonly" class="input_text small" style="width:337px" /> --%>
-											<label id="mem_id" name="mem_id" title="아이디(이메일) 입력"  class="input_text small" style="width:337px" >${memberVo.mem_id}</label>
+											<label id="mem_id" name="mem_id" title="아이디(이메일) 입력"  class="label" style="width:337px" >${member.mem_id}</label>
 											<input type="hidden" id="chkMemId" value="" />
 										</div>
 									</div>
+									
 									<div class="field">
 										<label for="mem_pw" class="label">비밀번호</label>
 										<div>
@@ -463,18 +477,20 @@ function fn_errMessage(_obj, _text) {
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
 									</div>
+									
 									<div class="field">
-										<label for="mem_pw_confirm" class="label">비밀번호확인 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
+										<label for="mem_pw_confirm" class="label">비밀번호확인 </label>
 										<div>
 											<input type="password" id="mem_pw_confirm" title="비밀번호 재입력" value="" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 										</div>
+									</div>
 									
 									<div class="field">
 										<label for="mem_name" class="label">이름 </label>
 										<div>
 <!-- 										<input type="text" id="mem_name" name="mem_name" title="이름 입력" value="" class="input_text small" style="width:234px" /> -->
-											<label id="mem_name" name="mem_name" title="이름 입력"  class="input_text small" style="width:337px" >${memberVo.mem_name}</label>
+											<label id="mem_name" name="mem_name" title="이름 입력"  class="label" style="width:234px" > ${member.mem_name}</label>
 										</div>
 									</div>
 									
@@ -499,13 +515,15 @@ function fn_errMessage(_obj, _text) {
 											</div>
 										</div>
 									</div>
+									
 									<div class="field">
-										<label for="mem_birth" class="label">생년월일 <img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"></label>
+										<label for="mem_birth" class="label">생년월일 </label>
 										<div>
-											<input type="text" id="mem_birth" name="mem_birth" title="생년월일 입력" value="" class="input_text small" style="width:234px" />
-											<label id="mem_birth" name="mem_birth" title="생년월일 입력"  class="input_text small" style="width:234px" >${memberVo.mem_birth}</label>
+<!-- 											<input type="text" id="mem_birth" name="mem_birth" title="생년월일 입력" value="" class="input_text small" style="width:234px" /> -->
+											<label id="mem_birth" name="mem_birth" title="생년월일 입력"  class="label" style="width:234px" >${member.mem_birth}</label>
 										</div>
 									</div>
+									
 									<div class="field">
 										<label for="zipcd" class="label">주소</label>
 										<div>
@@ -516,7 +534,6 @@ function fn_errMessage(_obj, _text) {
 												<br />
 												<input type="text" id="mem_addr" name="mem_addr" title="상세주소" value="" class="input_text small" style="width:600px;" />
 											</div>
-											
 			                                <div id="errorTxtAddr" class="msg_wrap">
 												<div class="error_txt small"></div>
 											</div>
@@ -710,3 +727,5 @@ function fn_errMessage(_obj, _text) {
 <div class="clearfix"></div>
 <div style="margin-bottom: 100px;"></div>
 <!-- //banner -->
+
+<!-- =======<tiles: ="content" /> ============> 마이페이지  myPage.jsp 끝  -->
