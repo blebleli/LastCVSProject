@@ -69,8 +69,7 @@ public class SupplyService implements SupplyServiceInf {
 
 	@Override
 	public int setInsertSupplyList(SupplyListVo supplyListVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return SupplyDao.setInsertSupplyList(supplyListVo);
 	}
 
 	@Override
