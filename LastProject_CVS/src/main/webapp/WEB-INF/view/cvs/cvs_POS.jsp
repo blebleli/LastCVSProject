@@ -19,7 +19,7 @@
   margin: 0;
   padding: 0;
 }
-button {
+.culcBtn {
   width: 100px;
   height: 100px;
   font-size: 30px;
@@ -49,49 +49,54 @@ button {
   overflow: hidden;
   white-space: nowrap;
 }
-#numInput {
+.numInput {
   position: absolute;
   left: 7px;
   bottom: 5px;
   display: inline-block;
   padding: 3px;
   width: 94%;
-  height: 60px;
-  color: #fff;
+  height: 100%;
+  color: #286090;
   text-align: right;
   font-size: 50px;
   box-sizing: border-box;
   border: none;
-  background-color: #202020;
+  background-color: #efefef;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-button.number {
+.culcBtn.number {
   background-color: #efefef;
 }
-button.number:hover {
+.culcBtn.number:hover {
   background: #ddd;
 }
-button.number:active {
+.culcBtn.number:active {
   background-color: #ccc;
 }
-button.op {
+.culcBtn.op {
   background-color: #FF9B22;
 }
-button.op:hover {
+.culcBtn.op:hover {
   background-color: #f99112;
 }
-button.op:active {
+.culcBtn.op:active {
   background-color: #EB7016;
 }
-.col2 button {
+.culcBtn.col2 {
   width: 201px;
 }
-.col3 button {
+.culcBtn.col3 {
   width: 303px;
 }
 
+.subtot_sum{
+  text-align: right;
+  font-size: 50px;
+  color: #286090;
+}
  </style>
         <!-- page content -->
         <div class="right_col" role="main">
@@ -119,6 +124,9 @@ button.op:active {
                  <script type="text/javascript">
                  $(document).ready(function () {
                 	 
+                	registerAmountChange();
+					registerReceiveChange(); // ---처음부터 거스름돈 체크 문제
+					
 			    	/* 샘플 데이터 */
 			    	addRow({prodVo : {prod_id : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
 			    	addRow({prodVo : {prod_id : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
@@ -181,7 +189,7 @@ button.op:active {
 						    background-color: #449d44;
 						    border-color: #398439;"> 합계 수량/ 금액 / 할인 </td>                       
                             <td><b><span id="amount_sum"></span></b></td>
-                            <td><b><span class="subtot_sum"></span></b></td>
+                            <td><b><span class="subtot_sum"></span>원</b></td>
                             <td><b><span id="discount_sum"></span></b>  </td>
                         <tr>
                         </tfoot>                       
@@ -191,10 +199,58 @@ button.op:active {
                 </div>
               </div>              
 	              <div class="col-md-1 col-sm-1 col-xs-1">
-	               <button type="button" class="op">삭제</button>
-	               <button type="button" class="op">결제<br>선택</button>
-	               <button type="button"class= "op">주머니</button>
-	               <button type="button" class="op">폐기</button>
+	               <button type="button" class="culcBtn op" onclick="removeTr()">삭제</button>
+
+					<button type="button" class="culcBtn op" data-toggle="modal" data-target="#saleSelect">
+					  결제<br>선택
+					</button>
+
+					<!-- 결제선택 modal ==================================== -->
+					<div class="modal fade modal-sm" id="saleSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-sm" style="text-align: center">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="myModalLabel">결제 선택</h4>
+					      </div>
+					      <div class="modal-body">
+					        <button type="button" class="culcBtn op">현금</button>
+					        <button type="button" class="culcBtn op">카드</button>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary">Save changes</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+	
+	               <button type="button" class="culcBtn op" data-toggle="modal" data-target="#myPocket">
+					  주머니
+				   </button>
+					
+					<!-- 주머니 modal ==================================== -->
+					<div class="modal fade modal-sm" id="myPocket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-sm" style="text-align: center">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="myModalLabel">주머니 인식</h4>
+					      </div>
+					      <div class="modal-body">
+					           <video  id="poketPlayer" width="250" height="250" controls autoplay></video>  
+							   <button id="poketCapture" style="display: none">Capture</button>
+							   <canvas id="poketSnapshot" width=500 height=500 style="display: none"></canvas>				    											   		
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary">Save changes</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+	               <button type="button" class="culcBtn op">폐기</button>
 	              </div>
            </div>   
 <!-- 
@@ -217,13 +273,12 @@ button.op:active {
 				   
 
                   <div class="x_content">
-                   <button onclick="startCapture(this)">인식</button>  
-				   <button onclick="stopCapture(this)">완료</button> 
-				   
+                   <button type="button" class="btn btn-primary" onclick="startCapture(this)">인식</button>
+                   <button type="button" class="btn btn-default" onclick="stopCapture(this)">완료</button>					
+ 
 				   <div class="clearfix"></div>
 				   
-                   <video id="player" width="300" height="300"></video>
-  
+                   <video  id="player" width="300" height="300"></video>  
 				   <button id="capture" style="display: none">Capture</button>
 				   <canvas id="snapshot" width=500 height=500 style="display: none"></canvas>				    				
 				   			    
@@ -238,37 +293,65 @@ button.op:active {
 				            return snapshotCanvas.toDataURL();
 				    	}
 
+				    	
+				    	/*삭제버튼 클릭시 */
+				    	function removeTr() {
+						    $('#posTable tbody tr').has('div[class="checked"]').remove;  
+
+						}
+
 				    	/*amount change listener */
 				    	function registerAmountChange(){			    		
 				    		 $("#posTable").on('change', '.amount', function () {
 				    			 amountSum();
 				    			 rowSum();
-				    			 subtot_sum()
+				    			 subtot_sum();
+				    		 });
+				    	}
+				    	
+				    	/*saleReceive change listener */
+				    	function registerReceiveChange(){			    		
+				    		 $("#saleTable").on('change', '.input-box', function () {
+				    			 saleCulc();
+				    			 
 				    		 });
 				    	}
 				    		
 				    	/* 상품바코드추가 */
 				    	function addRow(data){
+				    		
+				    		//아이디가 같을때 처리 
+				    		var dataProdId = data.prodVo.prod_id;
+				    		
+				    		$("#posTable .prodID").each(function () {				    			
+					    		if(dataProdId){
+					    			
+					    		}
+				    		});
+				    		
+				    		//행추가
 							$("#prodList").append(		    								
 								     '<tr>'+
-			                         '  <td> '+                                               
-			                         '    <input type="checkbox" name="table_records">'+
+			                         '  <td> '+   
+			                         '	<div class="icheckbox_flat-green" style="position: relative;">'+
+			                         '    <input type="checkbox" class="flat" name="table_records">'+
+			                         '	 </div>'+
 			                         '  </td>'+
-			                         '  <td>'+ data.prodVo.prod_id+'</td>'+
+			                         '  <td><span class="prodID">'+ data.prodVo.prod_id+'</span></td>'+
 			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
-			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</td>'+ 
+			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
 			                         '  <td ><input type="text" class="amount" value="' +data.prodVo.stcklist_amount+'"></td>'+    				                         
-			                         '  <td ><span class="subtot">합계예정</span></td> '+
+			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
 			                         '  <td ><span class="distot">'+ data.prodVo.event_id+'</span></td> '+			    				                      
 			                         '</tr>'			    								                                                                                     
 							);
 							
-							registerAmountChange();
 							amountSum();
 							rowSum();
 							subtot_sum();
+	
 				    	}
-				    	      
+				    	
 				    	/* 수량합계 계산*/
 				    	function amountSum(){
 		                     var total_sum = 0;
@@ -301,9 +384,7 @@ button.op:active {
 		                         if ($.isNumeric(inputAmount.val())) {
 		                        	 amount = parseFloat(inputAmount.val());
 		                         }
-		                      	 
-		                        
-		                       
+		                      	      
 		                         var rowSum = price1 * amount;		                         
 		                         trElement.find('.subtot').html(rowSum);
 		                      
@@ -339,16 +420,19 @@ button.op:active {
 				    	};
 				    	
 				    	
-				    	/*  */
-				    	function amountDiscount(){		    		
-		                     var total_sum = 0;
-		                     $("#posTable .distot").each(function () {
-		                         var discount = $(this).text();		                      
-		                         if ($.isNumeric(discount)) {
-		                            total_sum += parseFloat(discount);
-		                            }                  
-		                          });
-		                      $("#discount_sum").html(total_sum);					    		
+				    	/* 거스름돈 계산 */
+				    	function saleCulc(){
+				    		 var subtot_sum = $("#subtot_sum").text()*1;
+				    		 var received = $("#received").val()*1;
+
+		            		if(subtot_sum<=received){
+		               		 var change = (received-subtot_sum);
+		            			console.log('change--> '+change);
+		            			$("#change").html(change);
+		            		}else{
+		            			$("#change").html(0);
+		            		} 
+		                    					    		
 				    	};
 				    	
 				    	/* 바코드 img 해석*/
@@ -426,30 +510,32 @@ button.op:active {
 				    <tbody>
 				      <tr>
 						<td colspan="3" class="col3">
-						<input class="input-box" type="text"></input>
+						<div class="input-box">
+						    <input class="numInput" type="text" placeholder="0">
+						  </div>
 						</td>
 				      </tr>
 				      <tr>
-				        <td><button class="number">7</button></td>
-				        <td><button class="number">8</button></td>
-				        <td><button class="number">9</button></td>
+				        <td><button class="culcBtn number">7</button></td>
+				        <td><button class="culcBtn number">8</button></td>
+				        <td><button class="culcBtn number">9</button></td>
 
 				      </tr>
 				      <tr>
-				        <td><button class="number">4</button></td>
-				        <td><button class="number">5</button></td>
-				        <td><button class="number">6</button></td>
+				        <td><button class="culcBtn number">4</button></td>
+				        <td><button class="culcBtn number">5</button></td>
+				        <td><button class="culcBtn number">6</button></td>
 
 				      </tr>
 				      <tr>
-				        <td><button class="number">1</button></td>
-				        <td><button class="number">2</button></td>
-				        <td><button class="number">3</button></td>
+				        <td><button class="culcBtn number">1</button></td>
+				        <td><button class="culcBtn number">2</button></td>
+				        <td><button class="culcBtn number">3</button></td>
 
 				      </tr>
 				      <tr>
-				        <td colspan="2" class="col2"><button class="number">0</button></td>
-				        <td><button class="number">지움</button></td>
+				        <td colspan="2" class="col2"><button class="culcBtn number">0</button></td>
+				        <td><button class="culcBtn number">지움</button></td>
 
 				      </tr>
 				    </tbody>
@@ -475,23 +561,29 @@ button.op:active {
 
                   <div class="x_content">
 					
-					<table>
+					<table id="saleTable">
 				    <tbody>
+				     
 				      <tr>
-				        <td><button class="number">직접<br>입력</button></td>
-				        <td><input class="input-box" type="text"></td>				      
+				        <td><button class="culcBtn number">직접<br>입력</button></td>
+				        <td><div class="input-box"  style="width: 250px">
+						    <input class="numInput" type="text" placeholder="0">
+						  </div></td>				      
 				      </tr>
 				      <tr>
-				        <td><button class="number">받을<br>금액</button></td>
-				        <td><b><span class="subtot_sum"></span></b>원</td>
+				        <td><button class="culcBtn number">받을<br>금액</button></td>
+				        <td><b><span id="subtot_sum" class="subtot_sum"></span></b>원</td>
 				      </tr>
 				      <tr>
-				        <td><button class="number">받은<br>금액</button></td>
-				     	<td><input class="input-box" type="text">원</td>
+				        <td><button class="culcBtn number">받은<br>금액</button></td>
+				     	<td><div class="input-box">
+						    <input id="received" class="numInput" type="text" placeholder="0">원
+						  </div>
+						</td>
 				      </tr>
 				      <tr>
-				       	<td><button class="number">거스<br>름돈</button></td>
-				     	<td>원</td>
+				       	<td><button class="culcBtn number">거스<br>름돈</button></td>
+				     	<td><b><span id="change" class="subtot_sum"></span></b>원</td>
 				      </tr>
 				    </tbody>
 				  </table>
@@ -528,3 +620,5 @@ button.op:active {
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    <!-- Custom  -->
+    <script src="../build/js/custom.pos.js"></script>
