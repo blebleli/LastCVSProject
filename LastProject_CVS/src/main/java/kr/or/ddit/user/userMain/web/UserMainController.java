@@ -2,6 +2,7 @@ package kr.or.ddit.user.userMain.web;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -68,19 +69,46 @@ public class UserMainController {
 		logger.debug("requestUrl : {}", request.getRequestURL());
 		
 		//카테고리별 평점 best
-		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
+//		List<ProdVo> bestProd =  prodService.getCategoryBestProdList(ctgyNum);
+		List<ProdVo> bestProd = prodService.getOneCategoryProd();
+		
+//		logger.debug("bestProd ====> {}",  bestProd);
 
 		//이벤트별 리스트 들어가야함
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("view", "4");		  // 출력 개수
+		map.put("eventId", "201"); //1+1 행사
+		List<ProdVo> eventProd1 = prodService.getEventList(map);
+		
+		map.put("eventId", "200"); //2+1 행사
+		List<ProdVo> eventProd2 = prodService.getEventList(map);
+		
+		map.put("eventId", "201"); //할인
+		List<ProdVo> eventProd3 = prodService.getEventList(map);
+		
+		map.put("eventId", "200"); //pb
+		List<ProdVo> eventProd4 = prodService.getEventList(map);
+		
+		
+		logger.debug("eventProd1 ====> {}",  eventProd1);
+		logger.debug("eventProd2 ====> {}",  eventProd2);
+		logger.debug("eventProd3 ====> {}",  eventProd3);
+		logger.debug("eventProd4 ====> {}",  eventProd4);
+		
 		//조회수 리뷰 best3
 		List<BoardVo> bestReview = boardService.getBestProdReview();
 
 		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();
 
-
 		//model.addAttribute("ctgrName",ctgrName);
-		model.addAttribute("bestProd",bestProd);
+		model.addAttribute("bestProduct",bestProd);
+		
+		model.addAttribute("eventProd1",eventProd1);
+		model.addAttribute("eventProd2",eventProd2);
+		model.addAttribute("eventProd3",eventProd3);
+		model.addAttribute("eventProd4",eventProd4);
+		
 		model.addAttribute("bestReview",bestReview);
 		model.addAttribute("notice",notice);
 

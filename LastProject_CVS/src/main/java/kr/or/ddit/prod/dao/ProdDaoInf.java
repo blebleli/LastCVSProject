@@ -36,6 +36,15 @@ import kr.or.ddit.user.search.model.CvsSearchVo;
 	//List<ProdVo> getListProdBestCategoryOne()_카테고리별 최고 평점 제품 1건씩 조회 기능
 public interface ProdDaoInf {
 
+	/**
+	 * Method : getOneCategoryProd
+	 * 최초작성일 : 2018. 9. 13.
+	 * 작성자 : 	조종원
+	 * 변경이력 :	신규
+	 * @return  : List<ProdVo>
+	 * Method 설명 : 카테고리별 제품 최고 점수 1건
+	 */
+	List<ProdVo> getOneCategoryProd ();
 	
 	/**
 	 * Method : getListCtgyBestProdList
@@ -326,6 +335,21 @@ public interface ProdDaoInf {
 	 * Method 설명 : 카테고리별 베스트 제품 검색
 	 */
 	List<ProdVo> getListBestSearchProd(Map<String, Object> map);
+
+	/**
+	 * 
+	 * Method	: getCgEventProd
+	 * 최초작성일 : 2018. 9. 13.
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * 
+	 * @param map
+	 * 				map.put("eventId", "event1"); //1+1 행사
+					map.put("view", "4");		  // 출력 개수
+	 * @return
+	 * Method 설명 : 이벤트  상품
+	 */
+	List<ProdVo> getEventList(Map<String, Object> map);
 
 	
 }

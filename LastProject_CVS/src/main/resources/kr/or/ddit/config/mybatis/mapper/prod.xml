@@ -312,6 +312,50 @@ WHERE rn BETWEEN (#{page}-1) * #{pageSize}+1 AND #{page} * #{pageSize}
 
 
 
+<!-- 	아 이 디 : getListBestProd
+  		반 환 값 : prodVo
+  		매개변수 : 없음
+  		설    명 : 카테고리별 제품 최고 점수 1건
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-13    
+-->
+<select id="getOneCategoryProd" resultType="prodVo">
+SELECT F.PROD_ID
+      ,F.FILE_PATH
+      ,F.FILE_UPNAME
+FROM (
+    SELECT  T.*, ROW_NUMBER() OVER (PARTITION BY T.PR_CLASS_LG ORDER BY PROD_ID desc) AS RANK
+    FROM  (
+            SELECT  P.PROD_ID
+                   ,P.PR_CLASS_LG
+                   ,P.FILE_PATH
+                   ,P.FILE_UPNAME
+                   ,SUM(B.BD_RATING) AS BD_RATING
+            FROM PROD P
+            JOIN BOARD B
+            ON  P.PROD_ID = B.PROD_ID
+            GROUP BY P.PROD_ID ,P.PR_CLASS_LG, P.FILE_PATH ,P.FILE_UPNAME
+    )T
+)F
+WHERE  F.RANK = 1
+
+
+</select>
+
+<select id="getEventList" resultType="prodVo" parameterType="map">
+	SELECT  *
+	FROM (
+	    SELECT T.*,ROWNUM RN
+	    FROM  (
+	        SELECT  *
+	        FROM PROD
+	        WHERE EVENT_ID = #{eventId}
+	    )T
+	)F
+	WHERE F.RN BETWEEN 1  AND  #{view}
+
+</select>
+
 
 
 

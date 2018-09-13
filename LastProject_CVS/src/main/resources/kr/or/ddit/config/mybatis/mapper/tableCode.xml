@@ -79,7 +79,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="filedataCode" resultType="String">
-		SELECT NVL(MAX(FILE_ID), '100000')  AS CODE  FROM FILEDATA
+		SELECT NVL(MAX(FILE_ID), '0')  AS CODE  FROM FILEDATA
 	</select>
 
 	<!-- 	아 이 디 : eventCode
@@ -90,7 +90,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="eventCode" resultType="String">
-		SELECT  MAX(EVENT_ID) AS CODE  FROM EVENT
+		SELECT NVL( MAX(EVENT_ID), '0') AS CODE  FROM EVENT
 	</select>
 	
 	<!-- 	아 이 디 : categoryCode
@@ -101,7 +101,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="categoryCode" resultType="String">
-		SELECT  MAX(FILE_ID) AS CODE  FROM CATEGORY
+		SELECT NVL( MAX(FILE_ID),'0') AS CODE  FROM CATEGORY
 	</select>
 
 	<!-- 	아 이 디 : reserveCode
@@ -112,7 +112,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="reserveCode" resultType="String">
-		SELECT  MAX(RESERVE_ID) AS CODE  FROM RESERVE
+		SELECT NVL( MAX(RESERVE_ID),'0') AS CODE  FROM RESERVE
 	</select>
 
 	<!-- 	아 이 디 : stock_listCode
@@ -123,7 +123,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="stock_listCode" resultType="String">
-		SELECT  MAX(STCKLIST_ID) AS CODE  FROM STOCK_LIST
+		SELECT NVL( MAX(STCKLIST_ID),'0') AS CODE  FROM STOCK_LIST
 	</select>
 
 	<!-- 	아 이 디 : stockCode
@@ -134,7 +134,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="stockCode" resultType="String">
-		SELECT  MAX(STOCK_ID) AS CODE  FROM STOCK
+		SELECT NVL( MAX(STOCK_ID),'0') AS CODE  FROM STOCK
 	</select>
 	
 	<!-- 	아 이 디 : membershipCode
@@ -145,7 +145,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="membershipCode" resultType="String">
-		SELECT  MAX(MEMSHIP_ID) AS CODE  FROM MEMBERSHIP
+		SELECT NVL( MAX(MEMSHIP_ID),'0') AS CODE  FROM MEMBERSHIP
 	</select>
 	
 	<!-- 	아 이 디 : payCode
@@ -156,7 +156,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="payCode" resultType="String">
-		SELECT  MAX(PAY_ID) AS CODE  FROM PAY
+		SELECT NVL( MAX(PAY_ID),'0') AS CODE  FROM PAY
 	</select>
 	
 	<!-- 	아 이 디 : bookmarkCode
@@ -167,7 +167,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="bookmarkCode" resultType="String">
-		SELECT  MAX(STAR_ID) AS CODE  FROM BOOKMARK
+		SELECT NVL( MAX(STAR_ID),'0') AS CODE  FROM BOOKMARK
 	</select>
 	
 	<!-- 	아 이 디 : cvs_serviceCode
@@ -178,7 +178,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="cvs_serviceCode" resultType="String">
-		SELECT  MAX(SERVICE_ID) AS CODE  FROM CVS_SERVICE
+		SELECT NVL( MAX(SERVICE_ID),'0') AS CODE  FROM CVS_SERVICE
 	</select>
 
 
