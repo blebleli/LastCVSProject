@@ -1,13 +1,9 @@
 package kr.or.ddit.store_owner.web;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
-
 import kr.or.ddit.store_owner.model.salelistJoinVo;
 import kr.or.ddit.store_owner.soMain.service.soMainServiceInf;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -82,12 +78,19 @@ public class CvsChartController {
 	 */
 	@RequestMapping(value="/days", method=RequestMethod.GET)
 	@ResponseBody
-	public List<salelistJoinVo> days(@RequestParam(value="mem_id", defaultValue="") String mem_id){
-		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
+	public salelistJoinVo days(@RequestParam(value="mem_id", defaultValue="") String mem_id){
 		
-		System.out.println("saleList ================> " + saleList.size());
-		logger.debug("saleList ==> {}",saleList);
-		return saleList;
+		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id); // 쿼리 돌리기
+		
+		salelistJoinVo sale = new salelistJoinVo(); // Vo 오픈
+		
+		sale.setWeek1(saleList.get(0).getSd_sum()+4314); // 임의 값
+		sale.setWeek2(saleList.get(1).getSd_sum()+31333);
+		sale.setWeek3(saleList.get(2).getSd_sum());
+		sale.setWeek4(saleList.get(3).getSd_sum()+15333);
+	
+		sale.setMem_id(mem_id);		
+		return sale;
 	}
 	
 	/**
@@ -109,7 +112,7 @@ public class CvsChartController {
 		
 		sale.setWeek1(saleList.get(0).getSd_sum()+3333); // 임의 값
 		sale.setWeek2(saleList.get(1).getSd_sum()+3333);
-		sale.setWeek3(saleList.get(2).getSd_sum()+3333);
+		sale.setWeek3(saleList.get(2).getSd_sum()+11111);
 		sale.setWeek4(saleList.get(3).getSd_sum()+3333);
 		
 //		if(saleList.get(4).equals(null)){ // 5주가 없다면
@@ -139,12 +142,19 @@ public class CvsChartController {
 	 */
 	@RequestMapping(value="/month", method=RequestMethod.GET)
 	@ResponseBody
-	public List<salelistJoinVo> month(@RequestParam(value="mem_id", defaultValue="") String mem_id){
-		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
+	public salelistJoinVo month(@RequestParam(value="mem_id", defaultValue="") String mem_id){
 		
-		System.out.println("saleList ================> " + saleList.size());
-		logger.debug("saleList ==> {}",saleList);
-		return saleList;
+		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id); // 쿼리 돌리기
+		
+		salelistJoinVo sale = new salelistJoinVo(); // Vo 오픈
+		
+		sale.setWeek1(saleList.get(0).getSd_sum()+22214); // 임의 값
+		sale.setWeek2(saleList.get(1).getSd_sum()+34313);
+		sale.setWeek3(saleList.get(2).getSd_sum()-34153);
+		sale.setWeek4(saleList.get(3).getSd_sum()+15334);
+	
+		sale.setMem_id(mem_id);		
+		return sale;
 	}
 	
 	/**
@@ -158,12 +168,19 @@ public class CvsChartController {
 	 */
 	@RequestMapping(value="/years", method=RequestMethod.GET)
 	@ResponseBody
-	public List<salelistJoinVo> years(@RequestParam(value="mem_id", defaultValue="") String mem_id){
-		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
+	public salelistJoinVo years(@RequestParam(value="mem_id", defaultValue="") String mem_id){
 		
-		System.out.println("saleList ================> " + saleList.size());
-		logger.debug("saleList ==> {}",saleList);
-		return saleList;
+		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id); // 쿼리 돌리기
+		
+		salelistJoinVo sale = new salelistJoinVo(); // Vo 오픈
+		
+		sale.setWeek1(saleList.get(0).getSd_sum()+3333); // 임의 값
+		sale.setWeek2(saleList.get(1).getSd_sum()+25341);
+		sale.setWeek3(saleList.get(2).getSd_sum()-1300);
+		sale.setWeek4(saleList.get(3).getSd_sum()+14333);
+	
+		sale.setMem_id(mem_id);		
+		return sale;
 	}
 	
 	/**
@@ -180,6 +197,7 @@ public class CvsChartController {
 		String mem_id = "hsj";
 		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
 		model.addAttribute("saleList", saleList);
+		model.addAttribute("mem_id", mem_id);	
 		return "cvs_chart_prod";
 	}	
 }
