@@ -7,12 +7,6 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->   
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-    <!-- Datatables -->
-    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <!-- bootstrap-daterangepicker -->
@@ -238,6 +232,50 @@
 			   //echart Pie			  
 			if ($('#pie').length ){			  
 			  var echartPie = echarts.init(document.getElementById('pie'), theme);
+			  
+				var json_data = []; // 배열 초기화
+
+				for (var i = 0; i < 5; i++) { // 1주 ~ 5주 for문
+					json_data[i] = { // i 값 넣기
+						"title" : i + 1 + "위",
+						"금액" : $("#top" + (i + 1)).val()
+					};
+				}
+				
+				var col_title = ""; // 타이틀?
+				var col_data = []; // "금액" 배열 초기화
+				var col_data_name = []; // 처음부터 열 번째 값 필드, ["판매", "두 값"]; ???????????
+
+				var chart_title = new Array(); // '1주', '2주' ... Array 생성 
+				var chart_data = new Array(); // 데이터 값 Array 생성
+
+				var col = 0;
+				for ( var key in json_data[0]) { // json_data 각 배열 값은 key에 있다?
+					if (col == 0) // col이 0이면
+						col_title = key; // col_title 에 key 저장
+					else { // 아니라면
+						col_data.push(key); // col_data.push에 키 저장?
+						col_data_name.push(key); // col_data_name.push에 키 저장?
+					}
+					col++;
+				}
+				
+				for (var i = 0; i < col_data.length; i++) { // col_data 길이 for문
+					chart_data[i] = { // value값 넣기
+						"name" : col_data_name[i],
+						"type" : "bar",
+						"data" : []
+					//[5, 20, 40, 10, 10, 20]	      
+					};
+				}
+
+				for (var i = 0; i < json_data.length; i++) {
+					chart_title.push(json_data[i]["title"]); // 타이틀 배열 값 넣기
+					for (var j = 0; j < col_data.length; j++) {
+						var col_name = col_data[j];
+						chart_data[j].data.push(json_data[i][col_name]);
+					};
+				};
 
 			  echartPie.setOption({
 				tooltip: {
@@ -280,22 +318,23 @@
 				  type: 'pie',
 				  radius: '55%',
 				  center: ['50%', '48%'],
-				  data: [{
-					value: 335,
-					name: 'Direct Access'
-				  }, {
-					value: 310,
-					name: 'E-mail Marketing'
-				  }, {
-					value: 234,
-					name: 'Union Ad'
-				  }, {
-					value: 135,
-					name: 'Video Ads'
-				  }, {
-					value: 1548,
-					name: 'Search Engine'
-				  }]
+				  data: chart_title
+// 				  data: [{
+// 					value: 335,
+// 					name: 'Direct Access'
+// 				  }, {
+// 					value: 310,
+// 					name: 'E-mail Marketing'
+// 				  }, {
+// 					value: 234,
+// 					name: 'Union Ad'
+// 				  }, {
+// 					value: 135,
+// 					name: 'Video Ads'
+// 				  }, {
+// 					value: 1548,
+// 					name: 'Search Engine'
+// 				  }]
 				}]
 			  });
 
@@ -385,6 +424,14 @@
 				
 					<div class="x_content">
 						<div id="pie" style="height: 350px;"></div>
+					<div id="chartList">
+						<input type="text" id="top1" name="top1" value="${Top1 }">
+						<input type="text" id="top2" name="top2" value="${Top2 }">
+						<input type="text" id="top3" name="top3" value="${Top3 }">
+						<input type="text" id="top4" name="top4" value="${Top4 }">
+						<input type="text" id="top5" name="top5" value="${Top5 }">
+						<input type="text" id="mem_id" name="mem_id" value=${mem_id }>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -424,7 +471,7 @@
 	<script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
+<!--
 <script>
     $('#myDatepicker').datetimepicker();
     
@@ -455,3 +502,4 @@
         $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
     });
 </script>
+-->

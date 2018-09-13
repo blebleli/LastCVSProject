@@ -1,17 +1,20 @@
 package kr.or.ddit.model;
 
+import java.util.Date;
+
 public class SaleDisVo {
 	
 	private String sd_id;                               // 판매코드
-	private String sd_date;                               // 판매일시
+	private Date sd_date;                               // 판매일시
 	private int sd_sum;                               // 총금액
 	private String sale_kind;                               // 판매 : 88, 폐기 : 99
 	private String mem_id;                               // 아이디
+	
 	public SaleDisVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public SaleDisVo(String sd_id, String sd_date, int sd_sum,
+	
+	public SaleDisVo(String sd_id, Date sd_date, int sd_sum,
 			String sale_kind, String mem_id) {
 		super();
 		this.sd_id = sd_id;
@@ -26,10 +29,10 @@ public class SaleDisVo {
 	public void setSd_id(String sd_id) {
 		this.sd_id = sd_id;
 	}
-	public String getSd_date() {
+	public Date getSd_date() {
 		return sd_date;
 	}
-	public void setSd_date(String sd_date) {
+	public void setSd_date(Date sd_date) {
 		this.sd_date = sd_date;
 	}
 	public int getSd_sum() {
@@ -56,7 +59,4 @@ public class SaleDisVo {
 				+ ", sd_sum=" + sd_sum + ", sale_kind=" + sale_kind
 				+ ", mem_id=" + mem_id + "]";
 	}
-	
-	
-
 }

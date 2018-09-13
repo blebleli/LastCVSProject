@@ -15,6 +15,51 @@
     	ORDER BY sale_sum DESC)
 	</select>
 	
+<!-- 	<select id="getListSaleDis" parameterType="String" resultType="saledisjoinVo"> -->
+<!-- 		SELECT A.WEEK_START,A.WEEK_END,A.WEEK_OF_MONTH,NVL(SUM(B.sd_sum),0) sd_sum -->
+<!-- 		FROM  -->
+<!-- 		( -->
+<!-- 		  with ISO as -->
+<!-- 		  ( -->
+<!-- 		   select -->
+<!-- 		     to_char(WEEK_START, 'YYYY-MM-DD') WEEK_START -->
+<!-- 		    ,to_char(WEEK_END, 'YYYY-MM-DD') WEEK_END -->
+<!-- 		    ,to_char(WEEK_START, 'W') WEEK_OF_MONTH -->
+<!-- 		    from -->
+<!-- 		    ( -->
+<!-- 		      select -->
+<!-- 		       trunc(START_DT + LEVEL, 'D') WEEK_START -->
+<!-- 		      ,trunc(START_DT + LEVEL, 'D') + 6 WEEK_END -->
+<!-- 		      from -->
+<!-- 		      ( -->
+<!-- 		        select  -->
+<!-- 		         to_date('20180901', 'YYYYMMDD') - 1 START_DT -->
+<!-- 		        ,to_date('20180930', 'YYYYMMDD') END_DT from DUAL -->
+<!-- 		       ) -->
+<!-- 		      connect by LEVEL [CDATA[<]]= END_DT - START_DT -->
+<!-- 		      ) -->
+<!-- 		      group by WEEK_START, WEEK_END -->
+<!-- 		      order by week_start -->
+<!-- 		      ) -->
+<!-- 		      select a.* from ISO a -->
+<!-- 		) A LEFT OUTER JOIN -->
+<!-- 		( -->
+<!-- 		  SELECT DISTINCT sd_sum, sd_date, mem_id from( -->
+<!-- 		  SELECT sd_sum, prod_name, mem_id, sd_date -->
+<!-- 		  FROM  sale_dis   sale -->
+<!-- 		  JOIN  sale_list  salelist -->
+<!-- 		  ON    sale.sd_id = salelist.sd_id -->
+<!-- 		  JOIN  prod       prod -->
+<!-- 		  ON    salelist.prod_id = prod.prod_id -->
+<!-- 		  WHERE sd_date BETWEEN TO_DATE('2018-09-01','YYYY-MM-DD') AND TO_DATE('2018-09-30','YYYY-MM-DD') + 0.99999 -->
+<!-- 		  AND sale.mem_id = #{mem_id}) -->
+<!-- 		) B -->
+<!-- 		ON((B.sd_date BETWEEN A.WEEK_START AND A.WEEK_END)) -->
+<!-- 		WHERE SUBSTR(A.WEEK_START,6,2) != EXTRACT(MONTH FROM TO_DATE('2018-09-01')-1) -->
+<!-- 		GROUP BY A.WEEK_START,A.WEEK_END,A.WEEK_OF_MONTH -->
+<!-- 		ORDER BY 1 -->
+<!-- 	</select> -->
+	
 	<!-- 제품별 통계 조회, 작성자 : 김마음 -->
 	<select id="getListProdSales" parameterType="String" resultType="saledisjoinVo">
 		SELECT prod_name, COUNT(1)
@@ -26,6 +71,6 @@
 		WHERE sd_date BETWEEN TO_DATE('2018-09-10','YYYY-MM-DD') AND TO_DATE('2018-09-11','YYYY-MM-DD') + 0.99999
 		AND sale.mem_id = #{mem_id}
 		GROUP BY prod_name
-		RDER BY prod_name ASC;
+		ORDER BY prod_name ASC
 	</select>
 </mapper>

@@ -28,7 +28,7 @@ public class SaleDisDao implements SaleDisDaoInf {
 	 */	
 	@Override
 	public int setInsertSaleDis(SaleDisVo saleDisVo) {
-		return 0;
+		return template.insert("saledis.setInsertSaleDis", saleDisVo);
 	}
 
 	@Override
@@ -48,6 +48,8 @@ public class SaleDisDao implements SaleDisDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
 
-
+	
 }

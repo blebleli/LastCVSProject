@@ -53,7 +53,7 @@ public class CvsChartController {
 	public String chartDay(Model model){		
 		String mem_id = "hsj";		
 		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
-		
+	
 		System.out.println("saleList ================> " + saleList.size());
 			for (int i = 0; i < saleList.size(); i++){
 			model.addAttribute("week"+(i+1), saleList.get(i).getSd_sum());
@@ -195,9 +195,15 @@ public class CvsChartController {
 	@RequestMapping("/chartProd") // 통계 (제품별)
 	public String chartProd(Model model){
 		String mem_id = "hsj";
-		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
+		List<salelistJoinVo> saleList = somainService.getListProdSales(mem_id);
+		
+		for(int i = 0; i < 5; i++){
+			model.addAttribute("Top"+(i+1), saleList.get(i).getProd_name());
+			System.out.println("Top"+(i+1) + saleList.get(i).getProd_name());
+		}
+		
 		model.addAttribute("saleList", saleList);
-		model.addAttribute("mem_id", mem_id);	
+		model.addAttribute("mem_id", mem_id);
 		return "cvs_chart_prod";
 	}	
 }

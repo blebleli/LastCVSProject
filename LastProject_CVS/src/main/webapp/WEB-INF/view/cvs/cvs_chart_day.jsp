@@ -280,10 +280,8 @@
 				for (var j = 0; j < col_data.length; j++) {
 					var col_name = col_data[j];
 					chart_data[j].data.push(json_data[i][col_name]);
-				}
-				;
-			}
-			;
+				};
+			};
 
 			var echartBar = echarts.init(document.getElementById('mainb2'),
 					theme);
@@ -592,7 +590,7 @@
 			</div>
 		</div>
 
-
+  
 		<!-- lineChart -->
 		<div class="col-md-11 col-sm-11 col-xs-11">
 			<div class="x_panel">
