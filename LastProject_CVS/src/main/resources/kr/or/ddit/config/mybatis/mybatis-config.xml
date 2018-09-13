@@ -61,7 +61,8 @@
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/prod.xml"/> 
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale.xml"/> 
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/comments.xml"/>
-	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale_dis.xml"/>	
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale_dis.xml"/> <!-- sale_dis(판매/폐기) -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/saledis_Join.xml"/>	<!-- sale_dis(판매/폐기), sale_list(판매상세조회) Join -->
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/stock.xml"/>	
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/supply.xml"/>	
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/bookmark.xml"/>	
