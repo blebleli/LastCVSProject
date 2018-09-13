@@ -1,6 +1,9 @@
 package kr.or.ddit.store_owner.web;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -38,7 +42,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * 
  * </pre>
  */
-@SessionAttributes({"SupplyList"})
+@SessionAttributes({"supplyList","pageNavi"})
 @RequestMapping("/cvs")
 @Controller("cvsSupplyIn")
 public class CvsSupplyInController {
@@ -59,21 +63,21 @@ public class CvsSupplyInController {
 	* @return
 	*/
 	@RequestMapping("/supplyIn")
-	public String cvsSupplyIn(Model model){
+	public String cvsSupplyIn(@RequestParam(value="page", defaultValue="1") int page,
+							  @RequestParam(value="pageSize", defaultValue="10") int pageSize,
+							  Model model){
+		Map<String, Integer> paramMap = new HashMap<String, Integer>();
+		
+		//getSupplyPageList메서드에서 원하는 Map 타입에 page이름으로 값을 1, pageSize이름으로 값을 10을 넣어서 넘겨준다
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
 		
 		//입고 리스트 전체 출력 
-		List<SupplySumProdVo> supplyList = suppltService.getListSupply();
-//		for (SupplySumProdVo supplySumProdVo : supplyList) {
-//			logger.debug("supplySumProdVo.getRnum( : "+supplySumProdVo.getRnum());
-//			logger.debug("supplySumProdVo.getSum() : "+supplySumProdVo.getSum());
-//			logger.debug("supplySumProdVo.getSplylist_sum() : "+supplySumProdVo.getSplylist_sum());
-//			logger.debug("supplySumProdVo.getSupply_bcd() : "+supplySumProdVo.getSupply_bcd());
-//			logger.debug("supplySumProdVo.getSupply_date() : "+supplySumProdVo.getSupply_date());
-//			logger.debug("supplySumProdVo.getSupply_state() : "+supplySumProdVo.getSupply_state());
-//		}
+		Map<String, Object> resultMap = suppltService.getSupplyPageList(paramMap);
 		
-		//입고 전체 목록
-		model.addAttribute("supplyList",supplyList);
+		//입고 리스트 전체 목록("pageNavi","supplyList","totCnt")
+		model.addAllAttributes(resultMap);
+		
 		return "cvs_supply_in";
 	}
 	
@@ -87,16 +91,28 @@ public class CvsSupplyInController {
 	* @param model
 	* @return
 	*/
-	@RequestMapping(value="/supplyDetail", method=RequestMethod.GET)
-	public String cvsSupplyDetail(SupplyVo vo, Model model){
+	@RequestMapping(value="/supplyDetail" )
+	public String cvsSupplyDetail(@RequestParam(value="page", defaultValue="1") int page,
+								  @RequestParam(value="pageSize", defaultValue="10") int pageSize,
+								  SupplyVo vo, 
+								  Model model){
 		
-		//입고 상세보기 화면에서 발주 신청한 제품들의 정보 가져오기
-		List<SupplyProdVo> prodList = suppltService.getSupplyProdInfo(vo.getSupply_bcd());
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		//getSupplyPageList메서드에서 원하는 Map 타입에 page이름으로 값을 1, pageSize이름으로 값을 10을 넣어서 넘겨준다
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("supply_bcd", vo.getSupply_bcd());
+		paramMap.put("supply_date", vo.getSupply_date());
+		paramMap.put("supply_state", vo.getSupply_state());
+		
+		Map<String, Object> resultMap = suppltService.getSupplyProdPageList(paramMap);
 		
 		//입고 리스트 상세내역에서 날짜,편의점코드,수불바코드를 넘겨준다.
 		model.addAttribute("vo",vo);
+		
 		//입고 리스트 상세내역에 필요한 정보들(수량,제품이름,제품코드,제품가격)
-		model.addAttribute("prodList",prodList);
+		model.addAllAttributes(resultMap);
 		
 		//입고 상세 내역에서 제품들 가격의 총합을 구하는 메서드 실행
 		int sum = suppltService.sumProdPrice(vo.getSupply_bcd());
