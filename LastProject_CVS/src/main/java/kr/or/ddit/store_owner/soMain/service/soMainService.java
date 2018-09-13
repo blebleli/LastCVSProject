@@ -28,4 +28,18 @@ public class soMainService implements soMainServiceInf {
 	public List<salelistJoinVo> getListSaleDis(String mem_id){ 
 		return somainDao.getListSaleDis(mem_id);
 	}
+	
+	/**
+	 * Method : getListProdSales
+	 * 최초작성일 : 2018. 9. 13.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return
+	 * Method 설명 : List<salelistJoinVo> getListProdSales()_제품 판매량 리스트 출력
+	 */
+	@Override
+	public List<salelistJoinVo> getListProdSales(String mem_id) {
+		return somainDao.getListProdSales(mem_id);
+	}
 }

@@ -26,7 +26,7 @@ public class soMainDao implements soMainDaoInf {
 	*/
 	@Override
 	public List<salelistJoinVo> getListSaleDis(String mem_id) {
-		return template.selectList("saledis.getListSaleDis",mem_id);
+		return template.selectList("saledisJoin.getListSaleDis",mem_id);
 	}
 
 	@Override
@@ -34,4 +34,18 @@ public class soMainDao implements soMainDaoInf {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	/**
+	 * Method : getListProdSales
+	 * 최초작성일 : 2018. 9. 13.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return
+	 * Method 설명 : List<salelistJoinVo> getListProdSales()_제품 판매량 리스트 출력
+	 */
+	@Override
+	public List<salelistJoinVo> getListProdSales(String mem_id) {
+		return template.selectList("saledisJoin.getListProdSales", mem_id);
+	}	
 }
