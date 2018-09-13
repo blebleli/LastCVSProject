@@ -23,7 +23,6 @@ public class SupplyDao implements SupplyDaoInf {
 	@Override
 	public int setInsertSupply(SupplyVo supplyVo) {
 		int result =template.insert("supply.insertSupply", supplyVo);
-		template.close();
 		return result;
 	}
 
@@ -70,8 +69,7 @@ public class SupplyDao implements SupplyDaoInf {
 
 	@Override
 	public int setInsertSupplyList(SupplyListVo supplyListVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("supply.insertSupplyList", supplyListVo);
 	}
 
 	@Override
