@@ -34,8 +34,8 @@ public class BookmarkDao implements BookmarkDaoInf {
 	 * Method 설명 : 회원이 즐겨찾기한 리스트
 	 */
 	@Override
-	public List<BookmarkVo> getListBookmark(String mem_id) {
-		return template.selectList("bookmark.getListBookmark", mem_id);
+	public List<BookmarkVo> getProdBookmarkList(String mem_id) {
+		return template.selectList("bookmark.getProdBookmarkList", mem_id);
 	}
 
 	@Override

@@ -169,14 +169,14 @@ public class UserMainController {
 		
 
 		//==============================================
-		//== 로그인한 회원의 즐겨찾는 제품
-		List<BookmarkVo> bookmarkList = bookmarkService.getBookmarkList(mem_id);
-		model.addAttribute("bookmarkList", bookmarkList);
+		//== 로그인한 회원의 즐겨찾는 제품 리스트
+		List<BookmarkVo> prodBookmarkList = bookmarkService.getProdBookmarkList(mem_id);
+		model.addAttribute("prodBookmarkList", prodBookmarkList);
 		//==============================================
 		
 		
 		//==============================================
-		//== 로그인한 회원의 즐겨찾는 제품
+		//== 
 		MemberShipVo shipVo = new MemberShipVo();
 		shipVo.setMemship_id("shipID");
 		shipVo.setMem_id(mem_id);

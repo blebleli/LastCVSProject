@@ -44,16 +44,17 @@ public interface BookmarkDaoInf {
 	*/
 	int setInsertBookmark(BookmarkVo bookmarkVo);
 	
+	
 	/**
 	* Method : getListBookmark
 	* Method 설명 : 각자 본인이 등록한 북마크 리스트 출력 기능
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
-	* 변경이력 : 신규
-	* 조 회 :List<BookmarkVo> getListBookmark(String mem_id)_각자 본인이 등록한 북마크 리스트 출력 기능
+	* 변경이력 : 2018. 9. 10. 수정 : 공은별
+	* 조 회 :List<BookmarkVo> getProdBookmarkList(String mem_id)_각자 본인이 등록한 북마크 리스트 출력 기능
 	* @return
 	*/
-	List<BookmarkVo> getListBookmark(String mem_id);
+	List<BookmarkVo> getProdBookmarkList(String mem_id);
 	
 	/**
 	* Method : updateBookmark

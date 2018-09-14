@@ -3,18 +3,23 @@ package kr.or.ddit.model;
 // 09.11 KONG : prod_name , prod_price 항목 추가함
 public class BookmarkVo {
 	
-	private String star_id;                               // 즐겨찾기코드
-	private String mem_id;                               // 회원
+	private String star_id;                               	// 즐겨찾기코드
+	private String mem_id;                               	// 회원
 	private String star_kind;                               // 제품 :111 , 장소 : 222
+	private String prod_id;                              	 // 제품바코드
+	private String place_id;  								// 편의점
+	
 	private String star_content;                               // 내용
 	private String star_info;                               // 비고
 	private int star_x;                               // 좌표_x
 	private int star_y;                               // 좌표_y
-	private String prod_id;                               // 제품바코드
-	private String place_id;                               // 편의점
-	
+                             
 	private String prod_name;
 	private String prod_price;
+	
+	private String file_path;
+	private String file_upname;
+	
 	
 	public BookmarkVo() {
 		super();
@@ -122,6 +127,24 @@ public class BookmarkVo {
 
 	public void setProd_price(String prod_price) {
 		this.prod_price = prod_price;
+	}
+	
+	
+
+	public String getFile_path() {
+		return file_path;
+	}
+
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
+	}
+
+	public String getFile_upname() {
+		return file_upname;
+	}
+
+	public void setFile_upname(String file_upname) {
+		this.file_upname = file_upname;
 	}
 
 	@Override
