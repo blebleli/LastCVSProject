@@ -11,24 +11,22 @@
 <!-- login css  -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link> 
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/scom.css' />"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/layout.css' />"></link>
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>  <!-- 버튼 먹음  -->
 
-<!-- css -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	<!-- font-awesome icons -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link>
+ <!-- css -->
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	<!-- font-awesome icons --> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps --> --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link> --%>
 
-
-<!-- js -->
+ <!-- js --> 
 <script type="text/javascript" src="<c:url value='/js/common/jquery-1.11.1.min.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/move-top.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
-<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> <!-- 달력 : 별 09.07 -->
+<%-- <script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> <!-- 달력 : 별 09.07 --> --%>
 
 
 <style>
@@ -49,6 +47,16 @@
 	border-radius: .25em;
 }
 span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
+
+.col-md-5 {
+    width: 31.66666667%;
+    padding-bottom: 15px;
+}
+a img.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: 180px;
+}
 </style>
 
 
@@ -592,12 +600,18 @@ $(document).ready(function() {
 																<h4>가격</h4>
 															</div>
 															<div class="snipcart-details">
-																<form action="#" method="post">
+																<form action="#" method="post"> 
 																	<fieldset>
-																		<input type="hidden" name="cmd" value="_cart" /> <input type="hidden" name="add" value="1" /> <input type="hidden" name="business" value=" " /> <input type="hidden"
-																			name="item_name" value="knorr instant soup" /> <input type="hidden" name="amount" value="3.00" /> <input type="hidden" name="discount_amount" value="1.00" /> <input type="hidden"
-																			name="currency_code" value="USD" /> <input type="hidden" name="return" value=" " /> <input type="hidden" name="cancel_return" value=" " /> <input type="submit" name="submit"
-																			value="Add to cart" class="button" />
+																		<input type="hidden" name="cmd" value="_cart" /> 
+																		<input type="hidden" name="add" value="1" /> 
+																		<input type="hidden" name="business" value=" " /> 
+																		<input type="hidden" name="item_name" value="knorr instant soup" />
+																		<input type="hidden" name="amount" value="3.00" /> 
+																		<input type="hidden" name="discount_amount" value="1.00" /> 
+																		<input type="hidden" name="currency_code" value="USD" /> 
+																		<input type="hidden" name="return" value=" " /> 
+																		<input type="hidden" name="cancel_return" value=" " /> 
+																		<input type="submit" name="submit" value="Add to cart" class="button" />
 																	</fieldset>
 																</form>
 															</div>
@@ -621,7 +635,7 @@ $(document).ready(function() {
 						<table class="data table table-striped no-margin">
 							<thead>
 								<tr>
-									<th>지점명</th>
+									<th>편의점명</th>
 									<th>주소</th>
 								</tr>
 							</thead>
@@ -640,15 +654,16 @@ $(document).ready(function() {
 
 					<!-- 즐겨찾는 상품----------------------------------------------------------------------------------------------------------- -->
 					<div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-bookmarkProd">
-						<div class="col-md-10 col-sm-10 col-xs-12">
+						
 							<div class="x_panel">
 								<div class="x_title">
-									<h2>즐겨찾는 상품</h2>
+									<h3>즐겨찾는 상품</h3>
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
 									<br />
-
+										<c:forEach items="${prodBookmarkList}" var="vo">
+											<c:if test="${vo.star_kind eq '111'}">
 									<div class="col-md-5 w3ls_w3l_banner_left">
 										<div class="hover14 column">
 											<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
@@ -658,10 +673,9 @@ $(document).ready(function() {
 												<div class="agile_top_brand_left_grid1 ">
 													<figure>
 														<div class="snipcart-item block">
-															<c:forEach items="${bookmarkList}" var="vo">
-																<c:if test="${vo.star_kind eq '111'}">
+																<c:set var="prod_img" value="${vo.file_path}/${vo.file_upname }"/>
 																	<div class="snipcart-thumb">
-																		<a href="/userProd/detail?prod_id=${vo.prod_id}"> <img src="/images/5.png" alt=" " class="img-responsive" />
+																		<a href="/userProd/detail?prod_id=${vo.prod_id}"> <img src="<c:url value='${prod_img}' />"  alt="prod img" class="img-responsive" />
 																		</a>
 																		<p align="center">${vo.prod_name}</p>
 																		<h4 align="center">${vo.prod_price}원</h4>
@@ -669,25 +683,30 @@ $(document).ready(function() {
 																	<div class="snipcart-details">
 																		<form action="#" method="post">
 																			<fieldset>
-																				<input type="hidden" name="cmd" value="_cart" /> <input type="hidden" name="add" value="1" /> <input type="hidden" name="business" value=" " /> <input type="hidden"
-																					name="item_name" value="knorr instant soup" /> <input type="hidden" name="amount" value="3.00" /> <input type="hidden" name="discount_amount" value="1.00" /> <input
-																					type="hidden" name="currency_code" value="USD" /> <input type="hidden" name="return" value=" " /> <input type="hidden" name="cancel_return" value=" " /> <input type="submit"
-																					name="submit" value="Add to cart" class="button" />
+																				<input type="hidden" name="cmd" value="_cart" /> 
+																				<input type="hidden" name="add" value="1" /> 
+																				<input type="hidden" name="business" value=" " /> 
+																				<input type="hidden" name="item_name" value="knorr instant soup" /> 
+																				<input type="hidden" name="amount" value="3.00" /> 
+																				<input type="hidden" name="discount_amount" value="1.00" /> 
+																				<input type="hidden" name="currency_code" value="USD" /> 
+																				<input type="hidden" name="return" value=" " /> 
+																				<input type="hidden" name="cancel_return" value=" " /> 
+																				<input type="submit" name="submit" value="상세보기" class="button" />
 																			</fieldset>
 																		</form>
 																	</div>
-																</c:if>
-															</c:forEach>
 														</div>
 													</figure>
 												</div>
 											</div>
 										</div>
 									</div>
-
+										</c:if>
+									</c:forEach>
 								</div>
 							</div>
-						</div>
+				
 					</div>
 					<!-- 구매내역----------------------------------------------------------------------------------------------------------- -->
 					<div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-buyHistory">
@@ -704,7 +723,7 @@ $(document).ready(function() {
 							</thead>
 							<tbody>
 								<c:forEach items="${myPayList}" var="vo">
-									<tr class="paytr" style="cursor: pointer;">
+									<tr class="paytr" style=" cursor: pointer;">
 										<td>${vo.pay_id}</td>
 										<td>${vo.pay_date}의결제내역</td>
 										<td>총수량예정</td>

@@ -13,6 +13,19 @@
 <style type="text/css">
 	div.field{width:750px}
 	span.error_txt.small{display:inline;color:#ef0202;font-size:10px;}
+	
+
+
+.bn_ar .bn.color1 {
+    background-color: #84c639;
+    border-color: #ffffff;
+    color: #fff;
+}
+
+.bn_ar .bn.color1 .bn.color:hover {
+	background: #f39c12;
+}
+
 </style>
 
 <!-- 달력 js -->
@@ -323,8 +336,8 @@ function fn_errMessage(_obj, _text) {
 										<font style="font-size: 24px;color: #6633cc;"><span class="msg_wrap"></span></font>
 									</label>
 								</div>
-								<div class="bn_ar1">
-									<a href="javascript:void(0);" class="bn color1 coop4Dev" id="btnLoginView">로그인하기</a>
+								<div class="bn_ar">
+									<a href="javascript:void(0);" class="bn color coop4Dev" id="btnLoginView">로그인하기</a>
 								</div>
 							</fieldset>
 						</div>
