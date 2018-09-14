@@ -6,7 +6,7 @@
 
 	<!-- 	아 이 디 : getListSupply
 	  		반 환 값 : supplySumProdVo
-	  		매개변수 : 
+	  		매개변수 : String(place_id)
 	  		설    명 : 입고 목록 전체 출력 
 	  		작 성 자 : 조계환
 	  		일    시 : 2018-09-11     
@@ -19,6 +19,7 @@
 		      FROM supply a, supply_list b, prod c
 		      WHERE a.place_id='3630000-104-2015-00121' 
 		      AND c.prod_id = b.prod_id   
+		      AND a.supply_state = 12
 		      AND a.supply_bcd = b.supply_bcd
 		      GROUP BY a.supply_bcd, a.supply_date,a.supply_state
 		) T  WHERE rownum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
@@ -155,5 +156,22 @@
                 			   #{supply_bcd},
                 			   #{prod_id})
 	</insert>
+	
+	<!-- 	아 이 디 : supplyScanInfo
+	  		반 환 값 : supplyProdVo
+	  		매개변수 : String(supply_bcd)
+	  		설    명 : 입고 바코드나 직접 입력했을 시 출력할 입고 정보 리스트
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-14     
+	-->
+	<select id="supplyScanInfo" parameterType="String" resultType="supplyScanInfoVo">
+		SELECT rownum rnum,T.*
+		FROM (SELECT a.prod_id, b.SPLYLIST_INFO, a.prod_name, a.prod_price, b.splylist_sum, c.supply_state
+		FROM prod a, supply_list b, supply c
+		WHERE b.supply_bcd=#{supply_bcd}
+		AND b.SUPPLY_BCD = c.SUPPLY_BCD
+		AND a.prod_id = b.prod_id) T
+	</select>
+	
 	
 </mapper>

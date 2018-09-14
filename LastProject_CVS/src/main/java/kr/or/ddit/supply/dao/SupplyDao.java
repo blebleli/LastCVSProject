@@ -14,6 +14,7 @@ import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.model.SupplySumProdVo;
 
 @Repository("supplyDao")
@@ -198,6 +199,11 @@ public class SupplyDao implements SupplyDaoInf {
 	@Override
 	public int getSupplyProdListTotCnt(String supply_bcd) {
 		return template.selectOne("supply.supplyProdTotCnt",supply_bcd);
+	}
+
+	@Override
+	public List<SupplyScanInfoVo> getSupplyScanInfoList(String supply_bcd) {
+		return template.selectList("supply.supplyScanInfo",supply_bcd);
 	}
 
 

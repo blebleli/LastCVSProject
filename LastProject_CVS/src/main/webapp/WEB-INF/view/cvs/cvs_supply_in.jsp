@@ -30,17 +30,12 @@
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
 	               	<div class="input-group">
-	                  	<select name="search" class="form-control">
-						    <option value="date">날짜별</option>
-						    <option value="code">코드별</option>
-						    <option value="supply">처리별</option>
-						</select>
-						<span class="input-group-btn">
-	                  		<select name="search" class="btn btn-default">
-							    <option value="y">입고완료</option>
-							    <option value="n">입고확인바람</option>
+		               	<span class="input-group-btn">
+		                  	<select name="search" class="form-control">
+							    <option value="date">날짜별</option>
+							    <option value="code">코드별</option>
 							</select>
-	                  	</span>
+		               	</span>
 					</div>
 					
 	                <div class="input-group">
@@ -102,11 +97,8 @@
 									<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 -->
 										<c:choose>
 											<c:when test="${vo.supply_state == 12 }">
-												입고완료
+												입고확인완료
 											</c:when>
-											<c:otherwise>
-										    	입고확인바람
-										    </c:otherwise>
 										</c:choose>
 									</td>
 									<td>${vo.splylist_sum}</td>					<!-- 총수량 -->

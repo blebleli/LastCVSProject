@@ -1,7 +1,6 @@
 package kr.or.ddit.store_owner.web;
 
 import java.awt.image.BufferedImage;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +16,8 @@ import javax.imageio.ImageIO;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
+import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,6 +72,38 @@ public class CvsBarcodeController {
 	
 	@RequestMapping("/barcode")
 	public String cvsBarcode(Model model){
+		return "cvs_barcode_read";
+	}
+	
+	/**
+	* Method : barcodeScan
+	* Method 설명 :입고 바코드를 스캔하거나 직접입력했을 때 입고리스트 정보 출력 메서드
+	* 최초작성일 : 2018. 9. 14.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param barcodeValue
+	* @param model
+	* @return
+	*/
+	@RequestMapping(value="/barcodeScan", method={RequestMethod.GET,RequestMethod.POST})
+	public String barcodeScan(@RequestParam(value="barcodeValue",defaultValue="")String barcodeValue,
+							  Model model){
+		
+		//입고스캐너나 직접 입력을 통한 수불 바코드가 잘 가져오는지 확인 logger
+		logger.debug("barcodeValue : {}   ",  barcodeValue);
+		
+		//받아온 수불 바코드로 그에 대한 제품 정보들을 List형태로 가져온다
+		List<SupplyScanInfoVo>getSupplyScanInfoList = supplyService.getSupplyScanInfoList(barcodeValue);
+		
+		for (SupplyScanInfoVo supplyScanInfoVo : getSupplyScanInfoList) {
+			logger.debug("supplyProdVo.getProd_name() : {}",supplyScanInfoVo.getProd_name());
+			logger.debug("supplyScanInfoVo.getSupply_state() : {}",supplyScanInfoVo.getSupply_state());
+		}
+		
+		model.addAttribute("state",getSupplyScanInfoList.get(0).getSupply_state());
+		model.addAttribute("scanList",getSupplyScanInfoList);
+		
 		return "cvs_barcode_read";
 	}
 

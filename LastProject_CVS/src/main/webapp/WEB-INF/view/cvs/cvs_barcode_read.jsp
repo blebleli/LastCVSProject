@@ -1,4 +1,4 @@
-﻿
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -16,19 +16,19 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Tables <small>Some examples to get you started</small></h3>
+                <h3>바코드 인식 <small>입고된 물품리스트의 바코드를 스캔하는 페이지입니다.</small></h3>
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
+<!--               <div class="title_right"> -->
+<!--                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search"> -->
+<!--                   <div class="input-group"> -->
+<!--                     <input type="text" class="form-control" placeholder="Search for..."> -->
+<!--                     <span class="input-group-btn"> -->
+<!--                       <button class="btn btn-default" type="button">Go!</button> -->
+<!--                     </span> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--               </div> -->
             </div>
 
             <div class="clearfix"></div>
@@ -36,7 +36,7 @@
               <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>바코드 인식 <small>different form elements</small></h2>
+                    <h2>바코드 인식 <small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -143,16 +143,26 @@
               <div class="col-md-8 col-sm-8 col-xs-9">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>입고리스트 <small>Custom design   </small></h2>
-                    <button class="btn btn-primary">선택삭제</button>
-                    <button type="submit" class="btn btn-success">Submit</button>
+                    <h2>입고리스트 <small>   </small></h2>
+                    <button type="submit" class="btn btn-success">선택삭제</button>
+                    <button class="btn btn-primary">입고완료</button>
                     
                     <div class="clearfix"></div>
                   </div>
 
                   <div class="x_content">
 
-                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+                    <p>
+                    	<form action="/cvs/barcodeScan" method="post">
+	                   		<h2>
+	                   			바코드 직접입력  <input type="text" name="barcodeValue" required="required">
+	                   			<button type="submit"  class="btn btn-primary">검색</button>
+	                   			<c:if test="${state == 12}">
+	                   				이미 입고 확인 완료된 상태 입니다.
+	                   			</c:if>
+	                   		</h2>
+                   		</form>
+                    </p>
 
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
@@ -161,13 +171,12 @@
                             <th>
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
-                            <th class="column-title">ID </th>
-                            <th class="column-title">exdate </th>
-                            <th class="column-title">sum </th>
-                            <th class="column-title">supplyBCD</th>
-                            <th class="column-title">prodID </th>
-                            <th class="column-title no-link last"><span class="nobr">Action</span>
-                            </th>
+                            <th class="column-title">번호</th>
+                            <th class="column-title">상품이름</th>
+                            <th class="column-title">상품코드</th>
+                            <th class="column-title">비고</th>
+                            <th class="column-title">가격</th>
+                            <th class="column-title no-link last">수량</th>
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                             </th>
@@ -176,31 +185,19 @@
 
                         <tbody id="testDiv">    
                                                                    
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">John Blank L</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 23, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">John Blank L</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                                              
+	                        <c:forEach items="${scanList}" var="vo"> 
+	                        	<tr class="even pointer">
+		                            <td class="a-center ">
+		                            	<input type="checkbox" class="flat" name="table_records">
+		                            </td>
+		                            <td>${vo.rnum}</td>
+		                            <td>${vo.prod_name}</td>
+		                            <td>${vo.prod_id}</td>
+		                            <td><input type="text" value="${vo.splylist_info}"></td>
+		                            <td class="a-right a-right ">${vo.prod_price}</td>
+		                            <td class=" last">${vo.splylist_sum}</td>
+	                          	</tr>
+	                        </c:forEach>
                         </tbody>
                       </table>
                       

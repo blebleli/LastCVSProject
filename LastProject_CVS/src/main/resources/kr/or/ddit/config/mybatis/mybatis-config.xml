@@ -33,6 +33,11 @@
   	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo" 		alias="supplyProdVo"/>
   	<!-- 조계환 입고 리스트에서 뿌려줄 입고에 대한 정보들  -->
   	<typeAlias type="kr.or.ddit.supply.model.SupplySumProdVo" 		alias="supplySumProdVo"/>
+  	<!-- 조계환 수불바코드를 직접입력하거나 스캔했을때 그에 대한 제품 정보들을 저장하는 객체 -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyScanInfoVo" 		alias="supplyScanInfoVo"/>
+  	
+  	
+  	
 <!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
 
 	<!-- 제품 검색 -->

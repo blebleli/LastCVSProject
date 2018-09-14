@@ -9,6 +9,7 @@ import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.model.SupplySumProdVo;
 
 /**
@@ -244,6 +245,20 @@ public interface SupplyDaoInf {
 	* @return
 	*/
 	int getSupplyProdListTotCnt(String supply_bcd);
+	
+	
+	/**
+	* Method : getSupplyScanInfoList
+	* Method 설명 :입고 바코드를 스캔하거나 직접 입력했을때 입고 리스트 출력(여기서 확인 버튼 누르면 입고 확인 완료)
+	* 최초작성일 : 2018. 9. 14.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	List<SupplyScanInfoVo> getSupplyScanInfoList(String supply_bcd);
+	
 	
 	
 }
