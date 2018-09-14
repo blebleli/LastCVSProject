@@ -61,7 +61,7 @@
 .pro{position:relative;top:30px;background:url(/_ui/desktop/common/images/gscvs/main/gs25_probg.png) no-repeat 25px 20px;}
 .pro img{margin:40px 0 0 45px;width:95px;height:92px;}
 .pro a{height:175px;display:block}
-.pro .tip{display:table;position:absolute;top:15px;right:10px;width:46px;height:46px;color:#fff;font-size:18px;text-align:center;background:url(/_ui/desktop/common/images/gscvs/main/flag_bg.png) no-repeat;font-weight: bold}
+.pro .tip{display:table;position:absolute;top:15px;right:10px;width:46px;height:46px;color:#fff;font-size:18px;text-align:center;background:url(/Image/common/flag_bg.png) no-repeat;font-weight: bold}
 .pro .tip.typ1{background-position: 0 0}
 .pro .tip.typ2{background-position: -65px 0}
 .pro .tip.typ3{background-position: 0 -55px;font-size: 16px}
