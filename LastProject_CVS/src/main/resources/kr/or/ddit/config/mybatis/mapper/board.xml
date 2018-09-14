@@ -106,7 +106,6 @@
 	</select>
 	
 	<!--  -->
-	
 	<select id="getReviewTop3" resultType="mainReviewsVo">
 	
 		SELECT    
@@ -127,8 +126,6 @@
 	      AND B.BD_VIEWS != 0
 	      AND  ROWNUM &lt; 4
 	    ORDER  BY B.BD_VIEWS DESC
-	
-	
 	</select>
   	
 </mapper>
