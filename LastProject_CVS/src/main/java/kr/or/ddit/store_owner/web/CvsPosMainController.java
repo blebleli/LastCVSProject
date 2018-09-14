@@ -67,30 +67,30 @@ public class CvsPosMainController {
 	
 
 
-	/**
-	* Method : myStock
-	* Method 설명 : 현재 재고 목록
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return StockVo
-	*/
-	@ModelAttribute("myStock")
-	public StockVo myStock(Model model){
-		Map<String, Object> map = new HashMap<String, Object>();
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		
-		logger.debug("date---------------------------------------------"+sdf.format(date));
-		map.put("mem_id", "3630000-104-2015-00121");
-		map.put("stock_date", "20180911");
-		StockVo myStock = stockService.getStock(map);
-		logger.debug("stock --------------"+ myStock);
-		model.addAttribute("myStock", myStock);
-		return myStock;
-	}
+//	/**
+//	* Method : myStock
+//	* Method 설명 : 현재 재고 목록
+//	* 최초작성일 : 2018. 9. 10.
+//	* 작성자 : 김현경
+//	* 변경이력 :신규
+//	* 
+//	* @param 
+//	* @return StockVo
+//	*/
+//	@ModelAttribute("myStock")
+//	public StockVo myStock(Model model){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		Date date = new Date();
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//		
+//		logger.debug("date---------------------------------------------"+sdf.format(date));
+//		map.put("mem_id", "3630000-104-2015-00121");
+//		map.put("stock_date", "20180911");
+//		StockVo myStock = stockService.getStock(map);
+//		logger.debug("stock --------------"+ myStock);
+//		model.addAttribute("myStock", myStock);
+//		return myStock;
+//	}
 
 
 
