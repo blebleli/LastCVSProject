@@ -110,8 +110,11 @@
  		  <c:forEach items="${bestProduct}" var="vo">	
 		     
 		    	<div class="col-sm-6 col-md-4">
+		    		<label>${vo.pr_class_lg}</label>
 		            <div class="thumbnail">
-		                <img src="${vo.file_path}/${vo.file_upname}" alt="..." width="720px" height="320px">
+		            	<a href="/userProd/detail?prod_id=${vo.prod_id}"	id="prodImage">
+		                	<img src="${vo.file_path}/${vo.file_upname}" alt="..." width="400px" height="200px">
+		                </a>
 		                <div class="clearfix"></div>		              
 		            </div>
 		        </div>
@@ -144,7 +147,7 @@
 					<c:forEach items="${eventProd1}" var="vo">					
 					<li>
 						<div class="sbbox pro">
-							<span class="tip typ1"><span>1+1</span></span>
+							<span class="tip typ1"><span >1+1</span></span>
 							<a href="/userProd/detail?prod_id=${vo.prod_id}"	id="prodImage">
 								<img src="${vo.file_path}/${vo.file_upname}" alt="${vo.prod_name }"  width="150" height="150"></a>
 										<span class="title">
@@ -175,7 +178,7 @@
 					<c:forEach items="${eventProd2}" var="vo">					
 					<li>
 						<div class="sbbox pro">
-							<span class="tip typ1"><span>1+1</span></span>
+							<span class="tip typ1"><span>2+1</span></span>
 							<a href="/userProd/detail?prod_id=${vo.prod_id}"	id="prodImage">
 								<img src="${vo.file_path}/${vo.file_upname}" alt="${vo.prod_name }"  width="150" height="150"></a>
 										<span class="title">
@@ -206,7 +209,7 @@
 					<c:forEach items="${eventProd3}" var="vo">					
 					<li>
 						<div class="sbbox pro">
-							<span class="tip typ1"><span>1+1</span></span>
+							<span class="tip typ1"><span>할인</span></span>
 							<a href="/userProd/detail?prod_id=${vo.prod_id}"	id="prodImage">
 								<img src="${vo.file_path}/${vo.file_upname}" alt="${vo.prod_name }"  width="150" height="150"></a>
 										<span class="title">
@@ -237,7 +240,7 @@
 					<c:forEach items="${eventProd4}" var="vo">					
 					<li>
 						<div class="sbbox pro">
-							<span class="tip typ1"><span>1+1</span></span>
+							<span class="tip typ1"><span>PB</span></span>
 							<a href="/userProd/detail?prod_id=${vo.prod_id}"	id="prodImage">
 								<img src="${vo.file_path}/${vo.file_upname}" alt="${vo.prod_name }"  width="150" height="150"></a>
 										<span class="title">
