@@ -25,8 +25,19 @@
     <script>
     	$(function(){
     		
+    		//발주 신청 리스트 추가
     		$("#datatable tbody").on("click", "tr", function(){
     			var requestProd =$(this).data("class");
+    			
+    			//중복 체크
+    			$("tr[name=requestTr]").each( function(){
+    				var trElement = $(this);
+    				if(requestProd == trElement.data("class")){
+    					alert("이미 추가 된 상품 입니다 ");
+	    				off(); 	
+    				}
+   				})  //end each
+   				
     			console.log(requestProd);
     			$.ajax({
 	    			url : "requestList",
@@ -35,16 +46,18 @@
 	    			success : function(responseData){
     					console.log(responseData);
 	    				
-	    					$("#datatable-buttons2 > tbody").append('<tr data-class="'+responseData.prod_id +'">'+
+	    					$("#datatable-buttons2 > tbody").append('<tr class="evenpointer2" data-class="'+responseData.prod_id +'" name="requestTr">'+
 	    																'<td>'+responseData.prod_name+'</td>'+
 	    																'<td>'+responseData.prod_price+'</td>'+
-	    																'<td><input type="number" name="amount"></td>'+
+	    																'<td><input type="number" name="amount" class="amount"></td>'+
 	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
 	    															+'</tr>');
 	    			}
 	    		});
+
     		});
-  //----------------------------------------------------------------------------------------------  		
+  //----------------------------------------------------------------------------------------------
+  			//대분류 선택 후 대분류에 따른 중분류, 해당 대분류의 상품목록
     		$("select[name=lgCtgyBtn]").val("${param.lgCtgyBtn}").prop("selected",true);
     		$("select[name=lgCtgyBtn]").on("change", function(){
     			
@@ -73,7 +86,8 @@
 	    			}	
 	    		});
     		})
- //------------------------------------------------------------------------------------------------   		
+ //------------------------------------------------------------------------------------------------
+ 			//중분류 선택,  중분류에 해당하는 상품목록 테이블처리
     		$("select[name=mdCtgyBtn]").on("change", function(){
     			alert($("select[name=mdCtgyBtn]").val());
     			
@@ -97,24 +111,50 @@
 	    			}	
 	    		});
     		})
- //------------------------------------------------------------------------------------------------   		
-    		$("#request").on("click", function(){
-    			var amounts =new Array();
-    			$("#datatable-buttons2 tbody tr").each(function(){
+ //------------------------------------------------------------------------------------------------  
+ 			// 발주 신청 버튼 처리
+    		$("ul").on("click",":button[name=request]", function(){
+    			var amounts ="";
+    			var result ="";
+    			$("tr[name=requestTr]").each( function(){
     				var trElement = $(this);
     				var td = trElement.find(".amount").val();
     				var prod_id = $(this).data("class");
-    				amounts.push({"prod_id": prod_id, "amount" : td});
+    				amounts +="&prod_id="+prod_id+"&splylist_sum="+td;
     				console.log("td----"+td);
     				console.log("prod_id----"+prod_id);
     				console.log("amounts----"+amounts);
     				
 	    			$.ajax({
 	    				url : "request",
-	    				data : {"prod_id" : prod_id, "amount" : td}
+	    				method : "get",
+	    				data : {"prod_id" : prod_id, "splylist_sum" : td},
+	    				success : function(resultData){
+	    					result = resultData
+	    				}
+    				
+    			});  // each end
 	    				
+	    					if(result > 0){
+	    					alert("success");
+	    						$(".row").empty();
+	    						var content = "";
+	    						content += '<div class="col-md-12 col-sm-12 col-xs-12">'+
+	    										'<div class="x_panel">'+
+	    											'<div class="x_title">'+
+	    												'<h2>발주 신청 <small>완료</small></h2>'+
+	    												' <div class="clearfix"></div>'+
+	    											'</div>'+
+	    											'<div class="x_content">'+
+	    											'<p class="text-muted font-13 m-b-30">'+
+	    											'발주 신청이 완료되었습니다 </p>'+
+	    										'</div>'+
+	    									'</div>';
+              					$(".row").html(content);
+	    											
+	    					}
+	    					    				
 	    			});	//ajax end
-    			})  // each end
     			
     		})
     		
@@ -246,7 +286,7 @@
                       <c:if test="${requestList != null }">
                       	<c:forEach items="${requestList }" var="request">
                       		
-						<tr class="evenpointer2" data-class="${request.prod_id }">
+						<tr class="evenpointer2" data-class="${request.prod_id }" name="requestTr">
 							<td>	${request.prod_name }		</td>
 							<td>  ${request.prod_price }</td> 
 							<td><input type="number" name="amount" class="amount"></td>
@@ -260,7 +300,7 @@
                     
                   </div>
                   <ul class="nav navbar-right panel_toolbox">
-               		<button class="btn btn-default" id="request">
+               		<button class="btn btn-default" id="request" name="request">
              		<i class="fa fa-sign-out" aria-hidden="true"></i>발주신청
                		</button>
               	  </ul>
