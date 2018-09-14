@@ -3,6 +3,20 @@
 <mapper namespace="tableCode">
 
 
+	<!-- 	아 이 디 : ProdBarCode
+	  		매개변수 : String
+	  		반 환 값 : String
+	  		설    명 : Prod 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-14
+	 -->
+	<select id="ProdBarCode" resultType="String" parameterType="String">
+		SELECT SUBSTR(PROD_ID , LENGTH(#{code})+2 ) FROM PROD WHERE PROD_ID LIKE ('%' || #{code} ||'%')
+	</select>
+	
+	
+
+
 	<!-- 	아 이 디 : boardCode
 	  		매개변수 : String
 	  		반 환 값 : String
@@ -11,7 +25,7 @@
 	  		일    시 : 2018-09-07
 	 -->
 	<select id="boardCode" resultType="String" parameterType="String">
-		SELECT NVL(MAX(BD_ID), '0')  AS CODE FROM BOARD WHERE BD_ID LIKE  ('%' || #{kind} ||'%');
+		SELECT NVL(MAX(BD_ID), '0')  AS CODE FROM BOARD WHERE BD_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 		
 
@@ -22,8 +36,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-07
 	 -->
-    <select id="commentsCode" resultType="String" >
-		SELECT NVL(MAX(CM_ID), '0')  AS CODE FROM comments;
+    <select id="commentsCode" resultType="String" parameterType="String" >
+		SELECT NVL(MAX(CM_ID), '0')  AS CODE FROM comments WHERE CM_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : sale_disCode
@@ -34,7 +48,7 @@
 	  		일    시 : 2018-09-09
 	 -->
     <select id="sale_disCode" resultType="String" parameterType="String" >
-		SELECT NVL(MAX(SD_ID),'0') AS CODE FROM  SALE_DIS WHERE SD_ID LIKE   ('%' || #{kind} ||'%');
+		SELECT NVL(MAX(SD_ID),'0') AS CODE FROM  SALE_DIS WHERE SD_ID LIKE   ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : sale_listCode
@@ -44,8 +58,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="sale_listCode" resultType="String">
-		SELECT  NVL( MAX(SALE_ID), '0') AS CODE  FROM SALE_LIST
+	<select id="sale_listCode" resultType="String" parameterType="String">
+		SELECT  NVL( MAX(SALE_ID), '0') AS CODE  FROM SALE_LIST WHERE SALE_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : disposal_list
@@ -55,8 +69,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="disposal_listCode" resultType="String">
-		SELECT NVL( MAX(DISP_ID), '0') AS CDOE FROM DISPOSAL_LIST
+	<select id="disposal_listCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(DISP_ID), '0') AS CDOE FROM DISPOSAL_LIST WHERE DISP_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : supply_listCode
@@ -66,8 +80,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="supply_listCode" resultType="String">
-		SELECT NVL( MAX(SPLYLIST_ID), '0') AS CODE FROM SUPPLY_LIST
+	<select id="supply_listCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(SPLYLIST_ID), '0') AS CODE FROM SUPPLY_LIST WHERE SPLYLIST_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 
 
@@ -78,8 +92,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="filedataCode" resultType="String">
-		SELECT NVL(MAX(FILE_ID), '0')  AS CODE  FROM FILEDATA
+	<select id="filedataCode" resultType="String" parameterType="String">
+		SELECT NVL(MAX(FILE_ID), '0')  AS CODE  FROM FILEDATA WHERE FILE_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 
 	<!-- 	아 이 디 : eventCode
@@ -89,8 +103,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="eventCode" resultType="String">
-		SELECT NVL( MAX(EVENT_ID), '0') AS CODE  FROM EVENT
+	<select id="eventCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(EVENT_ID), '0') AS CODE  FROM EVENT WHERE EVENT_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : categoryCode
@@ -100,8 +114,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="categoryCode" resultType="String">
-		SELECT NVL( MAX(FILE_ID),'0') AS CODE  FROM CATEGORY
+	<select id="categoryCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(FILE_ID),'0') AS CODE  FROM CATEGORY WHERE FILE_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 
 	<!-- 	아 이 디 : reserveCode
@@ -111,8 +125,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="reserveCode" resultType="String">
-		SELECT NVL( MAX(RESERVE_ID),'0') AS CODE  FROM RESERVE
+	<select id="reserveCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(RESERVE_ID),'0') AS CODE  FROM RESERVE WHERE RESERVE_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 
 	<!-- 	아 이 디 : stock_listCode
@@ -122,8 +136,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="stock_listCode" resultType="String">
-		SELECT NVL( MAX(STCKLIST_ID),'0') AS CODE  FROM STOCK_LIST
+	<select id="stock_listCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(STCKLIST_ID),'0') AS CODE  FROM STOCK_LIST WHERE STCKLIST_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 
 	<!-- 	아 이 디 : stockCode
@@ -133,8 +147,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="stockCode" resultType="String">
-		SELECT NVL( MAX(STOCK_ID),'0') AS CODE  FROM STOCK
+	<select id="stockCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(STOCK_ID),'0') AS CODE  FROM STOCK WHERE STOCK_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : membershipCode
@@ -144,8 +158,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="membershipCode" resultType="String">
-		SELECT NVL( MAX(MEMSHIP_ID),'0') AS CODE  FROM MEMBERSHIP
+	<select id="membershipCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(MEMSHIP_ID),'0') AS CODE  FROM MEMBERSHIP WHERE MEMSHIP_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : payCode
@@ -155,8 +169,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="payCode" resultType="String">
-		SELECT NVL( MAX(PAY_ID),'0') AS CODE  FROM PAY
+	<select id="payCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(PAY_ID),'0') AS CODE  FROM PAY WHERE PAY_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : bookmarkCode
@@ -166,8 +180,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="bookmarkCode" resultType="String">
-		SELECT NVL( MAX(STAR_ID),'0') AS CODE  FROM BOOKMARK
+	<select id="bookmarkCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(STAR_ID),'0') AS CODE  FROM BOOKMARK WHERE STAR_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : cvs_serviceCode
@@ -177,8 +191,8 @@
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-09
 	 -->
-	<select id="cvs_serviceCode" resultType="String">
-		SELECT NVL( MAX(SERVICE_ID),'0') AS CODE  FROM CVS_SERVICE
+	<select id="cvs_serviceCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(SERVICE_ID),'0') AS CODE  FROM CVS_SERVICE WHERE SERVICE_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 
 
