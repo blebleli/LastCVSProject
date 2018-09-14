@@ -62,20 +62,18 @@ public class CvsSupplyReqListController {
 	
 	@RequestMapping(value="/request", method = RequestMethod.GET)
 	@ResponseBody
-	public int requestComplete(@RequestParam(value="prod_id")String prod_id, @RequestParam(value="amount")int amount, Model model){
-		logger.debug("complete");
-		logger.debug("supplyprod_id---"+prod_id);
-		logger.debug("amount---"+amount);
+	public int requestComplete(@RequestParam(value="prod_id")String prod_id, @RequestParam(value="splylist_sum")int sum, Model model){
+		
 		Map modelMap = model.asMap();
 		
+		int result = 0;
+		SupplyListVo sup = new SupplyListVo();
 		SupplyVo todaySupply = (SupplyVo) modelMap.get("todaySupply");
-		SupplyListVo reqSup = new SupplyListVo();
-		reqSup.setProd_id(prod_id);
-		reqSup.setSplylist_id(autoCode.autoCode("SUP", "3630000-104-2015-00121"));
-		reqSup.setSplylist_sum(amount);
-		reqSup.setSupply_bcd(todaySupply.getSupply_bcd());
-		
-		int result = supplyService.setInsertSupplyList(reqSup);
+		sup.setProd_id(prod_id);
+		sup.setSplylist_sum(sum);
+		sup.setSupply_bcd(todaySupply.getSupply_bcd());
+		sup.setSplylist_id(autoCode.autoCode("SUP", "3630000-104-2015-00121"));
+		result = supplyService.setInsertSupplyList(sup);
 		return result;
 	}
 }
