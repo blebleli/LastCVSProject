@@ -317,20 +317,18 @@
 				    		
 				    		$("#posTable tbody tr").each(function () {		                    	 
 				    			var data = $(this);					    			
-				    			dispList +="&stcklistID=" + data.find('.stcklistID').html() + 
-										   "&amount=" + data.find('.amount').val();
+				    			dispList +="&bcd_id=" + data.find('.stcklistID').html() + 
+										   "&disp_amount=" + data.find('.amount').val();
 		                     });	
 				    		
-				    		console.log("param"+dispList);
+				    		console.log("dispList ::: "+dispList);
 				    		
-				    		return false;
+				    		/* return false; */
 				    		
 				    		$.ajax({
 		    					  url: "/saleDis/insert",
 		    					  type: "post",
-		    					  
-		    					  //data: { "dispList" : dispList },
-		    					  data : dispList,
+		    					  data : {"dispList" : dispList},
 		    					  success : function (data) {
 		    						  alert("폐기처리 되었습니다.");
 		    						  emptyTable(); 
@@ -480,9 +478,7 @@
 		            		} 
 		                    					    		
 				    	};
-				    	
-				    	
-				    	
+
 				    	
 				    	/* 바코드 img 해석*/
 		    			function sendImage(){
@@ -497,7 +493,7 @@
 		    				         if(data.returnMsg == "decodedText"){
 		    				            	console.log("data decodedText ---- :"+data.decodedText);
 		    				            	console.log("data prodVo ---- :"+data.prodVo);
-			    							
+		    				            	
 		    				            	clearInterval(intervalID);
 			    							addRow(data);
 			    							
@@ -507,7 +503,7 @@
 		    				      },		 						
 								  error : function(){console.log("error");}		  
 								  });	    							    			
-		    			}		    			
+		    			};		    			
 
 
 				        var player = document.getElementById('player');
@@ -540,7 +536,7 @@
               </div>
               
 <!-- 입력창 및 계산기 ======================================================================= -->	              
-              <div class="col-md-3 col-sm-3 col-xs-3">
+<!--               <div class="col-md-3 col-sm-3 col-xs-3">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>입력창 <small>Custom design</small></h2>
@@ -592,8 +588,8 @@
 	
                   </div>
                 </div>      
-              </div>
-              
+              </div> -->
+<!-- 입력창 및 계산기 ======================================================================= -->             
               
               <div class="col-md-4 col-sm-4 col-xs-4">
                 <div class="x_panel">
@@ -646,16 +642,6 @@
         <!-- /page content -->
 
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-  
-
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -669,5 +655,4 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-    <!-- Custom  -->
-    <script src="../build/js/custom.pos.js"></script>
+
