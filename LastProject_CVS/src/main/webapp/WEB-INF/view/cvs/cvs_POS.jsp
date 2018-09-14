@@ -129,8 +129,8 @@
 					registerReceiveChange(); // ---처음부터 거스름돈 체크 문제
 					
 			    	/* 샘플 데이터 */
-			    	addRow({prodVo : {prod_id : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
-			    	addRow({prodVo : {prod_id : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
+			    	addRow({prodVo : {stcklistID : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
+			    	addRow({prodVo : {stcklistID : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
  				  
                  });
        
@@ -239,9 +239,9 @@
 					        <h4 class="modal-title" id="myModalLabel">주머니 인식</h4>
 					      </div>
 					      <div class="modal-body">
-					           <video  id="poketPlayer" width="250" height="250" controls autoplay></video>  
+					          <!--  <video  id="poketPlayer" width="250" height="250" controls autoplay></video>  
 							   <button id="poketCapture" style="display: none">Capture</button>
-							   <canvas id="poketSnapshot" width=500 height=500 style="display: none"></canvas>				    											   		
+							   <canvas id="poketSnapshot" width=500 height=500 style="display: none"></canvas>	 -->			    											   		
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -251,7 +251,9 @@
 					  </div>
 					</div>
 
-	               <button type="button" class="culcBtn op">폐기</button>
+	               <button type="button" class="culcBtn op" onclick="btnDisposal()">폐기</button>
+	               <button type="button" class="culcBtn op" onclick="emptyTable()">임시</button>
+	               
 	              </div>
            </div>   
 <!-- 
@@ -294,6 +296,48 @@
 				            return snapshotCanvas.toDataURL();
 				    	}
 
+				    	function emptyTable() {
+						    $("#posTable > tbody").empty();  
+						}
+				    	
+				    	/*삭제버튼 클릭시 */
+				    	function btnRemove() {
+						    $('#posTable tbody tr').has('div[class="checked"]').remove();  
+						}
+				    	/*결제버튼 클릭시*/
+				    	function btnSale() {
+				    		//현금카드 나눠주고						  
+						}
+				    	
+				    	/*폐기버튼 클릭시*/
+				    	function btnDisposal() {
+				    		
+				    		//				    		
+				    		var dispList 	="";		
+				    		
+				    		$("#posTable tbody tr").each(function () {		                    	 
+				    			var data = $(this);					    			
+				    			dispList +="&stcklistID=" + data.find('.stcklistID').html() + 
+										   "&amount=" + data.find('.amount').val();
+		                     });	
+				    		
+				    		console.log("param"+dispList);
+				    		
+				    		return false;
+				    		
+				    		$.ajax({
+		    					  url: "/saleDis/insert",
+		    					  type: "post",
+		    					  
+		    					  //data: { "dispList" : dispList },
+		    					  data : dispList,
+		    					  success : function (data) {
+		    						  alert("폐기처리 되었습니다.");
+		    						  emptyTable(); 
+		    				      },		 						
+								  error : function(){console.log("error");}		  								  
+				    		});					    		
+						}
 				    	
 				    	/*삭제버튼 클릭시 */
 				    	function removeTr() {
@@ -327,7 +371,7 @@
 				    		$("#posTable .prodID").each(function () {				    			
 					    		var addedID = $(this).val();
 				    			if(dataProdId){
-					    			
+					    			//수량증가
 					    		}
 				    		});
 				    		
@@ -339,7 +383,7 @@
 			                         '    <input type="checkbox" class="flat" name="table_records">'+
 			                         '	 </div>'+
 			                         '  </td>'+
-			                         '  <td><span class="prodID">'+ data.prodVo.prod_id+'</span></td>'+
+			                         '  <td><span class="stcklistID">'+ data.prodVo.stcklistID+'</span></td>'+
 			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
 			                         '  <td ><input type="text" class="amount" value="' +data.prodVo.stcklist_amount+'"></td>'+    				                         
@@ -391,9 +435,9 @@
 		                         trElement.find('.subtot').html(rowSum);
 		                      
 		                     });		                  
-				    	 }
+				    	 };				    	 
 				    	 
-			    	 
+				    	 
 				    	/* subtot 합계 계산*/
 				    	function subtot_sum(){
 		                     var subtot_sum = 0;
@@ -436,6 +480,9 @@
 		            		} 
 		                    					    		
 				    	};
+				    	
+				    	
+				    	
 				    	
 				    	/* 바코드 img 해석*/
 		    			function sendImage(){

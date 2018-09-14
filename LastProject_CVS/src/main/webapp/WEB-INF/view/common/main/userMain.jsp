@@ -190,7 +190,7 @@
 					</li>
 					</c:forEach>
 				</ul>
-<%-- 		        <a href="<c:url value='/userProd/view?i=3&page=1&pageSize=32' />" class="btn_more">더보기<span class="glyphicon glyphicon-plus"></span></a> --%>
+		        <a href="<c:url value='/userProd/view?i=3&page=1&pageSize=32' />" class="btn_more">더보기<span class="glyphicon glyphicon-plus"></span></a> 
 			</div>
 			<!-- //product list -->
 		</li>
