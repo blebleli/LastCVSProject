@@ -100,7 +100,7 @@
  //------------------------------------------------------------------------------------------------   		
     		$("#request").on("click", function(){
     			var amounts =new Array();
-    			$("#datatable-buttons2 > tbody > tr").each(function(){
+    			$("#datatable-buttons2 tbody tr").each(function(){
     				var trElement = $(this);
     				var td = trElement.find(".amount").val();
     				var prod_id = $(this).data("class");
