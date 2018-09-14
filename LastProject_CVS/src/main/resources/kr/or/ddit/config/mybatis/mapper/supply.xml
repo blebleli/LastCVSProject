@@ -32,9 +32,9 @@
 	  		작 성 자 : 조계환
 	  		일    시 : 2018-09-11     
 	 -->
-	<select id="supplyDetail" parameterType="String" resultType="supplyListVo">
-		SELECT * FROM supply_list WHERE supply_bcd = #{supply_bcd}
-	</select>
+<!-- 	<select id="supplyDetail" parameterType="String" resultType="supplyListVo"> -->
+<!-- 		SELECT * FROM supply_list WHERE supply_bcd = #{supply_bcd} -->
+<!-- 	</select> -->
 	
 	<!-- 	아 이 디 : supplyDetailProdList
 	  		반 환 값 : supplyListVo
@@ -43,9 +43,9 @@
 	  		작 성 자 : 조계환
 	  		일    시 : 2018-09-11     
 	 -->
-	<select id="supplyDetailProdList" parameterType="String" resultType="supplyListVo">
-		SELECT * FROM supply_list WHERE supply_bcd=#{supply_bcd}  
-	</select>
+<!-- 	<select id="supplyDetailProdList" parameterType="String" resultType="supplyListVo"> -->
+<!-- 		SELECT * FROM supply_list WHERE supply_bcd=#{supply_bcd}   -->
+<!-- 	</select> -->
 	
 	<!-- 	아 이 디 : supplyProdInfo
 	  		반 환 값 : SupplyProdVo
