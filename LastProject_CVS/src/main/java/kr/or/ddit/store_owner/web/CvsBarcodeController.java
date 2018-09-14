@@ -151,7 +151,7 @@ public class CvsBarcodeController {
 	    	List<SupplyListVo> supplyList = supplyService.getListSupplyList(decoded);
  			mav.addObject("supplyList", supplyList);
 	    	
-	    	//상품바코드일때 처리
+	    	//상품바코드일때 처리(결제,주머니, 폐기)
  			PresentStockListVo prodVo = stockService.getBarcodeProd(decoded);
  			mav.addObject("prodVo", prodVo);
 		}

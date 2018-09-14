@@ -1,5 +1,10 @@
 package kr.or.ddit.saleDisp.web;
 
+import java.util.List;
+
+import kr.or.ddit.model.DisposalListVo;
+import kr.or.ddit.model.SaleDisVo;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -17,13 +22,12 @@ public class SaleDisController {
 	
 	@RequestMapping("/insert")
 	@ResponseBody
-	 public ModelAndView bcdRead(@RequestParam("dispList") String dispList,Model model) {
+	 public ModelAndView saleDis(@RequestParam("dispList") List<DisposalListVo> dispList,Model model) {
 		
 		logger.debug("stock --------------"+ dispList);
-		//insert...자르는법....
-		
 		ModelAndView mav = new ModelAndView("jsonView");		
 		
 		return mav;
 	 }
+	
 }

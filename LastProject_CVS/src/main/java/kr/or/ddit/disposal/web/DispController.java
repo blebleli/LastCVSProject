@@ -17,7 +17,7 @@ public class DispController {
 	
 	@RequestMapping("/insert")
 	@ResponseBody
-	 public ModelAndView bcdRead(@RequestParam("file") String file,Model model) {
+	 public ModelAndView test(@RequestParam("file") String file,Model model) {
 			
 		
 		ModelAndView mav = new ModelAndView("jsonView");		
