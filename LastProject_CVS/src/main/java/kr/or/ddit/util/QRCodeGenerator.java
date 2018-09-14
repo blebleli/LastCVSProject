@@ -12,7 +12,9 @@ import java.nio.file.Path;
 
 public class QRCodeGenerator {
 	
-    private static final String QR_CODE_IMAGE_PATH = "D:\\최종프\\barcodeImg\\STOCKList3630000-104-2015-0012120182222.jpg"; //생성될 파일경로와 이름을 결정
+	//폴더만들기 
+	// 절대경로만든다음에 ++ 편의점 (사업자번호) 로 폴더만들어서
+    private static final String QR_CODE_IMAGE_PATH = "D:\\최종프\\barcodeImg\\"; //생성될 파일경로와 이름을 결정
 
     private static void generateQRCodeImage(String text, int width, int height, String filePath)
             throws WriterException, IOException {
@@ -26,7 +28,7 @@ public class QRCodeGenerator {
 
     public static void main(String[] args) {
         try {
-            generateQRCodeImage("STOCKList3630000-104-2015-0012120182222", 350, 350, QR_CODE_IMAGE_PATH);  //첫번째 요소에 생성할 요소를 넣는다.
+            generateQRCodeImage("", 350, 350, QR_CODE_IMAGE_PATH);  //첫번째 요소에 생성할 요소를 넣는다.
         } catch (WriterException e) {
             System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
         } catch (IOException e) {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="disp">
+
+	<!-- 	아 이 디 : setInsertDispList
+	  		매개변수 : disposalListVo
+	  		반 환 값 : 
+	  		설    명 : 폐기 상세 리스트 추가
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-14     
+	 -->
+	<insert id="setInsertDispList" parameterType="disposalListVo">
+		
+		INSERT INTO DISPOSAL_LIST
+		(
+			DISP_ID
+			DISP_AMOUNT
+			DISP_EXDATE
+			SD_ID
+			BCD_ID
+		)
+		VALUES (
+			#{disp_id    },  --<!--// 폐기상세리스트 id  -->
+			#{disp_amount},	 --<!--// 해당제품 폐기된 개수  -->
+			#{disp_exdate},	 --<!--// 해당 제품 유통기한-->
+			#{sd_id      },	 --<!--// 판매폐기 id -->
+			#{bcd_id     }	 --<!--// 재고 id-->
+		)
+	</insert>
+
+
+
+
+
+</mapper>

@@ -127,6 +127,7 @@ public class SignUpDao implements SignUpDaoInf {
 		return template.selectOne("member.getMemTelCnt", mem_tel);
 	}
 
+	
 	/**
 	 * 
 	 * Method 	  : updateMember
