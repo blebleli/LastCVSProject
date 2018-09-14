@@ -1,27 +1,25 @@
 package kr.or.ddit.store_owner.model;
 
-import java.util.Date;
-
 public class salelistJoinVo {
 	
-	private String prod_name; // 제품명
-	private int sale_amount; // 판매수량
-	private int sale_sum; // 판매금액
-	private String mem_id; // 점주 아이디
-	private int sd_sum; // 판매 총 금액
-	private Date sd_date; // 날짜
-	private int week1;
-	private int week2;
-	private int week3;
-	private int week4;
-	private int week5;
+	private String prod_name;	 // 제품명
+	private int sale_amount; 	 // 판매수량
+	private int sale_sum; 		 // 판매금액
+	private String mem_id;		 // 점주 아이디
+	private int sd_sum; 		 // 판매 총 금액
+	private String sd_date; 	 // 날짜
+	private int week1; 			 // 1주
+	private int week2; 			 // 2주
+	private int week3; 			 // 3주
+	private int week4; 			 // 4주
+	private int week5; 			 // 5주
 	
 	public salelistJoinVo() {
 		super();
 	}
 
 	public salelistJoinVo(String prod_name, int sale_amount, int sale_sum,
-			String mem_id, int sd_sum, Date sd_date, int week1, int week2,
+			String mem_id, int sd_sum, String sd_date, int week1, int week2,
 			int week3, int week4, int week5) {
 		super();
 		this.prod_name = prod_name;
@@ -77,11 +75,11 @@ public class salelistJoinVo {
 		this.sd_sum = sd_sum;
 	}
 
-	public Date getSd_date() {
+	public String getSd_date() {
 		return sd_date;
 	}
 
-	public void setSd_date(Date sd_date) {
+	public void setSd_date(String sd_date) {
 		this.sd_date = sd_date;
 	}
 

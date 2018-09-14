@@ -50,21 +50,16 @@ public class CvsChartController {
 	 * Method 설명 : 점주가 통계 - 날짜별 조회 할 수 있다.
 	 */
 	@RequestMapping("/chartDay") // 통계 (날짜별)
-	public String chartDay(Model model){		
-		String mem_id = "hsj";		
-		List<salelistJoinVo> saleList = somainService.getListSaleDis(mem_id);
-	
-		System.out.println("saleList ================> " + saleList.size());
-			for (int i = 0; i < saleList.size(); i++){
-			model.addAttribute("week"+(i+1), saleList.get(i).getSd_sum());
-			System.out.println("week"+(i+1) + saleList.get(i).getSd_sum());				
-			}	
+	public String chartDay(Model model){
 		
-		model.addAttribute("saleList", saleList);
-		model.addAttribute("mem_id", mem_id);
-		logger.debug("{}",saleList);
-		logger.debug("{}",mem_id);		
-		return "cvs_chart_day";
+		String mem_id = "hsj"; // 임의 편의점 아이디		
+		List<salelistJoinVo> saleList = somainService.getListSaleDays(mem_id); // 쿼리 돌림
+		
+		logger.debug("sd_sum ===================>> {} ", saleList); // 디버깅		
+		model.addAttribute("saleList", saleList); // List 저장
+		model.addAttribute("mem_id", mem_id); // mem_id 저장
+		
+		return "cvs_chart_day"; // 날짜별 화면 이동
 	}
 	
 	/**
@@ -87,9 +82,9 @@ public class CvsChartController {
 		sale.setWeek1(saleList.get(0).getSd_sum()+4314); // 임의 값
 		sale.setWeek2(saleList.get(1).getSd_sum()+31333);
 		sale.setWeek3(saleList.get(2).getSd_sum());
-		sale.setWeek4(saleList.get(3).getSd_sum()+15333);
-	
-		sale.setMem_id(mem_id);		
+		sale.setWeek4(saleList.get(3).getSd_sum()+15333);	
+		sale.setMem_id(mem_id);	
+		
 		return sale;
 	}
 	
@@ -114,19 +109,7 @@ public class CvsChartController {
 		sale.setWeek2(saleList.get(1).getSd_sum()+3333);
 		sale.setWeek3(saleList.get(2).getSd_sum()+11111);
 		sale.setWeek4(saleList.get(3).getSd_sum()+3333);
-		
-//		if(saleList.get(4).equals(null)){ // 5주가 없다면
-//			System.out.println("5주차 없음");
-//		}else{
-//		sale.setWeek5(saleList.get(5).getSd_sum());	
-//		}
-		
-		sale.setMem_id(mem_id);
-		
-//		for (int i = 0; i < saleList.size(); i++){
-//			sale.setWeek+i("week"+(i+1), saleList.get(i).getSd_sum());
-//		System.out.println("week"+(i+1) + saleList.get(i).getSd_sum());
-//		}
+		sale.setMem_id(mem_id);		
 		
 		return sale;
 	}
@@ -151,9 +134,9 @@ public class CvsChartController {
 		sale.setWeek1(saleList.get(0).getSd_sum()+22214); // 임의 값
 		sale.setWeek2(saleList.get(1).getSd_sum()+34313);
 		sale.setWeek3(saleList.get(2).getSd_sum()-34153);
-		sale.setWeek4(saleList.get(3).getSd_sum()+15334);
-	
-		sale.setMem_id(mem_id);		
+		sale.setWeek4(saleList.get(3).getSd_sum()+15334);	
+		sale.setMem_id(mem_id);	
+		
 		return sale;
 	}
 	
@@ -177,9 +160,9 @@ public class CvsChartController {
 		sale.setWeek1(saleList.get(0).getSd_sum()+3333); // 임의 값
 		sale.setWeek2(saleList.get(1).getSd_sum()+25341);
 		sale.setWeek3(saleList.get(2).getSd_sum()-1300);
-		sale.setWeek4(saleList.get(3).getSd_sum()+14333);
-	
-		sale.setMem_id(mem_id);		
+		sale.setWeek4(saleList.get(3).getSd_sum()+14333);	
+		sale.setMem_id(mem_id);
+		
 		return sale;
 	}
 	
@@ -194,14 +177,13 @@ public class CvsChartController {
 	 */
 	@RequestMapping("/chartProd") // 통계 (제품별)
 	public String chartProd(Model model){
-		String mem_id = "hsj";
+		String mem_id = "hsj"; // 임의 편의점 아이디
 		List<salelistJoinVo> saleList = somainService.getListProdSales(mem_id);
 		
-		for(int i = 0; i < 5; i++){
-			model.addAttribute("Top"+(i+1), saleList.get(i).getProd_name());
+		for(int i = 0; i < 5; i++){ // TOP5 for
+			model.addAttribute("Top"+(i+1), saleList.get(i).getProd_name()); // model 저장
 			System.out.println("Top"+(i+1) + saleList.get(i).getProd_name());
-		}
-		
+		}		
 		model.addAttribute("saleList", saleList);
 		model.addAttribute("mem_id", mem_id);
 		return "cvs_chart_prod";

@@ -8,11 +8,33 @@
 		FROM  sale_dis   sale
 		JOIN  sale_list  salelist
 		ON    sale.sd_id = salelist.sd_id
-		JOIN  prod       prod
-		ON    salelist.prod_id = prod.prod_id
 	    WHERE sd_date BETWEEN TO_DATE('2018-09-10','YYYY-MM-DD') AND TO_DATE('2018-09-24','YYYY-MM-DD') + 0.99999
 	    AND sale.mem_id = #{mem_id}
     	ORDER BY sale_sum DESC)
+	</select>
+	
+	<!-- 통계 - 날짜별 : 일간(1~31일) 조회 -->
+	<select id="getListSaleDays" parameterType="String" resultType="saledisjoinVo">
+		SELECT  TO_CHAR(F.SD_DATE, 'YYYY-MM-DD') AS SD_DATE
+	        ,SUM(F.SD_SUM) AS SD_SUM
+		FROM (
+		        SELECT T.* ,ROW_NUMBER() OVER (PARTITION BY TO_CHAR(T.SD_DATE, 'YYYY-MM-DD') ORDER BY SD_SUM desc) AS RN 
+		        FROM ( 
+		              SELECT   SD_ID
+		                      ,SD_DATE
+		                      ,SD_SUM
+		                      ,SALE_KIND
+		                      ,MEM_ID 
+		                      
+		              FROM  SALE_DIS 
+		              WHERE 1=1
+		                AND MEM_ID = #{MEM_ID}
+		                AND SALE_KIND = '88'
+		              ORDER BY SD_DATE
+		              ) T
+		      ) F
+		GROUP BY TO_CHAR(F.SD_DATE, 'YYYY-MM-DD') 
+		ORDER BY SD_DATE
 	</select>
 	
 <!-- 	<select id="getListSaleDis" parameterType="String" resultType="saledisjoinVo"> -->

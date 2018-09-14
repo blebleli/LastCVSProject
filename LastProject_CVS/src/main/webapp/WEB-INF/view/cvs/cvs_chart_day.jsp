@@ -237,15 +237,18 @@
 
 			var json_data = []; // 배열 초기화
 
-			for (var i = 0; i < 5; i++) { // 1주 ~ 5주 for문
+
+			for (var i = 0; i < 31; i++) { // 1 ~ 31일 for문
 				json_data[i] = { // i 값 넣기
-					"title" : i + 1 + "주",
-					"금액" : $("#sd_sum" + (i + 1)).val()
+					"title" : i + 1 + "일",
+					"금액" : $("#day" + (i + 1)).val()
 				};
 			}
-
-			if ($("#sd_sum5").val() == null) { // 5주차가 값이 없다면
-				json_data.splice(4, 1); // 만들지 않기
+			
+			for (var i = 0; i < 3; i++) { // 29 ~ 31일 for문
+				if ($("#day" + (29 + i).val()) == null) { // 29 ~ 31일 값이 없다면 (2월 해당)
+					json_data.splice(4, 1); // 만들지 않기
+				}
 			}
 
 			var col_title = ""; // 타이틀?
@@ -280,8 +283,10 @@
 				for (var j = 0; j < col_data.length; j++) {
 					var col_name = col_data[j];
 					chart_data[j].data.push(json_data[i][col_name]);
-				};
-			};
+				}
+				;
+			}
+			;
 
 			var echartBar = echarts.init(document.getElementById('mainb2'),
 					theme);
@@ -316,213 +321,141 @@
 		}
 	}
 
-		
-		function init_charts() {
-	
-			console.log('run_charts  typeof [' + typeof (Chart) + ']');
-	
-			if (typeof (Chart) === 'undefined') {
-				return;
-			}
-	
-			console.log('init_charts');
-	
-			Chart.defaults.global.legend = {
-				enabled : false
-			};
-	
-			// Line chart
-			if ($('#line').length) {
-	
-				var ctx = document.getElementById("line");
-				var lineChart = new Chart(ctx, {
-					type : 'line',
-					data : {
-						labels : [ "January", "February", "March", "April", "May",
-								"June", "July" ],
-						datasets : [ {
-							label : "My First dataset",
-							backgroundColor : "rgba(38, 185, 154, 0.31)",
-							borderColor : "rgba(38, 185, 154, 0.7)",
-							pointBorderColor : "rgba(38, 185, 154, 0.7)",
-							pointBackgroundColor : "rgba(38, 185, 154, 0.7)",
-							pointHoverBackgroundColor : "#fff",
-							pointHoverBorderColor : "rgba(220,220,220,1)",
-							pointBorderWidth : 1,
-							data : [ 31, 74, 6, 39, 20, 85, 7 ]
-						}, {
-							label : "My Second dataset",
-							backgroundColor : "rgba(3, 88, 106, 0.3)",
-							borderColor : "rgba(3, 88, 106, 0.70)",
-							pointBorderColor : "rgba(3, 88, 106, 0.70)",
-							pointBackgroundColor : "rgba(3, 88, 106, 0.70)",
-							pointHoverBackgroundColor : "#fff",
-							pointHoverBorderColor : "rgba(151,187,205,1)",
-							pointBorderWidth : 1,
-							data : [ 82, 23, 66, 9, 99, 4, 2 ]
-						} ]
-					},
-				});
-	
-			}
-		}
-
-
 	$(function() {
 		chart(); // 초기 월간화면 출력
-		init_charts();
 	});
 </script>
 <script>
 	$(function() {
 
 		// 일간(days) 누를시  현재 주간치를 초기화면으로 보여준다.
-		$("#days")
-				.on(
-						"click",
-						function() {
+		$("#days").on("click",function() {
+					// 편의점 점주 아이디(임의)
+					var mem_id = $("#mem_id").val();
 
-							// 편의점 점주 아이디(임의)
-							var mem_id = $("#mem_id").val();
+					$.ajax({
+						url : "days",
+						method : "get",
+						data : {
+							"mem_id" : mem_id
+						},
 
-							$
-									.ajax({
-										url : "days",
-										method : "get",
-										data : {
-											"mem_id" : mem_id
-										},
+						success : function(data) {
+							console.log(data);
 
-										success : function(data) {
-											console.log(data);
+							// 성공시 기존 내용 삭제
+							$("#chartList").html("");
+							var content = '';
+							// 새로운 내용 담을 변수
+							content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
+									+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
+									+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
+									+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
+									+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
 
-											// 성공시 기존 내용 삭제
-											$("#chartList").html("");
-											var content = '';
-											// 새로운 내용 담을 변수
-											content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
-													+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
-													+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
-													+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
-													+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
-
-											$("#chartList").html(content);
-											chart(); // 차트에 일간 자료 값 적용
-										} // success : function(responseData){    
-									}); // $.ajax({  			
-						}); //$("#days").on("click", function(){ 
+							$("#chartList").html(content);
+							chart(); // 차트에 일간 자료 값 적용
+						} // success : function(responseData){    
+					}); // $.ajax({  			
+		}); //$("#days").on("click", function(){ 
 
 		// 주간(week) 누를시 현재 주간치를 초기화면으로 보여준다.
-		$("#week")
-				.on(
-						"click",
-						function() {
+		$("#week").on("click", function() {
 
 							// 편의점 점주 아이디(임의)
 							var mem_id = $("#mem_id").val();
 
-							$
-									.ajax({
-										url : "week",
-										method : "get",
-										data : {
-											"mem_id" : mem_id
-										},
+							$.ajax({
+								url : "week",
+								method : "get",
+								data : {
+									"mem_id" : mem_id
+								},
 
-										success : function(data) {
-											console.log(data);
+								success : function(data) {
+									console.log(data);
 
-											// 성공시 기존 내용 삭제
-											$("#chartList").html("");
-											var content = '';
-											// 새로운 내용 담을 변수
-											content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
-													+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
-													+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
-													+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
-													+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
+									// 성공시 기존 내용 삭제
+									$("#chartList").html("");
+									var content = '';
+									// 새로운 내용 담을 변수
+									content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
+											+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
+											+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
+											+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
+											+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
 
-											$("#chartList").html(content);
-											chart(); // 차트에 주간 자료 값 적용
-										} // success : function(responseData){    
-									}); // $.ajax({  			
-						}); //$("#week").on("click", function(){  
+									$("#chartList").html(content);
+									chart(); // 차트에 주간 자료 값 적용
+								} // success : function(responseData){    
+							}); // $.ajax({  			
+				}); //$("#week").on("click", function(){  
 
 		// 월간(month) 누를시  현재 주간치를 초기화면으로 보여준다.
-		$("#month")
-				.on(
-						"click",
-						function() {
+		$("#month").on("click",function() {
+					// 편의점 점주 아이디(임의)
+					var mem_id = $("#mem_id").val();
 
-							// 편의점 점주 아이디(임의)
-							var mem_id = $("#mem_id").val();
+					$.ajax({
+						url : "month",
+						method : "get",
+						data : {
+							"mem_id" : mem_id
+					},
 
-							$
-									.ajax({
-										url : "month",
-										method : "get",
-										data : {
-											"mem_id" : mem_id
-										},
+						success : function(data) {
+							console.log(data);
 
-										success : function(data) {
-											console.log(data);
+							// 성공시 기존 내용 삭제
+							$("#chartList").html("");
+							var content = '';
+							// 새로운 내용 담을 변수
+							content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
+									+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
+									+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
+									+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
+									+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
 
-											// 성공시 기존 내용 삭제
-											$("#chartList").html("");
-											var content = '';
-											// 새로운 내용 담을 변수
-											content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
-													+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
-													+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
-													+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
-													+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
-
-											$("#chartList").html(content);
-											chart(); // 차트에 월간 자료 값 적용
-										} // success : function(responseData){    
-									}); // $.ajax({  			
-						}); //$("#month").on("click", function(){
+							$("#chartList").html(content);
+							chart(); // 차트에 월간 자료 값 적용
+						} // success : function(responseData){    
+					}); // $.ajax({  			
+		}); //$("#month").on("click", function(){
 
 		// 연간(years) 누를시  현재 주간치를 초기화면으로 보여준다.
-		$("#years")
-				.on(
-						"click",
-						function() {
+		$("#years").on("click", function() {
 
 							// 편의점 점주 아이디(임의)
 							var mem_id = $("#mem_id").val();
 
-							$
-									.ajax({
-										url : "years",
-										method : "get",
-										data : {
-											"mem_id" : mem_id
-										},
+							$.ajax({
+								url : "years",
+								method : "get",
+								data : {
+									"mem_id" : mem_id
+									},
 
-										success : function(data) {
-											console.log(data);
+								success : function(data) {
+									console.log(data);
 
-											// 성공시 기존 내용 삭제
-											$("#chartList").html("");
-											var content = '';
-											// 새로운 내용 담을 변수
-											content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
-													+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
-													+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
-													+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
-													+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
+								// 성공시 기존 내용 삭제
+								$("#chartList").html("");
+								var content = '';
+								// 새로운 내용 담을 변수
+								content += '						<input type="hidden" id="sd_sum1" name="sd_sum1" value="'+data.week1+'">'
+										+ '							<input type="hidden" id="sd_sum2" name="sd_sum2" value="'+data.week2+'">'
+										+ '							<input type="hidden" id="sd_sum3" name="sd_sum3" value="'+data.week3+'">'
+										+ '							<input type="hidden" id="sd_sum4" name="sd_sum4" value="'+data.week4+'">'
+										+ '							<input type="hidden" id="mem_id" name="mem_id" value="'+data.mem_id+'">';
 
-											$("#chartList").html(content);
-											chart(); // 차트에 연간 자료 값 적용
-										} // success : function(responseData){    
-									}); // $.ajax({  			
-						}); //$("#years").on("click", function(){
+								$("#chartList").html(content);
+								chart(); // 차트에 연간 자료 값 적용
+							} // success : function(responseData){    
+						}); // $.ajax({  			
+			}); //$("#years").on("click", function(){
 
 	}); // $(function(){
 </script>
-
 <!-- page content ======================================================================== -->
 <div class="right_col" role="main">
 	<div class="page-title">
@@ -544,11 +477,8 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="clearfix"></div>
-
-	<div class="row">
-		
+	<div class="row">		
 		<!-- mainb2 -->
 		<div class="col-md-11 col-sm-11 col-xs-11">
 			<div class="x_panel">
@@ -566,7 +496,6 @@
 					</ul>
 					<div class="clearfix"></div>
 				</div>
-
 				<!-- 달력 -->
 				<div class="col-md-4">
 					<div id="reportrange_right" class="pull-left"
@@ -575,64 +504,22 @@
 							30, 2014 - January 28, 2015</span> <b class="caret"></b>
 					</div>
 				</div>
-
 				<div class="x_content">
 					<div id="mainb2" style="height: 350px;"></div>
-					<div id="chartList">
-						<input type="hidden" id="sd_sum1" name="sd_sum1" value="${week1}">
-						<input type="hidden" id="sd_sum2" name="sd_sum2" value="${week2}">
-						<input type="hidden" id="sd_sum3" name="sd_sum3" value="${week3}">
-						<input type="hidden" id="sd_sum4" name="sd_sum4" value="${week4}">
-						<!-- 5주차 if절 만들기 -->
+					<div id="chartList">					
+						<!-- for문 -->
+						<c:forEach items="saleList" var="vo">
+							<input type="text" id="sd_sum10" name="sd_sum1" value="${vo.sd_sum }">
+						</c:forEach>					
+						
 						<input type="hidden" id="mem_id" name="mem_id" value=${mem_id }>
 					</div>
 				</div>
 			</div>
-		</div>
-
-  
-		<!-- lineChart -->
-		<div class="col-md-11 col-sm-11 col-xs-11">
-			<div class="x_panel">
-				<div class="x_title">
-					<h2>판매금액<small>${mem_id} 편의점</small></h2>
-					<ul class="nav navbar-right panel_toolbox">
-						<li>
-							<div class="btn-group  btn-group-sm">
-								<button class="btn btn-default" type="button" id="days">일간</button>
-								<button class="btn btn-default" type="button" id="week">주간</button>
-								<button class="btn btn-default" type="button" id="month">월간</button>
-								<button class="btn btn-default" type="button" id="years">연간</button>
-							</div>
-						</li>
-					</ul>
-					<div class="clearfix"></div>
-				</div>
-
-				<!-- 달력 -->
-				<div class="col-md-4">
-					<div id="reportrange_right" class="pull-left"
-						style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-						<i class="glyphicon glyphicon-calendar fa fa-calendar"></i> <span>December
-							30, 2014 - January 28, 2015</span> <b class="caret"></b>
-					</div>
-				</div>
-
-				<div class="x_content">
-					<canvas id="line"></canvas>
-				</div>
-			</div>
-		</div>
-		
-		
-	</div> <!-- row -->
-	
-	
-	
-	
+		</div>		
+	</div>
 </div>
 <!-- /page content ======================================================================== -->
-
 <!-- footer content -->
 <footer>
 	<div class="pull-right">

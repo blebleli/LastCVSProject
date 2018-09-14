@@ -27,4 +27,15 @@ public interface soMainServiceInf {
 	 * Method 설명 : List<salelistJoinVo> getListProdSales()_제품 판매량 리스트 출력
 	 */
 	List<salelistJoinVo> getListProdSales(String mem_id);
+	
+	/**
+	 * Method : getListSaleDays
+	 * 최초작성일 : 2018. 9. 14.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return
+	 * Method 설명 : List<salelistJoinVo> getListSaleDays()_통계:날짜별 일간 출력 기능
+	 */
+	List<salelistJoinVo> getListSaleDays(String mem_id);
 }
