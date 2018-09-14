@@ -144,9 +144,12 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>입고리스트 <small>   </small></h2>
-                    <button type="submit" class="btn btn-success">선택삭제</button>
-                    <button class="btn btn-primary">입고완료</button>
-                    
+<!--                     <button type="submit" class="btn btn-success">선택삭제</button> -->
+								<c:forEach items="${scanList}" var="vo">
+		                   			<c:if test="${state != 12}">
+                    					<button class="btn btn-primary" id="supplyCheck">입고확인</button>
+		                   			</c:if>
+	                   			</c:forEach>
                     <div class="clearfix"></div>
                   </div>
 
@@ -155,11 +158,11 @@
                     <p>
                     	<form action="/cvs/barcodeScan" method="post">
 	                   		<h2>
-	                   			바코드 직접입력  <input type="text" name="barcodeValue" required="required">
-	                   			<button type="submit"  class="btn btn-primary">검색</button>
-	                   			<c:if test="${state == 12}">
-	                   				이미 입고 확인 완료된 상태 입니다.
-	                   			</c:if>
+	                   			바코드 직접입력  <input type="text" name="barcodeValue" id="barcodeValue" required="required">
+	                   			<button type="submit" id="search" class="btn btn-primary">검색</button>
+		                   			<c:if test="${state == 12}">
+		                   				이미 입고 확인 완료된 상태 입니다.
+		                   			</c:if>
 	                   		</h2>
                    		</form>
                     </p>
@@ -186,33 +189,39 @@
                         <tbody id="testDiv">    
                                                                    
 	                        <c:forEach items="${scanList}" var="vo"> 
-	                        	<tr class="even pointer">
-		                            <td class="a-center ">
-		                            	<input type="checkbox" class="flat" name="table_records">
-		                            </td>
-		                            <td>${vo.rnum}</td>
-		                            <td>${vo.prod_name}</td>
-		                            <td>${vo.prod_id}</td>
-		                            <td><input type="text" value="${vo.splylist_info}"></td>
-		                            <td class="a-right a-right ">${vo.prod_price}</td>
-		                            <td class=" last">${vo.splylist_sum}</td>
-	                          	</tr>
+	                        	<c:if test="${vo.supply_state != 12}">
+		                        	<tr class="even pointer">
+			                            <td class="a-center ">
+			                            	<input type="checkbox" class="flat" name="table_records">
+			                            </td>
+			                            <td>${vo.rnum}</td>
+			                            <td>${vo.prod_name}</td>
+			                            <td>${vo.prod_id}</td>
+			                            <td><input type="text" value="${vo.splylist_info}"></td>
+			                            <td class="a-right a-right ">${vo.prod_price}</td>
+			                            <td class=" last">${vo.splylist_sum}</td>
+		                          	</tr>
+	                        	</c:if>
+	                        	<c:if test="${vo.supply_state == 12}">
+	                        		<tr class="even pointer">
+			                            <td class="a-center ">
+			                            	<input type="checkbox" class="flat" name="table_records">
+			                            </td>
+			                            <td>${vo.rnum}</td>
+			                            <td>${vo.prod_name}</td>
+			                            <td>${vo.prod_id}</td>
+			                            <td>${vo.splylist_info}</td>
+			                            <td class="a-right a-right ">${vo.prod_price}</td>
+			                            <td class=" last">${vo.splylist_sum}</td>
+		                          	</tr>
+	                        	</c:if>
 	                        </c:forEach>
                         </tbody>
                       </table>
-                      
-                      
                     </div>
-							
-						
                   </div>
                 </div>
               </div>
-              
-              
-              
-              
-              
             </div>
           </div>
         </div>
@@ -240,3 +249,23 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    
+    <script type="text/javascript">
+    	$('#supplyCheck').click(function(){
+    		
+    		var popUrl = "http://localhost:8180/cvs/barcode";	//팝업창에 출력될 페이지 URL
+
+    		var popOption = "width=1500, height=900, resizable=, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+
+    		window.open(popUrl,"",popOption);
+    	});
+    </script>
+    
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#barcodeValue").keyup(function(){
+        	alert();
+            search.click();
+        });
+    })
+</script>
