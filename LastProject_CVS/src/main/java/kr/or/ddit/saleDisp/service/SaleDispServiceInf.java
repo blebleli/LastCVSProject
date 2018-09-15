@@ -1,5 +1,8 @@
 package kr.or.ddit.saleDisp.service;
 
+import java.util.List;
+
+import kr.or.ddit.model.DisposalListVo;
 import kr.or.ddit.model.SaleDisVo;
 
 
@@ -25,13 +28,22 @@ public interface SaleDispServiceInf {
 
 	/**
 	* Method : setInsertSignUpUser
-	* Method 설명 : 사용자 신규 등록
-	* 최초작성일 : 2018. 9. 1.
-	* 작성자 : 공은별
+	* Method 설명 : 판매 폐기 신규등록
+	* 최초작성일 : 2018. 09.14
+	* 작성자 : 한수정
 	* 변경이력 :신규
-	* 조 회 :int setInsertSaleDisList(SaleDisVo saleDisVo);_사용자 신규 등록 기능
+	* 조 회 :int setInsertSaleDisList(SaleDisVo saleDisVo);_판매 폐기 신규등록
 	* @param saleDisVo
 	* @return int
 	*/
 	public int setInsertSaleDisList(SaleDisVo saleDisVo);
+	
+	
+	
+	
+	
+	public int setInsertSaleDisList(List<DisposalListVo> dispVoList);
+	
+	
+	
 }
