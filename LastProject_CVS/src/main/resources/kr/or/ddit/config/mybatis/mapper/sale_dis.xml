@@ -20,4 +20,22 @@
 					  		)
 	</insert>
 	
+	
+	<!-- 아 이 디 : getProdPriceByBcd
+  		반 환 값 : int
+  		매개변수 : string(bcd_id)
+  		설    명 : bcd_id 로 해당상품의 가격 가져오는 기능
+  		작 성 자 : 한수정
+  		일    시 : 2018-09-55     
+	 -->
+	<select id="getProdPriceByBcd" parameterType="String">
+		
+		SELECT p.prod_price 
+		FROM prod p
+		JOIN stock_list s
+		ON p.prod_id = s.prod_id
+		WHERE s.bcd_id = #{bcd_id}
+	
+	</select>
+	
 </mapper>

@@ -27,9 +27,6 @@
 			#{bcd_id     }	 --<!--// 재고 id-->
 		)
 	</insert>
-
-
-
-
+	
 
 </mapper>

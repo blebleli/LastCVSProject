@@ -51,6 +51,11 @@
 	<!-- json view -->
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"></bean>
 	
+	<!-- 0909 한수정 qrcode reader -->
+	<bean id="qrCodeReader" class="kr.or.ddit.barcode.util.QRCodeReader" />
+
+	<!-- 0909 한수정 qrcode generator -->
+	<bean id="qrCodeGenerator" class="kr.or.ddit.barcode.util.QRCodeGenerator" />
 
 	<!-- excelDownload view -->
 <!-- 	<bean id="excelDawnloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView"></bean> -->
