@@ -99,6 +99,10 @@
   color: #286090;
 }
  </style>
+ 		
+ 
+ 
+ 
         <!-- page content -->
         <div class="right_col" role="main">
         
@@ -128,7 +132,7 @@
                 	registerAmountChange();
 					registerReceiveChange(); // ---처음부터 거스름돈 체크 문제
 					
-			    	/* 샘플 데이터 */
+			    	/* 샘플 데이터  -- 처음부터 비워진 셀을 만들어놓도록 수정예정*/
 			    	addRow({prodVo : {stcklistID : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
 			    	addRow({prodVo : {stcklistID : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
  				  
@@ -138,7 +142,8 @@
                   
             <div class="row">
             
-            
+ <!-- 상품리스트 ======================================================================= -->             
+                
               <div class="col-md-10 col-sm-10 col-xs-10">
                 <div class="x_panel">
                   <div class="x_title">
@@ -198,71 +203,10 @@
 
                   </div>
                 </div>
-              </div>              
-	              <div class="col-md-1 col-sm-1 col-xs-1">
-	               <button type="button" class="culcBtn op" onclick="removeTr()">삭제</button>
-
-					<button type="button" class="culcBtn op" data-toggle="modal" data-target="#saleSelect">
-					  결제<br>선택
-					</button>
-
-					<!-- 결제선택 modal ==================================== -->
-					<div class="modal fade" id="saleSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-sm" style="text-align: center">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="myModalLabel">결제 선택</h4>
-					      </div>
-					      <div class="modal-body">
-					        <button type="button" class="culcBtn op">현금</button>
-					        <button type="button" class="culcBtn op">카드</button>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="button" class="btn btn-primary">Save changes</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-	
-	               <button type="button" class="culcBtn op" data-toggle="modal" data-target="#myPocket">
-					  주머니
-				   </button>
-					
-					<!-- 주머니 modal ==================================== -->
-					<div class="modal fade" id="myPocket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-sm" style="text-align: center">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					        <h4 class="modal-title" id="myModalLabel">주머니 인식</h4>
-					      </div>
-					      <div class="modal-body">
-					          <!--  <video  id="poketPlayer" width="250" height="250" controls autoplay></video>  
-							   <button id="poketCapture" style="display: none">Capture</button>
-							   <canvas id="poketSnapshot" width=500 height=500 style="display: none"></canvas>	 -->			    											   		
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="button" class="btn btn-primary">Save changes</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-
-	               <button type="button" class="culcBtn op" onclick="btnDisposal()">폐기</button>
-	               <button type="button" class="culcBtn op" onclick="emptyTable()">임시</button>
-	               
-	              </div>
-           </div>   
-<!-- 
-               <div class="clearfix"></div> -->
-
-<!-- 카메라로 인삭하는 div ======================================================================= -->	
-
-			<div class="col-md-3 col-sm-3 col-xs-3">
-                <div class="x_panel">
+                <div class="container">
+                <div class="row">
+                <div class=" col-md-6 col-sm-6 col-xs-6">
+                <div class="x_panel" >
                   <div class="x_title">
                     <h2>바코드인식 <small>Custom design</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
@@ -296,14 +240,34 @@
 				            return snapshotCanvas.toDataURL();
 				    	}
 
+				    	/*테이블 내용 비우기*/
 				    	function emptyTable() {
 						    $("#posTable > tbody").empty();  
 						}
 				    	
+				    	
+				    	/*수량 change listener */
+				    	function registerAmountChange(){			    		
+				    		 $("#posTable").on('change', '.amount', function () {
+				    			 amountSum();
+				    			 rowSum();
+				    			 subtot_sum();
+				    		 });
+				    	}
+				    	
+				    	/*받은금액 change listener */
+				    	function registerReceiveChange(){			    		
+				    		 $("#saleTable").on('change', '.input-box', function () {
+				    			 saleCulc();
+				    			 
+				    		 });
+				    	}
+				    	
 				    	/*삭제버튼 클릭시 */
 				    	function btnRemove() {
-						    $('#posTable tbody tr').has('div[class="checked"]').remove();  
+						    $('#posTable tbody tr').has('div.checked').remove();  
 						}
+				    	
 				    	/*결제버튼 클릭시*/
 				    	function btnSale() {
 				    		//현금카드 나눠주고						  
@@ -311,14 +275,14 @@
 				    	
 				    	/*폐기버튼 클릭시*/
 				    	function btnDisposal() {
-				    		
-				    		//				    		
-				    		var dispList 	="";		
+			    		
+				    		var dispList=[];		
 				    		
 				    		$("#posTable tbody tr").each(function () {		                    	 
-				    			var data = $(this);					    			
-				    			dispList +="&bcd_id=" + data.find('.stcklistID').html() + 
-										   "&disp_amount=" + data.find('.amount').val();
+				    			var data = $(this);		
+				    			
+				    			dispList.push({bcd_id: data.find('.stcklistID').html(), 
+				    					  disp_amount: data.find('.amount').val()})
 		                     });	
 				    		
 				    		console.log("dispList ::: "+dispList);
@@ -327,9 +291,10 @@
 				    		
 				    		$.ajax({
 		    					  url: "/saleDis/insert",
-		    					  type: "post",
-		    					  data : {"dispList" : dispList},
-		    					  success : function (data) {
+		    					  method: "post",
+		    					  data: JSON.stringify(dispList),
+		    					  contentType: "application/json",
+		    					  success : function () {
 		    						  alert("폐기처리 되었습니다.");
 		    						  emptyTable(); 
 		    				      },		 						
@@ -342,24 +307,7 @@
 						    $('#posTable tbody tr').has('div[class="checked"]').remove;  
 
 						}
-
-				    	/*amount change listener */
-				    	function registerAmountChange(){			    		
-				    		 $("#posTable").on('change', '.amount', function () {
-				    			 amountSum();
-				    			 rowSum();
-				    			 subtot_sum();
-				    		 });
-				    	}
-				    	
-				    	/*saleReceive change listener */
-				    	function registerReceiveChange(){			    		
-				    		 $("#saleTable").on('change', '.input-box', function () {
-				    			 saleCulc();
-				    			 
-				    		 });
-				    	}
-				    		
+	
 				    	/* 상품바코드추가 */
 				    	function addRow(data){
 				    		
@@ -452,7 +400,7 @@
 				    	 
 				    	
 				    	/* 할인 합계 계산*/
-				    	function amountDiscount(){		    		
+				    	function sumDiscount(){		    		
 		                     var total_sum = 0;
 		                     $("#posTable .distot").each(function () {
 		                         var discount = $(this).text();		                      
@@ -532,10 +480,123 @@
 				    </script>
 
                   </div>
+                </div>
+                </div>
+                  <div class="col-md-6 col-sm-6 col-xs-6">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>결과창 <small>Custom design</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  
+                  
+<!-- 입력창 및 계산기 ======================================================================= -->             
+              
+              
+
+                  <div class="x_content">
+					
+					<table id="saleTable">
+				    <tbody>   
+				      <tr>
+				        <td><button class="culcBtn number">직접<br>입력</button></td>
+				        <td><div class="input-box"  style="width: 100%">
+						    <input class="numInput" type="text" placeholder="0">
+						  </div></td>				      
+				      </tr>
+				      <tr>
+				        <td><button class="culcBtn number">받을<br>금액</button></td>
+				        <td><b><span id="subtot_sum" class="subtot_sum"></span></b>원</td>
+				      </tr>
+				      <tr>
+				        <td><button class="culcBtn number">받은<br>금액</button></td>
+				     	<td><div class="input-box">
+						    <input id="received" class="numInput" type="text" placeholder="0">원
+						  </div>
+						</td>
+				      </tr>
+				      <tr>
+				       	<td><button class="culcBtn number">거스<br>름돈</button></td>
+				     	<td><b><span id="change" class="subtot_sum"></span></b>원</td>
+				      </tr>
+				    </tbody>
+				  </table>
+	
+                  </div>
                 </div>      
               </div>
+				</div>
+                </div>
+              </div>
+<!-- 결제선택 modal =========================================================================== -->                            
+	              <div class="col-md-1 col-sm-1 col-xs-1">
+	               <button type="button" class="culcBtn op" onclick="btnRemove()">삭제</button>
+
+					<button type="button" class="culcBtn op" data-toggle="modal" data-target="#saleSelect">
+					  결제<br>선택
+					</button>
+
+			
+					<div class="modal fade" id="saleSelect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-sm" style="text-align: center">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="myModalLabel">결제 선택</h4>
+					      </div>
+					      <div class="modal-body">
+					        <button type="button" class="culcBtn op">현금</button>
+					        <button type="button" class="culcBtn op">카드</button>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary">Save changes</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+	
+	               <button type="button" class="culcBtn op" data-toggle="modal" data-target="#myPocket">
+					  주머니
+				   </button>
+					
+					<!-- 주머니 modal ==================================== -->
+					<div class="modal fade" id="myPocket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-sm" style="text-align: center">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        <h4 class="modal-title" id="myModalLabel">주머니 인식</h4>
+					      </div>
+					      <div class="modal-body">
+					          <!--  <video  id="poketPlayer" width="250" height="250" controls autoplay></video>  
+							   <button id="poketCapture" style="display: none">Capture</button>
+							   <canvas id="poketSnapshot" width=500 height=500 style="display: none"></canvas>	 -->			    											   		
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary">Save changes</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+
+	               <button type="button" class="culcBtn op" onclick="btnDisposal()">폐기</button>
+	               <button type="button" class="culcBtn op" onclick="emptyTable()">임시</button>
+	               
+	              </div>
+           </div>   
+           
+           
+<!-- 
+               <div class="clearfix"></div> -->
               
-<!-- 입력창 및 계산기 ======================================================================= -->	              
 <!--               <div class="col-md-3 col-sm-3 col-xs-3">
                 <div class="x_panel">
                   <div class="x_title">
@@ -589,53 +650,7 @@
                   </div>
                 </div>      
               </div> -->
-<!-- 입력창 및 계산기 ======================================================================= -->             
               
-              <div class="col-md-4 col-sm-4 col-xs-4">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>결과창 <small>Custom design</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-
-                  <div class="x_content">
-					
-					<table id="saleTable">
-				    <tbody>
-				     
-				      <tr>
-				        <td><button class="culcBtn number">직접<br>입력</button></td>
-				        <td><div class="input-box"  style="width: 250px">
-						    <input class="numInput" type="text" placeholder="0">
-						  </div></td>				      
-				      </tr>
-				      <tr>
-				        <td><button class="culcBtn number">받을<br>금액</button></td>
-				        <td><b><span id="subtot_sum" class="subtot_sum"></span></b>원</td>
-				      </tr>
-				      <tr>
-				        <td><button class="culcBtn number">받은<br>금액</button></td>
-				     	<td><div class="input-box">
-						    <input id="received" class="numInput" type="text" placeholder="0">원
-						  </div>
-						</td>
-				      </tr>
-				      <tr>
-				       	<td><button class="culcBtn number">거스<br>름돈</button></td>
-				     	<td><b><span id="change" class="subtot_sum"></span></b>원</td>
-				      </tr>
-				    </tbody>
-				  </table>
-	
-                  </div>
-                </div>      
-              </div>
 
           </div>
   
