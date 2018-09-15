@@ -145,11 +145,13 @@
                   <div class="x_title">
                     <h2>입고리스트 <small>   </small></h2>
 <!--                     <button type="submit" class="btn btn-success">선택삭제</button> -->
+							<form action="">
 								<c:forEach items="${scanList}" var="vo">
 		                   			<c:if test="${state != 12}">
                     					<button class="btn btn-primary" id="supplyCheck">입고확인</button>
 		                   			</c:if>
 	                   			</c:forEach>
+							</form>
                     <div class="clearfix"></div>
                   </div>
 
@@ -178,6 +180,7 @@
                             <th class="column-title">상품이름</th>
                             <th class="column-title">상품코드</th>
                             <th class="column-title">비고</th>
+                            <th class="column-title">실수량</th>
                             <th class="column-title">가격</th>
                             <th class="column-title no-link last">수량</th>
                             <th class="bulk-actions" colspan="7">
@@ -198,6 +201,7 @@
 			                            <td>${vo.prod_name}</td>
 			                            <td>${vo.prod_id}</td>
 			                            <td><input type="text" value="${vo.splylist_info}"></td>
+			                            <td><input type="text" size="1" name="amount"> </td>
 			                            <td class="a-right a-right ">${vo.prod_price}</td>
 			                            <td class=" last">${vo.splylist_sum}</td>
 		                          	</tr>
@@ -211,6 +215,7 @@
 			                            <td>${vo.prod_name}</td>
 			                            <td>${vo.prod_id}</td>
 			                            <td>${vo.splylist_info}</td>
+			                            <td></td>
 			                            <td class="a-right a-right ">${vo.prod_price}</td>
 			                            <td class=" last">${vo.splylist_sum}</td>
 		                          	</tr>
@@ -264,7 +269,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $("#barcodeValue").keyup(function(){
-        	alert();
             search.click();
         });
     })
