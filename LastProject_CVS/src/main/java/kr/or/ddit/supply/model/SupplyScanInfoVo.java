@@ -8,6 +8,7 @@ public class SupplyScanInfoVo {
 	String prod_name;	//제품 이름
 	int prod_price;		//제품 가격
 	int splylist_sum;	//발주 수량
+	String supply_bcd;	//수불 바코드
 	String supply_state;//발주 상태)10 = 발주, 11 = 결제, 12 = 입고
 	
 	public int getRnum() {
@@ -46,6 +47,12 @@ public class SupplyScanInfoVo {
 	public void setSplylist_sum(int splylist_sum) {
 		this.splylist_sum = splylist_sum;
 	}
+	public String getSupply_bcd() {
+		return supply_bcd;
+	}
+	public void setSupply_bcd(String supply_bcd) {
+		this.supply_bcd = supply_bcd;
+	}
 	public String getSupply_state() {
 		return supply_state;
 	}
@@ -57,11 +64,12 @@ public class SupplyScanInfoVo {
 		return "SupplyScanInfoVo [rnum=" + rnum + ", prod_id=" + prod_id
 				+ ", splylist_info=" + splylist_info + ", prod_name="
 				+ prod_name + ", prod_price=" + prod_price + ", splylist_sum="
-				+ splylist_sum + ", supply_state=" + supply_state + "]";
+				+ splylist_sum + ", supply_bcd=" + supply_bcd
+				+ ", supply_state=" + supply_state + "]";
 	}
 	public SupplyScanInfoVo(int rnum, String prod_id, String splylist_info,
 			String prod_name, int prod_price, int splylist_sum,
-			String supply_state) {
+			String supply_bcd, String supply_state) {
 		super();
 		this.rnum = rnum;
 		this.prod_id = prod_id;
@@ -69,11 +77,14 @@ public class SupplyScanInfoVo {
 		this.prod_name = prod_name;
 		this.prod_price = prod_price;
 		this.splylist_sum = splylist_sum;
+		this.supply_bcd = supply_bcd;
 		this.supply_state = supply_state;
 	}
 	public SupplyScanInfoVo() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
+	
 
 	
 }

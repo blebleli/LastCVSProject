@@ -13,7 +13,9 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
+import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.SupplyListVo;
+import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 import kr.or.ddit.supply.model.SupplyProdVo;
@@ -69,11 +71,15 @@ public class CvsBarcodeController {
 	@Resource(name="stockService")
 	private StockServiceInf stockService;
 	
+	@Resource(name="autoCodeCreate")
+	private AutoCodeCreate autoCodeCreate;
 	
 	@RequestMapping("/barcode")
 	public String cvsBarcode(Model model){
 		return "cvs_barcode_read";
 	}
+	
+	
 	
 	/**
 	* Method : barcodeScan
@@ -96,10 +102,10 @@ public class CvsBarcodeController {
 		//받아온 수불 바코드로 그에 대한 제품 정보들을 List형태로 가져온다
 		List<SupplyScanInfoVo>getSupplyScanInfoList = supplyService.getSupplyScanInfoList(barcodeValue);
 		
-		for (SupplyScanInfoVo supplyScanInfoVo : getSupplyScanInfoList) {
-			logger.debug("supplyProdVo.getProd_name() : {}",supplyScanInfoVo.getProd_name());
-			logger.debug("supplyScanInfoVo.getSupply_state() : {}",supplyScanInfoVo.getSupply_state());
-		}
+//		for (SupplyScanInfoVo supplyScanInfoVo : getSupplyScanInfoList) {
+//			logger.debug("supplyProdVo.getProd_name() : {}",supplyScanInfoVo.getProd_name());
+//			logger.debug("supplyScanInfoVo.getSupply_state() : {}",supplyScanInfoVo.getSupply_state());
+//		}
 		
 		model.addAttribute("state",getSupplyScanInfoList.get(0).getSupply_state());
 		model.addAttribute("scanList",getSupplyScanInfoList);
@@ -108,13 +114,48 @@ public class CvsBarcodeController {
 	}
 	
 	@RequestMapping(value="/confirmed")
-	public String supplyConfirmed(Model model){
+	public String supplyConfirmed(SupplyScanInfoVo vo, Model model){
+		
+		logger.debug("vo.getSupply_bcd() : {}", vo.getSupply_bcd());
+		logger.debug("vo.getProd_id() : {} ", vo.getProd_id());
+		
+		String kind = "SUPPLY";
+		String barcode = autoCodeCreate.barcode(kind);
+		
+		SupplyVo supplyVo = new SupplyVo();
+		
+		supplyVo.setSupply_bcd(barcode);
+		supplyVo.setSupply_state("12");
+		supplyVo.setPlace_id("3630000-104-2015-00121");
+		
+		/*	supply쪽
+			suppy_bcd	//수불바코드새로이 생성
+			supply_date	//날짜 sysdate
+			supply_state//수불상태(입고 : 12번)
+			place_id	//편의점코드 (임시값 : 3630000-104-2015-00121)
+		 */
+//		SupplyListVo supplyListVo = new SupplyListVo();
+		/*	supplyList쪽
+		 	splylist_id	//새로이 생성
+		 	splylist_info	//비고
+		 	splylist_exdate	//유통기한
+		 	splylist_sum	//물품 갯수
+		 	supply_bcd	//새로이 생성된 수불바코드
+		 	prod_id	//물품 코드
+		 */
+		
+		
+		
+		int cnt1 = supplyService.setInsertSupply(supplyVo);
+		
+		logger.debug("cnt1 : {}",cnt1);
+		
+//		int cnt2 = supplyService.setInsertSupplyList(supplyListVo);
+		
 		
 		return "cvs_barcode_read";
 		
 	}
-
-	
 	
 	/**
 	 * 

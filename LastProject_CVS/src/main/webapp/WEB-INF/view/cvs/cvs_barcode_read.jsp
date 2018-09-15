@@ -145,11 +145,12 @@
                   <div class="x_title">
                     <h2>입고리스트 <small>   </small></h2>
 <!--                     <button type="submit" class="btn btn-success">선택삭제</button> -->
-							<form action="">
-								<c:forEach items="${scanList}" var="vo">
-		                   			<c:if test="${state != 12}">
-                    					<button class="btn btn-primary" id="supplyCheck">입고확인</button>
-		                   			</c:if>
+							<form action="/cvs/confirmed" method="post">
+	                   			<c:if test="${state != 12}">
+                   					<button type="submit" class="btn btn-primary">입고확인</button>
+	                   			</c:if>
+	                   			<c:forEach items="${scanList}" var="vo">
+									<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}">	
 	                   			</c:forEach>
 							</form>
                     <div class="clearfix"></div>
