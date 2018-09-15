@@ -106,6 +106,13 @@ public class CvsBarcodeController {
 		
 		return "cvs_barcode_read";
 	}
+	
+	@RequestMapping(value="/confirmed")
+	public String supplyConfirmed(Model model){
+		
+		return "cvs_barcode_read";
+		
+	}
 
 	
 	
