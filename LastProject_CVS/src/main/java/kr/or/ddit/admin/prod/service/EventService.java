@@ -1,4 +1,4 @@
-package kr.or.ddit.admin.event.service;
+package kr.or.ddit.admin.prod.service;
 
 import java.util.List;
 

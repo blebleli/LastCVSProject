@@ -1,4 +1,4 @@
-package kr.or.ddit.admin.category.web;
+package kr.or.ddit.admin.prod.web;
 
 public class CategoryController {
 

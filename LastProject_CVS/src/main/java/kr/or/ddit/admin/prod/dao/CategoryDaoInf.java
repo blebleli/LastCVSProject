@@ -1,11 +1,37 @@
-package kr.or.ddit.admin.category.service;
+package kr.or.ddit.admin.prod.dao;
 
 import java.util.List;
 
 import kr.or.ddit.model.CategoryVo;
 
-public interface CategoryServiceInf {
+/**
+* @Class Name : CategoryDaoInf.java
+*
+* @author 조계환
+* @since 2018. 8. 30.
+* @version 1.0
+* @see
+*
+* <pre>
+* << 개정이력(Modification Information) >>
+*
+* 수정일 수정자 수정내용
+* ---------- ------ ------------------------
+* 2018. 8. 30. PC15 최초 생성
+*
+* </pre>
+*/
 
+// ==========================================
+// 목록
+// 조회=============================================
+	//int setInsertCategory(CategoryVo categoryVo)_관리자에 의한 카테고리(예:음료, 주류, 식품) 생성 (조건:카테고리 분류)
+	//List<CategoryVo> getCategoryList()_생성한 카테고리 나열을 위한 리스트 출력 기능
+	//int updateCategory(CategoryVo categoryVo)_관리자가 생성한 카테고리 수정 기능
+	//List<CategoryVo> getListCategoryProd(String ctgy_level)_카테고리별 상품 조회 (조건 : 카테고리 그룹 코드)
+	//int deleteCategory(String ctgy_id)_관리자가 생성한 카테고리 삭제 기능
+
+public interface CategoryDaoInf {
 
 	/**
 	* Method : setInsertCategory

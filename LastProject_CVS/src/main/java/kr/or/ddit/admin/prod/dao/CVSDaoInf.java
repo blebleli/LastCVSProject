@@ -1,4 +1,4 @@
-package kr.or.ddit.admin.cvs_service.dao;
+package kr.or.ddit.admin.prod.dao;
 
 import java.util.List;
 

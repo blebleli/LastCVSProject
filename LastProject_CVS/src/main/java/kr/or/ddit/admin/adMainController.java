@@ -1,4 +1,4 @@
-package kr.or.ddit.admin.adMain.web;
+package kr.or.ddit.admin;
 
 public class adMainController {
 

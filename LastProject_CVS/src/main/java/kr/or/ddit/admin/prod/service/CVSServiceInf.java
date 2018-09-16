@@ -1,4 +1,4 @@
-package kr.or.ddit.admin.cvs_service.service;
+package kr.or.ddit.admin.prod.service;
 
 import java.util.List;
 

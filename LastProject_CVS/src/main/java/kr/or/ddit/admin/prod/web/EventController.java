@@ -1,4 +1,4 @@
-package kr.or.ddit.admin.event.web;
+package kr.or.ddit.admin.prod.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

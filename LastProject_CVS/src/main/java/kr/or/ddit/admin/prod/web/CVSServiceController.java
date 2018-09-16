@@ -1,4 +1,4 @@
-package kr.or.ddit.admin.cvs_service.web;
+package kr.or.ddit.admin.prod.web;
 
 public class CVSServiceController {
 
