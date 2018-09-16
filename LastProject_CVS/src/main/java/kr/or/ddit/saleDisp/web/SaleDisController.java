@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.or.ddit.model.DisposalListVo;
 import kr.or.ddit.model.SaleDisVo;
+import kr.or.ddit.model.SaleListVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,11 +22,19 @@ public class SaleDisController {
 
 	private Logger logger = LoggerFactory.getLogger(SaleDisController.class);
 	
-	@RequestMapping("/insert") 
-	@ResponseBody
-	 public ModelAndView saleDis(@RequestBody List<DisposalListVo> dispList,Model model) {
+	@RequestMapping("/dispInsert") 
+	 public ModelAndView dispInsert(@RequestBody List<DisposalListVo> dispList,Model model) {
 		
 		logger.debug("stock --------------"+ dispList);
+		ModelAndView mav = new ModelAndView("jsonView");		
+		
+		return mav;
+	 }
+	
+	@RequestMapping("/saleInsert") 
+	 public ModelAndView saleInsert(@RequestBody List<SaleListVo> saleList,Model model) {
+		
+		logger.debug("stock --------------"+ saleList);
 		ModelAndView mav = new ModelAndView("jsonView");		
 		
 		return mav;

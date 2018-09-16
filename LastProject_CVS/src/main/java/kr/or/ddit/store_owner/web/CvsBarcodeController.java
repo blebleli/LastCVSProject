@@ -174,7 +174,7 @@ public class CvsBarcodeController {
 		
 		ModelAndView mav = new ModelAndView("jsonView");
 		
-		//받아온 img 데이타를 해석
+		//해석
 		String[] stringPart = file.split(",");	
 		Decoder decoder = Base64.getDecoder();
 		byte[] fileByte = decoder.decode(stringPart[1]);
@@ -184,7 +184,7 @@ public class CvsBarcodeController {
 		//메세지
 		String returnMsg =found.get("returnMsg");
 		
-		//메세지 add
+
 		logger.debug("returnMsg ------"+returnMsg);	
 		mav.addObject("returnMsg", returnMsg);		
 			
