@@ -133,9 +133,9 @@
 					registerReceiveChange(); // ---처음부터 거스름돈 체크 문제
 					
 			    	/* 샘플 데이터  -- 처음부터 비워진 셀을 만들어놓도록 수정예정*/
-			    	addRow({prodVo : {stcklistID : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
-			    	addRow({prodVo : {stcklistID : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
- 				  
+			    	addRow({prodVo : {prodID : "prodID1",stcklistID : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
+			    	addRow({prodVo : {prodID : "prodID2",stcklistID : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
+			    	addRow({prodVo : {prodID : "prodID2",stcklistID : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
                  });
        
                  </script>
@@ -269,8 +269,30 @@
 						}
 				    	
 				    	/*결제버튼 클릭시*/
-				    	function btnSale() {
-				    		//현금카드 나눠주고						  
+				    	function btnSale(kind) {
+				    	
+							var saleList=[];		
+				    		
+				    		$("#posTable tbody tr").each(function () {		                    	 
+				    			var data = $(this);					    			
+				    			saleList.push({bcd_id: data.find('.stcklistID').html(), 
+				    					  sale_amount: data.find('.amount').val(),
+				    					  sale_kind:kind })
+		                     });	
+				    		
+				    		console.log("saleList ::: "+saleList);
+				    		
+				    		$.ajax({
+		    					  url: "/saleDis/saleInsert",
+		    					  method: "post",
+		    					  data: JSON.stringify(dispList),
+		    					  contentType: "application/json",
+		    					  success : function () {
+		    						  alert("결제 되었습니다.");
+		    						  emptyTable(); 
+		    				      },		 						
+								  error : function(){console.log("error");}		  								  
+				    		});	
 						}
 				    	
 				    	/*폐기버튼 클릭시*/
@@ -290,7 +312,7 @@
 				    		/* return false; */
 				    		
 				    		$.ajax({
-		    					  url: "/saleDis/insert",
+		    					  url: "/saleDis/dispInsert",
 		    					  method: "post",
 		    					  data: JSON.stringify(dispList),
 		    					  contentType: "application/json",
@@ -312,15 +334,15 @@
 				    	function addRow(data){
 				    		
 				    		//아이디가 같을때 처리 
-				    		var dataProdId = data.prodVo.prod_id;
+				    		var dataProdId = data.prodVo.prodID;
 				    		
-				    		$("#posTable .prodID").each(function () {				    			
-					    		var addedID = $(this).val();
-				    			if(dataProdId){
-					    			//수량증가
-					    		}
+				    		var findProdEle = $("#posTable .prodID").toArray().find(function(e){ 
+				    		 	return dataProdId == e.innerText;
 				    		});
 				    		
+				    		//같은prodID 없을때
+				    		if(findProdEle == undefined){
+				    	
 				    		//행추가
 							$("#prodList").append(		    								
 								     '<tr>'+
@@ -334,14 +356,22 @@
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
 			                         '  <td ><input type="text" class="amount" value="' +data.prodVo.stcklist_amount+'"></td>'+    				                         
 			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
-			                         '  <td ><span class="distot">'+ data.prodVo.event_id+'</span></td> '+			    				                      
+			                         '  <td ><span class="distot">'+ data.prodVo.event_id+'</span></td> '+
+			                         '  <td style="display: none"><span class="prodID">'+ data.prodVo.prodID+'</span></td> '+
 			                         '</tr>'			    								                                                                                     
 							);
 							
+				    		} else{
+				    			//수량증가
+				    			var amountEle = $(findProdEle).parent().parent().find('.amount');
+				    			amountEle.val(parseFloat(amountEle.val())+1);
+				    			
+				    		}
+
 							amountSum();
 							rowSum();
 							subtot_sum();
-	
+				    		
 				    	}
 				    	
 				    	/* 수량합계 계산*/
@@ -551,8 +581,8 @@
 					        <h4 class="modal-title" id="myModalLabel">결제 선택</h4>
 					      </div>
 					      <div class="modal-body">
-					        <button type="button" class="culcBtn op">현금</button>
-					        <button type="button" class="culcBtn op">카드</button>
+					        <button type="button" class="culcBtn op" onclick="btnSale('현금')">현금</button>
+					        <button type="button" class="culcBtn op" onclick="btnSale('카드')">카드</button>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -588,8 +618,7 @@
 					</div>
 
 	               <button type="button" class="culcBtn op" onclick="btnDisposal()">폐기</button>
-	               <button type="button" class="culcBtn op" onclick="emptyTable()">임시</button>
-	               
+	           
 	              </div>
            </div>   
            
