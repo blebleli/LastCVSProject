@@ -34,7 +34,7 @@
     				var trElement = $(this);
     				if(requestProd == trElement.data("class")){
     					alert("이미 추가 된 상품 입니다 ");
-	    				off(); 	
+	    				off();	
     				}
    				})  //end each
    				
