@@ -21,19 +21,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:kr/or/ddit/config/spring/root-context.xml",
-								 "classpath:kr/or/ddit/config/spring/transaction.xml",
 								 "classpath:kr/or/ddit/config/spring/datasource.xml"})
 public class AutoCodeDaoTest {
 
 	
-	@Resource(name="autoCodeDao")
-	private AutoCodeInf autoCodeDao;
+	@Resource(name="tableInsert")
+	private TableInsertInf tableInsert;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Test
 	public void test() {
-		List<ProdVo> prod = autoCodeDao.getgetget();
+		List<ProdVo> prod = tableInsert.getgetget();
 		Map<String, String> map = null ;
 		int  result  = 0;
 		String str = "";
@@ -108,7 +107,7 @@ public class AutoCodeDaoTest {
 				su6++;
 			}
 			
-			result += autoCodeDao.upupup(map);
+			result += tableInsert.upupup(map);
 		}
 		logger.debug("result===> {}", result);
 //		logger.debug("prod===> {}", prod);
