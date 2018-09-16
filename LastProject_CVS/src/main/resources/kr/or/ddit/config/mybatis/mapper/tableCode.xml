@@ -2,19 +2,97 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tableCode">
 
+<!-- 데이터 변경 -->
 
-	<!-- 	아 이 디 : ProdBarCode
+	<select id="getgetget" resultType="prodVo">
+       SELECT PROD_ID  AS PROD_ID
+                  ,CASE  WHEN substr(prod_ID, 0 , 4) = 'food' THEN 'food-' 
+                         WHEN substr(prod_ID, 0 , 7) = 'biscuit' THEN 'biscuit-' 
+                         WHEN substr(prod_ID, 0 , 5) = 'drink' THEN 'drink-'
+                         WHEN substr(prod_ID, 0 , 3) = 'ice' THEN 'ice-'
+                         WHEN substr(prod_ID, 0 , 4) = 'meal' THEN 'meal-'
+                         WHEN substr(prod_ID, 0 , 11) = 'necessities' THEN 'necessities-'
+                   ELSE 'etc-' END  as PROD_info
+            FROM PROD
+	
+	-- D: 제거
+	--	UPDATE (
+	--	    SELECT FILE_PATH before, 
+	--	         REPLACE(FILE_PATH, 'D:') AS after
+	--	    FROM PROD
+	--	) t
+	--	SET t.before = t.after;
+	--	
+	--	-- \ => /  변경
+	--	UPDATE (
+	--	    SELECT FILE_PATH before, 
+	--	         REPLACE(FILE_PATH, '\','/') AS after
+	--	    FROM PROD
+	--	) t
+	--	SET t.before = t.after;
+	
+	</select>
+	
+	<update id="upupup" parameterType="map">
+		update prod
+		set  prod_id = #{id}
+		where prod_id = #{prod_id}
+	</update>
+
+
+
+
+
+
+<!-- 데이터 변경 -->
+
+
+	<!-- 	아 이 디 : ProdCode
 	  		매개변수 : String
 	  		반 환 값 : String
 	  		설    명 : Prod 코드 마지막 pk 
 	  		작 성 자 : 조종원
 	  		일    시 : 2018-09-14
 	 -->
-	<select id="ProdBarCode" resultType="String" parameterType="String">
-		SELECT SUBSTR(PROD_ID , LENGTH(#{code})+2 ) FROM PROD WHERE PROD_ID LIKE ('%' || #{code} ||'%')
+	<select id="ProdCode" resultType="String" parameterType="String">
+		SELECT NVL( MAX(PROD_ID),'0') AS CODE FROM PROD WHERE PROD_ID LIKE ('%' || #{code} ||'%')
 	</select>
 	
+	<!-- 	아 이 디 : stockBarcode
+	  		매개변수 : String
+	  		반 환 값 : int
+	  		설    명 : STOCK 유무
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-07
+	 -->
+	<select id="stockBarcode" parameterType="String" resultType="int">
+		SELECT count(*)  FROM  STOCK WHERE STOCK_ID = #{id}
+	</select>
 	
+	<!-- 	아 이 디 : pocketBarcode
+	  		매개변수 : String
+	  		반 환 값 : int
+	  		설    명 : board 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-07
+	 -->
+	<select id="pocketBarcode" parameterType="String" resultType="int">
+		SELECT count(*)  FROM  POCKET WHERE POCKET_ID = #{id}
+	</select>
+	
+	<!-- 	아 이 디 : supplyListBarcode
+	  		매개변수 : String
+	  		반 환 값 : int
+	  		설    명 : board 코드 마지막 pk 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-09-07
+	 -->
+	<select id="supplyListBarcode" parameterType="String" resultType="int">
+		SELECT count(*)  FROM  SUPPLY_LIST WHERE SPLYLIST_ID = #{id}
+	</select>
+	
+
+
 
 
 	<!-- 	아 이 디 : boardCode
@@ -115,7 +193,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="categoryCode" resultType="String" parameterType="String">
-		SELECT NVL( MAX(FILE_ID),'0') AS CODE  FROM CATEGORY WHERE FILE_ID LIKE  ('%' || #{code} ||'%')
+		SELECT NVL( MAX(CTGY_ID),'0') AS CODE  FROM CATEGORY WHERE CTGY_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 
 	<!-- 	아 이 디 : reserveCode
@@ -159,7 +237,7 @@
 	  		일    시 : 2018-09-09
 	 -->
 	<select id="membershipCode" resultType="String" parameterType="String">
-		SELECT NVL( MAX(MEMSHIP_ID),'0') AS CODE  FROM MEMBERSHIP WHERE MEMSHIP_ID LIKE  ('%' || #{code} ||'%')
+		SELECT NVL( MAX(SHIPLIST_ID),'0') AS CODE  FROM MEMBERSHIP WHERE SHIPLIST_ID LIKE  ('%' || #{code} ||'%')
 	</select>
 	
 	<!-- 	아 이 디 : payCode
