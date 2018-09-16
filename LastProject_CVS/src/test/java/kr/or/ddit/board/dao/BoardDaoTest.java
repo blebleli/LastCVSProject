@@ -41,17 +41,20 @@ public class BoardDaoTest {
 	public void setInsertBoardTest(){
 		 /***Given***/
 		BoardVo boardVo = new BoardVo();
-		boardVo.setBd_id("1"); // 게시판코드
+		
+		String  bd_id = "REVIEW0000000022";
+		
+		boardVo.setBd_id(bd_id); // 게시판코드
 		boardVo.setBd_title("테스트"); // 제목
 		boardVo.setBd_content("테스트입니다."); // 내용
 		boardVo.setBd_del("N"); // 삭제여부
-		boardVo.setBd_rating(0); // 평점
+		boardVo.setBd_rating(3); // 평점
 		boardVo.setBd_views(0); // 조회수
-		boardVo.setBd_group("1"); // 그룹코드
-		boardVo.setProd_id("necessities-59ed647b-25d7-4b14-8276-a2d53d56018d"); // 제품바코드
-		boardVo.setMem_id("admin"); // 아이디
+		boardVo.setBd_group(bd_id); // 그룹코드
+		boardVo.setProd_id("food-7ecdb450-c4e3-4fb2-9e06-4ba3b2c7fcc7"); // 제품바코드
+		boardVo.setMem_id("jongwon_ny@naver.com"); // 아이디
 		boardVo.setBd_parent(""); // 부모코드
-		boardVo.setBd_kind_id("44"); // 구분
+		boardVo.setBd_kind_id("55"); // 구분
 		
 		/***When***/
 		int cnt = boardDao.setInsertBoard(boardVo);
