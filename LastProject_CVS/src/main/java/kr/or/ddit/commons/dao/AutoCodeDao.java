@@ -1,8 +1,11 @@
 package kr.or.ddit.commons.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+import kr.or.ddit.model.ProdVo;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,6 +16,17 @@ public class AutoCodeDao implements AutoCodeInf {
 
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate dao;
+	
+	public List<ProdVo> getgetget(){
+	
+		return dao.selectList("tableCode.getgetget");
+	}
+	
+	public int upupup(Map<String, String> map){
+		
+		return dao.update("tableCode.upupup", map);
+	}
+	
 	
 	/** 
 	 * Method   : autoCode 

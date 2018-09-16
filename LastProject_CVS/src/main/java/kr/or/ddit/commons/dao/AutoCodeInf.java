@@ -1,9 +1,17 @@
 package kr.or.ddit.commons.dao;
 
+import java.util.List;
 import java.util.Map;
+
+import kr.or.ddit.model.ProdVo;
 
 public interface AutoCodeInf {
 
+	
+	List<ProdVo> getgetget();
+	
+	int upupup(Map<String, String> map);
+	
 	String autoCode(Map code);
 	
 	// 받아오는 매개변수(테이블명_소문자)

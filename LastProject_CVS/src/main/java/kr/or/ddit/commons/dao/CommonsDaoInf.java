@@ -56,50 +56,64 @@ public interface CommonsDaoInf {
 
 	/*코드 자동 생성*/
 	//1 board
-	String boardCode(String kind);
+	String boardCode(String code);
 
 	//2 comments
-	String commentsCode();
+	String commentsCode(String code);
 	
 	//3 sale_disCode
-	String sale_disCode(String kind);
+	String sale_disCode(String code);
 
 	//4 sale_listCode
-	String sale_listCode();
+	String sale_listCode(String code);
 	
 	//5 disposal_list
-	String disposal_list();
+	String disposal_list(String code);
 	
 	//6supply_list
-	String supply_listCode();
+	String supply_listCode(String code);
 	
 	//7 filedataCode
-	String 	filedataCode();
+	String 	filedataCode(String code);
 
 	//8 eventCode
-	String eventCode();
+	String eventCode(String code);
 
 	//9 reserveCode
-	String reserveCode();
+	String reserveCode(String code);
 
 	//10 categoryCode
-	String categoryCode();
+	String categoryCode(String code);
 	
 	//11 stock_listCode
-	String stock_listCode();
+	String stock_listCode(String code);
 
 	//12 stockCode
-	String stockCode();
+	String stockCode(String code);
 
 	//13 membershipCode
-	String  membershipCode();
+	String  membershipCode(String code);
 	
 	//14 payCode
-	String payCode();
+	String payCode(String code);
 
 	//15 bookmarkCode
-	String bookmarkCode();
+	String bookmarkCode(String code);
 	
 	//16 cvs_serviceCode
-	String  cvs_serviceCode();
+	String  cvs_serviceCode(String code);
+	
+	//17 ProdBarCode
+	String ProdCode(String code);
+	
+	//18 stockBarcode
+	int stockBarcode(String  code);
+	
+	//19 pocketBarcode
+	int pocketBarcode(String  code);
+	
+	//20 supplyListBarcode
+	int supplyListBarcode(String  code);
+	
+	
 }

@@ -1,107 +1,60 @@
 package kr.or.ddit.admin;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class test {
 	public static void main(String[] args) {// 네이버 인증
-		String clientId = "fcthGRlB7Lr5CweLuxjW";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "redlWMIaNo";//애플리케이션 클라이언트 시크릿값";
-        
-        
-        try {
-            String addr = URLEncoder.encode("대전광역시 중구 대흥동 500-5", "UTF-8");
-//            String addr = URLEncoder.encode(add, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/map/geocode?query=" + addr; //json
-//            String apiURL = "https://openapi.naver.com/v1/map/geocode.xml?query=" + addr; // xml
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("X-Naver-Client-Id", clientId);
-            con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
-            if(responseCode==200) { // 정상 호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {  // 에러 발생
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            }
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            String str = "";
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-                str+=inputLine;
-            }
-            br.close();
-            System.out.println(response.toString());
-            System.out.println("==================================================================");
-            System.out.println(str);
-            
-//            {"result": {
-//            	 "total": 1
-//            	,"userquery": "대전광역시 중구 대흥동 500-5"
-//            	,"items": [  { "address": "대전광역시 중구 대흥동 500-5"
-//            		          ,"addrdetail": {"country": "대한민국","sido": "대전광역시","sigugun": "중구","dongmyun": "대흥동","ri": "","rest": "500-5"}
-//            				  ,"isRoadAddress": false
-//            				  ,"point": {"x": 127.4202953,"y": 36.3251973}}]}}
-
-
-            
-            
-            // 네이버에서 받은 json 파일 데이터 가공
-            JSONParser jsonParser = new JSONParser();
-            
-            //JSON데이터를 넣어 JSON Object 로 만들어 준다.
-//            JSONArray spaceJSONArray = spaceListJSON.getJSONArray("space");
-
-            JSONObject jsonObject = (JSONObject) jsonParser.parse(str);
-            System.out.println(jsonObject);
-             
-            
-            //books의 배열을 추출
-            JSONArray pointInfoArray = (JSONArray) jsonObject.get("result");
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println(pointInfoArray);
-            System.out.println("* point *");
-// 
-            for(int i=0; i<pointInfoArray.size(); i++){
- 
-                System.out.println("=point"+i+" ===========================================");
-                 
-                //배열 안에 있는것도 JSON형식 이기 때문에 JSON Object 로 추출
-                JSONObject bookObject = (JSONObject) pointInfoArray.get(i);
-                 
-                //JSON name으로 추출
-                System.out.println("pointInfo: x==>"+bookObject.get("x"));
-                System.out.println("pointInfo: y==>"+bookObject.get("y"));
-            }
- 
-            JSONArray personInfoArray = (JSONArray) jsonObject.get("persons");
- 
-            System.out.println("\r\n* PERSONS *");
- 
-            for(int i=0; i<personInfoArray.size(); i++){
- 
-                System.out.println("=PERSON_"+i+" ===========================================");
-                JSONObject personObject = (JSONObject) personInfoArray.get(i);
-                System.out.println("personInfo: name==>"+personObject.get("name"));
-                System.out.println("personInfo: age==>"+personObject.get("age"));
-                System.out.println("personInfo: gender==>"+personObject.get("gender"));
-                System.out.println("personInfo: nickname==>"+personObject.get("nickname"));
- 
-            }
-            
-        } catch (Exception e) {
-            System.out.println(e);
-        }}
+	
+//		List<String> sung = Arrays.asList("김","이","박","최","정","강","조","윤","장","림","한","오","서","신","권","황","안","송","전"
+//					  ,"홍","류","고","문","량","손","배","조","백","허","류","남","심","로","정","하","곽","성","차"
+//					  ,"주","우","구","신","임","전","민","유","류","나","진","지","엄","채","원","천","방","공","강"
+//					  ,"현","함","변","염","양","변","여","추","노","도","소","신","석","선","설","마","길","주","연"
+//					  ,"위","표","명","기","반","라","왕","금","옥","육","인","맹","제","모","장","남","탁","국","여"
+//					  ,"진","어","은","편" );
+//		
+//		List<String> name = Arrays.asList(
+//							 "가","나","다","라","마","바","사","아","자","차","카","타","파","하"
+//							,"갸","냐","댜","랴","먀","뱌","샤","야","쟈","챠","캬","탸","퍄","햐"
+//							,"거","너","더","러","머","버","서","어","저","처","커","터","퍼","허" 
+//							,"겨","녀","뎌","려","며","벼","셔","여","져","쳐","켜","텨","펴","혀"
+//							,"고","노","도","로","모","보","소","오","조","초","코","토","포","호" 
+//							,"교","뇨","됴","료","묘","뵤","쇼","요","죠","쵸","쿄","됴","표","효"
+//							,"구","누","두","루","무","부","수","우","주","추","쿠","투","푸","후"
+//							,"규","뉴","듀","류","뮤","뷰","슈","유","쥬","츄","큐","튜","퓨","휴"
+//							,"그","느","드","르","므","브","스","으","즈","츠","크","트","프","흐"
+//							,"기","니","디","리","미","비","시","이","지","치","키","티","피","히" 
+//						
+//					  );
+//
+//		List<String> full  = new  ArrayList<String>();
+//		
+//		for (int  i = 0 ; i < 15842; i++) {
+//			Collections.shuffle(sung);
+//			String name1 = sung.get(0);
+//			Collections.shuffle(name);
+//			String name2 = name.get(0);
+//			Collections.shuffle(name);
+//			String name3 = name.get(0);
+//			String fullName = name1+name2+name3;
+//			System.out.println(fullName);
+//			full.add(fullName);
+//		}
+//		
+//		System.out.println("=========================");
+//		System.out.println(full.size());
+		
+		
+		
+		
+		String str = "";
+		
+		for (int i = 0 ; i < 1-1 ; i++) {
+			str += "9";
+		}
+		System.out.println(str);
+	}
 }

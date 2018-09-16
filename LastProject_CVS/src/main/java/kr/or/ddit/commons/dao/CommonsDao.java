@@ -35,83 +35,103 @@ public class CommonsDao implements CommonsDaoInf {
 	 * Method 설명 :   자동 코드 생성
 	 */
 	@Override
-	public String boardCode(String kind) {
-			return template.selectOne("tableCode.boardCode", kind);
+	public String boardCode(String code) {
+			return template.selectOne("tableCode.boardCode", code);
 	}
 
 	@Override
-	public String commentsCode() {
-		return template.selectOne("tableCode.commentsCode");
+	public String commentsCode(String code) {
+		return template.selectOne("tableCode.commentsCode", code);
 	}
 
 	@Override
-	public String sale_disCode(String kind) {
-		return template.selectOne("tableCode.sale_disCode", kind);
+	public String sale_disCode(String code) {
+		return template.selectOne("tableCode.sale_disCode", code);
 	}
 
 	@Override
-	public String sale_listCode() {
-		return template.selectOne("tableCode.sale_listCode");
+	public String sale_listCode(String code) {
+		return template.selectOne("tableCode.sale_listCode", code);
 	}
 
 	@Override
-	public String disposal_list() {
-		return template.selectOne("tableCode.disposal_listCode");
+	public String disposal_list(String code) {
+		return template.selectOne("tableCode.disposal_listCode", code);
 	}
 
 	@Override
-	public String supply_listCode() {
-		return template.selectOne("tableCode.supply_listCode");
+	public String supply_listCode(String code) {
+		return template.selectOne("tableCode.supply_listCode", code);
 	}
 
 	@Override
-	public String filedataCode() {
-		return template.selectOne("tableCode.filedataCode");
+	public String filedataCode(String code) {
+		return template.selectOne("tableCode.filedataCode", code);
 	}
 
 	@Override
-	public String eventCode() {
-		return template.selectOne("tableCode.eventCode");
+	public String eventCode(String code) {
+		return template.selectOne("tableCode.eventCode", code);
 	}
 
 	@Override
-	public String reserveCode() {
-		return template.selectOne("tableCode.reserveCode");
+	public String reserveCode(String code) {
+		return template.selectOne("tableCode.reserveCode", code);
 	}
 
 	@Override
-	public String categoryCode() {
-		return template.selectOne("tableCode.categoryCode");
+	public String categoryCode(String code) {
+		return template.selectOne("tableCode.categoryCode", code);
 	}
 
 	@Override
-	public String stock_listCode() {
-		return template.selectOne("tableCode.stock_listCode");
+	public String stock_listCode(String code) {
+		return template.selectOne("tableCode.stock_listCode", code);
 	}
 
 	@Override
-	public String stockCode() {
-		return template.selectOne("tableCode.stockCode");
+	public String stockCode(String code) {
+		return template.selectOne("tableCode.stockCode", code);
 	}
 
 	@Override
-	public String membershipCode() {
-		return template.selectOne("tableCode.membershipCode");
+	public String membershipCode(String code) {
+		return template.selectOne("tableCode.membershipCode", code);
 	}
 
 	@Override
-	public String payCode() {
-		return template.selectOne("tableCode.payCode");
+	public String payCode(String code) {
+		return template.selectOne("tableCode.payCode", code);
 	}
 
 	@Override
-	public String bookmarkCode() {
-		return template.selectOne("tableCode.bookmarkCode");
+	public String bookmarkCode(String code) {
+		return template.selectOne("tableCode.bookmarkCode", code);
 	}
 
 	@Override
-	public String cvs_serviceCode() {
-		return template.selectOne("tableCode.cvs_serviceCode");
+	public String cvs_serviceCode(String code) {
+		return template.selectOne("tableCode.cvs_serviceCode", code);
+	}
+
+	@Override
+	public String ProdCode(String code) {
+		return template.selectOne("tableCode.ProdCode", code);
+	}
+
+	@Override
+	public int stockBarcode(String code) {
+		return template.selectOne("tableCode.stockBarcode", code);
+	}
+
+	@Override
+	public int pocketBarcode(String code) {
+		return template.selectOne("tableCode.pocketBarcode", code);
+	}
+
+	@Override
+	public int supplyListBarcode(String code) {
+		return template.selectOne("tableCode.supplyListBarcode", code);
 	}
 
 	
