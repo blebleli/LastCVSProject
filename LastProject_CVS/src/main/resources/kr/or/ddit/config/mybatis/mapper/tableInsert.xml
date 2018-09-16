@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tableInsert">
+	
+
+<insert id="memberInsert" parameterType="memberVo" >
+	INSERT INTO MEMBER ( MEM_ID, MEM_PW, MEM_KIND, MEM_NAME, MEM_TEL, MEM_BIRTH, MEM_GEN, MEM_ZIP, MEM_ADD, MEM_ADDR, MEM_CVS_NAME, MEM_CVS_TEL, MEM_INTRO, MEM_X, MEM_Y, MEM_POINT)       
+       VALUES(  #{mem_id}                                -- 아이디
+              , CRYPTPACK.ENCRYPT(#{mem_pw},#{mem_id})   -- 비밀번호
+              , #{mem_kind}                              -- 구분  : 관리자(00), 점주(01), 일반(02)
+              , #{mem_name}                              -- 이름
+              , #{mem_tel}                               -- 연락처
+              , #{mem_birth}                             -- 생년월일
+              , #{mem_gen}                               -- 성별(M:남자, F:여자)
+              , #{mem_zip}                               -- 우편번호
+              , #{mem_add}                               -- 주소
+              , #{mem_addr}                              -- 상세주소
+              , #{mem_cvs_name}                          -- 편의점명
+              , #{mem_cvs_tel}                           -- 편의점연락처
+              , #{mem_intro}                             -- 소개
+              , #{mem_x}                                 -- x 좌표 (별도로 구해야 함)
+              , #{mem_y}                                 -- y 좌표 (별도로 구해야 함)
+              , #{mem_point}							 -- 포인트
+           )
+</insert>
+
+<insert id="cvs_serviceTest" parameterType="cvsServiceVo">
+	  INSERT INTO CVS_SERVICE (SERVICE_ID, CTGY_ID, PLACE_ID) 
+         VALUES (
+         		   #{service_id}		-- 현황코드
+         		 , #{ctgy_id}			-- 카테고리코드
+         		 , #{place_id}			-- 편의점
+         
+         );
+</insert>
+
+
+</mapper>
