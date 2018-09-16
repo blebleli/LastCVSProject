@@ -7,12 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-@RequestMapping("/ad")
-@Controller("cvsMainController")
-@SessionAttributes({"CvsPosMainController.java"})
+@RequestMapping("/admin")
+@Controller("adMainController")
+@SessionAttributes({"userInfo"})
 public class AdMainController {
 	private Logger logger = LoggerFactory.getLogger(AdMainController.class);
-	
 	
 	@RequestMapping("/main")
 	public String cvsMain(Model model){
