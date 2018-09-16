@@ -30,83 +30,64 @@
         <ul class="nav side-menu">
           <li><a href="main"><i class="fa fa-home"></i> Home </a>
           </li> 
-                                                              
-<!--           <li><a><i class="fa fa-desktop"></i> 상품관리 <span class="fa fa-chevron-down"></span></a> -->
-<!--             <ul class="nav child_menu"> -->
-<!--            	  <li><a href="#">상품조회</a></li> -->
-<!--               <li><a href="#">상품등록</a></li> -->
-<!--               <li><a href="#">상품수정</a></li> -->
-<!--               <li><a href="#">상품삭제</a></li> -->
-<!--             </ul>                -->
-<!--           </li> -->
-          
-          <li><a><i class="fa fa-table"></i> 상품관리 <span class="fa fa-chevron-down"></span></a>
+           <!-- 조종원 -->
+           <li><a><i class="fa fa-table"></i> 상품관리 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	   
-           	   
-           	   <!-- 조종원 -->
-           	   <li><a href="#">상품 처리<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="#">상품 조회/삭제</a></li>
-                    <li class="sub_menu"><a href="#">상품 등록</a></li>
-                    <li class="sub_menu"><a href="#">상품 수정</a></li>
-                    </li>
-                  </ul>
-               </li>
-               <!-- 조종원 -->
-               
-               
-               <!-- 조계환 -->
-               <li><a href="#">수주 처리<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="#">조회</a></li>
-                    <li class="sub_menu"><a href="#">결제</a></li>
-                    <li class="sub_menu"><a href="#">수정</a></li>
-                    </li>
-                  </ul>
-               </li>
-               <!-- 조계환 -->
-               
-               <!-- 공은별 -->
-               <li><a href="#">회원관리<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="#">조회</a></li>
-                    <li class="sub_menu"><a href="#">수정</a></li>
-                    </li>
-                  </ul>
-               </li>
-               
-               <li><a href="#">점포관리<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="#">조회</a></li>
-                    <li class="sub_menu"><a href="#">생성</a></li>
-                    <li class="sub_menu"><a href="#">수정</a></li>
-                    </li>
-                  </ul>
-               </li>
-               <!-- 공은별 -->
-               
-               <!-- 김마음 -->
-               <li><a href="#">게시판관리<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="#">조회/삭제</a></li>
-                    <li class="sub_menu"><a href="#">생성</a></li>
-                    <li class="sub_menu"><a href="#">수정</a></li>
-                    </li>
-                  </ul>
-               </li>
-           	   <!-- 김마음 -->
-           	   
-           	   <!-- 김현경 -->
-           	   <li><a href="#">통계<span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="#">무슨통계?</a></li>
-                    <li class="sub_menu"><a href="#">무슨통계?</a></li>
-                    <li class="sub_menu"><a href="#">무슨통계?</a></li>
-                    </li>
-                  </ul>
-               </li>
-           	   <!-- 김현경 -->
+           	   <li><a href="stock">상품 조회/삭제</a></li>
+               <li><a href="supplyIn">상품 등록</a></li>
+               <li><a href="supplyIn">상품 수정</a></li>
+            </ul>
+          </li>
+          <!-- 조종원 -->
+          
+          <!-- 조계환 -->
+          <li><a><i class="fa fa-table"></i> 수주 처리 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+           	   <li><a href="#">조회</a></li>
+               <li><a href="#">결제</a></li>
+               <li><a href="#">수정</a></li>
+            </ul>
+          </li>
+          <!-- 조계환 -->
+           
+          <!-- 공은별 -->
+          <li><a><i class="fa fa-table"></i> 회원관리 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+           	   <li><a href="#">조회</a></li>
+               <li><a href="#">수정</a></li>
+            </ul>
+          </li>
+          
+          <li><a><i class="fa fa-table"></i> 점포관리 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+           	   <li><a href="#">조회</a></li>
+               <li><a href="#">생성</a></li>
+               <li><a href="#">수정</a></li>
+            </ul>
+          </li>
+          <!-- 공은별 -->
+          
+          <!-- 김마음 -->
+          <li><a><i class="fa fa-table"></i> 게시판관리 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+           	   <li><a href="#">조회/삭제</a></li>
+               <li><a href="#">생성</a></li>
+               <li><a href="#">수정</a></li>
+            </ul>
+          </li>
+          <!-- 김마음 -->
+          
+          <!-- 김마음 -->
+          <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+           	   <li><a href="#">무슨통계?</a></li>
+           	   <li><a href="#">무슨통계?</a></li>
+           	   <li><a href="#">무슨통계?</a></li>
+           	   <li><a href="#">무슨통계?</a></li>
+           	   <li><a href="#">무슨통계?</a></li>
+            </ul>
+          </li>
+          <!-- 김마음 -->
            	   
            <li><a href="setting"><i class="fa fa fa-gears"></i> setting </a>
           </li>                  

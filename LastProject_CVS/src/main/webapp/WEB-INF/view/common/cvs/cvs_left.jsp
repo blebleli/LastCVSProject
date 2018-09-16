@@ -37,7 +37,7 @@
                <li><a href="barcode">인식</a></li>
             </ul>               
           </li>
-          
+
           <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
            	   <li><a href="stock">현재재고</a></li>
