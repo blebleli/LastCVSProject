@@ -152,4 +152,17 @@
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_setting.jsp"/>
 	</definition>
 	
+	<!-- 관리자 레이아웃======================================================= -->
+	<definition name="ad_basicLayout" template="/WEB-INF/view/common/admin/ad_basicLayout.jsp">
+		<put-attribute name="ad_top"  value="/WEB-INF/view/common/admin/ad_left.jsp" />
+		<put-attribute name="ad_left" value="/WEB-INF/view/common/admin/ad_top.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	<!--  관리자 메인 -->
+	<definition name="cvs_index" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/ad_index.jsp"/>
+	</definition>
+	
+	
 </tiles-definitions>
