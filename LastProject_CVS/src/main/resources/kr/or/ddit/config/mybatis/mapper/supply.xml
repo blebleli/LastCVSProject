@@ -70,8 +70,8 @@
 	  		일    시 : 2018-09-11     
 	 -->
 	<insert id="insertSupply" parameterType="supplyVo">
-	INSERT INTO supply(SUPPLY_BCD, 
-					   SUPPLY_STATE, 
+	INSERT INTO supply(supply_bcd, 
+					   supply_state, 
 					   supply_date, 
 					   place_id) 
 				VALUES(#{supply_bcd},
