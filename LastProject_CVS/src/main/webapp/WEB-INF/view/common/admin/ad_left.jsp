@@ -69,14 +69,14 @@
           <!-- 김마음 -->
           <li><a><i class="fa fa-table"></i> 게시판관리 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	   <li><a href="#">조회/삭제</a></li>
-               <li><a href="#">생성</a></li>
-               <li><a href="#">수정</a></li>
+           	   <li><a href="boardView">조회/삭제</a></li>
+               <li><a href="boardNew">생성</a></li>
+               <li><a href="boardUpdate">수정</a></li>
             </ul>
           </li>
           <!-- 김마음 -->
           
-          <!-- 김마음 -->
+          <!-- 김현경 -->
           <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
            	   <li><a href="#">무슨통계?</a></li>
@@ -86,7 +86,7 @@
            	   <li><a href="#">무슨통계?</a></li>
             </ul>
           </li>
-          <!-- 김마음 -->
+          <!-- 김현경 -->
            	   
            <li><a href="setting"><i class="fa fa fa-gears"></i> setting </a>
           </li>                  
