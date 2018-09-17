@@ -18,6 +18,7 @@ import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.store_owner.web.CvsSupplyInController;
 import kr.or.ddit.supply.dao.SupplyDao;
 import kr.or.ddit.supply.dao.SupplyDaoInf;
+import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
 import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.model.SupplySumProdVo;
@@ -357,6 +358,11 @@ public class SupplyService implements SupplyServiceInf {
 	@Override
 	public List<SupplyScanInfoVo> getSupplyScanInfoList(String supply_bcd) {
 		return SupplyDao.getSupplyScanInfoList(supply_bcd);
+	}
+
+	@Override
+	public List<SupRequestListVo> supplyRequestList(String place_id) {
+		return SupplyDao.supplyRequestList(place_id);
 	}
 	
 	
