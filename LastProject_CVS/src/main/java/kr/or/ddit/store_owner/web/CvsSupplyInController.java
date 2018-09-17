@@ -66,12 +66,13 @@ public class CvsSupplyInController {
 	public String cvsSupplyIn(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="10") int pageSize,
 							  Model model){
-		Map<String, Integer> paramMap = new HashMap<String, Integer>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
 		//getSupplyPageList메서드에서 원하는 Map 타입에 page이름으로 값을 1, pageSize이름으로 값을 10을 넣어서 넘겨준다
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
-		
+		String place_id = "3090000-104-2016-00061";
+		paramMap.put("place_id",place_id);
 		//입고 리스트 전체 출력 
 		Map<String, Object> resultMap = suppltService.getSupplyPageList(paramMap);
 		
