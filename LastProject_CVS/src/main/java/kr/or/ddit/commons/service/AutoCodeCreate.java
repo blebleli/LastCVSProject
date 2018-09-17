@@ -9,7 +9,10 @@ import javax.annotation.Resource;
 
 import kr.or.ddit.commons.dao.CommonsDaoInf;
 
+import org.jboss.logging.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 
 
 @Service("autoCodeCreate")
@@ -17,6 +20,8 @@ public class AutoCodeCreate {
 
 	@Resource(name="commonsDao")
 	private CommonsDaoInf commonsDao;
+	
+	private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/** 
 	 * Method   : barcode 
@@ -196,6 +201,8 @@ public class AutoCodeCreate {
 	 */
 	public String autoCode(String code){
 		String  str  ="";
+		logger.debug("autoCode===========================================");
+		logger.debug(code);
 		// 제품 ========================================================================================
 		if (code.equals("meal")) {							// 간편식사
 			str = commonsDao.ProdCode(code);
@@ -218,9 +225,7 @@ public class AutoCodeCreate {
 			str = commonsDao.eventCode(code);
 		}else if (code.equals("DIS")) {						// 할인
 			str = commonsDao.eventCode(code);
-		} else {
-			return null;
-		}
+		} 
 		
 		if (   code.equals("meal") || code.equals("biscuit") || code.equals("ice") || code.equals("food")
 			|| code.equals("drink")|| code.equals("necessities") || code.equals("etc")) {
@@ -258,6 +263,7 @@ public class AutoCodeCreate {
 		// 게시판 ==========================================
 		} else  if (code.equals("BNO")) {					// 공지사항
 			str = commonsDao.boardCode(codeStr);
+			logger.debug(str);
 		} else  if (code.equals("BRE")) {					// 리뷰
 			str = commonsDao.boardCode(codeStr);
 		} else  if (code.equals("BEV")) {					// 이벤트
