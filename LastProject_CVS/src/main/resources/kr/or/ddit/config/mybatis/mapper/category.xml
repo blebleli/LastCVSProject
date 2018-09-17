@@ -18,16 +18,25 @@
 	WHERE ctgy_id=#{ctgy_id}
 </select>
 
-<!-- 	아 이 디 : getMemIdCnt
-  		반 환 값 : List<>
-  		매개변수 : 
+<!-- 	아 이 디 : 
+  		반 환 값 : categoryVo
+  		매개변수 : ctgy_parent : is null , is not null
   		설    명 : 관리자 카테고리 조회 
   		작 성 자 : 조종원
-  		일    시 : 2018-09-17     
-
-<select id="" parameterType="" resultType="">
-	
-</select>
+  		일    시 : 2018-09-17
  -->
+<select id="getProdCategory" parameterType="categoryVo" resultType="categoryVo">
+
+	SELECT  * 
+	FROM CATEGORY 
+	WHERE 1=1
+			<if test="ctgy_parent == null and ctgy_parent == '' ">
+				AND	CTGY_PARENT			IS NULL
+			</if>
+			<if test="ctgy_parent != null and ctgy_parent != '' ">
+				AND CTGY_PARENT			IS NOT NULL
+			</if>  
+      AND CTGY_KIND = #{ctgy_kind}
+</select>
 
 </mapper>
