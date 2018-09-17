@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
         
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
@@ -33,9 +32,9 @@
            <!-- 조종원 -->
            <li><a><i class="fa fa-table"></i> 상품관리 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	   <li><a href="stock">상품 조회/삭제</a></li>
-               <li><a href="supplyIn">상품 등록</a></li>
-               <li><a href="supplyIn">상품 수정</a></li>
+           	   <li><a href="/adprod/adprodView">상품 조회/삭제</a></li>
+               <li><a href="#">상품 등록</a></li>
+               <li><a href="#">상품 수정</a></li>
             </ul>
           </li>
           <!-- 조종원 -->
