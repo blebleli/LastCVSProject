@@ -18,7 +18,7 @@
 	WHERE ctgy_id=#{ctgy_id}
 </select>
 
-<!-- 	아 이 디 : 
+<!-- 	아 이 디 : getProdCategory
   		반 환 값 : categoryVo
   		매개변수 : ctgy_parent : is null , is not null
   		설    명 : 관리자 카테고리 조회 
@@ -38,5 +38,24 @@
 			</if>  
       AND CTGY_KIND = #{ctgy_kind}
 </select>
+<!-- 	아 이 디 : setCategoryInsert
+  		반 환 값 : 
+  		매개변수 : categoryVo
+  		설    명 : 관리자 카테고리 insert 
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-18
+ -->
+ <insert id="setCategoryInsert" parameterType="categoryVo">
+ INSERT INTO CATEGORY ( CTGY_ID, CTGY_NAME, CTGY_INFO, CTGY_GROUP, CTGY_KIND, CTGY_PARENT ) 
+        VALUES(
+        		 #{ctgy_id    } 
+				,#{ctgy_name  } 
+				,#{ctgy_info  } 
+				,#{ctgy_group } 
+				,#{ctgy_kind  } 
+				,#{ctgy_parent} 
+        )
+ </insert>
+
 
 </mapper>

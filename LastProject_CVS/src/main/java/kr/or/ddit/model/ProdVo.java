@@ -2,18 +2,18 @@ package kr.or.ddit.model;
 
 public class ProdVo extends PageVo {
 	
-	private String file_path;                               // 
-	private String file_upname;                               // 
-	private String prod_id;                               // 제품바코드
-	private String prod_name;                               // 이름
-	private String prod_intro;                               // 설명
-	private String prod_info;                               // 비고
-	private int prod_price;                               // 가격
-	private int prod_exnum;                               // 유통기한값
-	private String pr_class_lg;                               // 대분류
-	private String pr_class_md;                               // 중분류
-	private String pr_class_sm;                               // 소분류
-	private String event_id;                               // 행사제품코드
+	private String file_path;               // 파일 경로
+	private String file_upname;             // 파일 이름
+	private String prod_id;                 // 제품바코드
+	private String prod_name;               // 이름
+	private String prod_intro;              // 설명
+	private String prod_info;               // 비고
+	private int prod_price;                 // 가격
+	private int prod_exnum;                 // 유통기한값
+	private String pr_class_lg;             // 대분류
+	private String pr_class_md;             // 중분류
+	private String event_id;                // 행사제품코드
+	private int prod_cost;					// 단가
 	
 	// 제품 상세 보기 평점 처리 위해서 추가 -2018.09.12-jw
 	private int bd_rating;		// 평점
@@ -25,15 +25,14 @@ public class ProdVo extends PageVo {
 		this.bd_rating = bd_rating;
 	}
 	
-	// 제품 상세 보기 평점 처리 위해서 추가 -2018.09.12-jw
 	public ProdVo() {
 		super();
 	}
-	public ProdVo(String file_path, String file_upname, 
-			String prod_id, String prod_name, String prod_intro,
-			String prod_info, int prod_price, int prod_exnum,
-			String pr_class_lg, String pr_class_md, String pr_class_sm,
-			String event_id) {
+	
+	public ProdVo(String file_path, String file_upname, String prod_id,
+			String prod_name, String prod_intro, String prod_info,
+			int prod_price, int prod_exnum, String pr_class_lg,
+			String pr_class_md, String event_id, int prod_cost, int bd_rating) {
 		super();
 		this.file_path = file_path;
 		this.file_upname = file_upname;
@@ -45,8 +44,9 @@ public class ProdVo extends PageVo {
 		this.prod_exnum = prod_exnum;
 		this.pr_class_lg = pr_class_lg;
 		this.pr_class_md = pr_class_md;
-		this.pr_class_sm = pr_class_sm;
 		this.event_id = event_id;
+		this.prod_cost = prod_cost;
+		this.bd_rating = bd_rating;
 	}
 	public String getFile_path() {
 		return file_path;
@@ -108,28 +108,31 @@ public class ProdVo extends PageVo {
 	public void setPr_class_md(String pr_class_md) {
 		this.pr_class_md = pr_class_md;
 	}
-	public String getPr_class_sm() {
-		return pr_class_sm;
-	}
-	public void setPr_class_sm(String pr_class_sm) {
-		this.pr_class_sm = pr_class_sm;
-	}
 	public String getEvent_id() {
 		return event_id;
 	}
 	public void setEvent_id(String event_id) {
 		this.event_id = event_id;
 	}
+	public int getProd_cost() {
+		return prod_cost;
+	}
+	public void setProd_cost(int prod_cost) {
+		this.prod_cost = prod_cost;
+	}
 	@Override
 	public String toString() {
 		return "ProdVo [file_path=" + file_path + ", file_upname="
-				+ file_upname + ", prod_id="
-				+ prod_id + ", prod_name=" + prod_name + ", prod_intro="
-				+ prod_intro + ", prod_info=" + prod_info + ", prod_price="
-				+ prod_price + ", prod_exnum=" + prod_exnum + ", pr_class_lg="
-				+ pr_class_lg + ", pr_class_md=" + pr_class_md
-				+ ", pr_class_sm=" + pr_class_sm + ", event_id=" + event_id
-				+ ", bd_rating=" + bd_rating + "]";
+				+ file_upname + ", prod_id=" + prod_id + ", prod_name="
+				+ prod_name + ", prod_intro=" + prod_intro + ", prod_info="
+				+ prod_info + ", prod_price=" + prod_price + ", prod_exnum="
+				+ prod_exnum + ", pr_class_lg=" + pr_class_lg
+				+ ", pr_class_md=" + pr_class_md + ", event_id=" + event_id
+				+ ", prod_cost=" + prod_cost + ", bd_rating=" + bd_rating + "]";
 	}
+	
+	
 
+	
+	
 }

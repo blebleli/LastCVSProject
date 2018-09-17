@@ -3,4 +3,26 @@
 <mapper namespace="event">
 
 
+<!-- 	아 이 디 : setProdInsert
+  		반 환 값 : 
+  		매개변수 : prodVo
+  		설    명 : 제품 insert
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-18 
+-->
+<insert id="setEventInsert" parameterType="eventVo">
+
+INSERT INTO EVENT( EVENT_ID, EVENT_STARTDAY, EVENT_ENDDAY, EVENT_KIND, EVENT_NAME, EVENT_DISCOUNT ) 
+       VALUES(
+		      	 #{event_id      } 
+				,TO_DATE(#{event_startday},'YYYY-MM-DD') 
+				,TO_DATE(#{event_endday  },'YYYY-MM-DD') 
+				,#{event_kind    } 
+				,#{event_name    } 
+				,#{event_discount} 
+       )
+
+</insert>
+
+
 </mapper>	

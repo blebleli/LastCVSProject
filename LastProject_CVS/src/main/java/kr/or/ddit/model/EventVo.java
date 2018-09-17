@@ -1,44 +1,90 @@
 package kr.or.ddit.model;
 
+import java.util.Date;
+
 public class EventVo {
+	private String event_id      ; // BASIC, EVENT, DIS
+	private String event_startday;   // 시작일
+	private String event_endday  ;   // 종료일
+	private String event_kind    ; // 일반, 행사, 할인 
+	private String event_name    ; // 이벤트이름
+	private double event_discount; // 할인율
 	
-	private String event_id;                               // 행사제품코드
-	private String event_date;                               // 행사 마감 날짜
-	private String event_kind;                               // 일반 : 200, 1+1 : 201 , 2+1 : 202 , 증정 : 203 , 할인 : 204
 	public EventVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public EventVo(String event_id, String event_date, String event_kind) {
+	
+	
+
+	public EventVo(String event_id, String event_startday, String event_endday,
+			String event_kind, String event_name, double event_discount) {
 		super();
 		this.event_id = event_id;
-		this.event_date = event_date;
+		this.event_startday = event_startday;
+		this.event_endday = event_endday;
 		this.event_kind = event_kind;
+		this.event_name = event_name;
+		this.event_discount = event_discount;
 	}
+
+
+
 	public String getEvent_id() {
 		return event_id;
 	}
+
 	public void setEvent_id(String event_id) {
 		this.event_id = event_id;
 	}
-	public String getEvent_date() {
-		return event_date;
+
+	public String getEvent_startday() {
+		return event_startday;
 	}
-	public void setEvent_date(String event_date) {
-		this.event_date = event_date;
+
+	public void setEvent_startday(String event_startday) {
+		this.event_startday = event_startday;
 	}
+
+	public String getEvent_endday() {
+		return event_endday;
+	}
+
+	public void setEvent_endday(String event_endday) {
+		this.event_endday = event_endday;
+	}
+
 	public String getEvent_kind() {
 		return event_kind;
 	}
+
 	public void setEvent_kind(String event_kind) {
 		this.event_kind = event_kind;
 	}
+
+	public String getEvent_name() {
+		return event_name;
+	}
+
+	public void setEvent_name(String event_name) {
+		this.event_name = event_name;
+	}
+
+	public double getEvent_discount() {
+		return event_discount;
+	}
+
+	public void setEvent_discount(double event_discount) {
+		this.event_discount = event_discount;
+	}
+
 	@Override
 	public String toString() {
-		return "EventVo [event_id=" + event_id + ", event_date=" + event_date
-				+ ", event_kind=" + event_kind + "]";
+		return "EventVo [event_id=" + event_id + ", event_startday="
+				+ event_startday + ", event_endday=" + event_endday
+				+ ", event_kind=" + event_kind + ", event_name=" + event_name
+				+ ", event_discount=" + event_discount + "]";
 	}
-	
+
 	
 
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.admin.model.AdminProdVo;
 import kr.or.ddit.admin.prod.dao.AdminProdDaoInf;
 import kr.or.ddit.model.CategoryVo;
+import kr.or.ddit.model.EventVo;
+import kr.or.ddit.model.ProdVo;
 
 @Service("adminProdService")
 public class AdminProdService implements AdminProdServiceInf {
@@ -65,6 +67,50 @@ public class AdminProdService implements AdminProdServiceInf {
 		pageNaviStr.append("<li><a href=\"/board/boardMain?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 
 		return pageNaviStr.toString();
+	}
+
+	
+	/** 
+	 * Method   : setProdInsert 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param ProdVo
+	 * @return int
+	 * Method 설명 : 제품 insert
+	 */
+	@Override
+	public int setProdInsert(ProdVo vo) {
+		return adminProdDao.setProdInsert(vo);
+	}
+
+	/** 
+	 * Method   : setCategoryInsert 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param CategoryVo
+	 * @return int
+	 * Method 설명 : 카테고리 insert
+	 */
+	@Override
+	public int setCategoryInsert(CategoryVo vo) {
+		return adminProdDao.setCategoryInsert(vo);
+	}
+
+	
+	/** 
+	 * Method   : setEventInsert 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param EventVo
+	 * @return int
+	 * Method 설명 : 이벤트 insert
+	 */
+	@Override
+	public int setEventInsert(EventVo vo) {
+		return adminProdDao.setEventInsert(vo);
 	}
 
 }

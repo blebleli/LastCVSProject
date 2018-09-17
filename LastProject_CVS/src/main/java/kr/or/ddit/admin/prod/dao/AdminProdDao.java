@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.admin.model.AdminProdVo;
 import kr.or.ddit.model.CategoryVo;
+import kr.or.ddit.model.EventVo;
+import kr.or.ddit.model.ProdVo;
 
 @Repository("adminProdDao")
 public class AdminProdDao implements AdminProdDaoInf {
@@ -62,6 +64,51 @@ public class AdminProdDao implements AdminProdDaoInf {
 	@Override
 	public int getProdListCount(AdminProdVo vo) {
 		return session.selectOne("prod.getProdListCount",vo);
+	}
+
+
+	/** 
+	 * Method   : setProdInsert 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param ProdVo
+	 * @return int
+	 * Method 설명 : 제품 insert
+	 */
+	@Override
+	public int setProdInsert(ProdVo vo) {
+		return session.insert("prod.setProdInsert",vo);
+	}
+
+
+	/** 
+	 * Method   : setCategoryInsert 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param CategoryVo
+	 * @return int
+	 * Method 설명 : 카테고리 insert
+	 */
+	@Override
+	public int setCategoryInsert(CategoryVo vo) {
+		return session.insert("category.setCategoryInsert",vo);
+	}
+
+
+	/** 
+	 * Method   : setEventInsert 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param EventVo
+	 * @return int
+	 * Method 설명 : 이벤트 insert
+	 */
+	@Override
+	public int setEventInsert(EventVo vo) {
+		return session.insert("event.setEventInsert",vo);
 	}
 
 }

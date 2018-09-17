@@ -436,6 +436,29 @@ WHERE 1=1
 </select>
 
 
-
+<!-- 	아 이 디 : setProdInsert
+  		반 환 값 : 
+  		매개변수 : prodVo
+  		설    명 : 제품 insert
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-18 
+-->
+<insert id="setProdInsert" parameterType="prodVo">
+INSERT INTO PROD (PROD_ID, PROD_NAME, PROD_INTRO, PROD_INFO, PROD_PRICE, PROD_EXNUM, FILE_PATH, FILE_UPNAME, PR_CLASS_LG, PR_CLASS_MD, EVENT_ID, PROD_COST)
+            VALUES(
+            		 #{prod_id    }	<!--  제품아이디	           -->
+					,#{prod_name  } <!--  제품이름               -->
+					,#{prod_intro } <!--  제품 설명              -->
+					,#{prod_info  } <!--  비고			null   -->
+					,#{prod_price } <!--  제품가격               -->
+					,#{prod_exnum } <!--  제품유통기한             -->
+					,#{file_path  } <!--  사진경로               -->
+					,#{file_upname} <!--  사진이름               -->
+					,#{pr_class_lg} <!--  대분류                -->
+					,#{pr_class_md} <!--  중분류                -->
+					,#{event_id   } <!--  이벤트                -->
+					,#{prod_cost  } <!--  단가                 -->
+            )
+</insert>
 
 </mapper>
