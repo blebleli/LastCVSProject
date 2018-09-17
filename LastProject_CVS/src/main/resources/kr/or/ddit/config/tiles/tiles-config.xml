@@ -164,9 +164,19 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/ad_index.jsp"/>
 	</definition>
 	
-	<!-- 관리자 게시판관리 -->
-	<definition name="adboard/ad_boardView" extends="ad_basicLayout">
+	<!-- 관리자 게시판 조회 -->
+	<definition name="ad_boardView" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardView.jsp"/>
+	</definition>
+	
+	<!-- 관리자 게시판 작성 -->
+	<definition name="ad_boardNew" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardNew.jsp"/>
+	</definition>
+	
+	<!-- 관리자 게시판 삭제 -->
+	<definition name="ad_boardUpdate" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardUpdate.jsp"/>
 	</definition>
 	
 	<!--  관리자 상품 -->

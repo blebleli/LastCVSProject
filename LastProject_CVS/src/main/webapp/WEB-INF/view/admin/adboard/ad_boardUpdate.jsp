@@ -75,7 +75,7 @@
                         </thead>
 
                         <tbody>
-                          <c:forEach items="${boardList}" var="vo">
+      <!--                      <c:forEach items="${boardList}" var="vo">
                           <tr class="even pointer" data-id="${vo.bd_id}">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
@@ -87,8 +87,8 @@
                             <td class=" ">${vo.bd_rating}</td>
                             <td class=" ">${vo.bd_date}</td>
                           </tr>
-                          </c:forEach>
-<!--                           <tr class="odd pointer"> -->
+                          </c:forEach>-->
+<!--                           <tr class="odd pointer"> --> 
                         </tbody>
                       </table>
                     </div>

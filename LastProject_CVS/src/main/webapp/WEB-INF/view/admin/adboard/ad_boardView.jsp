@@ -1,5 +1,5 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- 꼭 있어야 함 -->
-<!--      <script src="/js/common/jquery-1.12.4.js"></script>
+    <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
 		$(function(){
 			$("table tbody tr").on("click", function(){
@@ -8,12 +8,105 @@
 				if($(this).data("id2") == 'n'){
 					$("#id").val($(this).data("id"));
 					$("#frm").submit();
-				}			
+				}
 			});
-	</script>
-	<form id="frm" action="/write/detail" method="get">
-		<input type="hidden" name="id" id="id">
-	</form>-->
+			
+			$("#boardNew").on("click", function(){
+				$("#frm").submit();
+			});
+			
+			$("#boardDel").on("click", function(){
+				//form 태그를 submit
+				$("#frm").attr("action", "/admin/boardDel"); // 액션 변경
+				$("#frm").submit();
+			});
+		});
+				</script>
+				
+			    <script>
+				$(function(){
+				// 일간(days) 누를시  현재 주간치를 초기화면으로 보여준다.
+				$("input[id=bd_kind_id55]").on("click",function() {
+						// 편의점 점주 아이디(임의)
+						var BD_KIND_ID = $("#bd_kind_id55").val();
+
+						$.ajax({
+							url : "review",
+							method : "get",
+							data : {
+								"BD_KIND_ID" : BD_KIND_ID
+							},
+
+							success : function(data) {
+								console.log(data);
+
+								// 성공시 기존 내용 삭제
+								$("#bd_code").html("");
+								var content = '';
+								// 새로운 내용 담을 변수
+								content += '          <p>'
+										+'			공지사항111 <input type="radio" class="flat" name="gender" id="bd_kind_id44" value="44"/>' 
+										+'			이벤트 <input  checked required data-parsley-multile="gender" type="radio"'
+										+'			class="flat" name="gender" id="bd_kind_id55" value="55"/>'
+										+'			상품리뷰 <input type="radio" class="flat" name="gender" id="bd_kind_id66" value="66"/>'
+								        +'          </p>'
+							            +'        <div class="table-responsive">'
+							            +'          <table class="table table-striped jambo_table bulk_action">'
+							            +'            <thead>'
+							            +'              <tr class="headings">'
+							            +'                <th>'
+							            +'                  <input type="checkbox" id="check-all" class="flat">'
+							            +'                </th>'
+							            +'                <th class="column-title">번호</th>'
+							            +'               <!-- <th class="column-title">상품명</th> -->'
+							            +'                <th class="column-title">제목</th>'
+							            +'                <!-- <th class="column-title">평점</th> -->'
+							            +'                <th class="column-title">작성자</th>'
+							            +'                <th class="column-title">작성일</th>'
+							            +'                <th class="bulk-actions" colspan="7">'
+							            +'                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions'
+							            +'				( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>'
+							            +'                </th>'
+							            +'              </tr>'
+							            +'            </thead>'
+							            +'            <tbody>'
+							            +'              <c:forEach items="${boardpage}" var="vo">'
+							            +'              <tr class="even pointer" data-id="${vo.bd_id}">'
+							            +'                <td class="a-center ">'
+							            +'                  <input type="checkbox" class="flat" name="table_records">'
+							            +'                </td>'
+							            +'                <td class=" ">${vo.cnt }</td>'
+							            +'             <!--    <td class=" ">${vo.prod_name}</td> -->'
+							            +'                <td class=" ">${vo.bd_title}</td>'
+							            +'                <td class=" ">${vo.bd_rating}</td> -->'
+							            +'                <td class=" ">${vo.mem_name}</td>'
+							            +'                <td class=" ">${vo.bd_date}</td>'
+							            +'              </tr>'
+							            +'              </c:forEach>'
+							            +'              <!--   <tr class="odd pointer"> -->'
+							            +'            </tbody>'
+							            +'          </table>'
+										+'			<div class="text-center" id="page">'
+										+'				<ul class="pagination">${pageNavi}</ul>'
+										+'			</div>'
+										+'		</div>'
+										+'		<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">'
+										+'			<span style="float: right">'
+										+'				<button class="btn btn-primary" type="button">등록</button>'
+										+'				<button class="btn btn-primary" type="reset">삭제</button>'
+										+'		</span>'
+										+'		</div>'
+										+'	</div>';
+								$("#bd_code").html(content);
+
+							} // success : function(responseData){
+						}); // $.ajax({
+					}); //$("#bd_kind_id55").on("click", function(){
+				});
+			</script>
+<!-- 	<form id="frm" action="/write/detail" method="get"> -->
+<!-- 		<input type="hidden" name="id" id="id"> -->
+<!-- 	</form> -->
 	
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -61,17 +154,17 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-
-                  <div class="x_content">
                   
-                  <form action="#" id="demo-form" data-parsley-validate>
+                  
+                  
+					<!-- ========================================================================== -->
+                  <div id="bd_code" class="x_content">                  
 	                  <p>
-	                  	전체 <input type="radio" class="flat" name="gender" id="genderM" value="all"/> 
-						공지사항 <input type="radio" class="flat" name="gender" id="genderM" value="44"/> 
-						이벤트 <input type="radio" class="flat" name="gender" id="genderF" value="55"/>
-						상품리뷰 <input type="radio" class="flat" name="gender" id="genderF" value="66"/>
+						공지사항 <input checked required data-parsley-multile="gender" type="radio" class="flat" name="gender" id="bd_kind_id44" value="${BD_KIND_ID }"/> 
+						이벤트 <input type="radio" class="flat" name="gender" id="bd_kind_id55" value="55"/>
+						상품리뷰 <input type="radio" class="flat" name="gender" id="bd_kind_id66" value="66"/>
 	                  </p>
-                  </form>
+
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
@@ -90,7 +183,6 @@
                             </th>
                           </tr>
                         </thead>
-
                         <tbody>
                           <c:forEach items="${boardpage}" var="vo">
                           <tr class="even pointer" data-id="${vo.bd_id}">
@@ -112,16 +204,16 @@
 							<ul class="pagination">${pageNavi}</ul>
 						</div>
 					</div>
+					<form id="frm" action="/admin/boardNew" method="post">
 					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
 						<span style="float: right">
-							<button class="btn btn-primary" type="button">등록</button>
-							<button class="btn btn-primary" type="reset">삭제</button>
-					</span>
+							<button class="btn btn-primary" id="boardNew" type="button">등록</button>
+							<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
+						</span>
 					</div>
-
-
-
+					</form>
 				</div>
+				<!-- ========================================================================== -->
                 </div>
               </div>
             </div>
