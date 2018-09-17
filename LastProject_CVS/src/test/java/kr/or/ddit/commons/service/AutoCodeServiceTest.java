@@ -1,10 +1,6 @@
 package kr.or.ddit.commons.service;
 
-import static org.junit.Assert.*;
-
 import javax.annotation.Resource;
-
-import kr.or.ddit.commons.dao.AutoCodeInf;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,7 +69,7 @@ public class AutoCodeServiceTest {
 //		logger.debug("code.autoCode(DIS) ==> {}",code.autoCode("DIS"));
 		
 		// 게시판
-//		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("BNO"));
+		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("BNO"));
 //		logger.debug("code.autoCode(RE) ==> {}",code.autoCode("BRE"));
 //		logger.debug("code.autoCode(EV) ==> {}",code.autoCode("BEV"));
 		
@@ -94,7 +90,7 @@ public class AutoCodeServiceTest {
 //		폐기(DIS)
 //		폐기리스트(DIS_L)
 
-		//  수불/입고
+		//  수불/입고 리스트
 //		logger.debug("code.autoCode(SUP10) ==> {}",code.autoCode("SUP10","3270000-104-1994-00483"));
 //		logger.debug("code.autoCode(SUP11) ==> {}",code.autoCode("SUP11","3270000-104-1994-00483"));
 //		logger.debug("code.autoCode(SUP12) ==> {}",code.autoCode("SUP12","3270000-104-1994-00483"));
@@ -130,7 +126,7 @@ public class AutoCodeServiceTest {
 		
 		
 //	  상품저장바코드   : POCKET
-//	  수불바코드       : SUPPLY
+//	  수불/입고 바코드       : SUPPLY
 //	  제고리스트바코드 : BCD 
 //		logger.debug("code.barcode(POCKET) ==> {}",code.barcode("POCKET"));
 //		logger.debug("code.barcode(SUPPLY) ==> {}",code.barcode("SUPPLY"));
