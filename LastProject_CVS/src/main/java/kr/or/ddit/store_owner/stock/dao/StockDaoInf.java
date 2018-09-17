@@ -50,16 +50,33 @@ public interface StockDaoInf {
 	*/
 	int setInsertStock(StockVo stockVo);
 	
+	
+	/**
+	* Method : setInsertStockList
+	* Method 설명 :재고 리스트에 들어갈 상세 내용 신규 작성 기능(조건 : 재고 종류)
+	* 											STCKLIST_KIND : 재고 : 888, 마감 : 999
+	* 최초작성일 : 2018. 8. 31.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int setInsertStockList(StockListVo stockListVo)_재고 리스트에 들어갈 상세 내용 신규 작성 기능(조건 : 재고 종류)
+	* @param stockListVo
+	* @return
+	*/
+	int setInsertStockList(StockListVo stockListVo);
+	
+	
 	/**
 	* Method : getListStock
 	* Method 설명 :재고 리스트에 대한 목록들 출력 (물품 재고에 대한 리스트가 있고 그 여러개의 리스트를 전체 출력)
 	* 최초작성일 : 2018. 8. 31.
 	* 작성자 : 조계환
 	* 변경이력 :신규
+	* 수정 : 0917 한수정 parameter 에 memid 추가
 	* 조 회 :List<StockVo> getListStock()_재고 리스트에 대한 목록들 출력 (물품 재고에 대한 리스트가 있고 그 여러개의 리스트를 전체 출력)
+	* *** ---0917  한수정 dayendController 에서 사용
 	* @return
 	*/
-	List<StockVo> getListStock();
+	List<StockVo> getAllStockByMemid(String mem_id);
 	
 	/**
 	* Method : updateStock
@@ -84,20 +101,7 @@ public interface StockDaoInf {
 	* @return
 	*/
 	int deleteStock(String stock_id);
-	
-	/**
-	* Method : setInsertStockList
-	* Method 설명 :재고 리스트에 들어갈 상세 내용 신규 작성 기능(조건 : 재고 종류)
-	* 											STCKLIST_KIND : 재고 : 888, 마감 : 999
-	* 최초작성일 : 2018. 8. 31.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :int setInsertStockList(StockListVo stockListVo)_재고 리스트에 들어갈 상세 내용 신규 작성 기능(조건 : 재고 종류)
-	* @param stockListVo
-	* @return
-	*/
-	int setInsertStockList(StockListVo stockListVo);
-	
+
 	/**
 	* Method : getListStockList
 	* Method 설명 :특정 재고 리스트에 대한 상세 내역 출력 기능
