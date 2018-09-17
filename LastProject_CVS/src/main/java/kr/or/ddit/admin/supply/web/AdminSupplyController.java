@@ -3,9 +3,7 @@ package kr.or.ddit.admin.supply.web;
 import javax.annotation.Resource;
 
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
-import kr.or.ddit.commons.dao.CommonsDaoInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
-import kr.or.ddit.model.BarcodeVo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +40,6 @@ public class AdminSupplyController {
 	@RequestMapping("/lookupView")
 	public String adminSupplyLookupView(){
 		
-		return "";
+		return "ad_supplyLookupView";
 	}
 }
