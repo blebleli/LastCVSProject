@@ -190,6 +190,22 @@
 <!-- 			GROUP BY a.supply_bcd, a.supply_date,a.supply_state, a.place_id -->
 <!-- 			ORDER BY a.supply_date desc -->
 <!-- 	</select> -->
-	
-	
+
+	<!--관리자용/////////////////////////////////////////////////////////////////////////////  -->
+	<!-- 	아 이 디 : adminApplyList
+	  		반 환 값 : supplyProdVo
+	  		매개변수 : String(supply_bcd)
+	  		설    명 : 입고 바코드나 직접 입력했을 시 출력할 입고 정보 리스트
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-14     
+	-->
+	<select id="adminApplyList" resultType="adminApplyVo">
+		SELECT rownum rnum,T.* 
+		FROM 
+		(
+		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state
+		FROM supply a, member b
+		WHERE a.place_id = b.mem_id) T
+	</select>
+
 </mapper>
