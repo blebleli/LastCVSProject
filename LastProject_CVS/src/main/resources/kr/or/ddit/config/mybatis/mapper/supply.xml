@@ -173,5 +173,23 @@
 		AND a.prod_id = b.prod_id) T
 	</select>
 	
+	<!-- 	아 이 디 : supplyRequestList
+	  		반 환 값 : supplyProdVo
+	  		매개변수 : String(supply_bcd)
+	  		설    명 : 편의점이 발주한 내역의 목록 조회
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-14     
+	-->
+	<select id="supplyRequestList" parameterType="String" resultType="supRequestListVo">
+		select a.supply_bcd, to_char(a.supply_date, 'yyyyMMdd') as supply_date, a.supply_state, a.place_id, sum(b.SPLYLIST_SUM)as total_amount , sum(b.SPLYLIST_SUM * c.prod_price) as total
+ 			FROM supply a, supply_list b, prod c
+		 	WHERE a.place_id =''
+ 			AND a.supply_state ='10'
+ 			AND b.prod_id = c.prod_id 
+ 			AND a.SUPPLY_BCD = b.SUPPLY_BCD
+			GROUP BY a.supply_bcd, a.supply_date,a.supply_state, a.place_id
+			ORDER BY a.supply_date desc
+	</select>
+	
 	
 </mapper>
