@@ -35,19 +35,19 @@ public class SupplyService implements SupplyServiceInf {
 		return SupplyDao.setInsertSupply(supplyVo);
 	}
 
-	/**
-	* Method : getListSupply
-	* Method 설명 :입고 리스트 쫙 출력
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :
-	* @return
-	*/
-	@Override
-	public List<SupplySumProdVo> getListSupply() {
-		return SupplyDao.getListSupply();
-	}
+//	/**
+//	* Method : getListSupply
+//	* Method 설명 :입고 리스트 쫙 출력
+//	* 최초작성일 : 2018. 9. 10.
+//	* 작성자 : 조계환
+//	* 변경이력 :신규
+//	* 조 회 :
+//	* @return
+//	*/
+//	@Override
+//	public List<SupplySumProdVo> getListSupply() {
+//		return SupplyDao.getListSupply();
+//	}
 
 	/**
 	* Method : getListSupply
@@ -182,7 +182,7 @@ public class SupplyService implements SupplyServiceInf {
 	* @return
 	*/
 	@Override
-	public Map<String, Object> getSupplyPageList(Map<String, Integer> paramMap) {
+	public Map<String, Object> getSupplyPageList(Map<String, Object> paramMap) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		//입고 목록 페이징 처리후 리스트 가져오기(한 페이지에 10개씩)
@@ -196,8 +196,8 @@ public class SupplyService implements SupplyServiceInf {
 		int totCnt = SupplyDao.getSupplyListTotCnt();
 		
 		//컨트롤러에서 받아온 map에서 키값이 page와 pageSize인 놈들을 가져옴
-		int page = paramMap.get("page");
-		int pageSize = paramMap.get("pageSize");
+		int page = (int) paramMap.get("page");
+		int pageSize = (int) paramMap.get("pageSize");
 		
 		//페이징 처리를 키값으로 저장
 		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));

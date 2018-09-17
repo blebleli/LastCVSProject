@@ -26,16 +26,16 @@ public interface SupplyServiceInf {
 	*/
 	int setInsertSupply(SupplyVo supplyVo);
 	
-	/**
-	* Method : getListSupply
-	* Method 설명 :관리자가 각 점주들이 신청한 수불 내역 리스트를 보기 위한 메서드
-	* 최초작성일 : 2018. 8. 30.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :List<SupplyVo> getListSupply()_관리자가 각 점주들이 신청한 수불 내역 리스트를 보기 위한 메서드
-	* @return
-	*/
-	List<SupplySumProdVo> getListSupply();
+//	/**
+//	* Method : getListSupply
+//	* Method 설명 :관리자가 각 점주들이 신청한 수불 내역 리스트를 보기 위한 메서드
+//	* 최초작성일 : 2018. 8. 30.
+//	* 작성자 : 조계환
+//	* 변경이력 :신규
+//	* 조 회 :List<SupplyVo> getListSupply()_관리자가 각 점주들이 신청한 수불 내역 리스트를 보기 위한 메서드
+//	* @return
+//	*/
+//	List<SupplySumProdVo> getListSupply();
 	
 	/**
 	* Method : getListSupply
@@ -178,7 +178,7 @@ public interface SupplyServiceInf {
 	* @param map
 	* @return
 	*/
-	Map<String, Object> getSupplyPageList(Map<String, Integer> paramMap);
+	Map<String, Object> getSupplyPageList(Map<String, Object> paramMap);
 	
 	/**
 	* Method : getSupplyListTotCnt
