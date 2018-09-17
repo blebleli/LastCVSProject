@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
@@ -14,8 +15,8 @@
         <img src="../production/images/img.jpg" alt="..." class="img-circle profile_img">
       </div>
       <div class="profile_info">
-        <span>관리자</span>
-        <h2>이름?</h2>
+        <span>Welcome,</span>
+        <h2>admin</h2>
       </div>
     </div>
     <!-- /menu profile quick info -->
@@ -50,7 +51,7 @@
           <!-- 조계환 -->
            
           <!-- 공은별 -->
-          <li><a><i class="fa fa-table"></i> 회원관리 <span class="fa fa-chevron-down"></span></a>
+   <!--   <li><a><i class="fa fa-table"></i> 회원관리 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
            	   <li><a href="#">조회</a></li>
                <li><a href="#">수정</a></li>
@@ -63,7 +64,15 @@
                <li><a href="#">생성</a></li>
                <li><a href="#">수정</a></li>
             </ul>
-          </li>
+          </li> -->
+          <li><a><i class="fa fa-edit"></i> 등록관리 <span class="fa fa-chevron-down"></span></a>
+			<ul class="nav child_menu">
+				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/cvsMemberList?mem_kind=01&page=1&pageSize=10' />">사업장(지점)관리</a></li>
+				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/userMemberList?mem_kind=02&page=1&pageSize=10' />">사용자(회원)관리</a></li>
+				<li><a href="#">상품등록관리</a></li>
+				<li><a href="#">행사제품/이벤트관리</a></li>
+			</ul>
+		  </li>
           <!-- 공은별 -->
           
           <!-- 김마음 -->

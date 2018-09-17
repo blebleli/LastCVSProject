@@ -589,7 +589,7 @@ $(document).ready(function() {
 										<div class="hover14 column">
 											<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
 												<div class="agile_top_brand_left_grid_pos">
-													주머니 생성된 바코드 사진 <img src="/images/offer.png" alt=" " class="img-responsive" />
+													주머니 생성된 바코드 사진 - 임의의 데이터 수정요망 <img src="/images/offer.png" alt=" " class="img-responsive" />
 												</div>
 												<div class="agile_top_brand_left_grid1 ">
 													<figure>
@@ -637,17 +637,28 @@ $(document).ready(function() {
 								<tr>
 									<th>편의점명</th>
 									<th>주소</th>
+									<th>연락처</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${bookmarkList}" var="vo">
-									<c:if test="${vo.star_kind eq '222'}">
-										<tr>
-											<td>${vo.star_id}</td>
-											<td>${vo.place_id}</td>
-										</tr>
-									</c:if>
-								</c:forEach>
+								<c:choose>
+									<c:when test="${!empty cvsBookmarkList}">
+									<c:forEach items="${cvsBookmarkList}" var="vo" varStatus="status">
+										<c:if test="${vo.star_kind eq '222'}">
+											<tr>
+												<td>${vo.mem_name}</td>
+												<td>(${vo.mem_zip}) (도로명주소) ${vo.mem_addr} </td>
+												<td>${vo.mem_tel}</td>
+											</tr>
+										</c:if>
+									</c:forEach> 
+									</c:when>
+									
+									<c:otherwise>
+										<tr><td colspan="3" align="center">즐겨찾기한 편의점이 없습니다.</td></tr>
+									</c:otherwise>
+								</c:choose>	
+													
 							</tbody>
 						</table>
 					</div>
