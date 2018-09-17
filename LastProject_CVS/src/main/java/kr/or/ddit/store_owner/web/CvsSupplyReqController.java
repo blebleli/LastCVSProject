@@ -107,6 +107,7 @@ public class CvsSupplyReqController {
 		map.put("mem_id", "3630000-104-2015-00121");
 		map.put("stock_date", "20180911");
 		StockVo myStock = stockService.getStock(map);
+		
 		logger.debug("stock --------------"+ myStock);
 		model.addAttribute("myStock", myStock);
 		return myStock;
@@ -167,7 +168,6 @@ public class CvsSupplyReqController {
 		supBarcode.setBcd_content("발주 신청");
 		supBarcode.setBcd_kind("102");
 		supBarcode.setBcd_path("/barcode/supply");
-		supBarcode.setBcd_info("연습 발주");
 		int barResult = barcodeService.setInsertBarcode(supBarcode);
 		
 		if(barResult > 0){
