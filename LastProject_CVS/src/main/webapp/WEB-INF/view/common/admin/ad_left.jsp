@@ -43,7 +43,7 @@
           <!-- 조계환 -->
           <li><a><i class="fa fa-table"></i> 수주 처리 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	   <li><a href="#">조회</a></li>
+           	   <li><a href="lookup">조회</a></li>
                <li><a href="#">결제</a></li>
                <li><a href="#">수정</a></li>
             </ul>
