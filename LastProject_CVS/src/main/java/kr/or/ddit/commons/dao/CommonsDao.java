@@ -134,20 +134,4 @@ public class CommonsDao implements CommonsDaoInf {
 		return template.selectOne("tableCode.supplyListBarcode", code);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

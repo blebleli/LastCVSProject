@@ -164,6 +164,12 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/ad_index.jsp"/>
 	</definition>
 	
+	<!--  관리자 상품 -->
+	<definition name="ad_prod" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/adprod.jsp"/>
+	</definition>
+
+	
 	<!--  관리자 수주 처리 조회 메인 화면 -->
 	<definition name="ad_supplyLookup" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/supplyLookup.jsp"/>

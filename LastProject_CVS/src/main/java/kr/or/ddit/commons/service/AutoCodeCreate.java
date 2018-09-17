@@ -99,7 +99,7 @@ public class AutoCodeCreate {
 		String str ="";
 		
 		// 코드 맥스값 가져옴
-		// 수불/입고 =======================================
+		// 수불/입고 리스트 =======================================
 		if (code.equals("SUP10")) {							// 발주
 			str = commonsDao.supply_listCode(codeStr);
 			
