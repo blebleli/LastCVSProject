@@ -41,7 +41,7 @@
   padding: 5px;
   box-sizing: border-box;
   text-align: center;
-  background-color: #efefef;
+/*   background-color: #efefef; */
 }
 .show-box {
   color: #757575;
@@ -63,7 +63,7 @@
   font-size: 50px;
   box-sizing: border-box;
   border: none;
-  background-color: #efefef;
+/*   background-color: #efefef; */
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -97,6 +97,10 @@
   text-align: right;
   font-size: 50px;
   color: #286090;
+}
+
+#saleTable td{
+	text-align: right;
 }
  </style>
  		
@@ -135,7 +139,7 @@
 			    	/* 샘플 데이터  -- 처음부터 비워진 셀을 만들어놓도록 수정예정*/
 			    	addRow({prodVo : {prodID : "prodID1",stcklistID : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
 			    	addRow({prodVo : {prodID : "prodID2",stcklistID : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
-			    	addRow({prodVo : {prodID : "prodID2",stcklistID : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
+			    	addRow({prodVo : {prodID : "prodID2",stcklistID : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"1",event_id:"eventid2"}});
                  });
        
                  </script>
@@ -512,9 +516,11 @@
                   </div>
                 </div>
                 </div>
-                  <div class="col-md-6 col-sm-6 col-xs-6">
+ <!-- 입력창 및 계산기 ======================================================================= -->             
+                      
+              <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
-                  <div class="x_title">
+<!--                   <div class="x_title">
                     <h2>결과창 <small>Custom design</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -523,11 +529,10 @@
                       </li>
                     </ul>
                     <div class="clearfix"></div>
-                  </div>
+                  </div> -->
                   
                   
-<!-- 입력창 및 계산기 ======================================================================= -->             
-              
+       
               
 
                   <div class="x_content">
@@ -536,14 +541,14 @@
 				    <tbody>   
 				      <tr>
 				        <td><button class="culcBtn number">직접<br>입력</button></td>
-				        <td><div class="input-box"  style="width: 100%">
+				        <td style="width: 100%"><div class="input-box"  >
 						    <input class="numInput" type="text" placeholder="0">
 						  </div></td>				      
 				      </tr>
 				      <tr>
 				        <td><button class="culcBtn number">받을<br>금액</button></td>
 				        <td><b><span id="subtot_sum" class="subtot_sum"></span></b>원</td>
-				      </tr>
+				      </tr> 
 				      <tr>
 				        <td><button class="culcBtn number">받은<br>금액</button></td>
 				     	<td><div class="input-box">
@@ -553,7 +558,7 @@
 				      </tr>
 				      <tr>
 				       	<td><button class="culcBtn number">거스<br>름돈</button></td>
-				     	<td><b><span id="change" class="subtot_sum"></span></b>원</td>
+				     	<td><b><span id="change" class="subtot_sum"></span>원</b></td>
 				      </tr>
 				    </tbody>
 				  </table>
