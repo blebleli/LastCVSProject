@@ -1,7 +1,6 @@
 package kr.or.ddit.admin.board.service;
 
-import java.util.List;
-import kr.or.ddit.admin.board.model.BoardJoinVo;
+import java.util.Map;
 
 public interface adBoardServiceInf {
 
@@ -10,8 +9,9 @@ public interface adBoardServiceInf {
 	 * 최초작성일 : 2018. 9. 17.
 	 * 작성자 : 김마음
 	 * 변경이력 : 신규
+	 * @param map
 	 * @return
-	 * Method 설명 : 관리자 - 게시판 전체조회(공지사항, 상품리뷰, 이벤트)
+	 * Method 설명 : 관리자 - 각 게시판 페이징 기법
 	 */
-	List<BoardJoinVo> adBoardViewList();
+	Map<String, Object> adBoardViewList(Map<String,Object> map);
 }

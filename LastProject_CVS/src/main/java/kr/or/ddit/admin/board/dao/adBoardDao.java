@@ -1,9 +1,13 @@
 package kr.or.ddit.admin.board.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.admin.board.model.BoardJoinVo;
 
 /**
@@ -34,11 +38,25 @@ public class adBoardDao implements adBoardDaoInf {
 	 * 최초작성일 : 2018. 9. 17.
 	 * 작성자 : 김마음
 	 * 변경이력 : 신규
+	 * @param map
 	 * @return
-	 * Method 설명 : 관리자 - 게시판 전체조회(공지사항, 상품리뷰, 이벤트)
+	 * Method 설명 : 관리자 - 각 게시판 페이징 기법
 	 */
 	@Override
-	public List<BoardJoinVo> adBoardViewList() {
-		return template.selectList("boardJoin.adBoardViewList");
+	public List<BoardJoinVo> adBoardViewList(Map<String,Object> map) {
+		return template.selectList("boardJoin.adBoardViewList",map);
+	}
+	
+	/**
+	 * Method : getBoardTotCnt
+	 * 최초작성일 : 2018. 9. 17.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : 게시글 전체 건수
+	 */
+	@Override
+	public int getBoardTotCnt() {
+		return template.selectOne("boardJoin.getBoardTotCnt");
 	}
 }
