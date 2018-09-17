@@ -26,7 +26,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>입고 요청 목록<small></small></h3>
+                <h3>입고 요청 현황 <small></small></h3>
               </div>
 
               <div class="title_right">
@@ -54,7 +54,6 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -78,18 +77,30 @@
                         <tr>
                           <th>No.</th>
                           <th>수불바코드</th>
-                          <th>입고날짜</th>
-                          <th>처리상황</th>
-                          <th>총수량</th>
-                          <th>가격</th>
-                          <th>Action</th>                   
+                          <th>점주명</th>
+                          <th>편의점명</th>
+                          <th>상태</th>
+                          <th>Action</th>                  
                         </tr>
                   	
                       </thead>
+						<tr>
+							<td>1</td>
+							<td>수불바코드</td>
+							<td>점주명</td>
+							<td>편의점명</td>
+							<td>상태</td>
+							<form action="">
+								<button type="submit"></button>
+							</form>
+						</tr>	                      
                       <tbody> 
                                                                                                                                                       
                       </tbody>
                     </table>
+<!--                     <div class="text-center" id="page"> -->
+<%-- 							<ul class="pagination">${pageNavi}</ul> --%>
+<!-- 					</div>  -->
                   </div>
                 </div>
               </div>
