@@ -108,36 +108,29 @@
                         </thead>
 
                         <tbody>
-                        	<c:forEach items="${myStockList }" var="stock">
+                        	<c:if test="${myStockList == null }">
+                        	 해당 재고 목록이 없습니다
+                        	</c:if>
+                        	<c:if test="${myStockList != null }">
+	                        	<c:forEach items="${myStockList }" var="stock">
+	                        	
+		                          <tr class="even pointer">
+		                            <td class="a-center ">
+		                              <input type="checkbox" class="flat" name="table_records" id="requestProd" value="${stock.prod_id}">
+		                            </td>
+		                            <td class=" ">${stock.prod_name }</td>
+		                            <td class=" ">${stock.supply_date }</td>
+		                            <td class=" ">${stock.stcklist_exdate } <i class="success fa fa-long-arrow-up"></i></td>
+		                            <td class=" ">${stock.prod_price }</td>
+		                            <td class=" ">${stock.stcklist_amount }</td>
+		                            <td class="a-right a-right ">${stock.event_id }</td>
+		                            <td class=" last"><a href="/WEB-INF/view/cvs/cvs_invoice.jsp">View</a>
+		                            </td>
+		                          </tr>
+	                        	</c:forEach>
+                        	</c:if>
                         	
-	                          <tr class="even pointer">
-	                            <td class="a-center ">
-	                              <input type="checkbox" class="flat" name="table_records" id="requestProd" value="${stock.prod_id}">
-	                            </td>
-	                            <td class=" ">${stock.prod_name }</td>
-	                            <td class=" ">${stock.supply_date }</td>
-	                            <td class=" ">${stock.stcklist_exdate } <i class="success fa fa-long-arrow-up"></i></td>
-	                            <td class=" ">${stock.prod_price }</td>
-	                            <td class=" ">${stock.stcklist_amount }</td>
-	                            <td class="a-right a-right ">${stock.event_id }</td>
-	                            <td class=" last"><a href="/WEB-INF/view/cvs/cvs_invoice.jsp">View</a>
-	                            </td>
-	                          </tr>
-                        	</c:forEach>
                           
-<!--                           <tr class="odd pointer"> -->
-<!--                             <td class="a-center "> -->
-<%--                               <input type="checkbox" class="flat" name="table_records" id="requestProd" value="${prod }"> --%>
-<!--                             </td> -->
-<%--                             <td class=" ">${prod.prod_name }</td> --%>
-<!--                             <td class=" ">May 28, 2014 11:30:12 PM</td> -->
-<!--                             <td class=" ">121000208</td> -->
-<!--                             <td class=" ">John Blank L</td> -->
-<!--                             <td class=" ">Paid</td> -->
-<!--                             <td class="a-right a-right ">$741.20</td> -->
-<!--                             <td class=" last"><a href="cvs_invoice.html">View</a> -->
-<!--                             </td> -->
-<!--                           </tr> -->
                         </tbody>
                       </table>
                     </div>
