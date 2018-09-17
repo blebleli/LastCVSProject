@@ -7,6 +7,7 @@ public class AdminApplyVo {
 	String mem_name;		//점주 이름
 	String mem_cvs_name;	//편의점 이름
 	String supply_state;	//신청처리상태 (10=수불,11=결제,12=입고)
+	
 	public int getRnum() {
 		return rnum;
 	}

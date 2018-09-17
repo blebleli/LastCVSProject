@@ -41,7 +41,8 @@
   	
   	<!-- 조계환 관리자가 볼 수불신청 리스트 내역을 가져올 객체 -->
   	<typeAlias type="kr.or.ddit.admin.model.AdminApplyVo" 		alias="adminApplyVo"/>
-  	
+  	<!-- 조계환 관리자용 수불신청 리스트 상세 보기에서 제품들 정보를 받아올 객체 -->
+  	<typeAlias type="kr.or.ddit.admin.model.AdminApplyViewVo" 		alias="adminApplyViewVo"/>
   	
   	
 <!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->

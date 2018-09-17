@@ -84,30 +84,28 @@
                         </tr>
                   	
                       </thead>
-						<tr>
-							<td>1</td>
-							<td>수불바코드</td>
-							<td>점주명</td>
-							<td>편의점명</td>
-							<td>상태</td>
-							<td width="50">
-								<form action="/admin/lookupView">
-									<button type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">View</button>
-								</form>
-							</td>
-							<td width="50">
-								<form action="/admin/lookupView">
-									<button type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="update">update</button>
-								</form>
-							</td>
-						</tr>	                      
+						<c:forEach items="${adminApplyList}" var="vo"> <!-- 전체 입고 목록들 -->
+								<tr>
+									<td>${vo.rnum}</td>	
+									<td>${vo.supply_bcd}</td>	
+									<td>${vo.mem_name}</td>	
+									<td>${vo.mem_cvs_name}</td>	
+									<td>${vo.supply_state}</td>	
+									<td>
+										<form action="/admin/lookupView" method="get">
+											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}">
+											<input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">
+										</form>
+									</td>
+								</tr>
+	                      </c:forEach>                  
                       <tbody> 
                                                                                                                                                       
                       </tbody>
                     </table>
-<!--                     <div class="text-center" id="page"> -->
-<%-- 							<ul class="pagination">${pageNavi}</ul> --%>
-<!-- 					</div>  -->
+                    <div class="text-center" id="page">
+							<ul class="pagination">${pageNavi}</ul>
+					</div> 
                   </div>
                 </div>
               </div>
