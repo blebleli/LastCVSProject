@@ -194,4 +194,15 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/supplyLookupView.jsp"/>
 	</definition>
 	
+	<!--  관리자 - 회원 리스트화면 -->
+	<definition name="ad_userMember" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/member/ad_userMember.jsp"/>
+	</definition>
+	
+	<!--  관리자 - 편의점 리스트화면 -->
+	<definition name="ad_cvsMember" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/member/ad_cvsMember.jsp"/>
+	</definition>
+	
+	
 </tiles-definitions>

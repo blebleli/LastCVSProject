@@ -5,6 +5,13 @@
 <mapper namespace="filedata">
 
 	<!-- 파일데이터 등록 -->
+	<!-- 	아 이 디 : insertFiledata
+	  		매개변수 : filedataVo
+	  		반 환 값 : 없음
+	  		설    명 : 사용자 프로필사진 등록
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-13     
+	 -->
 	<insert id="insertFiledata" parameterType="filedataVo">
 		INSERT INTO FILEDATA 
 		(
@@ -12,9 +19,6 @@
 			, FILE_NAME
 			, FILE_UPNAME
 			, FILE_PATH
-			, FILE_SIZE
-			, FILE_DOT
-			, BD_ID
 			, MEM_ID
 		)
 		VALUES 
@@ -23,9 +27,6 @@
 			, #{file_name}
 			, #{file_upname}
 			, #{file_path}
-			, #{file_size}
-			, #{file_dot}
-			, 'NOTICE0000000001'
 			, #{mem_id}
 		)
 	</insert>
@@ -36,14 +37,13 @@
 			 , FILE_NAME
 			 , FILE_UPNAME
 			 , FILE_PATH
-			 , FILE_SIZE
-			 , FILE_DOT
 			 , BD_ID
 			 , MEM_ID
 		FROM FILEDATA 
 	   WHERE 1=1
 	     AND MEM_ID = #{mem_id}
 	</select>
+	
 	
 	<!-- 파일데이터 삭제 -->
 	<delete id="deleteFiledata" parameterType="filedataVo">

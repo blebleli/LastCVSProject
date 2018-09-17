@@ -139,6 +139,7 @@
 			 , MEM_INTRO
 			 , MEM_X
 			 , MEM_Y
+			 , MEM_POINT
 			 , (SELECT FILE_UPNAME FROM FILEDATA WHERE MEM_ID = #{mem_id} AND ROWNUM = 1) as pic_name
 		  FROM MEMBER
 		  WHERE MEM_ID = #{mem_id}
@@ -177,12 +178,13 @@
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
-	<select id="getMemberPageList" parameterType="map" resultType="memberVo">  	
+	<select id="getMemberPageList" parameterType="memberVo" resultType="memberVo">  	
 		SELECT *
 		FROM (SELECT a.*, ROWNUM rn
 			  FROM
-				  (SELECT MEM_ID
-						, MEM_PW
+				  (SELECT COUNT(*) OVER() AS tot_cnt
+				  		, MEM_ID
+						, CRYPTPACK.DECRYPT(mem_pw, mem_id) as mem_pw
 						, MEM_KIND
 						, MEM_NAME
 						, MEM_TEL
@@ -196,20 +198,21 @@
 						, MEM_INTRO
 						, MEM_X
 						, MEM_Y
+						, MEM_POINT
 					 FROM MEMBER
 				    WHERE 1=1
-				    <if test="mem_kind != null and mem_kind != ''">
-				    	AND MEM_KIND = #{mem_kind}
-				    </if>
-				    <if test="mem_name != null and mem_name != ''">
-				    	AND MEM_NAME = #{mem_name}
-				    </if>
-				    ORDER BY MEM_NAME 
-				   )
+				     <if test="mem_kind != null and mem_kind != ''">
+					    AND MEM_KIND = #{mem_kind, jdbcType=VARCHAR}
+					 </if>
+					  <if test="mem_name != null and mem_name != ''">
+					    AND MEM_NAME = #{mem_name, jdbcType=VARCHAR}
+					  </if>
+				    ORDER BY MEM_NAME )
 			  a )
-		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+		WHERE rn BETWEEN (#{page, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}+1 AND #{page, jdbcType=INTEGER}*#{pageSize, jdbcType=INTEGER}
 	</select>
 	
+
 	<!-- 	아 이 디 : getMemberListTotalCnt 
 	  		매개변수 : 
 	  		반 환 값 : int
@@ -217,7 +220,7 @@
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
-<!--   	<select id="getMemberListTotalCnt" resultType="int"> -->
+<!--   	<select id="getMemberListTotalCnt" resultType="int" parameterType="map"> -->
 <!-- 		SELECT count(*) AS tot_cnt -->
 <!-- 		  FROM MEMBER -->
 <!-- 		 WHERE 1=1 -->
@@ -226,7 +229,7 @@
 <!-- 		 </if> -->
 <!-- 		 <if test="mem_name != null and mem_name != ''"> -->
 <!-- 		   AND MEM_NAME = #{mem_name} -->
-<!-- 		  </if> -->
+<!-- 		 </if> -->
 <!--   	</select> -->
   	
   	

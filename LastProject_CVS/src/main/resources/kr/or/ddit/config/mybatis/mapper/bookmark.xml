@@ -7,12 +7,12 @@
 
 	<!-- 	아 이 디 : getProdBookmarkList
 	  		반 환 값 : bookmarkVo
-	  		매개변수 : string(mem_id)
+	  		매개변수 : map
 	  		설    명 : 즐겨찾는 제품 목록 조회 
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-11     
 	 -->
-	<select id="getProdBookmarkList" parameterType="String" resultType="bookmarkVo">
+	<select id="getProdBookmarkList" parameterType="map" resultType="bookmarkVo">
 		SELECT A.STAR_ID
 		     , A.MEM_ID
 		     , A.STAR_KIND
@@ -31,37 +31,96 @@
 		  FROM BOOKMARK A, PROD B
 		 WHERE A.PROD_ID = B.PROD_ID
 		   AND A.MEM_ID = #{mem_id}
+		   AND A.STAR_KIND = #{star_kind}
 		 ORDER BY B.PROD_NAME
 	</select>
-	
-	
-	<!-- 	아 이 디 : getListBookmark
+
+
+	<!-- 	아 이 디 : getCvsBookmarkList
 	  		반 환 값 : bookmarkVo
-	  		매개변수 : string(mem_id)
+	  		매개변수 : map
 	  		설    명 : 즐겨찾는 편의점 목록 조회 
 	  		작 성 자 : 공은별
-	  		일    시 : 2018-09-11     
+	  		일    시 : 2018-09-17     
 	 -->
-<!-- 	<select id="getCVSListBookmark" parameterType="String" resultType="bookmarkVo"> -->
-<!-- 		SELECT A.STAR_ID -->
-<!-- 		     , A.MEM_ID -->
-<!-- 		     , A.STAR_KIND -->
-<!-- 		     , A.PLACE_ID -->
-<!-- 		     , B.PROD_ID -->
-<!-- 		     , B.PROD_NAME -->
-<!-- 		     , B.PROD_INTRO -->
-<!-- 		     , B.PROD_INFO -->
-<!-- 		     , B.PROD_PRICE -->
-<!-- 		     , B.PROD_EXNUM -->
-<!-- 		     , B.PR_CLASS_LG -->
-<!-- 		     , B.PR_CLASS_MD -->
-<!-- 		     , B.EVENT_ID -->
-<!-- 		     , B.FILE_PATH -->
-<!-- 		     , B.FILE_UPNAME -->
-<!-- 		  FROM BOOKMARK A, PROD B -->
-<!-- 		 WHERE A.PROD_ID = B.PROD_ID -->
-<!-- 		   AND A.MEM_ID = #{mem_id} -->
-<!-- 		 ORDER BY B.PROD_NAME -->
-<!-- 	</select> -->
+	<select id="getCvsBookmarkList" parameterType="String" resultType="bookmarkVo">
+		SELECT A.STAR_ID
+		     , A.STAR_KIND
+		     , A.PROD_ID
+		     , A.PLACE_ID
+		     , B.MEM_ID
+		     , B.MEM_KIND
+		     , B.MEM_NAME
+		     , B.MEM_TEL
+		     , B.MEM_BIRTH
+		     , B.MEM_GEN
+		     , B.MEM_ZIP
+		     , B.MEM_ADD
+		     , B.MEM_ADDR
+		     , B.MEM_CVS_NAME
+		     , B.MEM_CVS_TEL
+		     , B.MEM_INTRO
+		     , B.MEM_X
+		     , B.MEM_Y
+		  FROM BOOKMARK A, MEMBER B
+		 WHERE A.PLACE_ID = B.MEM_ID
+		   AND A.MEM_ID = #{mem_id}
+		   AND A.STAR_KIND = #{star_kind}
+		 ORDER BY B.MEM_NAME
+	</select>
+
+	
+	
+	
+	<!-- 	아 이 디 : insertCvsBookmark
+	  		매개변수 : BookmarkVo
+	  		반 환 값 : 없음
+	  		설    명 : 사용자가 편의점 즐겨찾기등록
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-17     
+	 -->
+<!-- 	<insert id="insertCvsBookmark" parameterType="BookmarkVo"> -->
+<!-- 		INSERT INTO BOOKMARK  -->
+<!-- 		( -->
+<!-- 			  STAR_ID   -->
+<!-- 			, MEM_ID    -->
+<!-- 			, STAR_KIND -->
+<!-- 			, PLACE_ID  -->
+<!-- 		) -->
+<!-- 		VALUES  -->
+<!-- 		( -->
+<!-- 			  #{star_id} -->
+<!-- 			, #{mem_id} -->
+<!-- 			, #{star_kind} -->
+<!-- 			, #{place_id} -->
+<!-- 		) -->
+<!-- 	</insert> -->
+	
+	
+	<!-- 	아 이 디 : insertProdBookmark
+	  		매개변수 : BookmarkVo
+	  		반 환 값 : 없음
+	  		설    명 : 사용자가 제품 즐겨찾기 등록
+	  		작 성 자 : 공은별
+	  		일    시 : 2018-09-17     
+	 -->
+<!-- 	<insert id="insertProdBookmark" parameterType="BookmarkVo"> -->
+<!-- 		INSERT INTO BOOKMARK  -->
+<!-- 		( -->
+<!-- 			  STAR_ID   -->
+<!-- 			, MEM_ID    -->
+<!-- 			, STAR_KIND -->
+<!-- 			, PROD_ID -->
+<!-- 		) -->
+<!-- 		VALUES  -->
+<!-- 		( -->
+<!-- 			  #{star_id} -->
+<!-- 			, #{mem_id} -->
+<!-- 			, #{star_kind} -->
+<!-- 			, #{prod_id} -->
+<!-- 		) -->
+<!-- 	</insert> -->
+	
+
 
 </mapper>
