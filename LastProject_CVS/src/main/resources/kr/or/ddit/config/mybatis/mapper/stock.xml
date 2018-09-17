@@ -4,11 +4,65 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="stock">
 
+
 <!-- 재고를 생성 -->
-<!-- <insert id="insertStock" parameterType="stockVo"> -->
-<!-- 	insert into stock(stock_id, mem_id)  -->
-<!-- 	values(#{stock_id},#{mem_id}) -->
- <!-- </insert> -->
+<!-- 	아 이 디 : insertStock
+  		반 환 값 : int
+  		매개변수 : Map(mem_id, 날짜)
+  		설    명 : stock 추가
+  		작 성 자 : 한수정
+  		일    시 : 2018-09-17     
+	-->
+<insert id="insertStock" parameterType="stockVo">
+	INSERT into stock(  stock_id  ,
+						mem_id    ,
+						stock_info,
+						stock_date  
+					 ) 	
+			   VALUES( 
+						#{stock_id  },
+						#{mem_id    },
+						#{stock_info},
+						#{stock_date} 
+					 )
+ </insert>
+ 
+ 
+ <!-- 재고를 생성 -->
+<!-- 	아 이 디 : insertStockList
+  		반 환 값 : int
+  		매개변수 : stockVo
+  		설    명 : stockList 추가
+  		작 성 자 : 한수정
+  		일    시 : 2018-09-17     
+	-->
+	
+<insert id="insertStockList" parameterType="stockListVo">
+	INSERT into stock(  bcd_id         ,
+						stcklist_amount,
+						sicklist_exdate,
+						stck_date      ,
+						stcklist_info  ,
+						stcklist_kind  ,
+						stock_id       ,
+						splylist_id    
+					 ) 	
+			   VALUES(  #{bcd_id         },
+						#{stcklist_amount},
+						#{sicklist_exdate},
+						#{stck_date      },
+					    #{stcklist_info  },
+					    #{stcklist_kind  },
+					    #{stock_id       },
+					    #{splylist_id    }					
+					 )
+ </insert>
+ 
+ 
+ 
+ 
+ 
+ 
 
 <!-- 재고 조회 -->
 <!-- 	아 이 디 : getStock
@@ -17,12 +71,30 @@
 	  		설    명 : 재고 조회
 	  		작 성 자 : 김현경
 	  		일    시 : 2018-09-10     
-	 -->
+-->
 <select id="getStock" parameterType="Map" resultType="stockVo">
 	select * 
 	from stock 
 	where mem_id=#{mem_id} and to_char(stock_date,'yyyyMMdd') = #{stock_date}
 </select>
+
+
+
+
+<!-- 	아 이 디 : getAllStock
+	  		반 환 값 : stockVo
+	  		매개변수 : mem_id
+	  		설    명 : 전체날짜 재고리스트 조회
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-17     
+-->
+<select id="getAllStock" parameterType="String" resultType="stockVo">
+	select * 
+	from stock 
+	where mem_id=#{mem_id}
+</select>
+
+
 	
 <!-- 편의점의 현재고 리스트 조회 -->
 <!-- 	아 이 디 : getStockList
@@ -54,7 +126,6 @@
 </select>
 
 
-
 <!-- 바코드조회한 상품 조회 -->
 <!-- 	아 이 디 : getBarcodeProd
 	  		반 환 값 : presentStockListVo
@@ -67,6 +138,20 @@
 	SELECT a.prod_id, a.prod_name, b.supply_date, c.sicklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.bcd_id
 	FROM prod a, supply b, stock_list c
 	WHERE c.bcd_id =#{bcd_id} and c.prod_id = a.prod_id AND b.supply_state = '12'
+</select>
+
+<!-- stock_id 로 stockList 조회 -->
+<!-- 	아 이 디 : getStockListByStockID
+	  		반 환 값 : presentStockListVo
+	  		매개변수 : String(stockID)
+	  		설    명 : 편의점의 현 재고 리스트 조회
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-17     
+	 -->
+<select id="getStockListByStockID" parameterType="String" resultType="presentStockListVo">
+	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
+	FROM prod a, supply b, stock_list c
+	WHERE c.stock_id = #{stock_id} AND c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
 
 
