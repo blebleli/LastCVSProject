@@ -164,5 +164,10 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/ad_index.jsp"/>
 	</definition>
 	
+	<!--  관리자 메인 -->
+	<definition name="ad_supplyLookup" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/supplyLookup.jsp"/>
+	</definition>
+	
 	
 </tiles-definitions>
