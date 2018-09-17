@@ -77,4 +77,5 @@ public interface BarcodeDaoInf {
 	* @return
 	*/
 	int deleteBarcode(String bcd_id);
+	
 }
