@@ -61,6 +61,9 @@
   	<!-- 리뷰+제품(파일) -->
   	<typeAlias type="kr.or.ddit.user.model.MainReviewsVo"	alias="mainReviewsVo"/>
   	
+  	<!-- 김마음 관리자 게시판 전체 조회(PROD(제품) JOIN) -->
+  	<typeAlias type="kr.or.ddit.admin.board.model.BoardJoinVo" 		alias="boardJoinVo"/> 
+
   	<!-- 관리자 상품관련 -->
   	<typeAlias type="kr.or.ddit.admin.model.AdminProdVo"	alias="adminProdVo"/>
   	
@@ -87,6 +90,10 @@
 	
 	<!-- 데이터 생성 -->
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/tableInsert.xml"/>
+	
+	<!-- 관리자 게시판 전체 조회(PROD(제품) JOIN) -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/boardJoin.xml"/>
+	
   </mappers>
 
 </configuration>
