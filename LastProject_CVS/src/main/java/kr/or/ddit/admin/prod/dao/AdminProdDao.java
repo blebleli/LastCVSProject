@@ -49,4 +49,19 @@ public class AdminProdDao implements AdminProdDaoInf {
 		return session.selectList("category.getProdCategory",vo);
 	}
 
+
+	/** 
+	 * Method   : getProdListCount 
+	 * 최초작성일  : 2018. 9. 17. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param vo
+	 * @return List<AdminProdVo>
+	 * Method 설명 : 관리자 상품 조회 전체 카운트
+	 */
+	@Override
+	public int getProdListCount(AdminProdVo vo) {
+		return session.selectOne("prod.getProdListCount",vo);
+	}
+
 }

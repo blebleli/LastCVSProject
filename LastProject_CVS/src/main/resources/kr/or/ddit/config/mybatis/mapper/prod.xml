@@ -343,6 +343,8 @@ WHERE  F.RANK = 1
 
 </select>
 
+
+
 <select id="getEventList" resultType="prodVo" parameterType="map">
 	SELECT  *
 	FROM (
@@ -359,6 +361,14 @@ WHERE  F.RANK = 1
 
 
 
+
+<!-- 	아 이 디 : getProdList
+  		반 환 값 : adminProdVo
+  		매개변수 : adminProdVo
+  		설    명 : 관리자용  제품 검색
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-17   
+-->
 <select id="getProdList" resultType="adminProdVo" parameterType="adminProdVo">
 SELECT *
 FROM   (
@@ -395,6 +405,37 @@ FROM   (
 WHERE cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 
 </select>
+
+<!-- 	아 이 디 : getProdListCount
+  		반 환 값 : adminProdVo
+  		매개변수 : adminProdVo
+  		설    명 : 관리자용  제품 검색 전체 카운트
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-17   
+-->
+<select id="getProdListCount" resultType="int" parameterType="adminProdVo">
+SELECT  count(*) as cnt
+FROM PROD
+WHERE 1=1
+ <if test="pr_class_lg != null and pr_class_lg != ''">
+ 	AND PR_CLASS_LG = #{pr_class_lg}
+ </if>
+ <if test="pr_class_md != null and pr_class_md != ''">
+ 	AND PR_CLASS_MD = #{pr_class_md}
+ </if>
+ <if test="prod_name != null and prod_name != ''">
+ 	AND PROD_NAME LIKE '%'|| #{prod_name} ||'%'
+ </if>
+ <if test="prod_cost != null and prod_cost != '' and  prod_cost !=0">
+ 	AND PROD_COST  BETWEEN #{cost_min} AND #{prod_cost} 
+ </if>
+ <if test="prod_price != null and prod_price != '' and prod_price !=0">
+ 	AND PROD_PRICE BETWEEN  #{price_min} AND #{prod_price}
+ </if> 
+
+</select>
+
+
 
 
 </mapper>
