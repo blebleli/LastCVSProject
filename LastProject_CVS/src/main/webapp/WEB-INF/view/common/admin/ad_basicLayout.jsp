@@ -57,9 +57,9 @@
         		});
     		});
     	});    	
-    </script>
-  -->
-    
+    </script>    
+  --> 
+	    
   </head>
 
   <body class="nav-md">
@@ -76,6 +76,6 @@
 	<tiles:insertAttribute name="content"/>
 		
 		</div>
-	</div>	
+	</div>
 	</body>
 </html>
