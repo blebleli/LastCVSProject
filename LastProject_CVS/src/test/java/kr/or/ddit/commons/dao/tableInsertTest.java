@@ -42,21 +42,21 @@ public class tableInsertTest {
 		// 데이터
 		// 일반사용자
 		MemberVo m = new MemberVo(
-				  "jongwon_ny@naver.com"	//mem_id          -- 아이디
+				  "rlaakdma@hanmail.net"	//mem_id          -- 아이디
 				, "test"					//mem_pw          -- 비밀번호                        
-				, "02"						//mem_kind        -- 구분  : 관리자(00), 점주(01), 일반(02
-				, "조종원"					//mem_name        -- 이름                          
-				, "010-3554-8173"			//mem_tel         -- 연락처                         
-				, "19880718"				//mem_birth       -- 생년월일                        
+				, "02"						//mem_kind        -- 구분  : 관리자(00), 점주(01), 일반(02)
+				, "김마음"					//mem_name        -- 이름                          
+				, "010-4434-2174"			//mem_tel         -- 연락처                         
+				, "19920507"				//mem_birth       -- 생년월일                        
 				, "M"						//mem_gen         -- 성별(M:남자, F:여자)              
 				, 12345						//mem_zip         -- 우편번호                        
-				, "세종시"					//mem_add         -- 주소                          
-				, "고운동"					//mem_addr        -- 상세주소                        
+				, "대전광역시"					//mem_add         -- 주소                          
+				, "한밭대로 1130번길"					//mem_addr        -- 상세주소                        
 				, ""						//mem_cvs_name    -- 편의점명                        
 				, ""						//mem_cvs_tel     -- 편의점연락처                      
 				, ""						//mem_intro       -- 소개                          
 				, "123.0"					//mem_x           -- x 좌표 (별도로 구해야 함)            
-				, "37.0"					//mem_y           -- y 좌표 (별도로 구해야 함)            
+				, "23.0"					//mem_y           -- y 좌표 (별도로 구해야 함)            
 				, 0							//mem_point       -- 포인트                         
 				, null						//pic_name
 				, null						//fileList
