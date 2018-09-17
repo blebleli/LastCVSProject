@@ -17,7 +17,7 @@
 		(
 		      SELECT a.supply_bcd, a.supply_date,a.supply_state, sum(b.splylist_sum) splylist_sum, sum(c.prod_price*b.splylist_sum) sum
 		      FROM supply a, supply_list b, prod c
-		      WHERE a.place_id='3630000-104-2015-00121' 
+		      WHERE a.place_id=#{place_id} 
 		      AND c.prod_id = b.prod_id   
 		      AND a.supply_state = 12
 		      AND a.supply_bcd = b.supply_bcd
@@ -180,16 +180,16 @@
 	  		작 성 자 : 김현경
 	  		일    시 : 2018-09-14     
 	-->
-	<select id="supplyRequestList" parameterType="String" resultType="supRequestListVo">
-		select a.supply_bcd, to_char(a.supply_date, 'yyyyMMdd') as supply_date, a.supply_state, a.place_id, sum(b.SPLYLIST_SUM)as total_amount , sum(b.SPLYLIST_SUM * c.prod_price) as total
- 			FROM supply a, supply_list b, prod c
-		 	WHERE a.place_id =#{place_id}
- 			AND a.supply_state ='10'
- 			AND b.prod_id = c.prod_id 
- 			AND a.SUPPLY_BCD = b.SUPPLY_BCD
-			GROUP BY a.supply_bcd, a.supply_date,a.supply_state, a.place_id
-			ORDER BY a.supply_date desc
-	</select>
+<!-- 	<select id="supplyRequestList" parameterType="String" resultType="supRequestListVo"> -->
+<!-- 		select a.supply_bcd, to_char(a.supply_date, 'yyyyMMdd') as supply_date, a.supply_state, a.place_id, sum(b.SPLYLIST_SUM)as total_amount , sum(b.SPLYLIST_SUM * c.prod_price) as total -->
+<!--  			FROM supply a, supply_list b, prod c -->
+<!-- 		 	WHERE a.place_id =#{place_id} -->
+<!--  			AND a.supply_state ='10' -->
+<!--  			AND b.prod_id = c.prod_id  -->
+<!--  			AND a.SUPPLY_BCD = b.SUPPLY_BCD -->
+<!-- 			GROUP BY a.supply_bcd, a.supply_date,a.supply_state, a.place_id -->
+<!-- 			ORDER BY a.supply_date desc -->
+<!-- 	</select> -->
 	
 	
 </mapper>
