@@ -105,7 +105,7 @@
 	  		일    시 : 2018-09-10     
 	 -->
 <select id="getStockList" parameterType="String" resultType="presentStockListVo">
-	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
+	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.bcd_id
 	FROM prod a, supply b, stock_list c
 	WHERE c.stock_id = #{stock_id} AND c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
@@ -120,7 +120,7 @@
 	 -->
 	 
 <select id="getStockProd" parameterType="String" resultType="presentStockListVo">
-	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
+	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.bcd_id
 	FROM prod a, supply b, stock_list c
 	WHERE a.prod_id =#{prod_id} and c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
@@ -149,7 +149,7 @@
 	  		일    시 : 2018-09-17     
 	 -->
 <select id="getStockListByStockID" parameterType="String" resultType="presentStockListVo">
-	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.stcklist_id
+	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.bcd_id
 	FROM prod a, supply b, stock_list c
 	WHERE c.stock_id = #{stock_id} AND c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
