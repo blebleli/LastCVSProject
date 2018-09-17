@@ -39,6 +39,9 @@
   	<!-- 김현경 발주 목록 객체(발주 총수량, 발주 총액 포함) -->
   	<typeAlias type="kr.or.ddit.supply.model.SupRequestListVo" 		alias="supRequestListVo"/>
   	
+  	<!-- 조계환 관리자가 볼 수불신청 리스트 내역을 가져올 객체 -->
+  	<typeAlias type="kr.or.ddit.admin.model.AdminApplyVo" 		alias="adminApplyVo"/>
+  	
   	
   	
 <!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
