@@ -8,9 +8,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
-import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
@@ -29,19 +27,19 @@ public class SupplyDao implements SupplyDaoInf {
 		return result;
 	}
 
-	/**
-	* Method : getListSupply
-	* Method 설명 : 입고 리스트 쫙 출력
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :
-	* @return
-	*/
-	@Override
-	public List<SupplySumProdVo> getListSupply() {
-		return template.selectList("supply.getListSupply");
-	}
+//	/**
+//	* Method : getListSupply
+//	* Method 설명 : 입고 리스트 쫙 출력
+//	* 최초작성일 : 2018. 9. 10.
+//	* 작성자 : 조계환
+//	* 변경이력 :신규
+//	* 조 회 :
+//	* @return
+//	*/
+//	@Override
+//	public List<SupplySumProdVo> getListSupply() {
+//		return template.selectList("supply.getListSupply");
+//	}
 
 	/**
 	* Method : getListSupply
@@ -153,7 +151,7 @@ public class SupplyDao implements SupplyDaoInf {
 	* @return
 	*/
 	@Override
-	public List<SupplySumProdVo> getSupplyPageList(Map<String, Integer> paramMap) {
+	public List<SupplySumProdVo> getSupplyPageList(Map<String, Object> paramMap) {
 		return template.selectList("supply.getListSupply",paramMap);
 	}
 
