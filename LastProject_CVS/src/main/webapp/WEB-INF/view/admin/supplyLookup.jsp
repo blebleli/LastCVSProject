@@ -90,9 +90,11 @@
 							<td>점주명</td>
 							<td>편의점명</td>
 							<td>상태</td>
-							<form action="">
-								<button type="submit"></button>
-							</form>
+							<td>
+								<form action="/admin/lookupView">
+									<button type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">View</button>
+								</form>
+							</td>
 						</tr>	                      
                       <tbody> 
                                                                                                                                                       

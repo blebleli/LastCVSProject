@@ -169,5 +169,9 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/supplyLookup.jsp"/>
 	</definition>
 	
+	<!--  관리자 수주 처리 조회 상세 보기 화면 -->
+	<definition name="ad_supplyLookupView" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/supplyLookupView.jsp"/>
+	</definition>
 	
 </tiles-definitions>
