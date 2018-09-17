@@ -60,7 +60,7 @@ public class ProdDaoTest {
 //		logger.debug("prodList====> {}" , prodList);
 	}
 	
-	@Test
+//	@Test
 	public void getProdCategoryTest() {
 		CategoryVo vo = new  CategoryVo();
 		vo.setCtgy_kind("301");
@@ -72,5 +72,16 @@ public class ProdDaoTest {
 		logger.debug("vo ==> {}", vo);
 		List<CategoryVo> categoryMd = dao.getProdCategory(vo);
 		logger.debug("categoryMd ==> {}", categoryMd);
+	}
+	
+	@Test
+	public void getProdListCountTest() {
+		AdminProdVo vo = new AdminProdVo();
+		vo.setPage(1);
+		vo.setpageSize(10);
+		vo.setCost_min(0);
+		vo.setProd_cost(500);
+		int cnt = dao.getProdListCount(vo);
+		logger.debug("cnt====> {}" , cnt);
 	}
 }
