@@ -10,18 +10,19 @@
 	  		매개변수 : barcodeVo
 	  		설    명 : 바코드 테이블에 바코드 추가 (kind : 제품:100, 저장소:101, 수불:102)
 	  		작 성 자 : 김현경
-	  		일    시 : 2018-09-10     
+	  		일    시 : 2018-09-10
+	  		
+	  		수	정 : 조계환
+	  		수정내용 : bcd_info 필요 없어짐     
 	 -->
 <insert id="insertBarcode" parameterType="barcodeVo">
 	INSERT INTO barcode(bcd_id, 
 						bcd_content, 
-						bcd_path, 
-						bcd_info, 
+						bcd_path,  
 						bcd_kind) 
 				VALUES(#{bcd_id}, 
 					  DBMS_LOB.SUBSTR(#{bcd_content},4000,1),
 					  #{bcd_path},
-					  #{bcd_info},
 					  #{bcd_kind})
 </insert>
 </mapper>
