@@ -1,4 +1,5 @@
-﻿
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -40,7 +41,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Table design <small>Custom design</small></h2>
-                    <a href="#" class="buttonNext btn btn-success">마감</a>
+                    
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -59,187 +60,139 @@
                     <div class="clearfix"></div>
                   </div>
 
-                  <div class="x_content">
-
-                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
-
+     <div class="container">
+         <div class="row">
+          	<div class="x_content">
+            	 <div class=" col-md-3 col-sm-3 col-xs-3">
                     <div class="table-responsive">
-                      <table class="table table-striped jambo_table bulk_action">
+                      <table id="stockTable" class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
-                            <th>
-                              <input type="checkbox" id="check-all" class="flat">
-                            </th>
-                            <th class="column-title">상품명 </th>
-                            <th class="column-title">입고일 </th>
-                            <th class="column-title">유통기한만료일 </th>
-                            <th class="column-title">가격 </th>
-                            <th class="column-title">재고 </th>
-                            <th class="column-title">이벤트상태 </th>
-                            <th class="column-title no-link last"><span class="nobr">Action</span>
-                            </th>
-                            <th class="bulk-actions" colspan="7">
-                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-                            </th>
+                           
+                            <th class="column-title">NO </th>
+                            <th class="column-title">재고번호 </th>
+                            <th class="column-title">날짜 </th>
+                           <th class="column-title">마감여부 </th> <!-- STOCK ID로 999가 있는지 확인하기 -->
+
                           </tr>
                         </thead>
 
                         <tbody>
+                        <!-- 행클릭시 AJAX로 리스트 변경 -->
+                        <c:forEach items="${stock }" var="stock" varStatus="status">                      		
                           <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
+                           
+                            <td class=" ">${status.count}</td>
+                            <td class=" "><span class="stockID"> ${stock.stock_id } </span></td>
+                            <td class=" ">${stock.stock_date }</td>                          
                           </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 23, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000038</td>
-                            <td class=" ">May 24, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000037</td>
-                            <td class=" ">May 24, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 24, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 26, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="error fa fa-long-arrow-down"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000038</td>
-                            <td class=" ">May 26, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000037</td>
-                            <td class=" ">May 26, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 27, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 28, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="cvs_invoice.html">View</a>
-                            </td>
-                          </tr>
+   						</c:forEach>
+                                             
                         </tbody>
                       </table>
                     </div>
-							
-						
                   </div>
-                </div>
-              </div>
+                    
+                
+<!-- 상세재고list modal ==================================== -->
+				
+		       <div class=" col-md-9 col-sm-9 col-xs-9">              
+					<button type="button" class="btn btn-success" onclick="btnDayEnd()">마감하기</button>
+					<div class="table-responsive">
+                     <table class="table table-striped jambo_table bulk_action">
+                       <thead>
+                         <tr class="headings">
+                           <th class="column-title">NO </th>
+                           <th class="column-title">상품번호 </th> <!-- PROD JOIN -->
+                           <th class="column-title">상품이름 </th>
+                           <th class="column-title">수량 </th>
+                           <th class="column-title">유통기한 </th>                     	  
+                         </tr>
+                       </thead>
+						<!--  재고 상세 리스트  -->
+                       <tbody id="stockDetailTbody"> </tbody>
+                     </table>
+                   </div>
+                 </div>
+
+             </div>
+           </div>
+         </div>
+                        
             </div>
           </div>
         </div>
+        
+   </div>
+   </div>     
         <!-- /page content -->
+	<script>
+	
+	//재고 상세리스트 출력
+	$("#stockTable tbody").on("click", "tr", function(){
+		var stockID =$(this).find(".stockID").text();	
+		console.log("stockID --->"+stockID);
+		
+	 	$.ajax({
+			url : "/cvs/getNowStock",
+			method:"get",
+			data : {"stockID": stockID },
+			success : function(stockList){
+				
+				$("#stockDetailTbody").empty();
+				console.log('stockList --->'+stockList);
+				$.each(stockList,function(index, item){
+					
+				$("#stockDetailTbody").append(		    								
+							'<tr class="even pointer">'+        
+	                        '<td class=" ">'+index+'</td>'+
+	                        '<td class=" ">'+item.prod_id  +'</td>'+
+	                        '<td class=" ">'+item.prod_name  +'</td>'+
+	                        '<td class=" "><input type="number" name="amount" class="amount">'+item.stcklist_amount +'</input></td>'+
+	                        '<td class=" ">'+item.stcklist_exdate  +'</td>'+
+	                        '<td style="display: none"><span class="bcd_id">'+ item.bcd_id+'</span></td> '+
+	                        '</tr>'	                                                                                     
+					);
+				})
+				
+			}
+		}); 
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+	});	
+	
+	/* 마감하기 버튼 클릭시*/
+	function btnDayEnd() {
+		
+		var dayEndList=[];		
+		
+
+		//재고마감리스트 추가 
+		//다음날짜로 재고 추가
+		//다음날짜로 재고리스트 추가
+		
+		$("#stockDetailTbody tr").each(function () {		                    	 
+			var data = $(this);		
+			
+			dayEndList.push({bcd_id: data.find('.bcd_id').html(), 
+					stcklist_amount: data.find('.amount').val()})
+         });	
+		
+		console.log("dayEndList ::: "+dayEndList);
+
+		$.ajax({
+			  url: "/cvs/setDayEnd",
+			  method: "post",
+			  data: JSON.stringify(dayEndList),
+			  contentType: "application/json",
+			  success : function () {
+				  alert("마감처리 되었습니다.");
+				  $("#stockDetailTbody").empty(); 
+		      },		 						
+			  error : function(){console.log("error");}		  								  
+		});					    		
+	}
+	</script>
+
 
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
