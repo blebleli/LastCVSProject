@@ -8,6 +8,7 @@ import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
 import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.model.SupplySumProdVo;
@@ -227,5 +228,15 @@ public interface SupplyServiceInf {
 	*/
 	List<SupplyScanInfoVo> getSupplyScanInfoList(String supply_bcd);
 	
-	
+	/**
+	* Method : supplyRequestList
+	* Method 설명 :편의점의 발주 목록(발주 총수량, 총 금액)
+	* 최초작성일 : 2018. 9. 14.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 조 회 :
+	* @param String place_id
+	* @return
+	*/
+	List<SupRequestListVo> supplyRequestList(String place_id);
 }
