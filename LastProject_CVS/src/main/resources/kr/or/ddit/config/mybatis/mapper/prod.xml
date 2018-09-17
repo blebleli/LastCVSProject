@@ -359,5 +359,42 @@ WHERE  F.RANK = 1
 
 
 
+<select id="getProdList" resultType="adminProdVo" parameterType="adminProdVo">
+SELECT *
+FROM   (
+         SELECT ROWNUM cnt, a.*
+		 FROM
+             (
+               SELECT  (SELECT CTGY_NAME FROM CATEGORY WHERE CTGY_ID =  PR_CLASS_LG) AS PR_CLASS_LG
+                      ,(SELECT CTGY_NAME FROM CATEGORY WHERE CTGY_ID =  PR_CLASS_MD) AS PR_CLASS_MD
+                      ,PROD_NAME
+                      ,PROD_COST
+                      ,PROD_PRICE
+                      ,PROD_EXNUM
+                      ,(SELECT EVENT_NAME FROM EVENT WHERE EVENT_ID = PROD.EVENT_ID) AS EVENT_ID
+               FROM PROD
+               WHERE 1=1
+                <if test="pr_class_lg != null and pr_class_lg != ''">
+                	AND PR_CLASS_LG = #{pr_class_lg}
+                </if>
+                <if test="pr_class_md != null and pr_class_md != ''">
+                	AND PR_CLASS_MD = #{pr_class_md}
+                </if>
+                <if test="prod_name != null and prod_name != ''">
+                	AND PROD_NAME LIKE '%'|| #{prod_name} ||'%'
+                </if>
+                <if test="prod_cost != null and prod_cost != '' and  prod_cost !=0">
+                	AND PROD_COST  BETWEEN #{cost_min} AND #{prod_cost} 
+                </if>
+                <if test="prod_price != null and prod_price != '' and prod_price !=0">
+                	AND PROD_PRICE BETWEEN  #{price_min} AND #{prod_price}
+                </if> 
+             )a
+		)
+ --WHERE cnt BETWEEN (1-1)*10+1 AND 1*10
+WHERE cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+
+</select>
+
 
 </mapper>

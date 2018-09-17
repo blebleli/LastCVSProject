@@ -56,6 +56,7 @@
 			, MEM_INTRO
 			, MEM_X
 			, MEM_Y
+			, MEM_POINT
 		)
 		VALUES (
 		      #{mem_id, jdbcType=VARCHAR}			--<!--//  일반:이메일, 점주:사업자번호, 관리자:일괄부여  -->
@@ -73,6 +74,7 @@
 			, #{mem_intro, jdbcType=VARCHAR}		--<!--// 소개  -->
 			, #{mem_x, jdbcType=NUMERIC, javaType=String}			--<!--// 좌표_x  -->
 			, #{mem_y, jdbcType=NUMERIC, javaType=String}			--<!--// 좌표_y  -->
+			, #{mem_point,jdbcType=NUMERIC}         --<!--// 포인트 -->
 		)
 	</insert>
 	
