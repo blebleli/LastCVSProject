@@ -67,12 +67,8 @@
           <!-- 공은별 -->
           
           <!-- 김마음 -->
-          <li><a><i class="fa fa-table"></i> 게시판관리 <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-           	   <li><a href="boardView">조회/삭제</a></li>
-               <li><a href="boardNew">생성</a></li>
-               <li><a href="boardUpdate">수정</a></li>
-            </ul>
+          <li><a href="boardView"><i class="fa fa-table"></i> 게시판관리 <span class="fa fa-chevron-down"></span></a>
+
           </li>
           <!-- 김마음 -->
           

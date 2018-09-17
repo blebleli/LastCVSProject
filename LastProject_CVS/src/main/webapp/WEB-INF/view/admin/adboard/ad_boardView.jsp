@@ -1,5 +1,5 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- 꼭 있어야 함 -->
-    <script src="/js/common/jquery-1.12.4.js"></script>
+<!--      <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
 		$(function(){
 			$("table tbody tr").on("click", function(){
@@ -13,7 +13,7 @@
 	</script>
 	<form id="frm" action="/write/detail" method="get">
 		<input type="hidden" name="id" id="id">
-	</form>
+	</form>-->
 	
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -80,10 +80,10 @@
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
                             <th class="column-title">번호</th>
-                            <th class="column-title">상품명</th>
-                            <th class="column-title">작성자</th>
+<!--                             <th class="column-title">상품명</th> -->
                             <th class="column-title">제목</th>
-                            <th class="column-title">평점</th>
+<!--                             <th class="column-title">평점</th> -->
+                            <th class="column-title">작성자</th>
                             <th class="column-title">작성일</th>
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
@@ -92,26 +92,36 @@
                         </thead>
 
                         <tbody>
-                          <c:forEach items="${boardList}" var="vo">
+                          <c:forEach items="${boardpage}" var="vo">
                           <tr class="even pointer" data-id="${vo.bd_id}">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
                             <td class=" ">${vo.cnt }</td>
-                            <td class=" ">${vo.prod_name}</td>
-                            <td class=" ">${vo.mem_name}</td>
+<%--                             <td class=" ">${vo.prod_name}</td> --%>
                             <td class=" ">${vo.bd_title}</td>
-                            <td class=" ">${vo.bd_rating}</td>
+<%--                             <td class=" ">${vo.bd_rating}</td> --%>
+                            <td class=" ">${vo.mem_name}</td>
                             <td class=" ">${vo.bd_date}</td>
                           </tr>
                           </c:forEach>
 <!--                           <tr class="odd pointer"> -->
                         </tbody>
                       </table>
-                    </div>
-							
-						
-                  </div>
+						<div class="text-center" id="page">
+							<ul class="pagination">${pageNavi}</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
+						<span style="float: right">
+							<button class="btn btn-primary" type="button">등록</button>
+							<button class="btn btn-primary" type="reset">삭제</button>
+					</span>
+					</div>
+
+
+
+				</div>
                 </div>
               </div>
             </div>
