@@ -169,9 +169,22 @@ public class UserMainController {
 		
 
 		//==============================================
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mem_id", mem_id);
+		paramMap.put("star_kind", "111");
+		
 		//== 로그인한 회원의 즐겨찾는 제품 리스트
-		List<BookmarkVo> prodBookmarkList = bookmarkService.getProdBookmarkList(mem_id);
+		List<BookmarkVo> prodBookmarkList = bookmarkService.getProdBookmarkList(paramMap);
 		model.addAttribute("prodBookmarkList", prodBookmarkList);
+		//==============================================
+		
+		//==============================================
+		//== 로그인한 회원의 즐겨찾는 편의점 리스트
+		paramMap = new HashMap<String, Object>();
+		paramMap.put("mem_id", mem_id);
+		paramMap.put("star_kind", "222");
+		List<BookmarkVo> cvsBookmarkList = bookmarkService.getCvsBookmarkList(paramMap);
+		model.addAttribute("cvsBookmarkList", cvsBookmarkList);
 		//==============================================
 		
 		

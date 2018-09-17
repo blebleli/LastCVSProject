@@ -1,6 +1,7 @@
 package kr.or.ddit.user.bookmark.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -25,19 +26,36 @@ public class BookmarkDao implements BookmarkDaoInf {
 
 	/**
 	 * 
-	 * Method : getBookmarkList
+	 * Method : getProdBookmarkList
 	 * 최초작성일 : 2018. 9. 10.
 	 * 작성자 : Kong
 	 * 변경이력 :
 	 * @param mem_id
 	 * @return List<BookmarkVo>
-	 * Method 설명 : 회원이 즐겨찾기한 리스트
+	 * Method 설명 : 회원이 즐겨찾기한 제품 리스트
 	 */
 	@Override
-	public List<BookmarkVo> getProdBookmarkList(String mem_id) {
-		return template.selectList("bookmark.getProdBookmarkList", mem_id);
+	public List<BookmarkVo> getProdBookmarkList(Map<String, Object> paramMap) {
+		return template.selectList("bookmark.getProdBookmarkList", paramMap);
 	}
 
+	
+	/**
+	 * 
+	 * Method : getCvsBookmarkList
+	 * 최초작성일 : 2018. 9. 17.
+	 * 작성자 : Kong
+	 * 변경이력 :
+	 * @param paramMap
+	 * @return
+	 * Method 설명 : 회원이 즐겨찾기한 편의점 리스트
+	 */
+	@Override
+	public List<BookmarkVo> getCvsBookmarkList(Map<String, Object> paramMap) {
+		return template.selectList("bookmark.getCvsBookmarkList", paramMap);
+	}
+
+	
 	@Override
 	public int updateBookmark(BookmarkVo bookmarkVo) {
 		// TODO Auto-generated method stub
@@ -49,6 +67,8 @@ public class BookmarkDao implements BookmarkDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 
 }

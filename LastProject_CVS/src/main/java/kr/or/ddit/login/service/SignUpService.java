@@ -148,18 +148,21 @@ public class SignUpService implements SignUpServiceInf {
 		return result;
 	}
 
-	@Override
-	public int deleteMember(MemberVo memberVo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	@Override
 	public int updateMemberPw(MemberVo memberVo) {
 		signUpDao.setUpdateMemberPw(memberVo);
 		return 1;
 	}
 
+	@Override
+	public int deleteMember(MemberVo memberVo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+	
 
 
 

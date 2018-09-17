@@ -3,7 +3,7 @@ package kr.or.ddit.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemberVo {
+public class MemberVo extends PageVo {
 	
 	private String mem_id;         // 일반:이메일, 점주:사업자번호, 관리자:일괄부여
 	private String mem_pw;         // 비밀번호

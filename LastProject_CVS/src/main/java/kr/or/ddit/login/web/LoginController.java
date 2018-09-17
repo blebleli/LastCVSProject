@@ -279,8 +279,8 @@ public class LoginController {
 				filedataVo.setFile_path(tempSavePath);    
 				filedataVo.setFile_name(fileName); 
 				filedataVo.setFile_upname(UUID.randomUUID().toString()+fileExt); 
-				filedataVo.setFile_size((int) (long) file.getSize()); 
-				filedataVo.setFile_dot(fileExt); // 확장자
+//				filedataVo.setFile_size((int) (long) file.getSize()); 
+//				filedataVo.setFile_dot(fileExt); // 확장자
 
 				// 디렉토리 없을 경우 생성
 				if(!new File(FileUtil.fileUploadPath).exists()) {
@@ -290,7 +290,6 @@ public class LoginController {
 				logger.debug("file_path :::::::::: {}", filedataVo.getFile_path());
 				logger.debug("file_name :::::::::: {}", filedataVo.getFile_name());
 				logger.debug("file_upname :::::::::: {}", filedataVo.getFile_upname());
-				logger.debug("file_size :::::::::: {}", filedataVo.getFile_size());
 
 				memberVo.getFileList().add(filedataVo);
 
@@ -303,7 +302,7 @@ public class LoginController {
 				}
 			}
 		}
-
+		memberVo.setMem_point(0);
 		int result = signUpService.newMember(memberVo);
 		
 		logger.debug("signUpService.newMember - result : {}", result );
