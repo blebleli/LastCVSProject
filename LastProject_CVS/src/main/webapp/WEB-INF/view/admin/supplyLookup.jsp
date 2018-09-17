@@ -80,7 +80,7 @@
                           <th>점주명</th>
                           <th>편의점명</th>
                           <th>상태</th>
-                          <th>Action</th>                  
+                          <th colspan="2">Action</th>                  
                         </tr>
                   	
                       </thead>
@@ -90,9 +90,14 @@
 							<td>점주명</td>
 							<td>편의점명</td>
 							<td>상태</td>
-							<td>
+							<td width="50">
 								<form action="/admin/lookupView">
 									<button type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">View</button>
+								</form>
+							</td>
+							<td width="50">
+								<form action="/admin/lookupView">
+									<button type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="update">update</button>
 								</form>
 							</td>
 						</tr>	                      
