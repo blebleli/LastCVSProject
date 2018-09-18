@@ -17,6 +17,7 @@ import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.DisposalListVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.SaleDisVo;
+import kr.or.ddit.model.SaleListVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.store_owner.disposal_list.service.DisposalListServiceInf;
@@ -128,15 +129,18 @@ public class CvsPosMainController {
 			String disList_id = autoCodeCreate.autoCode("SALE_L","3000000-104-2016-00044");	
 			
 			
-			DisposalListVo disposalListVo = new DisposalListVo();
+			SaleListVo saleListVo = new SaleListVo();
 
-			disposalListVo.setDisp_id(disList_id); 			//Autocode 로 생성될 예정
-			disposalListVo.setBcd_id(dispVo.getBcd_id()); 			// 이미 존재
-			disposalListVo.setDisp_amount(dispVo.getStcklist_amount()); // 이미 존재			
-			disposalListVo.setDisp_exdate(dispVo.getStcklist_exdate());   //bcd_id로 유통기한 가져오는 db 필요
-			disposalListVo.setSd_id(saleDisVo.getSd_id());  //위에서의 id
+			saleListVo.setBcd_id(dispVo.getBcd_id());
+			//saleListVo.setProd_id(prod_id);
+			saleListVo.setSale_amount(dispVo.getStcklist_amount());
+			saleListVo.setSale_id(sale_id);
+			saleListVo.setSale_kind("카드or 현금");
+			saleListVo.setSale_sum(sum);
+			saleListVo.setSd_id(saleDisVo.getSd_id());
 			
-			disService.setInsertDispList(disposalListVo);
+			// 판매 list 
+			//disService.setInsertDispList(disposalListVo);
 			
 			
 		//재고(stock) update ==============================================			
