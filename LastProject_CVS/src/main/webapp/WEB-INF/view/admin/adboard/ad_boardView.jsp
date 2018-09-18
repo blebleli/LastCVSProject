@@ -29,21 +29,21 @@
 	$("#buttons").on("click",function() {
 		if($("input[id='bd_kind_id55']:checked").val()){
 	
-			// 편의점 점주 아이디(임의)
-			var BD_KIND_ID = $("#bd_kind_id55").val();
-			alert(BD_KIND_ID);
+			// 게시판 구분(상품리뷰, 55)
+			var bd_kind_id = $("#bd_kind_id55").val();
+			alert(bd_kind_id);
 
 			$.ajax({
 				url : "review",
 				method : "get",
 				data : {
-					"BD_KIND_ID" : BD_KIND_ID
+					"bd_kind_id" : bd_kind_id // 게시판 구분(상품리뷰, 55) 저장
 				},
 
 				success : function(data) {
 					console.log(data); // 로그 검사
-					$("#reviews").html(""); // tr reviews 삭제
-					var content = '';
+					$("#reviews").html(""); // reviews 삭제
+					var content = ''; // content 생성
 					content +='<th><input type="checkbox" id="check-all" class="flat">'
 	                        +'  </th>'
 	                        +'  <th class="column-title">번호</th>'
@@ -60,7 +60,7 @@
 					$("#reviews").html(content); // content 추가
 					
 					$("#bd_code").html(""); // 성공시 기존 내용 삭제
-					$.each(data.boardpage, function(index,item){
+					$.each(data.boardpage, function(index,item){ // 상품리뷰 게시판 내용 조회 each
 						$("#bd_code").append( // 붙이기
 					'              <tr class="even pointer" data-id="'+item.bd_id+'">'+
 				    '                <td class="a-center ">'+
@@ -79,6 +79,7 @@
 					$("#page").html(""); // 페이지 내비게이션 삭제
 					var navi = ''; // 내비게이션 추가
 					navi +='<ul class="pagination">'+data.pageNavi+'</ul>'
+						 +'<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="'+data.bd_kind_id+'">'
 						 +'	</div>';
 					$("#page").html(navi); // navi 추가
 					
@@ -89,14 +90,14 @@
 		// 이벤트(66) 누를시 이벤트 게시글 조회 화면으로 넘어간다.
 			}else{
 				// 편의점 점주 아이디(임의)
-				var BD_KIND_ID = $("#bd_kind_id66").val();
-				alert(BD_KIND_ID);
+				var bd_kind_id = $("#bd_kind_id66").val();
+				alert(bd_kind_id);
 
 				$.ajax({
 					url : "review",
 					method : "get",
 					data : {
-						"BD_KIND_ID" : BD_KIND_ID
+						"bd_kind_id" : bd_kind_id
 					},
 
 					success : function(data) {
@@ -135,6 +136,7 @@
 					$("#page").html(""); // 페이지 내비게이션 삭제
 					var navi = ''; // 내비게이션 추가
 					navi +='<ul class="pagination">'+data.pageNavi+'</ul>'
+					 	 +'<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="'+data.bd_kind_id+'">'					
 						 +'	</div>';
 					$("#page").html(navi); // navi 추가
 					
@@ -237,6 +239,7 @@
                       </table>
 						<div class="text-center" id="page">
 							<ul class="pagination">${pageNavi}</ul>
+							<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id }">
 						</div>
 					</div>
 					<form id="frm" action="/admin/boardNew" method="post">
