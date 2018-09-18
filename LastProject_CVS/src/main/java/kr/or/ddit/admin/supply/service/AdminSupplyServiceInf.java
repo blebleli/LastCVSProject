@@ -28,5 +28,28 @@ public interface AdminSupplyServiceInf {
 	* @return
 	*/
 	int adminApplyListTotCnt();
+	
+	/**
+	* Method : adminApplyViewList
+	* Method 설명 :관리자용 수불리스트 상세보기때 제품들 페이징 처리
+	* 최초작성일 : 2018. 9. 17.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param paramMap
+	* @return
+	*/
+	Map<String, Object> adminApplyViewList(Map<String, Object> paramMap);
+	
+	/**
+	* Method : adminApplyViewTotCnt
+	* Method 설명 :관리자용 수불리스트 상세보기때 제품들 리스트의 토탈 카운트
+	* 최초작성일 : 2018. 9. 17.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @return
+	*/
+	int adminApplyViewTotCnt(String supply_bcd);
 
 }

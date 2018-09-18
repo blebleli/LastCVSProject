@@ -91,9 +91,21 @@ public class AdminSupplyController {
 	* @return
 	*/
 	@RequestMapping("/lookupView")
-	public String adminSupplyLookupView(AdminApplyVo adminApplyVo, Model model){
-		
+	public String adminSupplyLookupView(@RequestParam(value="page", defaultValue="1") int page,
+										@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+										AdminApplyVo adminApplyVo,
+										Model model){
 		logger.debug("adminApplyVo.getSupply_bcd() : {}" , adminApplyVo.getSupply_bcd());
+		
+		String supply_bcd = adminApplyVo.getSupply_bcd();
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("supply_bcd",supply_bcd);
+		
+		Map<String, Object> resultMap = adminSupplyService.adminApplyViewList(paramMap);
+		model.addAllAttributes(resultMap);
 		
 		return "ad_supplyLookupView";
 	}
