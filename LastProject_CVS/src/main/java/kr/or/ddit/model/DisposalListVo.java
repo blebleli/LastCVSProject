@@ -1,5 +1,7 @@
 package kr.or.ddit.model;
 
+import java.util.Date;
+
 /**
  * 
  * DisposalListVo.java 
@@ -10,6 +12,7 @@ package kr.or.ddit.model;
  * @see 
  * 
  * <pre> 
+ * 
  * << 개정이력(Modification Information) >> 
  *   
  *   수정일  수정자 수정내용 
@@ -22,17 +25,14 @@ public class DisposalListVo {
 	
 	private String disp_id;                               // 폐기상세코드
 	private int disp_amount;                               // 수량
-	private String disp_exdate;                               // 유통기한
+	private Date disp_exdate;                               // 유통기한
 	private String sd_id;                               // 판매코드
 	private String bcd_id;       						// 재고바코드  
-	
-	
 	public DisposalListVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public DisposalListVo(String disp_id, int disp_amount, String disp_exdate,
+	public DisposalListVo(String disp_id, int disp_amount, Date disp_exdate,
 			String sd_id, String bcd_id) {
 		super();
 		this.disp_id = disp_id;
@@ -53,10 +53,10 @@ public class DisposalListVo {
 	public void setDisp_amount(int disp_amount) {
 		this.disp_amount = disp_amount;
 	}
-	public String getDisp_exdate() {
+	public Date getDisp_exdate() {
 		return disp_exdate;
 	}
-	public void setDisp_exdate(String disp_exdate) {
+	public void setDisp_exdate(Date disp_exdate) {
 		this.disp_exdate = disp_exdate;
 	}
 	public String getSd_id() {
@@ -71,12 +71,14 @@ public class DisposalListVo {
 	public void setBcd_id(String bcd_id) {
 		this.bcd_id = bcd_id;
 	}
-
 	@Override
 	public String toString() {
 		return "DisposalListVo [disp_id=" + disp_id + ", disp_amount="
 				+ disp_amount + ", disp_exdate=" + disp_exdate + ", sd_id="
 				+ sd_id + ", bcd_id=" + bcd_id + "]";
 	}
+	
+	
+
 
 }
