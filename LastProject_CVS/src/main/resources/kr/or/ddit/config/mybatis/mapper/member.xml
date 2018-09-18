@@ -60,7 +60,7 @@
 		)
 		VALUES (
 		      #{mem_id, jdbcType=VARCHAR}			--<!--//  일반:이메일, 점주:사업자번호, 관리자:일괄부여  -->
-            , CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) --<!--// 비밀번호  -->
+            , CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_birth, jdbcType=VARCHAR}) --<!--// 비밀번호  -->
 			, #{mem_kind, jdbcType=VARCHAR}			--<!--// 관리자 : 00, 점주 : 01, 일반 : 02  -->
 			, #{mem_name, jdbcType=VARCHAR}			--<!--// 일반:일반회원 점주:점주이름  -->
 			, #{mem_tel, jdbcType=VARCHAR}			--<!--// 연락처  -->
@@ -89,7 +89,8 @@
 	<update id="setUpdateMember" parameterType="memberVo">
 		UPDATE MEMBER
 		   SET 
-		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR})
+<!-- 		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) 암호화  키 변경됨--> 
+		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, (SELECT  MEM_BIRTH FROM MEMBER WHERE MEM_ID = #{mem_id}))
 			 , MEM_TEL = #{mem_tel}
 			 , MEM_ZIP = #{mem_zip}
 			 , MEM_ADD = #{mem_add}
@@ -110,7 +111,8 @@
 	 -->
 	<update id="setUpdateMemberPw" parameterType="memberVo">
 		UPDATE MEMBER
-		   SET MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR})
+<!-- 		   SET MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) 암호화  키 변경됨 -->
+		   SET MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, (SELECT  MEM_BIRTH FROM MEMBER WHERE MEM_ID = #{mem_id}))
 		 WHERE MEM_ID = #{mem_id}
 		   <!-- AND MEM_PW = #{old_mem_pw} -->
 	</update>
@@ -124,7 +126,7 @@
 	  		일    시 : 2018-09-05     
 	 -->
 	<select id="getMember" resultType="memberVo" parameterType="String">
-		SELECT CRYPTPACK.DECRYPT(mem_pw, #{mem_id}) as mem_pw 
+		SELECT CRYPTPACK.DECRYPT(mem_pw, mem_birth) as mem_pw 
 			 , MEM_ID
 			 , MEM_KIND
 			 , MEM_NAME
@@ -184,7 +186,7 @@
 			  FROM
 				  (SELECT COUNT(*) OVER() AS tot_cnt
 				  		, MEM_ID
-						, CRYPTPACK.DECRYPT(mem_pw, mem_id) as mem_pw
+						, CRYPTPACK.DECRYPT(mem_pw, mem_birth) as mem_pw
 						, MEM_KIND
 						, MEM_NAME
 						, MEM_TEL
