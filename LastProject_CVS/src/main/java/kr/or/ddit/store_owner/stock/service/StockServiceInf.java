@@ -36,16 +36,15 @@ public interface StockServiceInf {
 	
 	/**
 	 * 
-	 * Method   : setInsertStockList 
-	 * 최초작성일  : 2018. 9. 17. 
-	 * 작성자 : 한수정
+	 * Method   : updateStockList 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
 	 * 변경이력 : 
 	 * @param stockListVo
 	 * @return 
-	 * Method 설명 :Insert stock + stockList 함께
+	 * Method 설명 : 재고 리스트 업데이트
 	 */
-	int setInsertStockAndList(List<StockListVo> stockVoList);	
-	
+	int updateStockList(StockListVo stockListVo);
 	
 	/**
 	 * 
@@ -58,6 +57,19 @@ public interface StockServiceInf {
 	 * *** ---0917  한수정 dayendController 에서 사용
 	 */
 	List<StockVo> getAllStockByMemid(String mem_id);
+	
+	/**
+	 * 
+	 * Method   : getStockListByBcdID 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param bcd_id
+	 * @return 
+	 * Method 설명 : bcdid 로 재고리스트1건 가져온다.
+	 */
+	StockListVo getStockListByBcdID(String bcd_id);
+	
 	
 	int updateStock(StockVo stockVo);
 	

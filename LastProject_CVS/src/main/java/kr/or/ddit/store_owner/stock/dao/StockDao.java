@@ -52,6 +52,22 @@ public class StockDao implements StockDaoInf {
 	
 	
 //update ====================================================================================	
+	/**
+	 * 
+	 * Method   : updateStock 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param stockVo
+	 * @return 
+	 * Method 설명 : 재고 업데이트
+	 */
+	@Override
+	public int updateStock(StockVo stockVo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 	/**
 	 * 
@@ -61,7 +77,7 @@ public class StockDao implements StockDaoInf {
 	 * 변경이력 : 
 	 * @param stockListVo
 	 * @return 
-	 * Method 설명 :
+	 * Method 설명 : 재고 리스트 업데이트
 	 */
 	@Override
 	public int updateStockList(StockListVo stockListVo) {
@@ -86,6 +102,21 @@ public class StockDao implements StockDaoInf {
 		return template.selectList("stock.getAllStock",mem_id);
 	}
 	
+	/**
+	 * 
+	 * Method   : getStockListByBcdID 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param bcd_id
+	 * @return 
+	 * Method 설명 : bcdid 로 재고리스트1건 가져온다.
+	 */
+	@Override
+	public StockListVo getStockListByBcdID(String bcd_id) {
+		// TODO Auto-generated method stub
+		return template.selectOne("stock.getStockListByBcdID",bcd_id);
+	}
 
 	/**
 	 * 
@@ -104,21 +135,7 @@ public class StockDao implements StockDaoInf {
 		return template.selectOne("stock.getBarcodeProd", prod_id);
 	}
  
-	/**
-	 * 
-	 * Method   : updateStock 
-	 * 최초작성일  : 2018. 9. 18. 
-	 * 작성자 : PC06 
-	 * 변경이력 : 
-	 * @param stockVo
-	 * @return 
-	 * Method 설명 :bcd_id 로 상품정보 업데이트
-	 */
-	@Override
-	public int updateStock(StockVo stockVo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public int deleteStock(String stock_id) {
@@ -166,6 +183,7 @@ public class StockDao implements StockDaoInf {
 	public int totalCountProd() {
 		return template.selectOne("prod.totalCountProd");
 	}
+
 
 
 

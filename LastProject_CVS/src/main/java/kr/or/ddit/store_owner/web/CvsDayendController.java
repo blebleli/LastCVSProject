@@ -110,7 +110,7 @@ public class CvsDayendController {
 		}
 		
 		//다음날짜로 재고 +재고리스트 추가
-		stockService.setInsertStockAndList(stockVoList);
+		//stockService.setInsertStockAndList(stockVoList);
 		
 		return mav;
 	}

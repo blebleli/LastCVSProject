@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pay">
+	
+	<!-- 	아 이 디 : setInsertPay
+	  		매개변수 : payVo
+	  		반 환 값 : 
+	  		설    명 : 결제 추가
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-18     
+	 -->
+	<insert id="setInsertPay" parameterType="payVo">
+		
+		INSERT INTO PAY
+		(
+			pay_id
+			pay_sum
+			pay_date
+			pay_ny
+			mem_id
+			sd_id
+			shiplist_id
+			pay_cash
+			pay_card
+		)
+		VALUES (
+			#{pay_id     },  --<!--결제코드                            -->
+			#{pay_sum    },	 --<!--결제금액                            -->
+			#{pay_date   },	 --<!--결제일시                            -->
+			#{pay_ny     },	 --<!--결제여부                            -->
+			#{mem_id     },	 --<!--회원: 아이디, 비회원 : null         -->
+		    #{sd_id      },  --<!--판매코드                            -->
+		    #{shiplist_id},	 --<!--사용시  맴버쉽코드, 미사용시 null   -->
+		    #{pay_cash   },	 --<!--사용시 금액, 미사용시 0             -->
+		    #{pay_card   }	 --<!--사용시 금액, 미사용시 0             -->
+		                 	                                           
+		)
+	</insert>
+	
+	
+	
+</mapper>	

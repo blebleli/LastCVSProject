@@ -1,14 +1,11 @@
 package kr.or.ddit.store_owner.stock.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import kr.or.ddit.commons.service.AutoCodeCreate;
-import kr.or.ddit.model.DisposalListVo;
-import kr.or.ddit.model.SaleDisVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
@@ -26,6 +23,7 @@ public class StockService implements StockServiceInf {
 	private AutoCodeCreate autoCodeCreate;	
 	
 	
+	//insert ====================================================================================		
 	/**
 	 * 
 	 * Method   : setInsertStock 
@@ -57,49 +55,50 @@ public class StockService implements StockServiceInf {
 	public int setInsertStockList(StockListVo stockListVo) {
 		return stockDao.setInsertStockList(stockListVo);
 	}
+
+	
+	
+//update ====================================================================================		
+	
+	
+	/**
+	 * 
+	 * Method   : updateStock 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param stockVo
+	 * @return 
+	 * Method 설명 : update
+	 */
+	@Override
+	public int updateStock(StockVo stockVo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 	/**
 	 * 
-	 * Method   : setInsertStockAndList 
-	 * 최초작성일  : 2018. 9. 17. 
-	 * 작성자 : 한수정 
+	 * Method   : updateStockList 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
 	 * 변경이력 : 
 	 * @param stockListVo
 	 * @return 
-	 * Method 설명 : Insert stock + stockList 함께
+	 * Method 설명 : 재고 리스트 업데이트
 	 */
 	@Override
-	public int setInsertStockAndList(List<StockListVo> stockVoList) {
-		
-		String stock_id = autoCodeCreate.autoCode("ST","3000000-104-2016-00044");
-		
-		StockVo stockVo = new StockVo();
-		
-		stockVo.setMem_id("3000000-104-2016-00044");  //세션처리 필요
-		//stockVo.setStock_date(stock_date); // 쓰임에따라
-		stockVo.setStock_id(stock_id); 	   // 생성
-		stockVo.setStock_info("stock_info"); 
-
-		stockDao.setInsertStock(stockVo);
-
-		for (StockListVo stockListVo : stockVoList) {
-			
-	/*		stockListVo.setBcd_id(bcd_id); 		 //가져온것 그대로
-			stockListVo.setProd_id(prod_id);	 //	
-			stockListVo.setStck_date(stck_date); //stock 과 같게
-			stockListVo.setStcklist_amount(stcklist_amount); //넘어온 수량
-			stockListVo.setStcklist_exdate(stcklist_exdate);
-			stockListVo.setStcklist_info("stcklist_info");
-			stockListVo.setStcklist_kind(stcklist_kind); //888 or 999
-			stockListVo.setStock_id(stockVo.getStock_id()); //위에서의 아이디
-			*/
-			stockDao.setInsertStockList(stockListVo);
-		}
-	
-		return 0;
+	public int updateStockList(StockListVo stockListVo) {
+		// TODO Auto-generated method stub
+		return stockDao.updateStockList(stockListVo);
 	}
 
+
+
+	
+	
+//select ====================================================================================	
 	/**
 	 * 
 	 * Method   : getStockList 
@@ -116,11 +115,22 @@ public class StockService implements StockServiceInf {
 		return stockDao.getAllStockByMemid(mem_id);
 	}
 
+	/**
+	 * 
+	 * Method   : getStockListByBcdID 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param bcd_id
+	 * @return 
+	 * Method 설명 : bcdid 로 재고리스트1건 가져온다.
+	 */
 	@Override
-	public int updateStock(StockVo stockVo) {
+	public StockListVo getStockListByBcdID(String bcd_id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return stockDao.getStockListByBcdID(bcd_id);
 	}
+	
 
 	@Override
 	public int deleteStock(String stock_id) {

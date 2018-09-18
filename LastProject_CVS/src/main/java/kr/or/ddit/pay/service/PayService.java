@@ -15,10 +15,20 @@ public class PayService implements PayServiceInf {
 	@Resource(name="payDao")
 	private PayDaoInf payDao;
 	
+	/**
+	 * 
+	 * Method   : setInsertPay 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param payVo
+	 * @return 
+	 * Method 설명 : 결제 insert
+	 */
 	@Override
 	public int setInsertPay(PayVo payVo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return payDao.setInsertPay(payVo);
 	}
 
 	@Override

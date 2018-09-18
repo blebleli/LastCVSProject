@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.DisposalListVo;
+import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.SaleDisVo;
+import kr.or.ddit.model.StockListVo;
+import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.store_owner.disposal_list.service.DisposalListServiceInf;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.saleDis.service.SaleDisServiceInf;
@@ -57,6 +60,9 @@ public class CvsPosMainController {
 
 	@Resource(name="dispService")
 	private DisposalListServiceInf disService;
+	
+	@Resource(name="payService")
+	private PayServiceInf payService;
 
 	
 	@RequestMapping("/main")
@@ -73,7 +79,94 @@ public class CvsPosMainController {
 	public String cvsSupplyInvoice(Model model){
 		return "cvs_invoice";
 	}
+
+	/**
+	 * 
+	 * Method   : dispInsert 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param dispList
+	 * @param model
+	 * @return 
+	 * Method 설명 : 판매 처리하는 메서드
+	 */
+	@RequestMapping("/pos/saleInsert")	
+	 public void saleInsert(@RequestBody List<PresentStockListVo> preStockList,Model model) {
+		
+		logger.debug("stock --------------"+ preStockList);
+
+		
+		//판매(sale) insert =====================================================
+		
+		//sale dis 의 dis코드 생성
+		String sale_id = autoCodeCreate.autoCode("SALE","3000000-104-2016-00044");	
+
+		//합계계산
+		int sum = preStockList.stream().mapToInt(vo -> {
+			int price = vo.getProd_price();
+			return vo.getStcklist_amount() * price;
+		}).sum();
+		
+		logger.debug("dis_id --------------"+ sale_id);
+		logger.debug("sum --------------"+ sum);
+
+				
+		SaleDisVo saleDisVo = new SaleDisVo();
+		saleDisVo.setSd_id(sale_id); 	  //Autocode 로 생성
+		saleDisVo.setSd_date(new Date()); // 지금날짜
+		saleDisVo.setSd_sum(sum);		  // 위에서 합계로 처리
+		saleDisVo.setSale_kind("88");	  // 판매코드 88
+		saleDisVo.setMem_id("3000000-104-2016-00044");	  // 편의점 id
+		
+		saleDisService.setInsertSaleDis(saleDisVo);
+		
+		
+		//판매리스트(saleList) insert ==============================================
+		for (PresentStockListVo dispVo : preStockList) {
+			//disposal 코드 생성
+			String disList_id = autoCodeCreate.autoCode("SALE_L","3000000-104-2016-00044");	
+			
+			
+			DisposalListVo disposalListVo = new DisposalListVo();
+
+			disposalListVo.setDisp_id(disList_id); 			//Autocode 로 생성될 예정
+			disposalListVo.setBcd_id(dispVo.getBcd_id()); 			// 이미 존재
+			disposalListVo.setDisp_amount(dispVo.getStcklist_amount()); // 이미 존재			
+			disposalListVo.setDisp_exdate(dispVo.getStcklist_exdate());   //bcd_id로 유통기한 가져오는 db 필요
+			disposalListVo.setSd_id(saleDisVo.getSd_id());  //위에서의 id
+			
+			disService.setInsertDispList(disposalListVo);
+			
+			
+		//재고(stock) update ==============================================			
+			
+			//수량 업데이트
+			StockListVo StockListVo = stockService.getStockListByBcdID(dispVo.getBcd_id());			
+			StockListVo.setStcklist_amount(StockListVo.getStcklist_amount() - dispVo.getStcklist_amount());			
+			stockService.updateStockList(StockListVo);			
+		}
+
+		
+		//결제(pay) insert ==============================================
+		String pay_id = autoCodeCreate.autoCode("SALE","3000000-104-2016-00044");	
 	
+		PayVo payvo = new PayVo();
+		payvo.setPay_id     (pay_id);       //결제코드
+		payvo.setPay_sum    (sum);          //결제금액 
+		payvo.setPay_date   (new Date());   //결제일시
+		payvo.setPay_ny     ("Y");          //결제여부
+		payvo.setMem_id     (null);         //회원: 아이디, 비회원 : null
+		payvo.setSd_id 		(saleDisVo.getSd_id());       //판매코드
+		payvo.setPay_cash   (0);            //사용시 금액, 미사용시 0
+		payvo.setPay_card   (0);            //사용시 금액, 미사용시 0
+		payvo.setShiplist_id(null);         //사용시  맴버쉽코드, 미사용시 null
+	
+		payService.setInsertPay(payvo);
+
+		
+	 }
+
 	
 	
 	/**
@@ -94,12 +187,13 @@ public class CvsPosMainController {
 		
 		//유통기한 오늘날짜와 확인해서 지난것
 		
-		//폐기 insert
+		//폐기 insert  =====================================================
 		//sale dis 의 dis코드 생성
 		String dis_id = autoCodeCreate.autoCode("DIS","3000000-104-2016-00044");	
 
+		//가격합계
 		int sum = preStockList.stream().mapToInt(vo -> {
-			int price = vo.getProd_price(); //bcd_id로 가격 가져오는 db 필요
+			int price = vo.getProd_price(); 
 			return vo.getStcklist_amount() * price;
 		}).sum();
 		
@@ -118,7 +212,7 @@ public class CvsPosMainController {
 		saleDisService.setInsertSaleDis(saleDisVo);
 		
 		/*
-		//폐기리스트 insert
+		//폐기리스트 insert  =====================================================
 		for (PresentStockListVo dispVo : preStockList) {
 			//disposal 코드 생성
 			String disList_id = autoCodeCreate.autoCode("DIS_L","3000000-104-2016-00044");	
@@ -132,82 +226,14 @@ public class CvsPosMainController {
 			disposalListVo.setSd_id(saleDisVo.getSd_id());  //위에서의 id
 			
 			disService.setInsertDispList(disposalListVo);
-			
-			
-			
+
 		}*/
 		
 		
-		//재고 수량 update
+		//재고 수량 update  =====================================================
+		
 	 }
 	
-	/**
-	 * 
-	 * Method   : dispInsert 
-	 * 최초작성일  : 2018. 9. 18. 
-	 * 작성자 : PC06 
-	 * 변경이력 : 
-	 * @param dispList
-	 * @param model
-	 * @return 
-	 * Method 설명 : 판매 처리하는 메서드
-	 */
-	@RequestMapping("/pos/saleInsert")	
-	 public void saleInsert(@RequestBody List<PresentStockListVo> preStockList,Model model) {
-		
-		logger.debug("stock --------------"+ preStockList);
-
-		
-		//판매 insert
-		//sale dis 의 dis코드 생성
-		String sale_id = autoCodeCreate.autoCode("SALE","3000000-104-2016-00044");	
-
-		int sum = preStockList.stream().mapToInt(vo -> {
-			int price = vo.getProd_price(); //bcd_id로 가격 가져오는 db 필요
-			return vo.getStcklist_amount() * price;
-		}).sum();
-		
-		logger.debug("dis_id --------------"+ sale_id);
-		logger.debug("sum --------------"+ sum);
-		
-		
-				
-		SaleDisVo saleDisVo = new SaleDisVo();
-		saleDisVo.setSd_id(sale_id); 	  //Autocode 로 생성
-		saleDisVo.setSd_date(new Date()); // 지금날짜
-		saleDisVo.setSd_sum(sum);		  // 위에서 합계로 처리
-		saleDisVo.setSale_kind("88");	  // 판매코드 88
-		saleDisVo.setMem_id("3000000-104-2016-00044");	  // 편의점 id
-		
-		saleDisService.setInsertSaleDis(saleDisVo);
-		
-		/*
-		//판매리스트 insert
-		for (PresentStockListVo dispVo : preStockList) {
-			//disposal 코드 생성
-			String disList_id = autoCodeCreate.autoCode("SALE_L","3000000-104-2016-00044");	
-			
-			
-			DisposalListVo disposalListVo = new DisposalListVo();
-
-			disposalListVo.setDisp_id(disList_id); 			//Autocode 로 생성될 예정
-			disposalListVo.setBcd_id(dispVo.getBcd_id()); 			// 이미 존재
-			disposalListVo.setDisp_amount(dispVo.getStcklist_amount()); // 이미 존재			
-			disposalListVo.setDisp_exdate(dispVo.getStcklist_exdate());   //bcd_id로 유통기한 가져오는 db 필요
-			disposalListVo.setSd_id(saleDisVo.getSd_id());  //위에서의 id
-			
-			disService.setInsertDispList(disposalListVo);
-		}
-		*/
-		
-		
-		//결제(pay) insert
-		
-		
-		
-		//재고 update
-
-	 }
 	
 
 

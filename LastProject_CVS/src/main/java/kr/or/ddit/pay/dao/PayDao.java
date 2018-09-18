@@ -15,11 +15,19 @@ public class PayDao implements PayDaoInf {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 	
-	
+	/**
+	 * 
+	 * Method   : setInsertPay 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param payVo
+	 * @return 
+	 * Method 설명 : 결제 insert
+	 */
 	@Override
 	public int setInsertPay(PayVo payVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.insert("pay.setInsertPay", payVo);
 	}
 
 	@Override

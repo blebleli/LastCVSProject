@@ -28,17 +28,17 @@
  </insert>
  
  
- <!-- 재고를 생성 -->
+<!-- 재고리스트를 생성 -->
 <!-- 	아 이 디 : insertStockList
   		반 환 값 : int
-  		매개변수 : stockVo
+  		매개변수 : stockListVo
   		설    명 : stockList 추가
   		작 성 자 : 한수정
   		일    시 : 2018-09-17     
 	-->
 	
 <insert id="insertStockList" parameterType="stockListVo">
-	INSERT into stock(  bcd_id         ,
+	INSERT INTO STOCK_LIST(  bcd_id    ,
 						stcklist_amount,
 						sicklist_exdate,
 						stck_date      ,
@@ -58,31 +58,31 @@
 					 )
  </insert>
  
+ 
+<!-- 재고리스트 업데이트 -->
+<!-- 	아 이 디 : updateStockList
+  		반 환 값 : int
+  		매개변수 : stockListVo
+  		설    명 : stockList 업데이트
+  		작 성 자 : 한수정
+  		일    시 : 2018-09-18     
+	-->
  <update id="updateStockList" parameterType="stockListVo">
-	INSERT into stock(  bcd_id         ,
-						stcklist_amount,
-						sicklist_exdate,
-						stck_date      ,
-						stcklist_info  ,
-						stcklist_kind  ,
-						stock_id       ,
-						splylist_id    
-					 ) 	
-			   VALUES(  #{bcd_id         },
+ 
+ 	UPDATE STOCK_LIST SET  ( 
 						#{stcklist_amount},
 						#{sicklist_exdate},
 						#{stck_date      },
 					    #{stcklist_info  },
 					    #{stcklist_kind  },
 					    #{stock_id       },
-					    #{splylist_id    }					
-					 )
+					    #{splylist_id    }	 				
+					     )
+ 		WHERE BCD_ID =  #{bcd_id         }				 
+					 
  </update>
  
- 
- 
- 
- 
+
 
 <!-- 재고 조회 -->
 <!-- 	아 이 디 : getStock
@@ -114,6 +114,19 @@
 	where mem_id=#{mem_id}
 </select>
 
+
+<!-- 	아 이 디 : getStockListByBcdID
+	  		반 환 값 : stockListVo
+	  		매개변수 : bcd_id
+	  		설    명 : bcd_id 로 재고리스트(1건) 조회
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-18     
+-->
+<select id="getStockListByBcdID" parameterType="String" resultType="stockListVo">
+	select * 
+	from stock_list 
+	where bcd_id=#{bcd_id}
+</select>
 
 	
 <!-- 편의점의 현재고 리스트 조회 -->

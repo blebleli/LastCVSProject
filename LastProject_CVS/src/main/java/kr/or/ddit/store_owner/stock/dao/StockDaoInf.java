@@ -80,6 +80,18 @@ public interface StockDaoInf {
 	
 	
 	/**
+	 * 
+	 * Method   : getStockListByBcdID 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param bcd_id
+	 * @return 
+	 * Method 설명 : bcdid 로 재고리스트1건 가져온다.
+	 */
+	StockListVo getStockListByBcdID(String bcd_id);
+	
+	/**
 	* Method : updateStock
 	* Method 설명 :재고 리스트에 대한 수정 기능
 	* 최초작성일 : 2018. 8. 31.
