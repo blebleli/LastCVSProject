@@ -14,13 +14,13 @@
 			});
 			
 			$("#boardNew").on("click", function(){
-				$("#frm").submit();
+				$("#boardGo").submit();
 			});
 			
 			$("#boardDel").on("click", function(){
 				//form 태그를 submit
-				$("#frm").attr("action", "/admin/boardDel"); // 액션 변경
-				$("#frm").submit();
+				$("#boardGo").attr("action", "/admin/boardDel"); // 액션 변경
+				$("#boardGo").submit();
 			});
 		});
 	</script>
@@ -261,7 +261,7 @@
 							<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id }">
 						</div>
 					</div>
-					<form id="frm" action="/admin/boardNew" method="post">
+					<form id="boardGo" action="/admin/boardNew" method="post">
 					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
 						<span style="float: right">
 							<button class="btn btn-primary" id="boardNew" type="button">등록</button>
