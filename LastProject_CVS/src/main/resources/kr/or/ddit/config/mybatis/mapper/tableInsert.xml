@@ -36,7 +36,7 @@
 
 
 <insert id="barcodeInsert"  parameterType="barcodeVo">
-INSERT INTO BARCODE (BCD_ID, BDC_CONTENT, BCD_PATH, BCD_KIND) 
+INSERT INTO BARCODE (BCD_ID, BCD_CONTENT, BCD_PATH, BCD_KIND) 
 	   VALUES (
 	   				 #{bcd_id     }  
 					,#{bcd_content,jdbcType=VARCHAR}  
