@@ -69,12 +69,12 @@ public class AutoCodeServiceTest {
 //		logger.debug("code.autoCode(DIS) ==> {}",code.autoCode("DIS"));
 		
 		// 게시판
-		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("BNO"));
+//		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("BNO"));
 //		logger.debug("code.autoCode(RE) ==> {}",code.autoCode("BRE"));
 //		logger.debug("code.autoCode(EV) ==> {}",code.autoCode("BEV"));
 		
 		// 댓글
-//		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("CNO"));
+		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("CNO"));
 //		logger.debug("code.autoCode(RE) ==> {}",code.autoCode("CRE"));
 //		logger.debug("code.autoCode(EV) ==> {}",code.autoCode("CEV"));
 		
