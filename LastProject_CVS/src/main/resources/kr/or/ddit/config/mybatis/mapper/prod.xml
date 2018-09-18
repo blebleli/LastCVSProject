@@ -377,6 +377,7 @@ FROM   (
              (
                SELECT  (SELECT CTGY_NAME FROM CATEGORY WHERE CTGY_ID =  PR_CLASS_LG) AS PR_CLASS_LG
                       ,(SELECT CTGY_NAME FROM CATEGORY WHERE CTGY_ID =  PR_CLASS_MD) AS PR_CLASS_MD
+                      ,PROD_ID
                       ,PROD_NAME
                       ,PROD_COST
                       ,PROD_PRICE
@@ -402,7 +403,7 @@ FROM   (
              )a
 		)
  --WHERE cnt BETWEEN (1-1)*10+1 AND 1*10
-WHERE cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+WHERE cnt BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
 
 </select>
 
