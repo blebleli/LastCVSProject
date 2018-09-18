@@ -29,19 +29,20 @@ import kr.or.ddit.model.DisposalListVo;
 	//List<DisposalListVo> getListDisp()_폐기 물품 리스트 조회 기능
 	//int updateDisp(DisposalListVo dispVo)_폐기 물품 수정 기능
 	//int deleteDisp(String disp_id)_폐기 물품 삭제 기능
+
 public interface DisposalListDaoInf {
 
 	/**
-	* Method : setInsertDisposalList
-	* Method 설명 :상품 폐기 신규 생성 기능 
-	* 최초작성일 : 2018. 8. 31.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :int setInsertDisposalList(DisposalListVo dispVo)_상품 폐기 리스트 신규 생성 기능 
-	* @param dispVo
-	* @return
-	*/
-	int setInsertDisposal(DisposalListVo dispVo);
+	 * 
+	 * Method   : setInsertDispList 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param disposalListVo
+	 * @return 
+	 * Method 설명 : 폐기리스트 추가 
+	 */
+	public int setInsertDispList(DisposalListVo disposalListVo);
 	
 	/**
 	* Method : getListDisp
