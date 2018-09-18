@@ -32,13 +32,7 @@
 
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
-
-
- <script type="text/javaScript" language="javascript" defer="defer">
-    
-    	var contextPath = "${pageContext.request.contextPath}";
-    
- </script>
+    <script src="build/js/jquery-1.12.4.js"></script>
 
 <!-- </head> -->
 
@@ -217,11 +211,11 @@
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_panel">
 								<div class="x_title">
-
-									<div class="dt-buttons btn-group">
-										<a class="btn btn-default buttons-copy buttons-html5 btn-sm" tabindex="0" aria-controls="datatable-buttons" href="#"><span>Copy</span></a><a
-											class="btn btn-default buttons-csv buttons-html5 btn-sm" tabindex="0" aria-controls="datatable-buttons" href="#"><span>Excel</span></a><a
-											class="btn btn-default buttons-print btn-sm" tabindex="0" aria-controls="datatable-buttons" href="#"><span>Print</span></a>
+						
+									<div class="col-xs-12">
+										<button class="btn btn-default" onclick="window.print();">
+											<i class="fa fa-print"></i> Print
+										</button>
 									</div>
 
 									<div class="clearfix"></div>
@@ -229,8 +223,9 @@
 							
 							
 								<div class="x_content">
-									<div id="datatable-responsive_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-									<!-- 
+
+							<div id="datatable-responsive_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+								<!-- 
 										<div class="row">
 											<div class="col-sm-6">
 												<div class="dataTables_length" id="datatable-responsive_length">
@@ -249,78 +244,60 @@
 											</div>
 										</div>
 									 -->
-										
-										<div class="row">
-											<div class="col-sm-12">
-												<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed"
-													cellspacing="0" width="100%" role="grid" aria-describedby="datatable-responsive_info" style="width: 100%;">
 
-													<thead>
-														<tr role="row">
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 20px;"
-																aria-label="First name: activate to sort column ascending">번호</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;"
-																aria-label="First name: activate to sort column ascending">이메일아이디</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 86px;"
-																aria-label="Last name: activate to sort column ascending">회원명</th>
-															<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;"
-																aria-label="Position: activate to sort column ascending" aria-sort="descending">연락처</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 124px;"
-																aria-label="Office: activate to sort column ascending">생년월일</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 50px;"
-																aria-label="Age: activate to sort column ascending">성별</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 108px;"
-																aria-label="Start date: activate to sort column ascending">우편번호</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;"
-																aria-label="Salary: activate to sort column ascending">주소</th>
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;"
-																aria-label="Extn.: activate to sort column ascending">상세주소</th>
+								<div class="row">
+									<div class="col-sm-12">
+										<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid"
+											aria-describedby="datatable-responsive_info" style="width: 100%;">
 
-															<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 70px;"
-																aria-label="E-mail: activate to sort column ascending">포인트</th>
-														</tr>
-													</thead>
+											<thead>
+												<tr role="row">
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 20px;" aria-label="First name: activate to sort column ascending">#</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="First name: activate to sort column ascending">이메일아이디</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 86px;" aria-label="Last name: activate to sort column ascending">회원명</th>
+													<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Position: activate to sort column ascending"
+														aria-sort="descending">연락처</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 124px;" aria-label="Office: activate to sort column ascending">생년월일</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 50px;" aria-label="Age: activate to sort column ascending">성별</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 108px;" aria-label="Start date: activate to sort column ascending">우편번호</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="Salary: activate to sort column ascending">주소</th>
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Extn.: activate to sort column ascending">상세주소</th>
+
+													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 70px;" aria-label="E-mail: activate to sort column ascending">포인트</th>
+												</tr>
+											</thead>
 
 
-													<tbody>
-													<c:choose>
-														<c:when test="${!empty userMemberList}">
+											<tbody>
+												<c:choose>
+													<c:when test="${!empty userMemberList}">
 														<c:forEach items="${userMemberList}" var="memberVo" varStatus="status">
-														<tr role="row" class="odd">
-															<td></td>
-															<td class="" tabindex="0">${memberVo.mem_id}</td>
-															<td class="sorting_1">${memberVo.mem_name}</td>
-															<td>${memberVo.mem_tel}</td>
-															<td>${memberVo.mem_birth}</td>
-															<td>${memberVo.mem_gen}</td>
-															<td>${memberVo.mem_zip}</td>
-															<td style="">${memberVo.mem_add}</td>
-															<td style="">${memberVo.mem_addr}</td>
-															<td style="">${memberVo.mem_point}</td>
+															<tr role="row" class="odd">
+																<th scope="row">${memberVo.rn}</th>
+																<td class="" tabindex="0">${memberVo.mem_id}</td>
+																<td class="sorting_1">${memberVo.mem_name}</td>
+																<td>${memberVo.mem_tel}</td>
+																<td>${memberVo.mem_birth}</td>
+																<td>${memberVo.mem_gen}</td>
+																<td>${memberVo.mem_zip}</td>
+																<td style="">${memberVo.mem_add}</td>
+																<td style="">${memberVo.mem_addr}</td>
+																<td style="">${memberVo.mem_point}</td>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="10" align="center">회원 목록이 없습니다.</td>
 														</tr>
-<!-- 														<tr role="row" class="even"> -->
-<!-- 															<td></td> -->
-<%-- 															<td class="" tabindex="0">${memberVo.mem_id}</td> --%>
-<%-- 															<td class="sorting_1">${memberVo.mem_name}</td> --%>
-<%-- 															<td>${memberVo.mem_tel}</td> --%>
-<%-- 															<td>${memberVo.mem_birth}</td> --%>
-<%-- 															<td>${memberVo.mem_gen}</td> --%>
-<%-- 															<td>${memberVo.mem_zip}</td> --%>
-<%-- 															<td style="">${memberVo.mem_add}</td> --%>
-<%-- 															<td style="">${memberVo.mem_addr}</td> --%>
-<%-- 															<td style="display: none;">${memberVo.mem_point}</td> --%>
-<!-- 														</tr> -->
-														</c:forEach> 
-														</c:when>
-														<c:otherwise>
-															<tr><td colspan="10" align="center">회원 목록이 없습니다.</td></tr>
-														</c:otherwise>
-													</c:choose>	
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<!-- 
+													</c:otherwise>
+												</c:choose>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								<!-- 
 										<div class="row">
 											<div class="col-sm-5">
 												<div class="dataTables_info" id="datatable-responsive_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
@@ -347,11 +324,12 @@
 											</div>
 										</div>
 											 -->
-									</div>
 
-
-								</div>
 							</div>
+
+
+						</div>
+					</div>
 						</div>
 					</div>
 				</div>
@@ -398,16 +376,22 @@
 	<!-- Datatables -->
 	<script src="/vendors/datatables.net-bs/jquery.dataTables.min.js"></script>
 	<script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+	<script src="/vendors/datatables.net-bs/dataTables.fixedHeader.min.js"></script>
+	
 	<script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-	<script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
 	<script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
 	<script src="/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
 	<script src="/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
-	<script src="/vendors/datatables.net-bs/dataTables.fixedHeader.min.js"></script>
+	
+	<script src="/vendors/nprogress/nprogress.js"></script>
+	
+	<script src="/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
 	<script src="/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 	<script src="/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+	
 	<script src="/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
 	<script src="/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+	
 	<script src="/vendors/jszip/dist/jszip.min.js"></script>
 	<script src="/vendors/pdfmake/build/pdfmake.min.js"></script>
 	<script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
