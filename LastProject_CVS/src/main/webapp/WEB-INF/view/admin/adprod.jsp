@@ -27,209 +27,92 @@
 <%--   <jsp:include page="/WEB-INF/view/common/admin/ad_prod_top.jsp"/> --%>
 
 
-[카테고리등록] [행사등록] 
-
-상세검색
- [대분류] [중분류] [단가/가격] [최소가격]~[최대가격]
-				[ 제 품 명 ]    검색
-□ 순번 대분류 중분류 상품명 단가 가격 유통기한 행사
-□   1  과자류  과자   과자  810  900    355     1+1
-
-<div class="right_col" role="main" style="min-height: 3836px;">
-<div class>
+<div class="right_col" role="main">
+<div class="clearfix"></div>
 <div class="row">
+<div class="col-md-12">
+<div class="x_panel">
+<div class="x_title">
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-                  <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Table design <small>Custom design</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
+<div>
 
-                  <div class="x_content">
 
-                    <p>Add class <code>bulk_action</code> to table for bulk actions options on row select</p>
+<h1>예상</h1>
+[카테고리등록] [행사등록] <br/>
 
-                    <div class="table-responsive">
-                      <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                          <tr class="headings">
-                            <th>
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </th>
-                            <th class="column-title" style="display: table-cell;">Invoice </th>
-                            <th class="column-title" style="display: table-cell;">Invoice Date </th>
-                            <th class="column-title" style="display: table-cell;">Order </th>
-                            <th class="column-title" style="display: table-cell;">Bill to Name </th>
-                            <th class="column-title" style="display: table-cell;">Status </th>
-                            <th class="column-title" style="display: table-cell;">Amount </th>
-                            <th class="column-title no-link last" style="display: table-cell;"><span class="nobr">Action</span>
-                            </th>
-                            <th class="bulk-actions" colspan="7" style="display: none;">
-                              <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt">1 Records Selected</span> ) <i class="fa fa-chevron-down"></i></a>
-                            </th>
-                          </tr>
-                        </thead>
+상세검색<br/>
+ [대분류] [중분류] [단가/가격] [최소가격]~[최대가격]<br/>
+				[ 제 품 명 ]    검색<br/>
+□ 순번 대분류 중분류 상품명 단가 가격 유통기한 행사<br/>
+□   1  과자류  과자   과자  810  900    355     1+1<br/>
 
-                        <tbody>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 23, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000038</td>
-                            <td class=" ">May 24, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000037</td>
-                            <td class=" ">May 24, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 24, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 26, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="error fa fa-long-arrow-down"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000038</td>
-                            <td class=" ">May 26, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000037</td>
-                            <td class=" ">May 26, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
 
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000040</td>
-                            <td class=" ">May 27, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            </td>
-                            <td class=" ">121000039</td>
-                            <td class=" ">May 28, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-							
-						
-                  </div>
-                </div>
-                </div>
-              </div>
- </div>
- </div>
- </div>
+
+<!--  -->
+<hr/>
+<h1>검색</h1>
+
+<select>
+	<option selected="selected">대분류</option>
+	<c:forEach items="${categoryLg }" var="vo">
+		<option value="${vo.ctgy_id}">${vo.ctgy_name }</option>
+	</c:forEach>
+</select>
+
+<select>
+	<option selected="selected">중분류</option>
+	<c:forEach items="${categoryMd }" var="vo">
+		<option value="${vo.ctgy_id}">${vo.ctgy_name }</option>
+	</c:forEach>
+</select>
+
+<input type="radio" name="money" value="단가">
+<input type="radio" name="money" value="정가">
+
+<hr/>
+<h1>출력 데이터</h1>
+<table border="">
+	<tr>
+		<th>순번</th>
+		<th>대분류</th>
+		<th>중분류</th>
+		<th>상품명</th>
+		<th>단가</th>
+		<th>가격</th>
+		<th>유통기한</th>
+		<th>행사</th>
+	</tr>
+<!-- 	model.addAttribute("categoryLg", categoryLg); -->
+<!-- 		model.addAttribute("categoryMd", categoryMd); -->
+<!-- 		model.addAllAttributes(result); -->
+	<tbody>
+	<!-- 데이터 반복 -->
+	<c:forEach items="${prodList }" var="vo">
+		<tr>
+		<td align="center">${vo.cnt }
+			<!-- 제품 코드 -->
+			<input type="hidden" name="" id="" value="${vo.prod_id }">
+		</td>
+		<td>${vo.pr_class_lg }</td>          	
+		<td>${vo.pr_class_md }</td>          	
+		<td>${vo.prod_name }</td>          	
+		<td align="right">${vo.prod_cost }</td>          	
+		<td align="right">${vo.prod_price }</td>          	
+		<td align="right">${vo.prod_exnum }</td>          	
+		<td>${vo.event_id }</td>
+		</tr>
+	</c:forEach>
+	</tbody>
+	                           
+</table>                       
+<%-- 	    ${ pageNavi } --%>
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
