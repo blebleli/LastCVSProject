@@ -129,7 +129,11 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 		int nextPage = page == cnt ? page : page+1;
 		pageNaviStr.append("<li><a href=\"/admin/lookupView?page=" + prevPage + "&pageSize=" + pageSize + "&supply_bcd="+ supply_bcd + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
 
-		for(int i = 1; i <= 10; i++){
+		int pageCount = 10;
+		int startPage = ((page - 1)/pageCount) * pageCount +1;
+		int endPage = startPage + pageCount -1;
+		
+		for(int i = startPage; i <= endPage; i++){
 			String activeClass = "";
 			if(i == page)
 				activeClass = "class=\"active\"";

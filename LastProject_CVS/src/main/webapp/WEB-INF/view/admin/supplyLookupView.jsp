@@ -120,7 +120,8 @@
 												<th style="width: 20%">상품코드</th>
 												<th style="width: 20%">상품이름</th>
 												<th style="width: 20%">유통기한</th>
-												<th>수량</th>
+												<th>실수량</th>
+												<th>요청수량</th>
 												<th>가격</th>
 												<th>단가</th>
 												<th>합계</th>
@@ -134,8 +135,9 @@
 													<td>${vo.prod_name}</td>	<!-- 상품이름 -->
 													<td><fmt:formatDate value="${vo.exdate}" pattern="yyyy.MM.dd. HH:mm"/>
 													</td>	<!-- 유통기한 -->
-													<td>${vo.splylist_sum}</td>		<!-- 비고 -->
-													<td>${vo.prod_price}</td>		<!-- 수량 -->
+													<td><input type="text" size="1"></td>		
+													<td>${vo.splylist_sum}</td>		<!-- 수량 -->
+													<td>${vo.prod_price}</td>		<!-- 판매가격 -->
 													<td>${vo.prod_cost}</td>		<!-- 단가 -->
 													<td>￦${vo.splylist_sum * vo.prod_cost}</td>	<!-- 합계 -->
 												</tr>

@@ -100,7 +100,7 @@ public class AdminSupplyController {
 	*/
 	@RequestMapping("/lookupView")
 	public String adminSupplyLookupView(@RequestParam(value="page", defaultValue="1") int page,
-										@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+										@RequestParam(value="pageSize", defaultValue="25") int pageSize,
 										AdminApplyVo adminApplyVo,
 										Model model){
 		logger.debug("adminApplyVo.getSupply_bcd() : {}" , adminApplyVo.getSupply_bcd());
@@ -138,6 +138,8 @@ public class AdminSupplyController {
 											MemberVo memberVo){
 		String check = supply_bcd;
 		String mem_id = memberVo.getMem_id();
+		
+		
 		
 //		String kind = "SUP10";
 //		String mem_id = "3240000-104-2015-00075";
