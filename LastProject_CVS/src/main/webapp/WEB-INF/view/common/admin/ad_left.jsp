@@ -67,8 +67,8 @@
           </li> -->
           <li><a><i class="fa fa-edit"></i> 등록관리 <span class="fa fa-chevron-down"></span></a>
 			<ul class="nav child_menu">
-				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/cvsMemberList?mem_kind=01&page=1&pageSize=10' />">사업장(지점)관리</a></li>
-				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/userMemberList?mem_kind=02&page=1&pageSize=10' />">사용자(회원)관리</a></li>
+				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/cvsMemberList' />">사업장(지점)관리</a></li>
+				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/userMemberList' />">사용자(회원)관리</a></li>
 				<li><a href="#">상품등록관리</a></li>
 				<li><a href="#">행사제품/이벤트관리</a></li>
 			</ul>

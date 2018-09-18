@@ -19,12 +19,12 @@
 		<put-attribute name="content" value="/WEB-INF/view/common/main/userMain.jsp" />
 	</definition>
 
-	<!-- login 폴더안에 들어있는 모든 jsp파일에 userBasicLayout템플릿 적용 :별 -->
+	<!-- login 폴더안에 들어있는 모든 jsp파일에 userBasicLayout템플릿 적용 : 은별 -->
 	<definition name="/login/*" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/login/{1}.jsp" />
 	</definition>
 	
-	<!-- 에러페이지 -KONG -->
+	<!-- 에러페이지 -KONG별 -->
 	<definition name="/common/error/error" template="/WEB-INF/view/common/error/error.jsp">
 	</definition>
 
@@ -194,12 +194,12 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/supplyLookupView.jsp"/>
 	</definition>
 	
-	<!--  관리자 - 회원 리스트화면 -->
+	<!--  관리자 - 회원 리스트화면 : 은별 09.17 -->
 	<definition name="ad_userMember" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/member/ad_userMember.jsp"/>
 	</definition>
 	
-	<!--  관리자 - 편의점 리스트화면 -->
+	<!--  관리자 - 편의점 리스트화면 : 은별 09.17 -->
 	<definition name="ad_cvsMember" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/member/ad_cvsMember.jsp"/>
 	</definition>

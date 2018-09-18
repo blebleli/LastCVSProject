@@ -32,7 +32,9 @@
 
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
-    <script src="build/js/jquery-1.12.4.js"></script>
+
+<script src="build/js/jquery-1.12.4.js"></script>
+
 
 <!-- </head> -->
 
@@ -216,15 +218,30 @@
 										<button class="btn btn-default" onclick="window.print();">
 											<i class="fa fa-print"></i> Print
 										</button>
+										
+										<span>
+										<button class="btn btn-default" id="btnExcel" onclick="excelDown();">
+											<i class="fa fa-print"></i> Excel
+										</button>
+										</span>
+										
 									</div>
+									
+
+
 
 									<div class="clearfix"></div>
 								</div>
 							
 							
 								<div class="x_content">
+								
+							
 
-							<div id="datatable-responsive_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+<!-- 							<div id="datatable-responsive_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"> -->
+							
+							
+							
 								<!-- 
 										<div class="row">
 											<div class="col-sm-6">
@@ -245,11 +262,16 @@
 										</div>
 									 -->
 
-								<div class="row">
-									<div class="col-sm-12">
-										<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid"
-											aria-describedby="datatable-responsive_info" style="width: 100%;">
 
+
+
+
+<!-- 								<div class="row"> -->
+<!-- 									<div class="col-sm-12"> -->
+<!-- 										<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid" -->
+<!-- 											aria-describedby="datatable-responsive_info" style="width: 100%;"> -->
+ 		<table id="datatable-buttons" class="table table-striped table-bordered">
+ 		
 											<thead>
 												<tr role="row">
 													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 20px;" aria-label="First name: activate to sort column ascending">#</th>
@@ -294,8 +316,12 @@
 												</c:choose>
 											</tbody>
 										</table>
-									</div>
-								</div>
+<!-- 									</div> -->
+<!-- 								</div> -->
+
+
+
+
 
 								<!-- 
 										<div class="row">
@@ -325,7 +351,8 @@
 										</div>
 											 -->
 
-							</div>
+
+<!-- 							</div> -->
 
 
 						</div>
@@ -397,7 +424,7 @@
 	<script src="/vendors/pdfmake/build/vfs_fonts.js"></script>
 
 	<!-- Custom Theme Scripts -->
-	<script src="/build/js/custom.min.js"></script>
+	<script src="<c:url value='/build/js/custom.min.js' />"></script>
         
         
         
