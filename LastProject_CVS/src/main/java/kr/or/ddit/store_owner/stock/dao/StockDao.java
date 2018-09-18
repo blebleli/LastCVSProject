@@ -18,6 +18,7 @@ public class StockDao implements StockDaoInf {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 	
+//insert ====================================================================================		
 	/**
 	 * 
 	 * Method   : setInsertStock 
@@ -49,6 +50,26 @@ public class StockDao implements StockDaoInf {
 		return template.insert("stock.insertStockList", stockListVo);
 	}
 	
+	
+//update ====================================================================================	
+	
+	/**
+	 * 
+	 * Method   : updateStockList 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param stockListVo
+	 * @return 
+	 * Method 설명 :
+	 */
+	@Override
+	public int updateStockList(StockListVo stockListVo) {
+		return template.update("stock.updateStockList", stockListVo);
+	}
+
+	
+//select ====================================================================================	
 	/**
 	 * 
 	 * Method   : getListStock 
@@ -64,7 +85,35 @@ public class StockDao implements StockDaoInf {
 		// TODO Auto-generated method stub
 		return template.selectList("stock.getAllStock",mem_id);
 	}
+	
 
+	/**
+	 * 
+	 * Method   : getBarcodeProd 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param prod_id
+	 * @return 
+	 * Method 설명 :
+	 *  stock 의 bcd_id 로 상품정보를 가져오는 메서드
+	 *  *** ---0918  한수정 saleDispService 에서 사용
+	 */
+	@Override
+	public PresentStockListVo getBarcodeProd(String prod_id) {
+		return template.selectOne("stock.getBarcodeProd", prod_id);
+	}
+ 
+	/**
+	 * 
+	 * Method   : updateStock 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param stockVo
+	 * @return 
+	 * Method 설명 :bcd_id 로 상품정보 업데이트
+	 */
 	@Override
 	public int updateStock(StockVo stockVo) {
 		// TODO Auto-generated method stub
@@ -94,11 +143,7 @@ public class StockDao implements StockDaoInf {
 		return template.selectList("stock.getStockList", stock_id);
 	}
 
-	@Override
-	public int updateStockList(StockListVo stockListVo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 
 	@Override
 	public int deleteStockList(String stcklist_id) {
@@ -122,10 +167,6 @@ public class StockDao implements StockDaoInf {
 		return template.selectOne("prod.totalCountProd");
 	}
 
-	@Override
-	public PresentStockListVo getBarcodeProd(String prod_id) {
-		return template.selectOne("stock.getBarcodeProd", prod_id);
-	}
 
 
 }

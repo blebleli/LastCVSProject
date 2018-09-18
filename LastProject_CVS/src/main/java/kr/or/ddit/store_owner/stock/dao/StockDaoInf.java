@@ -78,6 +78,7 @@ public interface StockDaoInf {
 	*/
 	List<StockVo> getAllStockByMemid(String mem_id);
 	
+	
 	/**
 	* Method : updateStock
 	* Method 설명 :재고 리스트에 대한 수정 기능
@@ -87,8 +88,10 @@ public interface StockDaoInf {
 	* 조 회 :int updateStock(StockVo stockVo)_재고 리스트에 대한 수정 기능
 	* @param stockVo
 	* @return
+	* *** ---0918  한수정 CvsPosMainController 에서 사용
 	*/
 	int updateStock(StockVo stockVo);
+	
 	
 	/**
 	* Method : deleteStock
@@ -101,7 +104,8 @@ public interface StockDaoInf {
 	* @return
 	*/
 	int deleteStock(String stock_id);
-
+	
+	
 	/**
 	* Method : getListStockList
 	* Method 설명 :특정 재고 리스트에 대한 상세 내역 출력 기능

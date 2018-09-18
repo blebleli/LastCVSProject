@@ -148,6 +148,23 @@ public class StockService implements StockServiceInf {
 	public List<PresentStockListVo> getListStockOne(String stock_id) {
 		return stockDao.getListStockOne(stock_id);
 	}
+	
+	/**
+	 * 
+	 * Method   : getBarcodeProd 
+	 * 최초작성일  : 2018. 9. 18. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param prod_id
+	 * @return 
+	 * Method 설명 :
+	 *  stock 의 bcd_id 로 상품정보를 가져오는 메서드
+	 *  *** ---0918  한수정 saleDispService 에서 사용
+	 */
+	@Override
+	public PresentStockListVo getBarcodeProd(String prod_id) {
+		return stockDao.getBarcodeProd(prod_id);
+	}
 
 	@Override
 	public PresentStockListVo getStockProd(String prod_id) {
@@ -159,10 +176,6 @@ public class StockService implements StockServiceInf {
 		return stockDao.totalCountProd();
 	}
 
-	@Override
-	public PresentStockListVo getBarcodeProd(String prod_id) {
-		return stockDao.getBarcodeProd(prod_id);
-	}
 
 
 
