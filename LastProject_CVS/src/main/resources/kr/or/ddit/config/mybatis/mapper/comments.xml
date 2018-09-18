@@ -12,7 +12,8 @@
 	
 	<!-- 선택한 개시글의 댓글 가져오기 -->
 	<select id="getListComments" parameterType="String" resultType="commentsVo">
-		SELECT * FROM COMMENTS where bd_id = #{bd_id}
+		SELECT cm_id, bd_id, cm_group, mem_id, DBMS_LOB.SUBSTR(cm_content,4000,1), TO_CHAR(cm_date,'YYYY-MM-DD'), cm_delny, cm_openny, cm_id2
+		FROM comments WHERE bd_id = #{bd_id}
 	</select>
 	
 	<!-- 댓글 삭제 -->

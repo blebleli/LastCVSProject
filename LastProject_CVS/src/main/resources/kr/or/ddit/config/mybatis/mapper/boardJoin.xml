@@ -4,19 +4,20 @@
 	<!-- 관리자 - 게시판 페이징 기법 -->
 	<select id="adBoardViewList" parameterType="map" resultType="boardJoinVo">
 	
-	select * from (
+	SELECT * FROM (
 		SELECT ROWNUM cnt, T.*
 				FROM  (
-				        SELECT    (SELECT prod_name FROM PROD WHERE BOARD.PROD_ID = PROD.PROD_ID) AS PROD_NAME
-								, (SELECT MEM_NAME FROM MEMBER WHERE BOARD.MEM_ID = MEMBER.MEM_ID) AS MEM_NAME
-								, BD_TITLE
-								, BD_RATING
-								, BD_DATE
-								, MEM_ID
-								, BD_KIND_ID
-								, PROD_ID
-								, BD_ID
-						FROM BOARD
+				        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+								, bd_title
+								, bd_rating
+								, bd_date
+								, mem_id
+								, bd_kind_id
+								, prod_id
+								, bd_id
+								, bd_del
+						FROM board
 		              	WHERE bd_kind_id=#{bd_kind_id}
 						ORDER BY bd_date DESC       
 		      ) T )  WHERE cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
@@ -73,4 +74,21 @@
 					 		, #{bd_kind_id}
 					 		)
   	</insert>
+  	
+  	<!-- 관리자 - 게시글 상세조회 -->
+  	<select id="boardDetail" parameterType="String" resultType="boardJoinVo">
+		SELECT	  bd_id
+		 		, bd_title
+		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content)
+		 		, bd_date
+		 		, bd_del
+		 		, bd_rating
+		 		, bd_views
+		 		, bd_group
+		 		, mem_id
+		 		, bd_parent
+		 		, bd_kind_id
+		FROM board
+		WHERE bd_id=#{bd_id}
+  	</select>
 </mapper>

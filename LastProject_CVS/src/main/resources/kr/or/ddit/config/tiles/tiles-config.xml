@@ -164,6 +164,11 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/ad_index.jsp"/>
 	</definition>
 	
+	<!-- 관리자 게시글 조회 -->
+	<definition name="ad_boardDetail" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardDetail.jsp"/>
+	</definition>
+	
 	<!-- 관리자 게시판 조회 -->
 	<definition name="ad_boardView" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardView.jsp"/>
