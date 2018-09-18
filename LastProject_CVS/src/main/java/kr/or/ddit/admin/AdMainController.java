@@ -11,6 +11,7 @@ public class AdMainController {
 	@RequestMapping("main")
 	public String mainView(){
 		
+		
 		return "ad_index";
 	}
 	
