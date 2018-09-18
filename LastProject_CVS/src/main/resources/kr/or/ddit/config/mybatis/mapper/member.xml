@@ -174,7 +174,7 @@
 	<!-- 	아 이 디 : getMemberPageList
 	  		매개변수 : map (mem_kind , mem_name / page , pageSize)
 	  		반 환 값 : memberVo
-	  		설    명 : 사용자 사용자목록 페이징 조회
+	  		설    명 :  페이징 조회
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
