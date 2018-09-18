@@ -204,5 +204,10 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/member/ad_cvsMember.jsp"/>
 	</definition>
 	
+	<!--  관리자 - 통계화면 -->
+	<definition name="ad_chart" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>
+	</definition>
+	
 	
 </tiles-definitions>
