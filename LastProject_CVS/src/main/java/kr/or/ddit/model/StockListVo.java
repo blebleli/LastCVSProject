@@ -10,6 +10,7 @@ public class StockListVo {
 	private String stcklist_kind;                               // 재고 : 888, 마감 : 999
 	private String stock_id;                               // 재고코드
 	private String prod_id;    								// 제품바코드
+	private String splylist_id;								// 제품리스트코드
 	
 	
 	
@@ -19,7 +20,7 @@ public class StockListVo {
 	}
 
 	public StockListVo(String bcd_id, int stcklist_amount, String stcklist_exdate, String stck_date,
-			String stcklist_info, String stcklist_kind, String stock_id, String prod_id) {
+			String stcklist_info, String stcklist_kind, String stock_id, String prod_id, String splylist_id) {
 		super();
 		this.bcd_id = bcd_id;
 		this.stcklist_amount = stcklist_amount;
@@ -29,6 +30,7 @@ public class StockListVo {
 		this.stcklist_kind = stcklist_kind;
 		this.stock_id = stock_id;
 		this.prod_id = prod_id;
+		this.splylist_id = splylist_id;
 	}
 
 	public String getBcd_id() {
@@ -94,13 +96,28 @@ public class StockListVo {
 	public void setProd_id(String prod_id) {
 		this.prod_id = prod_id;
 	}
+	
+	
+
+	public String getSplylist_id() {
+		return splylist_id;
+	}
+
+	public void setSplylist_id(String splylist_id) {
+		this.splylist_id = splylist_id;
+	}
 
 	@Override
 	public String toString() {
-		return "StockListVo [bcd_id=" + bcd_id + ", stcklist_amount=" + stcklist_amount + ", stcklist_exdate="
-				+ stcklist_exdate + ", stck_date=" + stck_date + ", stcklist_info=" + stcklist_info + ", stcklist_kind="
-				+ stcklist_kind + ", stock_id=" + stock_id + ", prod_id=" + prod_id + "]";
+		return "StockListVo [bcd_id=" + bcd_id + ", stcklist_amount="
+				+ stcklist_amount + ", stcklist_exdate=" + stcklist_exdate
+				+ ", stck_date=" + stck_date + ", stcklist_info="
+				+ stcklist_info + ", stcklist_kind=" + stcklist_kind
+				+ ", stock_id=" + stock_id + ", prod_id=" + prod_id
+				+ ", splylist_id=" + splylist_id + "]";
 	}
+
+	
 	
 
 	
