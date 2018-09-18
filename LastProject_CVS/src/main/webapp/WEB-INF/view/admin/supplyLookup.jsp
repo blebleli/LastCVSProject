@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <title>DataTables | Gentelella</title>
 
     <!-- Bootstrap -->
@@ -26,7 +27,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>입고 요청 현황 <small></small></h3>
+                <h3>수불 신청 현황 <small></small></h3>
               </div>
 
               <div class="title_right">
@@ -54,8 +55,21 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
+                  	<p>
+						<input type="radio" class="flat" name="supply" id="all" checked="checked"/> 
+						전체 
+						<input type="radio" class="flat" name="supply" id="supply10" value="10"/> 
+						수불 
+						<input type="radio" class="flat" name="supply" id="supply11" value="11"/>
+						결제 
+						<input type="radio" class="flat" name="supply" id="supply12" value="12"/>
+						입고
+	                </p>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      <li>
+		                  <a class="collapse-link">
+		                  	<i class="fa fa-chevron-up"></i>
+		                  </a>
                       </li>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -79,6 +93,7 @@
                           <th>수불바코드</th>
                           <th>점주명</th>
                           <th>편의점명</th>
+                          <th>수불 신청 날짜</th>
                           <th>상태</th>
                           <th colspan="2">Action</th>                  
                         </tr>
@@ -90,7 +105,21 @@
 									<td>${vo.supply_bcd}</td>	
 									<td>${vo.mem_name}</td>	
 									<td>${vo.mem_cvs_name}</td>	
-									<td>${vo.supply_state}</td>	
+									<td><fmt:formatDate value="${vo.supply_date}" pattern="yyyy.MM.dd. HH:mm"/></td>
+									<td>
+									<c:choose>
+										<c:when test="${vo.supply_state == 10}">
+											수불
+										</c:when>
+										<c:when test="${vo.supply_state == 11}">
+											결제
+										</c:when>
+										<c:when test="${vo.supply_state == 12}">
+											입고
+										</c:when>
+									
+									</c:choose>
+									</td>	
 									<td>
 										<form action="/admin/lookupView" method="get">
 											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}">
@@ -154,3 +183,10 @@
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
+    
+    <script type="text/javascript">
+//     $(document).ready(function () {
+//     	var supply = $('input:radio[name="supply"]:checked').val();
+//         alert(supply);
+//         });
+    </script>

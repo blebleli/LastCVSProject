@@ -1,5 +1,5 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <title>Gentelella Alela! |</title>
 
 
@@ -42,7 +42,7 @@
 				<div class="x_panel">
 					<div class="x_title">
 						<h2>
-							입고 리스트 내역 <small>현재 선택한 입고 리스트의 상세 내역 페이지 입니다.</small>
+						<small></small>
 						</h2>
 						<!--                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -68,9 +68,15 @@
 							<div class="row">
 								<div class="col-xs-12 invoice-header">
 									<h1>
-										<i class="fa fa-globe">입고 상품 내역</i> 
+										<i class="fa fa-globe">수불 신청 내역</i> 
 										<small class="pull-right">
-											날짜:${vo.supply_date}
+											<form action="/admin/supplyCheck" method="get">
+												<input type="hidden" name="supply_bcd" value="${supply_bcd}">
+												<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
+												<button type="submit" onclick="supply_check();" class="btn btn-primary pull-right" style="margin-right: 5px;">
+													수불 신청 확인
+												</button>
+											</form>
 										</small>
 									</h1>
 								</div>
@@ -89,15 +95,15 @@
 								<div class="col-sm-4 invoice-col">
 									To
 									<address>
-										<strong>${supplyMemInfo.mem_cvs_name}</strong> 
-										<br>${supplyMemInfo.mem_addr}  <!-- 편의점 주소 -->
-										<br>Phone: ${supplyMemInfo.mem_cvs_tel}	<!-- 편의점 연락처 -->
-										<br>담당자 : ${supplyMemInfo.mem_name}	<!-- 점주 이름 -->
+										<strong>${memberVo.mem_cvs_name}</strong> 
+										<br>${memberVo.mem_addr}  <!-- 편의점 주소 -->
+										<br>Phone: ${memberVo.mem_cvs_tel}	<!-- 편의점 연락처 -->
+										<br>담당자 :  ${memberVo.mem_name}	<!-- 점주 이름 -->
 									</address>
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
-									<b>수불바코드 : ${vo.supply_bcd}</b> <br> <br> <br>
+									<b>수불바코드 : ${supply_bcd}</b> <br> <br> <br>
 									<br>
 								</div>
 								<!-- /.col -->
@@ -111,24 +117,27 @@
 									<table class="table table-striped">
 										<thead>
 											<tr><th>번호</th>
+												<th style="width: 20%">상품코드</th>
 												<th style="width: 20%">상품이름</th>
-												<th style="width: 30%">상품코드</th>
-												<th style="width: 30%">비고</th>
+												<th style="width: 20%">유통기한</th>
 												<th>수량</th>
 												<th>가격</th>
+												<th>단가</th>
 												<th>합계</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${prodList}" var="vo">
+											<c:forEach items="${AdminApplyViewList}" var="vo">
 												<tr>
-													<td>${vo.rnum}</td>
-													<td>${vo.prod_name}</td> <!-- 상품이름 -->
+													<td>${vo.rnum}</td>		<!-- 번호 -->
 													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
-													<td>${vo.splylist_info}</td>				<!-- 비고 -->
-													<td>${vo.splylist_sum}</td>	<!-- 수량 -->
-													<td>￦${vo.prod_price}</td>	<!-- 가격 -->
-													<td>￦${vo.splylist_sum * vo.prod_price}</td>	<!-- 합계 -->
+													<td>${vo.prod_name}</td>	<!-- 상품이름 -->
+													<td><fmt:formatDate value="${vo.exdate}" pattern="yyyy.MM.dd. HH:mm"/>
+													</td>	<!-- 유통기한 -->
+													<td>${vo.splylist_sum}</td>		<!-- 비고 -->
+													<td>${vo.prod_price}</td>		<!-- 수량 -->
+													<td>${vo.prod_cost}</td>		<!-- 단가 -->
+													<td>￦${vo.splylist_sum * vo.prod_cost}</td>	<!-- 합계 -->
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -145,22 +154,10 @@
 								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 -->
 								<div class="col-xs-6">
 									<p class="lead">
-										<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 11=결제 10=발주 -->
-											<c:choose>
-												<c:when test="${vo.supply_state == 12 }">
-													입고상태
-													<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-													입고가 완료되었습니다.
-												</p>
-												</c:when>
-												<c:otherwise>
-										    		입고상태
-												<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-													입고가 완료 되지 않았습니다. 입고를 확인하여 주세요.
-													<a href="javascript:popupOpen();" > 바코드 확인창 </a>
-												</p>
-										   		</c:otherwise>
-											</c:choose>
+										뭘 적을까
+										<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+										뭘 적을까
+										</p>
 									</p>
 								</div>
 								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 끝-->
@@ -200,13 +197,6 @@
 									<button class="btn btn-default" onclick="window.print();">
 										<i class="fa fa-print"></i> Print
 									</button>
-									<button class="btn btn-success pull-right">
-										<i class="fa fa-credit-card"></i> Submit Payment
-									</button>
-									<button class="btn btn-primary pull-right"
-										style="margin-right: 5px;">
-										<i class="fa fa-download"></i> Generate PDF
-									</button>
 								</div>
 							</div>
 							<!-- 최하단 부분 끝 -->
@@ -241,12 +231,15 @@
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
 
-<script type="text/javascript">
-function popupOpen(){
-	var popUrl = "http://localhost:8180/cvs/barcode";	//팝업창에 출력될 페이지 URL
+<script>
+function supply_check() {
+	var result = confirm('수불 확인 처리 하시겠습니까?');
+	if(result) {
+		alert('정상적으로 처리 되었습니다.');
+		location.replace('/admin/supplyCheck');
 
-	var popOption = "width=1500, height=900, resizable=, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-
-		window.open(popUrl,"",popOption);
+	} else {
+		false;
 	}
+}
 </script>
