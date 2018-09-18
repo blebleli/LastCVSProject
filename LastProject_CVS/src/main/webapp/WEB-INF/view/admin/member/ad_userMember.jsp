@@ -266,11 +266,11 @@
 
 
 
-<!-- 								<div class="row"> -->
+<!-- 								<div class="row">   -->     
 <!-- 									<div class="col-sm-12"> -->
 <!-- 										<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid" -->
 <!-- 											aria-describedby="datatable-responsive_info" style="width: 100%;"> -->
- 		<table id="datatable-buttons" class="table table-striped table-bordered">
+ 		<table id="datatable-buttons" class="table table-striped table-bordered">  <!-- buttons 모양 나오게함..  -->
  		
 											<thead>
 												<tr role="row">
