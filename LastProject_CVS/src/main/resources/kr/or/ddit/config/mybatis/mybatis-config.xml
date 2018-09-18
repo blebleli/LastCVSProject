@@ -68,6 +68,9 @@
   	<!-- 관리자 상품관련 -->
   	<typeAlias type="kr.or.ddit.admin.model.AdminProdVo"	alias="adminProdVo"/>
   	
+  	<!-- chart vo -->
+  	<typeAlias type="kr.or.ddit.admin.model.CvsCountVo" alias="cvsCountVo"/>
+  	
   </typeAliases>
 
   <mappers>  
