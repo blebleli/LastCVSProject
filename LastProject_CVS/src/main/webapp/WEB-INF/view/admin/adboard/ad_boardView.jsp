@@ -1,11 +1,13 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> <!-- 꼭 있어야 함 -->
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
 		$(function(){
 			$("table tbody tr").on("click", function(){
 				//tr태그의 data-id 속성 값을 읽어서 input 태그의 id 값으로 설정
 				//form 태그를 submit
-				if($(this).data("id2") == 'n'){
+				if($(this).data("id2") == 'N'){
 					$("#id").val($(this).data("id"));
 					$("#frm").submit();
 				}
@@ -146,15 +148,16 @@
 		}); // $("#bd_kind_id55").on("click", function(){				
 	});
 	</script>
-<!-- 	<form id="frm" action="/write/detail" method="get"> -->
-<!-- 		<input type="hidden" name="id" id="id"> -->
-<!-- 	</form> -->
 	
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
-        
         <!-- page content -->
         <div class="right_col" role="main">
+			
+		<form id="frm" action="/admin/boardDetail" method="get">
+			<input type="hidden" name="id" id="id">
+		</form>
+	
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -201,9 +204,9 @@
                   <div class="x_content"> 
                   	<div>                 
 						<p>
-						공지사항 <input checked required data-parsley-multile="gender" type="radio" class="flat" name="gender" id="bd_kind_id44" value="${BD_KIND_ID }"/> 
-						이벤트 <input type="radio" class="flat" name="gender" id="bd_kind_id55" value="55"/>
-						상품리뷰 <input type="radio" class="flat" name="gender" id="bd_kind_id66" value="66"/>						
+						공지사항 <input checked required data-parsley-multile="gender" type="radio" class="flat" name="gender" id="bd_kind_id44" value="${bd_kind_id }"/> 
+						상품리뷰 <input type="radio" class="flat" name="gender" id="bd_kind_id55" value="55"/>
+						이벤트 <input type="radio" class="flat" name="gender" id="bd_kind_id66" value="66"/>						
 						<button id="buttons" type="button" class="btn btn-default btn-xs">확인</button>
 						</p>						
 					</div>
@@ -224,16 +227,32 @@
                           </tr>
                         </thead>
                         <tbody id="bd_code"><!-- 게시글 조회 foreach문 -->
+                        <%request.setAttribute("nbsp", " "); %>
                           <c:forEach items="${boardpage}" var="vo">
-                          <tr class="even pointer" data-id="${vo.bd_id}">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class=" ">${vo.cnt }</td>
-                            <td class=" ">${vo.bd_title}</td>
-                            <td class=" ">${vo.mem_name}</td>
-                            <td class=" ">${vo.bd_date}</td>
-                          </tr>
+                          	<c:choose>
+                          		<c:when test="${vo.bd_del=='N'}">
+		                          <tr class="even pointer" data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
+		                            <td class="a-center ">
+		                              <input type="checkbox" class="flat" name="table_records">
+		                            </td>
+		                            <td>${vo.cnt }</td>
+		                            <td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
+		                            <td>${vo.mem_name}</td>
+		                            <td>${vo.bd_date}</td>
+		                          </tr>                          	
+                          		</c:when>
+                          		<c:when test="${vo.bd_del=='Y'}">
+                          			<tr class="even pointer" data-id="${vo.bd_id}">
+	                          			<td class="a-center ">
+	                          				<input type="checkbox" class="flat" name="table_records">
+	                          			</td>
+	                          			<td>${vo.cnt }</td>
+	                          			<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')}</td>
+	                          			<td></td>
+	                          			<td></td>
+	                          		</tr>	                          			
+                          		</c:when>
+                          	</c:choose>                          	
                           </c:forEach>
                         </tbody>
                       </table>
@@ -250,6 +269,7 @@
 						</span>
 					</div>
 					</form>
+					
 				</div>
 				<!-- ========================================================================== -->
                 </div>
@@ -257,7 +277,7 @@
             </div>
           </div>
 		<!-- /page content -->
-
+	
 		<!-- footer content -->
 		<footer>
 			<div class="pull-right">
