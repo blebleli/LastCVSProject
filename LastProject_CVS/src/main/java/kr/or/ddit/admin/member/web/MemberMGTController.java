@@ -92,7 +92,7 @@ public class MemberMGTController {
 	
 	
 	/**
-	 * 일반 회원리스트
+	 * 일반 회원리스트 출력
 	 * 공은별
 	 * 2019.09.17
 	 * userMemberListView
@@ -116,7 +116,7 @@ public class MemberMGTController {
 		MemberVo paramMemberVo = new MemberVo();
 		paramMemberVo.setPage(page);
 		paramMemberVo.setPageSize(pageSize);
-		paramMemberVo.setMem_kind("02");
+		paramMemberVo.setMem_kind("02"); 
 
 		
 		List<MemberVo> userMemberList= memberMgtService.getMemberPageList(paramMemberVo);
@@ -131,7 +131,7 @@ public class MemberMGTController {
 		PageNavi pageNavi = new PageNavi(page, pageSize, tot_cnt);
 		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/userMemberList"));
 		//==============================================
-		logger.debug("ad_userMember.jsp: {}", "ad_userMember.jsp 로 이동~~");
+		
 		
 		return "ad_userMember";
 	}
@@ -140,7 +140,7 @@ public class MemberMGTController {
 	
 	
 	/**
-	 * 편의점 회원리스트
+	 * 편의점 회원리스트 조회
 	 * 공은별
 	 * 2019.09.17
 	 * cvsMemberList
@@ -151,36 +151,33 @@ public class MemberMGTController {
 	 */
 	@RequestMapping("/cvsMemberList")
 	public String cvsMemberList(HttpServletRequest request, 
-			
 			@RequestParam(value="page", defaultValue="1") int page,
 			@RequestParam(value="pageSize", defaultValue="10") int pageSize,
 			Model model) {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
 
-		
 		//==============================================
 				
-		//== 일반 회원리스트 조회 
+		//== 편의점 회원리스트 페이징 처리하여 조회 
 		MemberVo paramMemberVo = new MemberVo();
 		paramMemberVo.setPage(page);
 		paramMemberVo.setPageSize(pageSize);
-		paramMemberVo.setMem_kind("02");
+		paramMemberVo.setMem_kind("01");
 
 		
-		List<MemberVo> userMemberList= memberMgtService.getMemberPageList(paramMemberVo);
-		model.addAttribute("userMemberList", userMemberList);	
+		List<MemberVo> cvsMemberList= memberMgtService.getMemberPageList(paramMemberVo);
+		model.addAttribute("cvsMemberList", cvsMemberList);	
 		
 		int tot_cnt = 0;
-		if(userMemberList != null && userMemberList.size() > 0) {
-			tot_cnt = userMemberList.get(0).getTot_cnt();
+		if(cvsMemberList != null && cvsMemberList.size() > 0) {
+			tot_cnt = cvsMemberList.get(0).getTot_cnt();
 		}
 		
 		// 페이지 네비게이션 문자열 
 		PageNavi pageNavi = new PageNavi(page, pageSize, tot_cnt);
-		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/member/ad_userMember"));
+		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/cvsMemberList"));
 		//==============================================
-		logger.debug("ad_userMember.jsp: {}", "ad_userMember 로 이동~~");
 		
 		return "ad_cvsMember";
 	}
