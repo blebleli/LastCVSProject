@@ -1,6 +1,7 @@
 package kr.or.ddit.admin;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -10,10 +11,8 @@ public class AdMainController {
 
 	@RequestMapping("main")
 	public String mainView(){
-		
-		
 		return "ad_index";
 	}
 	
-	
+
 }
