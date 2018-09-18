@@ -2,7 +2,6 @@ package kr.or.ddit.admin.prod.dao;
 
 import static org.junit.Assert.*;
 
-import org.apache.catalina.tribes.tipis.AbstractReplicatedMap.MapOwner;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
