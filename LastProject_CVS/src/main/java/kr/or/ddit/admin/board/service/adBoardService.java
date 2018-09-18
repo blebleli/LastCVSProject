@@ -12,12 +12,17 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.admin.board.dao.adBoardDaoInf;
 import kr.or.ddit.admin.board.model.BoardJoinVo;
+import kr.or.ddit.filedata.service.FileServiceInf;
+import kr.or.ddit.model.FiledataVo;
 
 @Service("adboardService")
 public class adBoardService implements adBoardServiceInf {
 	
 	@Resource(name="adboardDao")
 	private adBoardDaoInf adboardDao;
+	
+	@Resource(name="fileService")
+	private FileServiceInf fileService;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -38,7 +43,7 @@ public class adBoardService implements adBoardServiceInf {
 		// 게시판 페이지 리스트 조회
 		List<BoardJoinVo> boardpage = adboardDao.adBoardViewList(map);
 		for (BoardJoinVo boardList : boardpage){
-			logger.debug("boardList ===========> {} "+boardList.getBd_title());
+			logger.debug("boardList ===========> {} "+boardList);
 		}
 		
 		resultMap.put("boardpage", boardpage); // 저장
@@ -81,5 +86,43 @@ public class adBoardService implements adBoardServiceInf {
 		
 		return pageNaviStr.toString();
 		
+	}
+	
+	/**
+	 * Method : boardCreate
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 등록, 공지사항 44, 리뷰 55, 이벤트 66
+	 */
+	@Override
+	public int boardCreate(BoardJoinVo boardJoinVo) {
+		return adboardDao.boardCreate(boardJoinVo);
+	}
+	
+	/**
+	 * Method : setWriteInsert
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시판 생성 한 후 파일 생성 하도록 한다.
+	 * 				게시판 생성 실패시 파일 생성이 안된다.
+	 */
+	public int setWriteInsert(BoardJoinVo boardJoinVo) {
+		
+		int cnt = 0;
+		
+		// 게시글 생성
+		cnt =+ adboardDao.boardCreate(boardJoinVo);
+		
+		for(FiledataVo vo : boardJoinVo.getFileList()) { // for문으로 file 가져오기
+			// 파일 생성
+			cnt =+ fileService.insertFile(vo); // file이 있으면 1씩 증가
+		}
+		return cnt;
 	}
 }

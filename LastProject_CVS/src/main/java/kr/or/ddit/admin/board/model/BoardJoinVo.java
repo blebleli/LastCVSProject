@@ -1,5 +1,10 @@
 package kr.or.ddit.admin.board.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import kr.or.ddit.model.FiledataVo;
+
 public class BoardJoinVo {
 	
 	private String bd_id;                               	// 게시판코드
@@ -18,6 +23,16 @@ public class BoardJoinVo {
 	private int cnt;										// 순번
 	private String mem_name;								// 작성자
 	
+	private List<FiledataVo> fileList = new ArrayList<FiledataVo>(); // 파일 여러개 등록하기 위해서
+	
+	public List<FiledataVo> getFileList(){
+		return fileList;
+	}	
+	
+	public void setFileList(List<FiledataVo> fileList) {
+		this.fileList = fileList;
+	}
+
 	public BoardJoinVo() {
 		super();
 	}	

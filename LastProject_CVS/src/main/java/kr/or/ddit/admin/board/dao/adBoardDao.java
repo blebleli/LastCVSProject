@@ -59,4 +59,18 @@ public class adBoardDao implements adBoardDaoInf {
 	public int getBoardTotCnt() {
 		return template.selectOne("boardJoin.getBoardTotCnt");
 	}
+	
+	/**
+	 * Method : boardCreate
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 등록, 공지사항 44, 리뷰 55, 이벤트 66
+	 */
+	@Override
+	public int boardCreate(BoardJoinVo boardJoinVo) {
+		return template.insert("boardJoin.boardCreate", boardJoinVo);
+	}
 }

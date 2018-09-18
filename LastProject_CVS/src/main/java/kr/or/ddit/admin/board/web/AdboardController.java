@@ -6,7 +6,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.admin.board.model.BoardJoinVo;
 import kr.or.ddit.admin.board.service.adBoardServiceInf;
+import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.store_owner.model.salelistJoinVo;
 
 import org.slf4j.Logger;
@@ -26,6 +28,9 @@ public class AdboardController {
 	
 	@Resource(name="adboardService")
 	private adBoardServiceInf adboardService;
+	
+	@Resource(name="autoCodeCreate")
+	private AutoCodeCreate code;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -70,9 +75,42 @@ public class AdboardController {
 	@RequestMapping("/boardNew")
 	public String boardNew(Model model){
 		String mem_id = "admin";
-		System.out.println("작성으로 들어왔어요~~");
 		model.addAttribute("mem_id", mem_id);
 		return "ad_boardNew";
+	}
+	
+	/**
+	 * Method : boardCreate
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param model
+	 * @return
+	 * Method 설명 : 게시글 등록(공지사항, 상품리뷰, 이벤트)
+	 */
+	@RequestMapping("/boardCreate")
+	public String boardCreate(@RequestParam(value="mem_id", defaultValue="") String mem_id,
+							  @RequestParam(value="smarteditor", defaultValue="") String bd_content, BoardJoinVo b, Model model){
+		
+		String bnocode = "BNO"; // 공지사항 코드 생성 준비(임시)
+		String bd_id = code.autoCode(bnocode); // 가공
+		logger.debug("BNO ===========================>> {} "+bnocode);
+		b.setBd_id(bd_id); // Vo에 코드 저장
+		b.setBd_group(bd_id); // 첫 글은 첫번째 코드가 그룹코드임.
+		b.setBd_content(bd_content); // 내용 저장
+		
+		logger.debug("b ===================>>>> {} "+b );
+		
+		int cnt = adboardService.setWriteInsert(b); // 쿼리 실행 후 성공시 cnt 1 반환
+		
+		String bd_kind_id = b.getBd_kind_id();
+			
+		if(cnt != 0){
+			return "redirect:/admin/boardView?bd_kind_id=" + bd_kind_id;			
+		}else{
+			System.out.println("실패");
+			return "admin/main";
+		}
 	}
 	
 	/**
@@ -105,7 +143,6 @@ public class AdboardController {
 	public String boardDel(Model model){
 		String mem_id = "admin";
 		model.addAttribute("mem_id", mem_id);
-		System.out.println("삭제로 들어왔어요~~");
 		return "ad_boardUpdate";
 	}
 	
@@ -114,7 +151,6 @@ public class AdboardController {
 	public Map<String, Object> review(@RequestParam(value="BD_KIND_ID", defaultValue="") String BD_KIND_ID,
 								@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize){
-		System.out.println(BD_KIND_ID);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		

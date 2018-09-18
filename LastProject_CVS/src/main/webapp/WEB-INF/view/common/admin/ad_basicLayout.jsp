@@ -33,33 +33,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-    
-    <!-- left의 날짜별을 누르면 날짜별 내 월별화면으로 간다. -->
-    <script src="../build/js/jquery-1.12.4.js"></script>
-  <!-- 보류입니다. -->
-  <!--  
-    <script>
-		$(document).ready(function(){
-    		$("#chartDay").on("click", function(){
-    			var mem_id = "hsj";
-    			console.log(mem_id);
-    			$.ajax({
-    				url : "chartDay",
-    				type : "GET",
-    		        dataType : "json",
-    				data : {"mem_id" : mem_id},
-    			    success : function(data) {
-    			    	alert("요청 성공");
-					},
-					error : function(data) {
-						alert("요청 실패");
-					}
-        		});
-    		});
-    	});    	
-    </script>    
-  --> 
-	    
+    	    
   </head>
 
   <body class="nav-md">
