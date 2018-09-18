@@ -32,11 +32,6 @@ public class SaleDisService implements SaleDisServiceInf {
 	*/	
 	@Override
 	public int setInsertSaleDis(SaleDisVo saleDisVo) {
-		String sd_id = saleDisVo.getSd_id(); // SALE, DIS 중 갖고오기
-		String SDID = autoCodeCreate.autoCode(sd_id); // 판매코드 만들기
-		System.out.println(sd_id);
-		System.out.println(SDID);
-		saleDisVo.setSd_id(SDID); // 다시 저장하기
 		return saledisDao.setInsertSaleDis(saleDisVo);
 	}		
 	
