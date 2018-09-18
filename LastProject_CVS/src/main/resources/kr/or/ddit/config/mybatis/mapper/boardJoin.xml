@@ -79,7 +79,7 @@
   	<select id="boardDetail" parameterType="String" resultType="boardJoinVo">
 		SELECT	  bd_id
 		 		, bd_title
-		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content)
+		 		, DBMS_LOB.SUBSTR('bd_content',DBMS_LOB.GETLENGTH('bd_content'), 1) STARTPATH
 		 		, bd_date
 		 		, bd_del
 		 		, bd_rating
