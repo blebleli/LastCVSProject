@@ -29,7 +29,7 @@ public class AdminProdService implements AdminProdServiceInf {
 		
 		int totCnt = adminProdDao.getProdListCount(vo);
 		
-		result.put("pageNavi",  makePageNavi(vo.getPage(), vo.getpageSize(), totCnt));
+		result.put("pageNavi",  makePageNavi(vo.getPage(), vo.getPageSize(), totCnt));
 		
 		return  result;
 	}

@@ -37,7 +37,7 @@ public class AdminProdInfo {
 		AdminProdVo pvo = new AdminProdVo();
 		// 기본 페이지 
 		pvo.setPage(1);
-		pvo.setpageSize(25);
+		pvo.setPageSize(25);
 		
 		// 제품 목록
 		Map<String, Object> result = adminProdService.getProdList(pvo);

@@ -96,7 +96,7 @@ public class AutoCodeCreate {
 		
 		// 코드 앞 구분
 		String  codeStr = code + mem_id + randomInt(5);
-		String str ="";
+		String str = "";
 		
 		// 코드 맥스값 가져옴
 		// 수불/입고 리스트 =======================================
@@ -148,9 +148,7 @@ public class AutoCodeCreate {
 		// 폐기리스트 =====================================
 		} else if (code.equals("DIS_L")) {					// 폐기리스트
 			str = commonsDao.sale_disCode(codeStr);
-		} else {
-			return null;
-		}
+		} 
 		
 		if (code.equals("SUP11")) {							// 수불/입고 중 결제만 시간 추가
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -159,10 +157,9 @@ public class AutoCodeCreate {
 		
 		System.out.println(codeStr);
 		
-		if (str.equals("0")) {
+		if (str.equals("0") ) {
 			codeStr += "00001"; 
 		} else {
-			System.out.println("else");
 			//카운트
 			System.out.println(code);
 			int makr = Integer.parseInt(str.substring(str.length()-5 ))+1 ;
@@ -170,7 +167,6 @@ public class AutoCodeCreate {
 			codeStr += zeroReturn(length, 5)+makr;
 		}
 		return codeStr;
-		
 	}
 	
 	
