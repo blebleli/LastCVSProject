@@ -45,7 +45,8 @@
 						stcklist_info  ,
 						stcklist_kind  ,
 						stock_id       ,
-						splylist_id    
+						splylist_id 	,
+						prod_id   
 					 ) 	
 			   VALUES(  #{bcd_id         },
 						#{stcklist_amount},
@@ -54,7 +55,8 @@
 					    #{stcklist_info  },
 					    #{stcklist_kind  },
 					    #{stock_id       },
-					    #{splylist_id    }					
+					    #{splylist_id    },					
+					    #{prod_id    }					
 					 )
  </insert>
  
