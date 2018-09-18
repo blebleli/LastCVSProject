@@ -137,9 +137,9 @@
 					registerReceiveChange(); // ---처음부터 거스름돈 체크 문제
 					
 			    	/* 샘플 데이터  -- 처음부터 비워진 셀을 만들어놓도록 수정예정*/
-			    	addRow({prodVo : {prodID : "prodID1",stcklistID : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
-			    	addRow({prodVo : {prodID : "prodID2",stcklistID : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
-			    	addRow({prodVo : {prodID : "prodID2",stcklistID : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"1",event_id:"eventid2"}});
+			    	addRow({prodVo : {prodID : "prodID1",bcd_id : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
+			    	addRow({prodVo : {prodID : "prodID2",bcd_id : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
+			    	addRow({prodVo : {prodID : "prodID2",bcd_id : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"1",event_id:"eventid2"}});
                  });
        
                  </script>
@@ -287,7 +287,7 @@
 				    		console.log("saleList ::: "+saleList);
 				    		
 				    		$.ajax({
-		    					  url: "/saleDis/saleInsert",
+		    					  url: "/cvs/saleInsert",
 		    					  method: "post",
 		    					  data: JSON.stringify(dispList),
 		    					  contentType: "application/json",
@@ -307,16 +307,17 @@
 				    		$("#posTable tbody tr").each(function () {		                    	 
 				    			var data = $(this);		
 				    			
-				    			dispList.push({bcd_id: data.find('.stcklistID').html(), 
-				    					  disp_amount: data.find('.amount').val()})
-		                     });	
+				    			dispList.push({bcd_id: data.find('.bcd_id').html(),
+				    					   prod_price: data.find('.price1').html(),
+				    				  stcklist_amount: data.find('.amount').val()})
+		                    	 });	
 				    		
-				    		console.log("dispList ::: "+dispList);
+				    		console.log("dispListSize ::: "+dispList.length);
 				    		
 				    		/* return false; */
 				    		
 				    		$.ajax({
-		    					  url: "/saleDis/dispInsert",
+		    					  url: "/cvs/pos/dispInsert",
 		    					  method: "post",
 		    					  data: JSON.stringify(dispList),
 		    					  contentType: "application/json",
@@ -355,7 +356,7 @@
 			                         '    <input type="checkbox" class="flat" name="table_records">'+
 			                         '	 </div>'+
 			                         '  </td>'+
-			                         '  <td><span class="stcklistID">'+ data.prodVo.stcklistID+'</span></td>'+
+			                         '  <td><span class="bcd_id">'+ data.prodVo.bcd_id+'</span></td>'+
 			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
 			                         '  <td ><input type="text" class="amount" value="' +data.prodVo.stcklist_amount+'"></td>'+    				                         
