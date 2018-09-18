@@ -234,18 +234,18 @@
 	</select>
 	
 	<select id="adminApplyViewTotCnt" parameterType="String" resultType="Integer">
-	SELECT count(*)
-	FROM
-	(
-	select rownum rnum,T.* 
-	from 
-	(
-	select a.SPLYLIST_EXDATE+30 exdate, c.PROD_NAME, a.SPLYLIST_SUM, c.PROD_PRICE
-	from supply_list a, supply b, prod c
-	where b.SUPPLY_BCD=a.SUPPLY_BCD
-	and b.SUPPLY_BCD=#{supply_bcd}
-	and a.PROD_ID= c.PROD_ID
-	) T)
+		SELECT count(*)
+		FROM
+		(
+		select rownum rnum,T.* 
+		from 
+		(
+		select a.SPLYLIST_EXDATE+30 exdate, c.PROD_NAME, a.SPLYLIST_SUM, c.PROD_PRICE
+		from supply_list a, supply b, prod c
+		where b.SUPPLY_BCD=a.SUPPLY_BCD
+		and b.SUPPLY_BCD=#{supply_bcd}
+		and a.PROD_ID= c.PROD_ID
+		) T)
 	</select>
 
 </mapper>
