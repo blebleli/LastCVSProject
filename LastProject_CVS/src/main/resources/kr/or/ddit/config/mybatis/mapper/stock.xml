@@ -58,6 +58,26 @@
 					 )
  </insert>
  
+ <update id="updateStockList" parameterType="stockListVo">
+	INSERT into stock(  bcd_id         ,
+						stcklist_amount,
+						sicklist_exdate,
+						stck_date      ,
+						stcklist_info  ,
+						stcklist_kind  ,
+						stock_id       ,
+						splylist_id    
+					 ) 	
+			   VALUES(  #{bcd_id         },
+						#{stcklist_amount},
+						#{sicklist_exdate},
+						#{stck_date      },
+					    #{stcklist_info  },
+					    #{stcklist_kind  },
+					    #{stock_id       },
+					    #{splylist_id    }					
+					 )
+ </update>
  
  
  
