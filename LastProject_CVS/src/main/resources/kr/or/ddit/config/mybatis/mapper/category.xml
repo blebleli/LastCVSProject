@@ -56,6 +56,17 @@
 				,#{ctgy_parent} 
         )
  </insert>
+ 
+ <!-- 	아 이 디 : getCvsServiceCtgy
+  		반 환 값 :  categoryVo
+  		매개변수 : 
+  		설    명 : 편의점 서비스 카테고리 조회 
+  		작 성 자 : 김현경
+  		일    시 : 2018-09-18
+ -->
+ <select id="getCvsServiceCtgy" resultType="categoryVo">
+ 	select * from category where ctgy_kind = '302'
+ </select>
 
 
 </mapper>
