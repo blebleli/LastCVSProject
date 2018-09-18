@@ -157,9 +157,12 @@ public class AutoCodeCreate {
 			codeStr += sdf.format(new Date());
 		}
 		
+		System.out.println(codeStr);
+		
 		if (str.equals("0")) {
 			codeStr += "00001"; 
 		} else {
+			System.out.println("else");
 			//카운트
 			System.out.println(code);
 			int makr = Integer.parseInt(str.substring(str.length()-5 ))+1 ;

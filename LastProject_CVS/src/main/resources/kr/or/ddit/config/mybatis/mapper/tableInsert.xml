@@ -35,4 +35,39 @@
 </insert>
 
 
+<insert id="barcodeInsert"  parameterType="barcodeVo">
+INSERT INTO BARCODE (BCD_ID, BDC_CNOTENT, BCD_PATH, BCD_KIND) 
+	   VALUES (
+	   				 #{bcd_id     }  
+					,#{bcd_content,jdbcType=VARCHAR}  
+					,#{bcd_path   }  
+					,#{bcd_kind   }     
+	   			)
+</insert>
+
+<insert id="supplyInsert" parameterType="supplyVo">
+INSERT INTO SUPPLY( SUPPLY_BCD, SUPPLY_DATE, SUPPLY_STATE, SUPPLY_INFO, PLACE_ID ) 
+	   VALUES(
+		   		 #{supply_bcd  }
+				,TO_DATE(#{supply_date }, 'YYYY-MM-DD')
+				,#{supply_state}
+				,#{supply_info }
+				,#{place_id    }    
+	   		 )
+</insert>
+
+<insert id="supply_listInsert" parameterType="supplyListVo">
+	INSERT INTO SUPPLY_LIST( SPLYLIST_ID, SPLYLIST_INFO, SPLYLIST_EXDATE, SPLYLIST_SUM, SUPPLY_BCD, PROD_ID ) 
+       VALUES(
+		       	 #{splylist_id    } 
+				,null 
+				,#{splylist_exdate} 
+				,#{splylist_sum   } 
+				,#{supply_bcd     } 
+				,#{prod_id        }         
+       )
+</insert>
+
+
+
 </mapper>
