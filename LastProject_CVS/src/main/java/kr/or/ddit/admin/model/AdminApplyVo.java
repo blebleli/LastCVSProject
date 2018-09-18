@@ -1,13 +1,15 @@
 package kr.or.ddit.admin.model;
 
+import java.util.Date;
+
 public class AdminApplyVo {
 	
-	int rnum;				//넘버링
-	String supply_bcd;		//수불바코드
-	String mem_name;		//점주 이름
-	String mem_cvs_name;	//편의점 이름
-	String supply_state;	//신청처리상태 (10=수불,11=결제,12=입고)
-	
+	private int rnum;				//넘버링
+	private String supply_bcd;		//수불바코드
+	private String mem_name;		//점주 이름
+	private String mem_cvs_name;	//편의점 이름
+	private String supply_state;	//신청처리상태 (10=수불,11=결제,12=입고)
+	private Date supply_date;		//신청 날짜
 	public int getRnum() {
 		return rnum;
 	}
@@ -38,26 +40,32 @@ public class AdminApplyVo {
 	public void setSupply_state(String supply_state) {
 		this.supply_state = supply_state;
 	}
+	public Date getSupply_date() {
+		return supply_date;
+	}
+	public void setSupply_date(Date supply_date) {
+		this.supply_date = supply_date;
+	}
 	@Override
 	public String toString() {
 		return "AdminApplyVo [rnum=" + rnum + ", supply_bcd=" + supply_bcd
 				+ ", mem_name=" + mem_name + ", mem_cvs_name=" + mem_cvs_name
-				+ ", supply_state=" + supply_state + "]";
+				+ ", supply_state=" + supply_state + ", supply_date="
+				+ supply_date + "]";
 	}
 	public AdminApplyVo(int rnum, String supply_bcd, String mem_name,
-			String mem_cvs_name, String supply_state) {
+			String mem_cvs_name, String supply_state, Date supply_date) {
 		super();
 		this.rnum = rnum;
 		this.supply_bcd = supply_bcd;
 		this.mem_name = mem_name;
 		this.mem_cvs_name = mem_cvs_name;
 		this.supply_state = supply_state;
+		this.supply_date = supply_date;
 	}
 	public AdminApplyVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
 	
 
 }

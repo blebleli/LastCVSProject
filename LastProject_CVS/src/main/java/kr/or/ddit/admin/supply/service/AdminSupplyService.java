@@ -104,17 +104,18 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 		
 		resultMap.put("AdminApplyViewList", AdminApplyViewList);
 		
+		String supply_bcd = (String) paramMap.get("supply_bcd");
 		
-		int totCnt = adminSupplyDao.adminApplyViewTotCnt((String) paramMap.get("supply_bcd"));
+		int totCnt = adminSupplyDao.adminApplyViewTotCnt(supply_bcd);
 		int page = (int) paramMap.get("page");
 		int pageSize = (int) paramMap.get("pageSize");
 		
-		resultMap.put("pageNavi", makePageNavi2(page, pageSize, totCnt));
+		resultMap.put("pageNavi", makePageNavi2(page, pageSize, totCnt, supply_bcd));
 		
 		return resultMap;
 	}
 	
-	private String makePageNavi2(int page, int pageSize, int totCnt){
+	private String makePageNavi2(int page, int pageSize, int totCnt, String supply_bcd){
 
 		int cnt = totCnt / pageSize; // 몫
 		int mod = totCnt % pageSize; // 나머지
@@ -126,17 +127,16 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 
 		int prevPage = page == 1? 1 : page-1;
 		int nextPage = page == cnt ? page : page+1;
-		pageNaviStr.append("<li><a href=\"/admin/lookup?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/lookupView?page=" + prevPage + "&pageSize=" + pageSize + "&supply_bcd="+ supply_bcd + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
 
-		for(int i = 1; i <= cnt; i++){
-			// /board/list?page=3&pageSize=10
+		for(int i = 1; i <= 10; i++){
 			String activeClass = "";
 			if(i == page)
 				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/lookup?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/lookupView?page=" + i + "&pageSize=" + pageSize + "&supply_bcd="+ supply_bcd + "\"> "+ i +" </a></li>");
 		}
 
-		pageNaviStr.append("<li><a href=\"/admin/lookup?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/lookupView?page=" + nextPage + "&pageSize=" + pageSize + "&supply_bcd="+ supply_bcd + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 
 		return pageNaviStr.toString();
 	}

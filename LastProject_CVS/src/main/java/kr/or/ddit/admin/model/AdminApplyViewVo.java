@@ -1,22 +1,28 @@
 package kr.or.ddit.admin.model;
 
+import java.util.Date;
+
+
 public class AdminApplyViewVo {
 	
-	int rnum;			//넘버링
-	String exdate;		//유통기한
-	String prod_name;	//상품이름
-	int splylist_sum;	//수량
-	int prod_price;		//제품가격
+	private int rnum;			//넘버링
+	private Date exdate;		//유통기한
+	private String prod_name;	//상품이름
+	private int splylist_sum;	//수량
+	private int prod_price;		//제품가격
+	private int prod_cost;		//단가
+	private String prod_id;		//제품 코드
+	
 	public int getRnum() {
 		return rnum;
 	}
 	public void setRnum(int rnum) {
 		this.rnum = rnum;
 	}
-	public String getExdate() {
+	public Date getExdate() {
 		return exdate;
 	}
-	public void setExdate(String exdate) {
+	public void setExdate(Date exdate) {
 		this.exdate = exdate;
 	}
 	public String getProd_name() {
@@ -37,26 +43,40 @@ public class AdminApplyViewVo {
 	public void setProd_price(int prod_price) {
 		this.prod_price = prod_price;
 	}
+	public int getProd_cost() {
+		return prod_cost;
+	}
+	public void setProd_cost(int prod_cost) {
+		this.prod_cost = prod_cost;
+	}
+	public String getProd_id() {
+		return prod_id;
+	}
+	public void setProd_id(String prod_id) {
+		this.prod_id = prod_id;
+	}
 	@Override
 	public String toString() {
 		return "AdminApplyViewVo [rnum=" + rnum + ", exdate=" + exdate
 				+ ", prod_name=" + prod_name + ", splylist_sum=" + splylist_sum
-				+ ", prod_price=" + prod_price + "]";
+				+ ", prod_price=" + prod_price + ", prod_cost=" + prod_cost
+				+ ", prod_id=" + prod_id + "]";
 	}
-	public AdminApplyViewVo(int rnum, String exdate, String prod_name,
-			int splylist_sum, int prod_price) {
+	public AdminApplyViewVo(int rnum, Date exdate, String prod_name,
+			int splylist_sum, int prod_price, int prod_cost, String prod_id) {
 		super();
 		this.rnum = rnum;
 		this.exdate = exdate;
 		this.prod_name = prod_name;
 		this.splylist_sum = splylist_sum;
 		this.prod_price = prod_price;
+		this.prod_cost = prod_cost;
+		this.prod_id = prod_id;
 	}
 	public AdminApplyViewVo() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	
-	
-
 }

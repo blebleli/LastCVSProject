@@ -103,7 +103,7 @@
 	  		일    시 : 2018-09-12     
 	 -->
 	<select id="supplyMemberInfo" parameterType="String" resultType="memberVo">
-		SELECT a.mem_cvs_name, a.mem_name, a.mem_cvs_tel, a.mem_kind, a.mem_addr 
+		SELECT a.mem_cvs_name, a.mem_name, a.mem_cvs_tel, a.mem_kind, a.mem_addr, a.mem_id 
 		FROM member a, supply b
 		WHERE b.supply_bcd=#{supply_bcd}
 		and a.mem_kind = 01
@@ -193,11 +193,11 @@
 
 	<!--관리자용/////////////////////////////////////////////////////////////////////////////  -->
 	<!-- 	아 이 디 : adminApplyList
-	  		반 환 값 : supplyProdVo
-	  		매개변수 : String(supply_bcd)
-	  		설    명 : 입고 바코드나 직접 입력했을 시 출력할 입고 정보 리스트
+	  		반 환 값 : adminApplyVo
+	  		매개변수 : map
+	  		설    명 : 관리자용 수불 신청 리스트 전체 출력
 	  		작 성 자 : 조계환
-	  		일    시 : 2018-09-14     
+	  		일    시 : 2018-09-17     
 	-->
 	<select id="adminApplyList" parameterType="map" resultType="adminApplyVo">
 		SELECT *
@@ -206,33 +206,54 @@
 		SELECT rownum rnum,T.* 
 		FROM 
 		(
-		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state
+		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state, a.supply_date
 		FROM supply a, member b
 		WHERE a.place_id = b.mem_id) T)
 		WHERE rnum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
+	<!-- 	아 이 디 : adminApplyListTotCnt
+	  		반 환 값 : Integer
+	  		매개변수 : 
+	  		설    명 : 관리자용 수불 신청 리스트 전체 카운트
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-17     
+	-->
 	<select id="adminApplyListTotCnt" resultType="Integer">
 		SELECT count(*)
 		FROM supply a, member b
 		WHERE a.place_id = b.mem_id
 	</select>
 	
+	<!-- 	아 이 디 : adminApplyView
+	  		반 환 값 : adminApplyViewVo
+	  		매개변수 : map
+	  		설    명 : 관리자용 수불신청 리스트 상세 보기 
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-17     
+	-->
 	<select id="adminApplyView" parameterType="map" resultType="adminApplyViewVo">
-	SELECT *
-	FROM
-	(
-	select rownum rnum,T.* 
-	from 
-	(
-	select a.SPLYLIST_EXDATE+30 exdate, c.PROD_NAME, a.SPLYLIST_SUM, c.PROD_PRICE
-	from supply_list a, supply b, prod c
-	where b.SUPPLY_BCD=a.SUPPLY_BCD
-	and b.SUPPLY_BCD=#{supply_bcd}
-	and a.PROD_ID= c.PROD_ID
-	) T)WHERE rnum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+		SELECT *
+		FROM
+		(
+		select rownum rnum,T.* 
+		from 
+		(
+		select a.SPLYLIST_EXDATE+30 exdate,c.prod_cost,c.prod_id, c.PROD_NAME, a.SPLYLIST_SUM, c.PROD_PRICE
+		from supply_list a, supply b, prod c
+		where b.SUPPLY_BCD=a.SUPPLY_BCD
+		and b.SUPPLY_BCD=#{supply_bcd}
+		and a.PROD_ID= c.PROD_ID
+		) T)WHERE rnum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
+	<!-- 	아 이 디 : adminApplyViewTotCnt
+	  		반 환 값 : Integer
+	  		매개변수 : String(supply_bcd)
+	  		설    명 : 관리자용 수불 신청 리스트 상세 보기 상품들 전체 카운트
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-09-17     
+	-->
 	<select id="adminApplyViewTotCnt" parameterType="String" resultType="Integer">
 		SELECT count(*)
 		FROM

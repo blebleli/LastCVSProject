@@ -10,7 +10,10 @@ import kr.or.ddit.admin.model.AdminApplyVo;
 import kr.or.ddit.admin.supply.service.AdminSupplyServiceInf;
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.model.BarcodeVo;
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.store_owner.web.CvsBarcodeController;
+import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +56,9 @@ public class AdminSupplyController {
 	@Resource(name="adminSupplyService")
 	private AdminSupplyServiceInf adminSupplyService;
 	
+	@Resource(name="supplyService")
+	private SupplyServiceInf supplyService;
+	
 	private Logger logger = LoggerFactory.getLogger(AdminSupplyController.class);
 	
 	/**
@@ -70,12 +76,14 @@ public class AdminSupplyController {
 									@RequestParam(value="pageSize", defaultValue="10") int pageSize,
 									Model model){
 		
+		//페이징 처리를 위한 부분
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
 		
 		Map<String, Object> resultMap = adminSupplyService.adminApplyList(paramMap);
 		
+		//키값(adminApplyList,pageNavi)
 		model.addAllAttributes(resultMap);
 		
 		return "ad_supplyLookup";
@@ -97,19 +105,40 @@ public class AdminSupplyController {
 										Model model){
 		logger.debug("adminApplyVo.getSupply_bcd() : {}" , adminApplyVo.getSupply_bcd());
 		
+		//수불 리스트중 클릭한 놈의 수불 바코드를 가져옴
 		String supply_bcd = adminApplyVo.getSupply_bcd();
 		
+		//페이징 처리를 위한 부분
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
 		paramMap.put("supply_bcd",supply_bcd);
 		
 		Map<String, Object> resultMap = adminSupplyService.adminApplyViewList(paramMap);
+		
+		//각 수불리스트를 클릭했을때 합계 비용
+		int sum = supplyService.sumProdPrice(supply_bcd);
+		MemberVo memberVo = supplyService.supplyMemberInfo(supply_bcd);
+		
+		//수불 바코드 넘기기
+		model.addAttribute("supply_bcd",supply_bcd);
+		//합계 비용값 넘기기
+		model.addAttribute("sum",sum);
+		//점주 정보 넘기기
+		model.addAttribute("memberVo",memberVo);
+		//키값(AdminApplyViewList,pageNavi)
 		model.addAllAttributes(resultMap);
 		
 		return "ad_supplyLookupView";
 	}
-}
+	
+	@RequestMapping("/supplyCheck")
+	public String supplyCheck(@RequestParam(value="supply_bcd") String supply_bcd,
+											Model model,
+											MemberVo memberVo){
+		String check = supply_bcd;
+		String mem_id = memberVo.getMem_id();
+		
 //		String kind = "SUP10";
 //		String mem_id = "3240000-104-2015-00075";
 //		String barcode = autoCodeCreate.autoCode(kind, mem_id);
@@ -122,3 +151,11 @@ public class AdminSupplyController {
 //		barcodeVo.setBcd_path("D:\\최종프\\barcodeImg\\");
 //		
 //		barcodeService.setInsertBarcode(barcodeVo);
+		
+		logger.debug("check : {}",check);
+		logger.debug("mem_id : {}",mem_id);
+		
+		return "ad_supplyLookupView";
+	}
+	
+}
