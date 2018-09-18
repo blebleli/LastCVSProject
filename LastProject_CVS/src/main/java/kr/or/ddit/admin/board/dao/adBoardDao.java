@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.admin.board.model.BoardJoinVo;
+import kr.or.ddit.model.CommentsVo;
 
 /**
  * adBoardDao.java
@@ -72,5 +73,24 @@ public class adBoardDao implements adBoardDaoInf {
 	@Override
 	public int boardCreate(BoardJoinVo boardJoinVo) {
 		return template.insert("boardJoin.boardCreate", boardJoinVo);
+	}
+	
+	/**
+	 * Method : boardDetail
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시판 코드(bd_id)로 게시글 상세 조회를 한다.
+	 */
+	@Override
+	public BoardJoinVo boardDetail(String bd_id) {
+		return template.selectOne("boardJoin.boardDetail",bd_id);
+	}
+
+	@Override
+	public List<CommentsVo> getListComments(String bd_id) {
+		return template.selectList("comments.getListComments", bd_id);
 	}
 }

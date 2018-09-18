@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import kr.or.ddit.admin.board.model.BoardJoinVo;
 import kr.or.ddit.admin.board.service.adBoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
-import kr.or.ddit.store_owner.model.salelistJoinVo;
+import kr.or.ddit.model.CommentsVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-@SessionAttributes({"boardpage","pageNavi"})
+@SessionAttributes({"boardpage","pageNavi","bd_kind_id"})
 @RequestMapping("/admin")
 @Controller("adboardController")
 public class AdboardController {
@@ -52,13 +52,13 @@ public class AdboardController {
 		
 		paramMap.put("page", page); // page 1
 		paramMap.put("pageSize", pageSize); // pageSize 10
-		String BD_KIND_ID = "44"; // 공지사항 코드
-		paramMap.put("BD_KIND_ID",BD_KIND_ID); // 맵에 저장
+		String bd_kind_id = "44"; // 공지사항 코드
+		paramMap.put("bd_kind_id",bd_kind_id); // 맵에 저장
 		
 		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력
 		
 		model.addAllAttributes(resultMap);
-		model.addAttribute("BD_KIND_ID", BD_KIND_ID); // model 저장
+		model.addAttribute("bd_kind_id", bd_kind_id); // model 저장
 		
 		return "ad_boardView";
 	}
@@ -114,6 +114,25 @@ public class AdboardController {
 	}
 	
 	/**
+	 * Method : boardDetail
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : 게시글 상세조회 이동
+	 */
+	@RequestMapping("/boardDetail")
+	public String boardDetail(@RequestParam(value="id", defaultValue="") String bd_id, Model model){
+		BoardJoinVo b = adboardService.boardDetail(bd_id); // 게시판 코드(bd_id)로 게시글 상세조회를 한다.
+		List<CommentsVo> cList = adboardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
+		logger.debug("b =====> {}", b);
+		logger.debug("cList =====> {}", cList);
+		model.addAttribute("b", b); // model에 저장한다.
+		model.addAttribute("cList", cList); // model에 저장한다.
+		return "ad_boardDetail";
+	}
+	
+	/**
 	 * Method : boardDel
 	 * 최초작성일 : 2018. 9. 17.
 	 * 작성자 : 김마음
@@ -148,15 +167,17 @@ public class AdboardController {
 	
 	@RequestMapping(value="/review", method=RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> review(@RequestParam(value="BD_KIND_ID", defaultValue="") String BD_KIND_ID,
+	public Map<String, Object> review(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
 								@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize){
+		
+		logger.debug("bd_kind_id ============> {} " + bd_kind_id);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
 		paramMap.put("page", page); // page 1
 		paramMap.put("pageSize", pageSize); // pageSize 10
-		paramMap.put("BD_KIND_ID",BD_KIND_ID); // 리뷰 코드(55)맵에 저장
+		paramMap.put("bd_kind_id",bd_kind_id); // 리뷰 코드(55)맵에 저장
 		
 		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력
 		

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.admin.board.dao.adBoardDaoInf;
 import kr.or.ddit.admin.board.model.BoardJoinVo;
 import kr.or.ddit.filedata.service.FileServiceInf;
+import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
 
 @Service("adboardService")
@@ -51,19 +52,25 @@ public class adBoardService implements adBoardServiceInf {
 		// 페이지 네비게이션 html 생성
 		int totCnt = adboardDao.getBoardTotCnt(); // 게시글 전체 건수 조회
 		
-		String BD_KIND_ID = (String) map.get("BD_KIND_ID");
+		
+		String bd_kind_id = (String) map.get("bd_kind_id");
 		int page = (int) map.get("page");
 		int pageSize = (int) map.get("pageSize");
 		
-		resultMap.put("pageNavi", makePageNavi(BD_KIND_ID, page, pageSize, totCnt));
+		logger.debug("bd_kind_id ==========> {} "+bd_kind_id);
+		
+		resultMap.put("pageNavi", makePageNavi(bd_kind_id, page, pageSize, totCnt));
+		resultMap.put("bd_kind_id",bd_kind_id);
 		
 		return resultMap;
 	}
 	
-	private String makePageNavi(String BD_KIND_ID, int page, int pageSize, int totCnt){
+	private String makePageNavi(String bd_kind_id, int page, int pageSize, int totCnt){
 		
 		int cnt = totCnt / pageSize; // 몫
 		int mod = totCnt % pageSize; // 나머지
+		
+		logger.debug("bd_kind_id ===============>>>>>>>>>>>>>> {}"+bd_kind_id);
 		
 		if (mod > 0)
 			cnt++;
@@ -72,17 +79,17 @@ public class adBoardService implements adBoardServiceInf {
 		
 		int prevPage = page == 1? 1 : page-1;
 		int nextPage = page == cnt ? page : page+1;
-		pageNaviStr.append("<li><a href=\"/admin/boardView?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/boardView?bd_kind_id="+bd_kind_id+"&page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
 		
 		for(int i = 1; i <= cnt; i++){
 			// /admin/boardView?page=3&pageSize=10
 			String activeClass = "";
 			if(i == page)
 				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/boardView?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/boardView?bd_kind_id="+bd_kind_id+"&page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
 		}
 		
-		pageNaviStr.append("<li><a href=\"/admin/boardView?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/boardView?bd_kind_id="+bd_kind_id+"&page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 		
 		return pageNaviStr.toString();
 		
@@ -124,5 +131,33 @@ public class adBoardService implements adBoardServiceInf {
 			cnt =+ fileService.insertFile(vo); // file이 있으면 1씩 증가
 		}
 		return cnt;
+	}
+	
+	/**
+	 * Method : boardDetail
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시판 코드(bd_id)로 게시글 상세 조회를 한다.
+	 */
+	@Override
+	public BoardJoinVo boardDetail(String bd_id) {
+		return adboardDao.boardDetail(bd_id);
+	}
+	
+	/**
+	 * Method : commentsList
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
+	 */
+	@Override
+	public List<CommentsVo> getListComments(String bd_id) {
+		return adboardDao.getListComments(bd_id);
 	}
 }
