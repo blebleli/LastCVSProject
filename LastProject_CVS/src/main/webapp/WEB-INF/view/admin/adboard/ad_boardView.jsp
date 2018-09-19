@@ -202,7 +202,183 @@
                   
 				  <!-- ========================================================================== -->
                   <div class="x_content"> 
-                  	<div>                 
+                  					<div>                 
+						<p>
+						공지사항 <input checked required data-parsley-multile="gender" type="radio" class="flat" name="gender" id="bd_kind_id44" value="${bd_kind_id }"/> 
+						상품리뷰 <input type="radio" class="flat" name="gender" id="bd_kind_id55" value="55"/>
+						이벤트 <input type="radio" class="flat" name="gender" id="bd_kind_id66" value="66"/>						
+						<button id="buttons" type="button" class="btn btn-default btn-xs">확인</button>
+						</p>						
+					</div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <!-- ---------------- -->
+
+
+
+
+					<div id="datatable-buttons_wrapper"
+						class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+						<div class="dt-buttons btn-group">
+							<a class="btn btn-default buttons-copy buttons-html5 btn-sm"
+								tabindex="0" aria-controls="datatable-buttons" href="#"><span>Copy</span></a><a
+								class="btn btn-default buttons-csv buttons-html5 btn-sm"
+								tabindex="0" aria-controls="datatable-buttons" href="#"><span>CSV</span></a><a
+								class="btn btn-default buttons-print btn-sm" tabindex="0"
+								aria-controls="datatable-buttons" href="#"><span>Print</span></a>
+						</div>
+						<div class="dataTables_length" id="datatable-buttons_length">
+							<label>Show <select name="datatable-buttons_length"
+								aria-controls="datatable-buttons" class="form-control input-sm"><option
+										value="10">10</option>
+									<option value="25">25</option>
+									<option value="50">50</option>
+									<option value="100">100</option></select> entries
+							</label>
+						</div>
+						<div id="datatable-buttons_filter" class="dataTables_filter">
+							<label>Search:<input type="search"
+								class="form-control input-sm" placeholder=""
+								aria-controls="datatable-buttons"></label>
+						</div>
+						<table id="datatable-buttons"
+							class="table table-striped table-bordered dataTable no-footer dtr-inline"
+							role="grid" aria-describedby="datatable-buttons_info"
+							style="width: 1585px;">
+							<!-- buttons 모양 나오게함..  -->
+
+							<thead>
+								<tr role="row">
+									<th class="sorting_asc" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 18px;"
+										aria-label="#: activate to sort column descending"
+										aria-sort="ascending">#</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 246px;"
+										aria-label="이메일아이디: activate to sort column ascending">이메일아이디</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 75px;"
+										aria-label="회원명: activate to sort column ascending">회원명</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 172px;"
+										aria-label="연락처: activate to sort column ascending">연락처</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 111px;"
+										aria-label="생년월일: activate to sort column ascending">생년월일</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 45px;"
+										aria-label="성별: activate to sort column ascending">성별</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 95px;"
+										aria-label="우편번호: activate to sort column ascending">우편번호</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 199px;"
+										aria-label="주소: activate to sort column ascending">주소</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 173px;"
+										aria-label="상세주소: activate to sort column ascending">상세주소</th>
+									<th class="sorting" tabindex="0"
+										aria-controls="datatable-buttons" rowspan="1" colspan="1"
+										style="width: 62px;"
+										aria-label="포인트: activate to sort column ascending">포인트</th>
+								</tr>
+							</thead>
+
+
+							<tbody>
+								<tr role="row" class="odd">
+									<th scope="row" tabindex="0" class="sorting_1">1</th>
+									<td class="" tabindex="0">eunstar1617@naver.com</td>
+									<td class="sorting_1">공은별</td>
+									<td>010-3792-1831</td>
+									<td>19870903</td>
+									<td>F</td>
+									<td>12345</td>
+									<td style="">대전 서구 월평동</td>
+									<td style="">123번지</td>
+									<td style="">1000</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<div class="dataTables_info" id="datatable-buttons_info"
+							role="status" aria-live="polite">Showing 1 to 5 of 5
+							
+es</div>
+						<div class="dataTables_paginate paging_simple_numbers"
+							id="datatable-buttons_paginate">
+							<ul class="pagination">
+								<li class="paginate_button previous disabled"
+									id="datatable-buttons_previous"><a href="#"
+									aria-controls="datatable-buttons" data-dt-idx="0" tabindex="0">Previous</a></li>
+								<li class="paginate_button active"><a href="#"
+									aria-controls="datatable-buttons" data-dt-idx="1" tabindex="0">1</a></li>
+								<li class="paginate_button next disabled"
+									id="datatable-buttons_next"><a href="#"
+									aria-controls="datatable-buttons" data-dt-idx="2" tabindex="0">Next</a></li>
+							</ul>
+						</div>
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					<div>                 
 						<p>
 						공지사항 <input checked required data-parsley-multile="gender" type="radio" class="flat" name="gender" id="bd_kind_id44" value="${bd_kind_id }"/> 
 						상품리뷰 <input type="radio" class="flat" name="gender" id="bd_kind_id55" value="55"/>

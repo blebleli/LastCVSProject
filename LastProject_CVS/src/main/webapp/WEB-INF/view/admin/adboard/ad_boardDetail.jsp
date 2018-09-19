@@ -263,6 +263,7 @@
 							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>
 							<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
 						</span>
+						<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
 					</div>
 					</form>
 				</div>
