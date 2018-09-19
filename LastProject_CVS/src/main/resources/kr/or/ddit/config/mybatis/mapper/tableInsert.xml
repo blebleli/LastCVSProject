@@ -68,6 +68,12 @@ INSERT INTO SUPPLY( SUPPLY_BCD, SUPPLY_DATE, SUPPLY_STATE, SUPPLY_INFO, PLACE_ID
        )
 </insert>
 
+<insert id="cvsServiceInsert" parameterType="cvsServiceVo">
+	INSERT INTO cvs_service(service_id, ctgy_id, place_id) 
+		VALUES(#{service_id}, 
+			   #{ctgy_id}, 
+			   #{place_id})
+</insert>
 
 
 </mapper>
