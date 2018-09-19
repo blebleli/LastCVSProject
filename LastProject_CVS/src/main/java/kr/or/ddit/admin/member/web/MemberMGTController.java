@@ -1,24 +1,35 @@
 package kr.or.ddit.admin.member.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.admin.member.service.MemberMgtServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.commons.service.CommonsServiceInf;
 import kr.or.ddit.commons.util.PageNavi;
+import kr.or.ddit.filedata.FileUtil;
+import kr.or.ddit.login.service.SignUpServiceInf;
+import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.model.MemberVo;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 /**
  * 
  * @Class Name : MemberMGTController.java
@@ -43,6 +54,9 @@ public class MemberMGTController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Resource(name="signUpService")
+	private SignUpServiceInf signUpService;
+	
 	@Resource(name="commonService")
 	private CommonsServiceInf commonService; 
 
@@ -67,9 +81,7 @@ public class MemberMGTController {
 	@RequestMapping("/memberListView")
 	public String memberListView(Model model){
 		
-		System.out.println("사용자 리스트 화면으로 이동");
 		
-//		return "/admin/member/ad_userMember";
 		return "/member/ad_userMember";
 	}
 	
@@ -83,7 +95,6 @@ public class MemberMGTController {
 	@RequestMapping("/cvsListView")
 	public String cvsListView(Model model){
 		
-		System.out.println("편의점 리스트 화면으로 이동");
 		
 		return "/member/ad_cvsMember";
 	}
@@ -98,7 +109,7 @@ public class MemberMGTController {
 	@RequestMapping("/cvsInsert")
 	public String cvsInsert(Model model){
 		
-		System.out.println("편의점 등록 화면으로 이동");
+		
 		
 		return "/member/ad_cvsInsert";
 	}
@@ -191,8 +202,243 @@ public class MemberMGTController {
 		return "/member/ad_cvsMember";
 	}
 	
+
 	
 	
+	
+	
+	
+	/**
+	 * 사용자 ID 중복 조회 -공
+	 * 회원가입 화면에서 사용자 ID 중복조회 ajax처리
+	 * @param request
+	 * @param response
+	 * @param mem_id
+	 * @param model
+	 * @throws IOException
+	 */
+	@RequestMapping("/chkMemIdDupli")
+	public void chkMemIdDupli( HttpServletRequest request
+			, HttpServletResponse response
+			, @RequestParam("mem_id") String mem_id
+			, Model model) throws IOException {
+
+		// 사용자 ID 중복 조회
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		response.getWriter().print(signUpService.getMemIdCnt(mem_id));
+	}
+
+	
+	/**
+	 * 사용자 tel 중복 조회 - 조
+	 * 회원가입 화면에서 사용자 전화번호 중복조회 ajax처리
+	 * @param request
+	 * @param response
+	 * @param mem_tel
+	 * @param model
+	 * @throws IOException
+	 */
+	@RequestMapping("/chkMemTelDupli")
+	public void chkMemTelDupli( HttpServletRequest request
+			, HttpServletResponse response
+			, @RequestParam("mem_tel") String mem_tel
+			, Model model) throws IOException {
+
+		// 사용자 tel 중복 조회
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(signUpService.getMemTelCnt(mem_tel) );
+	}
+	
+
+	/**
+	 * 등록 처리 -
+	 * (처리 후 로그인 화면이동)
+	 * 작 성 자   : 공은별(pc24)
+	 * @param request
+	 * @param memberVo
+	 * @param model
+	 * @return
+	 * @throws IOException  
+	 */
+	@RequestMapping("/joinProcess")
+	public String joinProcess( HttpServletRequest request
+			, HttpServletResponse response
+			, @ModelAttribute("memberVo") MemberVo memberVo
+			, @ModelAttribute("filedataVo") FiledataVo filedataVo
+			, Model model) throws Exception {
+
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		logger.debug("paramVo : " + memberVo.toString());
+
+
+		//아이디 중복확인
+		if(0 < signUpService.getMemIdCnt(memberVo.getMem_id())) {
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().print("DUPLI");
+			return "login/userJoin";
+		}
+
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
+		//  주소합침     =  기본주소             + 상세주소
+		String addSum = memberVo.getMem_add() + memberVo.getMem_addr();
+
+		// 사용자가 입력한 주소로 좌표 반환하기
+		Map<String, String> resultCoordinate  = commonService.transformationAddr(addSum);
+
+		// memberVO 에 값 Set
+		memberVo.setMem_x(resultCoordinate.get("x"));
+		memberVo.setMem_y(resultCoordinate.get("y"));
+
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
+		
+		// 사용자 사진 업로드 09.11 - KONG========================================================================== 
+		if(filedataVo.getUpload_file() != null) {
+			for(MultipartFile file : filedataVo.getUpload_file()) {
+
+				String fileName = file.getOriginalFilename();
+				String fileExt = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+				
+				//★  서버 이미지 경로 /images/userpic/ 에 저장
+				String tempSavePath = "";
+//				tempSavePath = request.getSession().getServletContext().getRealPath("/images/userpic");	 // 소스가 배포된 경로 - 실제 서버운영 시 이걸로 해야함
+//				tempSavePath = "C:/Storage/workspaces/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+				tempSavePath = "D:/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+								
+				
+				
+				filedataVo.setMem_id(memberVo.getMem_id());
+				filedataVo.setFile_id(autoCodeCreate.autoCode("FD")); //파일코드
+				filedataVo.setFile_path(tempSavePath);    
+				filedataVo.setFile_name(fileName); 
+				filedataVo.setFile_upname(UUID.randomUUID().toString()+fileExt); 
+//				filedataVo.setFile_size((int) (long) file.getSize()); 
+//				filedataVo.setFile_dot(fileExt); // 확장자
+
+				// 디렉토리 없을 경우 생성
+				if(!new File(FileUtil.fileUploadPath).exists()) {
+					new File(FileUtil.fileUploadPath).mkdirs();
+				}
+
+				logger.debug("file_path :::::::::: {}", filedataVo.getFile_path());
+				logger.debug("file_name :::::::::: {}", filedataVo.getFile_name());
+				logger.debug("file_upname :::::::::: {}", filedataVo.getFile_upname());
+
+				memberVo.getFileList().add(filedataVo);
+
+				// 파일 저장
+				try {
+					FileUtils.writeByteArrayToFile(new File(filedataVo.getFile_path(), filedataVo.getFile_upname()), file.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+					throw new Exception(file.getName() + " 파일 저장 실패");
+				}
+			}
+		}
+		memberVo.setMem_point(0);
+		int result = signUpService.newMember(memberVo);
+		
+		logger.debug("signUpService.newMember - result : {}", result );
+		//		response.setContentType("text/html; charset=UTF-8");
+		//		response.setCharacterEncoding("UTF-8");
+		//		
+		//		response.getWriter().print(result);
+
+		return "redirect:/login/loginView";
+	}
+	
+	
+	/**
+	 * 회원정보 수정
+	 * (처리 후 로그인 화면이동)
+	 * 작 성 자   : 공은별(pc24)
+	 * @param request
+	 * @param memberVo
+	 * @param model
+	 * @return
+	 * @throws IOException  
+	 */
+	@RequestMapping("/updateProcess")
+	public String updateProcess( HttpServletRequest request
+			, HttpServletResponse response
+			, @ModelAttribute("memberVo") MemberVo memberVo
+			, @ModelAttribute("filedataVo") FiledataVo filedataVo
+			, Model model) throws Exception {
+
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		logger.debug("paramVo : " + memberVo.toString());
+
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
+		//  주소합침     =  기본주소             + 상세주소
+		String addSum = memberVo.getMem_add() + memberVo.getMem_addr();
+
+		// 사용자가 입력한 주소로 좌표 반환하기
+		Map<String, String> resultCoordinate  = commonService.transformationAddr(addSum);
+
+		// memberVO 에 값 Set
+		memberVo.setMem_x(resultCoordinate.get("x"));
+		memberVo.setMem_y(resultCoordinate.get("y"));
+
+		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
+		
+		String tempSavePath = "";
+		// 사용자 사진 업로드 09.11 - KONG========================================================================== 
+		if(filedataVo.getUpload_file() != null) {
+			for(MultipartFile file : filedataVo.getUpload_file()) {
+				
+				if(file.getOriginalFilename() == null || file.getOriginalFilename().equals("") ) {
+					continue;
+				}
+				
+				String fileName = file.getOriginalFilename();
+				String fileExt = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+				
+				//★  서버 이미지 경로 /images/userpic/ 에 저장
+//				tempSavePath = request.getSession().getServletContext().getRealPath("/images/userpic");	 // 소스가 배포된 경로 - 실제 서버운영 시 이걸로 해야함
+//				tempSavePath = "C:/Storage/workspaces/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+				tempSavePath = "D:/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+								
+				
+				filedataVo.setMem_id(memberVo.getMem_id());
+				filedataVo.setFile_id(autoCodeCreate.autoCode("FD")); //파일코드
+				filedataVo.setFile_path(tempSavePath);    
+				filedataVo.setFile_name(fileName); 
+				filedataVo.setFile_upname(UUID.randomUUID().toString()+fileExt); 
+				filedataVo.setFile_size((int) (long) file.getSize()); 
+				filedataVo.setFile_dot(fileExt); // 확장자
+
+				// 디렉토리 없을 경우 생성
+				if(!new File(FileUtil.fileUploadPath).exists()) {
+					new File(FileUtil.fileUploadPath).mkdirs();
+				}
+
+				logger.debug("file_path :::::::::: {}", filedataVo.getFile_path());
+				logger.debug("file_name :::::::::: {}", filedataVo.getFile_name());
+				logger.debug("file_upname :::::::::: {}", filedataVo.getFile_upname());
+				logger.debug("file_size :::::::::: {}", filedataVo.getFile_size());
+
+				memberVo.getFileList().add(filedataVo);
+
+				// 파일 저장
+				try {
+					FileUtils.writeByteArrayToFile(new File(filedataVo.getFile_path(), filedataVo.getFile_upname()), file.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+					throw new Exception(file.getName() + " 파일 저장 실패");
+				}
+			}
+		}
+
+		int result = signUpService.updateMember(memberVo);
+		
+		logger.debug("signUpService.newMember - result : {}", result );
+
+		return "redirect:/login/loginView";
+	}
+
 	
 	
 	
