@@ -28,6 +28,15 @@
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
 <script src="build/js/jquery-1.12.4.js"></script>
+<script>
+       
+        
+        function eventPopup(){
+            var url="test.html";
+            window.open(url,"","width=1200,height=600,left=600");
+        }
+</script>
+
 
 <!-- </head> -->
 
@@ -63,8 +72,8 @@
 					<div class="x_title">
 			
 						<div class="col-xs-12">
-							<button class="btn btn-default" onclick="window.print();">
-								<i class="fa fa-print"></i> 등 록
+							<button class="btn btn-default" onclick="location.href ='<c:url value='admin/cvsInsert' />';">
+								<i class="fa fa-print"></i> 등 록  
 							</button>
 							
 							<span>

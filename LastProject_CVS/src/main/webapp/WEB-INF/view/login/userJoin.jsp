@@ -582,3 +582,22 @@ function fn_errMessage(_obj, _text) {
 </div>
 
 <!-- =======<tiles: ="content" /> ============> userJoin.jsp 끝  -->
+
+	<!-- jQuery -->
+	<script src="/vendors/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap -->
+	<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+	<!-- FastClick -->
+	<script src="/vendors/fastclick/lib/fastclick.js"></script>
+	<!-- NProgress -->
+	<script src="/vendors/nprogress/nprogress.js"></script>
+	<!-- iCheck -->
+	<script src="/vendors/iCheck/icheck.min.js"></script>
+	<!-- Datatables -->
+
+	<script src="/vendors/nprogress/nprogress.js"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script src="<c:url value='/build/js/custom.min.js' />"></script>
+        
+        
