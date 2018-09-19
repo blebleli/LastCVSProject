@@ -9,6 +9,8 @@ import kr.or.ddit.admin.model.AdminProdVo;
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.model.CategoryVo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +23,27 @@ public class AdminProdInfo {
 	@Resource(name="adminProdService")
 	AdminProdServiceInf adminProdService;
 	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	// 왼쪽 메뉴바 클릭시 이동
 	@RequestMapping("/adprodView")
 	public String adminProdView(Model model){
+		AdminProdVo pvo = new AdminProdVo();
+		// 기본 페이지 
+		pvo.setPage(1);
+		pvo.setPageSize(25);
+		
+		// 제품 목록
+		Map<String, Object> result = adminProdService.getProdList(pvo);
+		
+		
+		model.addAllAttributes(result);
+		
+		return "ad_prod";
+	}
+	
+	@RequestMapping("/categoryPopup")
+	public String categoryPopup(Model model){
 		
 		CategoryVo vo = new CategoryVo();
 		vo.setCtgy_kind("301");
@@ -34,19 +54,11 @@ public class AdminProdInfo {
 		// 중분류
 		List<CategoryVo> categoryMd = adminProdService.getProdCategory(vo);
 		
-		AdminProdVo pvo = new AdminProdVo();
-		// 기본 페이지 
-		pvo.setPage(1);
-		pvo.setPageSize(25);
-		
-		// 제품 목록
-		Map<String, Object> result = adminProdService.getProdList(pvo);
-		
 		model.addAttribute("categoryLg", categoryLg);
 		model.addAttribute("categoryMd", categoryMd);
-		model.addAllAttributes(result);
+
+		return "/admin/adprod/ad_category_popup";
 		
-		return "ad_prod";
 	}
 	
 	
