@@ -195,32 +195,27 @@
 				  <!-- ========================================================================== -->
                   <div class="x_content">
                   	<div>
-	                  	<table>
-	                  		<tr>						
-								<th>공지사항 <input checked required data-parsley-multile="gender"
-									type="radio" class="flat" name="gender" id="bd_kind_id44"
-									value="${bd_kind_id }" />
-								</th>
-								<th>
-								상품리뷰 <input type="radio" class="flat" name="gender" id="bd_kind_id55" value="55" />
-								</th>
-								<th>
-								이벤트 <input type="radio" class="flat" name="gender" id="bd_kind_id66" value="66" />
-								</th>
-								<th>
-								<button id="buttons" type="button" class="btn btn-default btn-xs">확인</button>
-								</th>
-								<th colspan="6">
-									<form id="boardGo" action="/adboard/boardNew" method="post">											
-										<span style="float: right">
-												<button class="btn btn-default btn-xs" id="boardNew" type="button">등록</button>							
-												<button class="btn btn-default btn-xs" id="boardDel" type="reset">삭제</button>
-										</span>											
-									</form>
-								</th>
-
-							</tr>
-						</table>											
+						<form id="boardGo" action="/adboard/boardNew" method="post">
+							공지사항 <input checked required data-parsley-multile="gender"
+								type="radio" class="flat" name="gender" id="bd_kind_id44"
+								value="${bd_kind_id }" /> 
+							상품리뷰 <input type="radio" class="flat"
+								name="gender" id="bd_kind_id55" value="55" />
+							이벤트 <input
+								type="radio" class="flat" name="gender" id="bd_kind_id66"
+								value="66" />
+								
+							<button id="buttons" type="button" class="btn btn-default btn-xs">점검중</button>
+							
+							<ul class="nav navbar-right panel_toolbox">
+								<li class="dropdown">
+									<button class="btn btn-default btn-xs" id="boardNew"
+										type="button">등록</button>
+								</li>
+								<li><button class="btn btn-default btn-xs" id="boardDel"
+										type="reset">삭제</button></li>
+							</ul>
+						</form>
 					</div>
 					<div class="table-responsive">
 						<table id="datatable-buttons" class="table table-striped table-bordered">
