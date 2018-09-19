@@ -5,6 +5,9 @@ public class CvsCountVo {
 	private String local;
 	private int count;
 	
+	public CvsCountVo(){
+		super();
+	}
 	
 	public CvsCountVo(String local, int count) {
 		super();
