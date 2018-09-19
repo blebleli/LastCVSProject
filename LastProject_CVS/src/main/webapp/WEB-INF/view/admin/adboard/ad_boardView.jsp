@@ -26,7 +26,7 @@
 			
 			$("#boardDel").on("click", function(){
 				//form 태그를 submit
-				$("#boardGo").attr("action", "/admin/boardDel"); // 액션 변경
+				$("#boardGo").attr("action", "/adboard/boardDel"); // 액션 변경
 				$("#boardGo").submit();
 			});
 		});
@@ -161,7 +161,7 @@
         <!-- page content -->
         <div class="right_col" role="main" style="min-height: 900px;">
 			
-		<form id="frm" action="/admin/boardDetail" method="get">
+		<form id="frm" action="/adboard/boardDetail" method="get">
 			<input type="hidden" name="id" id="id">
 		</form>
 	
@@ -226,7 +226,7 @@
 								<button id="buttons" type="button" class="btn btn-default btn-xs">확인</button>
 								</th>
 								<th colspan="6">
-									<form id="boardGo" action="/admin/boardNew" method="post">											
+									<form id="boardGo" action="/adboard/boardNew" method="post">											
 										<span style="float: right">
 												<button class="btn btn-default btn-xs" id="boardNew" type="button">등록</button>							
 												<button class="btn btn-default btn-xs" id="boardDel" type="reset">삭제</button>

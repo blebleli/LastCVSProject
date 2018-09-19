@@ -114,7 +114,7 @@
 			
 			$("#boardDel").on("click", function(){ // 게시글 삭제 버튼을 누르면				
 				if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
-					$("#frm").attr("action", "/admin/boardDel"); // /admin/boardNew 액션을 /admin/boardDel 변경
+					$("#frm").attr("action", "/admin/boardDel"); // /adboard/boardNew 액션을 /adboard/boardDel 변경
 					$("#frm").submit(); // 삭제 이동					
 				} else { // 삭제 경고창 '아니오'를 누를시					
 					return false; // 그대로 있는다.					
@@ -224,7 +224,7 @@
 								<c:forEach items="${cList}" var="vo">
 									<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
-										<form id="delete" action="/admin/commentsDel" method="post">
+										<form id="delete" action="/adboard/commentsDel" method="post">
 											${vo.mem_id} >>> ${vo.cm_content} [${vo.cm_date}]
 											<input type="hidden" name="cm_id" value="${vo.cm_id}">
 											<input type="hidden" name="bd_id" value="${vo.bd_id}">
@@ -238,7 +238,7 @@
 										삭제된 댓글입니다.<br>
 									</c:if>
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-										<form id="delect" action="/board/deleteComment" method="post">
+										<form id="delect" action="/adboard/deleteComment" method="post">
 											비공개 댓글 입니다.
 											<input type="hidden" name="cm_id" value="${vo.cm_id}">
 											<input type="hidden" name="bd_id" value="${vo.bd_id}">
@@ -255,7 +255,7 @@
 							<td></td>
 							<td>
 								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
-								<form action="/admin/newComment" method="post" name="cm_content" id="newComments">
+								<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
 									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
 									<inpui type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
@@ -275,7 +275,7 @@
 						
 								
 								
-					<form id="frm" action="/admin/boardUpdate" method="post">
+					<form id="frm" action="/adboard/boardUpdate" method="post">
 					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
 						<span style="float: right">
 							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>

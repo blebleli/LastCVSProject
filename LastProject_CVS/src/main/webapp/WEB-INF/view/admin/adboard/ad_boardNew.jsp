@@ -55,7 +55,7 @@
 						<div class="x_content">
 		
 							<!-- 게시글 등록시 form submit -->
-							<form action="/admin/boardCreate" method="post" id="frmInsert"
+							<form action="/adboard/boardCreate" method="post" id="frmInsert"
 								enctype="multipart/form-data" data-parsley-validate=""
 								class="form-horizontal form-label-left">
 		

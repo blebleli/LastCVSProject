@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @SessionAttributes({"boardpage","pageNavi","bd_kind_id"})
-@RequestMapping("/admin")
+@RequestMapping("/adboard")
 @Controller("adboardController")
 public class AdboardController {
 	
