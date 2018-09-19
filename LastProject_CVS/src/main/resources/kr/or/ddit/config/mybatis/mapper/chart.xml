@@ -4,13 +4,35 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chart">
 
+<!-- 	아 이 디 : getAllCvsCount
+	  		반 환 값 : cvsCountVo
+	  		설    명 : 전국의 편의점 분포
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
 <select id="getAllCvsCount" resultType="cvsCountVo">
-	select substr(mem_add,1,2), count(*) from member 
-	where mem_add like '%특별시%'
-	or mem_add like '%광역시%'
-	group by substr(mem_add,1,2)
+	SELECT SUBSTR(mem_add,1,4) as local, count(*) as count 
+		FROM member 
+		WHERE mem_kind = '01' 
+		AND mem_add like '%경기%'
+		OR mem_add like '%경상%'
+		OR mem_add like '%전라%'
+		OR mem_add like '%충청%'
+		GROUP BY SUBSTR(mem_add,1,4)
 </select>
 
+<!-- 	아 이 디 : getCvsServiceCount
+	  		반 환 값 : cvsCountVo
+	  		설    명 : 편의점 서비스 통계
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
+<select id="getCvsServiceCount" resultType="cvsCountVo">
+	SELECT a.ctgy_name, count(*) 
+		FROM category a, cvs_service b
+		WHERE a.ctgy_id = b.ctgy_id
+		GROUP BY a.ctgy_name
+</select>
 
 
 
