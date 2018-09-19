@@ -195,12 +195,13 @@ public class CvsBarcodeController {
 			//코드확인용
 			mav.addObject("decodedText", decoded);				
 
-	    	//입고리스트일때
+/*	    	//입고리스트일때
 	    	List<SupplyListVo> supplyList = supplyService.getListSupplyList(decoded);
- 			mav.addObject("supplyList", supplyList);
+ 			mav.addObject("supplyList", supplyList);*/
 	    	
 	    	//상품바코드일때 처리(결제,주머니, 폐기)
  			PresentStockListVo prodVo = stockService.getBarcodeProd(decoded);
+ 			logger.debug("controller 에서 prodVo ------"+prodVo);	
  			mav.addObject("prodVo", prodVo);
 		}
 		

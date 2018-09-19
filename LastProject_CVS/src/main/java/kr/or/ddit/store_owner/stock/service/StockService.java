@@ -175,8 +175,8 @@ public class StockService implements StockServiceInf {
 	 *  *** ---0918  한수정 saleDispService 에서 사용
 	 */
 	@Override
-	public PresentStockListVo getBarcodeProd(String prod_id) {
-		return stockDao.getBarcodeProd(prod_id);
+	public PresentStockListVo getBarcodeProd(String bcd_id) {
+		return stockDao.getBarcodeProd(bcd_id);
 	}
 
 	/**

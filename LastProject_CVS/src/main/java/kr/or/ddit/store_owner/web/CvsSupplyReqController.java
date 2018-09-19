@@ -103,13 +103,59 @@ public class CvsSupplyReqController {
 	@RequestMapping("/stock")
 	public String myStockList(Model model){
 		
-		//mem_id 로 가장 최근1건의 stock list 
+		//mem_id 로 가장 최근1건의 stock의 stock-list 	
 		
 		String mem_id = "3090000-104-2016-00061";//session 값 넣기
 		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(mem_id);
 		model.addAttribute("myStockList", myStockList);
 
 		return "cvs_stock";
+	}
+
+	
+	/**
+	 * 
+	 * Method   : requestList 
+	 * 최초작성일  : 2018. 9. 19. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param requestprod
+	 * @param model
+	 * @return 
+	 * Method 설명 :
+	 */
+	@RequestMapping("/requestList")
+	@ResponseBody
+	public String requestList(@RequestParam(value="requestProd")String[] requestprod, Model model){
+		
+		List<ProdVo> requestprods = null;
+		
+		for (String prod_id : requestprod) {
+			ProdVo ps = prodService.getProd(prod_id); //prodid 로 제품 vo 가져온다.			
+			requestprods.add(ps);
+		}
+		logger.debug("list ------"+requestprods);
+		
+		model.addAttribute("requestList", requestprods);
+		
+		return "cvs_supply_request";
+	}
+	
+	
+/*	*//**
+	* Method : requestList
+	* Method 설명 : 현재 재고 목록에서 발주 신청하고 싶은 목록을 저장할 List<ProdVo>
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return StockVo
+	*//*
+*/	@ModelAttribute("requestList")
+	public List<ProdVo> requestList(){
+		List<ProdVo> requestList = new ArrayList<ProdVo>();
+		return requestList;
 	}
 	
 /*	
@@ -142,22 +188,7 @@ public class CvsSupplyReqController {
 	
 
 	
-	*//**
-	* Method : requestList
-	* Method 설명 : 현재 재고 목록에서 발주 신청하고 싶은 목록을 저장할 List<ProdVo>
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return StockVo
-	*//*
-	@ModelAttribute("requestList")
-	public List<ProdVo> requestList(){
-		List<ProdVo> requestList = new ArrayList<ProdVo>();
-		return requestList;
-	}
-	
+
 
 	*//**
 	* Method : cvssupplyReqest
@@ -212,36 +243,6 @@ public class CvsSupplyReqController {
 	}
 	
 
-	*//** Method : requestList
-	* Method 설명 : 재고 목록에서 선택한 재고상품 리스트에 추가
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return List<PresentStockListVo>
-	*//*
-	@RequestMapping(value="/requestList", method=RequestMethod.GET )
-	@ResponseBody
-	public ProdVo requestList(@RequestParam(value="requestProd")String requestprod, Model model){
-		Map modelMap = model.asMap();
-		ProdVo ps = null;
-		ps = prodService.getProd(requestprod);
-		List<ProdVo> requestList = (List<ProdVo>) modelMap.get("requestList");
-		logger.debug("requestprod --------"+requestprod);
-		if(requestList !=null){
-			for(int i = 0; i < requestList.size(); i++){
-				if(!requestList.get(i).getProd_id().equals(requestprod)){
-					logger.debug("prod not same -----"+requestList.get(i).getProd_id());
-				}
-			}
-		}
-		requestList.add(ps);
-		
-		logger.debug("list ------"+requestList);
-		model.addAttribute("requestList", requestList);
-		return ps;
-	}
 	
 	*//** Method : searchList
 	* Method 설명 : 검색한 상품의 결과 목록 ajax

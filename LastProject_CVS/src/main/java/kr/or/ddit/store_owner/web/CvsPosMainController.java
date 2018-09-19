@@ -126,15 +126,15 @@ public class CvsPosMainController {
 		//판매리스트(saleList) insert ==============================================
 		for (PresentStockListVo dispVo : preStockList) {
 			//disposal 코드 생성
-			String disList_id = autoCodeCreate.autoCode("SALE_L","3000000-104-2016-00044");	
+			String saleList_id = autoCodeCreate.autoCode("SALE_L","3000000-104-2016-00044");	
 			
 			
 			SaleListVo saleListVo = new SaleListVo();
 
 			saleListVo.setBcd_id(dispVo.getBcd_id());
-			//saleListVo.setProd_id(prod_id);
+			//saleListVo.setProd_id(prod_id); 
 			saleListVo.setSale_amount(dispVo.getStcklist_amount());
-			saleListVo.setSale_id(sale_id);
+			saleListVo.setSale_id(saleList_id);
 			saleListVo.setSale_kind("카드or 현금");
 			saleListVo.setSale_sum(sum);
 			saleListVo.setSd_id(saleDisVo.getSd_id());
@@ -146,8 +146,12 @@ public class CvsPosMainController {
 		//재고(stock) update ==============================================			
 			
 			//수량 업데이트
-			StockListVo StockListVo = stockService.getStockListByBcdID(dispVo.getBcd_id());			
-			StockListVo.setStcklist_amount(StockListVo.getStcklist_amount() - dispVo.getStcklist_amount());			
+			StockListVo StockListVo = stockService.getStockListByBcdID(dispVo.getBcd_id());		
+			int nowAmount = StockListVo.getStcklist_amount();
+			int saledAmount = dispVo.getStcklist_amount();		
+			
+			StockListVo.setStcklist_amount(nowAmount-saledAmount);
+			
 			stockService.updateStockList(StockListVo);			
 		}
 
@@ -193,7 +197,7 @@ public class CvsPosMainController {
 		
 		//폐기 insert  =====================================================
 		//sale dis 의 dis코드 생성
-		String dis_id = autoCodeCreate.autoCode("DIS","3000000-104-2016-00044");	
+		String dis_id = autoCodeCreate.autoCode("DIS","3090000-104-2016-00061");	
 
 		//가격합계
 		int sum = preStockList.stream().mapToInt(vo -> {
@@ -201,11 +205,6 @@ public class CvsPosMainController {
 			return vo.getStcklist_amount() * price;
 		}).sum();
 		
-		logger.debug("dis_id --------------"+ dis_id);
-		logger.debug("sum --------------"+ sum);
-		
-		
-			
 		SaleDisVo saleDisVo = new SaleDisVo();
 		saleDisVo.setSd_id(dis_id); 	  //Autocode 로 생성
 		saleDisVo.setSd_date(new Date()); // 날짜
@@ -215,26 +214,43 @@ public class CvsPosMainController {
 		
 		saleDisService.setInsertSaleDis(saleDisVo);
 		
-		/*
+		logger.debug("폐기 insert 완료 --------------");
+		
 		//폐기리스트 insert  =====================================================
 		for (PresentStockListVo dispVo : preStockList) {
 			//disposal 코드 생성
-			String disList_id = autoCodeCreate.autoCode("DIS_L","3000000-104-2016-00044");	
+			String disList_id = autoCodeCreate.autoCode("DIS_L","3090000-104-2016-00061");	
 			
 			DisposalListVo disposalListVo = new DisposalListVo();
 
-			disposalListVo.setDisp_id(disList_id); 			//Autocode 로 생성될 예정
+			disposalListVo.setDisp_id(disList_id); 			//Autocode 로 생성
+			logger.debug("setDisp_id --------------"+disList_id);
 			disposalListVo.setBcd_id(dispVo.getBcd_id()); 			// 이미 존재
-			disposalListVo.setDisp_amount(dispVo.getStcklist_amount()); // 이미 존재			
-			disposalListVo.setDisp_exdate(dispVo.getStcklist_exdate());   //bcd_id로 유통기한 가져오는 db 필요
+			logger.debug("setBcd_id --------------"+dispVo.getBcd_id());
+			disposalListVo.setDisp_amount(dispVo.getStcklist_amount()); // 이미 존재	
+			logger.debug("setDisp_amount --------------"+dispVo.getStcklist_amount());
+			disposalListVo.setDisp_exdate(dispVo.getStcklist_exdate()); //bcd_id로 유통기한 가져오는 db 필요
+			logger.debug("setDisp_exdate--------------"+dispVo.getStcklist_exdate());
 			disposalListVo.setSd_id(saleDisVo.getSd_id());  //위에서의 id
-			
+			logger.debug("setSd_id --------------"+saleDisVo.getSd_id());
 			disService.setInsertDispList(disposalListVo);
-
-		}*/
-		
-		
+			
+			logger.debug("폐기 list insert 완료 --------------");
+			
 		//재고 수량 update  =====================================================
+			StockListVo StockListVo = stockService.getStockListByBcdID(dispVo.getBcd_id());		
+			int nowAmount = StockListVo.getStcklist_amount();
+			int dispAmount = dispVo.getStcklist_amount();		
+			
+			StockListVo.setStcklist_amount(nowAmount-dispAmount);
+			
+			stockService.updateStockList(StockListVo);
+			
+			logger.debug("재고 update 완료 --------------");
+		}
+
+		
+		
 		
 	 }
 	
