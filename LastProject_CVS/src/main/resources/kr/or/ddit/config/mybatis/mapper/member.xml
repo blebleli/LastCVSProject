@@ -209,9 +209,10 @@
 					  <if test="mem_name != null and mem_name != ''">
 					    AND MEM_NAME = #{mem_name, jdbcType=VARCHAR}
 					  </if>
-				    ORDER BY MEM_NAME )
+				   -- <!-- ORDER BY MEM_NAME  -->
+				   )
 			  a )
-		WHERE rn BETWEEN (#{page, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}+1 AND #{page, jdbcType=INTEGER}*#{pageSize, jdbcType=INTEGER}
+		-- <!-- WHERE rn BETWEEN (#{page, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}+1 AND #{page, jdbcType=INTEGER}*#{pageSize, jdbcType=INTEGER} -->
 	</select>
 	
 
