@@ -1,5 +1,8 @@
 package kr.or.ddit.admin.supply.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,8 @@ import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.model.SupplyListVo;
+import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.store_owner.web.CvsBarcodeController;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
@@ -133,29 +138,112 @@ public class AdminSupplyController {
 	}
 	
 	@RequestMapping("/supplyCheck")
-	public String supplyCheck(@RequestParam(value="supply_bcd") String supply_bcd,
+	public String supplyCheck(@RequestParam(value="supply_bcd")String supply_bcd,
 											Model model,
 											MemberVo memberVo){
+		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
+		
+		logger.debug("check: {}",check);
+		logger.debug("vo.getMem_id() : {}",memberVo.getMem_id());
+		
+		//점주 ID이자 편의점 ID
 		String mem_id = memberVo.getMem_id();
 		
 		
+		//supply_bcd를 새로이 생성
+		String code = "SUPPLY";
+		String supply_bcdCode = autoCodeCreate.barcode(code);
 		
-//		String kind = "SUP10";
-//		String mem_id = "3240000-104-2015-00075";
-//		String barcode = autoCodeCreate.autoCode(kind, mem_id);
-//		
-//		BarcodeVo barcodeVo = new BarcodeVo();
-//		
-//		barcodeVo.setBcd_id(barcode);
-//		barcodeVo.setBcd_content("수불바코드");
-//		barcodeVo.setBcd_kind("102");
-//		barcodeVo.setBcd_path("D:\\최종프\\barcodeImg\\");
-//		
-//		barcodeService.setInsertBarcode(barcodeVo);
+		///////////////////////////////////////////////////////
+		//새로운 바코드 생성을 위한 셋팅
+		BarcodeVo barcodeVo = new BarcodeVo();
 		
-		logger.debug("check : {}",check);
-		logger.debug("mem_id : {}",mem_id);
+		//바코드이자 supply_bcd
+		barcodeVo.setBcd_id(supply_bcdCode);
+		barcodeVo.setBcd_content("발주 처리시 새로이 insert를 위한 (결제상태)바코드");
+		barcodeVo.setBcd_kind("102");
+		barcodeVo.setBcd_path("D:\\최종프\\barcodeImg\\");
+		
+		int i = barcodeService.setInsertBarcode(barcodeVo);
+		logger.debug("barcodeVo.getBcd_id() : {}",barcodeVo.getBcd_id());
+		///////////////////////////////////////////////////////
+		
+		//만약 바코드가 성공적으로 생성 되었다면 . . .
+		if(i >= 1){
+			//supply를 하나 새로이 생성
+			SupplyVo supplyVo = new SupplyVo();
+			
+			supplyVo.setSupply_bcd(barcodeVo.getBcd_id());
+			supplyVo.setSupply_state("11");
+			supplyVo.setPlace_id(mem_id);
+			
+			supplyService.setInsertSupply(supplyVo);
+			
+		}else {
+			System.out.println("바코드 생성을 실패 하였습니다.");
+			
+		}
+		
+		List<SupplyListVo> list = supplyService.getListSupplyList(check);
+		for (SupplyListVo vo : list) {
+			logger.debug("/////////////////////////////////////////////////////////////{}");
+			logger.debug("supplyListVo.getSplylist_id() : {}",vo.getSplylist_id());
+			logger.debug("supplyListVo.getSupply_bcd() : {}",vo.getSupply_bcd());
+			logger.debug("/////////////////////////////////////////////////////////////{}");
+			logger.debug("supplyListVo.getSplylist_info() : {}",vo.getSplylist_info());
+			logger.debug("supplyListVo.getSplylist_exdate() : {}",vo.getSplylist_exdate());
+			logger.debug("supplyListVo.getSplylist_sum() : {}",vo.getSplylist_sum());
+			logger.debug("supplyListVo.getProd_id() : {}",vo.getProd_id());
+			
+			
+			//supply_list를 만들기 위한 객체
+			SupplyListVo supplyListVo = new SupplyListVo();
+			
+			////////////////////////////////////////////////////////
+			//기존에 있던 supply_list 정보를 가져다 넣는다
+			//제품 아이디
+			supplyListVo.setProd_id(vo.getProd_id());
+			
+			String oldString = vo.getSplylist_exdate();
+			logger.debug("oldString : {}" , oldString);
+			try {
+				Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldString);
+				logger.debug("date : {}",date);
+				String newstring = new SimpleDateFormat("yyyy/MM/dd").format(date);
+				logger.debug("newstring : {}",newstring);
+				//유통기한
+				supplyListVo.setSplylist_exdate(newstring);
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			//비고
+			if(vo.getSplylist_info() != null){
+				supplyListVo.setSplylist_info(vo.getSplylist_info());
+			}else if(vo.getSplylist_info() == null){
+				supplyListVo.setSplylist_info("");
+			}
+			
+			
+			//수량
+			supplyListVo.setSplylist_sum(vo.getSplylist_sum());
+			////////////////////////////////////////////////////////
+			
+			//새로이 만든 바코드로 supply와 supply_list의 supply_bcd값을 일치 시킨다.
+			supplyListVo.setSupply_bcd(barcodeVo.getBcd_id());
+			
+			//splylist_id를 새로이 만들기 위한 코드 자동 생성 메서드 실행
+			String code2 = "SUP11";
+			String splylist_id = autoCodeCreate.autoCode(code2, mem_id);
+			//새로 만든 코드를 가지고 supply_list의 splylist_id값으로 집어 넣는다.
+			supplyListVo.setSplylist_id(splylist_id);
+			
+			supplyService.setInsertSupplyList(supplyListVo);
+			
+		}
+		
 		
 		return "ad_supplyLookupView";
 	}

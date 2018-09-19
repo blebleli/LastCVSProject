@@ -87,7 +87,6 @@ public class SupplyDao implements SupplyDaoInf {
 
 	@Override
 	public int deleteSupplyList(String splylist_id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -133,6 +132,12 @@ public class SupplyDao implements SupplyDaoInf {
 	*/
 	@Override
 	public int sumProdPrice(String supply_bcd) {
+		
+		if(template.selectOne("supply.sumProdPrice",supply_bcd) == (null) ||
+		   template.selectOne("supply.sumProdPrice",supply_bcd) == null){
+			return 0;
+		}
+		
 		return template.selectOne("supply.sumProdPrice",supply_bcd);
 	}
 

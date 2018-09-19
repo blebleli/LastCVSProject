@@ -109,7 +109,7 @@
 									<td>
 									<c:choose>
 										<c:when test="${vo.supply_state == 10}">
-											수불
+											발주
 										</c:when>
 										<c:when test="${vo.supply_state == 11}">
 											결제

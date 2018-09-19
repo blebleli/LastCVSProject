@@ -70,13 +70,15 @@
 									<h1>
 										<i class="fa fa-globe">수불 신청 내역</i> 
 										<small class="pull-right">
-											<form action="/admin/supplyCheck" method="get">
+										<td>
+											<form action="/admin/supplyCheck" method="post">
 												<input type="hidden" name="supply_bcd" value="${supply_bcd}">
 												<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
 												<button type="submit" onclick="supply_check();" class="btn btn-primary pull-right" style="margin-right: 5px;">
-													수불 신청 확인
+													발주 신청 확인
 												</button>
 											</form>
+										</td>
 										</small>
 									</h1>
 								</div>
