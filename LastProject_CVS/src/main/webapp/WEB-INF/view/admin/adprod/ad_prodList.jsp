@@ -28,7 +28,8 @@
 <script src="build/js/jquery-1.12.4.js"></script>
 <script>
         function categoryPopup(){
-            var url="test.html";
+//             var url="/WEB-INF/view/admin/adprod/ad_category_popup.jsp";
+            var url="/adprod/categoryPopup";
             window.open(url,"","width=400,height=400,left=600");
         }
         

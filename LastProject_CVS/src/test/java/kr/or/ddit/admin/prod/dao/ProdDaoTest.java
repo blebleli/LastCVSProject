@@ -54,7 +54,7 @@ public class ProdDaoTest {
 	public void getProdListTest() {
 		AdminProdVo vo = new AdminProdVo();
 		vo.setPage(1);
-		vo.setpageSize(10);
+		vo.setPageSize(10);
 		vo.setCost_min(0);
 		vo.setProd_cost(500);
 //		logger.debug("vo ==> {}", vo);
@@ -81,7 +81,7 @@ public class ProdDaoTest {
 	public void getProdListCountTest() {
 		AdminProdVo vo = new AdminProdVo();
 		vo.setPage(1);
-		vo.setpageSize(10);
+		vo.setPageSize(10);
 		vo.setCost_min(0);
 		vo.setProd_cost(500);
 		int cnt = dao.getProdListCount(vo);
