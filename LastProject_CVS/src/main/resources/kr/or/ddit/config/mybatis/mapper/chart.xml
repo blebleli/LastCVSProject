@@ -28,7 +28,7 @@
 	  		일    시 : 2018-09-17     
 	 -->
 <select id="getCvsServiceCount" resultType="cvsCountVo">
-	SELECT a.ctgy_name, count(*) 
+	SELECT a.ctgy_name as local, count(*) as count
 		FROM category a, cvs_service b
 		WHERE a.ctgy_id = b.ctgy_id
 		GROUP BY a.ctgy_name
