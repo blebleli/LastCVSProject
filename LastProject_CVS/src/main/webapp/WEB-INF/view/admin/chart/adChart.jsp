@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,44 +9,87 @@
 
 <!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
-    <link href="/build/js/custom.js">
+<!--     <link href="/build/js/custom.js"> -->
 
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-
-      // Load the Visualization API and the corechart package.
+  <script>
+  	
       google.charts.load('current', {'packages':['corechart']});
-
-      // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
       function drawChart() {
-
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
+        var list1 = new Array();
+        data.addColumn('string', 'Local');
+        data.addColumn('number', 'count');
+        
+        <c:forEach items="${list1}" var="list">
+        	list1.push("${list}");
+       		console.log(list1);
+       		var c = "${list.count}"
+       		console.log(parseInt(c));
+       		
+       		data.addRows([["${list.local}", parseInt(c)]]);
+        </c:forEach> 
+       
+        var options = {'title':'',
+                       'width':'100%',
+                       'height':'100%',
+                       'pieHole': 0.4,
+                       'pieSliceText': 'label'};
 
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':300,
-                       'height':200};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('echart_pie'));
+        var chart = new google.visualization.PieChart(document.getElementById('graph_bar_group'));
         chart.draw(data, options);
+       
+        
       }
-    </script>    
+    </script> 
+    <script>
+    
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+    	
+        var list2 = new Array();
+        var header =["Element", "Density", { role: "style" } ];
+//         list2.push([["Element", "Density", { role: "style" }]]);
+        list2.push(header);
+        
+        <c:forEach items="${list2}" var="list">
+// 	    	list2.push("${list}");
+	   		console.log(list2);
+	   		var c = "${list.count}"
+	   		console.log(parseInt(c));
+// 	   		var temp=[];
+	   		list2.push(["${list.local}", parseInt(c),"color : #0663b8"]);
+// 	   		 list2.push(temp);
+   		 </c:forEach>
+   		 
+   		var data2 = google.visualization.arrayToDataTable(list2);
+   		var view = new google.visualization.DataView(data2);
+        view.setColumns([0, 1,
+                         { calc: "stringify",
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+        
+   		var options2 = {
+   		        title: "",
+//    		        width: 500,
+   		        width: '100%',
+   		        height: '100%',
+   		        bar: {groupWidth: "95%"},
+   		        legend: { position: "none" },
+   		      };
+   		 var chart2 = new google.visualization.BarChart(document.getElementById("graph_bar"));
+         chart2.draw(view, options2);
+    } 
+    
+    
+    
+    </script>   
     
 </head>
 <body>
@@ -72,157 +116,11 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              <div class="col-md-8 col-sm-8 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Bar Graph</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <div id="mainb" style="height:350px;"></div>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Mini Pie</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <div id="echart_mini_pie" style="height:350px;"></div>
-
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Pie Graph</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <div id="echart_pie" style="height:350px;"></div>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Pie Area</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <div id="echart_pie2" style="height:350px;"></div>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Donut Graph</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <div id="echart_donut" style="height:350px;"></div>
-
-                  </div>
-                </div>
-              </div>
-
-
+               <!-- bar chart -->
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Scatter Graph</h2>
+                    <h2>Bar Charts <small>Sessions</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -241,17 +139,17 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
-                    <div id="echart_scatter" style="height:350px;"></div>
-
+                    <div id="graph_bar" style="width:100%; height:280px;"></div>
                   </div>
                 </div>
               </div>
+              <!-- /bar charts -->
 
+              <!-- bar charts group -->
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Line Graph</h2>
+                    <h2>Bar Chart Group <small>Sessions</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -269,18 +167,19 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
-
-                    <div id="echart_line" style="height:350px;"></div>
-
+                  <div class="x_content1">
+                    <div id="graph_bar_group" style="width:100%; height:280px;"></div>
                   </div>
                 </div>
               </div>
+              <div class="clearfix"></div>
+              <!-- /bar charts group -->
 
-              <div class="col-md-4 col-sm-4 col-xs-12">
+              <!-- bar charts group -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Horizontal Bar</h2>
+                    <h2>Bar Chart Group <small>Sessions</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -298,18 +197,18 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
-
-                    <div id="echart_bar_horizontal" style="height:370px;"></div>
-
+                  <div class="x_content2">
+                    <div id="graphx" style="width:100%; height:300px;" ></div>
                   </div>
                 </div>
               </div>
+              <!-- /bar charts group -->
 
-              <div class="col-md-8 col-sm-8 col-xs-12">
+              <!-- pie chart -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>World Map</h2>
+                    <h2>Pie Chart <small>Sessions</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -327,19 +226,18 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
-
-                    <div id="echart_world_map" style="height:370px;"></div>
-
+                  <div class="x_content2">
+                    <div id="graph_donut" style="width:100%; height:300px;"></div>
                   </div>
                 </div>
               </div>
+              <!-- /Pie chart -->
 
-
-              <div class="col-md-4 col-sm-4 col-xs-12">
+              <!-- graph area -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Pyramid</h2>
+                    <h2>Graph area <small>Sessions</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -357,18 +255,18 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
-
-                    <div id="echart_pyramid" style="min-height:200px;"></div>
-                  
+                  <div class="x_content2">
+                    <div id="graph_area" style="width:100%; height:300px;"></div>
                   </div>
                 </div>
               </div>
+              <!-- /graph area -->
 
-              <div class="col-md-4 col-sm-4 col-xs-12">
+              <!-- line graph -->
+              <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Sonar</h2>
+                    <h2>Line Graph <small>Sessions</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -386,41 +284,12 @@
                     </ul>
                     <div class="clearfix"></div>
                   </div>
-                  <div class="x_content">
-
-                    <div id="echart_sonar" style="height:370px;"></div>
-
+                  <div class="x_content2">
+                    <div id="graph_line" style="width:100%; height:300px;"></div>
                   </div>
                 </div>
               </div>
-
-
-              <div class="col-md-4 col-sm-4 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Gauge</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <div id="echart_gauge" style="height:370px;"></div>
-                  </div>
-                </div>
-              </div>
+              <!-- /line graph -->
             </div>
           </div>
         </div>
@@ -445,11 +314,11 @@
     <script src="../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- ECharts -->
-    <script src="../vendors/echarts/dist/echarts.min.js"></script>
-    <script src="../vendors/echarts/map/js/world.js"></script>
+    <!-- morris.js -->
+    <script src="../vendors/raphael/raphael.min.js"></script>
+    <script src="../vendors/morris.js/morris.min.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="/build/js/custom.js"></script>
 </body>
 </html>
