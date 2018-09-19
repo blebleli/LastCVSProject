@@ -1,5 +1,7 @@
 package kr.or.ddit.model;
 
+import kr.or.ddit.commons.model.PageVo;
+
 public class ProdVo extends PageVo {
 	
 	private String file_path;               // 파일 경로

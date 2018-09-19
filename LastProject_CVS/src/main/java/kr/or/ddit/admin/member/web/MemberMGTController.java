@@ -52,8 +52,8 @@ public class MemberMGTController {
 	@Resource(name="autoCodeCreate")
 	private AutoCodeCreate autoCodeCreate;
 
-	@Autowired 
-	private ResourceLoader resourceLoader;
+//	@Autowired 
+//	private ResourceLoader resourceLoader;
 
 	
 	//   localhost:8180/admin/main
@@ -163,7 +163,7 @@ public class MemberMGTController {
 	@RequestMapping("/cvsMemberList")
 	public String cvsMemberList(HttpServletRequest request, 
 			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="pageSize", defaultValue="30") int pageSize,
+			@RequestParam(value="pageSize", defaultValue="25") int pageSize,
 			Model model) {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());

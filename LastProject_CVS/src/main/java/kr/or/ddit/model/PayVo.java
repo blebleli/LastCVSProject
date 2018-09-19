@@ -2,6 +2,7 @@ package kr.or.ddit.model;
 
 import java.util.Date;
 
+import kr.or.ddit.commons.model.PageVo;
 /* 09.11 KONG :  extends PageVo 추가  */
 public class PayVo extends PageVo {
 	

@@ -3,6 +3,8 @@ package kr.or.ddit.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.or.ddit.commons.model.PageVo;
+
 public class MemberVo extends PageVo {
 	
 	private String mem_id;         // 일반:이메일, 점주:사업자번호, 관리자:일괄부여

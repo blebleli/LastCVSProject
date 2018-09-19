@@ -1,4 +1,4 @@
-package kr.or.ddit.model;
+package kr.or.ddit.commons.model;
 
 /* 09.11 KONG : PageVo 추가  */
 public class PageVo {
