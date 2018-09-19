@@ -137,9 +137,9 @@
 					registerReceiveChange(); // ---처음부터 거스름돈 체크 문제
 					
 			    	/* 샘플 데이터  -- 처음부터 비워진 셀을 만들어놓도록 수정예정*/
-			    	addRow({prodVo : {prodID : "prodID1",bcd_id : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
+			   /*  	addRow({prodVo : {prodID : "prodID1",bcd_id : "11",prod_name : "name1",prod_price : "1000",stcklist_amount:"1",event_id:"eventid1"}});
 			    	addRow({prodVo : {prodID : "prodID2",bcd_id : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
-			    	addRow({prodVo : {prodID : "prodID2",bcd_id : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"1",event_id:"eventid2"}});
+			    	addRow({prodVo : {prodID : "prodID2",bcd_id : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"1",event_id:"eventid2"}}); */
                  });
        
                  </script>
@@ -306,17 +306,22 @@
 				    		
 				    		$("#posTable tbody tr").each(function () {		                    	 
 				    			var data = $(this);		
+				    			console.log("data ::: "+data.find('.bcd_id').html())
+				    			console.log("data ::: "+data.find('.price1').html())
+				    			console.log("data ::: "+data.find('.amount').val())
+				    			console.log("data ::: "+data.find('.stcklist_exdate').html())
 				    			
 				    			dispList.push({bcd_id: data.find('.bcd_id').html(),
 				    					   prod_price: data.find('.price1').html(),
-				    				  stcklist_amount: data.find('.amount').val()})
+				    				  stcklist_amount: data.find('.amount').val(),
+				    				  stcklist_exdate: data.find('.stcklist_exdate').html()})
 		                    	 });	
 				    		
-				    		console.log("dispListSize ::: "+dispList.length);
+				    		console.log("dispListSize ::: "+dispList[0].stcklist_exdate);
 				    		
 				    		/* return false; */
 				    		
-				    		$.ajax({
+				   			$.ajax({
 		    					  url: "/cvs/pos/dispInsert",
 		    					  method: "post",
 		    					  data: JSON.stringify(dispList),
@@ -326,7 +331,7 @@
 		    						  emptyTable(); 
 		    				      },		 						
 								  error : function(){console.log("error");}		  								  
-				    		});					    		
+				    		});				    		
 						}
 				    	
 				    	/*삭제버튼 클릭시 */
@@ -359,10 +364,11 @@
 			                         '  <td><span class="bcd_id">'+ data.prodVo.bcd_id+'</span></td>'+
 			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
-			                         '  <td ><input type="text" class="amount" value="' +data.prodVo.stcklist_amount+'"></td>'+    				                         
+			                         '  <td ><input type="number" class="amount" value="' +1+'"></td>'+    				                         
 			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
 			                         '  <td ><span class="distot">'+ data.prodVo.event_id+'</span></td> '+
-			                         '  <td style="display: none"><span class="prodID">'+ data.prodVo.prodID+'</span></td> '+
+			                         '  <td style="display: none"><span class="stcklist_exdate">'+ data.prodVo.stcklist_exdate+'</span></td> '+		        
+			                         '  <td style="display: none"><span class="prod_id">'+ data.prodVo.prod_id+'</span></td> '+
 			                         '</tr>'			    								                                                                                     
 							);
 							
@@ -543,7 +549,7 @@
 				      <tr>
 				        <td><button class="culcBtn number">직접<br>입력</button></td>
 				        <td style="width: 100%"><div class="input-box"  >
-						    <input class="numInput" type="text" placeholder="0">
+						    <input class="numInput" type="number" placeholder="0">
 						  </div></td>				      
 				      </tr>
 				      <tr>
@@ -553,7 +559,7 @@
 				      <tr>
 				        <td><button class="culcBtn number">받은<br>금액</button></td>
 				     	<td><div class="input-box">
-						    <input id="received" class="numInput" type="text" placeholder="0">원
+						    <input id="received" class="numInput" type="number" placeholder="0">원
 						  </div>
 						</td>
 				      </tr>

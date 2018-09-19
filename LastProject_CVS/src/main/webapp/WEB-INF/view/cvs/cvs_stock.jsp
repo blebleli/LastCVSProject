@@ -27,7 +27,9 @@
      	$(document).ready(function(){
     		
      		$('#datatable').DataTable();
-     		
+
+	    	
+/*      		
     		$('.bulk_action input').on('ifChecked', function () {
     			var requestProd =$(this).val();
     			console.log(requestProd);
@@ -37,8 +39,23 @@
 	    			data : {"requestProd": requestProd},
 	    		});
     			
-   			});
+   			}); */
+   			
+   			
+   			//발주신청하려하는 id리스트를 controller로 넘기는 기능
+     		$( "#requestBtn" ).click(function(){	
+
+        		var requestList=[];		
+        	
+        		$('#datatable tbody tr').has('div.checked').each(function(){	
+        			var data = $(this);		
+        			requestList.push(data.find('.flat').val());
+                });        		
+        		console.log(dispList);
+    		});
+
     	}); 
+ 
     </script>
 
         <!-- page content -->
@@ -92,9 +109,9 @@
              	
                    
                     <p><code>발주신청하고싶은 제품</code>을 선택하세요 
-                    	<a href="/cvs/supplyReqest?page=1&pageSize=15">
+                    	<button id="requestBtn" class="btn btn-default">
                     		<i class="fa fa-sign-out" aria-hidden="true"></i>발주신청
-                    	</a>
+                    	</button>
                     </p>
 
                     <div class="table-responsive">
@@ -126,11 +143,12 @@
 	                        	<c:forEach items="${myStockList }" var="stock">
 	                        	
 		                          <tr class="even pointer">
-		                            <td class="a-center ">
-		                              <input type="checkbox" class="flat" name="table_records" id="requestProd" value="${stock.prod_id}">
+		                          	<td>
+			                          <div class="icheckbox_flat-green" style="position: relative;">
+			                            <input type="checkbox" class="flat" name="table_records" value="${stock.prod_id}">
+				                      </div>
 		                            </td>
-		                            <td class=" ">${stock.prod_name }</td>
-		                           
+		                            <td class=" ">${stock.prod_name }</td>		                           
 		                            <td class=" "><fmt:formatDate value="${stock.supply_date }" pattern="yyyy-MM-dd" /></td>
 		                            <td class=" "><fmt:formatDate value="${stock.stcklist_exdate }" pattern="yyyy-MM-dd" /></td>		   
 		                            <td class=" ">${stock.prod_price }</td>

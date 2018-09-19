@@ -10,7 +10,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-    
+
     
         <!-- page content -->
         <div class="right_col" role="main">

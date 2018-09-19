@@ -32,7 +32,7 @@
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="../build/css/cvsCustom.css" rel="stylesheet">
     
     <!-- left의 날짜별을 누르면 날짜별 내 월별화면으로 간다. -->
     <script src="../build/js/jquery-1.12.4.js"></script>
