@@ -62,4 +62,15 @@ public interface adBoardDaoInf {
 	 * Method 설명 : 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
 	 */
 	List<CommentsVo> getListComments(String bd_id);
+	
+	/**
+	 * Method : boardDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시물 삭제
+	 */
+	int boardDelete(String bd_id);
 }

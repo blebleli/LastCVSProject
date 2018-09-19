@@ -20,8 +20,9 @@
 						FROM board
 		              	WHERE bd_kind_id=#{bd_kind_id}
 						ORDER BY bd_date DESC       
-		      ) T )  WHERE cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
-	</select>
+		      ) T )  
+<!-- 		      WHERE cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize} -->
+	</select>	
 	<!-- 
 		select * from (
 		SELECT ROWNUM CNT, T.*
@@ -63,7 +64,7 @@
 					VALUES (							  
 							  #{bd_id}
 					 		, #{bd_title}
-					 		, RAWTOHEX(#{bd_content})
+					 		, UTL_RAW.CAST_TO_VARCHAR2(#{bd_content})
 					 		, sysdate
 					 		, 'N'
 					 		, null
@@ -75,11 +76,11 @@
 					 		)
   	</insert>
   	
-  	<!-- 관리자 - 게시글 상세조회 -->
+  	<!-- 관리자 - 게시글 상세조회 --> <!-- 관리자 - 게시글 수정화면 이동 -->
   	<select id="boardDetail" parameterType="String" resultType="boardJoinVo">
 		SELECT	  bd_id
 		 		, bd_title
-		 		, DBMS_LOB.SUBSTR('bd_content',DBMS_LOB.GETLENGTH('bd_content'), 1) STARTPATH
+		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
 		 		, bd_date
 		 		, bd_del
 		 		, bd_rating
@@ -93,4 +94,7 @@
   	</select>
   	
   	<!-- 관리자 - 게시글 삭제 -->
+  	<update id="boardDelete" parameterType="String">
+  		UPDATE board SET bd_del='Y' WHERE bd_id = #{bd_id}
+  	</update>
 </mapper>

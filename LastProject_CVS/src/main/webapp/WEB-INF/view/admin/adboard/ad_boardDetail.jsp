@@ -108,16 +108,29 @@
     <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
 		$(function(){			
-			$("#boardNew").on("click", function(){
-				$("#frm").submit();
-			});
+			$("#boardUpd").on("click", function(){ // 게시글 수정 버튼을 누르면				
+				$("#frm").submit(); // 수정 이동				
+			}); // $("#boardNew").on("click", function(){});
 			
-			$("#boardDel").on("click", function(){
-				//form 태그를 submit
-				$("#frm").attr("action", "/admin/boardDel"); // 액션 변경
-				$("#frm").submit();
+			$("#boardDel").on("click", function(){ // 게시글 삭제 버튼을 누르면				
+				if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
+					$("#frm").attr("action", "/admin/boardDel"); // /admin/boardNew 액션을 /admin/boardDel 변경
+					$("#frm").submit(); // 삭제 이동					
+				} else { // 삭제 경고창 '아니오'를 누를시					
+					return false; // 그대로 있는다.					
+				}			
+			}); // $("#boardDel").on("click", function(){});
+			
+			$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
+				if($("input[id='cm_opennyY']:checked").val()){ // 댓글 공개를 한다면 
+					$("#newComments").submit(); // 댓글 공개상태 저장 이동
+				}else if($("input[id='cm_opennyN']:checked").val()){ // 비공개를 한다면
+					$("#newComments").submit(); // 댓글 비공개상태 저장 이동
+				}else{ // 아무것도 체크 안할시
+					alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
+				}
 			});
-		});
+		}); // function()
 	</script>	
 		
     <!-- Datatables -->
@@ -209,11 +222,13 @@
 							<td id="demoFont">댓글</td>
 							<td id="demoFont2">
 								<c:forEach items="${cList}" var="vo">
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
+									<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
+									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
 										<form id="delete" action="/admin/commentsDel" method="post">
 											${vo.mem_id} >>> ${vo.cm_content} [${vo.cm_date}]
 											<input type="hidden" name="cm_id" value="${vo.cm_id}">
 											<input type="hidden" name="bd_id" value="${vo.bd_id}">
+											<input type="hidden" name="mem_id" value="admin">
 											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
 											<input type="button" name="reCommentsbt" id="reCommentsbt" style="font-size:12px" class="btn btn-default" value="답글">
 											<br id="this">
@@ -239,12 +254,15 @@
 						<tr>						
 							<td></td>
 							<td>
-								<form action="/board/newComment" method="post" name="cm_content[0]" id="cm_content">
+								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
+								<form action="/admin/newComment" method="post" name="cm_content" id="newComments">
 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
-									<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
+									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
+									<inpui type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
+									<input type="hidden" id="mem_id" name="mem_id" value="admin">
 									<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
-									<input type="radio" name="cm_openny" value="Y" >공개
-									<input type="radio" name="cm_openny" value="N" >비공개
+									<input type="radio" id="cm_openny" value="Y" >공개
+									<input type="radio" id="cm_openny" value="N" >비공개
 								</form>
 							</td>
 							<td></td>
@@ -257,13 +275,14 @@
 						
 								
 								
-					<form id="frm" action="/admin/boardNew" method="post">
+					<form id="frm" action="/admin/boardUpdate" method="post">
 					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
 						<span style="float: right">
 							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>
 							<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
 						</span>
-						<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
+						<input type="hidden" id="bd_id" name="bd_id" value="${b.bd_id}">
+						<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
 					</div>
 					</form>
 				</div>

@@ -179,7 +179,7 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardNew.jsp"/>
 	</definition>
 	
-	<!-- 관리자 게시판 삭제 -->
+	<!-- 관리자 게시판 수정 -->
 	<definition name="ad_boardUpdate" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardUpdate.jsp"/>
 	</definition>

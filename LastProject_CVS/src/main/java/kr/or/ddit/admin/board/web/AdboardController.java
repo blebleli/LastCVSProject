@@ -135,18 +135,61 @@ public class AdboardController {
 	}
 	
 	/**
+	 * Method : newComment
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : 댓글 작성
+	 */
+	@RequestMapping("/newComment")
+	public String newComment(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
+							 @RequestParam(value="cm_opennyY", defaultValue="") String cm_opennyY,
+							 @RequestParam(value="cm_opennyN", defaultValue="") String cm_opennyN, CommentsVo commentsVo, Model model){
+		
+		if(bd_kind_id == "44"){ // 공지사항이면
+			String CNOCODE = "CNO"; // 공지사항 코드 생성 준비
+			String cm_id = code.autoCode(CNOCODE); // 코드 생성
+			logger.debug("CNOCODE ==========> {} ", CNOCODE);			
+		} else { // 이벤트이면
+			String CEVCODE = "CEV"; // 이벤트 코드 생성 준비
+			String cm_id = code.autoCode(CEVCODE); // 코드 생성
+			logger.debug("CEVCODE ==========> {} ", CEVCODE);				
+		}
+		
+		if(cm_opennyY==""){ // 댓글 공개를 안하였다면
+			commentsVo.setCm_openny(cm_opennyN); // 비공개 체크 저장
+		}else{ // 댓글 공개를 하였다면
+			commentsVo.setCm_openny(cm_opennyY); // 공개 체크 저장
+		}
+		
+//		commentsVo.set
+//
+//		
+//		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID,cm_content, CM_DATE, CM_DELNY,CM_OPENNY, cm_group, cm_id2) 
+//		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),sysdate,'N',#{cm_openny},#{cm_group}, #{cm_id2})
+//		
+//		CM_ID
+//		CM_DELNY
+//		cm_group
+//		cm_id2
+		
+		return "";
+	}
+	
+	/**
 	 * Method : boardDel
 	 * 최초작성일 : 2018. 9. 17.
 	 * 작성자 : 김마음
 	 * 변경이력 : 신규
 	 * @param model
 	 * @return
-	 * Method 설명 : 게시글 수정(공지사항, 상품리뷰, 이벤트)
+	 * Method 설명 : 게시글 수정화면(공지사항, 상품리뷰, 이벤트) 이동
 	 */
 	@RequestMapping("/boardUpdate")
-	public String boardUpdate(Model model){
-		String mem_id = "admin";
-		model.addAttribute("mem_id", mem_id);
+	public String boardUpdate(@RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){		
+		BoardJoinVo boardJoinVo = adboardService.boardDetail(bd_id); // 게시글 코드(bd_id)로 게시글 정보를 조회한다.		
+		model.addAttribute("boardJoinVo", boardJoinVo); // model에 저장한다.		
 		return "ad_boardUpdate";
 	}
 	
@@ -161,10 +204,19 @@ public class AdboardController {
 	 * Method 설명 : 게시글 삭제
 	 */
 	@RequestMapping("/boardDel")
-	public String boardDel(@RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){
+	public String boardDel(@RequestParam(value="bd_id", defaultValue="") String bd_id,
+						   @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id, Model model){
 		
-//		model.addAttribute("mem_id", mem_id);
-		return "ad_boardUpdate";
+		int cnt = adboardService.boardDelete(bd_id); // 게시글 코드를 가지고 게시글을 삭제한다.
+		
+		if(cnt != 0){
+			// 삭제 성공시 해당 구분(ex 공지사항) 리스트 조회화면으로 이동한다.
+			return "redirect:/admin/boardView?bd_kind_id=" + bd_kind_id;
+		}else{
+			// 삭제 실패시 내용을 디버그로 출력하며, 관리자 메인화면으로 이동한다.
+			logger.debug("write delete fail ====>>>> {} ", cnt);
+			return "admin/main";
+		}
 	}
 	
 	@RequestMapping(value="/review", method=RequestMethod.GET)

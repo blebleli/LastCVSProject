@@ -53,24 +53,22 @@ public class adBoardService implements adBoardServiceInf {
 		int totCnt = adboardDao.getBoardTotCnt(); // 게시글 전체 건수 조회
 		
 		
-		String bd_kind_id = (String) map.get("bd_kind_id");
 		int page = (int) map.get("page");
 		int pageSize = (int) map.get("pageSize");
 		
-		logger.debug("bd_kind_id ==========> {} "+bd_kind_id);
+
 		
-		resultMap.put("pageNavi", makePageNavi(bd_kind_id, page, pageSize, totCnt));
-		resultMap.put("bd_kind_id",bd_kind_id);
+		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));
 		
 		return resultMap;
 	}
 	
-	private String makePageNavi(String bd_kind_id, int page, int pageSize, int totCnt){
+	private String makePageNavi(int page, int pageSize, int totCnt){
 		
 		int cnt = totCnt / pageSize; // 몫
 		int mod = totCnt % pageSize; // 나머지
 		
-		logger.debug("bd_kind_id ===============>>>>>>>>>>>>>> {}"+bd_kind_id);
+
 		
 		if (mod > 0)
 			cnt++;
@@ -79,17 +77,17 @@ public class adBoardService implements adBoardServiceInf {
 		
 		int prevPage = page == 1? 1 : page-1;
 		int nextPage = page == cnt ? page : page+1;
-		pageNaviStr.append("<li><a href=\"/admin/boardView?bd_kind_id="+bd_kind_id+"&page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/boardView?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
 		
 		for(int i = 1; i <= cnt; i++){
 			// /admin/boardView?page=3&pageSize=10
 			String activeClass = "";
 			if(i == page)
 				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/boardView?bd_kind_id="+bd_kind_id+"&page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/boardView?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
 		}
 		
-		pageNaviStr.append("<li><a href=\"/admin/boardView?bd_kind_id="+bd_kind_id+"&page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/boardView?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 		
 		return pageNaviStr.toString();
 		
@@ -159,5 +157,19 @@ public class adBoardService implements adBoardServiceInf {
 	@Override
 	public List<CommentsVo> getListComments(String bd_id) {
 		return adboardDao.getListComments(bd_id);
+	}
+	
+	/**
+	 * Method : boardDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시물 삭제
+	 */
+	@Override
+	public int boardDelete(String bd_id) {
+		return adboardDao.boardDelete(bd_id);
 	}
 }

@@ -93,4 +93,18 @@ public class adBoardDao implements adBoardDaoInf {
 	public List<CommentsVo> getListComments(String bd_id) {
 		return template.selectList("comments.getListComments", bd_id);
 	}
+	
+	/**
+	 * Method : boardDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시물 삭제
+	 */
+	@Override
+	public int boardDelete(String bd_id) {
+		return template.delete("boardJoin.boardDelete", bd_id);
+	}
 }
