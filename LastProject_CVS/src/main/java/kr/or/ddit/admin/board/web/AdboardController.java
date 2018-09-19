@@ -127,6 +127,8 @@ public class AdboardController {
 		List<CommentsVo> cList = adboardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
 		logger.debug("b =====> {}", b);
 		logger.debug("cList =====> {}", cList);
+		logger.debug("bd_id ////////////////// {}", bd_id);
+		model.addAttribute("bd_id", bd_id);
 		model.addAttribute("b", b); // model에 저장한다.
 		model.addAttribute("cList", cList); // model에 저장한다.
 		return "ad_boardDetail";
@@ -159,9 +161,9 @@ public class AdboardController {
 	 * Method 설명 : 게시글 삭제
 	 */
 	@RequestMapping("/boardDel")
-	public String boardDel(Model model){
-		String mem_id = "admin";
-		model.addAttribute("mem_id", mem_id);
+	public String boardDel(@RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){
+		
+//		model.addAttribute("mem_id", mem_id);
 		return "ad_boardUpdate";
 	}
 	
