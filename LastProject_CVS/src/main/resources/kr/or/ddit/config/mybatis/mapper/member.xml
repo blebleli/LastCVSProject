@@ -212,7 +212,7 @@
 				   -- <!-- ORDER BY MEM_NAME  -->
 				   )
 			  a )
-		-- <!-- WHERE rn BETWEEN (#{page, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}+1 AND #{page, jdbcType=INTEGER}*#{pageSize, jdbcType=INTEGER} -->
+--<!-- 		WHERE rn BETWEEN (#{page, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}+1 AND #{page, jdbcType=INTEGER}*#{pageSize, jdbcType=INTEGER}  -->
 	</select>
 	
 
