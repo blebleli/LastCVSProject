@@ -62,11 +62,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyReqController")
+@SessionAttributes({"requestList", "todaySupply"})
 public class CvsSupplyReqController {
+	//"myStock","myStockList",
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
-	
-	/*@SessionAttributes({"myStock","myStockList","requestList", "todaySupply"})*/	
-	
+
 	@Resource(name="stockService")
 	private StockServiceInf stockService;
 	
@@ -111,9 +111,83 @@ public class CvsSupplyReqController {
 
 		return "cvs_stock";
 	}
+	
 
 	
-	/**
+	/** Method : requestList
+	* Method 설명 : 재고 목록에서 선택한 재고상품 리스트에 추가
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return List<PresentStockListVo>
+	*/
+	@RequestMapping("/requestList")
+	public String requestList(@RequestBody List<String> requestProd, Model model){
+		//requestvo ==>List<ProdVo>
+		//prod_id 로 vo 가져오기
+		logger.debug("requestProd ------"+requestProd);
+		List<ProdVo> requestList = null;
+		
+		for (String prod_id : requestProd ) {
+			logger.debug("prod_id ------"+prod_id);
+			ProdVo requestlist = prodService.getProd(prod_id);
+			requestList.add(requestlist);
+		}
+
+		
+		logger.debug("requestList ------"+requestList);
+		
+		
+		model.addAttribute("requestList", requestList);
+		return "cvs_supply_request";
+	}
+	
+
+	
+/*	*//**
+	* Method : requestList
+	* Method 설명 : 현재 재고 목록에서 발주 신청하고 싶은 목록을 저장할 List<ProdVo>
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return StockVo
+	*//*
+	@ModelAttribute("requestList")
+	public List<ProdVo> requestList(){
+		List<ProdVo> requestList = new ArrayList<ProdVo>();
+		return requestList;
+	}
+*/
+	
+/*	@RequestMapping("/stock")
+	public String cvsStock(Model model){
+		return "cvs_stock";
+	}
+	
+	*//**
+	* Method : myStockList
+	* Method 설명 : 현재 재고 목록
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return StockVo
+	*//*
+	@ModelAttribute("myStockList")
+	public List<PresentStockListVo> myStockList(Model model){
+		Map modelMap = model.asMap();
+		StockVo myStock = (StockVo) modelMap.get("myStock");
+		logger.debug("myStock----"+myStock);
+		List<PresentStockListVo> myStockList = stockService.getListStockOne(myStock.getStock_id());
+		return myStockList;
+	}
+	
+	*//**
 	 * 
 	 * Method   : requestList 
 	 * 최초작성일  : 2018. 9. 19. 
@@ -123,7 +197,7 @@ public class CvsSupplyReqController {
 	 * @param model
 	 * @return 
 	 * Method 설명 :
-	 */
+	 *//*
 	@RequestMapping("/requestList")
 	@ResponseBody
 	public String requestList(@RequestParam(value="requestProd")String[] requestprod, Model model){
@@ -139,28 +213,20 @@ public class CvsSupplyReqController {
 		model.addAttribute("requestList", requestprods);
 		
 		return "cvs_supply_request";
-	}
+	}*/
+	
+
+	
+	
+	
+	
+	
+	
+	
+	//--------------------------------------------
 	
 	
 /*	*//**
-	* Method : requestList
-	* Method 설명 : 현재 재고 목록에서 발주 신청하고 싶은 목록을 저장할 List<ProdVo>
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return StockVo
-	*//*
-*/	@ModelAttribute("requestList")
-	public List<ProdVo> requestList(){
-		List<ProdVo> requestList = new ArrayList<ProdVo>();
-		return requestList;
-	}
-	
-/*	
-	
-	*//**
 	* Method : myStock
 	* Method 설명 : 현재 재고 목록
 	* 최초작성일 : 2018. 9. 10.
@@ -184,13 +250,11 @@ public class CvsSupplyReqController {
 		logger.debug("stock --------------"+ myStock);
 		model.addAttribute("myStock", myStock);
 		return myStock;
-	}
-	
+	}*/
 
 	
 
-
-	*//**
+	/**
 	* Method : cvssupplyReqest
 	* Method 설명 :발주 신청을 위해 전체 상품 리스트와 카테고리 목록, 재고목록에서 선택한 목록이 기본으로 넘어간다
 	* 최초작성일 : 2018. 9. 10.
@@ -199,7 +263,7 @@ public class CvsSupplyReqController {
 	* 
 	* @param 
 	* @return List<ProdVo> , List<CategoryVo>
-	*//*
+	*/
 	@RequestMapping("/supplyReqest")
 	public ModelAndView cvssupplyReqest(@RequestParam(value="page",defaultValue="1")int page, @RequestParam(value="pageSize",defaultValue="15")int pageSize, Model model){
 		ModelAndView mav = new ModelAndView();
@@ -244,7 +308,7 @@ public class CvsSupplyReqController {
 	
 
 	
-	*//** Method : searchList
+	/** Method : searchList
 	* Method 설명 : 검색한 상품의 결과 목록 ajax
 	* 최초작성일 : 2018. 9. 10.
 	* 작성자 : 김현경
@@ -252,7 +316,7 @@ public class CvsSupplyReqController {
 	* 
 	* @param 
 	* @return Map<String, Object>
-	*//*
+	*/
 	@RequestMapping(value="/searchProd", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> searchList(@RequestParam(value="searchTxt")String searchTxt, Model model){
@@ -264,7 +328,7 @@ public class CvsSupplyReqController {
 	}
 	
 	
-	*//** Method : mdCategory
+	/** Method : mdCategory
 	* Method 설명 : 대분류에 따른 상품 목록, 대분류에 속하는 중분류 목록 ajax
 	* 최초작성일 : 2018. 9. 10.
 	* 작성자 : 김현경
@@ -272,7 +336,7 @@ public class CvsSupplyReqController {
 	* 
 	* @param 
 	* @return Map<String, Object>
-	*//*
+	*/
 	@RequestMapping(value="/selectLgCtgy", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> mdCategory(@RequestParam(value="ctgy_id")String ctgy_id, Model model){
@@ -297,7 +361,7 @@ public class CvsSupplyReqController {
 		return resultMap;
 	}
 	
-	*//** Method : mdCategoryList
+	/** Method : mdCategoryList
 	* Method 설명 :중분류에대한 상품 목록 ajax
 	* 최초작성일 : 2018. 9. 10.
 	* 작성자 : 김현경
@@ -305,7 +369,7 @@ public class CvsSupplyReqController {
 	* 
 	* @param 
 	* @return Map<String, Object>
-	*//*
+	*/
 	@RequestMapping(value="/selectmdCtgy", method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> mdCategoryList(@RequestParam(value="ctgy_id")String ctgy_id, Model model){
@@ -322,6 +386,4 @@ public class CvsSupplyReqController {
 		
 		return resultMap;
 	}
-	*/
-	
 }

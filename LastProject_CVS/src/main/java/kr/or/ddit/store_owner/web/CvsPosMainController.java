@@ -233,6 +233,7 @@ public class CvsPosMainController {
 			logger.debug("setDisp_exdate--------------"+dispVo.getStcklist_exdate());
 			disposalListVo.setSd_id(saleDisVo.getSd_id());  //위에서의 id
 			logger.debug("setSd_id --------------"+saleDisVo.getSd_id());
+			
 			disService.setInsertDispList(disposalListVo);
 			
 			logger.debug("폐기 list insert 완료 --------------");
@@ -281,8 +282,5 @@ public class CvsPosMainController {
 //		model.addAttribute("myStock", myStock);
 //		return myStock;
 //	}
-
-
-
 
 }

@@ -73,7 +73,8 @@
   	
   </typeAliases>
 
-  <mappers>  
+  <mappers> 
+ 	<mapper resource="kr/or/ddit/config/mybatis/mapper/disposal.xml"/>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/barcode.xml"/>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml"/>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/member.xml"/>

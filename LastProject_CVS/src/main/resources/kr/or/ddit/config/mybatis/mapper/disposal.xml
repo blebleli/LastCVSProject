@@ -20,11 +20,11 @@
 			BCD_ID
 		)
 		VALUES (
-			#{disp_id    },  --<!--// 폐기상세리스트 id  -->
-			#{disp_amount},	 --<!--// 해당제품 폐기된 개수  -->
-			#{disp_exdate},	 --<!--// 해당 제품 유통기한-->
-			#{sd_id      },	 --<!--// 판매폐기 id -->
-			#{bcd_id     }	 --<!--// 재고 id-->
+			#{disp_id    },  
+			#{disp_amount},	 
+	        #{disp_exdate},  
+			#{sd_id      },	 
+			#{bcd_id     }	 
 		)
 	</insert>
 	
