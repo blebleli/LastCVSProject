@@ -11,6 +11,15 @@
     <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
 		$(function(){
+			
+		    $("input:radio[name='gender']").click(function(){ 
+				OnlyMember();
+			});
+		
+			function OnlyMember() { 
+				alert('로그인 후 이용 가능 합니다.'); 
+			}			
+			
 			$("table tbody tr").on("click", function(){
 				//tr태그의 data-id 속성 값을 읽어서 input 태그의 id 값으로 설정
 				//form 태그를 submit
@@ -196,6 +205,7 @@
                   <div class="x_content">
                   	<div>
 						<form id="boardGo" action="/adboard/boardNew" method="post">
+						<div id = "select" class="select">
 							공지사항 <input checked required data-parsley-multile="gender"
 								type="radio" class="flat" name="gender" id="bd_kind_id44"
 								value="${bd_kind_id }" /> 
@@ -203,7 +213,7 @@
 								name="gender" id="bd_kind_id55" value="55" />
 							이벤트 <input
 								type="radio" class="flat" name="gender" id="bd_kind_id66"
-								value="66" />
+								value="66" onclick="OnlyMember();"/>
 								
 							<button id="buttons" type="button" class="btn btn-default btn-xs">점검중</button>
 							
@@ -215,6 +225,7 @@
 								<li><button class="btn btn-default btn-xs" id="boardDel"
 										type="reset">삭제</button></li>
 							</ul>
+							</div>
 						</form>
 					</div>
 					<div class="table-responsive">
