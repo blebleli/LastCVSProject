@@ -30,7 +30,7 @@
         function categoryPopup(){
 //             var url="/WEB-INF/view/admin/adprod/ad_category_popup.jsp";
             var url="/adprod/categoryPopup";
-            window.open(url,"","width=400,height=400,left=600");
+            window.open("adprod/categoryPopup","카테고리추가","width=400,height=400,left=600");
         }
         
         function eventPopup(){
