@@ -646,9 +646,9 @@ $(document).ready(function() {
 									<c:forEach items="${cvsBookmarkList}" var="vo" varStatus="status">
 										<c:if test="${vo.star_kind eq '222'}">
 											<tr>
-												<td>${vo.mem_name}</td>
+												<td>${vo.mem_cvs_name}</td>
 												<td>(${vo.mem_zip}) (도로명주소) ${vo.mem_addr} </td>
-												<td>${vo.mem_tel}</td>
+												<td>${vo.mem_cvs_tel}</td>
 											</tr>
 										</c:if>
 									</c:forEach> 
