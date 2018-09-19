@@ -164,6 +164,7 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/ad_index.jsp"/>
 	</definition>
 	
+	
 	<!-- 관리자 게시글 조회 -->
 	<definition name="ad_boardDetail" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/adboard/ad_boardDetail.jsp"/>
@@ -199,19 +200,15 @@
 	<put-attribute name="content" value="/WEB-INF/view/admin/supplyLookupView.jsp"/>
 	</definition>
 	
-	<!--  관리자 - 회원 리스트화면 : 은별 09.17 -->
-	<definition name="ad_userMember" extends="ad_basicLayout">
-	<put-attribute name="content" value="/WEB-INF/view/admin/member/ad_userMember.jsp"/>
-	</definition>
-	
-	<!--  관리자 - 편의점 리스트화면 : 은별 09.17 -->
-	<definition name="ad_cvsMember" extends="ad_basicLayout">
-	<put-attribute name="content" value="/WEB-INF/view/admin/member/ad_cvsMember.jsp"/>
-	</definition>
-	
+
 	<!--  관리자 - 통계화면 -->
 	<definition name="ad_chart" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>
+	</definition>
+	
+	<!-- 관리자 => 회원 리스트화면 / 편의점 리스트화면 / 편의점 등록 화면  : 은별 09.17 -->
+	<definition name="/member/*" extends="ad_basicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/admin/member/{1}.jsp" />
 	</definition>
 	
 	
