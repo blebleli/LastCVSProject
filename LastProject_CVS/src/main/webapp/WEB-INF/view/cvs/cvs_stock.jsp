@@ -45,13 +45,23 @@
    			//발주신청하려하는 id리스트를 controller로 넘기는 기능
      		$( "#requestBtn" ).click(function(){	
 
-        		var requestList=[];		
+        		var requestProd=[];		
         	
         		$('#datatable tbody tr').has('div.checked').each(function(){	
         			var data = $(this);		
-        			requestList.push(data.find('.flat').val());
+        			requestProd.push(data.find('.flat').val());
                 });        		
-        		console.log(dispList);
+        		
+        		console.log("requestProd----->"+requestProd);
+        		
+        		$.ajax({
+	    			url : "requestList",
+	    			method : "post",	    			
+        			data: JSON.stringify(requestProd),
+				    contentType: "application/json"
+	    		
+	    		});
+        		
     		});
 
     	}); 
