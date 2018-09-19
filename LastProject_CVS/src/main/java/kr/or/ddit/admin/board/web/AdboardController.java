@@ -127,7 +127,7 @@ public class AdboardController {
 		List<CommentsVo> cList = adboardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
 		logger.debug("b =====> {}", b);
 		logger.debug("cList =====> {}", cList);
-		logger.debug("bd_id ////////////////// {}", bd_id);
+		logger.debug("bd_id =====> {}", bd_id);
 		model.addAttribute("bd_id", bd_id);
 		model.addAttribute("b", b); // model에 저장한다.
 		model.addAttribute("cList", cList); // model에 저장한다.
@@ -144,26 +144,32 @@ public class AdboardController {
 	 */
 	@RequestMapping("/newComment")
 	public String newComment(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
-							 @RequestParam(value="cm_opennyY", defaultValue="") String cm_opennyY,
-							 @RequestParam(value="cm_opennyN", defaultValue="") String cm_opennyN, CommentsVo commentsVo, Model model){
+							 @RequestParam(value="cm_RadioCkeck", defaultValue="") String cm_RadioCkeck, CommentsVo commentsVo, Model model){
 		
+		logger.debug("cm_RadioCkeck =====>> {}", cm_RadioCkeck);
+		System.out.println(bd_kind_id);
+//		
 		if(bd_kind_id == "44"){ // 공지사항이면
 			String CNOCODE = "CNO"; // 공지사항 코드 생성 준비
 			String cm_id = code.autoCode(CNOCODE); // 코드 생성
-			logger.debug("CNOCODE ==========> {} ", CNOCODE);			
+			logger.debug("CNOCODE ==========> {} ", CNOCODE);
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 		} else { // 이벤트이면
 			String CEVCODE = "CEV"; // 이벤트 코드 생성 준비
 			String cm_id = code.autoCode(CEVCODE); // 코드 생성
-			logger.debug("CEVCODE ==========> {} ", CEVCODE);				
+			logger.debug("cm_id ==========> {} ", cm_id);
+			System.out.println("dddddddddddddddddddddddddddddddddddddddddddddd");
 		}
+//		
+//		if(cm_RadioCkeck=="Y"){ // 댓글 공개를 안하였다면
+//			commentsVo.setCm_openny(cm_opennyY); // 비공개 체크 저장
+//			System.out.println("공개함");
+//		}else{ // 댓글 공개를 하였다면
+//			commentsVo.setCm_openny(cm_opennyN); // 공개 체크 저장
+//			System.out.println("비공개함");
+//		}
 		
-		if(cm_opennyY==""){ // 댓글 공개를 안하였다면
-			commentsVo.setCm_openny(cm_opennyN); // 비공개 체크 저장
-		}else{ // 댓글 공개를 하였다면
-			commentsVo.setCm_openny(cm_opennyY); // 공개 체크 저장
-		}
-		
-//		commentsVo.set
+//		commentsVo.setCm_id(cm_id);
 //
 //		
 //		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID,cm_content, CM_DATE, CM_DELNY,CM_OPENNY, cm_group, cm_id2) 

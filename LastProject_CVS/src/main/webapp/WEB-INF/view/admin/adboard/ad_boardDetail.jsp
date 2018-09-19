@@ -122,12 +122,23 @@
 			}); // $("#boardDel").on("click", function(){});
 			
 			$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
-				if($("input[id='cm_opennyY']:checked").val()){ // 댓글 공개를 한다면 
+				var Y = $("input[id='cm_opennyY']:checked").val();
+			
+				if(Y=="Y"){ // 댓글 공개를 한다면
+// 					alert("공개버튼을 눌렀어요.");
+					$("input[name='cm_RadioCkeck']").val("Y");
+// 					alert($("input[name='cm_RadioCkeck']").val());
+					
+					
 					$("#newComments").submit(); // 댓글 공개상태 저장 이동
-				}else if($("input[id='cm_opennyN']:checked").val()){ // 비공개를 한다면
+				}else if($("input[id='cm_opennyN']:checked").val()=='N'){ // 비공개를 한다면
+					
+					$("input[name='cm_RadioCkeck']").val("N");
+// 					alert("비공개버튼을 눌렀어요.");
 					$("#newComments").submit(); // 댓글 비공개상태 저장 이동
 				}else{ // 아무것도 체크 안할시
 					alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
+					return
 				}
 			});
 		}); // function()
@@ -257,12 +268,19 @@
 								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
 								<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
+									
 									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
-									<inpui type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
-									<input type="hidden" id="mem_id" name="mem_id" value="admin">
-									<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
-									<input type="radio" id="cm_openny" value="Y" >공개
-									<input type="radio" id="cm_openny" value="N" >비공개
+									<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
+									
+									<input type="hidden" id="mem_id" name="mem_id" value="admin">\\\\\
+									
+									
+									<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
+									
+									<input type="hidden" name="cm_RadioCkeck">
+									 
+									<input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked" >공개
+									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
 								</form>
 							</td>
 							<td></td>
