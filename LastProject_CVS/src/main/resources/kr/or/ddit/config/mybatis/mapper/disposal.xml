@@ -13,10 +13,10 @@
 		
 		INSERT INTO DISPOSAL_LIST
 		(
-			DISP_ID
-			DISP_AMOUNT
-			DISP_EXDATE
-			SD_ID
+			DISP_ID     ,
+			DISP_AMOUNT ,
+			DISP_EXDATE ,
+			SD_ID       ,
 			BCD_ID
 		)
 		VALUES (
