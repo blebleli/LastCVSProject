@@ -70,7 +70,7 @@ public class MemberMGTController {
 		System.out.println("사용자 리스트 화면으로 이동");
 		
 //		return "/admin/member/ad_userMember";
-		return "ad_userMember";
+		return "/member/ad_userMember";
 	}
 	
 	
@@ -85,7 +85,22 @@ public class MemberMGTController {
 		
 		System.out.println("편의점 리스트 화면으로 이동");
 		
-		return "ad_cvsMember";
+		return "/member/ad_cvsMember";
+	}
+	
+	
+	/**
+	 * 편의점 등록 화면이동
+	 * cvsListView
+	 * @param model
+	 * @return String
+	 */
+	@RequestMapping("/cvsInsert")
+	public String cvsInsert(Model model){
+		
+		System.out.println("편의점 등록 화면으로 이동");
+		
+		return "/member/ad_cvsInsert";
 	}
 
 
@@ -108,10 +123,7 @@ public class MemberMGTController {
 			Model model) {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
-
-		
-		//==============================================
-				
+	
 		//== 일반 회원리스트 조회 
 		MemberVo paramMemberVo = new MemberVo();
 		paramMemberVo.setPage(page);
@@ -131,9 +143,8 @@ public class MemberMGTController {
 		PageNavi pageNavi = new PageNavi(page, pageSize, tot_cnt);
 		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/userMemberList"));
 		//==============================================
-		
-		
-		return "ad_userMember";
+
+		return "/member/ad_userMember";
 	}
 	
 	
@@ -152,13 +163,11 @@ public class MemberMGTController {
 	@RequestMapping("/cvsMemberList")
 	public String cvsMemberList(HttpServletRequest request, 
 			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+			@RequestParam(value="pageSize", defaultValue="30") int pageSize,
 			Model model) {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
-
-		//==============================================
-				
+	
 		//== 편의점 회원리스트 페이징 처리하여 조회 
 		MemberVo paramMemberVo = new MemberVo();
 		paramMemberVo.setPage(page);
@@ -179,7 +188,12 @@ public class MemberMGTController {
 		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/cvsMemberList"));
 		//==============================================
 		
-		return "ad_cvsMember";
+		return "/member/ad_cvsMember";
 	}
+	
+	
+	
+	
+	
 	
 }
