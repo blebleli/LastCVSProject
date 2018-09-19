@@ -30,12 +30,12 @@
         function categoryPopup(){
 //             var url="/WEB-INF/view/admin/adprod/ad_category_popup.jsp";
             var url="/adprod/categoryPopup";
-            window.open("adprod/categoryPopup","카테고리추가","width=400,height=400,left=600");
+            window.open("/adprod/categoryPopup","카테고리추가","width=1200,height=600,left=500, top=150");
         }
         
         function eventPopup(){
             var url="test.html";
-            window.open(url,"","width=400,height=400,left=600");
+            window.open(url,"","width=1200,height=600,left=600");
         }
 </script>
 
