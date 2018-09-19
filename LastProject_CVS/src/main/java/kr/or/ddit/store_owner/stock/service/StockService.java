@@ -9,13 +9,16 @@ import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
+import kr.or.ddit.store_owner.stock.dao.StockDao;
 import kr.or.ddit.store_owner.stock.dao.StockDaoInf;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service("stockService")
 public class StockService implements StockServiceInf {
-
+	
 	@Resource(name="stockDao")
 	private StockDaoInf stockDao;
 
@@ -176,6 +179,21 @@ public class StockService implements StockServiceInf {
 		return stockDao.getBarcodeProd(prod_id);
 	}
 
+	/**
+	* Method : getStockListByMemid
+	* Method 설명 : PresentStockListVo 형식으로 지정한 mem_id의 가장 최근 재고 리스트를 가져온다
+	* 최초작성일 : 2018. 9 .19
+	* 작성자 : 한수정
+	* 변경이력 :신규
+	* 조 회 :
+	* *** ---0919  한수정 cvsSupplyReqController 에서 사용
+	* @return
+	*/
+	@Override
+	public List<PresentStockListVo> getStockListByMemid(String mem_id) {
+		return stockDao.getStockListByMemid(mem_id);
+	}
+	
 	@Override
 	public PresentStockListVo getStockProd(String prod_id) {
 		return stockDao.getStockProd(prod_id);
@@ -185,6 +203,9 @@ public class StockService implements StockServiceInf {
 	public int totalCountProd() {
 		return stockDao.totalCountProd();
 	}
+
+
+
 
 
 

@@ -6,14 +6,18 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
+import kr.or.ddit.store_owner.web.CvsSupplyReqController;
 
 @Repository("stockDao")
 public class StockDao implements StockDaoInf {
+
 	
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
@@ -135,6 +139,22 @@ public class StockDao implements StockDaoInf {
 		return template.selectOne("stock.getBarcodeProd", prod_id);
 	}
  
+	
+	/**
+	* Method : getStockListByMemid
+	* Method 설명 : PresentStockListVo 형식으로 지정한 mem_id의 가장 최근 재고 리스트를 가져온다
+	* 최초작성일 : 2018. 9 .19
+	* 작성자 : 한수정
+	* 변경이력 :신규
+	* 조 회 :
+	* *** ---0919  한수정 cvsSupplyReqController 에서 사용
+	* @return
+	*/
+	@Override
+	public List<PresentStockListVo> getStockListByMemid(String mem_id) {
+		return template.selectList("stock.getStockListByMemId",mem_id);
+	}
+
 
 
 	@Override
@@ -142,7 +162,6 @@ public class StockDao implements StockDaoInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 
 	/**

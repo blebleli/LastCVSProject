@@ -135,4 +135,17 @@ public interface StockServiceInf {
 	*/
 	PresentStockListVo getBarcodeProd(String prod_id);
 	
+	/**
+	* Method : getStockListByMemid
+	* Method 설명 : PresentStockListVo 형식으로 지정한 mem_id의 가장 최근 재고 리스트를 가져온다
+	* 최초작성일 : 2018. 9 .19
+	* 작성자 : 한수정
+	* 변경이력 :신규
+	* 조 회 :
+	* *** ---0919  한수정 cvsSupplyReqController 에서 사용
+	* @return
+	*/
+	List<PresentStockListVo> getStockListByMemid(String mem_id);
+	
+	
 }

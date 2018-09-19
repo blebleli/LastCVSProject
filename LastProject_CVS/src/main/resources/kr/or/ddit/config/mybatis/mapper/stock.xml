@@ -175,6 +175,7 @@
 	WHERE c.bcd_id =#{bcd_id} and c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
 
+
 <!-- stock_id 로 stockList 조회 -->
 <!-- 	아 이 디 : getStockListByStockID
 	  		반 환 값 : presentStockListVo
@@ -188,6 +189,40 @@
 	FROM prod a, supply b, stock_list c
 	WHERE c.stock_id = #{stock_id} AND c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
+
+
+
+<!-- mem_id 로 재고리스트 조회 -->
+<!-- 	아 이 디 : getStockListByMemId
+	  		반 환 값 : presentStockListVo
+	  		매개변수 : String(mem_id)
+	  		설    명 : 해당 편의점 id의 최근재고 조회
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-19    
+	 -->
+<select id="getStockListByMemId" parameterType="String" resultType="presentStockListVo">
+	SELECT  a.prod_id,      
+	        a.prod_name,
+	        a.prod_price,
+	        a.event_id,
+	        b.supply_date,
+	        c.bcd_id,
+	        c.stcklist_exdate,
+	        c.stcklist_amount		
+	FROM  prod a, supply b, stock_list c
+	WHERE b.supply_state = '12' AND 
+	      c.prod_id = a.prod_id AND 
+	      c.stock_id= (SELECT stock_id
+	                   FROM (SELECT stock_id,
+	                             	rank() over (partition by mem_id order by stock_date desc) rnk
+	                         FROM stock
+	                         WHERE mem_id=#{mem_id}) 
+	                    WHERE rnk = 1)			
+           
+</select>
+
+
+
 
 
 
