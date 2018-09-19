@@ -5,7 +5,7 @@
     
 <!-- <head> -->
 
-<title>DataTables | gogoCVS admin</title>
+<title> gogoCVS admin | cvsNember </title>
 
 
 <!-- Bootstrap -->
@@ -72,7 +72,7 @@
 					<div class="x_title">
 			
 						<div class="col-xs-12">
-							<button class="btn btn-default" onclick="location.href ='<c:url value='admin/cvsInsert' />';">
+							<button class="btn btn-default" onclick="location.href ='<c:url value='${pageContext.request.contextPath}/admin/cvsInsert' />';">
 								<i class="fa fa-print"></i> 등 록  
 							</button>
 							
@@ -136,18 +136,13 @@
 
 					<div class="row">       
 						<div class="col-sm-12">
-<!-- 							<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid" -->
-<!-- 								aria-describedby="datatable-responsive_info" style="width: 100%;"> -->
-									<table class="table table-striped jambo_table bulk_action">								
+							<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid"
+								aria-describedby="datatable-responsive_info" style="width: 100%;">
+<!-- 									<table class="table table-striped jambo_table bulk_action">								 -->
  		
 								<thead>
 									<tr role="row" class="headings">
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 15px;" aria-label="First name: activate to sort column ascending">#</th>
-										
-										<th>
-                              				<div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" id="check-all" class="flat" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            			</th>
-										
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="First name: activate to sort column ascending">사업자번호(ID)</th>
 										<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Last name: activate to sort column ascending">편의점명</th>
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 90px;" aria-label="Position: activate to sort column ascending" aria-sort="descending">편의점연락처</th>
@@ -169,9 +164,6 @@
 											<c:forEach items="${cvsMemberList}" var="memberVo" varStatus="status">
 											<tr role="row" class="even pointer">
 												<td scope="row">${memberVo.rn}</td>
-												<td class="a-center ">
-                             						 <div class="icheckbox_flat-green" style="position: relative;"><input type="checkbox" class="flat" name="table_records" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
-                            					</td>
 												<td class="" tabindex="0">${memberVo.mem_id}</td>
 												<td class="sorting_1">${memberVo.mem_cvs_name}</td>
 												<td>${memberVo.mem_cvs_tel}</td>
