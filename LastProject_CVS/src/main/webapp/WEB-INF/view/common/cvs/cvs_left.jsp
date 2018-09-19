@@ -33,20 +33,20 @@
                                                               
           <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	  <li><a href="POS">POS</a></li>
-               <li><a href="barcode">인식</a></li>
+           	  <li><a href="/cvs/POS">POS</a></li>
+               <li><a href="/cvs/barcode">인식</a></li>
             </ul>               
           </li>
 
           <li><a><i class="fa fa-table"></i> 내역서 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-           	   <li><a href="stock">현재재고</a></li>
-               <li><a href="supplyIn">입고내역</a></li>
+           	   <li><a href="/cvs/stock">현재재고</a></li>
+               <li><a href="/cvs/supplyIn">입고내역</a></li>
                <li><a href="#">발주<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="supplyReqest">발주 신청</a>
+                    <li class="sub_menu"><a href="/cvs/supplyReqest">발주 신청</a>
                     </li>
-                    <li><a href="reqList">발주 내역</a>
+                    <li><a href="/cvs/reqList">발주 내역</a>
                     </li>
                   </ul>
                </li>
@@ -55,13 +55,13 @@
           </li>  
           <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-              <li><a href="chartDay">날짜별
+              <li><a href="/cvs/chartDay">날짜별
 <!--               <input type="hidden" name="mem_id" value="hsj"> --> <!-- 보류입니다. -->
               </a></li> <!-- 날짜별을 누르면 월별 초기화면이 뜬다. -->
-              <li><a href="chartProd">제품별</a></li>                 
+              <li><a href="/cvs/chartProd">제품별</a></li>                 
             </ul>
           </li>         
-           <li><a href="setting"><i class="fa fa fa-gears"></i> setting </a>
+           <li><a href="/cvs/setting"><i class="fa fa fa-gears"></i> setting </a>
           </li>                  
         </ul>
       </div>
