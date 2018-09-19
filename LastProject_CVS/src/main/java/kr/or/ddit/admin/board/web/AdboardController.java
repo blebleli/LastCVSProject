@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import kr.or.ddit.admin.board.model.BoardJoinVo;
 import kr.or.ddit.admin.board.service.adBoardServiceInf;
+import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.CommentsVo;
 
@@ -31,6 +32,9 @@ public class AdboardController {
 	
 	@Resource(name="autoCodeCreate")
 	private AutoCodeCreate code;
+	
+	@Resource(name="boardService")
+	private BoardServiceInf boardService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -106,7 +110,7 @@ public class AdboardController {
 		String bd_kind_id = b.getBd_kind_id();
 			
 		if(cnt != 0){
-			return "redirect:/admin/boardView?bd_kind_id=" + bd_kind_id;			
+			return "redirect:/adboard/boardView?bd_kind_id=" + bd_kind_id;			
 		}else{
 			System.out.println("실패");
 			return "admin/main";
@@ -144,43 +148,65 @@ public class AdboardController {
 	 */
 	@RequestMapping("/newComment")
 	public String newComment(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
-							 @RequestParam(value="cm_RadioCkeck", defaultValue="") String cm_RadioCkeck, CommentsVo commentsVo, Model model){
+							 @RequestParam(value="cm_RadioCkeck", defaultValue="") String cm_RadioCkeck, CommentsVo cList, Model model){
 		
 		logger.debug("cm_RadioCkeck =====>> {}", cm_RadioCkeck);
 		System.out.println(bd_kind_id);
-//		
-		if(bd_kind_id == "44"){ // 공지사항이면
+//				
+		if(cm_RadioCkeck.equals("Y")){ // 댓글 공개하였다면
+			cList.setCm_openny(cm_RadioCkeck); // 공개 체크 저장
+			System.out.println("공개함");
+		}else{ // 댓글 비공개를 하였다면
+			cList.setCm_openny(cm_RadioCkeck); // 비공개 체크 저장
+			System.out.println("비공개함");
+		}
+		
+		if(bd_kind_id.equals("44")){ // 공지사항이면
 			String CNOCODE = "CNO"; // 공지사항 코드 생성 준비
 			String cm_id = code.autoCode(CNOCODE); // 코드 생성
-			logger.debug("CNOCODE ==========> {} ", CNOCODE);
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			cList.setCm_id(cm_id); // 댓글코드 저장
+			logger.debug("cm_id ==========> {} ", cm_id);
+			System.out.println("공지사항 입니다. ========================>>>>");
 		} else { // 이벤트이면
 			String CEVCODE = "CEV"; // 이벤트 코드 생성 준비
 			String cm_id = code.autoCode(CEVCODE); // 코드 생성
+			cList.setCm_id(cm_id); // 댓글코드 저장
 			logger.debug("cm_id ==========> {} ", cm_id);
-			System.out.println("dddddddddddddddddddddddddddddddddddddddddddddd");
+			System.out.println("이벤트 입니다 =========================>>>>>");
 		}
-//		
-//		if(cm_RadioCkeck=="Y"){ // 댓글 공개를 안하였다면
-//			commentsVo.setCm_openny(cm_opennyY); // 비공개 체크 저장
-//			System.out.println("공개함");
-//		}else{ // 댓글 공개를 하였다면
-//			commentsVo.setCm_openny(cm_opennyN); // 공개 체크 저장
-//			System.out.println("비공개함");
-//		}
 		
-//		commentsVo.setCm_id(cm_id);
-//
-//		
-//		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID,cm_content, CM_DATE, CM_DELNY,CM_OPENNY, cm_group, cm_id2) 
-//		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),sysdate,'N',#{cm_openny},#{cm_group}, #{cm_id2})
-//		
-//		CM_ID
-//		CM_DELNY
-//		cm_group
-//		cm_id2
+		String cm_group = cList.getBd_id(); // 게시글 코드를
+		cList.setCm_group(cm_group); // 그룹코드에 저장(첫 댓글은 자기 자신이 그룹코드이다.)
 		
-		return "";
+		int cnt = boardService.setInsertComments(cList);
+		model.addAttribute("cList", cList);
+		
+		if(cnt != 0){
+			return "redirect:/adboard/boardDetail?id=" + cList.getBd_id();	// id가 상세조회 id이름과 동일해야함.		
+		}else{
+			System.out.println("실패");
+			return "admin/main";
+		}
+	}
+	
+	/**
+	 * Method : commentsDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : 댓글 삭제
+	 */
+	@RequestMapping("/commentsDel")
+	public String commentsDelete(@RequestParam(value="cm_id", defaultValue="") String cm_id,
+								 @RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){		
+		int cnt = adboardService.commentsDelete(cm_id); // 댓글코드로 댓글을 삭제한다.
+		
+		if(cnt != 0){ // 댓글 삭제 성공시
+			return "redirect:/adboard/boardDetail?id=" + bd_id; // 게시글 상세화면으로 이동한다.
+		}else{ // 댓글 삭제 실패시
+			return "admin/main"; // 관리자 메인으로 돌아간다.
+		}
 	}
 	
 	/**
@@ -217,7 +243,7 @@ public class AdboardController {
 		
 		if(cnt != 0){
 			// 삭제 성공시 해당 구분(ex 공지사항) 리스트 조회화면으로 이동한다.
-			return "redirect:/admin/boardView?bd_kind_id=" + bd_kind_id;
+			return "redirect:/adboard/boardView?bd_kind_id=" + bd_kind_id;
 		}else{
 			// 삭제 실패시 내용을 디버그로 출력하며, 관리자 메인화면으로 이동한다.
 			logger.debug("write delete fail ====>>>> {} ", cnt);

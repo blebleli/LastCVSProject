@@ -152,10 +152,11 @@ public class adBoardService implements adBoardServiceInf {
 	 * 변경이력 : 신규
 	 * @param bd_id
 	 * @return
-	 * Method 설명 : 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
+	 * Method 설명 : 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회하고 조회수가 올라간다.
 	 */
 	@Override
 	public List<CommentsVo> getListComments(String bd_id) {
+		adboardDao.boardCntPlus(bd_id);
 		return adboardDao.getListComments(bd_id);
 	}
 	
@@ -171,5 +172,19 @@ public class adBoardService implements adBoardServiceInf {
 	@Override
 	public int boardDelete(String bd_id) {
 		return adboardDao.boardDelete(bd_id);
+	}
+
+	/**
+	 * Method : commentsDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param cm_id
+	 * @return
+	 * Method 설명 : 댓글 삭제
+	 */
+	@Override
+	public int commentsDelete(String cm_id) {
+		return adboardDao.commentsDelete(cm_id);
 	}
 }

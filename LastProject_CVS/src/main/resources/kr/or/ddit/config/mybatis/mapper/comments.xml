@@ -4,19 +4,19 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="comments">
 
-	<!-- 새로운 댓글 -->
+	<!-- 새로운 댓글 --> <!-- 사용중 -->
 	<insert id="newComments" parameterType="commentsVo">
-		INSERT INTO COMMENTS(CM_ID, BD_ID, MEM_ID,cm_content, CM_DATE, CM_DELNY,CM_OPENNY, cm_group, cm_id2) 
-		VALUES (COMMENT_NO.nextval,#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),sysdate,'N',#{cm_openny},#{cm_group}, #{cm_id2})
+		INSERT INTO COMMENTS (cm_id, bd_id, mem_id, cm_content, cm_date, cm_delny, cm_openny, cm_group, cm_id2) 
+		VALUES (#{cm_id},#{bd_id},'admin',DBMS_LOB.SUBSTR(#{cm_content},4000,1),sysdate,'N',#{cm_openny},#{bd_id},null)
 	</insert>
 	
-	<!-- 선택한 개시글의 댓글 가져오기 -->
+	<!-- 선택한 개시글의 댓글 가져오기 --> <!-- 사용중 -->
 	<select id="getListComments" parameterType="String" resultType="commentsVo">
-		SELECT cm_id, bd_id, cm_group, mem_id, DBMS_LOB.SUBSTR(cm_content,4000,1), TO_CHAR(cm_date,'YYYY-MM-DD'), cm_delny, cm_openny, cm_id2
+		SELECT cm_id, bd_id, cm_group, mem_id, DBMS_LOB.SUBSTR(cm_content,4000,1) as cm_content, TO_CHAR(cm_date) as cm_date, cm_delny, cm_openny, cm_id2
 		FROM comments WHERE bd_id = #{bd_id}
 	</select>
 	
-	<!-- 댓글 삭제 -->
+	<!-- 댓글 삭제 --> <!-- 사용중 -->
 	<update id="deleteComment" parameterType="String">
 		UPDATE comments SET cm_delny = 'Y' WHERE cm_id=#{cm_id}
 	</update>

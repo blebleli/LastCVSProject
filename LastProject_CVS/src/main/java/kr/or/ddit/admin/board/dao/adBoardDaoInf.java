@@ -73,4 +73,26 @@ public interface adBoardDaoInf {
 	 * Method 설명 : 게시물 삭제
 	 */
 	int boardDelete(String bd_id);
+	
+	/**
+	 * Method : commentsDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param cm_id
+	 * @return
+	 * Method 설명 : 댓글 삭제
+	 */
+	int commentsDelete(String cm_id);
+	
+	/**
+	 * Method : boardCntPlus
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시글 조회수 추가
+	 */
+	int boardCntPlus(String bd_id);
 }
