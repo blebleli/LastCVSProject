@@ -68,5 +68,15 @@
  	select * from category where ctgy_kind = '302'
  </select>
 
+ <!-- 	아 이 디 : getService
+  		반 환 값 :  cvsServiceVo
+  		매개변수 : String 편의점 id
+  		설    명 : 편의점 서비스 조회 
+  		작 성 자 : 김현경
+  		일    시 : 2018-09-18
+ -->
+<select id="getService" parameterType="String" resultType="cvsServiceVo">
+	select * from cvs_service where place_id = #{place_id}
+</select>
 
 </mapper>
