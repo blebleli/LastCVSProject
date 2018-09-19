@@ -286,7 +286,7 @@
 				    		
 				    		console.log("saleList ::: "+saleList);
 				    		
-				    		$.ajax({
+				    	 	$.ajax({
 		    					  url: "/cvs/saleInsert",
 		    					  method: "post",
 		    					  data: JSON.stringify(dispList),
@@ -296,7 +296,7 @@
 		    						  emptyTable(); 
 		    				      },		 						
 								  error : function(){console.log("error");}		  								  
-				    		});	
+				    		});	 
 						}
 				    	
 				    	/*폐기버튼 클릭시*/

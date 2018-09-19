@@ -1,6 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
     <title>CVS | </title>
 
     <!-- Bootstrap -->
@@ -11,13 +12,22 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+   
+       <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <script src="/js/common/jquery-1.12.4.js"></script>
     <script>
-    	$(document).ready(function(){
+     	$(document).ready(function(){
     		
+     		$('#datatable').DataTable();
+     		
     		$('.bulk_action input').on('ifChecked', function () {
     			var requestProd =$(this).val();
     			console.log(requestProd);
@@ -28,7 +38,7 @@
 	    		});
     			
    			});
-    	});
+    	}); 
     </script>
 
         <!-- page content -->
@@ -79,7 +89,8 @@
                   </div>
 
                   <div class="x_content">
-
+             	
+                   
                     <p><code>발주신청하고싶은 제품</code>을 선택하세요 
                     	<a href="/cvs/supplyReqest?page=1&pageSize=15">
                     		<i class="fa fa-sign-out" aria-hidden="true"></i>발주신청
@@ -87,7 +98,7 @@
                     </p>
 
                     <div class="table-responsive">
-                      <table class="table table-striped jambo_table bulk_action">
+                      <table id="datatable" class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
                             <th>
@@ -119,8 +130,9 @@
 		                              <input type="checkbox" class="flat" name="table_records" id="requestProd" value="${stock.prod_id}">
 		                            </td>
 		                            <td class=" ">${stock.prod_name }</td>
-		                            <td class=" ">${stock.supply_date }</td>
-		                            <td class=" ">${stock.stcklist_exdate } <i class="success fa fa-long-arrow-up"></i></td>
+		                           
+		                            <td class=" "><fmt:formatDate value="${stock.supply_date }" pattern="yyyy-MM-dd" /></td>
+		                            <td class=" "><fmt:formatDate value="${stock.stcklist_exdate }" pattern="yyyy-MM-dd" /></td>		   
 		                            <td class=" ">${stock.prod_price }</td>
 		                            <td class=" ">${stock.stcklist_amount }</td>
 		                            <td class="a-right a-right ">${stock.event_id }</td>
@@ -135,7 +147,7 @@
                       </table>
                     </div>
 							
-						
+				
                   </div>
                 </div>
               </div>
@@ -163,6 +175,23 @@
     <script src="../vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
+    
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
