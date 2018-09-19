@@ -135,4 +135,18 @@ public class adBoardDao implements adBoardDaoInf {
 	public int boardCntPlus(String bd_id) {
 		return template.update("boardJoin.boardCntPlus", bd_id);
 	}
+	
+	/**
+	 * Method : boardUpdate
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 수정
+	 */
+	@Override
+	public int boardUpdate(BoardJoinVo boardJoinVo) {
+		return template.update("boardJoin.boardUpdate", boardJoinVo);
+	}
 }

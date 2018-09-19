@@ -95,4 +95,15 @@ public interface adBoardDaoInf {
 	 * Method 설명 : 게시글 조회수 추가
 	 */
 	int boardCntPlus(String bd_id);
+	
+	/**
+	 * Method : boardUpdate
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 수정
+	 */
+	int boardUpdate(BoardJoinVo boardJoinVo);
 }

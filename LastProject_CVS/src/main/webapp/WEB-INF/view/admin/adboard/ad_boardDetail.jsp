@@ -114,7 +114,7 @@
 			
 			$("#boardDel").on("click", function(){ // 게시글 삭제 버튼을 누르면				
 				if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
-					$("#frm").attr("action", "/admin/boardDel"); // /adboard/boardNew 액션을 /adboard/boardDel 변경
+					$("#frm").attr("action", "/adboard/boardDel"); // /adboard/boardNew 액션을 /adboard/boardDel 변경
 					$("#frm").submit(); // 삭제 이동					
 				} else { // 삭제 경고창 '아니오'를 누를시					
 					return false; // 그대로 있는다.					
@@ -266,7 +266,7 @@
 						
 								
 								
-					<form id="frm" action="/adboard/boardUpdate" method="post">
+					<form id="frm" action="/adboard/boardUpdateGo" method="post">
 					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
 						<span style="float: right">
 							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>

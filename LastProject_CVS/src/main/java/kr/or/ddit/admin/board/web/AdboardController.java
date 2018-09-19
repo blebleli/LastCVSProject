@@ -210,22 +210,44 @@ public class AdboardController {
 	}
 	
 	/**
+	 * Method : boardUpdateGo
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @param model
+	 * @return
+	 * Method 설명 : 게시글 수정 이동
+	 */
+	@RequestMapping("/boardUpdateGo")
+	public String boardUpdateGo(@RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){		
+		BoardJoinVo boardJoinVo = adboardService.boardDetail(bd_id); // 게시코드로 게시글 정보 조회	
+		model.addAttribute("boardJoinVo", boardJoinVo); // model에 저장한다.		
+		return "ad_boardUpdate"; // 게시글 수정화면으로 이동
+	}
+	
+	/**
 	 * Method : boardDel
 	 * 최초작성일 : 2018. 9. 17.
 	 * 작성자 : 김마음
 	 * 변경이력 : 신규
 	 * @param model
 	 * @return
-	 * Method 설명 : 게시글 수정화면(공지사항, 상품리뷰, 이벤트) 이동
+	 * Method 설명 : 게시글 수정 완료
 	 */
 	@RequestMapping("/boardUpdate")
-	public String boardUpdate(@RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){		
-		BoardJoinVo boardJoinVo = adboardService.boardDetail(bd_id); // 게시글 코드(bd_id)로 게시글 정보를 조회한다.		
-		model.addAttribute("boardJoinVo", boardJoinVo); // model에 저장한다.		
-		return "ad_boardUpdate";
+	public String boardUpdate(@RequestParam(value="smarteditor", defaultValue="") String bd_content,
+							  BoardJoinVo boardJoinVo, Model model){	
+		boardJoinVo.setBd_content(bd_content);
+		int cnt = adboardService.boardUpdate(boardJoinVo); // 게시글 정보 통해 게시글 수정 후 cnt 생성	
+		if(cnt != 0){ // cnt가 0이 아닐시
+			model.addAttribute("boardJoinVo", boardJoinVo); // model에 저장한다.		
+			return "redirect:/adboard/boardDetail?id="+boardJoinVo.getBd_id(); // 게시글 상세조회 화면으로 이동
+		}else{ // 게시글 수정 실패시
+			return "/admin/main"; // 관리자 메인화면으로 이동
+		}
 	}
 	
-
 	/**
 	 * Method : boardDel
 	 * 최초작성일 : 2018. 9. 18.

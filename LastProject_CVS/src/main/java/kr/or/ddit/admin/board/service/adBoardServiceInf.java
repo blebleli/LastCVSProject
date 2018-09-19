@@ -85,4 +85,15 @@ public interface adBoardServiceInf {
 	 * Method 설명 : 댓글 삭제
 	 */
 	int commentsDelete(String cm_id);
+	
+	/**
+	 * Method : boardUpdate
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 수정
+	 */
+	int boardUpdate(BoardJoinVo boardJoinVo);
 }

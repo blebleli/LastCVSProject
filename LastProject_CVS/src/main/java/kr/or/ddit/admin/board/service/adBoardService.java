@@ -187,4 +187,18 @@ public class adBoardService implements adBoardServiceInf {
 	public int commentsDelete(String cm_id) {
 		return adboardDao.commentsDelete(cm_id);
 	}
+	
+	/**
+	 * Method : boardUpdate
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 수정
+	 */
+	@Override
+	public int boardUpdate(BoardJoinVo boardJoinVo) {
+		return adboardDao.boardUpdate(boardJoinVo);
+	}
 }

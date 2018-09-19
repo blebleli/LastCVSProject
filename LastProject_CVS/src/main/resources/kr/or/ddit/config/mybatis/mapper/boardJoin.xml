@@ -20,26 +20,9 @@
 						FROM board
 		              	WHERE bd_kind_id=#{bd_kind_id}
 						ORDER BY bd_date DESC       
-		      ) T )  
-<!-- 		      WHERE cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize} -->
+		      ) T )
 	</select>	
-	<!-- 
-		select * from (
-		SELECT ROWNUM CNT, T.*
-				FROM  (
-				        SELECT    (SELECT PROD_NAME FROM PROD WHERE BOARD.PROD_ID = PROD.PROD_ID) AS PROD_NAME
-								, (SELECT MEM_NAME FROM MEMBER WHERE BOARD.MEM_ID = MEMBER.MEM_ID) AS MEM_NAME
-								, BD_TITLE
-								, BD_RATING
-								, BD_DATE
-								, MEM_ID
-								, BD_KIND_ID
-								, PROD_ID
-								, BD_ID
-						FROM BOARD
-		              	WHERE BD_KIND_ID=#{BD_KIND_ID}
-						ORDER BY BD_DATE DESC       
-		      ) T )  WHERE CNT BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize} -->
+
 	
 	<!-- 전체 건수 -->
   	<select id="getBoardTotCnt" resultType="int">
@@ -92,6 +75,13 @@
 		FROM board
 		WHERE bd_id=#{bd_id}
   	</select>
+  	
+  	<!-- 관리자 - 게시글 수정 -->
+  	<update id="boardUpdate" parameterType="boardJoinVo">
+  		UPDATE board SET bd_title = #{bd_title}
+  						,bd_content = RAWTOHEX(#{bd_content})
+  		WHERE bd_id = #{bd_id}
+  	</update>
   	
   	<!-- 관리자 - 게시글 삭제 -->
   	<update id="boardDelete" parameterType="String">

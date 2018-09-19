@@ -43,7 +43,7 @@
 						<div class="x_content">
 		
 							<!-- 게시글 등록시 form submit -->
-							<form action="/adboard/boardCreate" method="post" id="frmInsert"
+							<form action="/adboard/boardUpdate" method="post" id="frmInsert"
 								enctype="multipart/form-data" data-parsley-validate=""
 								class="form-horizontal form-label-left">
 		
@@ -96,7 +96,8 @@
 									</div>
 								</div>
 								<input type="hidden" id="mem_id" name="mem_id" value="${boardJoinVo.mem_id }">
-								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value=44>
+								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${boardJoinVo.bd_kind_id }">
+								<input type="hidden" id="bd_id" name="bd_id" value="${boardJoinVo.bd_id }">
 							</form>
 						</div>
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->
