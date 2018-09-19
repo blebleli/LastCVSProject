@@ -135,8 +135,15 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			session.setAttribute("userInfo", memberVo);
 
-//			return "userMain";
-			return "forward:/user/main"; 
+			if (memberVo.getMem_kind().equals("00")) {	        // 관리자
+				return "forward:/admin/main";
+			} else if (memberVo.getMem_kind().equals("01")) {	// 편의점
+				return "forward:/cvs/main";
+			} else if (memberVo.getMem_kind().equals("00")) {   // 일반사용자
+				return "forward:/user/main";
+			} else {
+				return "forward:/login/loginView";
+			}
 
 		}else {
 			model.addAttribute("errMsg", "아이디 또는 비밀번호가 일치하지 않습니다.");
