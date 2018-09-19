@@ -30,11 +30,35 @@
 <div class>
 <div class="row">
 
-<div class="col-md-6"> 검색 리스트
+<div class="col-md-3 left_col">
+  <div class="left_col scroll-view">
+    <div class="navbar nav_title" style="border: 0;">
+      <a href="cvs_index.html" class="site_title"><i class="fa fa-paw"></i> <span>상품 카테고리</span></a>
+    </div>
 
+    <div class="clearfix" align="left"></div>
+<div class="clearfix"></div>
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+<div class="clearfix"></div>
+      <div class="menu_section">
+        <h3>CATEGORY</h3>
+        <ul class="nav side-menu">
+          <li><a href="main"><i class="fa fa-home"></i> Home </a>
+          </li> 
+           <li><a><i class="fa fa-table"></i> 상품관리 <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+           	   <li><a href="/adprod/adprodView">상품 조회/삭제</a></li>
+               <li><a href="#">상품 등록</a></li>
+               <li><a href="#">상품 수정</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
 
-
+    </div>
 </div>
+</div>
+
 
 <div class="col-md-6">
 <!-- 카테고리선택박스 -->
