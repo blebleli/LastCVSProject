@@ -150,8 +150,8 @@
 
 											<tbody>
 												<c:choose>
-													<c:when test="${!empty userMemberList}">
-														<c:forEach items="${userMemberList}" var="memberVo" varStatus="status">
+													<c:when test="${!empty cvsMemberList}">
+														<c:forEach items="${cvsMemberList}" var="memberVo" varStatus="status">
 															<tr role="row" class="odd">
 																<th scope="row">${memberVo.rn}</th>
 																<td class="" tabindex="0">${memberVo.mem_id}</td>
