@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-@SessionAttributes({"userInfo","boardpage","pageNavi","bd_kind_id"})
+@SessionAttributes({"userInfo","boardpage","pageNavi"})
 @RequestMapping("/adboard")
 @Controller("adboardController")
 public class AdboardController {
@@ -50,13 +50,14 @@ public class AdboardController {
 							@RequestParam(value="btnChk", defaultValue="") String bd_kind_id,
 							Model model){		
 
-		logger.debug("btnChk =========> {} ", bd_kind_id+"입니다.");
+		logger.debug("btnChk =========> {} ", "게시판 분류코드는 "+bd_kind_id+" 입니다.");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();		
 		paramMap.put("page", page); // page 1
 		paramMap.put("pageSize", pageSize); // pageSize 10	
 		paramMap.put("bd_kind_id",bd_kind_id); // 맵에 저장		
-		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력		
+		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력
+		model.addAttribute("bd_kind_id", bd_kind_id);
 		model.addAllAttributes(resultMap);
 		return "ad_boardView";
 	}
@@ -71,9 +72,10 @@ public class AdboardController {
 	 * Method 설명 : 게시글 작성(공지사항, 상품리뷰, 이벤트)
 	 */
 	@RequestMapping("/boardNew")
-	public String boardNew(Model model){
-		String mem_id = "admin";
-		model.addAttribute("mem_id", mem_id);
+	public String boardNew(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id, Model model){
+//		String mem_id = "admin";
+		logger.debug("bd_kind_id ==================================>> {} ", bd_kind_id);
+		model.addAttribute("bd_kind_id", bd_kind_id);
 		return "ad_boardNew";
 	}
 	

@@ -27,20 +27,21 @@
 						</div>
 		
 			<!-- ==================================== 게시글 등록 내용 시작 ============================================================ -->
-						<div class="x_content">
+						<div class="x_content"> 
 		
 							<!-- 게시글 등록시 form submit -->
 							<form action="/adboard/boardCreate" method="post" id="frmInsert"
 								enctype="multipart/form-data" data-parsley-validate=""
 								class="form-horizontal form-label-left">
-		
-								<!-- 작성자 - admin(관리자) -->
-								<div class="form-group">
-									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="first-name">관리자 <span class="required"></span>
-									</label>
-								</div>
-		
+								
+								<!-- 게시글 등록할 구분표시 (공지사항, 이벤트) -->
+<!-- 								<div class="form-group"> -->
+<!-- 			                      <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">구분</label> -->
+<!-- 				                        공지사항 -->
+<!-- 				                        <input type="radio" name="gender" id="bd_kind_id" value="" checked="" required /> 이벤트 -->
+<!-- 				                        <input type="radio" name="gender" id="bd_kind_id" value="F" />	                     			  -->
+<!-- 								</div>							 -->
+
 								<!-- 제목 -->
 								<div class="form-group">
 									<label for="middle-name"
@@ -82,8 +83,8 @@
 										<button id="savebutton" type="button" class="btn btn-default">등록</button>
 									</div>
 								</div>
-								<input type="hidden" id="mem_id" name="mem_id" value="${mem_id}">
-								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value=44>
+								<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
+								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id}">
 							</form>
 						</div>
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->

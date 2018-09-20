@@ -39,8 +39,9 @@
 				}
 			});
 			
-			$("#boardNew").on("click", function(){
-				$("#boardGo").submit();
+			$("#boardNew").on("click", function(){ // 게시글 작성을 누르면
+				$("#boardGo").attr("action","/adboard/boardNew") // 게시글 작성으로 이동한다.
+				$("#boardGo").submit(); // 게시글 작성으로 이동한다.
 			});
 			
 			$("#boardDel").on("click", function(){
@@ -125,9 +126,10 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>게시판 관리
-                <c:if test=""></c:if>
-                <small>(넣을 내용) 조회</small></h3>
+                <c:if test="${bd_kind_id==''}"><h3>게시판 관리<small> 전체 조회</small></h3></c:if>
+                <c:if test="${bd_kind_id=='44'}"><h3>게시판 관리<small> 공지사항 조회</small></h3></c:if>
+                <c:if test="${bd_kind_id=='55'}"><h3>게시판 관리<small> 상품리뷰 조회</small></h3></c:if>
+                <c:if test="${bd_kind_id=='66'}"><h3>게시판 관리<small> 이벤트 조회</small></h3></c:if>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -135,27 +137,34 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                                      	<div>
+					<div>
 						<form action="/adboard/boardView" id="boardGo" method="post">
                         <input type="hidden" name="btnChk" id="btnChk">
 						<div id = "select" class="select">
 						
-					<div class="btn-group btn-group-sm">
-                        <button class="btn btn-default" type="button" id="all" name="bd_kind_id00" value="">전체</button>
-                        <button class="btn btn-default" type="button" id="44"  name="bd_kind_id44" value="44">공지사항</button>
-                        <button class="btn btn-default" type="button" id="55"  name="bd_kind_id55" value="55">상품리뷰</button>
-                        <button class="btn btn-default" type="button" id="66"  name="bd_kind_id66" value="66">이벤트</button>
-					</div>
-							
-							<ul class="nav navbar-right panel_toolbox">
-								<li class="dropdown">
-									<div class="btn-group  btn-group-sm">
-									<button class="btn btn-default" type="button">등록</button>
-									<button class="btn btn-default" type="button">삭제</button>
-									</div>
-								</li>
-							</ul>
-							</div>
+						<div class="btn-group btn-group-sm">
+	                        <button class="btn btn-default" type="button" id="all" name="bd_kind_id00" value="">전체</button>
+	                        <button class="btn btn-default" type="button" id="44"  name="bd_kind_id44" value="44">공지사항</button>
+	                        <button class="btn btn-default" type="button" id="55"  name="bd_kind_id55" value="55">상품리뷰</button>
+	                        <button class="btn btn-default" type="button" id="66"  name="bd_kind_id66" value="66">이벤트</button>
+						</div>
+								
+						<ul class="nav navbar-right panel_toolbox">
+							<li class="dropdown">
+								<div class="btn-group  btn-group-sm">									
+								<c:if test="${bd_kind_id=='44'}">
+									<button class="btn btn-default" type="button" id="boardNew">등록</button>
+								</c:if>
+               					<c:if test="${bd_kind_id=='66'}">
+               						<button class="btn btn-default" type="button" id="boardNew">등록</button>
+               					</c:if>
+								<button class="btn btn-default" type="button">삭제</button>
+								<input type="hidden" id="bd_kind_id" value="${bd_kind_id}">
+								</div>
+							</li>
+						</ul>
+						
+						</div>
 						</form>
 					</div>
                     <div class="clearfix"></div>
