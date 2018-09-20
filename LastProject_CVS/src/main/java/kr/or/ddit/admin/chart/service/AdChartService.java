@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import kr.or.ddit.admin.chart.dao.AdChartDaoInf;
 import kr.or.ddit.admin.model.CvsCountVo;
+import kr.or.ddit.admin.model.MonthTopVo;
+import kr.or.ddit.admin.model.RankVo;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,26 @@ public class AdChartService implements AdChartServiceInf{
 	@Override
 	public List<CvsCountVo> getCvsServiceCount() {
 		return adChartDao.getCvsServiceCount();
+	}
+
+	@Override
+	public List<MonthTopVo> getCvsTop3() {
+		return adChartDao.getCvsTop3();
+	}
+
+	@Override
+	public List<RankVo> getProdTop5() {
+		return adChartDao.getProdTop5();
+	}
+
+	@Override
+	public List<RankVo> getBookmarkProdTop5() {
+		return adChartDao.getBookmarkProdTop5();
+	}
+
+	@Override
+	public List<RankVo> getBookmarkCvsTop5() {
+		return adChartDao.getBookmarkCvsTop5();
 	}
 
 	
