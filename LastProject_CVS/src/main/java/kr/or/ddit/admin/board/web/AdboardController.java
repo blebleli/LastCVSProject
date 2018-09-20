@@ -3,16 +3,12 @@ package kr.or.ddit.admin.board.web;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import kr.or.ddit.admin.board.model.BoardJoinVo;
 import kr.or.ddit.admin.board.service.adBoardServiceInf;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
-import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -47,44 +43,21 @@ public class AdboardController {
 	 * @param model
 	 * @return
 	 * Method 설명 : 게시판 전체 조회(공지사항, 상품리뷰, 이벤트)
-	 */
-//	@RequestMapping("/boardView")
-//	public String boardView(@RequestParam(value="page", defaultValue="1") int page,
-//							@RequestParam(value="pageSize", defaultValue="10") int pageSize,
-//							Model model){
-//		
-//		Map<String, Object> paramMap = new HashMap<String, Object>();
-//		
-//		paramMap.put("page", page); // page 1
-//		paramMap.put("pageSize", pageSize); // pageSize 10
-//		String bd_kind_id = "44"; // 공지사항 코드
-//		paramMap.put("bd_kind_id",bd_kind_id); // 맵에 저장
-//		
-//		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력
-//		
-//		model.addAllAttributes(resultMap);
-//		model.addAttribute("bd_kind_id", bd_kind_id); // model 저장
-//		
-//		return "ad_boardView";
-//	}
-	
+	 */	
 	@RequestMapping("/boardView")
 	public String boardView(@RequestParam(value="page", defaultValue="1") int page,
 							@RequestParam(value="pageSize", defaultValue="10") int pageSize,
-							@RequestParam(value="btnChk", defaultValue="") String btnChk,
-							Model model){
-		
-		
-		logger.debug("boardView=========================================================================================");
-		logger.debug("btnChk =========> {} ", btnChk);
+							@RequestParam(value="btnChk", defaultValue="") String bd_kind_id,
+							Model model){		
+
+		logger.debug("btnChk =========> {} ", bd_kind_id+"입니다.");
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();		
 		paramMap.put("page", page); // page 1
-		paramMap.put("pageSize", pageSize); // pageSize 10
-		String bd_kind_id = null;		
+		paramMap.put("pageSize", pageSize); // pageSize 10	
 		paramMap.put("bd_kind_id",bd_kind_id); // 맵에 저장		
 		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력		
-		model.addAllAttributes(resultMap);		
+		model.addAllAttributes(resultMap);
 		return "ad_boardView";
 	}
 	
