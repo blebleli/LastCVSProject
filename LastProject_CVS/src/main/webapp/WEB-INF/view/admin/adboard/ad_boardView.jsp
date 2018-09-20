@@ -12,6 +12,13 @@
     <script>	
 		$(function(){
 			
+			function kind(){
+				var f=document.boardGo;
+				alert(ㅎㅇㅎㅇ);
+				f.action = "/adboard/boardView";
+				f.submit();
+			}
+			
 		    $("input:radio[name='gender']").click(function(){ 
 				OnlyMember();
 			});
@@ -177,18 +184,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>게시판 관리 <small>조회/삭제</small></h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
+                <h3>게시판 관리 <small>(넣을 내용) 조회</small></h3>
               </div>
             </div>
 
@@ -197,61 +193,74 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>전체 <small>조회</small></h2>
+                                      	<div>
+						<form action="/adboard/boardView" id="boardGo" method="post">
+						<div id = "select" class="select">
+						
+					<div class="btn-group btn-group-sm">
+                        <button class="btn btn-default" type="button" id="all" name="bd_kind_id00" value="">전체</button>
+                        <button class="btn btn-default" type="button" id="44" name="bd_kind_id44" value="44">공지사항</button>
+                        <button class="btn btn-default" type="button" id="55" name="bd_kind_id55" value="55">상품리뷰</button>
+                        <button class="btn btn-default" type="button" id="66" name="bd_kind_id66" value="66">이벤트</button>
+					</div>
+                      
+                      
+                      
+<!-- 							<button id="buttons" type="button" >전체</button> -->
+<!-- 							<button id="buttons4" type="button" >공지사항</button>   -->
+<!-- 							<button id="buttons5" type="button">상품리뷰</button> -->
+<!-- 							<button id="buttons6" type="button">이벤트</button>							 -->
+<!-- 							<button id="buttons" type="button" class="btn btn-default btn-xs">점검중</button> -->
+							
+							<ul class="nav navbar-right panel_toolbox">
+								<li class="dropdown">
+									<div class="btn-group  btn-group-sm">
+									<button class="btn btn-default" type="button">등록</button>
+									<button class="btn btn-default" type="button">삭제</button>
+									</div>
+<!-- 									<button class="btn btn-default btn-xs" id="boardNew" -->
+<!-- 										type="button">등록</button> -->
+								</li>
+<!-- 								<li><button class="btn btn-default btn-xs" id="boardDel" -->
+<!-- 										type="reset">삭제</button></li> -->
+							</ul>
+							</div>
+						</form>
+					</div>
                     <div class="clearfix"></div>
                   </div>                  
                   
 				  <!-- ========================================================================== -->
                   <div class="x_content">
-                  	<div>
-						<form id="boardGo" action="/adboard/boardNew" method="post">
-						<div id = "select" class="select">
-							공지사항 <input checked required data-parsley-multile="gender"
-								type="radio" class="flat" name="gender" id="bd_kind_id44"
-								value="${bd_kind_id }" /> 
-							상품리뷰 <input type="radio" class="flat"
-								name="gender" id="bd_kind_id55" value="55" />
-							이벤트 <input
-								type="radio" class="flat" name="gender" id="bd_kind_id66"
-								value="66" onclick="OnlyMember();"/>
-								
-							<button id="buttons" type="button" class="btn btn-default btn-xs">점검중</button>
-							
-							<ul class="nav navbar-right panel_toolbox">
-								<li class="dropdown">
-									<button class="btn btn-default btn-xs" id="boardNew"
-										type="button">등록</button>
-								</li>
-								<li><button class="btn btn-default btn-xs" id="boardDel"
-										type="reset">삭제</button></li>
-							</ul>
-							</div>
-						</form>
-					</div>
 					<div class="table-responsive">
 						<table id="datatable-buttons" class="table table-striped table-bordered">
 						<!-- <table id="datatable-buttons" class="table table-striped jambo_table bulk_action"> -->
 							<thead>
 								<tr id="reviews" role="row" class="headings">
-									<th style="width: 20px;"><input type="checkbox"
+									<th style="width: 5px;"><input type="checkbox"
 										id="check-all" class="flat"></th>
 									<th class="sorting" tabindex="0"
 										aria-controls="datatable-responsive" rowspan="1" colspan="1"
-										style="width: 20px;"
+										style="width: 5px;"
 										aria-label="First name: activate to sort column ascending">번호</th>
 									<th class="sorting" tabindex="0"
 										aria-controls="datatable-responsive" rowspan="1" colspan="1"
-										style="width: 400px;"
+										style="width: 500px;"
 										aria-label="First name: activate to sort column ascending">제목</th>
 									<th class="sorting" tabindex="0"
 										aria-controls="datatable-responsive" rowspan="1" colspan="1"
-										style="width: 30px;"
+										style="width: 25px;"
 										aria-label="Last name: activate to sort column ascending">작성자</th>
 									<th class="sorting_desc" tabindex="0"
 										aria-controls="datatable-responsive" rowspan="1" colspan="1"
-										style="width: 30px;"
+										style="width: 25px;"
 										aria-label="Position: activate to sort column ascending"
 										aria-sort="descending">작성일</th>
+									<th class="sorting_desc" tabindex="0"
+										aria-controls="datatable-responsive" rowspan="1" colspan="1"
+										style="width: 25px;"
+										aria-label="Position: activate to sort column ascending"
+										aria-sort="descending">조회수</th>										
 									<th class="bulk-actions" tabindex="0" aria-controls="datatable-responsive" colspan="7"><a class="antoo"
 										style="color: #fff; font-weight: 500;">전체 선택 ( <span
 											class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a></th>
@@ -267,20 +276,22 @@
 												data-id2="${vo.bd_del}">
 												<td class="a-center "><input type="checkbox"
 													class="flat" name="table_records"></td>
-												<td>${vo.cnt }</td>
+												<td>${vo.tot_cnt }</td>
 												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
 												<td>${vo.mem_name}</td>
-												<td class="a-right a-right">${vo.bd_date}</td>
+												<td>${vo.bd_date}</td>
+												<td>${vo.bd_views}</td>												
 											</tr>
 										</c:when>
 										<c:when test="${vo.bd_del=='Y'}">
 											<tr class="even pointer" data-id="${vo.bd_id}">
 												<td class="a-center "><input type="checkbox"
 													class="flat" name="table_records"></td>
-												<td>${vo.cnt }</td>
+												<td>${vo.tot_cnt }</td>
 												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')}</td>
-												<td></td>
-												<td></td>
+												<td>${vo.mem_name}</td>
+												<td>${vo.bd_date}</td>
+												<td>${vo.bd_views}</td>	
 											</tr>
 										</c:when>
 									</c:choose>

@@ -16,7 +16,7 @@
       </div>
       <div class="profile_info">
         <span>Welcome,</span>
-        <h2>admin</h2>
+        <h2>${userInfo.mem_id}</h2>
       </div>
     </div>
     <!-- /menu profile quick info -->
@@ -77,7 +77,6 @@
           
           <!-- 김마음 -->
           <li><a href="/adboard/boardView"><i class="fa fa-table"></i> 게시판관리 <span class="fa fa-chevron-down"></span></a>
-
           </li>
           <!-- 김마음 -->
           
