@@ -279,19 +279,29 @@
 				    		
 				    		$("#posTable tbody tr").each(function () {		                    	 
 				    			var data = $(this);					    			
-				    			saleList.push({bcd_id: data.find('.stcklistID').html(), 
-				    					  sale_amount: data.find('.amount').val(),
-				    					  sale_kind:kind })
+				    			saleList.push({bcd_id: data.find('.bcd_id').html(),
+				    				       prod_price: data.find('.price1').html(),
+				    				  stcklist_amount: data.find('.amount').val(),
+					    					  prod_id: data.find('.prod_id').html()
+					    					 })
 		                     });	
+				    		
+				    		//saleList.push({kind : kind});
 				    		
 				    		console.log("saleList ::: "+saleList);
 				    		
+				    		var param = { salesList : saleList, kind : kind};
+				    		
+				    		console.log("param ::: "+ JSON.stringify(param));
+				    		
 				    	 	$.ajax({
-		    					  url: "/cvs/saleInsert",
+		    					  url: "/cvs/pos/saleInsert",
 		    					  method: "post",
-		    					  data: JSON.stringify(dispList),
+		    					  //data: JSON.stringify(saleList),
+		    					  data: JSON.stringify(param),
 		    					  contentType: "application/json",
-		    					  success : function () {
+		    					  success : function (data) {
+		    						  // --------------------------------  data == retun ???
 		    						  alert("결제 되었습니다.");
 		    						  emptyTable(); 
 		    				      },		 						
@@ -306,10 +316,6 @@
 				    		
 				    		$("#posTable tbody tr").each(function () {		                    	 
 				    			var data = $(this);		
-				    			console.log("data ::: "+data.find('.bcd_id').html())
-				    			console.log("data ::: "+data.find('.price1').html())
-				    			console.log("data ::: "+data.find('.amount').val())
-				    			console.log("data ::: "+data.find('.stcklist_exdate').html())
 				    			
 				    			dispList.push({bcd_id: data.find('.bcd_id').html(),
 				    					   prod_price: data.find('.price1').html(),
@@ -317,7 +323,7 @@
 				    				  stcklist_exdate: data.find('.stcklist_exdate').html()})
 		                    	 });	
 				    		
-				    		console.log("dispListSize ::: "+dispList[0].stcklist_exdate);
+				    		console.log("dispListSize ::: "+dispList.size);
 				    		
 				    		/* return false; */
 				    		
@@ -593,8 +599,8 @@
 					        <h4 class="modal-title" id="myModalLabel">결제 선택</h4>
 					      </div>
 					      <div class="modal-body">
-					        <button type="button" class="culcBtn op" onclick="btnSale('현금')">현금</button>
-					        <button type="button" class="culcBtn op" onclick="btnSale('카드')">카드</button>
+					        <button type="button" class="culcBtn op" onclick="btnSale('현')">현금</button>
+					        <button type="button" class="culcBtn op" onclick="btnSale('카')">카드</button>
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

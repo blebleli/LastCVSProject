@@ -42,6 +42,8 @@
    			}); */
    			
    			
+   			//
+   			
    			//발주신청하려하는 id리스트를 controller로 넘기는 기능
      		$( "#requestBtn" ).click(function(){	
 
@@ -59,9 +61,7 @@
 	    			method : "post",	    			
         			data: JSON.stringify(requestProd),
 				    contentType: "application/json"
-	    		
-	    		});
-        		
+	    		});   		
     		});
 
     	}); 
@@ -136,9 +136,7 @@
                             <th class="column-title">유통기한만료일 </th>
                             <th class="column-title">가격 </th>
                             <th class="column-title">재고 </th>
-                            <th class="column-title">이벤트상태 </th>
-                            <th class="column-title no-link last"><span class="nobr">Action</span>
-                            </th>
+                            <th class="column-title">이벤트상태 </th>                         
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">선택한 상품 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                             </th>
@@ -164,8 +162,6 @@
 		                            <td class=" ">${stock.prod_price }</td>
 		                            <td class=" ">${stock.stcklist_amount }</td>
 		                            <td class="a-right a-right ">${stock.event_id }</td>
-		                            <td class=" last"><a href="/WEB-INF/view/cvs/cvs_invoice.jsp">View</a>
-		                            </td>
 		                          </tr>
 	                        	</c:forEach>
                         	</c:if>
