@@ -37,6 +37,7 @@
             var url="test.html";
             window.open(url,"","width=1200,height=600,left=600");
         }
+        
 </script>
 
 
