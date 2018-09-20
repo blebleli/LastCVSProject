@@ -15,14 +15,14 @@
     <title>Gentelella Alela! | </title>
 
 <!-- Bootstrap -->
-<!-- <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome -->
-<!-- <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
+<link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <!-- NProgress -->
-<!-- <link href="../vendors/nprogress/nprogress.css" rel="stylesheet"> -->
+<link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
 <!-- Custom Theme Style -->
-<!-- <link href="../build/css/custom.min.css" rel="stylesheet"> -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
 
 <%-- <script type="text/javascript" src="<c:url value='/js/common/jquery-1.11.1.min.js' />"></script> --%>
 <link href="/treeview/jquery.treemenu.css" rel="stylesheet" type="text/css">
@@ -62,43 +62,48 @@ ul,ol, li {list-style:none}
 
 </head>
 
-<body >
+<body class="nav-md">
+<div class="nav_menu"> 
+<div class="page-title">
+  <div class="title_left">
+    <h3> 카테고리 추가 <small>제품</small></h3>
+  </div>
 
-<ul class="tree">
-  <li><a href="">Home</a></li>
-  <li><span>Category</span>
-    <ul>
-      <li><a href="#">jQuery</a>
-        <ul>
-          <li><a href="#">jQuery</a></li>
-          <li><a href="#">jQuery UI</a></li>
-          <li><a href="#">jQuery Mobile</a></li>
-        </ul>
-      </li>
-      <li><a href="#">JavaScript</a>
-        <ul>
-          <li><a class="active" href="#">AngularJS</a></li>
-          <li><a href="#">React</a></li>
-          <li><a href="#">Backbone</a></li>
-        </ul>
-      </li>
-      <li><a href="#suits">Golang</a></li>
-    </ul>
-  </li>
-  <li><a href="#about">About</a>
-    <ul>
-      <li><a href="#">Contact</a></li>
-      <li><a href="#">Blog</a></li>
-      <li><a href="#">Jobs</a>
-        <ul>
-          <li><a href="#jobs1">Job 1</a></li>
-          <li><a href="#jobs2">Job 2</a></li>
-          <li><a href="#jobs3">Job 3</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+  <div class="title_right">
+    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+      <div class="input-group">
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+
+
+<div class="row">
+
+<div class="col-md-6 col-sm-6 col-xs-12">
+<!-- 카테고리 tree view -->
+<ul class="tree" >
+    <c:forEach items="${categoryAll }" var="all">
+    	<c:if test="${all.level == 1 }">
+    		<c:set var="value" value="${all.ctgy_id }"/>
+	    	<li><a href="#">${all.ctgy_name }</a>
+	    </c:if>	
+		<ul>
+	    <c:if test="${all.ctgy_parent == null }">
+	    	<c:forEach items="${categoryMd}" var="md">
+			    	<c:if test="${md.ctgy_group eq  value }">
+			    		<li><a href="#">${md.ctgy_name }</a></li>
+			    	</c:if>
+	    	</c:forEach>
+	    </c:if>
+	    </ul>
+	    </li>	
+    </c:forEach>
 </ul>
+
+      
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="/treeview/jquery.treemenu.js"></script>
 <script>
@@ -106,6 +111,29 @@ $(function(){
         $(".tree").treemenu({delay:300}).openActive();
     });
 </script>
+</div>
+<div class="col-md-6 col-sm-6 ">
+<!-- 추가 작업 하는곳 -->
+    <c:forEach items="${categoryAll }" var="all">
+    	<c:if test="${all.level == 1 }">
+    		<c:set var="value" value="${all.ctgy_id }"/>
+	    	<li><a href="#">${all.ctgy_name }</a>
+	    </c:if>	
+		<ul>
+	    <c:if test="${all.ctgy_parent == null }">
+	    	<c:forEach items="${categoryMd}" var="md">
+			    	<c:if test="${md.ctgy_group eq  value }">
+			    		<li><a href="#">${md.ctgy_name }</a></li>
+			    	</c:if>
+	    	</c:forEach>
+	    </c:if>
+	    </ul>
+	    </li>	
+    </c:forEach>
+</div>
+
+</div>  <!-- <div class> --> 
+</div>  <!-- <div class="row">  -->
 
 <!-- <div class> -->
 <!-- <div class="row"> -->
