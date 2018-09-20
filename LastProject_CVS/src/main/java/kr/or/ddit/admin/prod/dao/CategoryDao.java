@@ -2,11 +2,25 @@ package kr.or.ddit.admin.prod.dao;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.model.CategoryVo;
+import kr.or.ddit.prod.dao.ProdDao;
 
 
+@Repository("categoryDao")
 public class CategoryDao implements CategoryDaoInf {
 
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate session;
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Override
 	public int setInsertCategory(CategoryVo categoryVo) {
 		return 0;
@@ -14,7 +28,7 @@ public class CategoryDao implements CategoryDaoInf {
 
 	@Override
 	public List<CategoryVo> getListCategory() {
-		return null;
+		return session.selectList("category.prodCtgyList");
 	}
 
 	@Override

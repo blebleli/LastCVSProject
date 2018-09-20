@@ -9,6 +9,16 @@ public class PageVo {
 	
 	private int tot_cnt;
 	
+	private int level;
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
 	public int getPage() {
 		return page;
 	}

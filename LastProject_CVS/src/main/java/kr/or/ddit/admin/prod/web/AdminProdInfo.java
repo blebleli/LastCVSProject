@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import kr.or.ddit.admin.model.AdminProdVo;
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
+import kr.or.ddit.admin.prod.service.CategoryServiceInf;
 import kr.or.ddit.model.CategoryVo;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RequestMapping("/adprod")
@@ -22,6 +24,10 @@ public class AdminProdInfo {
 
 	@Resource(name="adminProdService")
 	AdminProdServiceInf adminProdService;
+	
+	@Resource(name="categoryService")
+	CategoryServiceInf categoryService;
+	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -44,6 +50,9 @@ public class AdminProdInfo {
 	
 	@RequestMapping("/categoryPopup")
 	public String categoryPopup(Model model){
+		logger.debug("categoryPopup ==================================================================");
+		// 전체 카테고리(계층)
+		List<CategoryVo> categoryAll = categoryService.getListCategory();
 		
 		CategoryVo vo = new CategoryVo();
 		vo.setCtgy_kind("301");
@@ -54,10 +63,27 @@ public class AdminProdInfo {
 		// 중분류
 		List<CategoryVo> categoryMd = adminProdService.getProdCategory(vo);
 		
+		model.addAttribute("categoryAll", categoryAll);
 		model.addAttribute("categoryLg", categoryLg);
 		model.addAttribute("categoryMd", categoryMd);
+		
+		
 
 		return "/admin/adprod/ad_category_popup";
+		
+	}
+	
+	@RequestMapping("/tttt")
+	public String t(Model model, @RequestParam(value="in1") String in1
+			,@RequestParam(value="in1") String in2
+			){
+		
+		logger.debug("==============================================================");
+		logger.debug(in1);
+		logger.debug(in2);
+		logger.debug("==============================================================");
+
+		return "";
 		
 	}
 	

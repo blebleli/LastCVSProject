@@ -2,11 +2,20 @@ package kr.or.ddit.admin.prod.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import kr.or.ddit.admin.prod.dao.CategoryDaoInf;
 import kr.or.ddit.model.CategoryVo;
 
 
+@Service("categoryService")
 public class CategoryService implements CategoryServiceInf {
 
+	@Resource(name="categoryDao")
+	CategoryDaoInf categoryDao;
+	
 	@Override
 	public int setInsertCategory(CategoryVo categoryVo) {
 		// TODO Auto-generated method stub
@@ -15,8 +24,7 @@ public class CategoryService implements CategoryServiceInf {
 
 	@Override
 	public List<CategoryVo> getListCategory() {
-		// TODO Auto-generated method stub
-		return null;
+		return categoryDao.getListCategory();
 	}
 
 	@Override
