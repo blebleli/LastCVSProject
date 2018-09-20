@@ -157,7 +157,7 @@ public interface BoardServiceInf {
 	 * @return
 	 * Method 설명 : 각 게시판 페이징 기법
 	 */
-	Map<String, Object> getBoardPageList(Map<String, Integer> map);
+	Map<String, Object> getBoardPageList(Map<String, Object> map);
 	
 	/**
 	 * 

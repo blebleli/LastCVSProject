@@ -181,11 +181,11 @@ public interface BoardDaoInf {
 	* 최초작성일 : 2018. 9. 5.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 :List<BoardVo> getBoardPageList(Map<String, Integer> map)_공지사항 게시판 페이징 처리
+	* 조 회 :List<BoardVo> getBoardPageList(Map<String, Object> map)_공지사항 게시판 페이징 처리
 	* @param map
 	* @return
 	*/
-	List<BoardVo> getBoardPageList(Map<String, Integer> map);
+	List<BoardVo> getBoardPageList(Map<String, Object> map);
 	
 	/**
 	* Method : totCntBoardList

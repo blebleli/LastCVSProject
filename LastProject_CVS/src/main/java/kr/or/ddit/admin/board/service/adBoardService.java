@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.admin.board.dao.adBoardDaoInf;
 import kr.or.ddit.admin.board.model.BoardJoinVo;
 import kr.or.ddit.filedata.service.FileServiceInf;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
 
@@ -42,17 +43,15 @@ public class adBoardService implements adBoardServiceInf {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		// 게시판 페이지 리스트 조회
-		List<BoardJoinVo> boardpage = adboardDao.adBoardViewList(map);
-		for (BoardJoinVo boardList : boardpage){
+		List<BoardVo> boardpage = adboardDao.adBoardViewList(map);
+		for (BoardVo boardList : boardpage){
 			logger.debug("boardList ===========> {} "+boardList);
 		}
 		
 		resultMap.put("boardpage", boardpage); // 저장
 		
 		// 페이지 네비게이션 html 생성
-		int totCnt = adboardDao.getBoardTotCnt(); // 게시글 전체 건수 조회
-		
-		
+		int totCnt = adboardDao.getBoardTotCnt(); // 게시글 전체 건수 조회		
 		int page = (int) map.get("page");
 		int pageSize = (int) map.get("pageSize");
 		
@@ -68,8 +67,6 @@ public class adBoardService implements adBoardServiceInf {
 		int cnt = totCnt / pageSize; // 몫
 		int mod = totCnt % pageSize; // 나머지
 		
-
-		
 		if (mod > 0)
 			cnt++;
 		
@@ -77,20 +74,19 @@ public class adBoardService implements adBoardServiceInf {
 		
 		int prevPage = page == 1? 1 : page-1;
 		int nextPage = page == cnt ? page : page+1;
-		pageNaviStr.append("<li><a href=\"/admin/boardView?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/adboard/boardView?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
 		
 		for(int i = 1; i <= cnt; i++){
-			// /admin/boardView?page=3&pageSize=10
+			// /adboard/boardView?page=3&pageSize=10
 			String activeClass = "";
 			if(i == page)
 				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/boardView?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/adboard/boardView?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
 		}
 		
-		pageNaviStr.append("<li><a href=\"/admin/boardView?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/adboard/boardView?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 		
-		return pageNaviStr.toString();
-		
+		return pageNaviStr.toString();		
 	}
 	
 	/**

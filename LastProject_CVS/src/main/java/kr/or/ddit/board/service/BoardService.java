@@ -149,20 +149,22 @@ public class BoardService implements BoardServiceInf {
 	
 	*/
 	@Override
-	public Map<String, Object> getBoardPageList(Map<String, Integer> map) {
+	public Map<String, Object> getBoardPageList(Map<String, Object> map) {
+		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		// 게시판 페이지 리스트 조회
-		List<BoardVo> boardList = boardDao.getBoardPageList(map);
-		resultMap.put("boardList", boardList);
+		List<BoardVo> boardpage = boardDao.getBoardPageList(map);
+		
+		resultMap.put("boardpage", boardpage);
 
 		// 게시글 전체 건수 조회
 		int totCnt = boardDao.getBoardListTotCnt();
 		resultMap.put("totCnt", totCnt);
 
 		// 페이지 네비게이션 html 생성
-		int page = map.get("page");
-		int pageSize = map.get("pageSize");
+		int page = (int) map.get("page");
+		int pageSize = (int) map.get("pageSize");
 
 		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));
 

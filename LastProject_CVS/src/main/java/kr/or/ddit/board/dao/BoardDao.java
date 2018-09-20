@@ -76,7 +76,7 @@ public class BoardDao implements BoardDaoInf {
 	* @return
 	*/
 	@Override
-	public List<BoardVo> getBoardPageList(Map<String, Integer> map) {
+	public List<BoardVo> getBoardPageList(Map<String, Object> map) {
 		return template.selectList("board.getBoardPageList",map);
 	}
 	
@@ -251,7 +251,7 @@ public class BoardDao implements BoardDaoInf {
 	 * 변경이력 : 신규
 	 * 
 	 * @return
-	 * Method 설명 : 메인  리뷰  top3
+	 * Method 설명 : 메인 리뷰 top3
 	 */
 	@Override
 	public List<MainReviewsVo> getReviewTop3() {

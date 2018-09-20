@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardJoin">
-	<!-- 관리자 - 게시판 페이징 기법 -->
+	<!-- 게시판 페이징 기법 -->
 	<select id="adBoardViewList" parameterType="map" resultType="boardJoinVo">
 	
 	SELECT * FROM (
@@ -27,53 +27,6 @@
 	<!-- 전체 건수 -->
   	<select id="getBoardTotCnt" resultType="int">
     	SELECT COUNT(*) FROM BOARD
-  	</select>
-  	
-  	<!-- 관리자 - 게시글 등록 -->
-  	<insert id="boardCreate" parameterType="boardJoinVo">
-		INSERT INTO board (
-							  bd_id
-					 		, bd_title
-					 		, bd_content
-					 		, bd_date
-					 		, bd_del
-					 		, bd_rating
-					 		, bd_views
-					 		, bd_group
-					 		, mem_id
-					 		, bd_parent
-					 		, bd_kind_id
-							)
-					VALUES (							  
-							  #{bd_id}
-					 		, #{bd_title}
-					 		, RAWTOHEX(#{bd_content})
-					 		, sysdate
-					 		, 'N'
-					 		, null
-					 		, 0
-					 		, #{bd_id}
-					 		, 'admin'
-					 		, null
-					 		, #{bd_kind_id}
-					 		)
-  	</insert>
-  	
-  	<!-- 관리자 - 게시글 상세조회 --> <!-- 관리자 - 게시글 수정화면 이동 -->
-  	<select id="boardDetail" parameterType="String" resultType="boardJoinVo">
-		SELECT	  bd_id
-		 		, bd_title
-		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
-		 		, bd_date
-		 		, bd_del
-		 		, bd_rating
-		 		, bd_views
-		 		, bd_group
-		 		, mem_id
-		 		, bd_parent
-		 		, bd_kind_id
-		FROM board
-		WHERE bd_id=#{bd_id}
   	</select>
   	
   	<!-- 관리자 - 게시글 수정 -->

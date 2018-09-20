@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.admin.board.model.BoardJoinVo;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 
 /**
@@ -44,8 +45,8 @@ public class adBoardDao implements adBoardDaoInf {
 	 * Method 설명 : 관리자 - 각 게시판 페이징 기법
 	 */
 	@Override
-	public List<BoardJoinVo> adBoardViewList(Map<String,Object> map) {
-		return template.selectList("boardJoin.adBoardViewList",map);
+	public List<BoardVo> adBoardViewList(Map<String,Object> map) {
+		return template.selectList("board.getBoardPageList",map);
 	}
 	
 	/**
@@ -58,7 +59,7 @@ public class adBoardDao implements adBoardDaoInf {
 	 */
 	@Override
 	public int getBoardTotCnt() {
-		return template.selectOne("boardJoin.getBoardTotCnt");
+		return template.selectOne("board.getWriteTotCnt");
 	}
 	
 	/**
@@ -68,11 +69,11 @@ public class adBoardDao implements adBoardDaoInf {
 	 * 변경이력 : 신규
 	 * @param boardJoinVo
 	 * @return
-	 * Method 설명 : 게시글 등록, 공지사항 44, 리뷰 55, 이벤트 66
+	 * Method 설명 : 게시글 등록( 공지사항 44, 리뷰 55, 이벤트 66 )
 	 */
 	@Override
 	public int boardCreate(BoardJoinVo boardJoinVo) {
-		return template.insert("boardJoin.boardCreate", boardJoinVo);
+		return template.insert("board.setInsertBoard", boardJoinVo);
 	}
 	
 	/**
@@ -82,11 +83,11 @@ public class adBoardDao implements adBoardDaoInf {
 	 * 변경이력 : 신규
 	 * @param bd_id
 	 * @return
-	 * Method 설명 : 게시판 코드(bd_id)로 게시글 상세 조회를 한다.
+	 * Method 설명 : 게시판 코드(bd_id)로 게시글 상세 조회를 한다. 게시글 수정시 사용한다.
 	 */
 	@Override
 	public BoardJoinVo boardDetail(String bd_id) {
-		return template.selectOne("boardJoin.boardDetail",bd_id);
+		return template.selectOne("board.getBoard",bd_id);
 	}
 
 	@Override

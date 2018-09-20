@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.admin.board.model.BoardJoinVo;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 
 public interface adBoardDaoInf {
@@ -18,7 +19,7 @@ public interface adBoardDaoInf {
 	 * @return
 	 * Method 설명 : 관리자 - 각 게시판 페이징 기법
 	 */
-	List<BoardJoinVo> adBoardViewList(Map<String, Object> map);
+	List<BoardVo> adBoardViewList(Map<String, Object> map);
 	
 	/**
 	 * Method : getBoardTotCnt
