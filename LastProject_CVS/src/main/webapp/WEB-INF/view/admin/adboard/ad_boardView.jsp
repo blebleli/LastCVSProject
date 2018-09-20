@@ -12,6 +12,21 @@
     <script>	
 		$(function(){
 			
+			$("#all").on("click", function() {
+			
+				alert($("#all").val());
+				$("#btnChk").val($("#all").val());
+				
+				$("#boardGo").submit();
+				
+			});
+			
+// 			bd_kind_id44" value="44">공지사항</button>  
+// 			bd_kind_id55" value="55">상품리뷰</button>  
+// 			bd_kind_id66" value="66">이벤트</button>   
+			
+			
+			
 			function kind(){
 				var f=document.boardGo;
 				alert(ㅎㅇㅎㅇ);
@@ -195,13 +210,16 @@
                   <div class="x_title">
                                       	<div>
 						<form action="/adboard/boardView" id="boardGo" method="post">
+                        <input type="hidden" name="btnChk" id="btnChk">
 						<div id = "select" class="select">
 						
 					<div class="btn-group btn-group-sm">
-                        <button class="btn btn-default" type="button" id="all" name="bd_kind_id00" value="">전체</button>
-                        <button class="btn btn-default" type="button" id="44" name="bd_kind_id44" value="44">공지사항</button>
-                        <button class="btn btn-default" type="button" id="55" name="bd_kind_id55" value="55">상품리뷰</button>
-                        <button class="btn btn-default" type="button" id="66" name="bd_kind_id66" value="66">이벤트</button>
+                        <button class="btn btn-default" type="button" id="all" name="bd_kind_id00" value="all">전체</button>
+                        <button class="btn btn-default" type="button" id="44"  name="bd_kind_id44" value="44">공지사항</button>
+                        <button class="btn btn-default" type="button" id="55"  name="bd_kind_id55" value="55">상품리뷰</button>
+                        <button class="btn btn-default" type="button" id="66"  name="bd_kind_id66" value="66">이벤트</button>
+                        
+                        
 					</div>
                       
                       
