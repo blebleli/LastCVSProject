@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.admin.member.service.MemberMgtServiceInf;
+import kr.or.ddit.commons.model.MailVo;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.commons.service.CommonsServiceInf;
 import kr.or.ddit.commons.util.PageNavi;
@@ -20,6 +21,7 @@ import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.model.MemberVo;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -203,19 +205,15 @@ public class MemberMGTController {
 	}
 	
 
-	
-	
-	
-	
-	
+
 	/**
-	 * 사용자 ID 중복 조회 -공
-	 * 회원가입 화면에서 사용자 ID 중복조회 ajax처리
+	 * 09.20 
+	 * 사업자번호 입력되었을 때 사업자번호 중복 조회 처리 - ajax
+	 * 작 성 자   : 공은별(pc24)
 	 * @param request
-	 * @param response
-	 * @param mem_id
 	 * @param model
-	 * @throws IOException
+	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping("/chkMemIdDupli")
 	public void chkMemIdDupli( HttpServletRequest request
@@ -231,14 +229,15 @@ public class MemberMGTController {
 	}
 
 	
+
 	/**
-	 * 사용자 tel 중복 조회 - 조
-	 * 회원가입 화면에서 사용자 전화번호 중복조회 ajax처리
+	 * 09.20 
+	 * 점주 연락처 입력되었을 때 중복 조회 처리 - ajax
+	 * 작 성 자   : 공은별(pc24)
 	 * @param request
-	 * @param response
-	 * @param mem_tel
 	 * @param model
-	 * @throws IOException
+	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping("/chkMemTelDupli")
 	public void chkMemTelDupli( HttpServletRequest request
