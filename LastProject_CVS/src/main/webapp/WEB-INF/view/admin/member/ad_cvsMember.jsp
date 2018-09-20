@@ -38,6 +38,13 @@
 </script>
 
 
+<style type="text/css">
+table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+    cursor: pointer;
+    position: relative;
+}
+</style>
+
 <!-- </head> -->
 
 
@@ -84,9 +91,11 @@
 							
 							<span>
 							<button class="btn btn-default" onclick="window.print();">
-								<i class="fa fa-print"></i> 삭 제
+								<i class="fa fa-print"></i> 삭 제 
 							</button>
 							</span>
+							
+							<span style="font-size: 2.2em;"> | </span>
 							
 							<span>
 							<button class="btn btn-default" onclick="window.print();">

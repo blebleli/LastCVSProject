@@ -60,6 +60,8 @@ $(document).ready(function() {
 	//$("body").addClass("body_wide");
 	$("div.banner").remove();	// 왼쪽메뉴 삭제
 	
+	
+	
 	/**
 	 * 사용자 ID 중복 조회
 	 */
@@ -387,7 +389,7 @@ $(document).ready(function() {
 	                }
 
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('mem_zip').value = data.zonecode; //5자리 새우편번호 사용
+	                document.getElementById('mem_zip').value = data.zonecode; //5자리 새 우편번호 사용
 	                document.getElementById('mem_add').value = fullAddr;
 
 	                // 커서를 상세주소 필드로 이동한다.
@@ -397,7 +399,7 @@ $(document).ready(function() {
 	 });
 	
 	
-});
+}); // $(document).ready(function() { 끝
 
 
 /**
@@ -462,6 +464,7 @@ function fn_errMessage(_obj, _text) {
 										<div>
 											<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" readonly="readonly" class="input_text small" style="width:337px" />
 											<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
+<!-- 										<button id="btnDuplicateMemId" type="button" class="btn small normal"><span>중복체크</span></button> -->
 											<input type="hidden" id="chkMemId" value="" />
 										</div>
 									</div>
