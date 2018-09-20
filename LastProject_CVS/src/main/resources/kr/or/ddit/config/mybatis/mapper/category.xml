@@ -5,7 +5,7 @@
 <mapper namespace="category">
 
 <select id="prodCtgyList" resultType="categoryVo">
-	SELECT ctgy_id, LPAD(' ',(level-1)*4,' ') || ctgy_name AS ctgy_name, ctgy_parent, ctgy_level, level
+	SELECT ctgy_id, ctgy_name, ctgy_parent, ctgy_group, level
 		FROM category
 		WHERE ctgy_kind = 301
 		START WITH ctgy_parent is null   

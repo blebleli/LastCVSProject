@@ -359,9 +359,6 @@ WHERE  F.RANK = 1
 
 </select>
 
-
-
-
 <!-- 	아 이 디 : getProdList
   		반 환 값 : adminProdVo
   		매개변수 : adminProdVo
@@ -385,6 +382,7 @@ FROM   (
                       ,(SELECT EVENT_NAME FROM EVENT WHERE EVENT_ID = PROD.EVENT_ID) AS EVENT_ID
                FROM PROD
                WHERE 1=1
+               
                 <if test="pr_class_lg != null and pr_class_lg != ''">
                 	AND PR_CLASS_LG = #{pr_class_lg}
                 </if>
