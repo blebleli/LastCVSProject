@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ad-Chart</title>
 
-<!-- Custom Theme Style -->
     <link href="/build/css/custom.min.css" rel="stylesheet">
 <!--     <link href="/build/js/custom.js"> -->
 
@@ -37,7 +36,8 @@
                        'width':'100%',
                        'height':'100%',
                        'pieHole': 0.4,
-                       'pieSliceText': 'label'};
+                       'pieSliceText': 'label',
+                    	'colors': ["#0d259c","#0663b8","#17dbd6","#29dba9","#57d843","#98cbfb","#aefff1","#3b8fa1"]};
 
         var chart = new google.visualization.PieChart(document.getElementById('graph_bar_group'));
         chart.draw(data, options);
@@ -57,13 +57,10 @@
         list2.push(header);
         
         <c:forEach items="${list2}" var="list">
-// 	    	list2.push("${list}");
 	   		console.log(list2);
 	   		var c = "${list.count}"
 	   		console.log(parseInt(c));
-// 	   		var temp=[];
-	   		list2.push(["${list.local}", parseInt(c),"color : #0663b8"]);
-// 	   		 list2.push(temp);
+	   		list2.push(["${list.local}", parseInt(c),"color : #17dbd6"]);
    		 </c:forEach>
    		 
    		var data2 = google.visualization.arrayToDataTable(list2);
@@ -80,16 +77,38 @@
 //    		        width: 500,
    		        width: '100%',
    		        height: '100%',
-   		        bar: {groupWidth: "95%"},
+   		        bar: {groupWidth: "80%"},
    		        legend: { position: "none" },
+   		        
    		      };
-   		 var chart2 = new google.visualization.BarChart(document.getElementById("graph_bar"));
+   		 var chart2 = new google.visualization.ColumnChart(document.getElementById("graph_bar"));
          chart2.draw(view, options2);
     } 
-    
-    
-    
-    </script>   
+    </script> 
+    <script>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data3 = google.visualization.arrayToDataTable([
+        ['Month', 'Sales', 'Expenses','555'],
+        ['07',  1000,      400, 500],
+        ['08',  1170,      460, 300],
+        ['09',  660,       1120, 200],
+      ]);
+
+      var options3 = {
+        title: '',
+        hAxis: {title: 'Month',  titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        width: '100%',
+        height: '100%'
+      };
+
+      var chart = new google.visualization.AreaChart(document.getElementById('graphx'));
+      chart.draw(data3, options3);
+    }
+    </script>  
     
 </head>
 <body>
@@ -98,7 +117,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Echarts <small>Some examples to get you started</small></h3>
+                <h3>GoGoCVS <small>Admin</small></h3>
               </div>
 
               <div class="title_right">
@@ -120,19 +139,11 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Bar Charts <small>Sessions</small></h2>
+                    <h2>CVS-Service <small>편의점 서비스</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
+                      
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -149,18 +160,9 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Bar Chart Group <small>Sessions</small></h2>
+                    <h2>All Location <small>전국 점포 분포</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
                       </li>
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
@@ -179,7 +181,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Bar Chart Group <small>Sessions</small></h2>
+                    <h2>월별 편의점매출 <small>발주 신청 수량</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -208,7 +210,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Pie Chart <small>Sessions</small></h2>
+                    <h2>월별 제품 매출 <small>발주 신청 수량</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -219,8 +221,7 @@
                           </li>
                           <li><a href="#">Settings 2</a>
                           </li>
-                        </ul>
-                      </li>
+                        </ul>  
                       <li><a class="close-link"><i class="fa fa-close"></i></a>
                       </li>
                     </ul>
@@ -237,7 +238,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Graph area <small>Sessions</small></h2>
+                    <h2>인기 편의점 Top5<small>즐겨찾기 많이한 편의점</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -266,7 +267,7 @@
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Line Graph <small>Sessions</small></h2>
+                    <h2>인기 제품 <small>즐겨찾기 많이한 제품</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
