@@ -73,9 +73,13 @@
   	<typeAlias type="kr.or.ddit.admin.model.MonthTopVo" alias="monthTopVo"/>
   	<typeAlias type="kr.or.ddit.admin.model.RankVo" alias="rankVo"/>
   	
+  	<!-- 0920한수정 POS결제관련 -->
+  	<typeAlias type="kr.or.ddit.store_owner.model.PosPayVo" alias="posPayVo"/>
+  	
   </typeAliases>
 
   <mappers> 
+ 	<mapper resource="kr/or/ddit/config/mybatis/mapper/pay.xml"/>	
  	<mapper resource="kr/or/ddit/config/mybatis/mapper/disposal.xml"/>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/barcode.xml"/>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml"/>  
@@ -92,6 +96,7 @@
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/bookmark.xml"/>	
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/filedata.xml"/>	
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/event.xml"/>	
+	
 	
 	<!-- 소스코드생성 -->
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/tableCode.xml"/>

@@ -76,4 +76,22 @@ INSERT INTO SUPPLY( SUPPLY_BCD, SUPPLY_DATE, SUPPLY_STATE, SUPPLY_INFO, PLACE_ID
 </insert>
 
 
+<!-- 0920 한수정 재고insert test  -->
+<insert id="insertStock" parameterType="stockVo">
+	INSERT into stock(  stock_id  ,
+						mem_id    ,
+						stock_info,
+						stock_date,
+						stock_kind  
+					 ) 	
+			   VALUES( 
+						#{stock_id  },
+						#{mem_id    },
+						#{stock_info},
+						#{stock_date},
+						#{stock_kind}  
+					 )
+ </insert>
+
+
 </mapper>

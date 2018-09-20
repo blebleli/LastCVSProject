@@ -17,13 +17,15 @@
 	INSERT into stock(  stock_id  ,
 						mem_id    ,
 						stock_info,
-						stock_date  
+						stock_date,
+						stock_kind  
 					 ) 	
 			   VALUES( 
 						#{stock_id  },
 						#{mem_id    },
 						#{stock_info},
-						#{stock_date} 
+						#{stock_date},
+						#{stock_kind}  
 					 )
  </insert>
  
@@ -40,7 +42,7 @@
 <insert id="insertStockList" parameterType="stockListVo">
 	INSERT INTO STOCK_LIST(  bcd_id    ,
 						stcklist_amount,
-						sicklist_exdate,
+						stcklist_exdate,
 						stck_date      ,
 						stcklist_info  ,
 						stcklist_kind  ,
@@ -50,7 +52,7 @@
 					 ) 	
 			   VALUES(  #{bcd_id         },
 						#{stcklist_amount},
-						#{sicklist_exdate},
+						#{stcklist_exdate},
 						#{stck_date      },
 					    #{stcklist_info  },
 					    #{stcklist_kind  },
@@ -71,17 +73,18 @@
 	-->
  <update id="updateStockList" parameterType="stockListVo">
  
- 	UPDATE STOCK_LIST SET  ( 
-						#{stcklist_amount},
-						#{sicklist_exdate},
-						#{stck_date      },
-					    #{stcklist_info  },
-					    #{stcklist_kind  },
-					    #{stock_id       },
-					    #{splylist_id    }	 				
-					     )
- 		WHERE BCD_ID =  #{bcd_id         }				 
-					 
+ 	UPDATE STOCK_LIST SET   
+						 stcklist_amount = #{stcklist_amount }
+						,stcklist_exdate = #{stcklist_exdate }
+						,stck_date       = #{stck_date       }
+						,stcklist_info   = #{stcklist_info   }
+						,stcklist_kind   = #{stcklist_kind   }
+						,stock_id        = #{stock_id        }
+						,splylist_id     = #{splylist_id     }
+						,prod_id         = #{prod_id         }
+					    
+ 			   WHERE bcd_id =  #{bcd_id         }	
+				 
  </update>
  
 

@@ -2,6 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sale">
 	
+	<!-- 아 이 디 : setInsertSaleList
+  		반 환 값 : int
+  		매개변수 : 
+  		설    명 : saleList 에 insert
+  		작 성 자 : 한수정
+  		일    시 : 2018-09-20     
+	 -->
+	<insert id="setInsertSaleList" parameterType="saleListVo">
+		
+		INSERT INTO SALE_LIST
+		(     sale_id
+			 ,sale_amount
+			 ,sale_sum
+			 ,sale_kind
+			 ,sd_id
+		     ,prod_id
+			 ,bcd_id
+			
+		)
+		VALUES (
+			 #{sale_id     }
+			,#{sale_amount } 
+	        ,#{sale_sum    }
+			,#{sale_kind   } 
+			,#{sd_id       }
+			,#{prod_id     }
+			,#{bcd_id      }			 
+		)
+	</insert>
 
 	<!-- 해당 id 사용자의 모든 결제내역 조회 --> <!-- 09.11 KONG 수정함   -->
 	<select id="getMyPayList" parameterType="String" resultType="payVo">
