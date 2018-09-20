@@ -105,7 +105,7 @@ public class CvsSupplyReqController {
 		
 		//mem_id 로 가장 최근1건의 stock의 stock-list 	
 		
-		String mem_id = "3090000-104-2016-00061";//session 값 넣기
+		String mem_id = "6510000-104-2015-00153";//session 값 넣기
 		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(mem_id);
 		model.addAttribute("myStockList", myStockList);
 
@@ -122,25 +122,30 @@ public class CvsSupplyReqController {
 	* 
 	* @param 
 	* @return List<PresentStockListVo>
-	*/
+	*/ 
 	@RequestMapping("/requestList")
 	public String requestList(@RequestBody List<String> requestProd, Model model){
+		
+		//페이지요청으로
+		
+		
 		//requestvo ==>List<ProdVo>
 		//prod_id 로 vo 가져오기
 		logger.debug("requestProd ------"+requestProd);
-		List<ProdVo> requestList = null;
+		List<ProdVo> prodList = new ArrayList<ProdVo>();
 		
 		for (String prod_id : requestProd ) {
-			logger.debug("prod_id ------"+prod_id);
-			ProdVo requestlist = prodService.getProd(prod_id);
-			requestList.add(requestlist);
+			
+			ProdVo requestpr= prodService.getProd(prod_id);
+			logger.debug("requestlist ------"+requestpr);
+			prodList.add(requestpr);
 		}
+	
+		logger.debug("prodList ------"+prodList);
 
 		
-		logger.debug("requestList ------"+requestList);
+		model.addAttribute("requestList", prodList);
 		
-		
-		model.addAttribute("requestList", requestList);
 		return "cvs_supply_request";
 	}
 	

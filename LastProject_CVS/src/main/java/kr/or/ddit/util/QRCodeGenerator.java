@@ -14,7 +14,7 @@ public class QRCodeGenerator {
 	
 	//폴더만들기 
 	// 절대경로만든다음에 ++ 편의점 (사업자번호) 로 폴더만들어서
-    private static final String QR_CODE_IMAGE_PATH = "D:\\최종프\\barcodeImg\\BCD-7ac9033e-ad2e-4276-a5bb-2ea9d04f4d7d.jpg"; //생성될 파일경로와 이름을 결정
+    private static final String QR_CODE_IMAGE_PATH = "D:\\최종프\\barcodeImg\\BCD-255fd10c-bf46-47cf-8d9b-928c210eef57.jpg"; //생성될 파일경로와 이름을 결정
 
     private static void generateQRCodeImage(String text, int width, int height, String filePath)
             throws WriterException, IOException {
@@ -28,7 +28,7 @@ public class QRCodeGenerator {
 
     public static void main(String[] args) {
         try {
-            generateQRCodeImage("BCD-7ac9033e-ad2e-4276-a5bb-2ea9d04f4d7d", 350, 350, QR_CODE_IMAGE_PATH);  //첫번째 요소에 생성할 요소를 넣는다.
+            generateQRCodeImage("BCD-255fd10c-bf46-47cf-8d9b-928c210eef57", 350, 350, QR_CODE_IMAGE_PATH);  //첫번째 요소에 생성할 요소를 넣는다.
         } catch (WriterException e) {
             System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
         } catch (IOException e) {

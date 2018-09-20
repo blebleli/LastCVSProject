@@ -19,7 +19,7 @@ public class PayService implements PayServiceInf {
 	 * 
 	 * Method   : setInsertPay 
 	 * 최초작성일  : 2018. 9. 18. 
-	 * 작성자 : PC06 
+	 * 작성자 : 한수정
 	 * 변경이력 : 
 	 * @param payVo
 	 * @return 
