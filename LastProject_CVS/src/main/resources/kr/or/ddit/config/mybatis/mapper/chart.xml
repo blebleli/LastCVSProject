@@ -34,11 +34,94 @@
 		GROUP BY a.ctgy_name
 </select>
 
+<!-- 	아 이 디 : getCvsTop3
+	  		반 환 값 : monthCvsTopVo
+	  		설    명 : 편의점 발주 통계
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
+<select id="getCvsTop3" resultType="monthTopVo" >
+		SELECT tbl3.mon,c.mem_cvs_name as id, tbl3.amount, tbl3.rnk
+		FROM
+			--단, 순위가 3등까지만 출력
+			(SELECT tbl2.mon,tbl2.place_id,tbl2.rslt AS amount ,tbl2.rnk 
+			FROM
+			(
+			  --inline view결과 + 순위
+			  SELECT tbl1.mon,tbl1.place_id,tbl1.rslt,rank() OVER(partition by tbl1.mon order by tbl1.rslt desc) rnk
+			  FROM
+			  (
+			    --월별, 지점별, 판매개수합을 구하기
+			    SELECT TO_CHAR(a.supply_date,'MM') mon, a.PLACE_ID, nvl(sum(b.splylist_sum),0) rslt
+			    FROM supply a inner join supply_list b
+			    ON( a.supply_bcd = b.supply_bcd)
+			    WHERE TO_CHAR(a.supply_date,'yyyyMM') BETWEEN  TO_CHAR(ADD_MONTHS(sysdate,-3),'yyyyMM') AND TO_CHAR(sysdate,'yyyyMM')
+			    GROUP BY TO_CHAR(a.supply_date,'MM'), a.PLACE_ID
+			    ORDER BY 1,2
+			  ) tbl1
+			) tbl2
+			WHERE tbl2.rnk <![CDATA[<]]>= 3) tbl3, member c
+		WHERE tbl3.place_id = c.mem_id
+	
+</select>
 
+<!-- 	아 이 디 : getProdTop5
+	  		반 환 값 : rankVo
+	  		설    명 : 최근 3개월간 많이팔린 제품 통계
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
+<select id="getProdTop5" resultType="rankVo">
+	select tb2.prod_name, tb2.amount, tb2.rnk
+	from
+		(select tb1.prod_name, tb1.amount, ROW_NUMBER() over(order by tb1.amount desc) as rnk
+		from
+			(select a.prod_name, sum(b.splylist_sum) as amount 
+			from prod a, supply_list b, supply c
+			where a.prod_id = b.prod_id
+			and b.supply_bcd=c.supply_bcd
+			and c.supply_state = '10'
+			and to_char(c.supply_date,'yyyyMM') between to_char(ADD_MONTHS(sysdate,-3),'yyyyMM') and to_char(sysdate,'yyyyMM')
+			group by a.prod_name
+			)tb1
+		)tb2
+	where tb2.rnk <![CDATA[<]]>=5
+</select>
 
-
-
-
+<!-- 	아 이 디 : getBookmarkProdTop5
+	  		반 환 값 : rankVo
+	  		설    명 : 즐겨찾기 많이 한 제품 통계
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
+<select id="getBookmarkProdTop5" resultType="rankVo">
+	SELECT tb2.prod_name, tb2.amount, tb2.rnk
+		(SELECT tb1.prod_name, tb1.amount ROW_NUMBER() over(ORDER BY tb1.amount desc) AS rnk
+			(SELECT a.prod_name, count(*) as amount
+			FROM prod a, bookmark b
+			WHERE a.prod_id = b.prod_id
+			GROUP BY a.prod_name
+			)tb1
+		) tb2
+	WHERE tb2.rnk <![CDATA[<]]>=5
+</select>
+<!-- 	아 이 디 : getBookmarkCvsTop5
+	  		반 환 값 : rankVo
+	  		설    명 : 즐겨찾기 많이 한 편의점 통계
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
+<select id="getBookmarkCvsTop5" resultType="rankVo">
+	select tb2.mem_cvs_name, tb2.amount, tb2.rnk
+		(select tb1.mem_cvs_name, tb1.amount ROW_NUMBER() over(order by tb1.amount desc) as rnk
+			(select a.mem_cvs_name, count(*) as amount
+			from member a, bookmark b
+			where a.mem_id = b.place_id
+			group by a.mem_cvs_name
+			)tb1
+		) tb2
+	where tb2.rnk <![CDATA[<]]>=5
+</select>
 
 
 </mapper>
