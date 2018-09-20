@@ -71,16 +71,12 @@ public class AdboardController {
 	@RequestMapping("/boardView")
 	public String boardView(@RequestParam(value="page", defaultValue="1") int page,
 							@RequestParam(value="pageSize", defaultValue="10") int pageSize,
-							@RequestParam(value="bd_kind_id00", defaultValue="x") String bd_kind_id00,
-							@RequestParam(value="bd_kind_id44", defaultValue="x") String bd_kind_id44,
-							@RequestParam(value="bd_kind_id55", defaultValue="x") String bd_kind_id55,
-							@RequestParam(value="bd_kind_id66", defaultValue="x") String bd_kind_id66,
+							@RequestParam(value="btnChk", defaultValue="") String btnChk,
 							Model model){
 		
-		logger.debug("bd_kind_id00 =========> {} ", bd_kind_id00);
-		logger.debug("bd_kind_id44 =========> {} ", bd_kind_id44);
-		logger.debug("bd_kind_id55 =========> {} ", bd_kind_id55);
-		logger.debug("bd_kind_id66 =========> {} ", bd_kind_id66);
+		
+		logger.debug("boardView=========================================================================================");
+		logger.debug("btnChk =========> {} ", btnChk);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();		
 		paramMap.put("page", page); // page 1
