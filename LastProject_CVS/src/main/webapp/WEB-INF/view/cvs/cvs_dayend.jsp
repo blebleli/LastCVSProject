@@ -9,6 +9,14 @@
     <!-- iCheck -->
    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
+    <!-- Datatables -->
+    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+   
+
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
  
@@ -43,18 +51,8 @@
                     <h2>Table design <small>Custom design</small></h2>
                     
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      <li>
+                      	<button type="button" class="btn btn-success" onclick="btnDayEnd()">마감하기</button>                      
                       </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -63,7 +61,7 @@
      <div class="container">
          <div class="row">
           	<div class="x_content">
-            	 <div class=" col-md-3 col-sm-3 col-xs-3">
+            	 <div class=" col-md-4 col-sm-4 col-xs-4">
                     <div class="table-responsive">
                       <table id="stockTable" class="table table-striped jambo_table bulk_action">
                         <thead>
@@ -72,7 +70,7 @@
                             <th class="column-title">NO </th>
                             <th class="column-title">재고번호 </th>
                             <th class="column-title">날짜 </th>
-                           <th class="column-title">마감여부 </th> <!-- STOCK ID로 999가 있는지 확인하기 -->
+                            <th class="column-title">마감</th> <!-- STOCK ID로 999가 있는지 확인하기 -->
 
                           </tr>
                         </thead>
@@ -80,11 +78,11 @@
                         <tbody>
                         <!-- 행클릭시 AJAX로 리스트 변경 -->
                         <c:forEach items="${stock }" var="stock" varStatus="status">                      		
-                          <tr class="even pointer">
-                           
+                          <tr class="even pointer">      
                             <td class=" ">${status.count}</td>
-                            <td class=" "><span class="stockID"> ${stock.stock_id } </span></td>
-                            <td class=" ">${stock.stock_date }</td>                          
+                            <td class=" "><span class="stockID">${stock.stock_id}</span></td>
+                            <td class=" ">${stock.stock_date}</td> 
+                            <td class=" ">마감여부</td>                          
                           </tr>
    						</c:forEach>
                                              
@@ -96,10 +94,9 @@
                 
 <!-- 상세재고list modal ==================================== -->
 				
-		       <div class=" col-md-9 col-sm-9 col-xs-9">              
-					<button type="button" class="btn btn-success" onclick="btnDayEnd()">마감하기</button>
+		       <div class=" col-md-8 col-sm-8 col-xs-8">              				
 					<div class="table-responsive">
-                     <table class="table table-striped jambo_table bulk_action">
+                     <table id="stockListTable" class="table table-striped jambo_table bulk_action">
                        <thead>
                          <tr class="headings">
                            <th class="column-title">NO </th>
@@ -110,8 +107,10 @@
                          </tr>
                        </thead>
 						<!--  재고 상세 리스트  -->
-                       <tbody id="stockDetailTbody"> </tbody>
+                       <tbody id="stockDetailTbody"> 
+                       </tbody>
                      </table>
+      
                    </div>
                  </div>
 
@@ -130,30 +129,34 @@
 	
 	//재고 상세리스트 출력
 	$("#stockTable tbody").on("click", "tr", function(){
-		var stockID =$(this).find(".stockID").text();	
+		var stockID =$(this).find(".stockID").html();	
 		console.log("stockID --->"+stockID);
 		
 	 	$.ajax({
 			url : "/cvs/getNowStock",
 			method:"get",
 			data : {"stockID": stockID },
-			success : function(stockList){
-				
+			success : function(stockList){			
+			
 				$("#stockDetailTbody").empty();
-				console.log('stockList --->'+stockList);
-				$.each(stockList,function(index, item){
-					
+				
+				$.each(stockList,function(index, item){				
 				$("#stockDetailTbody").append(		    								
 							'<tr class="even pointer">'+        
-	                        '<td class=" ">'+index+'</td>'+
-	                        '<td class=" ">'+item.prod_id  +'</td>'+
-	                        '<td class=" ">'+item.prod_name  +'</td>'+
-	                        '<td class=" "><input type="number" name="amount" class="amount">'+item.stcklist_amount +'</input></td>'+
-	                        '<td class=" ">'+item.stcklist_exdate  +'</td>'+
-	                        '<td style="display: none"><span class="bcd_id">'+ item.bcd_id+'</span></td> '+
-	                        '</tr>'	                                                                                     
+	                        '<td class=" ">'+(index+1)+'</td>'+	                        
+	                        '<td class=" "><span class="prod_id">'+item.prod_id+'</span></td>'+
+	                        '<td class=" ">'+item.prod_name+'</td>'+
+	                        '<td class=" "><input type="number" name="amount" class="amount" value='+item.stcklist_amount+'></input></td>'+
+	                        '<td class=" "><span class="stcklist_exdate">'+item.stcklist_exdate+'</span></td>'+
+	                        '</tr>'
+
 					);
+			
+				 
 				})
+		
+				$('#stockListTable').DataTable();
+				console.log("datatable 완");
 				
 			}
 		}); 
@@ -170,14 +173,22 @@
 		//다음날짜로 재고 추가
 		//다음날짜로 재고리스트 추가
 		
-		$("#stockDetailTbody tr").each(function () {		                    	 
+		$("#stockDetailTbody tr").each(function (index) {		                    	 
 			var data = $(this);		
 			
-			dayEndList.push({bcd_id: data.find('.bcd_id').html(), 
-					stcklist_amount: data.find('.amount').val()})
+			if(index<=10){ //test용
+				
+			dayEndList.push({prod_id: data.find('.prod_id').html(),
+						 splylist_id: data.find('.splylist_id').html(),
+					 stcklist_exdate: data.find('.stcklist_exdate').html(),
+					 stcklist_amount: data.find('.amount').val()})
+					 console.log("each index---"+data.find('.splylist_id').html());
+			};
+			
+			
          });	
 		
-		console.log("dayEndList ::: "+dayEndList);
+		console.log("dayEndList ::: "+dayEndList.size);
 
 		$.ajax({
 			  url: "/cvs/setDayEnd",
@@ -204,6 +215,22 @@
     <script src="../vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>

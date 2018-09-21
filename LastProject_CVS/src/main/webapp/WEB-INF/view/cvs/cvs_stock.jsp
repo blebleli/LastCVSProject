@@ -42,7 +42,7 @@
    			}); */
    			
    			
-   			//
+   			//----------- 발송방법 변경
    			
    			//발주신청하려하는 id리스트를 controller로 넘기는 기능
      		$( "#requestBtn" ).click(function(){	
@@ -54,15 +54,23 @@
         			requestProd.push(data.find('.flat').val());
                 });        		
         		
-        		console.log("requestProd----->"+requestProd);
+        		console.log("요청하기 list----->"+requestProd);
         		
         		$.ajax({
-	    			url : "requestList",
+	    			url : "/cvs/requestList",
 	    			method : "post",	    			
         			data: JSON.stringify(requestProd),
-				    contentType: "application/json"
+				    contentType: "application/json",
+			    	success: function(res) {
+			    		console.log("controller == response ==");
+			    	    window.location.href = "cvs_supply_request";
+			    	}
 	    		});   		
+        		
     		});
+   			
+   			
+   			
 
     	}); 
  

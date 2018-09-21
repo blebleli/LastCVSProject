@@ -74,7 +74,7 @@ public class AutoCodeServiceTest {
 //		logger.debug("code.autoCode(EV) ==> {}",code.autoCode("BEV"));
 		
 		// 댓글
-		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("CNO"));
+//		logger.debug("code.autoCode(NO) ==> {}",code.autoCode("CNO"));
 //		logger.debug("code.autoCode(RE) ==> {}",code.autoCode("CRE"));
 //		logger.debug("code.autoCode(EV) ==> {}",code.autoCode("CEV"));
 		
@@ -91,10 +91,10 @@ public class AutoCodeServiceTest {
 //		폐기리스트(DIS_L)
 
 		//  수불/입고 리스트
-//		logger.debug("code.autoCode(SUP10) ==> {}",code.autoCode("SUP10","3270000-104-1994-00483"));
-//		logger.debug("code.autoCode(SUP11) ==> {}",code.autoCode("SUP11","3270000-104-1994-00483"));
-//		logger.debug("code.autoCode(SUP12) ==> {}",code.autoCode("SUP12","3270000-104-1994-00483"));
-		
+		logger.debug("code.autoCode(SUP10) ==> {}",code.autoCode("SUP10","3010000-104-2017-00333"));
+		logger.debug("code.autoCode(SUP11) ==> {}",code.autoCode("SUP11","3010000-104-2017-00333"));
+		logger.debug("code.autoCode(SUP12) ==> {}",code.autoCode("SUP12","3010000-104-2017-00333"));
+	
 		// 즐겨찾기
 //		logger.debug("code.autoCode(BOOKP) ==> {}",code.autoCode("BOOKP","jongwon_ny@naver.com"));
 //		logger.debug("code.autoCode(BOOKM) ==> {}",code.autoCode("BOOKM","jongwon_ny@naver.com"));
@@ -107,7 +107,7 @@ public class AutoCodeServiceTest {
 //		logger.debug("code.autoCode(SHIP) ==> {}",code.autoCode("SHIP","jongwon_ny@naver.com"));
 		
 		// 재고
-//		logger.debug("code.autoCode(ST) ==> {}",code.autoCode("ST","3270000-104-1994-00483"));
+//		logger.debug("code.autoCode(ST) ==> {}",code.autoCode("ST","3000000-104-2016-00044"));
 		
 		// 편의점서비스(PLACE)
 //		logger.debug("code.autoCode(PLACE) ==> {}",code.autoCode("PLACE","3270000-104-1994-00483"));
@@ -119,7 +119,7 @@ public class AutoCodeServiceTest {
 //		logger.debug("code.autoCode(SALE_L) ==> {}",code.autoCode("SALE_L","3270000-104-1994-00483"));
 		
 		// 폐기(DIS)
-//		logger.debug("code.autoCode(DIS) ==> {}",code.autoCode("DIS","3270000-104-1994-00483"));
+//		logger.debug("code.autoCode(DIS) ==> {}",code.autoCode("DIS","3000000-104-2016-00044"));
 		
 		// 폐기리스트(DIS_L)
 //		logger.debug("code.autoCode(DIS_L) ==> {}",code.autoCode("DIS_L","3270000-104-1994-00483"));
