@@ -26,7 +26,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -50,7 +49,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  */
 @RequestMapping("/cvs")
 @Controller("cvsMainController")
-@SessionAttributes({"myStock"})
 public class CvsPosMainController {
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);	
 
@@ -211,7 +209,7 @@ public class CvsPosMainController {
 	 * Method 설명 : 폐기 처리하는 메서드
 	 */
 	@RequestMapping("/pos/dispInsert")	//vo 만들어서
-	 public ResponseEntity<String>  dispInsert( List<PosPayVo> posPayVo, Model model) {
+	 public ResponseEntity<String> dispInsert( List<PosPayVo> posPayVo, Model model) {
 		
 		List<PresentStockListVo> preStockList = (List<PresentStockListVo>) posPayVo.get(0).getPresentStockListVo();
 		String payKind= (String) posPayVo.get(0).getPay_kind();

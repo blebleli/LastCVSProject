@@ -11,11 +11,15 @@ public class PosPayVo {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public PosPayVo(PresentStockListVo presentStockListVo, String pay_kind) {
 		super();
 		this.presentStockListVo = presentStockListVo;
 		this.pay_kind = pay_kind;
 	}
+
+
 
 	public PresentStockListVo getPresentStockListVo() {
 		return presentStockListVo;

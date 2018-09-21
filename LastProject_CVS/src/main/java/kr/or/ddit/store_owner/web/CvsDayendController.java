@@ -1,10 +1,16 @@
 package kr.or.ddit.store_owner.web;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.DisposalListVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
@@ -13,7 +19,10 @@ import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,9 +55,16 @@ public class CvsDayendController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@Resource(name="autoCodeCreate")
+	private AutoCodeCreate autoCodeCreate;	
+	
 	@Resource(name="stockService")
 	private StockServiceInf stockService;	
 
+	@Resource(name="barcodeService")
+	private BarcodeServiceInf barcodeService;
+
+	String mem_id = "6510000-104-2015-00153";
 	/**
 	 * 
 	 * Method   : cvsDayend 
@@ -63,7 +79,7 @@ public class CvsDayendController {
 	public String cvsDayend(Model model){
 		
 		//전체 stockList 가져온다
-		String mem_id = "3000000-104-2016-00044";
+
 		List<StockVo> stock =  stockService.getAllStockByMemid(mem_id);
 
 		model.addAttribute("stock", stock);
@@ -87,34 +103,40 @@ public class CvsDayendController {
 	public List<PresentStockListVo> getNowStock(@RequestParam("stockID")String stockID, Model model){
  
 		logger.debug("stockID ==> {}",stockID);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("cul", "c.stock_id");
+		map.put("param", stockID);
 		
-		//재고아이디로 현재 재고 리스트를 불러서 보여준다
-		List<PresentStockListVo> stockList = stockService.getListStockOne(stockID);
-
+		//재고아이디로 재고 리스트를 불러서 보여준다
+		List<PresentStockListVo> stockList = stockService.getStockListByAttr(map);
+		logger.debug("stockListSize ==> {}",stockList.size());
+		
 		return stockList;
 	}
 	
+	/**
+	 * 
+	 * Method   : setDayEnd 
+	 * 최초작성일  : 2018. 9. 21. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param stockVoList
+	 * @param model
+	 * @return 
+	 * Method 설명 : stockVo 로 마감과 재고insert 를 진행
+	 */
 	@RequestMapping("/setDayEnd")
-	public ModelAndView setDayEnd(@RequestBody List<StockListVo> stockVoList, Model model){
+	public ResponseEntity<String> setDayEnd(@RequestBody List<PresentStockListVo> stockVoList, Model model){
 		
-		ModelAndView mav = new ModelAndView("jsonView");	
+		//마감재고 insert 진행
+		int end = stockService.dayendInsert(stockVoList, "999", mem_id);
 		
-		//재고마감리스트 추가 
-		//다음날짜로 재고 추가
-		//다음날짜로 재고리스트 추가	
+		//내일재고 insert 진행
+		int tomorrow = stockService.dayendInsert(stockVoList, "888", mem_id);
+		
+		return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
 
-		//마감 리스트 추가
-		for (StockListVo stockVo : stockVoList) {
-			
-			stockService.setInsertStockList(stockVo);
-		}
-		
-		//다음날짜로 재고 +재고리스트 추가
-		//stockService.setInsertStockAndList(stockVoList);
-		
-		return mav;
 	}
-	
 	
 	
 }

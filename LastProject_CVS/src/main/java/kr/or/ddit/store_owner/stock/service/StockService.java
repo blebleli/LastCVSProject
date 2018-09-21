@@ -1,11 +1,15 @@
 package kr.or.ddit.store_owner.stock.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
@@ -18,12 +22,20 @@ import org.springframework.stereotype.Service;
 
 @Service("stockService")
 public class StockService implements StockServiceInf {
-	
-	@Resource(name="stockDao")
-	private StockDaoInf stockDao;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Resource(name="autoCodeCreate")
 	private AutoCodeCreate autoCodeCreate;	
+	
+	@Resource(name="stockDao")
+	private StockDaoInf stockDao;
+	
+	@Resource(name="stockService")
+	private StockServiceInf stockService;	
+
+	@Resource(name="barcodeService")
+	private BarcodeServiceInf barcodeService;
 	
 	
 	//insert ====================================================================================		
@@ -57,6 +69,84 @@ public class StockService implements StockServiceInf {
 	@Override
 	public int setInsertStockList(StockListVo stockListVo) {
 		return stockDao.setInsertStockList(stockListVo);
+	}
+	
+	
+	
+	/**
+	 * 
+	 * Method   : dayendInsert 
+	 * 최초작성일  : 2018. 9. 21. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param stockVoList
+	 * @param stock_kind
+	 * @param mem_id
+	 * @return 
+	 * Method 설명 : stockList 로 재고와 재고마감을 진행 ( 마감 + 다음날재고)
+	 */
+	@Override
+	public int dayendInsert(List<PresentStockListVo> stockVoList, String stock_kind, String mem_id) {
+
+		//재고 테이블 insert (마감)
+		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
+		
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 1);
+		
+		Date today = new Date();
+		Date tomorrow = cal.getTime();
+		Date setDate = (stock_kind.equals("888") ? tomorrow: today);
+		
+		StockVo stockVo = new StockVo();
+		stockVo.setMem_id(mem_id);
+		stockVo.setStock_date(setDate);  //888일때 다음날짜 재고로 +1 
+		stockVo.setStock_id(stock_id);
+		stockVo.setStock_info("0921 마감 test");
+		stockVo.setStock_kind(stock_kind); // 888 or 999
+		
+		//재고or마감 insert
+		stockService.setInsertStock(stockVo);
+		logger.debug(stock_kind+" stock insert 완료 --------------");
+		logger.debug("stockVoList.size()--------------"+stockVoList.size());
+		
+
+//재고or마감 리스트 insert ---------------------------------
+		for (PresentStockListVo stockVoin : stockVoList) {
+			
+			//바코드생성---------------------------------		
+			String bcd_id = autoCodeCreate.barcode("BCD");
+			
+			BarcodeVo barcodeVo = new BarcodeVo();
+			
+			barcodeVo.setBcd_id(bcd_id);      	 	 		    //바코드코드
+			barcodeVo.setBcd_content(stock_kind+" : "+mem_id);  //내용			
+			String kind = (stock_kind.equals("888") ? "100": "103");
+			barcodeVo.setBcd_kind(kind); 		      			//재고 : 100, 저장소 : 101, 수불 : 102 마감 :103
+			barcodeVo.setBcd_path("-");       	 	 			//경로 888일때는 이미지도 생성
+					 
+			barcodeService.setInsertBarcode(barcodeVo);
+			logger.debug(stock_kind+" barcode insert 완료 --------------");
+			
+			
+			//재고or마감 리스트생성---------------------------------				
+			
+			StockListVo stockListVo = new StockListVo();
+			stockListVo.setBcd_id(bcd_id);
+			stockListVo.setProd_id(stockVoin.getProd_id());	        // prod id
+			stockListVo.setSplylist_id("SUP105560000-104-2016-000106386300001"); //stockVoin.getSplylist_id()); //수불입고리스트 id 보류
+			stockListVo.setStck_date(setDate); 						//888일때 다음날짜 재고로 +1 
+			stockListVo.setStcklist_amount(stockVoin.getStcklist_amount()); // 넘어온 수량값
+			stockListVo.setStcklist_exdate(stockVoin.getStcklist_exdate());
+			stockListVo.setStcklist_info(stock_kind+" : "+mem_id);
+			stockListVo.setStcklist_kind(stock_kind);
+			stockListVo.setStock_id(stock_id);
+			
+			stockService.setInsertStockList(stockListVo);
+			logger.debug(stock_kind+" stocklist insert 완료 --------------");
+		}
+		
+		return 1;
 	}
 
 	
@@ -158,8 +248,8 @@ public class StockService implements StockServiceInf {
 	 * *** ---0917  한수정 dayendController 에서 사용
 	 */
 	@Override
-	public List<PresentStockListVo> getListStockOne(String stock_id) {
-		return stockDao.getListStockOne(stock_id);
+	public 	List<PresentStockListVo> getStockListByAttr(Map<String,String> map){
+		return stockDao.getStockListByAttr(map);
 	}
 	
 	/**
@@ -203,6 +293,8 @@ public class StockService implements StockServiceInf {
 	public int totalCountProd() {
 		return stockDao.totalCountProd();
 	}
+
+
 
 
 

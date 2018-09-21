@@ -141,7 +141,7 @@ public interface StockDaoInf {
 	* @param stock_id
 	* @return
 	*/
-	List<PresentStockListVo> getListStockOne(String stock_id);
+	List<PresentStockListVo> getStockListByAttr(Map<String,String> map);
 	
 	/**
 	* Method : updateStockList

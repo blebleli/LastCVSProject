@@ -166,17 +166,17 @@ public class StockDao implements StockDaoInf {
 
 	/**
 	 * 
-	 * Method   : getListStockOne 
+	 * Method   : getListStock 
 	 * 최초작성일  : 2018. 9. 17. 
 	 * 작성자 : PC06 
 	 * 변경이력 : 
 	 * @param stock_id
 	 * @return 
-	 * Method 설명 : stock_id로 stock_list 가져온다
+	 * Method 설명 :PresentStockListVo에서 가져오고싶은 값으로 vo list 를 가져오기
 	 */
 	@Override
-	public List<PresentStockListVo> getListStockOne(String stock_id) {
-		return template.selectList("stock.getStockList", stock_id);
+	public List<PresentStockListVo> getStockListByAttr(Map<String,String> map) {
+		return template.selectList("stock.getStockListByAttr", map);
 	}
 
 

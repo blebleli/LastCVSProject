@@ -12,6 +12,18 @@ public interface StockServiceInf {
 	
 	/**
 	 * 
+	 * Method   : dayendInsert 
+	 * 최초작성일  : 2018. 9. 21. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param 
+	 * @return 
+	 * Method 설명 : dayendInsert
+	 */
+	int dayendInsert(List<PresentStockListVo> stockVoList, String stock_kind, String mem_id);
+	
+	/**
+	 * 
 	 * Method   : setInsertStock 
 	 * 최초작성일  : 2018. 9. 17. 
 	 * 작성자 : 한수정 
@@ -98,7 +110,7 @@ public interface StockServiceInf {
 	* @return
 	* *** ---0917  한수정 dayendController 에서 사용
 	*/
-	List<PresentStockListVo> getListStockOne(String stock_id);
+	List<PresentStockListVo> getStockListByAttr(Map<String,String> map);
 	
 	/**
 	* Method : getStockProd

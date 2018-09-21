@@ -30,6 +30,8 @@ import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -62,7 +64,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyReqController")
-@SessionAttributes({"requestList", "todaySupply"})
+
 public class CvsSupplyReqController {
 	//"myStock","myStockList",
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
@@ -124,29 +126,20 @@ public class CvsSupplyReqController {
 	* @return List<PresentStockListVo>
 	*/ 
 	@RequestMapping("/requestList")
-	public String requestList(@RequestBody List<String> requestProd, Model model){
+	public ResponseEntity<String>  requestList(@RequestBody List<String> requestProd, Model model){
 		
 		//페이지요청으로
-		
-		
 		//requestvo ==>List<ProdVo>
 		//prod_id 로 vo 가져오기
-		logger.debug("requestProd ------"+requestProd);
 		List<ProdVo> prodList = new ArrayList<ProdVo>();
 		
-		for (String prod_id : requestProd ) {
-			
+		for (String prod_id : requestProd ) {			
 			ProdVo requestpr= prodService.getProd(prod_id);
-			logger.debug("requestlist ------"+requestpr);
 			prodList.add(requestpr);
-		}
-	
+		}	
 		logger.debug("prodList ------"+prodList);
-
-		
-		model.addAttribute("requestList", prodList);
-		
-		return "cvs_supply_request";
+		model.addAttribute("requestList", prodList);		
+		return new ResponseEntity<>( "Custom header set", HttpStatus.OK);
 	}
 	
 
@@ -192,41 +185,9 @@ public class CvsSupplyReqController {
 		return myStockList;
 	}
 	
-	*//**
-	 * 
-	 * Method   : requestList 
-	 * 최초작성일  : 2018. 9. 19. 
-	 * 작성자 : PC06 
-	 * 변경이력 : 
-	 * @param requestprod
-	 * @param model
-	 * @return 
-	 * Method 설명 :
-	 *//*
-	@RequestMapping("/requestList")
-	@ResponseBody
-	public String requestList(@RequestParam(value="requestProd")String[] requestprod, Model model){
-		
-		List<ProdVo> requestprods = null;
-		
-		for (String prod_id : requestprod) {
-			ProdVo ps = prodService.getProd(prod_id); //prodid 로 제품 vo 가져온다.			
-			requestprods.add(ps);
-		}
-		logger.debug("list ------"+requestprods);
-		
-		model.addAttribute("requestList", requestprods);
-		
-		return "cvs_supply_request";
-	}*/
-	
 
-	
-	
-	
-	
-	
-	
+
+
 	
 	//--------------------------------------------
 	
