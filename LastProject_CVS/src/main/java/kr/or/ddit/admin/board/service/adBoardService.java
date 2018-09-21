@@ -197,4 +197,9 @@ public class adBoardService implements adBoardServiceInf {
 	public int boardUpdate(BoardJoinVo boardJoinVo) {
 		return adboardDao.boardUpdate(boardJoinVo);
 	}
+
+	@Override
+	public List<BoardVo> adBoardViewList2(String bd_kind_id) {
+		return adboardDao.adBoardViewList2(bd_kind_id);
+	}
 }

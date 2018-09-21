@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.admin.board.model.BoardJoinVo;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 
 public interface adBoardServiceInf {
@@ -18,6 +19,8 @@ public interface adBoardServiceInf {
 	 * Method 설명 : 관리자 - 각 게시판 페이징 기법
 	 */
 	Map<String, Object> adBoardViewList(Map<String,Object> map);
+	
+	List<BoardVo> adBoardViewList2(String bd_kind_id);
 	
 	/**
 	 * Method : boardCreate

@@ -150,4 +150,9 @@ public class adBoardDao implements adBoardDaoInf {
 	public int boardUpdate(BoardJoinVo boardJoinVo) {
 		return template.update("boardJoin.boardUpdate", boardJoinVo);
 	}
+
+	@Override
+	public List<BoardVo> adBoardViewList2(String bd_kind_id) {
+		return template.selectList("board.adBoardViewList2", bd_kind_id);
+	}
 }

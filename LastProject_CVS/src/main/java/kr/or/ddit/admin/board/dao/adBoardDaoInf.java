@@ -107,4 +107,6 @@ public interface adBoardDaoInf {
 	 * Method 설명 : 게시글 수정
 	 */
 	int boardUpdate(BoardJoinVo boardJoinVo);
+	
+	List<BoardVo> adBoardViewList2(String bd_kind_id);
 }
