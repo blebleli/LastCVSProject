@@ -102,28 +102,26 @@ public class AdboardController {
 		if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
 			bd_id = code.autoCode("BNO"); // 가공		
 		}else if(b.getBd_kind_id().equals("66")){ // 이벤트 구분
-			bd_id = code.autoCode("BEV"); // 이벤트 코드
+			bd_id = code.autoCode("BEV"); //
 		}else{
 			System.out.println("실패");
 		}
 		
-		b.setBd_id(bd_id);
+		b.setBd_id(bd_id); // 게시글 코드 저장		
+		b.setBd_group(bd_id); // 게시글 그룹코드 저장 (첫 글은 첫 글의 게시글 코드가 그룹코드임.)
 		
-		b.setBd_group(bd_id); // 첫 글은 첫번째 코드가 그룹코드임.
 		int cnt = boardService.setInsertBoard(b); // 게시글 저장
+		
 		if (cnt != 0){		
-System.out.println("bd_id =======================================>> "+ bd_id);
 			for (MultipartFile m : multipartFile) {
 				
 				FiledataVo fileVo = new FiledataVo();
 				
-				System.out.println(" 파일 ==================================>>>>>>    "+m.getOriginalFilename());
-				
 				if(m.isEmpty()==false){
 				fileVo.setBd_id(bd_id); // 게시글 코드
 				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
-				fileVo.setFile_upname(m.getOriginalFilename()); // 파일 업로드명
-				fileVo.setFile_name(UUID.randomUUID().toString()); // 파일명
+				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
+				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
 				fileVo.setMem_id(b.getMem_id());
 				
 				// 디렉토리 없을 경우 생성
@@ -140,20 +138,17 @@ System.out.println("bd_id =======================================>> "+ bd_id);
 					fileVo.setFile_id(EV);
 				}
 				
-				fileService.insertFileBoard(fileVo);			
-				
-				logger.debug("file ===================> {}", fileVo);			
+				fileService.insertFileBoard(fileVo);
 				
 				// 실제 물리경로에 파일 저장
 				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
-				m.transferTo(saveFile);
-				
+				m.transferTo(saveFile);				
 				
 				}
 			} // for
-			return "redirect:/adboard/boardView?btnChk=" + b.getBd_kind_id();			
+			return "redirect:/adboard/boardView?btnChk=" + b.getBd_kind_id(); // 해당 구분 코드 게시판 리스트로 화면 이동
 		}else{
-			return "ad_index";
+			return "ad_index"; // 실패시 관리자 메인화면으로 이동
 		}
 	}
 	
@@ -170,12 +165,15 @@ System.out.println("bd_id =======================================>> "+ bd_id);
 							  @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2, Model model){
 		BoardVo b = boardService.getBoard(bd_id); // 게시판 코드(bd_id)로 게시글 상세조회를 한다.
 		List<CommentsVo> cList = boardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
+		List<FiledataVo> FList = fileService.getFiledata(bd_id); // 게시판 코드(bd_id)로 해당 첨부파일 전체를 조회한다.
 		logger.debug("cList =====> {}", cList);
 		logger.debug("bd_id =====> {}", bd_id);
+		logger.debug("FList =====> {}", FList);
 		model.addAttribute("bd_id", bd_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);
 		model.addAttribute("b", b); // model에 저장한다.
 		model.addAttribute("cList", cList); // model에 저장한다.
+		model.addAttribute("FList", FList); // model에 저장한다.		
 		return "ad_boardDetail";
 	}
 	
@@ -206,15 +204,48 @@ System.out.println("bd_id =======================================>> "+ bd_id);
 	 * Method 설명 : 게시글 수정 완료 U
 	 */
 	@RequestMapping("/boardUpdate")
-	public String boardUpdate(@RequestParam(value="smarteditor", defaultValue="") String bd_content,
-							  BoardVo boardVo, Model model){	
-		boardVo.setBd_content(bd_content);
-		int cnt = boardService.boardUpdate(boardVo); // 게시글 정보 통해 게시글 수정 후 cnt 생성	
-		if(cnt != 0){ // cnt가 0이 아닐시
-			model.addAttribute("boardVo", boardVo); // model에 저장한다.		
-			return "redirect:/adboard/boardDetail?id="+boardVo.getBd_id(); // 게시글 상세조회 화면으로 이동
-		}else{ // 게시글 수정 실패시
-			return "/admin/main"; // 관리자 메인화면으로 이동
+	public String boardUpdate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile,
+							  BoardVo b, Model model) throws ServletException, IOException {
+		
+		int cnt = boardService.boardUpdate(b); // 게시글 저장
+		
+		if (cnt != 0){		
+			for (MultipartFile m : multipartFile) {
+				
+				FiledataVo fileVo = new FiledataVo();
+				
+				if(m.isEmpty()==false){
+				fileVo.setBd_id(b.getBd_id()); // 게시글 코드
+				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
+				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
+				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
+				fileVo.setMem_id(b.getMem_id());
+				
+				// 디렉토리 없을 경우 생성
+				if(!new File(FileUtil.fileUploadPath).exists()) {
+					new File(FileUtil.fileUploadPath).mkdirs();
+				}
+				
+				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
+				if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
+					String NO = code.autoCode("NO"); // 공지시항 파일코드
+					fileVo.setFile_id(NO); // 파일 코드 생성
+				}else if(b.getBd_kind_id().equals("66")){ // 이벤트 구분
+					String EV = code.autoCode("EV"); // 이벤트 파일코드
+					fileVo.setFile_id(EV);
+				}
+				
+				fileService.insertFileBoard(fileVo);
+				
+				// 실제 물리경로에 파일 저장
+				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
+				m.transferTo(saveFile);				
+				
+				}
+			} // for
+			return "redirect:/adboard/adboard/boardDetail?id="+b.getBd_id(); // 게시글 상세조회 화면으로 이동
+		}else{
+			return "ad_index"; // 실패시 관리자 메인화면으로 이동
 		}
 	}
 	

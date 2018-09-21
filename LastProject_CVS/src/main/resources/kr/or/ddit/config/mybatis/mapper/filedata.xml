@@ -62,7 +62,7 @@
 		</choose>
 	</delete>
 	
-	<!-- 파일데이터 등록 -->
+	<!-- 게시글 내 첨부파일 등록 -->
 	<!-- 	아 이 디 : insertFileBoard
 	  		매개변수 : filedataVo
 	  		반 환 값 : 없음
@@ -90,6 +90,11 @@
 			, #{bd_id}
 		)
 	</insert>
+	
+	<!-- 게시글 내 첨부파일 전체 조회 -->
+	<select id="getFiledata" parameterType="String" resultType="filedataVo">
+		SELECT * FROM FILEDATA WHERE bd_id = #{bd_id}
+	</select>
 	
   	
 </mapper>

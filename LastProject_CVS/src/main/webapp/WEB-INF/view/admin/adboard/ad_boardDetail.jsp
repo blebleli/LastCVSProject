@@ -175,32 +175,46 @@
 					<table class="table table-striped table-hover">
 					
 						<tr>
+							<td id="demoFont" class="col-sm-1">제목</td>
+							<td id="demoFont" class="col-sm-9" colspan="5">${b.bd_title}</td>
+						</tr>
+						
+
+						<tr>
 							<td id="demoFont" class="col-sm-1">작성자</td>
 							<td id="demoFont" class="col-sm-9">${b.mem_id}</td>
+							<td id="demoFont" class="col-sm-1">작성일</td>
+							<td id="demoFont" class="col-sm-9">${b.bd_date}</td>
 							<td id="demoFont" class="col-sm-1">조회수</td>
 							<td id="demoFont" class="col-sm-9">${b.bd_views}</td>
 						</tr>
 						
-
-						<tr>
-							<td id="demoFont">제목</td>
-							<td id="demoFont">${b.bd_title}</td>
-							<td id="demoFont" class="col-sm-1">작성일</td>
-							<td id="demoFont" class="col-sm-9">${b.bd_date}</td>
-						</tr>
-						
 						
 
 						<tr>
-							<td id="demoFont">내용</td>
-							<td id="demoFont">${b.bd_content}</td>
-							<td></td>
-							<td></td>
+							<td id="demoFont" class="col-sm-1">내용</td>
+							<td id="demoFont" class="col-sm-9" colspan="5">${b.bd_content}</td>
+						</tr>
+						
+						<tr>
+							<td id="demoFont" class="col-sm-1">첨부파일</td>
+							<td id="demoFont" class="col-sm-9" colspan="5">
+								<c:forEach items="${FList}" var="vo">
+									<c:choose>
+										<c:when test="${vo.file_name==''}">
+											[ 파일이 없습니다. ]
+										</c:when>
+										<c:when test="${vo.file_name!=''}">
+											[ ${vo.file_name } ]   
+										</c:when>
+									</c:choose>						
+								</c:forEach>
+							</td>
 						</tr>
 
 						<tr>
-							<td>댓글</td>
-							<td style="border-collapse:collapse;" colspan="4">
+							<td id="demoFont" class="col-sm-1">댓글</td>
+							<td style="border-collapse:collapse;" colspan="5" class="col-sm-9">
 								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
 								<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
@@ -217,7 +231,7 @@
 						
 						<tr id="comment">
 							<td></td>
-							<td id="demoFont2" colspan="4">
+							<td id="demoFont2" colspan="5">
 								<c:forEach items="${cList}" var="vo">
 									<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">

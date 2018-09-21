@@ -61,9 +61,31 @@ public class FileDao implements FileDaoInf {
 		return 1;
 	}
 
-
+	/**
+	 * Method : insertFileBoard
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param fileVo
+	 * @return
+	 * Method 설명 : 게시판 파일 첨부
+	 */
 	@Override
 	public int insertFileBoard(FiledataVo fileVo) {
 		return template.insert("filedata.insertFileBoard",fileVo);
+	}
+
+	/**
+	 * Method : getFiledata
+	 * 최초작성일 : 2018. 9. 22.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param fileVo
+	 * @return
+	 * Method 설명 : 게시글 내 첨부파일 전체 조회
+	 */
+	@Override
+	public List<FiledataVo> getFiledata(String bd_id) {
+		return template.selectList("filedata.getFiledata", bd_id);
 	}
 }

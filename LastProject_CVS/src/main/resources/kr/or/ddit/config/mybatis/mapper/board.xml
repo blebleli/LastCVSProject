@@ -10,7 +10,7 @@
 									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
 									, bd_title
 									, bd_rating
-									, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
 									, mem_id
 									, bd_kind_id
 									, prod_id
@@ -68,7 +68,7 @@
 		SELECT	  bd_id
 		 		, bd_title
 		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
-		 		, bd_date
+		 		, TO_CHAR(bd_date,'YY-MM-DD') AS bd_date
 		 		, bd_del
 		 		, bd_rating
 		 		, bd_views
