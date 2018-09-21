@@ -37,7 +37,7 @@
 								<!-- 작성자 - admin(관리자) -->
 								<div class="form-group">
 									<label class="control-label col-md-3 col-sm-3 col-xs-12"
-										for="first-name">${boardJoinVo.mem_id } <span class="required"></span>
+										for="first-name">${boardVo.mem_id } <span class="required"></span>
 									</label>
 								</div>
 		
@@ -48,7 +48,7 @@
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<input id="bd_title" name="bd_title" placeholder="제목을 입력하세요."
 											class="form-control col-md-7 col-xs-12" type="text"
-											name="middle-name" value="${boardJoinVo.bd_title }">
+											name="middle-name" value="${boardVo.bd_title }">
 									</div>
 								</div>
 		
@@ -58,7 +58,7 @@
 										class="control-label col-md-3 col-sm-3 col-xs-12">내용</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
 										<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
-											style="width: 760px; height: 412px;">${boardJoinVo.bd_content }</textarea>
+											style="width: 760px; height: 412px;">${boardVo.bd_content }</textarea>
 									</div>
 								</div>
 		
@@ -82,9 +82,9 @@
 										<button id="savebutton" type="button" class="btn btn-default">등록</button>
 									</div>
 								</div>
-								<input type="hidden" id="mem_id" name="mem_id" value="${boardJoinVo.mem_id }">
-								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${boardJoinVo.bd_kind_id }">
-								<input type="hidden" id="bd_id" name="bd_id" value="${boardJoinVo.bd_id }">
+								<input type="hidden" id="mem_id" name="mem_id" value="${boardVo.mem_id }">
+								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${boardVo.bd_kind_id }">
+								<input type="hidden" id="bd_id" name="bd_id" value="${boardVo.bd_id }">
 							</form>
 						</div>
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->

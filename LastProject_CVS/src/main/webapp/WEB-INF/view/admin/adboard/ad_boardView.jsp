@@ -42,6 +42,7 @@
 			
 			$("#boardNew").on("click", function(){ // 게시글 작성을 누르면
 				$("#boardGo").attr("action","/adboard/boardNew") // 게시글 작성으로 이동한다.
+				alert($("#bd_kind_id3").val());
 				$("#boardGo").submit(); // 게시글 작성으로 이동한다.
 			});
 			
@@ -121,8 +122,9 @@
 	</script>-->
         <!-- page content -->
         <div class="right_col" role="main" style="min-height: 900px;">			
-		<form id="frm" action="/adboard/boardDetail" method="get" onsubmit="return false;">
+		<form id="frm" action="/adboard/boardDetail" method="get">
 			<input type="hidden" name="id" id="id">
+			<input type="hidden" name="bd_kind_id" id="bd_kind_id" value="${bd_kind_id}">
 		</form>	  
           <div class="">   
             <div class="page-title">
@@ -139,9 +141,9 @@
                 <div class="x_panel">
                   <div class="x_title">
 					<div>
-						<form action="/adboard/boardView" id="boardGo" method="post" onsubmit="return false;">
+						<form action="/adboard/boardView" id="boardGo" method="post">
                         <input type="hidden" name="btnChk" id="btnChk">
-						<div id = "select" class="select">
+						<div class="select">
 						
 						<div class="btn-group btn-group-sm">
 	                        <button class="btn btn-default" type="button" id="all" name="bd_kind_id00" value="">전체</button>
@@ -160,7 +162,7 @@
                						<button class="btn btn-default" type="button" id="boardNew">등록</button>
                					</c:if>
 								<button class="btn btn-default" type="button">삭제</button>
-<%-- 								<input type="hidden" id="bd_kind_id" value="${bd_kind_id}"> --%>
+								<input type="hidden" name="bd_kind_id3" id="bd_kind_id3" value="${bd_kind_id}">
 								</div>
 							</li>
 						</ul>

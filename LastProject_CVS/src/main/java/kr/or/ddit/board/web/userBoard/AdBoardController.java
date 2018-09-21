@@ -147,31 +147,31 @@ public class AdBoardController {
 		return "redirect:/board/view";
 	}
 	
-	/**
-	* Method : deleteComment
-	* Method 설명 :댓글 삭제 메서드
-	* 최초작성일 : 2018. 9. 7.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :
-	* @param commentsVo
-	* @param model
-	* @return
-	*/
-	@RequestMapping(value="/deleteComment")
-	public String deleteComment(@RequestParam(value="bd_id")String bd_id, CommentsVo commentsVo, Model model){
-		
-		//댓글 삭제에 필요한 댓글 고유 id를 가져옴
-		String id = commentsVo.getCm_id();
-		logger.debug("id============================"+id);
-		
-		//댓글 삭제 기능 메서드
-		int cnt = boardService.deleteComments(id);
-		logger.debug("cnt============================"+cnt);
-		
-		//리다이렉트해서 필요한 값을 넘겨주기 위함
-		model.addAttribute("bd_id",bd_id);
-		
-		return "redirect:/board/view";
-	}
+//	/**
+//	* Method : deleteComment
+//	* Method 설명 :댓글 삭제 메서드
+//	* 최초작성일 : 2018. 9. 7.
+//	* 작성자 : 조계환
+//	* 변경이력 :신규
+//	* 조 회 :
+//	* @param commentsVo
+//	* @param model
+//	* @return
+//	*/
+//	@RequestMapping(value="/deleteComment")
+//	public String deleteComment(@RequestParam(value="bd_id")String bd_id, CommentsVo commentsVo, Model model){
+//		
+//		//댓글 삭제에 필요한 댓글 고유 id를 가져옴
+//		String id = commentsVo.getCm_id();
+//		logger.debug("id============================"+id);
+//		
+//		//댓글 삭제 기능 메서드
+//		int cnt = boardService.deleteComments(id);
+//		logger.debug("cnt============================"+cnt);
+//		
+//		//리다이렉트해서 필요한 값을 넘겨주기 위함
+//		model.addAttribute("bd_id",bd_id);
+//		
+//		return "redirect:/board/view";
+//	}
 }

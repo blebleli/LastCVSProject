@@ -2,7 +2,6 @@ package kr.or.ddit.board.dao;
 
 import java.util.List;
 import java.util.Map;
-
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
@@ -47,6 +46,17 @@ import kr.or.ddit.user.model.MainReviewsVo;
 public interface BoardDaoInf {
 	
 	/**
+	 * Method : getBoardPageList2
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_kind_id
+	 * @return
+	 * Method 설명 : 게시물 전체 조회
+	 */
+	List<BoardVo> getBoardPageList2(String bd_kind_id);
+	
+	/**
 	* Method : setInsertBoard
 	* Method 설명 :관리자가 공지사항 게시물 신규 작성 기능
 	* 최초작성일 : 2018. 8. 30.
@@ -57,6 +67,28 @@ public interface BoardDaoInf {
 	* @return
 	*/
 	int setInsertBoard(BoardVo boardVo);
+	
+	/**
+	 * Method : boardUpdate
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 수정
+	 */
+	int boardUpdate(BoardVo boardVo);
+	
+	/**
+	 * Method : boardDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시물 삭제
+	 */
+	int boardDelete(String bd_id);
 
 	/**
 	* Method : getBoardList
@@ -68,30 +100,6 @@ public interface BoardDaoInf {
 	* @return
 	*/
 	List<BoardVo> getListBoard();
-	
-	/**
-	* Method : updateBoard
-	* Method 설명 :관리자가 작성한 공지사항 게시글에 대해서 수정하는 기능 
-	* 최초작성일 : 2018. 8. 30.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :int updateBoard(BoardVo boardVo)_관리자가 작성한 공지사항 게시글에 대해서 수정하는 기능
-	* @param boardVo
-	* @return
-	*/
-	int updateBoard(BoardVo boardVo);
-	
-	/**
-	* Method : deleteBoard
-	* Method 설명 : 관리자가 작성한 공지사항 게시글에 대해서 삭제하는 기능
-	* 최초작성일 : 2018. 8. 30.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :int deleteBoard(String bd_id)_관리자가 작성한 공지사항 게시글에 대해서 삭제하는 기능
-	* @param bd_id
-	* @return
-	*/
-	int deleteBoard(String bd_id);
 	
 	/**
 	* Method : getListBestReviewOne
@@ -164,16 +172,15 @@ public interface BoardDaoInf {
 	List<CommentsVo> getListComments(String bd_id);
 	
 	/**
-	* Method : deleteComments
-	* Method 설명 :작성한 댓글 삭제 기능
-	* 최초작성일 : 2018. 8. 30.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :int deleteComments(String cm_id)_작성한 댓글 삭제 기능
-	* @param cm_id
-	* @return
-	*/
-	int deleteComments(String cm_id);
+	 * Method : commentsDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param cm_id
+	 * @return
+	 * Method 설명 : 댓글 삭제
+	 */
+	int commentsDelete(String cm_id);
 	
 	/**
 	* Method : getBoardPageList

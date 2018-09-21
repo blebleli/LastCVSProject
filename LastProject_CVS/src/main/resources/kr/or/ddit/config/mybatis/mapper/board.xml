@@ -1,67 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="board">
-	<!-- 게시판 페이징 기법 -->
-	<select id="getBoardPageList" parameterType="map" resultType="boardVo">	
-	SELECT * FROM (
-		SELECT ROWNUM tot_cnt, T.*
-				FROM  (
-				        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-								, bd_title
-								, bd_rating
-								, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
-								, mem_id
-								, bd_kind_id
-								, prod_id
-								, bd_id
-								, bd_del
-						FROM BOARD
-						WHERE 1=1
-		                <if test="bd_kind_id != null and bd_kind_id != ''">
-		                AND bd_kind_id = #{bd_kind_id}
-		                </if>
-						ORDER BY bd_date DESC     
-		      		) T )
-	</select>
-	
+<mapper namespace="board">	
 	<!-- 게시판 페이징 기법 -->
 	<select id="getBoardPageList2" parameterType="String" resultType="boardVo">	
-	SELECT * FROM (
-		SELECT ROWNUM tot_cnt, T.*
-				FROM  (
-				        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-								, bd_title
-								, bd_rating
-								, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
-								, mem_id
-								, bd_kind_id
-								, prod_id
-								, bd_id
-								, bd_del
-						FROM BOARD
-						WHERE 1=1
-		                <if test="_parameter != null and _parameter != ''">
-		                AND bd_kind_id = #{_parameter}		                
-		                </if>
-						ORDER BY bd_date DESC
-		      		) T )
+		SELECT * FROM (
+			SELECT ROWNUM tot_cnt, T.*
+					FROM  (
+					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+									, bd_title
+									, bd_rating
+									, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+									, mem_id
+									, bd_kind_id
+									, prod_id
+									, bd_id
+									, bd_del
+							FROM BOARD
+							WHERE 1=1
+			                <if test="_parameter != null and _parameter != ''">
+			                AND bd_kind_id = #{_parameter}		                
+			                </if>
+							ORDER BY bd_date DESC
+			      		) T )
 	</select>
 	
-	<!-- 게시글 전체 건수 -->
-  	<select id="getWriteTotCnt" resultType="int">
-		SELECT count(*) FROM board
-  	</select>
-	
-	<!-- 게시글 작성 -->
-	<insert id="setInsertBoard" parameterType="boardJoinVo">
+	<!-- 게시글 작성 (공지사항 / 이벤트)-->
+	<insert id="setInsertBoard" parameterType="boardVo">
 		INSERT INTO BOARD (   bd_id
 							, bd_title
 							, bd_content
 							, bd_date
 							, bd_del
-							, bd_rating
 							, bd_views
 							, bd_group
 							, mem_id
@@ -73,7 +43,6 @@
 					 		, RAWTOHEX(#{bd_content})
 					 		, TO_DATE(SYSDATE,#{bd_date})
 					 		, #{bd_del}
-					 		, #{bd_rating}
 					 		, #{bd_views}
 					 		, #{bd_group}
 					 		, #{mem_id}
@@ -82,8 +51,20 @@
 					 		)
 	</insert>
 	
+	<!-- 관리자 - 게시글 수정 -->
+  	<update id="boardUpdate" parameterType="boardVo">
+  		UPDATE board SET bd_title = #{bd_title}
+  						,bd_content = RAWTOHEX(#{bd_content})
+  		WHERE bd_id = #{bd_id}
+  	</update>
+  	
+  	<!-- 관리자 - 게시글 삭제 -->
+  	<update id="boardDelete" parameterType="String">
+  		UPDATE board SET bd_del='Y' WHERE bd_id = #{bd_id}
+  	</update>
+	
 	<!-- 게시글 상세조회 --> <!-- 게시글 수정화면 이동 -->
-  	<select id="getBoard" parameterType="String" resultType="boardJoinVo">
+  	<select id="getBoard" parameterType="String" resultType="boardVo">
 		SELECT	  bd_id
 		 		, bd_title
 		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
@@ -111,51 +92,13 @@
 		update board set BD_VIEWS = BD_VIEWS+1 where bd_id = (SELECT bd_id
 		FROM board
 		WHERE BD_ID = #{BD_ID})
-	</update>
-
-	
-	<!-- 공지사항 게시판 정보 페이징 조회 -->
-<!--  	<select id="getBoardPageList" parameterType="map" resultType="boardVo">  	
-		SELECT *
-		FROM (SELECT a.*, ROWNUM rn
-			  FROM
-				  (SELECT bd_id, lpad('    ', level*4, '    ')|| board.bd_title as bd_title,
-				  		  mem_id, bd_date, bd_parent, bd_group, bd_del, bd_kind_id
-				   FROM board
-				   WHERE bd_kind_id='44' start with bd_parent is null connect by prior bd_id = bd_parent
-				   		 order siblings by bd_date DESC, bd_group)
-			  a )
-		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
-		ORDER BY BD_DATE DESC
-	</select> -->
+	</update>  	
   	
   	
   	
   	
   	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
+  <!-- ======================================================================================================================= --> 	
   	
   	<!-- 리뷰 작성 -->
   	<insert id="insertReview" parameterType="boardVo">
@@ -197,7 +140,7 @@
 		)where ROWNUM &lt;=3
 	</select>
 	
-	<!-- 메인 리뷰 top3 --> <!-- 지우지말기 -->
+	<!-- 메인 리뷰 top3 -->
 	<select id="getReviewTop3" resultType="mainReviewsVo">
 	
 		SELECT    
@@ -220,4 +163,34 @@
 	    ORDER  BY B.BD_VIEWS DESC
 	</select>
   	
+ <!-- ======================================================== 보 류 ================================================================== -->
+
+  	<!-- 게시판 페이징 기법 -->
+	<select id="getBoardPageList" parameterType="map" resultType="boardVo">	
+		SELECT * FROM (
+			SELECT ROWNUM tot_cnt, T.*
+					FROM  (
+					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+									, bd_title
+									, bd_rating
+									, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+									, mem_id
+									, bd_kind_id
+									, prod_id
+									, bd_id
+									, bd_del
+							FROM BOARD
+							WHERE 1=1
+			                <if test="bd_kind_id != null and bd_kind_id != ''">
+			                AND bd_kind_id = #{bd_kind_id}
+			                </if>
+							ORDER BY bd_date DESC     
+			      		) T )
+	</select>
+		
+  	<!-- 게시글 전체 건수 -->
+  	<select id="getWriteTotCnt" resultType="int">
+		SELECT count(*) FROM board
+  	</select>
 </mapper>

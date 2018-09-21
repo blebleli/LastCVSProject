@@ -241,6 +241,7 @@
 											<input type="hidden" name="cm_id" value="${vo.cm_id}">
 											<input type="hidden" name="bd_id" value="${vo.bd_id}">
 											<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
+											<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
 											<br>
 										</form>
 									</c:if>
@@ -261,8 +262,9 @@
 							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>
 							<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
 						</span>
-						<input type="hidden" id="bd_id" name="bd_id" value="${b.bd_id}">
-						<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
+						<input type="text" id="bd_id" name="bd_id" value="${b.bd_id}">
+						<input type="text" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
+						<input type="text" id="bd_kind_id2" name="bd_kind_id2" value="${bd_kind_id2}">
 					</div>
 					</form>
 				</div>

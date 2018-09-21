@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.BoardDaoInf;
 import kr.or.ddit.board.model.ReviewVo;
+import kr.or.ddit.filedata.service.FileServiceInf;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
+import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.user.model.MainReviewsVo;
 
 /**
@@ -40,11 +42,64 @@ public class BoardService implements BoardServiceInf {
 
 	@Resource(name="boardDao")
 	private BoardDaoInf boardDao;
-
+	
+	@Resource(name="fileService")
+	private FileServiceInf fileService;
+	
+	/**
+	 * Method : getBoardPageList2
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_kind_id
+	 * @return
+	 * Method 설명 : 게시물 전체 조회 R
+	 */
+	@Override
+	public List<BoardVo> getBoardPageList2(String bd_kind_id) {
+		return boardDao.getBoardPageList2(bd_kind_id);
+	}
+	
+	/**
+	 * Method : setInsertBoard
+	 * 최초작성일 : 2018. 8. 2.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardVo
+	 * @return
+	 * Method 설명 : 게시글 작성 C
+	 */
 	@Override
 	public int setInsertBoard(BoardVo boardVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boardDao.setInsertBoard(boardVo);
+	}
+	
+	/**
+	 * Method : boardUpdate
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시글 수정 U
+	 */
+	@Override
+	public int boardUpdate(BoardVo boardVo) {
+		return boardDao.boardUpdate(boardVo);
+	}
+	
+	/**
+	 * Method : boardDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시물 삭제 D
+	 */
+	@Override
+	public int boardDelete(String bd_id) {
+		return boardDao.boardDelete(bd_id);
 	}
 
 	/**
@@ -54,24 +109,11 @@ public class BoardService implements BoardServiceInf {
 	* 작성자 : 조계환
 	* 변경이력 :신규
 	* 조 회 :
-	* @return
-	
+	* @return	
 	*/
 	@Override
 	public List<BoardVo> getListBoard() {
 		return boardDao.getListBoard();
-	}
-
-	@Override
-	public int updateBoard(BoardVo boardVo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteBoard(String bd_id) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -132,9 +174,18 @@ public class BoardService implements BoardServiceInf {
 		return boardDao.getListComments(bd_id);
 	}
 
+	/**
+	 * Method : commentsDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param cm_id
+	 * @return
+	 * Method 설명 : 댓글 삭제
+	 */
 	@Override
-	public int deleteComments(String cm_id) {
-		return boardDao.deleteComments(cm_id);
+	public int commentsDelete(String cm_id) {
+		return boardDao.commentsDelete(cm_id);
 	}
 
 	/**
@@ -208,6 +259,27 @@ public class BoardService implements BoardServiceInf {
 		pageNaviStr.append("<li><a href=\"/board/boardMain?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 
 		return pageNaviStr.toString();
+	}
+	
+	/**
+	 * Method : setWriteInsert
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 게시판 생성 한 후 파일 생성 하도록 한다.
+	 * 				게시판 생성 실패시 파일 생성이 안된다.
+	 */
+	public int setWriteInsert(BoardVo boardVo) {		
+		int cnt = 0;		
+		// 게시글 생성
+		cnt =+ boardDao.setInsertBoard(boardVo);		
+		for(FiledataVo vo : boardVo.getFileList()) { // for문으로 file 가져오기
+			// 파일 생성
+			cnt =+ fileService.insertFile(vo); // file이 있으면 1씩 증가
+		}
+		return cnt;
 	}
 
 	/**

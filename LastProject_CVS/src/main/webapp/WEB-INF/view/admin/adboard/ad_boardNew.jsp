@@ -15,8 +15,7 @@
 					<div class="title_left">
 						<h3>게시글 작성</h3>
 					</div>
-				</div>
-		
+				</div>		
 				<div class="clearfix"></div>
 				<!-- page content -->
 				<div class="col-md-12 col-sm-12 col-xs-12">
@@ -24,8 +23,7 @@
 						<div class="x_title">
 							<h2>게시글 작성란입니다.</h2>
 							<div class="clearfix"></div>
-						</div>
-		
+						</div>		
 			<!-- ==================================== 게시글 등록 내용 시작 ============================================================ -->
 						<div class="x_content"> 
 		
@@ -58,7 +56,7 @@
 									<label for="middle-name"
 										class="control-label col-md-3 col-sm-3 col-xs-12">내용</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
+										<textarea name="bd_content" id="smarteditor" rows="10" cols="100"
 											style="width: 760px; height: 412px;"></textarea>
 									</div>
 								</div>
@@ -83,8 +81,12 @@
 										<button id="savebutton" type="button" class="btn btn-default">등록</button>
 									</div>
 								</div>
-								<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
-								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id}">
+								<input type="text" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
+								<input type="text" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id3}">
+								<input type="text" id="bd_del" name="bd_del" value="N">
+								<input type="text" id="bd_date" name="bd_date" value="YYYY-MM-DD">
+								<input type="text" id="bd_views" name="bd_views" value='0'>
+								<input type="text" id="bd_parent" name="bd_parent" value="">							
 							</form>
 						</div>
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->
@@ -145,8 +147,7 @@
 									alert("내용을 입력하세요.");
 									oEditors.getById['smarteditor'].exec('FOCUS');
 									return false;
-								}
-							
+								}							
 								return true;
 							}						
 					</script>
@@ -204,7 +205,5 @@
     <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
- 

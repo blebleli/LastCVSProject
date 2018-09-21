@@ -2,12 +2,9 @@ package kr.or.ddit.board.dao;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
@@ -37,29 +34,69 @@ public class BoardDao implements BoardDaoInf {
 	private SqlSessionTemplate template;
 	
 	/**
-	* Method : setInsertBoard
-	* Method 설명 :관리자가 공지사항 게시물 신규 작성 기능
-	* 최초작성일 : 2018. 8. 2.
-	* 작성자 : 김마음
-	* 변경이력 :신규
-	* 조 회 :int setInsertBoard(BoardVo boardVo)_관리자가 공지사항 게시물 신규 작성 기능
-	* @param boardVo
-	* @return
-	*/
+	 * Method : getBoardPageList2
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_kind_id
+	 * @return
+	 * Method 설명 : 게시물 전체 조회
+	 */
+	@Override
+	public List<BoardVo> getBoardPageList2(String bd_kind_id) {
+		return template.selectList("board.getBoardPageList2", bd_kind_id);
+	}
+	
+	/**
+	 * Method : setInsertBoard
+	 * 최초작성일 : 2018. 8. 2.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardVo
+	 * @return
+	 * Method 설명 : 관리자 - 게시글 작성
+	 */
 	@Override
 	public int setInsertBoard(BoardVo boardVo) {
 		return template.insert("board.setInsertBoard", boardVo);
 	}
 	
 	/**
-	* Method : getBoardList
-	* Method 설명 :공지사항 게시판의 게시물 리스트 출력
-	* 최초작성일 : 2018. 9. 2.
-	* 작성자 : 김마음
-	* 변경이력 :신규
-	* 조 회 :List<BoardVo> getListBoard()_공지사항 게시판의 게시물 리스트 출력
-	* @return
-	*/
+	 * Method : boardUpdate
+	 * 최초작성일 : 2018. 9. 20.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardJoinVo
+	 * @return
+	 * Method 설명 : 관리자 - 게시글 수정
+	 */
+	@Override
+	public int boardUpdate(BoardVo boardVo) {
+		return template.update("board.boardUpdate", boardVo);
+	}
+	
+	/**
+	 * Method : boardDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @return
+	 * Method 설명 : 게시물 삭제
+	 */
+	@Override
+	public int boardDelete(String bd_id) {
+		return template.delete("board.boardDelete", bd_id);
+	}
+
+	/**
+	 * Method : getListBoard
+	 * 최초작성일 : 2018. 9. 2.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : List<BoardVo> getListBoard()_공지사항 게시판의 게시물 리스트 출력
+	 */
 	@Override
 	public List<BoardVo> getListBoard() {
 		return template.selectList("board.getListBoard");
@@ -92,18 +129,6 @@ public class BoardDao implements BoardDaoInf {
 	@Override
 	public int getBoardListTotCnt() {
 		return template.selectOne("board.getWriteTotCnt");
-	}
-
-	@Override
-	public int updateBoard(BoardVo boardVo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteBoard(String bd_id) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override
@@ -178,10 +203,18 @@ public class BoardDao implements BoardDaoInf {
 		return template.selectList("comments.getListComments",bd_id);
 	}
 
+	/**
+	 * Method : commentsDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param cm_id
+	 * @return
+	 * Method 설명 : 댓글 삭제
+	 */
 	@Override
-	public int deleteComments(String cm_id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int commentsDelete(String cm_id) {
+		return template.update("comments.deleteComment", cm_id);
 	}
 
 	/**
