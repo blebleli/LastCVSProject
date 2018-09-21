@@ -1,11 +1,21 @@
 package kr.or.ddit.admin.board.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
+
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.filedata.FileUtil;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
+import kr.or.ddit.model.FiledataVo;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,9 +23,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-//@SessionAttributes({"userInfo"})
-@SessionAttributes({"userInfo","boardList","pageNavi"})
+@SessionAttributes({"userInfo"})
 @RequestMapping("/adboard")
 @Controller("adboardController")
 public class AdboardController {
@@ -76,18 +87,65 @@ public class AdboardController {
 	 * 변경이력 : 신규
 	 * @param model
 	 * @return
-	 * Method 설명 : 게시글 등록 완료(공지사항, 이벤트) C
+	 * Method 설명 : 게시글 및 첨부파일 등록 완료(공지사항, 이벤트) C
+	 * @throws IOException 
+	 * @throws ServletException 
 	 */
 	@RequestMapping("/boardCreate")
-	public String boardCreate(BoardVo b, Model model){		
-		String bnocode = "BNO"; // 공지사항 코드 생성 준비(임시)
-		String bd_id = code.autoCode(bnocode); // 가공
-		b.setBd_id(bd_id); // Vo에 코드 저장
-		b.setBd_group(bd_id); // 첫 글은 첫번째 코드가 그룹코드임.		
-		int cnt = boardService.setInsertBoard(b); // 쿼리 실행 후 성공시 cnt 1 반환		
-		String bd_kind_id = b.getBd_kind_id();			
+	public String boardCreate(FiledataVo fileVo, BoardVo b, MultipartHttpServletRequest request, Model model) throws ServletException, IOException{
+		
+		MultipartHttpServletRequest multipartHttpServletRequest = request;
+		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+		MultipartFile multipartFile = null;
+		
+		if(b.getBd_id().equals("44")){ // 공지사항 구분
+			String bd_id = code.autoCode("BNO"); // 가공		
+			b.setBd_id(bd_id);
+		}else if(b.getBd_id().equals("66")){ // 이벤트 구분
+			String bd_id = code.autoCode("BEV"); // 이벤트 코드
+			b.setBd_id(bd_id);
+		}else{
+			System.out.println("실패");
+		}
+		
+		b.setBd_group(b.getBd_id()); // 첫 글은 첫번째 코드가 그룹코드임.
+		
+		// 파일을 DB에 저장 전에 게시판 코드 저장(bd_id)
+		// 첨부 파일 출력 및 생성
+		while(iterator.hasNext()){
+			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			if(multipartFile.isEmpty()==false){
+				fileVo.setBd_id(b.getBd_id()); // 게시글 코드
+				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
+				fileVo.setFile_upname(multipartFile.getOriginalFilename()); // 파일 업로드명
+				fileVo.setFile_name(UUID.randomUUID().toString()); // 파일명
+				
+				// 디렉토리 없을 경우 생성
+				if(!new File(FileUtil.fileUploadPath).exists()) {
+					new File(FileUtil.fileUploadPath).mkdirs();
+				}
+				
+				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
+				if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
+					String NO = code.autoCode("NO"); // 공지시항 파일코드
+					fileVo.setFile_id(NO); // 파일 코드 생성
+				}else if(b.getBd_kind_id().equals("66")){ // 이벤트 구분
+					String EV = code.autoCode("EV"); // 이벤트 파일코드
+					fileVo.setFile_id(EV);
+				}
+				
+				// DB에 저장하기 위해서
+				b.getFileList().add(fileVo);
+				
+				// 실제 물리경로에 파일 저장
+				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
+				multipartFile.transferTo(saveFile);
+			}
+		}		
+		
+		int cnt = boardService.setInsertBoard(b); // 쿼리 실행 후 성공시 cnt 1 반환				
 		if(cnt != 0){
-			return "redirect:/adboard/boardView?btnChk=" + bd_kind_id;		
+			return "redirect:/adboard/boardView?btnChk=" + b.getBd_kind_id();
 		}else{
 			return "ad_index";
 		}
