@@ -47,7 +47,7 @@
 						stcklist_info  ,
 						stcklist_kind  ,
 						stock_id       ,
-						splylist_id 	,
+						splylist_id    ,
 						prod_id   
 					 ) 	
 			   VALUES(  #{bcd_id         },
@@ -131,6 +131,27 @@
 	select * 
 	from stock_list 
 	where bcd_id=#{bcd_id}
+</select>
+
+<!-- 	아 이 디 : getStockListByAttr
+	  		반 환 값 : presentStockListVo
+	  		매개변수 : map(검색컬럼 , 검색값)
+	  		설    명 : 현재고 리스트 지정한 값으로 조회
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-21     
+	 -->
+<select id="getStockListByAttr" parameterType="Map" resultType="presentStockListVo">
+	SELECT a.prod_id, 
+		   a.prod_name,
+		   a.prod_price,
+		   a.event_id,  
+		   b.supply_date, 
+		   c.splylist_id, 
+		   c.stcklist_exdate, 		
+		   c.stcklist_amount, 
+	       c.bcd_id
+	FROM prod a, supply b, stock_list c
+	WHERE ${cul} = #{param} AND c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
 
 	
