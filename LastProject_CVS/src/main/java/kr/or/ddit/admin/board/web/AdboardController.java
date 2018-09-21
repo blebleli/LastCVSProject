@@ -72,9 +72,13 @@ public class AdboardController {
 							Model model){		
 
 		logger.debug("btnChk =========> {} ", "게시판 분류코드는 "+bd_kind_id+" 입니다.");
+		System.out.println("넘어감?14");
 		List<BoardVo> boardList = adboardService.adBoardViewList2(bd_kind_id);
-		model.addAttribute("bd_kind_id", bd_kind_id);		
-		model.addAllAttributes(boardList);
+		System.out.println("넘어감?11");
+		model.addAttribute("bd_kind_id", bd_kind_id);
+		System.out.println("넘어감?12");
+		model.addAttribute("boardList", boardList);
+		System.out.println("넘어감?13");
 		return "ad_boardView";
 	}
 	

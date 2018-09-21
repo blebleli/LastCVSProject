@@ -153,6 +153,9 @@ public class adBoardDao implements adBoardDaoInf {
 
 	@Override
 	public List<BoardVo> adBoardViewList2(String bd_kind_id) {
-		return template.selectList("board.adBoardViewList2", bd_kind_id);
+		
+		BoardVo b = new BoardVo();
+		b.setBd_kind_id(bd_kind_id);
+		return template.selectList("board.getBoardPageList2", bd_kind_id);
 	}
 }

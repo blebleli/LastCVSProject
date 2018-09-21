@@ -91,20 +91,20 @@ public class BoardDaoTest {
 	* 변경이력 :신규
 	* 조 회 :
 	*/
-	@Test
-	public void getBoardPageList(){
-		/***Given***/
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		
-		map.put("page", 1);
-		map.put("pageSize", 10);
-
-		/***When***/
-		List<BoardVo> boardPageList = boardDao.getBoardPageList(map);
-
-		/***Then***/
-		assertEquals(10, boardPageList.size());		
-	}
+//	@Test
+//	public void getBoardPageList(){
+//		/***Given***/
+//		Map<String, Integer> map = new HashMap<String, Integer>();
+//		
+//		map.put("page", 1);
+//		map.put("pageSize", 10);
+//
+//		/***When***/
+//		List<BoardVo> boardPageList = boardDao.getBoardPageList(map);
+//
+//		/***Then***/
+//		assertEquals(10, boardPageList.size());		
+//	}
 	
 	/**
 	* Method : getBoardListTotCntTest

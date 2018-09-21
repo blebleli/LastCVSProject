@@ -61,23 +61,23 @@ public class AdBoardController {
 	 * 조 회 :public String boardView()_게시판 메인 화면으로 가는 길
 	 * @return
 	 */
-	@RequestMapping("/boardMain")
-	public String boardListView(@RequestParam(value="page", defaultValue="1") int page,
-								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
-								Model model) {
-
-		Map<String, Integer> paramMap = new HashMap<String, Integer>();
-
-		paramMap.put("page", page);
-		paramMap.put("pageSize", pageSize);
-
-		//게시물 페이징 처리
-		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
-		
-		model.addAllAttributes(resultMap);
-		
-		return "boardList";
-	}
+//	@RequestMapping("/boardMain")
+//	public String boardListView(@RequestParam(value="page", defaultValue="1") int page,
+//								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+//								Model model) {
+//
+//		Map<String, Integer> paramMap = new HashMap<String, Integer>();
+//
+//		paramMap.put("page", page);
+//		paramMap.put("pageSize", pageSize);
+//
+//		//게시물 페이징 처리
+//		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
+//		
+//		model.addAllAttributes(resultMap);
+//		
+//		return "boardList";
+//	}
 	
 	/**
 	* Method : createNoticePostView

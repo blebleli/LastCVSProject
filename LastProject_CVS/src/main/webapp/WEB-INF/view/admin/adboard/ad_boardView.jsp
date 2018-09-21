@@ -160,7 +160,7 @@
                						<button class="btn btn-default" type="button" id="boardNew">등록</button>
                					</c:if>
 								<button class="btn btn-default" type="button">삭제</button>
-								<input type="hidden" id="bd_kind_id" value="${bd_kind_id}">
+<%-- 								<input type="hidden" id="bd_kind_id" value="${bd_kind_id}"> --%>
 								</div>
 							</li>
 						</ul>
