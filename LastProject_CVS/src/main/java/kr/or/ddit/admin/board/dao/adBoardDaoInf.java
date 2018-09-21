@@ -108,5 +108,5 @@ public interface adBoardDaoInf {
 	 */
 	int boardUpdate(BoardJoinVo boardJoinVo);
 	
-	List<BoardVo> adBoardViewList2(String bd_kind_id);
+	List<BoardVo> getBoardPageList2(String bd_kind_id);
 }

@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.admin.board.model.BoardJoinVo;
@@ -34,6 +36,8 @@ public class adBoardDao implements adBoardDaoInf {
 	
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
 	 * Method : adBoardViewList
@@ -152,10 +156,11 @@ public class adBoardDao implements adBoardDaoInf {
 	}
 
 	@Override
-	public List<BoardVo> adBoardViewList2(String bd_kind_id) {
+	public List<BoardVo> getBoardPageList2(String bd_kind_id) {
 		
-		BoardVo b = new BoardVo();
-		b.setBd_kind_id(bd_kind_id);
+		logger.debug("bd_kind_id =====================================> {} "+bd_kind_id+"라고..............................");
+//		BoardVo b = new BoardVo();
+//		b.setBd_kind_id(bd_kind_id);
 		return template.selectList("board.getBoardPageList2", bd_kind_id);
 	}
 }

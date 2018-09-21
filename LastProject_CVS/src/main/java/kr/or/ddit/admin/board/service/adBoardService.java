@@ -199,7 +199,7 @@ public class adBoardService implements adBoardServiceInf {
 	}
 
 	@Override
-	public List<BoardVo> adBoardViewList2(String bd_kind_id) {
-		return adboardDao.adBoardViewList2(bd_kind_id);
+	public List<BoardVo> getBoardPageList2(String bd_kind_id) {
+		return adboardDao.getBoardPageList2(bd_kind_id);
 	}
 }

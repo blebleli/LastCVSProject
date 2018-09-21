@@ -26,7 +26,7 @@
 	</select>
 	
 	<!-- 게시판 페이징 기법 -->
-	<select id="getBoardPageList2" parameterType="boardVo" resultType="boardVo">	
+	<select id="getBoardPageList2" parameterType="String" resultType="boardVo">	
 	SELECT * FROM (
 		SELECT ROWNUM tot_cnt, T.*
 				FROM  (
@@ -42,8 +42,8 @@
 								, bd_del
 						FROM BOARD
 						WHERE 1=1
-		                <if test="bd_kind_id != null and bd_kind_id != ''">
-		                AND bd_kind_id = #{bd_kind_id}		                
+		                <if test="_parameter != null and _parameter != ''">
+		                AND bd_kind_id = #{_parameter}		                
 		                </if>
 						ORDER BY bd_date DESC
 		      		) T )
