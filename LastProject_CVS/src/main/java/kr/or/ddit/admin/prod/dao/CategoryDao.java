@@ -4,13 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.model.CategoryVo;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
-import kr.or.ddit.model.CategoryVo;
-import kr.or.ddit.prod.dao.ProdDao;
 
 
 @Repository("categoryDao")
@@ -23,7 +22,7 @@ public class CategoryDao implements CategoryDaoInf {
 	
 	@Override
 	public int setInsertCategory(CategoryVo categoryVo) {
-		return 0;
+		return session.insert("category.setCategoryInsert", categoryVo);
 	}
 
 	@Override

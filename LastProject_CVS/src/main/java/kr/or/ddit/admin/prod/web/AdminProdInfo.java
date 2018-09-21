@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import kr.or.ddit.admin.model.AdminProdVo;
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.admin.prod.service.CategoryServiceInf;
+import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.CategoryVo;
 
 import org.slf4j.Logger;
@@ -28,6 +29,9 @@ public class AdminProdInfo {
 	@Resource(name="categoryService")
 	CategoryServiceInf categoryService;
 	
+	@Resource(name="autoCodeCreate")
+	AutoCodeCreate  acc;
+	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -42,6 +46,7 @@ public class AdminProdInfo {
 		// 제품 목록
 		Map<String, Object> result = adminProdService.getProdList(pvo);
 		
+		logger.debug("result == > {}", result);
 		
 		model.addAllAttributes(result);
 		
@@ -73,18 +78,56 @@ public class AdminProdInfo {
 		
 	}
 	
-	@RequestMapping("/tttt")
-	public String t(Model model, @RequestParam(value="in1") String in1
-			,@RequestParam(value="in1") String in2
-			){
+	
+	@RequestMapping("/categoryInsert")
+	public String categoryInsert(     @RequestParam(value="ctgy_lg", defaultValue="0") String ctgy_lg 				// 대분류 명
+									, @RequestParam(value="ctgy_id_lg", defaultValue="0") String ctgy_id_lg 		// 대분류 코드
+									, @RequestParam(value="ctgy_lg_info", defaultValue="0") String ctgy_lg_info 	// 대분류 정보
+									, @RequestParam(value="ctgy_md", defaultValue="0") String ctgy_md 				// 중분류 명
+									, @RequestParam(value="ctgy_md_info", defaultValue="0") String ctgy_md_info 	// 중분류 정보
+									, Model model){
 		
-		logger.debug("==============================================================");
-		logger.debug(in1);
-		logger.debug(in2);
-		logger.debug("==============================================================");
-
-		return "";
+		logger.debug("categoryInsert==============================================================");
+//		logger.debug("=========>> {}={}={}={}={}",ctgy_lg,ctgy_id_lg,ctgy_lg_info,ctgy_md,ctgy_md_info);
 		
+		CategoryVo lgVo = new CategoryVo();
+		lgVo.setCtgy_id(ctgy_id_lg);
+		
+		if (ctgy_id_lg.isEmpty()) { // 새로운 대분류 추가
+			
+			String lgCode = acc.autoCode("CA");		// 코드생성
+			logger.debug("lgCode ==>{}", lgCode );
+			// insert 될 데이터
+			lgVo.setCtgy_id(lgCode);			        // 코드
+			lgVo.setCtgy_info(ctgy_lg_info);	        // 내용
+			lgVo.setCtgy_kind("301");			        // 제품 301
+			lgVo.setCtgy_name(ctgy_lg);			        // 명
+			lgVo.setCtgy_parent("");		// 부모 코드
+			lgVo.setCtgy_group(lgCode);		// 그룹 코드
+			
+			int result = categoryService.setInsertCategory(lgVo);
+			logger.debug("대분류 insert ==> {} ", result);
+			
+		}
+		
+		CategoryVo mdVo = new CategoryVo();
+		if (!ctgy_md.isEmpty()) {	// 중분류 insert 
+			
+			String mdCode = acc.autoCode("CA");		// 코드생성
+			logger.debug("lgCode ==>{}", mdCode );
+			// insert 될 데이터
+			mdVo.setCtgy_id(mdCode);			        // 코드
+			mdVo.setCtgy_info(ctgy_md_info);	        // 내용
+			mdVo.setCtgy_kind("301");			        // 제품 301
+			mdVo.setCtgy_name(ctgy_md);			        // 명
+			mdVo.setCtgy_parent(lgVo.getCtgy_id());		// 부모 코드
+			mdVo.setCtgy_group(lgVo.getCtgy_id());		// 그룹 코드
+			
+			int result = categoryService.setInsertCategory(mdVo);
+			logger.debug("중분류 insert ==> {} ", result);
+		}
+		
+		return "forward:/adprod/categoryPopup";
 	}
 	
 	

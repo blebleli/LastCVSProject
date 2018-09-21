@@ -95,7 +95,7 @@ public class UserMainController {
 		//조회수 리뷰 best3
 //		List<BoardVo> bestReview = boardService.getBestProdReview();
 		List<MainReviewsVo> bestReview = boardService.getReviewTop3();
-		logger.debug("bestReview ====> {}",  bestReview);
+//		logger.debug("bestReview ====> {}",  bestReview);
 
 		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();

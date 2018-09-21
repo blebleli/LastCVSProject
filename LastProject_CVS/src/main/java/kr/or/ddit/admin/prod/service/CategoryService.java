@@ -18,8 +18,7 @@ public class CategoryService implements CategoryServiceInf {
 	
 	@Override
 	public int setInsertCategory(CategoryVo categoryVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return categoryDao.setInsertCategory(categoryVo);
 	}
 
 	@Override
