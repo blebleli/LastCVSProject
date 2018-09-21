@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.board.dao.BoardDaoInf;
@@ -39,7 +41,7 @@ import kr.or.ddit.user.model.MainReviewsVo;
 // 조회=============================================
 @Service("boardService")
 public class BoardService implements BoardServiceInf {
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Resource(name="boardDao")
 	private BoardDaoInf boardDao;
 	
@@ -271,11 +273,14 @@ public class BoardService implements BoardServiceInf {
 	 * Method 설명 : 게시판 생성 한 후 파일 생성 하도록 한다.
 	 * 				게시판 생성 실패시 파일 생성이 안된다.
 	 */
-	public int setWriteInsert(BoardVo boardVo) {		
+	public int setWriteInsert(BoardVo boardVo) {
+		
+		
 		int cnt = 0;		
 		// 게시글 생성
-		cnt =+ boardDao.setInsertBoard(boardVo);		
+		cnt =+ boardDao.setInsertBoard(boardVo); // 
 		for(FiledataVo vo : boardVo.getFileList()) { // for문으로 file 가져오기
+			logger.debug("vo =========================>>> ",boardVo.getFileList());
 			// 파일 생성
 			cnt =+ fileService.insertFile(vo); // file이 있으면 1씩 증가
 		}

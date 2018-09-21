@@ -39,5 +39,15 @@ public interface FileServiceInf {
 	 */
 	int deleteFile(FiledataVo fileVo);
 	
+	/**
+	 * Method : insertFileBoard
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param fileVo
+	 * @return
+	 * Method 설명 : 게시판 파일 첨부
+	 */
+	int insertFileBoard(FiledataVo fileVo);
 
 }

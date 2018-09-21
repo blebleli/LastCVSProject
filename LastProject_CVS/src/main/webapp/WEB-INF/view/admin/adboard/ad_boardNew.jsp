@@ -67,7 +67,7 @@
 										class="control-label col-md-3 col-sm-3 col-xs-12">첨부파일</label>
 									<div id="w_cntLabel" class="col-md-6 col-sm-6 col-xs-12">
 										<div id="addfile">
-											<input type="file" name="f_name[0]" id="f_name"
+											<input type="file" name="file_name" id="file_name"
 												multiple="multiple">
 										</div>
 										<input type="button" name="plusfileBtn" id="plusfileBtn"
@@ -98,12 +98,12 @@
 						
 							// 첨부파일 추가/삭제 버튼(editor 소스보다 위에 있어야 함)						
 							 $("#plusfileBtn").on("click", function() {
-						         var fileLen = $("div#addfile input[id=f_name]").size();
+						         var fileLen = $("div#addfile input[id=file_name]").size();
 						         if(fileLen == 5) {
 						            alert("첨부파일은 5개이상 추가할 수 없습니다.");
 						            return false;
 						         }
-						         $("div#addfile").append($("<input type='file' id=f_name name='f_name["+fileLen+"]' multiple='multiple' />"));
+						         $("div#addfile").append($("<input type='file' id='file_name' name='file_name' multiple='multiple' />"));
 						      });
 							
 							// editor

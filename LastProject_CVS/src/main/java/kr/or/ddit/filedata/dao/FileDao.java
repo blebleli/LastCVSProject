@@ -60,9 +60,10 @@ public class FileDao implements FileDaoInf {
 		template.insert("filedata.deleteFiledata", fileVo);
 		return 1;
 	}
-	
-	
 
 
-
+	@Override
+	public int insertFileBoard(FiledataVo fileVo) {
+		return template.insert("filedata.insertFileBoard",fileVo);
+	}
 }

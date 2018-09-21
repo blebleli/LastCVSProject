@@ -62,5 +62,34 @@
 		</choose>
 	</delete>
 	
+	<!-- 파일데이터 등록 -->
+	<!-- 	아 이 디 : insertFileBoard
+	  		매개변수 : filedataVo
+	  		반 환 값 : 없음
+	  		설    명 : 게시글 파일 등록
+	  		작 성 자 : 김마음
+	  		일    시 : 2018-09-21     
+	 -->
+	<insert id="insertFileBoard" parameterType="filedataVo">
+		INSERT INTO FILEDATA 
+		(
+			  FILE_ID
+			, FILE_NAME
+			, FILE_UPNAME
+			, FILE_PATH
+			, MEM_ID
+			, BD_ID
+		)
+		VALUES 
+		(
+			  #{file_id}
+			, #{file_name}
+			, #{file_upname}
+			, #{file_path}
+			, #{mem_id}
+			, #{bd_id}
+		)
+	</insert>
+	
   	
 </mapper>

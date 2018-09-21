@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.filedata.FileUtil;
+import kr.or.ddit.filedata.service.FileServiceInf;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
@@ -36,6 +37,9 @@ public class AdboardController {
 	
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
+	
+	@Resource(name="fileService")
+	private FileServiceInf fileService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -92,33 +96,35 @@ public class AdboardController {
 	 * @throws ServletException 
 	 */
 	@RequestMapping("/boardCreate")
-	public String boardCreate(FiledataVo fileVo, BoardVo b, MultipartHttpServletRequest request, Model model) throws ServletException, IOException{
+	public String boardCreate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile, BoardVo b, Model model) throws ServletException, IOException{
+		String bd_id = "";	
 		
-		MultipartHttpServletRequest multipartHttpServletRequest = request;
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-		MultipartFile multipartFile = null;
-		
-		if(b.getBd_id().equals("44")){ // 공지사항 구분
-			String bd_id = code.autoCode("BNO"); // 가공		
-			b.setBd_id(bd_id);
-		}else if(b.getBd_id().equals("66")){ // 이벤트 구분
-			String bd_id = code.autoCode("BEV"); // 이벤트 코드
-			b.setBd_id(bd_id);
+		if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
+			bd_id = code.autoCode("BNO"); // 가공		
+		}else if(b.getBd_kind_id().equals("66")){ // 이벤트 구분
+			bd_id = code.autoCode("BEV"); // 이벤트 코드
 		}else{
 			System.out.println("실패");
 		}
 		
-		b.setBd_group(b.getBd_id()); // 첫 글은 첫번째 코드가 그룹코드임.
+		b.setBd_id(bd_id);
 		
-		// 파일을 DB에 저장 전에 게시판 코드 저장(bd_id)
-		// 첨부 파일 출력 및 생성
-		while(iterator.hasNext()){
-			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
-			if(multipartFile.isEmpty()==false){
-				fileVo.setBd_id(b.getBd_id()); // 게시글 코드
+		b.setBd_group(bd_id); // 첫 글은 첫번째 코드가 그룹코드임.
+		int cnt = boardService.setInsertBoard(b); // 게시글 저장
+		if (cnt != 0){		
+System.out.println("bd_id =======================================>> "+ bd_id);
+			for (MultipartFile m : multipartFile) {
+				
+				FiledataVo fileVo = new FiledataVo();
+				
+				System.out.println(" 파일 ==================================>>>>>>    "+m.getOriginalFilename());
+				
+				if(m.isEmpty()==false){
+				fileVo.setBd_id(bd_id); // 게시글 코드
 				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
-				fileVo.setFile_upname(multipartFile.getOriginalFilename()); // 파일 업로드명
+				fileVo.setFile_upname(m.getOriginalFilename()); // 파일 업로드명
 				fileVo.setFile_name(UUID.randomUUID().toString()); // 파일명
+				fileVo.setMem_id(b.getMem_id());
 				
 				// 디렉토리 없을 경우 생성
 				if(!new File(FileUtil.fileUploadPath).exists()) {
@@ -134,18 +140,18 @@ public class AdboardController {
 					fileVo.setFile_id(EV);
 				}
 				
-				// DB에 저장하기 위해서
-				b.getFileList().add(fileVo);
+				fileService.insertFileBoard(fileVo);			
+				
+				logger.debug("file ===================> {}", fileVo);			
 				
 				// 실제 물리경로에 파일 저장
 				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
-				multipartFile.transferTo(saveFile);
-			}
-		}		
-		
-		int cnt = boardService.setInsertBoard(b); // 쿼리 실행 후 성공시 cnt 1 반환				
-		if(cnt != 0){
-			return "redirect:/adboard/boardView?btnChk=" + b.getBd_kind_id();
+				m.transferTo(saveFile);
+				
+				
+				}
+			} // for
+			return "redirect:/adboard/boardView?btnChk=" + b.getBd_kind_id();			
 		}else{
 			return "ad_index";
 		}

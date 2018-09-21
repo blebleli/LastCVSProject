@@ -167,6 +167,8 @@ public interface BoardServiceInf {
 	 */
 	Map<String, Object> getBoardPageList(Map<String, Object> map);
 	
+	int setWriteInsert(BoardVo boardVo);
+	
 	/**
 	 * 
 	 * Method   : getBestProdReview 
