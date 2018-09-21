@@ -9,7 +9,8 @@
 <link href="/vendors/datatables.net-bs/scroller.bootstrap.min.css" rel="stylesheet">
     <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
-		$(function(){			
+		$(function(){
+			
 			$("#all").on("click", function() { 		// 게시판 - 전체를 누른다.		
 				$("#btnChk").val($("#all").val());  // 전체 버튼 값을 히든에 저장한다.
 				$("#boardGo").submit(); 			// 히든 값을 컨트롤러에 가져간다.
@@ -120,10 +121,10 @@
 	</script>-->
         <!-- page content -->
         <div class="right_col" role="main" style="min-height: 900px;">			
-		<form id="frm" action="/adboard/boardDetail" method="get">
+		<form id="frm" action="/adboard/boardDetail" method="get" onsubmit="return false;">
 			<input type="hidden" name="id" id="id">
-		</form>	
-          <div class="">
+		</form>	  
+          <div class="">   
             <div class="page-title">
               <div class="title_left">
                 <c:if test="${bd_kind_id==''}"><h3>게시판 관리<small> 전체 조회</small></h3></c:if>
@@ -138,7 +139,7 @@
                 <div class="x_panel">
                   <div class="x_title">
 					<div>
-						<form action="/adboard/boardView" id="boardGo" method="post">
+						<form action="/adboard/boardView" id="boardGo" method="post" onsubmit="return false;">
                         <input type="hidden" name="btnChk" id="btnChk">
 						<div id = "select" class="select">
 						
@@ -208,8 +209,8 @@
 							</thead>
 							<tbody id="bd_code">
 								<!-- 게시글 조회 foreach문 -->
-								<%request.setAttribute("nbsp", " ");%>
-								<c:forEach items="${boardpage}" var="vo">
+<%-- 								<%request.setAttribute("nbsp", " ");%> --%>
+								<c:forEach items="${boardList}" var="vo">
 									<c:choose>
 										<c:when test="${vo.bd_del=='N'}">
 											<tr class="even pointer" data-id="${vo.bd_id}"
@@ -268,7 +269,7 @@
 	<script src="/vendors/iCheck/icheck.min.js"></script>
 	<!-- Datatables -->
 	<script src="/vendors/datatables.net-bs/jquery.dataTables.min.js"></script>
-	<script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- 	<script src="/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
 	<script src="/vendors/datatables.net-bs/dataTables.fixedHeader.min.js"></script>	
 	<script src="/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 	<script src="/vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>

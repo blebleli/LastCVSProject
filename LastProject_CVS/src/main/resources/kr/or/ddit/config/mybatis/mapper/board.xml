@@ -25,6 +25,30 @@
 		      		) T )
 	</select>
 	
+	<!-- 게시판 페이징 기법 -->
+	<select id="getBoardPageList2" parameterType="String" resultType="boardVo">	
+	SELECT * FROM (
+		SELECT ROWNUM tot_cnt, T.*
+				FROM  (
+				        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+								, bd_title
+								, bd_rating
+								, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+								, mem_id
+								, bd_kind_id
+								, prod_id
+								, bd_id
+								, bd_del
+						FROM BOARD
+						WHERE 1=1
+		                <if test="bd_kind_id != null and bd_kind_id != ''">
+		                AND bd_kind_id = #{bd_kind_id}
+		                </if>
+						ORDER BY bd_date DESC
+		      		) T )
+	</select>
+	
 	<!-- 게시글 전체 건수 -->
   	<select id="getWriteTotCnt" resultType="int">
 		SELECT count(*) FROM board
