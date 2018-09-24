@@ -28,14 +28,13 @@
 <script src="build/js/jquery-1.12.4.js"></script>
 <script>
         function categoryPopup(){
-//             var url="/WEB-INF/view/admin/adprod/ad_category_popup.jsp";
             var url="/adprod/categoryPopup";
             window.open("/adprod/categoryPopup","카테고리추가","width=800,height=450,left=500, top=100");
         }
         
         function eventPopup(){
-            var url="test.html";
-            window.open(url,"","width=1200,height=600,left=600");
+        	var url="/adprod/eventPopup";
+            window.open(url,"이벤트추가","width=800,height=450,left=500, top=100");
         }
         
 </script>
@@ -73,15 +72,15 @@
 								<div class="x_title">
 						
 									<div class="col-xs-12">
-										<button class="btn btn-default" onclick="window.print();">
-											<i class="fa fa-print"></i> Print
-										</button>
+<!-- 										<button class="btn btn-default" onclick="window.print();"> -->
+<!-- 											<i class="fa fa-print"></i> Print -->
+<!-- 										</button> -->
 										
-										<span>
-										<button class="btn btn-default" id="btnExcel" onclick="excelDown();">
-											<i class="fa fa-print"></i> Excel
-										</button>
-										</span>
+<!-- 										<span> -->
+<!-- 										<button class="btn btn-default" id="btnExcel" onclick="excelDown();"> -->
+<!-- 											<i class="fa fa-print"></i> Excel -->
+<!-- 										</button> -->
+<!-- 										</span> -->
 										
 										<button class="btn btn-default" id="categoryBtn" onclick="categoryPopup();">
 											<i class="fa fa-print"></i> 카테고리
@@ -97,19 +96,24 @@
 							
 								<div class="x_content">
 								
- 		<table id="datatable-buttons" class="table table-striped table-bordered">  <!-- buttons 모양 나오게함..  -->
+ 		<table id="datatable-buttons" class="table table-striped table-bordered" style="width: 100%;">  <!-- buttons 모양 나오게함..  -->
  		
 		<thead>
 			<tr role="row">
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 40px;" aria-label="First name: activate to sort column ascending">순번</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 150px;" aria-label="First name: activate to sort column ascending">대분류</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Last name: activate to sort column ascending">중분류</th>
-				<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="Position: activate to sort column ascending"
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 8%;" aria-label="First name: activate to sort column ascending">순번</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 10%;" aria-label="First name: activate to sort column ascending">대분류</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 15%;" aria-label="Last name: activate to sort column ascending">중분류</th>
+				<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 20%;" aria-label="Position: activate to sort column ascending"
 					aria-sort="descending">상품명</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 60px;" aria-label="Office: activate to sort column ascending">단가</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 60px;" aria-label="Age: activate to sort column ascending">가격</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 100px;" aria-label="Start date: activate to sort column ascending">유통기한</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Salary: activate to sort column ascending">행사</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 8%;" aria-label="Office: activate to sort column ascending">단가</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 8%;" aria-label="Age: activate to sort column ascending">가격</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 10%;" aria-label="Start date: activate to sort column ascending">유통기한</th>
+				
+				<!-- 아래 상세보기 -->				
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; display: none; " aria-label="Salary: activate to sort column ascending" >행사</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Salary: activate to sort column ascending">소개</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Salary: activate to sort column ascending">사진</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -124,7 +128,10 @@
 							<td align="right">${vo.prod_cost }원</td>          	
 							<td align="right">${vo.prod_price }원</td>          	
 							<td align="right">${vo.prod_exnum }일</td>          	
-							<td>${vo.event_id }</td>
+
+							<td style="display: none;">${vo.event_id }</td>
+							<td style="display: none;">${vo.prod_intro }</td>
+						    <td style="display: none;"><img src="${vo.file_path }/${vo.file_upname }" width="50px;" height="50px;"/></td>
 						</tr>
 					</c:forEach>
 				</c:when>
