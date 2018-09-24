@@ -127,8 +127,8 @@ public class BoardDao implements BoardDaoInf {
 	* @return
 	*/
 	@Override
-	public int getBoardListTotCnt() {
-		return template.selectOne("board.getWriteTotCnt");
+	public int getBoardListTotCnt(String bd_kind_id) {
+		return template.selectOne("board.getWriteTotCnt",bd_kind_id);
 	}
 
 	@Override

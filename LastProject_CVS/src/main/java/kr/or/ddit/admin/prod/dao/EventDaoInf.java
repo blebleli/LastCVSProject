@@ -1,7 +1,9 @@
 package kr.or.ddit.admin.prod.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.EventVo;
 
 /**
@@ -30,7 +32,31 @@ import kr.or.ddit.model.EventVo;
 	//int updateEvent(EventVo eventVo)_이벤트 수정
 	//int deleteEvent(String event_id)_이벤트 삭제(예 : 행사마감날짜로 인한 삭제, 관리자에 의한 임의 삭제)
 public interface EventDaoInf {
-
+	
+	/**
+	* Method : getBoardPageList
+	* Method 설명 :공지사항 게시판 페이징 처리
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :List<BoardVo> getBoardPageList(Map<String, Object> map)_공지사항 게시판 페이징 처리
+	* @param map
+	* @return
+	*/
+	List<BoardVo> getBoardPageList(Map<String, Object> map);
+	
+	/**
+	* Method : totCntBoardList
+	* Method 설명 :전체 공지사항 게시글 카운트
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :int totCntBoardList()_전체 공지사항 게시글 카운트
+	* @return
+	*/
+	int getBoardListTotCnt(String bd_kind_id);
+	
+	
 	/**
 	* Method : setInsertEvnet
 	* Method 설명 :편의점에 대한 신규 이벤트 생성 기능(조건 : 이벤트 종류)

@@ -2,21 +2,19 @@ package kr.or.ddit.admin.board.web;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
-
+import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.filedata.FileUtil;
 import kr.or.ddit.filedata.service.FileServiceInf;
 import kr.or.ddit.model.BoardVo;
+import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @SessionAttributes({"userInfo"})
 @RequestMapping("/adboard")
@@ -41,6 +38,9 @@ public class AdboardController {
 	@Resource(name="fileService")
 	private FileServiceInf fileService;
 	
+	@Resource(name="adminProdService")
+	private AdminProdServiceInf adminProdService;
+	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
@@ -54,14 +54,21 @@ public class AdboardController {
 	 */	
 	@RequestMapping("/boardView")
 	public String boardView(@RequestParam(value="btnChk", defaultValue="") String bd_kind_id,
-			@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2,
-							Model model){		
-
-//		logger.debug("bd_kind_id =========> {} ", "게시판 분류코드는 "+bd_kind_id+" 입니다.");
-		logger.debug("bd_kind_id =========> {} ", "게시판 분류코드는 "+bd_kind_id2+" 입니다.");
+							@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2,
+							CategoryVo categoryVo, Model model){
+		
+		String ctgy_kind = "301"; // 카테고리 제품 코드
+		String ctgy_parent = "";
+		categoryVo.setCtgy_kind(ctgy_kind);
+		categoryVo.setCtgy_parent(ctgy_parent);
+		List<CategoryVo> categoryList = adminProdService.getProdCategory(categoryVo);
+		logger.debug("카테고리 ========================>> {} "+categoryVo.getCtgy_kind());
 		List<BoardVo> boardList = boardService.getBoardPageList2(bd_kind_id);
+		logger.debug("categoryVo =========> {} ", categoryList);
+		// 카테고리 전체 조회
 		model.addAttribute("bd_kind_id", bd_kind_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);
+		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("boardList", boardList);
 		return "ad_boardView";
 	}
@@ -346,6 +353,25 @@ public class AdboardController {
 	}
 	
 //	@RequestMapping(value="/review", method=RequestMethod.GET)
+//	@ResponseBody
+//	public Map<String, Object> review(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
+//								@RequestParam(value="page", defaultValue="1") int page,
+//								@RequestParam(value="pageSize", defaultValue="10") int pageSize){
+//		
+//		logger.debug("bd_kind_id ============> {} " + bd_kind_id);
+//		
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		
+//		paramMap.put("page", page); // page 1
+//		paramMap.put("pageSize", pageSize); // pageSize 10
+//		paramMap.put("bd_kind_id",bd_kind_id); // 리뷰 코드(55)맵에 저장
+//		
+//		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력
+//		
+//		return resultMap;
+//	}
+	
+//	@RequestMapping(value="/ctgy_parent", method=RequestMethod.GET)
 //	@ResponseBody
 //	public Map<String, Object> review(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
 //								@RequestParam(value="page", defaultValue="1") int page,

@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 // ==========================================
 // 목록
 // 조회=============================================
-//public String boardView()_게시판 메인 화면으로 가는 길
 
 @RequestMapping("/board")
 @Controller("adBoardController")
@@ -54,6 +53,34 @@ public class AdBoardController {
 
 	/**
 	 * Method : boardView
+	 * Method 설명 : 공지사항 메인 화면 조회
+	 * 최초작성일 : 2018. 9. 4.
+	 * 작성자 : 조계환
+	 * 변경이력 : 신규
+	 * 조 회 : 공지사항 메인 화면 조회
+	 * @return
+	 */
+	@RequestMapping("/boardMain")
+	public String boardListView(@RequestParam(value="page", defaultValue="1") int page,
+								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+								Model model) {
+		String bd_kind_id="44";
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("bd_kind_id", bd_kind_id);
+
+		//게시물 페이징 처리
+		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "boardList";
+	}
+	
+	/**
+	 * Method : boardView
 	 * Method 설명 : 게시판 메인 화면으로 가는 길
 	 * 최초작성일 : 2018. 9. 4.
 	 * 작성자 : 조계환
@@ -61,23 +88,24 @@ public class AdBoardController {
 	 * 조 회 :public String boardView()_게시판 메인 화면으로 가는 길
 	 * @return
 	 */
-//	@RequestMapping("/boardMain")
-//	public String boardListView(@RequestParam(value="page", defaultValue="1") int page,
-//								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
-//								Model model) {
-//
-//		Map<String, Integer> paramMap = new HashMap<String, Integer>();
-//
-//		paramMap.put("page", page);
-//		paramMap.put("pageSize", pageSize);
-//
-//		//게시물 페이징 처리
-//		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
-//		
-//		model.addAllAttributes(resultMap);
-//		
-//		return "boardList";
-//	}
+	@RequestMapping("/boardEventMain")
+	public String boardEventListView(@RequestParam(value="page", defaultValue="1") int page,
+								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+								Model model) {
+		String bd_kind_id="44";
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("bd_kind_id", bd_kind_id);
+
+		//게시물 페이징 처리
+		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
+		
+		model.addAllAttributes(resultMap);
+		
+		return "boardList";
+	}
 	
 	/**
 	* Method : createNoticePostView
@@ -122,6 +150,8 @@ public class AdBoardController {
 		
 		return "viewPost";
 	}
+	
+	
 	
 	/**
 	* Method : newComment

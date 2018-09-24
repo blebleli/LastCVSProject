@@ -106,8 +106,79 @@
 }
 </style>-->
     <script src="/js/common/jquery-1.12.4.js"></script>
-    <script>	
-		$(function(){			
+    <script>
+    $(function(){
+    
+    function hideDiv(id){
+        var div = document.getElementById(id);
+        div.style.display = "none";
+        document.body.appendChild(div);
+    }
+
+    function fn_replyReply(reno){
+    	alert("왔냐?");
+        var form = document.form3;
+        var reply = document.getElementById("reply"+reno);
+        var replyDia = document.getElementById("replyDialog");
+        replyDia.style.display = "";
+        
+        if (updateReno) {
+            fn_replyUpdateCancel();
+        } 
+        
+        form.rememo.value = "";
+        form.reparent.value=reno;
+        reply.appendChild(replyDia);
+        form.rewriter.focus();
+    }
+    
+    });
+    
+
+		$(function(){
+			var status = false;
+            $("input[name='reCommentsbt']").on("click",function(){ //동적 이벤트
+            	
+                if(status){
+                    alert("현재 답글란이 있습니다.");
+                    return false;
+                }
+                
+                status = true;
+                
+            	var last_check = false;//마지막 tr 체크
+            	
+            	$("#demoFonts").remove();
+            	
+            	var replyEditor =                                                                                                   
+				'<tr>'+
+				'	<td id="demoFonts" class="col-sm-1">댓글</td>'+
+				'	<td style="border-collapse:collapse;" colspan="5" class="col-sm-9">'+
+				'		'+
+				'		<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">'+
+				'			<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">'+
+				'			<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">'+
+				'			<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">'+
+				'			<input type="hidden" id="mem_id" name="mem_id" value="admin">'+
+				'			<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">'+
+				'			<input type="hidden" name="cm_RadioCkeck">'+
+				'			<input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개 '+
+				'			<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N">비공개'+
+				'		</form>'+
+				'	</td>'+
+				'</tr>';
+				
+				var prevTr = $(this).parent().next();
+				
+                if(last_check){//마지막이라면 제일 마지막 tr 뒤에 댓글 입력을 붙인다.
+                    $('#reply_area tr:last').after(replyEditor);    
+                }else{
+                    prevTr.after(replyEditor);
+                } 
+			
+            }); 
+            
+			
 			$("#boardUpd").on("click", function(){ // 게시글 수정 버튼을 누르면				
 				$("#frm").submit(); // 수정 이동				
 			}); // $("#boardNew").on("click", function(){});
@@ -143,8 +214,8 @@
 				}
 			});
 		}); // function()
-	</script>	
-		
+	</script>
+	
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
         
@@ -172,7 +243,7 @@
 			<div class="w3ls_service_grids">
 
 				<div class="table-responsive">
-					<table class="table table-striped table-hover">
+					<table class="table table-striped table-hover" id="reply_area">
 					
 						<tr>
 							<td id="demoFont" class="col-sm-1">제목</td>
@@ -201,8 +272,8 @@
 							<td id="demoFont" class="col-sm-9" colspan="5">
 								<c:forEach items="${FList}" var="vo">
 									<c:choose>
-										<c:when test="${vo.file_name==''}">
-											[ 파일이 없습니다. ]
+										<c:when test="${empty vo.file_name}">
+											파일이 없습니다.
 										</c:when>
 										<c:when test="${vo.file_name!=''}">
 											[ ${vo.file_name } ]   
@@ -241,9 +312,10 @@
 											<input type="hidden" name="bd_id" value="${vo.bd_id}">
 											<input type="hidden" name="mem_id" value="admin">
 											<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">
-											<input type="button" name="reCommentsbt" id="reCommentsbt" style="font-size:12px" class="btn btn-default" value="답글">
+											<button onclick="fn_replyReply(reno);" id="commentsdab" style="font-size:12px" class="btn btn-default">답글</button>
 											
-											<br id="this">
+<!-- 											<br id="this"> -->
+<!-- 											<span class="clazz"></span> -->
 										</form>
 									</c:if>
 									<c:if test="${vo.cm_delny == 'Y'}">
@@ -261,7 +333,27 @@
 									</c:if>
 								</c:forEach>
 							</td>
+							
+							
+							
 						</tr>
+						<tr>
+							<div id="replyDialog" style="display:none">
+							    <form name="form3" action="board6ReplySave" method="post">
+							        <input type="hidden" name="brdno" value="<c:out value="${boardInfo.brdno}"/>"> 
+							        <input type="hidden" name="reno"> 
+							        <input type="hidden" name="reparent"> 
+							        작성자: <input type="text" name="rewriter" size="20" maxlength="20"> <br/>
+							        <textarea name="rememo" rows="3" cols="60" maxlength="500"></textarea>
+							        <a href="#" onclick="fn_replyReplySave()">저장</a>
+							        <a href="#" onclick="fn_replyReplyCancel()">취소</a>
+							    </form>
+							</div>
+							</tr>
+						
+						
+						
+						<!-- 대댓글 달리는 곳 -->
 					</table>
 					</div>
 				</div>

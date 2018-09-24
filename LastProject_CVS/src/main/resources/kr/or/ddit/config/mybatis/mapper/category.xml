@@ -25,6 +25,9 @@
   		작 성 자 : 조종원
   		일    시 : 2018-09-17
  -->
+ <!--	김마음 : 관리자 게시판 리스트 내 검색 기능(대분류 검색)
+		일    시 : 2018-09-22
+ -->
 <select id="getProdCategory" parameterType="categoryVo" resultType="categoryVo">
 
 	SELECT  * 
@@ -38,6 +41,21 @@
 			</if>  
       AND CTGY_KIND = #{ctgy_kind}
 </select>
+
+<!-- 	아 이 디 : getProdCategoryMd
+  		반 환 값 : categoryVo
+  		설     명 : 관리자 카테고리 중분류 조회 
+  		작 성 자 : 김마음
+  		일     시 : 2018-09-23
+ -->
+<select id="getProdCategoryMd" parameterType="String" resultType="categoryVo">
+	SELECT ctgy_name
+	FROM CATEGORY
+	WHERE CTGY_GROUP = (SELECT CTGY_GROUP FROM CATEGORY WHERE CTGY_NAME = #{ctgy_name})
+	AND CTGY_PARENT IS NOT NULL
+</select>
+
+
 <!-- 	아 이 디 : setCategoryInsert
   		반 환 값 : 
   		매개변수 : categoryVo

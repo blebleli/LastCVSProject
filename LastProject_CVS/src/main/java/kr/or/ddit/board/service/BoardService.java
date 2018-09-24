@@ -41,7 +41,9 @@ import kr.or.ddit.user.model.MainReviewsVo;
 // 조회=============================================
 @Service("boardService")
 public class BoardService implements BoardServiceInf {
+	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Resource(name="boardDao")
 	private BoardDaoInf boardDao;
 	
@@ -207,12 +209,14 @@ public class BoardService implements BoardServiceInf {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		// 게시판 페이지 리스트 조회
-		List<BoardVo> boardpage = boardDao.getBoardPageList(map);
-		
+		List<BoardVo> boardpage = boardDao.getBoardPageList(map);		
 		resultMap.put("boardpage", boardpage);
+		
+		String bd_kind_id = (String) map.get("bd_kind_id"); // 게시판 구분 값 가져오기
 
 		// 게시글 전체 건수 조회
-		int totCnt = boardDao.getBoardListTotCnt();
+		int totCnt = boardDao.getBoardListTotCnt(bd_kind_id); // 구분 값 넣고 해당 구분 전체 건수 조회
+		logger.debug("totCnt ================================>> {}", totCnt);
 		resultMap.put("totCnt", totCnt);
 
 		// 페이지 네비게이션 html 생성

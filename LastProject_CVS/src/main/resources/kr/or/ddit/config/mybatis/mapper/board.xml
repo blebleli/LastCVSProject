@@ -170,27 +170,23 @@
 		SELECT * FROM (
 			SELECT ROWNUM tot_cnt, T.*
 					FROM  (
-					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+					        SELECT   (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
 									, bd_title
 									, bd_rating
-									, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
 									, mem_id
 									, bd_kind_id
 									, prod_id
 									, bd_id
 									, bd_del
 							FROM BOARD
-							WHERE 1=1
-			                <if test="bd_kind_id != null and bd_kind_id != ''">
-			                AND bd_kind_id = #{bd_kind_id}
-			                </if>
-							ORDER BY bd_date DESC     
-			      		) T )
+							WHERE bd_kind_id = #{bd_kind_id}
+							ORDER BY bd_date DESC
+			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 		
   	<!-- 게시글 전체 건수 -->
-  	<select id="getWriteTotCnt" resultType="int">
-		SELECT count(*) FROM board
+  	<select id="getWriteTotCnt" parameterType="String" resultType="int">
+		SELECT count(*) FROM BOARD WHERE bd_kind_id = #{bd_kind_id}
   	</select>
 </mapper>

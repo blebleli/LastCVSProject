@@ -203,7 +203,7 @@ public interface BoardDaoInf {
 	* 조 회 :int totCntBoardList()_전체 공지사항 게시글 카운트
 	* @return
 	*/
-	int getBoardListTotCnt();
+	int getBoardListTotCnt(String bd_kind_id);
 	
 	/**
 	 * 

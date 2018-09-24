@@ -53,10 +53,45 @@
 			});
 		});
 	</script>	
-<!--
-    <script>
+<script>
+$(function(){
+	
+	
+	
+	function searchCtgyList(){
+// 		var code1 = ""; //
+// 		if(Type==1){ // Type 1이면
+// 			code1 = "ctgy_name"; // code1에 
+// 		}
+		
+// 		alert($("#ctgy_name > option:selected").val());
+		alert($("#ctgy_name > option:selected").val());
+		
+// 		$.ajax({
+// 			type : 'POST', // 전달방식
+// 			url: "/adboard/ctgy_list.do", //
+// 			method : "get",
+// 			data : {
+// 				ctgy_name : $("#"+code1+"> option:selected").val(),
+// 				Type : Type
+// 			},
+// 			success: function(data){
+// 				$('#dataTable').remove();
+// 				$('#dataTableTop').append(data);
+// 				//searchGugunList();
+// 			},
+// 			error : function(data){
+// 				alert('정보를 가져 오던 중 오류가 발생하였습니다.');
+// 			}
+// 		});
+	}
+});
+
+</script>
+ <!-- <script>
 	$(function(){
 	// 상품리뷰(55) 누를시 이벤트 게시글 조회 화면으로 넘어간다.
+	
 	$("#buttons").on("click",function() {
 		if($("input[id='bd_kind_id55']:checked").val()){
 	
@@ -119,7 +154,7 @@
 			)
 		}); // $("#bd_kind_id55").on("click", function(){				
 	});
-	</script>-->
+	</script> -->
         <!-- page content -->
         <div class="right_col" role="main" style="min-height: 900px;">			
 		<form id="frm" action="/adboard/boardDetail" method="get">
@@ -151,7 +186,60 @@
 	                        <button class="btn btn-default" type="button" id="55"  name="bd_kind_id55" value="55">상품리뷰</button>
 	                        <button class="btn btn-default" type="button" id="66"  name="bd_kind_id66" value="66">이벤트</button>
 						</div>
+						
+						
+						  	<table>
+							<tbody>
+								<tr>
+									<th scope="row">카테고리별</th>
+									<td>					
+										<select id="ctgy_name" name="ctgy_name" style="width:130px;" onchange="searchCtgyList(this.value);">
+											<option value="">선택</option>
+												<c:forEach items="${categoryList}" var="vo">
+													<c:choose>
+														<c:when test="${empty vo.ctgy_parent}">
+															<option id="" value="${vo.ctgy_name}">${vo.ctgy_name}
+															</option>											
+														</c:when>
+													</c:choose>													
+												</c:forEach>
+										</select>										
+										<select id="ctay_sub" name="ctay_sub" style="width:180px;">
+											<option value="">선택</option>
+										</select>										
+									<button type="button" class="btn btn-primary">검색</button>																																		
+									<button type="button" class="btn btn-default">초기화</button>		
+								</td>										
+							</tr>
+							<tr>
+								<th scope="row"><label for="store_name">검색</label></th>
+								<td>
 								
+								<select id="ctgy_name" name="ctgy_name" style="width:130px;" onchange="searchCtgyList(this.value);">
+									<option id="" value="">제목</option>
+									<option id="" value="">내용</option>
+									<option id="" value="">제목+내용</option>
+									<option id="" value="">작성자</option>
+								</select>
+								
+								
+								
+								
+								
+								
+									<div class="col-lg-10 input-group">									
+										<form action="/search/cvsSearchAction" id="sample" method="get">
+											<span class="input-group-btn">
+											<input type="text" class="form-control" name="searchWord"  placeholder="Search for...">
+											<button class="btn btn-default" type="submit">Go!</button>
+											</span>
+										</form>
+ 									</div>								
+								</td>
+							</tr>
+						</tbody>
+					</table>					
+						
 						<ul class="nav navbar-right panel_toolbox">
 							<li class="dropdown">
 								<div class="btn-group  btn-group-sm">									
@@ -167,7 +255,7 @@
 							</li>
 						</ul>
 						
-						</div>
+												</div>
 						</form>
 					</div>
                     <div class="clearfix"></div>

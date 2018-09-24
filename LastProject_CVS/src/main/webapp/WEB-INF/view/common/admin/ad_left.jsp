@@ -76,7 +76,9 @@
           <!-- 공은별 -->
           
           <!-- 김마음 -->
-          <li><a href="/adboard/boardView"><i class="fa fa-table"></i> 게시판관리 <span class="fa fa-chevron-down"></span></a>
+          <li><a href="/adboard/boardView">
+          	<i class="fa fa-table"></i>
+          	 게시판관리 <span class="fa fa-chevron-down"></span></a>
           </li>
           <!-- 김마음 -->
           

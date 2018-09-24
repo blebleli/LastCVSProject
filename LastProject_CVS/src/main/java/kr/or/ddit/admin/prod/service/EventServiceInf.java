@@ -1,10 +1,23 @@
 package kr.or.ddit.admin.prod.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.model.EventVo;
 
 public interface EventServiceInf {
+	
+	/**
+	 * Method : getBoardPageList
+	 * 최초작성일 : 2018. 9. 2.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 각 게시판 페이징 기법
+	 */
+	Map<String, Object> getBoardPageList(Map<String, Object> map);
+	
 	/**
 	* Method : setInsertEvnet
 	* Method 설명 :편의점에 대한 신규 이벤트 생성 기능(조건 : 이벤트 종류)
