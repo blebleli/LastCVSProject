@@ -163,10 +163,19 @@ public interface BoardServiceInf {
 	 * 변경이력 : 신규
 	 * @param map
 	 * @return
-	 * Method 설명 : 각 게시판 페이징 기법
+	 * Method 설명 : 사용자 공지사항 게시판 페이징 기법
 	 */
 	Map<String, Object> getBoardPageList(Map<String, Object> map);
 	
+	/**
+	 * Method : getBoardPageList
+	 * 최초작성일 : 2018. 9. 2.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 이벤트&행사 게시판 페이징 기법
+	 */	
 	Map<String, Object> getBoardPageList1(Map<String, Object> map);
 	
 	int setWriteInsert(BoardVo boardVo);

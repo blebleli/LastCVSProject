@@ -104,10 +104,10 @@ public class BoardDao implements BoardDaoInf {
 	
 	/**
 	* Method : getBoardPageList
-	* Method 설명 :공지사항 게시판 페이징 처리
+	* Method 설명 : 사용자 공지사항 게시판 페이징 처리
 	* 최초작성일 : 2018. 9. 5.
 	* 작성자 : 조계환
-	* 변경이력 :신규
+	* 변경이력 : 신규
 	* 조 회 :
 	* @param map
 	* @return
@@ -119,10 +119,10 @@ public class BoardDao implements BoardDaoInf {
 	
 	/**
 	* Method : getBoardListTotCnt
-	* Method 설명 :전체 공지사항 게시글 카운트
+	* Method 설명 : 사용자 공지사항 게시글 카운트
 	* 최초작성일 : 2018. 9. 5.
 	* 작성자 : 조계환
-	* 변경이력 :신규
+	* 변경이력 : 신규
 	* 조 회 :
 	* @return
 	*/
@@ -131,11 +131,30 @@ public class BoardDao implements BoardDaoInf {
 		return template.selectOne("board.getWriteTotCnt",bd_kind_id);
 	}
 	
+	/**
+	* Method : getBoardPageList1
+	* Method 설명 : 사용자 이벤트&행사 게시판 페이징 처리
+	* 최초작성일 : 2018. 9. 25.
+	* 작성자 : 김마음
+	* 변경이력 : 신규
+	* 조 회 :
+	* @param map
+	* @return
+	*/	
 	@Override
 	public List<BoardVo> getBoardPageList1(Map<String, Object> map) {
 		return template.selectList("board.getBoardPageList",map);
 	}
 	
+	/**
+	* Method : getBoardListTotCnt1
+	* Method 설명 : 사용자 이벤트&행사 게시글 카운트
+	* 최초작성일 : 2018. 9. 25.
+	* 작성자 : 김마음
+	* 변경이력 : 신규
+	* 조 회 :
+	* @return
+	*/	
 	@Override
 	public int getBoardListTotCnt1(String bd_kind_id) {
 		return template.selectOne("board.getWriteTotCnt",bd_kind_id);

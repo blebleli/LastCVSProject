@@ -184,7 +184,7 @@ public interface BoardDaoInf {
 	
 	/**
 	* Method : getBoardPageList
-	* Method 설명 :공지사항 게시판 페이징 처리
+	* Method 설명 : 사용자 공지사항 게시판 페이징 처리
 	* 최초작성일 : 2018. 9. 5.
 	* 작성자 : 조계환
 	* 변경이력 :신규
@@ -196,17 +196,36 @@ public interface BoardDaoInf {
 	
 	/**
 	* Method : totCntBoardList
-	* Method 설명 :전체 공지사항 게시글 카운트
+	* Method 설명 : 사용자 공지사항 게시글 카운트
 	* 최초작성일 : 2018. 9. 5.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 :int totCntBoardList()_전체 공지사항 게시글 카운트
+	* 조 회 : int totCntBoardList()_전체 공지사항 게시글 카운트
 	* @return
 	*/
 	int getBoardListTotCnt(String bd_kind_id);
 	
+	/**
+	* Method : getBoardPageList1
+	* Method 설명 : 사용자 이벤트&행사 게시판 페이징 처리
+	* 최초작성일 : 2018. 9. 25.
+	* 작성자 : 김마음
+	* 변경이력 : 신규
+	* 조 회 : List<BoardVo> getBoardPageList1(Map<String, Object> map)_사용자 이벤트&행사 게시판 페이징 처리
+	* @param map
+	* @return
+	*/
 	List<BoardVo> getBoardPageList1(Map<String, Object> map);
 	
+	/**
+	* Method : totCntBoardList1
+	* Method 설명 : 사용자 이벤트&행사 게시글 카운트
+	* 최초작성일 : 2018. 9. 25.
+	* 작성자 : 김마음
+	* 변경이력 : 신규
+	* 조 회 : int totCntBoardList1()_사용자 이벤트&행사 게시글 카운트
+	* @return
+	*/	
 	int getBoardListTotCnt1(String bd_kind_id);
 	
 	/**

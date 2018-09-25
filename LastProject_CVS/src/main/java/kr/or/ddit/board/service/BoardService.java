@@ -191,6 +191,8 @@ public class BoardService implements BoardServiceInf {
 	public int commentsDelete(String cm_id) {
 		return boardDao.commentsDelete(cm_id);
 	}
+	
+	//////////////////////////////////////// 사용자 공지사항 페이징 처리 ////////////////////////////////////////
 
 	/**
 	* Method : getBoardPageList
@@ -215,7 +217,6 @@ public class BoardService implements BoardServiceInf {
 
 		// 게시글 전체 건수 조회
 		int totCnt = boardDao.getBoardListTotCnt(bd_kind_id); // 구분 값 넣고 해당 구분 전체 건수 조회
-		logger.debug("totCnt ================================>> {}", totCnt);
 		resultMap.put("totCnt", totCnt);
 
 		// 페이지 네비게이션 html 생성
@@ -229,10 +230,10 @@ public class BoardService implements BoardServiceInf {
 	
 	/**
 	* Method : makePageNavi
-	* Method 설명 :공지사항 게시판 페이징 처리
+	* Method 설명 : 공지사항 게시판 페이징 처리
 	* 최초작성일 : 2018. 9. 5.
 	* 작성자 : 조계환
-	* 변경이력 :신규
+	* 변경이력 : 신규
 	* 조 회 :
 	* @param page
 	* @param pageSize
@@ -265,6 +266,8 @@ public class BoardService implements BoardServiceInf {
 
 		return pageNaviStr.toString();
 	}
+	
+	//////////////////////////////////////// 사용자 이벤트&행사 페이징 처리 ////////////////////////////////////////
 	
 	/**
 	* Method : getBoardPageList1
@@ -339,6 +342,8 @@ public class BoardService implements BoardServiceInf {
 
 		return pageNaviStr.toString();
 	}
+	
+	//////////////////////////////////////////////////////// 끝 /////////////////////////////////////////////////////////////	
 	
 	/**
 	 * Method : setWriteInsert
