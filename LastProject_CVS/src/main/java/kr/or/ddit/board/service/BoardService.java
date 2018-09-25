@@ -194,14 +194,13 @@ public class BoardService implements BoardServiceInf {
 
 	/**
 	* Method : getBoardPageList
-	* Method 설명 :공지사항 게시물 10개씩 묶어서 페이징 퍼치
+	* Method 설명 : 공지사항 게시물 10개씩 묶어서 페이징 처리
 	* 최초작성일 : 2018. 9. 5.
 	* 작성자 : 조계환
-	* 변경이력 :신규
+	* 변경이력 : 신규
 	* 조 회 :
 	* @param map
-	* @return
-	
+	* @return	
 	*/
 	@Override
 	public Map<String, Object> getBoardPageList(Map<String, Object> map) {
@@ -263,6 +262,80 @@ public class BoardService implements BoardServiceInf {
 		}
 
 		pageNaviStr.append("<li><a href=\"/board/boardMain?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+
+		return pageNaviStr.toString();
+	}
+	
+	/**
+	* Method : getBoardPageList1
+	* Method 설명 : 이벤트&행사 게시물 10개씩 묶어서 페이징 처리
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 : 신규
+	* 조 회 :
+	* @param map
+	* @return	
+	*/
+	@Override
+	public Map<String, Object> getBoardPageList1(Map<String, Object> map) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		// 게시판 페이지 리스트 조회
+		List<BoardVo> boardpage = boardDao.getBoardPageList(map);		
+		resultMap.put("boardpage", boardpage);
+		
+		String bd_kind_id = (String) map.get("bd_kind_id"); // 게시판 구분 값 가져오기
+
+		// 게시글 전체 건수 조회
+		int totCnt = boardDao.getBoardListTotCnt(bd_kind_id); // 구분 값 넣고 해당 구분 전체 건수 조회
+		logger.debug("totCnt ================================>> {}", totCnt);
+		resultMap.put("totCnt", totCnt);
+
+		// 페이지 네비게이션 html 생성
+		int page = (int) map.get("page");
+		int pageSize = (int) map.get("pageSize");
+
+		resultMap.put("pageNavi", makePageNavi1(page, pageSize, totCnt));
+
+		return resultMap;
+	}
+	
+	/**
+	* Method : makePageNavi1
+	* Method 설명 : 이벤트&행사 게시판 페이징 처리
+	* 최초작성일 : 2018. 9. 5.
+	* 작성자 : 조계환
+	* 변경이력 : 신규
+	* 조 회 :
+	* @param page
+	* @param pageSize
+	* @param totCnt
+	* @return
+	*/
+	private String makePageNavi1(int page, int pageSize, int totCnt){
+
+		int cnt = totCnt / pageSize; // 몫
+		int mod = totCnt % pageSize; // 나머지
+
+		if (mod > 0)
+			cnt++;
+
+		StringBuffer pageNaviStr = new StringBuffer();
+
+		int prevPage = page == 1? 1 : page-1;
+		int nextPage = page == cnt ? page : page+1;
+		pageNaviStr.append("<li><a href=\"/board/boardEventMain?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+
+		for(int i = 1; i <= cnt; i++){
+			// /board/list?page=3&pageSize=10
+			String activeClass = "";
+			if(i == page)
+				activeClass = "class=\"active\"";
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/board/boardEventMain?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
+		}
+
+		pageNaviStr.append("<li><a href=\"/board/boardEventMain?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 
 		return pageNaviStr.toString();
 	}

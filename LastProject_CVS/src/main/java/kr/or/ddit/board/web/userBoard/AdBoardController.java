@@ -92,7 +92,7 @@ public class AdBoardController {
 	public String boardEventListView(@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
 								Model model) {
-		String bd_kind_id="44";
+		String bd_kind_id="66";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
 		paramMap.put("page", page);
@@ -100,12 +100,14 @@ public class AdBoardController {
 		paramMap.put("bd_kind_id", bd_kind_id);
 
 		//게시물 페이징 처리
-		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
+		Map<String, Object> resultMap = boardService.getBoardPageList1(paramMap);
 		
 		model.addAllAttributes(resultMap);
 		
-		return "boardList";
+		return "eventList";
 	}
+	
+	
 	
 	/**
 	* Method : createNoticePostView

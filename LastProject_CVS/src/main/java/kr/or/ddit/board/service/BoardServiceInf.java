@@ -167,6 +167,8 @@ public interface BoardServiceInf {
 	 */
 	Map<String, Object> getBoardPageList(Map<String, Object> map);
 	
+	Map<String, Object> getBoardPageList1(Map<String, Object> map);
+	
 	int setWriteInsert(BoardVo boardVo);
 	
 	/**

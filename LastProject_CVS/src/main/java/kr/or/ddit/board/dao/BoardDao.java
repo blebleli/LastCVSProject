@@ -130,6 +130,16 @@ public class BoardDao implements BoardDaoInf {
 	public int getBoardListTotCnt(String bd_kind_id) {
 		return template.selectOne("board.getWriteTotCnt",bd_kind_id);
 	}
+	
+	@Override
+	public List<BoardVo> getBoardPageList1(Map<String, Object> map) {
+		return template.selectList("board.getBoardPageList",map);
+	}
+	
+	@Override
+	public int getBoardListTotCnt1(String bd_kind_id) {
+		return template.selectOne("board.getWriteTotCnt",bd_kind_id);
+	}
 
 	@Override
 	public List<BoardVo> getListBestReviewOne() {

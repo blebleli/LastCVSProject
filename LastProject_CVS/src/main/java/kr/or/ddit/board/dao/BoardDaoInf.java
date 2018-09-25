@@ -205,6 +205,10 @@ public interface BoardDaoInf {
 	*/
 	int getBoardListTotCnt(String bd_kind_id);
 	
+	List<BoardVo> getBoardPageList1(Map<String, Object> map);
+	
+	int getBoardListTotCnt1(String bd_kind_id);
+	
 	/**
 	 * 
 	 * Method   : getBestProdReview 
