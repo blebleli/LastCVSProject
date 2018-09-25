@@ -16,6 +16,13 @@
     <script>	
 		$(function(){
 			
+			$("#boardsearch").on("click",function(){ // 제목 / 제목+내용 / 내용 / 작성자 중 선택 후 검색창을 누른다.
+				alert($("#i option:selected").val());
+				alert($("#i_search").val());
+				$("#boardGo").attr("action","/adboard/boardSearch") // form 액션이 검색 결과로 바뀐다.
+				$("#boardGo").submit(); // 검색 결과로 이동한다.
+			});
+			
 			$("#all").on("click", function() { 		// 게시판 - 전체를 누른다.		
 				$("#btnChk").val($("#all").val());  // 전체 버튼 값을 히든에 저장한다.
 				$("#boardGo").submit(); 			// 히든 값을 컨트롤러에 가져간다.
@@ -218,14 +225,14 @@ $(function(){
 								</td>										
 								</tr></c:if>
 								<tr class="search">
-									<select id="ctgy_name" name="ctgy_name" onchange="searchCtgyList(this.value);">
-										<option id="bd_title" value="bd_title">제목</option>
-										<option id="bd_content" value="bd_content">내용</option>
-										<option id="bd_title_content" value="bd_title_content">제목+내용</option>
-										<option id="mem_id" value="mem_id">작성자</option>
+									<select id="i" name="i">
+										<option value="1">제목</option>
+										<option value="2">내용</option>
+										<option value="3">제목+내용</option>
+										<option value="4">작성자</option>
 									</select>
-									<input class="searchs" type="text">
-									<button type="button" class="btn btn-default">검색</button>
+									<input name="i_search" id="i_search" type="text">
+									<button id="boardsearch" type="button" class="btn btn-default">검색</button>
 								</tr>
 							</tbody>
 						</table>					

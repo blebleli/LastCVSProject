@@ -106,35 +106,7 @@
 }
 </style>-->
     <script src="/js/common/jquery-1.12.4.js"></script>
-    <script>
-    $(function(){
-    
-    function hideDiv(id){
-        var div = document.getElementById(id);
-        div.style.display = "none";
-        document.body.appendChild(div);
-    }
-
-    function fn_replyReply(reno){
-    	alert("왔냐?");
-        var form = document.form3;
-        var reply = document.getElementById("reply"+reno);
-        var replyDia = document.getElementById("replyDialog");
-        replyDia.style.display = "";
-        
-        if (updateReno) {
-            fn_replyUpdateCancel();
-        } 
-        
-        form.rememo.value = "";
-        form.reparent.value=reno;
-        reply.appendChild(replyDia);
-        form.rewriter.focus();
-    }
-    
-    });
-    
-
+ <!--     <script>
 		$(function(){
 			var status = false;
             $("input[name='reCommentsbt']").on("click",function(){ //동적 이벤트
@@ -175,8 +147,11 @@
                 }else{
                     prevTr.after(replyEditor);
                 } 
-			
-            
+            });   
+</script> -->
+
+<script>      		
+    		$(function(){         
             
         	//파일다운로드
         	function fn_fileDownload(file_path, file_name, file_upname) {
@@ -185,7 +160,8 @@
         	   $("#frm_file input[name=file_upname]").val(file_upname);
         	   
         	   $("#frm_file").prop("action", "/fileDownload.jsp");
-        	   $("#frm_file").submit();            
+        	   $("#frm_file").submit(); 
+    		}; 
 
 			$("#boardUpd").on("click", function(){ // 게시글 수정 버튼을 누르면				
 				$("#frm").submit(); // 수정 이동				
@@ -225,7 +201,9 @@
 					alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
 					return
 				}
-			});
+			});			
+    	});
+		  			
 	</script>
 	
     <!-- Datatables -->
@@ -342,7 +320,7 @@
 											<input type="hidden" name="bd_id" value="${vo.bd_id}">
 											<input type="hidden" name="mem_id" value="admin">
 											<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">
-											<button onclick="fn_replyReply(reno);" id="commentsdab" style="font-size:12px" class="btn btn-default">답글</button>
+											<button id="commentsdab" style="font-size:12px" class="btn btn-default">답글</button>
 											
 <!-- 											<br id="this"> -->
 <!-- 											<span class="clazz"></span> -->
@@ -365,17 +343,6 @@
 							</td>
 						</tr>
 						<tr>
-							<div id="replyDialog" style="display:none">
-							    <form name="form3" action="board6ReplySave" method="post">
-							        <input type="hidden" name="brdno" value="admin">
-							        <input type="hidden" name="reno"> 
-							        <input type="hidden" name="reparent"> 
-							        작성자: <input type="text" name="rewriter" size="20" maxlength="20"> <br/>
-							        <textarea name="rememo" rows="3" cols="60" maxlength="500"></textarea>
-							        <a href="#" onclick="fn_replyReplySave()">저장</a>
-							        <a href="#" onclick="fn_replyReplyCancel()">취소</a>
-							    </form>
-							</div>
 						</tr>						
 						<!-- 대댓글 달리는 곳 -->
 					</table>

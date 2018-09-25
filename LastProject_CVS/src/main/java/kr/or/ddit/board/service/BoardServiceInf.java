@@ -41,6 +41,17 @@ public interface BoardServiceInf {
 	 * Method 설명 : 게시물 전체 조회
 	 */
 	List<BoardVo> getBoardPageList2(String bd_kind_id);
+	
+	/**
+	 * Method : boardSearch
+	 * 최초작성일 : 2018. 9. 25.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardVo
+	 * @return
+	 * Method 설명 : 검색(제목 1, 내용 2, 제목+내용 3, 작성자 4)
+	 */
+	List<BoardVo> boardSearch(BoardVo boardVo);
 
 	/**
 	* Method : setInsertBoard

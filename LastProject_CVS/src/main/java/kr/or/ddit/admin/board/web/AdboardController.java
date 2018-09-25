@@ -2,10 +2,14 @@ package kr.or.ddit.admin.board.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
+
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
@@ -15,6 +19,7 @@ import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -43,6 +48,40 @@ public class AdboardController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@RequestMapping("/boardSearch")
+	public String boardSearch(@RequestParam(value="i", defaultValue="") String i,
+							  @RequestParam(value="i_search", defaultValue="") String i_search,
+							  @RequestParam(value="btnChk", defaultValue="") String bd_kind_id1,
+							  @RequestParam(value="bd_kind_id3", defaultValue="") String bd_kind_id, Model model){
+		System.out.println("ctgy_name : "+i);
+		System.out.println("bd_kind_id >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+bd_kind_id);
+		BoardVo boardVo = new BoardVo();
+		List<BoardVo> boardList = null;
+		
+		if(i.equals("1")){ // 제목 검색시
+			boardVo.setBd_kind_id(bd_kind_id);
+			boardVo.setBd_title(i_search);
+			boardList = boardService.boardSearch(boardVo);
+		}else if(i.equals("2")){ // 내용 검색시
+			boardVo.setBd_kind_id(bd_kind_id);
+			boardVo.setBd_content(i_search);
+			boardList = boardService.boardSearch(boardVo);
+		}else if(i.equals("3")){ // 제목 + 내용 검색시
+			boardVo.setBd_kind_id(bd_kind_id);
+			boardVo.setBd_parent(i_search); // 값이 분산되어 넣기가 불가능해서 부모코드에 임시로 검색량 넣어서 넘김.
+			boardList = boardService.boardSearch(boardVo);
+		}else if(i.equals("4")){ // 작성자 검색시
+			boardVo.setBd_kind_id(bd_kind_id);
+			boardVo.setMem_name(i_search);
+			boardList = boardService.boardSearch(boardVo);
+		}
+		logger.debug("boardList >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> {} ",boardList);
+		model.addAttribute("i", i);
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("bd_kind_id",bd_kind_id);
+		
+		return "ad_boardView";
+	}
 	/**
 	 * Method : boardView
 	 * 최초작성일 : 2018. 9. 17.

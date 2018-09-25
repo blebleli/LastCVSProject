@@ -48,6 +48,20 @@ public class BoardDao implements BoardDaoInf {
 	}
 	
 	/**
+	 * Method : boardSearch
+	 * 최초작성일 : 2018. 9. 25.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardVo
+	 * @return
+	 * Method 설명 : 검색(제목 1, 내용 2, 제목+내용 3, 작성자 4)
+	 */
+	@Override	
+	public List<BoardVo> boardSearch(BoardVo boardVo) {
+		return template.selectList("board.boardSearch", boardVo);
+	}
+	
+	/**
 	 * Method : setInsertBoard
 	 * 최초작성일 : 2018. 8. 2.
 	 * 작성자 : 김마음
