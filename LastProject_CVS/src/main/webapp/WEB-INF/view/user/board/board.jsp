@@ -109,6 +109,23 @@
 	font-style: normal;
 	font-variant: normal;
 	text-transform: none;
+	text-align: center;
+
+}
+
+#demoFonts {
+	font-family: Gadget, sans-serif;
+	font-size: 13px;
+	letter-spacing: -0.6px;
+	word-spacing: -3.8px;
+	color: #000000;
+	font-weight: 400;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	text-align: center;
+
 }
 
 .services{
@@ -116,7 +133,14 @@
 	text-align: center;
 }
 
-.
+.search {
+	text-align: right;
+}
+
+.searchs {
+	padding: 5px;
+	margin: 0px;
+}
 </style>
 
 <link href="/css/login/common/JKH.css" rel="stylesheet">
@@ -128,6 +152,15 @@
 			$("#frm").submit();
 		});
 	});
+	$(function() {
+		$("#eventDetali").on("click",function(){
+			$()
+		});
+	});	
+</script>
+
+<script>
+	
 </script>
 
 <!-- products-breadcrumb -->
@@ -147,45 +180,50 @@
 	<input type="hidden" name="bd_id" id="bd_id">
 </form>
 
-
 <div class="banner">
-	<div class="w3l_banner_nav_right">
 		<!-- services -->
 		<div class="services">
 			<h3>공지사항</h3>
-			<div class="w3ls_service_grids">
-
-				<div class="col-md-10 w3ls_service_grid_left">
+				<div class="search">
+					<select id="ctgy_name" name="ctgy_name" onchange="searchCtgyList(this.value);">
+						<option id="bd_title" value="bd_title">제목</option>
+						<option id="bd_content" value="bd_content">내용</option>
+						<option id="bd_title_content" value="bd_title_content">제목+내용</option>
+						<option id="mem_id" value="mem_id">작성자</option>
+					</select>
+					<input class="searchs" type="text">
+					<button type="button" class="btn btn-default">검색</button>
+				</div>
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr >
-									<th id="demoFont">게시글 번호</th>
+									<th id="demoFont">번호</th>
 									<th id="demoFont">제목</th>
 									<th id="demoFont">작성자</th>
-									<th id="demoFont">작성일시</th>
+									<th id="demoFont">작성일</th>
 									<th id="demoFont">조회수</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${boardList}" var="vo">
+								<c:forEach items="${boardpage}" var="vo">
 									<c:if test="${vo.bd_del=='N'}">
-										<tr data-no="${vo.bd_id}" id="click">
-											<td>${vo.bd_id}</td>
-											<td>${vo.bd_title}</td>
-											<td>${vo.mem_id}</td>
-											<td>${vo.bd_date}</td>
-											<td>${vo.bd_views}</td>
+										<tr data-no="${vo.tot_cnt}" id="click">
+											<td id="demoFonts">${vo.tot_cnt}</td>
+											<td id="demoFonts">${vo.bd_title}</td>
+											<td id="demoFonts">${vo.mem_id}</td>
+											<td id="demoFonts">${vo.bd_date}</td>
+											<td id="demoFonts">${vo.bd_views}</td>
 										</tr>
 									</c:if>
 
 									<c:if test="${vo.bd_del=='Y'}">
-										<tr data-no="${vo.bd_id}">
-											<td>${vo.bd_id}</td>
-											<td>삭제된 게시물 입니다</td>
-											<td>${vo.mem_id}</td>
-											<td>${vo.bd_date}</td>
-											<td>${vo.bd_views}</td>
+										<tr data-no="${vo.tot_cnt}">
+											<td id="demoFonts">${vo.tot_cnt}</td>
+											<td id="demoFonts">삭제된 게시물 입니다</td>
+											<td id="demoFonts">${vo.mem_id}</td>
+											<td id="demoFonts">${vo.bd_date}</td>
+											<td id="demoFonts">${vo.bd_views}</td>
 										</tr>
 									</c:if>
 								</c:forEach>
@@ -193,20 +231,14 @@
 						</table>
 						
 					</div>
-
-
-				</div>
-<!-- 				<a href="/board/createNoticePostView" -->
-<!-- 					class="btn btn-default pull-right" id="newPosts">새글 등록</a> -->
-<!-- 					<nav> -->
-<%-- 						<ul class="pagination">${pageNavi}</ul> --%>
-<!-- 					</nav> -->
 						<div class="text-center" id="page">
 							<ul class="pagination">${pageNavi}</ul>
 						</div>
+				</div>
+				<div class="col-md-10 w3ls_service_grid_left">
+				<div class="search">
+				</div>							
 			</div>
 		</div>
-	</div>
-</div>
 <!-- //services -->
 <div class="clearfix"></div>

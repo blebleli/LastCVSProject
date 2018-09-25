@@ -109,6 +109,23 @@
 	font-style: normal;
 	font-variant: normal;
 	text-transform: none;
+	text-align: center;
+
+}
+
+#demoFonts {
+	font-family: Gadget, sans-serif;
+	font-size: 13px;
+	letter-spacing: -0.6px;
+	word-spacing: -3.8px;
+	color: #000000;
+	font-weight: 400;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+	text-align: center;
+
 }
 
 .services{
@@ -116,7 +133,14 @@
 	text-align: center;
 }
 
-.
+.search {
+	text-align: right;
+}
+
+.searchs {
+	padding: 5px;
+	margin: 0px;
+}
 </style>
 
 <link href="/css/login/common/JKH.css" rel="stylesheet">
@@ -136,7 +160,16 @@
 </script>
 
 <!-- products-breadcrumb -->
+<div class="products-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/user/main' />">Home</a><span>|</span></li>
+			<li>공지사항</li>
+		</ul>
+	</div>
+</div>
 <!-- //products-breadcrumb -->
+
 <!-- banner -->
 
 <form action="/board/view" method="post" id="frm">
@@ -145,101 +178,66 @@
 
 
 
-	<div class="banner">
-		<div class="w3l_banner_nav_right">
-<!-- events -->
-		<div class="events">
-			<h3>이벤트</h3>
-			<div class="w3agile_event_grids">
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-bullhorn" aria-hidden="true"></i>
-					</div>
-					
-					<!-- event 시작-------------------------------------------------------->
-					<!-- event 코드 나열 -->
-					<div class="col-md-9 w3agile_event_grid_right" id="eventDetali">
-						<h4>cum soluta nobis eligendi</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-							
-					</div>
-					<div class="clearfix"> </div>
+<div class="banner">
+		<!-- services -->
+		<div class="services">
+			<h3>이벤트&행사</h3>
+				<div class="search">
+					<select id="ctgy_name" name="ctgy_name" onchange="searchCtgyList(this.value);">
+						<option id="" value="">제목</option>
+						<option id="" value="">내용</option>
+						<option id="" value="">제목+내용</option>
+						<option id="" value="">작성자</option>
+					</select>
+					<input class="searchs" type="text">
+					<button type="button" class="btn btn-default">검색</button>
 				</div>
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-bullseye" aria-hidden="true"></i>
+					<div class="table-responsive">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr >
+									<th id="demoFont">번호</th>
+									<th id="demoFont">제목</th>
+									<th id="demoFont">작성자</th>
+									<th id="demoFont">작성일</th>
+									<th id="demoFont">조회수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${boardpage}" var="vo">
+									<c:if test="${vo.bd_del=='N'}">
+										<tr data-no="${vo.tot_cnt}" id="click">
+											<td id="demoFonts">${vo.tot_cnt}</td>
+											<td id="demoFonts">${vo.bd_title}</td>
+											<td id="demoFonts">${vo.mem_id}</td>
+											<td id="demoFonts">${vo.bd_date}</td>
+											<td id="demoFonts">${vo.bd_views}</td>
+										</tr>
+									</c:if>
+
+									<c:if test="${vo.bd_del=='Y'}">
+										<tr data-no="${vo.tot_cnt}">
+											<td id="demoFonts">${vo.tot_cnt}</td>
+											<td id="demoFonts">삭제된 게시물 입니다</td>
+											<td id="demoFonts">${vo.mem_id}</td>
+											<td id="demoFonts">${vo.bd_date}</td>
+											<td id="demoFonts">${vo.bd_views}</td>
+										</tr>
+									</c:if>
+								</c:forEach>
+							</tbody>
+						</table>
+						
 					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>rerum hic tenetur a sapiente</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
+						<div class="text-center" id="page">
+							<ul class="pagination">${pageNavi}</ul>
+						</div>
 				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="w3agile_event_grids">
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-credit-card" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>earum rerum tenetur sapiente</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-eye" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>quibu aut officiis debitis</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="w3agile_event_grids">
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-cog" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>necessitatibus saepe eveniet</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					<div class="clearfix"> </div>
-				</div>
-				<div class="col-md-6 w3agile_event_grid">
-					<div class="col-md-3 w3agile_event_grid_left">
-						<i class="fa fa-trophy" aria-hidden="true"></i>
-					</div>
-					<div class="col-md-9 w3agile_event_grid_right">
-						<h4>repudiandae sint et molestiae</h4>
-						<p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis 
-							voluptatibus.</p>
-					</div>
-					
-					<!------ 이벤트  ENd ----------------------->
-					
-					
-					
-					
-					
-					<div class="clearfix"> </div>
-				</div>
-				<div class="clearfix"> </div>
+				<div class="col-md-10 w3ls_service_grid_left">
+				<div class="search">
+				</div>							
 			</div>
 		</div>
-<!-- //events -->
-		</div>
-		<div class="clearfix"></div>
-	</div>
+
 <!-- //services -->
 <div class="clearfix"></div>
