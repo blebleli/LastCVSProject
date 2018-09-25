@@ -1,15 +1,20 @@
 package kr.or.ddit.admin.prod.web;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import kr.or.ddit.admin.model.AdminProdVo;
+import kr.or.ddit.admin.prod.dao.EventDaoInf;
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.admin.prod.service.CategoryServiceInf;
+import kr.or.ddit.admin.prod.service.EventServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.CategoryVo;
+import kr.or.ddit.model.EventVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +37,9 @@ public class AdminProdInfo {
 	@Resource(name="autoCodeCreate")
 	AutoCodeCreate  acc;
 	
+	@Resource(name="eventService")
+	EventServiceInf eventService;
+	
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -45,10 +53,13 @@ public class AdminProdInfo {
 		
 		// 제품 목록
 		Map<String, Object> result = adminProdService.getProdList(pvo);
+		List<AdminProdVo> prodList = (List<AdminProdVo>) result.get("prodList");
+		logger.debug("result == > {}", prodList);
 		
-		logger.debug("result == > {}", result);
+//		model.addAllAttributes(result);
+		model.addAttribute("prodList", prodList);
 		
-		model.addAllAttributes(result);
+		
 		
 		return "ad_prod";
 	}
@@ -131,7 +142,70 @@ public class AdminProdInfo {
 	}
 	
 	
+	// 이벤트 팝업
+	@RequestMapping("/eventPopup")
+	public String eventPopup(Model model){
+		
+		List<EventVo> eventList  =  eventService.getListEvent();
+		model.addAttribute("eventList", eventList);
+		
+		return "/admin/adprod/ad_event_popup";
+	}
+	
+	// 이벤트 insert
+	@RequestMapping("/eventInsert")
+	public String eventInsert(Model model, EventVo vo){
+		
+		
+		// 확인
+//		logger.debug("vo ==> {} ",vo);
+		
+		// 행사 종류에 따른 코드 생성
+		String code = "";
+		if (vo.getEvent_kind().equals("일반")){
+			code = "BASIC";
+		} else if (vo.getEvent_kind().equals("행사")){
+			code = "EVENT";
+		} else if (vo.getEvent_kind().equals("할인")){
+			code = "DIS";
+		}
+		
+		String event_id = acc.autoCode(code);				// 코드생성
+		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+//		logger.debug("vo.getEvent_startday() ==> {}",vo.getEvent_startday());
+//		logger.debug("vo.getEvent_endday() ==> {}",vo.getEvent_endday());
+		
+		// 코드, 명,  종류, 기간, 할인율
+		EventVo eventVo = new EventVo();		
+		eventVo.setEvent_id(event_id);											// 코드
+		eventVo.setEvent_name(vo.getEvent_name());								// 이벤트명
+		eventVo.setEvent_startday(vo.getEvent_startday());						// 시작
+		eventVo.setEvent_endday(vo.getEvent_endday());							// 종료
+		eventVo.setEvent_kind(vo.getEvent_kind());								// 종류
+		eventVo.setEvent_discount(vo.getEvent_discount());						// 할인율
+		
+//		확인
+		logger.debug("vo ==> {} ",eventVo);
+		
+		int result = eventService.setInsertEvnet(eventVo);
+		
+		logger.debug("result ==> {} ",result);
+		
+		return "forward:/adprod/eventPopup";
+	}
 	
 	
+	
+	// 이벤트 팝업
+	@RequestMapping("/prodPopup")
+	public String prodPopup(Model model){
+		
+		List<EventVo> eventList  =  eventService.getListEvent();
+		model.addAttribute("eventList", eventList);
+		
+		return "/admin/adprod/ad_prod_popup";
+	}
 	
 }

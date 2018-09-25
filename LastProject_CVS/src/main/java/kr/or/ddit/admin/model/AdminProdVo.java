@@ -12,6 +12,9 @@ public class AdminProdVo {
 	private String pr_class_lg;
 	private String pr_class_md;
 	private String event_id;
+	private String prod_intro;
+	private String file_path;
+	private String file_upname;
 
 	private int prod_cost;
 	private int cost_min;
@@ -44,6 +47,31 @@ public class AdminProdVo {
 	}
 
 
+	
+
+	public String getProd_intro() {
+		return prod_intro;
+	}
+
+	public void setProd_intro(String prod_intro) {
+		this.prod_intro = prod_intro;
+	}
+
+	public String getFile_path() {
+		return file_path;
+	}
+
+	public void setFile_path(String file_path) {
+		this.file_path = file_path;
+	}
+	
+	public String getFile_upname() {
+		return file_upname;
+	}
+
+	public void setFile_upname(String file_upname) {
+		this.file_upname = file_upname;
+	}
 
 	public int getCnt() {
 		return cnt;
@@ -154,12 +182,11 @@ public class AdminProdVo {
 		return "AdminProdVo [cnt=" + cnt + ", page=" + page + ", pageSize="
 				+ pageSize + ", prod_id=" + prod_id + ", prod_name="
 				+ prod_name + ", pr_class_lg=" + pr_class_lg + ", pr_class_md="
-				+ pr_class_md + ", event_id=" + event_id + ", prod_cost="
-				+ prod_cost + ", cost_min=" + cost_min + ", prod_price="
-				+ prod_price + ", price_min=" + price_min + ", prod_exnum="
-				+ prod_exnum + "]";
+				+ pr_class_md + ", event_id=" + event_id + ", prod_intro="
+				+ prod_intro + ", file_path=" + file_path + ", file_upname="
+				+ file_upname + ", prod_cost=" + prod_cost + ", cost_min="
+				+ cost_min + ", prod_price=" + prod_price + ", price_min="
+				+ price_min + ", prod_exnum=" + prod_exnum + "]";
 	}
-	
-	
-	
+
 }
