@@ -67,4 +67,15 @@ public interface CategoryServiceInf {
 	*/
 	int deleteCategory(String ctgy_id);
 	
+	/**
+	* Method : getProdCategoryMd
+	* Method 설명 :관리자 카테고리 대분류의 이름으로 중분류 조회 
+	* 최초작성일 : 
+	* 작성자 : 
+	* 변경이력 :신규
+	* @param ctgy_name
+	* @return CategoryVo
+	*/
+	List<CategoryVo> getProdCategoryMd(String ctgy_name);
+	
 }

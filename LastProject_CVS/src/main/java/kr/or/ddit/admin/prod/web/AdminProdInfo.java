@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @RequestMapping("/adprod")
@@ -66,7 +67,7 @@ public class AdminProdInfo {
 	
 	@RequestMapping("/categoryPopup")
 	public String categoryPopup(Model model){
-		logger.debug("categoryPopup ==================================================================");
+//		logger.debug("categoryPopup ==================================================================");
 		// 전체 카테고리(계층)
 		List<CategoryVo> categoryAll = categoryService.getListCategory();
 		
@@ -98,7 +99,7 @@ public class AdminProdInfo {
 									, @RequestParam(value="ctgy_md_info", defaultValue="0") String ctgy_md_info 	// 중분류 정보
 									, Model model){
 		
-		logger.debug("categoryInsert==============================================================");
+//		logger.debug("categoryInsert==============================================================");
 //		logger.debug("=========>> {}={}={}={}={}",ctgy_lg,ctgy_id_lg,ctgy_lg_info,ctgy_md,ctgy_md_info);
 		
 		CategoryVo lgVo = new CategoryVo();
@@ -107,7 +108,7 @@ public class AdminProdInfo {
 		if (ctgy_id_lg.isEmpty()) { // 새로운 대분류 추가
 			
 			String lgCode = acc.autoCode("CA");		// 코드생성
-			logger.debug("lgCode ==>{}", lgCode );
+//			logger.debug("lgCode ==>{}", lgCode );
 			// insert 될 데이터
 			lgVo.setCtgy_id(lgCode);			        // 코드
 			lgVo.setCtgy_info(ctgy_lg_info);	        // 내용
@@ -117,7 +118,7 @@ public class AdminProdInfo {
 			lgVo.setCtgy_group(lgCode);		// 그룹 코드
 			
 			int result = categoryService.setInsertCategory(lgVo);
-			logger.debug("대분류 insert ==> {} ", result);
+//			logger.debug("대분류 insert ==> {} ", result);
 			
 		}
 		
@@ -125,7 +126,7 @@ public class AdminProdInfo {
 		if (!ctgy_md.isEmpty()) {	// 중분류 insert 
 			
 			String mdCode = acc.autoCode("CA");		// 코드생성
-			logger.debug("lgCode ==>{}", mdCode );
+//			logger.debug("lgCode ==>{}", mdCode );
 			// insert 될 데이터
 			mdVo.setCtgy_id(mdCode);			        // 코드
 			mdVo.setCtgy_info(ctgy_md_info);	        // 내용
@@ -187,25 +188,54 @@ public class AdminProdInfo {
 		eventVo.setEvent_discount(vo.getEvent_discount());						// 할인율
 		
 //		확인
-		logger.debug("vo ==> {} ",eventVo);
+//		logger.debug("vo ==> {} ",eventVo);
 		
 		int result = eventService.setInsertEvnet(eventVo);
 		
-		logger.debug("result ==> {} ",result);
+//		logger.debug("result ==> {} ",result);
 		
 		return "forward:/adprod/eventPopup";
 	}
 	
 	
 	
-	// 이벤트 팝업
+	// 제품등록 팝업
 	@RequestMapping("/prodPopup")
 	public String prodPopup(Model model){
 		
+		CategoryVo vo = new CategoryVo();
+		vo.setCtgy_kind("301");
+		vo.setCtgy_parent("");
+		// 대분류
+		List<CategoryVo> categoryLg = adminProdService.getProdCategory(vo);
+		
+		vo.setCtgy_parent("notnull");
+		// 중분류
+		List<CategoryVo> categoryMd = adminProdService.getProdCategory(vo);
+		logger.debug("vo.getCtgy_parent(m) ==> {} ",vo.getCtgy_parent());
+		
+		// 이벤트
 		List<EventVo> eventList  =  eventService.getListEvent();
+
 		model.addAttribute("eventList", eventList);
+		model.addAttribute("categoryLg", categoryLg);
+		model.addAttribute("categoryMd", categoryMd);
+		
 		
 		return "/admin/adprod/ad_prod_popup";
+	}
+	
+	// 대분류에 따른 중분류 ajax 
+	@RequestMapping("/ajaxMd")
+	@ResponseBody
+	public List<CategoryVo> ajaxMd(@RequestParam(value="selectText", defaultValue="") String select){
+		
+		List<CategoryVo> result = categoryService.getProdCategoryMd(select);
+		
+		logger.debug("result ==> {}" , result);
+		
+		
+		return result;
 	}
 	
 }

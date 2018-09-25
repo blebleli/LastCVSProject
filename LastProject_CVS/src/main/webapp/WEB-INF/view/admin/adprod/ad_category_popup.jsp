@@ -162,7 +162,6 @@ $(function() {
 	    	<li><a href="#" id="category_lg">${all.ctgy_name }
 	    			<input type="hidden" id="${all.ctgy_id }" name="${all.ctgy_info }" value="${all.ctgy_name }">
 	    		</a>
-	    	
 	    </c:if>	
 		<ul>
 	    <c:if test="${all.ctgy_parent == null }">
