@@ -37,6 +37,11 @@
             window.open(url,"이벤트추가","width=800,height=450,left=500, top=100");
         }
         
+        function prodPopup(){
+        	var url="/adprod/prodPopup";
+            window.open(url,"제품추가","width=800,height=450,left=500, top=100");
+        }
+        
 </script>
 
 
@@ -88,6 +93,10 @@
 										
 										<button class="btn btn-default" id="eventBtn" onclick="eventPopup();">
 											<i class="fa fa-print"></i> 행사
+										</button>
+										
+										<button class="btn btn-default" id="prodBtn" onclick="prodPopup();">
+											<i class="fa fa-print"></i> 제품
 										</button>
 									</div>
 									<div class="clearfix"></div>

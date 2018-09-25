@@ -6,8 +6,6 @@
 <html>
 <head>
 
-    
-
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -93,10 +91,6 @@ ul,ol, li {list-style:none}
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="/treeview/jquery.treemenu.js"></script>
 <script>
-$(function(){
-        $(".tree").treemenu({delay:300}).openActive();
-    });
-    
 $(function() {
 	
 	var isEmpty = function(value){
@@ -112,25 +106,25 @@ $(function() {
 	// 생성 버튼 클릭시
 	$("#insertEvent").on("click",function(){
 		
-		// 대분류
 		var event_name    = $("#event_name").val();	// 이벤트명
 		var event_kind 	  = $("#event_kind").val();	// 이벤트 종류
 		
-		// 중분류
-		var reservation    = $("#reservation").val();		// 이벤트 기간
+		var reservation    = $("#reservation").val();// 이벤트 기간
+		var day = reservation.split('-');					
+		var event_startday = day[0];				// 시작일
+		var event_endday   = day[1];				// 종료일
 		var event_discount = $("#event_discount").val();	// 할인율
 
 		// 값 체크
-		
 		if (isEmpty(event_name)) {			// 이벤트명 체크
 			alert("이벤트명을 작성해주세요");
 			$("#event_name").focus();
 			return;
 		}
+		$("#event_startday").val(event_startday);
+		$("#event_endday").val(event_endday);
 		
-		
-		
-// 		$("#categoryForm").submit();
+		$("#eventForm").submit();
 	});
 	
 	
@@ -188,7 +182,7 @@ $(function() {
           </div>
           <div class="x_content">
             <br>
-            <form id="categoryForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="/adprod/categoryInsert" method="post">
+            <form id="eventForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="/adprod/eventInsert" method="post">
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">이벤트명</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -198,10 +192,10 @@ $(function() {
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-20" for="first-name">종류</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                <select id="event_kind" class="form-control col-md-7 col-xs-12" required="required" >
+                <select id="event_kind" name="event_kind" class="form-control col-md-7 col-xs-12" required="required" >
                 	<option value="행사" selected="selected">행사</option>
                 	<option value="할인">할인</option>
-                	<option value="PB">PB</option>
+                	<option value="전체">전체</option>
                 </select>
 <!--                   <input type="text" id="ctgy_lg_info" name="ctgy_lg_info" required="required" class="form-control col-md-7 col-xs-12"> -->
                 </div>
@@ -212,7 +206,11 @@ $(function() {
                  <fieldset>
                        <div class="input-group">
                          <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                         <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="01/01/2018 - 01/25/2018">
+                         <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="10/01/2018 - 11/25/2018">
+                         
+                         <input type="hidden" name="event_startday" id="event_startday">
+                         <input type="hidden" name="event_endday" id="event_endday">
+                         
                        </div>
                  </fieldset>
                     
@@ -236,7 +234,7 @@ $(function() {
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">할인율</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="number" id="event_discount" name=""event_discount"" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="number" id="event_discount" name="event_discount" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
               
@@ -257,31 +255,31 @@ $(function() {
  
 </div>  <!-- <div class="row">  -->
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="/vendors/nprogress/nprogress.js"></script>
     <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- bootstrap-datetimepicker -->    
-    <script src="../vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <!-- Ion.RangeSlider -->
-    <script src="../vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script>
+<!--     <script src="/vendors/ion.rangeSlider/js/ion.rangeSlider.min.js"></script> -->
     <!-- Bootstrap Colorpicker -->
-    <script src="../vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<!--     <script src="/vendors/mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script> -->
     <!-- jquery.inputmask -->
-    <script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+<!--     <script src="/vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script> -->
     <!-- jQuery Knob -->
-    <script src="../vendors/jquery-knob/dist/jquery.knob.min.js"></script>
+<!--     <script src="/vendors/jquery-knob/dist/jquery.knob.min.js"></script> -->
     <!-- Cropper -->
-    <script src="../vendors/cropper/dist/cropper.min.js"></script>
+    <script src="/vendors/cropper/dist/cropper.min.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="/build/js/custom.min.js"></script>
     
     <!-- Initialize datetimepicker -->
 <script>
