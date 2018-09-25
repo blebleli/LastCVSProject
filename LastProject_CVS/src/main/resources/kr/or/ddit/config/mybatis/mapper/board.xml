@@ -8,7 +8,7 @@
 					FROM  (
 					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
 									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-									, bd_title
+									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
 									, bd_rating
 									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
 									, mem_id
@@ -16,12 +16,13 @@
 									, prod_id
 									, bd_id
 									, bd_del
+									, bd_parent
 							FROM BOARD
 							WHERE 1=1
 			                <if test="_parameter != null and _parameter != ''">
-			                AND bd_kind_id = #{_parameter}		                
+			                AND bd_kind_id = #{_parameter}
 			                </if>
-							ORDER BY bd_date DESC
+			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			      		) T )
 	</select>
 	
@@ -170,8 +171,9 @@
 		SELECT * FROM (
 			SELECT ROWNUM tot_cnt, T.*
 					FROM  (
-					        SELECT   (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-									, bd_title
+					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
 									, bd_rating
 									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
 									, mem_id
@@ -179,9 +181,10 @@
 									, prod_id
 									, bd_id
 									, bd_del
+									, bd_parent
 							FROM BOARD
 							WHERE bd_kind_id = #{bd_kind_id}
-							ORDER BY bd_date DESC
+			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 		
@@ -197,8 +200,9 @@
 		SELECT * FROM (
 			SELECT ROWNUM tot_cnt, T.*
 					FROM  (
-					        SELECT   (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-									, bd_title
+					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
 									, bd_rating
 									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
 									, mem_id
@@ -206,9 +210,10 @@
 									, prod_id
 									, bd_id
 									, bd_del
+									, bd_parent
 							FROM BOARD
 							WHERE bd_kind_id = #{bd_kind_id}
-							ORDER BY bd_date DESC
+			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 		

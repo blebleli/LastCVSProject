@@ -206,8 +206,9 @@
 								</tr>
 							</thead>
 							<tbody>
+								<%request.setAttribute("nbsp", " ");%>
 								<c:forEach items="${boardpage}" var="vo">
-									<c:if test="${vo.bd_del=='N'}">
+									<c:if test="${vo.bd_del=='N' && empty vo.bd_parent}">
 										<tr data-no="${vo.tot_cnt}" id="click">
 											<td id="demoFonts">${vo.tot_cnt}</td>
 											<td id="demoFonts">${vo.bd_title}</td>
@@ -216,7 +217,15 @@
 											<td id="demoFonts">${vo.bd_views}</td>
 										</tr>
 									</c:if>
-
+									<c:if test="${vo.bd_del=='N' && !empty vo.bd_parent}">
+										<tr data-no="${vo.tot_cnt}" id="click">
+											<td id="demoFonts">${vo.tot_cnt}</td>
+											<td id="demoFonts">${vo.bd_title}</td>
+											<td id="demoFonts">${vo.mem_id}</td>
+											<td id="demoFonts">${vo.bd_date}</td>
+											<td id="demoFonts">${vo.bd_views}</td>
+										</tr>
+									</c:if>
 									<c:if test="${vo.bd_del=='Y'}">
 										<tr data-no="${vo.tot_cnt}">
 											<td id="demoFonts">${vo.tot_cnt}</td>

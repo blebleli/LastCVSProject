@@ -65,6 +65,7 @@ public class AdboardController {
 		logger.debug("카테고리 ========================>> {} "+categoryVo.getCtgy_kind());
 		List<BoardVo> boardList = boardService.getBoardPageList2(bd_kind_id);
 		logger.debug("categoryVo =========> {} ", categoryList);
+		System.out.println("bd_kind_id : "+bd_kind_id);
 		// 카테고리 전체 조회
 		model.addAttribute("bd_kind_id", bd_kind_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);
@@ -85,9 +86,15 @@ public class AdboardController {
 	@RequestMapping("/boardNew")
 	public String boardNew(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
 						   @RequestParam(value="bd_kind_id3", defaultValue="") String bd_kind_id3,Model model){
+		
 		logger.debug("bd_kind_id ==================================>> {} ", bd_kind_id);
-		model.addAttribute("bd_kind_id", bd_kind_id);
+		BoardVo boardVo = new BoardVo();
+		boardVo.setBd_kind_id(bd_kind_id3);
+		System.out.println("bd_kind_id3 : "+bd_kind_id3);
+		
+		model.addAttribute("boardVo", boardVo);
 		model.addAttribute("bd_kind_id3", bd_kind_id3);
+		
 		return "ad_boardNew";
 	}
 	
@@ -126,14 +133,14 @@ public class AdboardController {
 				
 				if(m.isEmpty()==false){
 				fileVo.setBd_id(bd_id); // 게시글 코드
-				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
+				fileVo.setFile_path(FileUtil.fileUploadPath2); // 파일 경로
 				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
 				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
 				fileVo.setMem_id(b.getMem_id());
 				
 				// 디렉토리 없을 경우 생성
-				if(!new File(FileUtil.fileUploadPath).exists()) {
-					new File(FileUtil.fileUploadPath).mkdirs();
+				if(!new File(FileUtil.fileUploadPath2).exists()) {
+					new File(FileUtil.fileUploadPath2).mkdirs();
 				}
 				
 				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
@@ -223,14 +230,14 @@ public class AdboardController {
 				
 				if(m.isEmpty()==false){
 				fileVo.setBd_id(b.getBd_id()); // 게시글 코드
-				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
+				fileVo.setFile_path(FileUtil.fileUploadPath2); // 파일 경로
 				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
 				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
 				fileVo.setMem_id(b.getMem_id());
 				
 				// 디렉토리 없을 경우 생성
-				if(!new File(FileUtil.fileUploadPath).exists()) {
-					new File(FileUtil.fileUploadPath).mkdirs();
+				if(!new File(FileUtil.fileUploadPath2).exists()) {
+					new File(FileUtil.fileUploadPath2).mkdirs();
 				}
 				
 				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
@@ -278,6 +285,102 @@ public class AdboardController {
 			// 삭제 실패시 내용을 디버그로 출력하며, 관리자 메인화면으로 이동한다.
 			logger.debug("write delete fail ====>>>> {} ", cnt);
 			return "admin/main";
+		}
+	}
+	
+	/**
+	 * Method : boardReply
+	 * 최초작성일 : 2018. 9. 25.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @param bd_group
+	 * @param bd_kind_id
+	 * @param model
+	 * @return
+	 * Method 설명 : 답글 등록 화면으로 이동(해당 게시물 그룹아이디, 부모아이디, 구분 값을 가져간다)
+	 */
+	@RequestMapping("/boardReply")
+	public String boardReply(@RequestParam(value="bd_id", defaultValue="") String bd_id,
+							 @RequestParam(value="bd_group", defaultValue="") String bd_group,
+							 @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
+							 Model model){
+		
+		BoardVo boardVo = new BoardVo();
+		boardVo.setBd_group(bd_group); // 그룹아이디
+		boardVo.setBd_parent(bd_id); // 부모아이디
+		boardVo.setBd_kind_id(bd_kind_id);
+		System.out.println("bd_group : "+bd_group+", bd_parent : "+bd_id);
+		
+		model.addAttribute("boardVo", boardVo);
+		
+		return "ad_boardReply";
+	}
+	
+	/**
+	 * Method : boardCreate
+	 * 최초작성일 : 2018. 9. 18.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param model
+	 * @return
+	 * Method 설명 : 게시글 및 첨부파일 등록 완료(공지사항, 이벤트) C
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	@RequestMapping("/boardReCreate")
+	public String boardReCreate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile, BoardVo b, Model model) throws ServletException, IOException{
+		String bd_id = "";	
+		
+		if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
+			bd_id = code.autoCode("BNO"); // 가공		
+		}else if(b.getBd_kind_id().equals("66")){ // 이벤트 구분
+			bd_id = code.autoCode("BEV"); //
+		}else{
+			System.out.println("실패");
+		}
+		
+		b.setBd_id(bd_id); // 게시글 코드 저장		
+		
+		int cnt = boardService.setInsertBoard(b); // 게시글 저장
+		
+		if (cnt != 0){		
+			for (MultipartFile m : multipartFile) {
+				
+				FiledataVo fileVo = new FiledataVo();
+				
+				if(m.isEmpty()==false){
+				fileVo.setBd_id(bd_id); // 게시글 코드
+				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
+				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
+				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
+				fileVo.setMem_id(b.getMem_id());
+				
+				// 디렉토리 없을 경우 생성
+				if(!new File(FileUtil.fileUploadPath).exists()) {
+					new File(FileUtil.fileUploadPath).mkdirs();
+				}
+				
+				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
+				if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
+					String NO = code.autoCode("NO"); // 공지시항 파일코드
+					fileVo.setFile_id(NO); // 파일 코드 생성
+				}else if(b.getBd_kind_id().equals("66")){ // 이벤트 구분
+					String EV = code.autoCode("EV"); // 이벤트 파일코드
+					fileVo.setFile_id(EV);
+				}
+				
+				fileService.insertFileBoard(fileVo);
+				
+				// 실제 물리경로에 파일 저장
+				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
+				m.transferTo(saveFile);				
+				
+				}
+			} // for
+			return "redirect:/adboard/boardView?btnChk=" + b.getBd_kind_id(); // 해당 구분 코드 게시판 리스트로 화면 이동
+		}else{
+			return "ad_index"; // 실패시 관리자 메인화면으로 이동
 		}
 	}
 	

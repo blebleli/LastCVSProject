@@ -7,6 +7,11 @@
 <link href="/vendors/datatables.net-bs/fixedHeader.bootstrap.min.css" rel="stylesheet">
 <link href="/vendors/datatables.net-bs/responsive.bootstrap.min.css" rel="stylesheet">
 <link href="/vendors/datatables.net-bs/scroller.bootstrap.min.css" rel="stylesheet">
+<style>
+.search {
+	text-align: center;
+}
+</style>
     <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
 		$(function(){
@@ -188,57 +193,42 @@ $(function(){
 						</div>
 						
 						
-						  	<table>
+						<table>
 							<tbody>
+								<c:if test="${bd_kind_id=='55'}">
 								<tr>
-									<th scope="row">카테고리별</th>
-									<td>					
-										<select id="ctgy_name" name="ctgy_name" style="width:130px;" onchange="searchCtgyList(this.value);">
-											<option value="">선택</option>
-												<c:forEach items="${categoryList}" var="vo">
-													<c:choose>
-														<c:when test="${empty vo.ctgy_parent}">
-															<option id="" value="${vo.ctgy_name}">${vo.ctgy_name}
-															</option>											
-														</c:when>
-													</c:choose>													
-												</c:forEach>
-										</select>										
-										<select id="ctay_sub" name="ctay_sub" style="width:180px;">
-											<option value="">선택</option>
-										</select>										
+								<th scope="row">카테고리별</th>
+								<td>					
+									<select id="ctgy_name" name="ctgy_name" style="width:130px;" onchange="searchCtgyList(this.value);">
+										<option value="">선택</option>
+											<c:forEach items="${categoryList}" var="vo">
+												<c:choose>
+													<c:when test="${empty vo.ctgy_parent}">
+														<option id="" value="${vo.ctgy_name}">${vo.ctgy_name}
+														</option>											
+													</c:when>
+												</c:choose>													
+											</c:forEach>
+									</select>										
+									<select id="ctay_sub" name="ctay_sub" style="width:180px;">
+										<option value="">선택</option>
+									</select>										
 									<button type="button" class="btn btn-primary">검색</button>																																		
 									<button type="button" class="btn btn-default">초기화</button>		
 								</td>										
-							</tr>
-							<tr>
-								<th scope="row"><label for="store_name">검색</label></th>
-								<td>
-								
-								<select id="ctgy_name" name="ctgy_name" style="width:130px;" onchange="searchCtgyList(this.value);">
-									<option id="" value="">제목</option>
-									<option id="" value="">내용</option>
-									<option id="" value="">제목+내용</option>
-									<option id="" value="">작성자</option>
-								</select>
-								
-								
-								
-								
-								
-								
-									<div class="col-lg-10 input-group">									
-										<form action="/search/cvsSearchAction" id="sample" method="get">
-											<span class="input-group-btn">
-											<input type="text" class="form-control" name="searchWord"  placeholder="Search for...">
-											<button class="btn btn-default" type="submit">Go!</button>
-											</span>
-										</form>
- 									</div>								
-								</td>
-							</tr>
-						</tbody>
-					</table>					
+								</tr></c:if>
+								<tr class="search">
+									<select id="ctgy_name" name="ctgy_name" onchange="searchCtgyList(this.value);">
+										<option id="bd_title" value="bd_title">제목</option>
+										<option id="bd_content" value="bd_content">내용</option>
+										<option id="bd_title_content" value="bd_title_content">제목+내용</option>
+										<option id="mem_id" value="mem_id">작성자</option>
+									</select>
+									<input class="searchs" type="text">
+									<button type="button" class="btn btn-default">검색</button>
+								</tr>
+							</tbody>
+						</table>					
 						
 						<ul class="nav navbar-right panel_toolbox">
 							<li class="dropdown">
@@ -299,10 +289,22 @@ $(function(){
 							</thead>
 							<tbody id="bd_code">
 								<!-- 게시글 조회 foreach문 -->
-<%-- 								<%request.setAttribute("nbsp", " ");%> --%>
+								<%request.setAttribute("nbsp", " ");%>
 								<c:forEach items="${boardList}" var="vo">
 									<c:choose>
-										<c:when test="${vo.bd_del=='N'}">
+										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
+											<tr class="even pointer" data-id="${vo.bd_id}"
+												data-id2="${vo.bd_del}">
+												<td class="a-center "><input type="checkbox"
+													class="flat" name="table_records"></td>
+												<td>${vo.tot_cnt}</td>
+												<td>${vo.bd_title}</td>
+												<td>${vo.mem_name}</td>
+												<td>${vo.bd_date}</td>
+												<td>${vo.bd_views}</td>												
+											</tr>
+										</c:when>
+										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
 											<tr class="even pointer" data-id="${vo.bd_id}"
 												data-id2="${vo.bd_del}">
 												<td class="a-center "><input type="checkbox"
@@ -313,7 +315,7 @@ $(function(){
 												<td>${vo.bd_date}</td>
 												<td>${vo.bd_views}</td>												
 											</tr>
-										</c:when>
+										</c:when>										
 										<c:when test="${vo.bd_del=='Y'}">
 											<tr class="even pointer" data-id="${vo.bd_id}">
 												<td class="a-center "><input type="checkbox"

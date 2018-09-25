@@ -28,7 +28,7 @@
 						<div class="x_content"> 
 		
 							<!-- 게시글 등록시 form submit -->
-							<form action="/adboard/boardCreate" method="post" id="frmInsert"
+							<form action="/adboard/boardReCreate" method="post" id="frmInsert"
 								enctype="multipart/form-data" data-parsley-validate=""
 								class="form-horizontal form-label-left">
 								
@@ -86,7 +86,8 @@
 								<input type="text" id="bd_del" name="bd_del" value="N">
 								<input type="text" id="bd_date" name="bd_date" value="YYYY-MM-DD">
 								<input type="text" id="bd_views" name="bd_views" value='0'>
-								<input type="text" id="bd_parent" name="bd_parent" value="${boardVo.bd_parent}">			
+								<input type="text" id="bd_parent" name="bd_parent" value="${boardVo.bd_parent}">
+								<input type="text" id="bd_group" name="bd_group" value="${boardVo.bd_group}">			
 							</form>
 						</div>
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->

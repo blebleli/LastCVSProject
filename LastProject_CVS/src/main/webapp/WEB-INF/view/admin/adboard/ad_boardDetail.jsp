@@ -176,12 +176,25 @@
                     prevTr.after(replyEditor);
                 } 
 			
-            }); 
             
-			
+            
+        	//파일다운로드
+        	function fn_fileDownload(file_path, file_name, file_upname) {
+        	   $("#frm_file input[name=file_path]").val(file_path);
+        	   $("#frm_file input[name=file_name]").val(f_name);
+        	   $("#frm_file input[name=file_upname]").val(file_upname);
+        	   
+        	   $("#frm_file").prop("action", "/fileDownload.jsp");
+        	   $("#frm_file").submit();            
+
 			$("#boardUpd").on("click", function(){ // 게시글 수정 버튼을 누르면				
 				$("#frm").submit(); // 수정 이동				
 			}); // $("#boardNew").on("click", function(){});
+			
+			$("#boardRe").on("click", function(){ // 게시글 답글 버튼을 누르면
+				$("#frm").attr("action", "/adboard/boardReply"); // /adboard/boardNew 액션을 /adboard/boardReply 변경
+				$("#frm").submit(); // 답글 이동								
+			}); // $("#boardRe").on("click", function(){});           
 			
 			$("#boardDel").on("click", function(){ // 게시글 삭제 버튼을 누르면				
 				if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
@@ -213,7 +226,6 @@
 					return
 				}
 			});
-		}); // function()
 	</script>
 	
     <!-- Datatables -->
@@ -273,16 +285,34 @@
 								<c:forEach items="${FList}" var="vo">
 									<c:choose>
 										<c:when test="${empty vo.file_name}">
-											파일이 없습니다.
+										파일이 없습니다.
 										</c:when>
 										<c:when test="${vo.file_name!=''}">
-											[ ${vo.file_name } ]   
+											[ <a href="javascript:fn_fileDownload('${vo.file_path}', '${vo.file_name}', '${vo.file_upname}');">
+											<label class="control-label">${vo.file_name}</label></a> ]  
 										</c:when>
 									</c:choose>						
 								</c:forEach>
 							</td>
 						</tr>
-
+						</table>
+					
+							
+						<form id="frm" action="/adboard/boardUpdateGo" method="post">
+							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
+								<span style="float: right">
+									<button class="btn btn-primary" id="boardRe" type="reset">답글</button>
+									<button class="btn btn-primary" id="boardUpd" type="button">수정</button>
+									<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
+								</span>
+								<input type="text" id="bd_id" name="bd_id" value="${b.bd_id}">
+								<input type="text" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
+								<input type="text" id="bd_group" name="bd_group" value="${b.bd_group}">
+								<input type="text" id="bd_kind_id2" name="bd_kind_id2" value="${bd_kind_id2}">
+							</div>
+						</form>
+						
+					<table class="table table-striped table-hover" id="reply_area">
 						<tr>
 							<td id="demoFont" class="col-sm-1">댓글</td>
 							<td style="border-collapse:collapse;" colspan="5" class="col-sm-9">
@@ -333,9 +363,6 @@
 									</c:if>
 								</c:forEach>
 							</td>
-							
-							
-							
 						</tr>
 						<tr>
 							<div id="replyDialog" style="display:none">
@@ -349,30 +376,22 @@
 							        <a href="#" onclick="fn_replyReplyCancel()">취소</a>
 							    </form>
 							</div>
-							</tr>
-						
-						
-						
+						</tr>						
 						<!-- 대댓글 달리는 곳 -->
 					</table>
+					
+   
 					</div>
 				</div>
 			</div>
+			
+				<!-- 첨부파일 Form -->
+				<form id="frm_file" action="/content/fileInsert" method="post">
+				<input type="hidden" name="file_path"    /> <!-- 파일명 -->
+				<input type="hidden" name="file_name"    /> <!-- 업로드파일명 -->       
+				<input type="hidden" name="file_upname"    /> <!-- 파일경로 -->
+				</form>
 		
-						
-								
-								
-					<form id="frm" action="/adboard/boardUpdateGo" method="post">
-					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
-						<span style="float: right">
-							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>
-							<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
-						</span>
-						<input type="text" id="bd_id" name="bd_id" value="${b.bd_id}">
-						<input type="text" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
-						<input type="text" id="bd_kind_id2" name="bd_kind_id2" value="${bd_kind_id2}">
-					</div>
-					</form>
 				</div>
 				<!-- ========================================================================== -->
                 </div>
