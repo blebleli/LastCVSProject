@@ -109,7 +109,7 @@ public class CvsDayendController {
 		
 		//재고아이디로 재고 리스트를 불러서 보여준다
 		List<PresentStockListVo> stockList = stockService.getStockListByAttr(map);
-		logger.debug("stockListSize ==> {}",stockList.size());
+
 		
 		return stockList;
 	}
@@ -130,10 +130,11 @@ public class CvsDayendController {
 		
 		//마감재고 insert 진행
 		int end = stockService.dayendInsert(stockVoList, "999", mem_id);
+		logger.debug("마감재고 insert 완료");
 		
 		//내일재고 insert 진행
 		int tomorrow = stockService.dayendInsert(stockVoList, "888", mem_id);
-		
+		logger.debug("내일재고 insert 완료");
 		return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
 
 	}

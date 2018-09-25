@@ -189,7 +189,7 @@ public class SupplyService implements SupplyServiceInf {
 		//입고 목록 페이징 처리후 리스트 가져오기(한 페이지에 10개씩)
 		List<SupplySumProdVo> supplyList = SupplyDao.getSupplyPageList(paramMap);
 		for (SupplySumProdVo supplySumProdVo : supplyList) {
-			logger.debug("supplySumProdVo.getSupply_bcd() : "+supplySumProdVo.getSupply_bcd());
+
 		}
 		resultMap.put("supplyList", supplyList);
 		
@@ -272,16 +272,9 @@ public class SupplyService implements SupplyServiceInf {
 	@Override
 	public Map<String, Object> getSupplyProdPageList(Map<String, Object> paramMap) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
-		
-		logger.debug("paramMap.get(page) : "+paramMap.get("page"));
-		logger.debug("paramMap.get(pageSize) : "+paramMap.get("pageSize"));
-		logger.debug("paramMap.get(supply_bcd) : "+paramMap.get("supply_bcd"));
-		
 		//입고 상세 내역에서 제품들 리스트 10개씩 처리해서 가져오기
 		List<SupplyProdVo> supplyProdList = SupplyDao.getSupplyProdPageList(paramMap);
 		for (SupplyProdVo supplyProdVo : supplyProdList) {
-			logger.debug("supplyProdVo.getProd_name() : "+supplyProdVo.getProd_name());
-			logger.debug("supplyProdVo.getRnum() : "+supplyProdVo.getRnum());
 		}
 		
 		resultMap.put("prodList", supplyProdList);

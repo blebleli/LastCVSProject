@@ -77,7 +77,7 @@ public class StockService implements StockServiceInf {
 	 * 
 	 * Method   : dayendInsert 
 	 * 최초작성일  : 2018. 9. 21. 
-	 * 작성자 : PC06 
+	 * 작성자 : 한수정 
 	 * 변경이력 : 
 	 * @param stockVoList
 	 * @param stock_kind
@@ -107,9 +107,7 @@ public class StockService implements StockServiceInf {
 		
 		//재고or마감 insert
 		stockService.setInsertStock(stockVo);
-		logger.debug(stock_kind+" stock insert 완료 --------------");
-		logger.debug("stockVoList.size()--------------"+stockVoList.size());
-		
+		logger.debug(stock_kind+" stock insert 완료 -----");
 
 //재고or마감 리스트 insert ---------------------------------
 		for (PresentStockListVo stockVoin : stockVoList) {
@@ -125,16 +123,14 @@ public class StockService implements StockServiceInf {
 			barcodeVo.setBcd_kind(kind); 		      			//재고 : 100, 저장소 : 101, 수불 : 102 마감 :103
 			barcodeVo.setBcd_path("-");       	 	 			//경로 888일때는 이미지도 생성
 					 
-			barcodeService.setInsertBarcode(barcodeVo);
-			logger.debug(stock_kind+" barcode insert 완료 --------------");
-			
+			barcodeService.setInsertBarcode(barcodeVo);			
 			
 			//재고or마감 리스트생성---------------------------------				
 			
 			StockListVo stockListVo = new StockListVo();
 			stockListVo.setBcd_id(bcd_id);
 			stockListVo.setProd_id(stockVoin.getProd_id());	        // prod id
-			stockListVo.setSplylist_id("SUP105560000-104-2016-000106386300001"); //stockVoin.getSplylist_id()); //수불입고리스트 id 보류
+			stockListVo.setSplylist_id(stockVoin.getSplylist_id()); //stockVoin.getSplylist_id()); //수불입고리스트 id 보류
 			stockListVo.setStck_date(setDate); 						//888일때 다음날짜 재고로 +1 
 			stockListVo.setStcklist_amount(stockVoin.getStcklist_amount()); // 넘어온 수량값
 			stockListVo.setStcklist_exdate(stockVoin.getStcklist_exdate());
@@ -143,8 +139,9 @@ public class StockService implements StockServiceInf {
 			stockListVo.setStock_id(stock_id);
 			
 			stockService.setInsertStockList(stockListVo);
-			logger.debug(stock_kind+" stocklist insert 완료 --------------");
+			
 		}
+		logger.debug(stock_kind+" barcode + stocklist insert 완료 -----");
 		
 		return 1;
 	}
