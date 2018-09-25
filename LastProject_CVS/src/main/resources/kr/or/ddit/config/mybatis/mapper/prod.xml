@@ -380,6 +380,9 @@ FROM   (
                       ,PROD_PRICE
                       ,PROD_EXNUM
                       ,(SELECT EVENT_NAME FROM EVENT WHERE EVENT_ID = PROD.EVENT_ID) AS EVENT_ID
+                      ,PROD_INTRO
+				      ,FILE_PATH
+				      ,FILE_UPNAME
                FROM PROD
                WHERE 1=1
                
