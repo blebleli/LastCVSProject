@@ -103,7 +103,7 @@
                            <th class="column-title">상품번호 </th> <!-- PROD JOIN -->
                            <th class="column-title">상품이름 </th>
                            <th class="column-title">수량 </th>
-                           <th class="column-title">유통기한 </th>                     	  
+                           <th class="column-title">유통기한 </th>                 	  
                          </tr>
                        </thead>
 						<!--  재고 상세 리스트  -->
@@ -126,7 +126,7 @@
    </div>     
         <!-- /page content -->
 	<script>
-	
+  
 	//재고 상세리스트 출력
 	$("#stockTable tbody").on("click", "tr", function(){
 		var stockID =$(this).find(".stockID").html();	
@@ -143,11 +143,13 @@
 				$.each(stockList,function(index, item){				
 				$("#stockDetailTbody").append(		    								
 							'<tr class="even pointer">'+        
-	                        '<td class=" ">'+(index+1)+'</td>'+	                        
-	                        '<td class=" "><span class="prod_id">'+item.prod_id+'</span></td>'+
-	                        '<td class=" ">'+item.prod_name+'</td>'+
-	                        '<td class=" "><input type="number" name="amount" class="amount" value='+item.stcklist_amount+'></input></td>'+
-	                        '<td class=" "><span class="stcklist_exdate">'+item.stcklist_exdate+'</span></td>'+
+	                        '<td >'+(index+1)+'</td>'+	                        
+	                        '<td ><span class="prod_id">'+item.prod_id+'</span></td>'+
+	                        '<td >'+item.prod_name+'</td>'+
+	                        '<td ><input style="width : 100%" type="number" name="amount" class="amount" value='+item.stcklist_amount+'>'+
+	                        '</input></td>'+
+	                        '<td ><span class="stcklist_exdate">'+item.stcklist_exdate+'</span></td>'+
+	                        '<td ><span class="splylist_id">'+item.splylist_id+'</span></td>'+
 	                        '</tr>'
 
 					);
@@ -155,9 +157,18 @@
 				 
 				})
 		
-				$('#stockListTable').DataTable();
-				console.log("datatable 완");
-				
+				$('#stockListTable').DataTable({
+				  "columnDefs": [
+				      { "width": "20%", "targets": 1 },
+				      { "width": "15%", "targets": 3 },
+				      {
+			                "targets": [ 5 ],
+			                "visible": false,
+			                "searchable": false
+			          }
+				      ]	
+				});
+			
 			}
 		}); 
 
@@ -231,6 +242,6 @@
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
-
+  
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>

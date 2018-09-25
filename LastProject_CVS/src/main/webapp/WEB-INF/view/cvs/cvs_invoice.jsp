@@ -15,6 +15,15 @@
 <!-- Custom styling plus plugins -->
 <link href="../build/css/custom.min.css" rel="stylesheet">
 
+<!-- Datatables -->
+<link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+<link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+
+   
+
 <!-- page content -->
 <div class="right_col" role="main">
 	<div class="">
@@ -43,22 +52,8 @@
 					<div class="x_title">
 						<h2>
 							입고 리스트 내역 <small>현재 선택한 입고 리스트의 상세 내역 페이지 입니다.</small>
-						</h2>
-						<!--                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul> -->
+						</h2>					
+                   
 						<div class="clearfix"></div>
 					</div>
 					<div class="x_content">
@@ -108,15 +103,14 @@
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 -->
 							<div class="row">
 								<div class="col-xs-12 table">
-									<table class="table table-striped">
+									<table id="TblSupplyIn"class="table table-striped">
 										<thead>
-											<tr><th>번호</th>
-												<th style="width: 20%">상품이름</th>
-												<th style="width: 30%">상품코드</th>
-												<th style="width: 30%">비고</th>
-												<th>수량</th>
-												<th>가격</th>
-												<th>합계</th>
+											<tr><th class="column-title">번호</th>
+												<th class="column-title" style="width: 30%">상품이름</th>
+												<th class="column-title" style="width: 20%">상품코드</th>										
+												<th class="column-title">수량</th>
+												<th class="column-title">가격</th>
+												<th class="column-title">합계</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -125,7 +119,7 @@
 													<td>${vo.rnum}</td>
 													<td>${vo.prod_name}</td> <!-- 상품이름 -->
 													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
-													<td>${vo.splylist_info}</td>				<!-- 비고 -->
+													
 													<td>${vo.splylist_sum}</td>	<!-- 수량 -->
 													<td>￦${vo.prod_price}</td>	<!-- 가격 -->
 													<td>￦${vo.splylist_sum * vo.prod_price}</td>	<!-- 합계 -->
@@ -133,9 +127,9 @@
 											</c:forEach>
 										</tbody>
 									</table>
-									<div class="text-center" id="page">
+						<%-- 			<div class="text-center" id="page">
 										<ul class="pagination">${pageNavi}</ul>
-									</div> 
+									</div>  --%>
 								</div>
 							</div>
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 끝-->
@@ -241,7 +235,30 @@
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
 
+<!-- Datatables -->
+<script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+<script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+<script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+<script src="../vendors/jszip/dist/jszip.min.js"></script>
+<script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+<script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+
 <script type="text/javascript">
+$(document).ready(function () {	
+	$('#TblSupplyIn').DataTable();
+});
+
+
 function popupOpen(){
 	var popUrl = "http://localhost:8180/cvs/barcode";	//팝업창에 출력될 페이지 URL
 
