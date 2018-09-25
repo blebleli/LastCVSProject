@@ -1,27 +1,28 @@
 package kr.or.ddit.admin.prod.service;
 
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
 import kr.or.ddit.admin.prod.dao.EventDaoInf;
 import kr.or.ddit.model.EventVo;
 
 @Service("eventService")
-public class EventService implements EventServiceInf {	
-	
-	@Resource(name="eventDao")
-	private EventDaoInf eventDao;
+public class EventService implements EventServiceInf {
 
+	@Resource(name="eventDao")
+	EventDaoInf dao;
+	
 	@Override
 	public int setInsertEvnet(EventVo eventVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.setInsertEvnet(eventVo);
 	}
 
 	@Override
 	public List<EventVo> getListEvent() {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getListEvent();
 	}
 
 	@Override
@@ -35,4 +36,6 @@ public class EventService implements EventServiceInf {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 }
