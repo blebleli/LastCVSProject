@@ -340,7 +340,7 @@
 						<tr>
 							<div id="replyDialog" style="display:none">
 							    <form name="form3" action="board6ReplySave" method="post">
-							        <input type="hidden" name="brdno" value="<c:out value="${boardInfo.brdno}"/>"> 
+							        <input type="hidden" name="brdno" value="admin">
 							        <input type="hidden" name="reno"> 
 							        <input type="hidden" name="reparent"> 
 							        작성자: <input type="text" name="rewriter" size="20" maxlength="20"> <br/>

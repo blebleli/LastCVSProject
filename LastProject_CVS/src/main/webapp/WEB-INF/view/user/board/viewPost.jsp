@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- /**
@@ -109,11 +108,12 @@
 	font-style: normal;
 	font-variant: normal;
 	text-transform: none;
+	text-align: center;
 }
 
 #demoFont2 {
-	font-family: "Arial Black", Gadget, sans-serif;
-	font-size: 15px;
+	font-family: Gadget, sans-serif;
+	font-size: 13px;
 	letter-spacing: -0.6px;
 	word-spacing: -3.8px;
 	color: #000000;
@@ -123,6 +123,7 @@
 	font-variant: normal;
 	text-transform: none;
 }
+
 </style>
 
 <script>
@@ -153,98 +154,140 @@
 </script>
 
 
-<!-- banner -->
-<div class="col-sm-9 col-sm-offset-300 col-md-10 col-md-offset-2 main">
+<!-- products-breadcrumb -->
+<div class="products-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/user/main' />">Home</a><span>|</span></li>
+			<li>공지사항</li>
+		</ul>
+	</div>
+</div>
+<!-- //products-breadcrumb -->
 
-	<div class="row">
+<!-- banner -->
+
+<form action="/board/view" method="post" id="frm">
+	<input type="hidden" name="bd_id" id="bd_id">
+</form>
+
+<div class="banner">
+		<!-- services -->
 		<div class="services">
-			<h3>공지사항</h3>
-			<div class="w3ls_service_grids">
+			<h3>공지사항</h3><br><br><br>
 
 				<div class="table-responsive">
-					<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover">
+				
+					<tr>
+						<td id="demoFont">제목</td>
+						<td id="demoFont2" colspan="6">${post.bd_title}</td>
+					</tr>
 					
-						<tr>
-							<td id="demoFont" class="col-sm-1">작성자 : </td>
-							<td id="demoFont" class="col-sm-9">${post.mem_id}</td>
-						</tr>
-						
-						<tr>
-							<td id="demoFont" class="col-sm-1">작성일자 : </td>
-							<td id="demoFont" class="col-sm-9">${post.bd_date}</td>
-						</tr>
-						
-						<tr>
-							<td id="demoFont" class="col-sm-1">조회수 : </td>
-							<td id="demoFont" class="col-sm-9">${post.bd_views}</td>
-						</tr>
-						
-						<tr>
-							<td id="demoFont">제목</td>
-							<td id="demoFont">${post.bd_title}</td>
-						</tr>
+					<tr>
+						<td id="demoFont" class="col-sm-1">작성자</td>
+						<td id="demoFont2" class="col-sm-9">${post.mem_id}</td>
+						<td id="demoFont" class="col-sm-1">작성일</td>
+						<td id="demoFont2" class="col-sm-9">${post.bd_date}</td>
+						<td id="demoFont" class="col-sm-1">조회수</td>
+						<td id="demoFont2" class="col-sm-9">${post.bd_views}</td>
+					</tr>
+					
+					<tr>
+						<td id="demoFont">내용</td>
+						<td id="demoFont2" colspan="6">${post.bd_content}</td>
+					</tr>
+					
+					<tr>
+						<td id="demoFont" class="col-sm-1">첨부파일</td>
+						<td id="demoFont2" class="col-sm-9" colspan="5">
+							<!--<c:forEach items="${FList}" var="vo">
+								<c:choose>
+									<c:when test="${empty vo.file_name}">
+										파일이 없습니다.
+									</c:when>
+									<c:when test="${vo.file_name!=''}">
+										[ ${vo.file_name } ]   
+									</c:when>
+								</c:choose>						
+							</c:forEach>-->
+						</td>
+					</tr>
+					
+					<tr>
+						<td id="demoFont" class="col-sm-1">댓글</td>
+						<td style="border-collapse:collapse;" colspan="6" class="col-sm-9">
+							<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
+							<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
+								<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
+<%-- 								<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}"> --%>
+<%-- 								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">									 --%>
+								<input type="hidden" id="mem_id" name="mem_id" value="admin">									
+								<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
+								<input type="hidden" name="cm_RadioCkeck">									 
+								<input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked" >공개
+								<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
+							</form>
+						</td>
+					</tr>
 
-						<tr>
-							<td id="demoFont">글내용</td>
-							<td id="demoFont">${post.bd_content}</td>
-						</tr>
-
-						<tr id="comment">
-							<td id="demoFont">댓글</td>
-							
-							<tr>
-							<td>
-							</td>	
-							<td>
-								<div id="reComments">
-									<form action="/board/newComment" method="post" name="cm_content[0]" id="cm_content">
-										<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">
-										<input type="hidden" id="bd_id" name="bd_id" value="${post.bd_id}"> 
-										<input type="submit" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">
-										<input type="radio" name="cm_openny" value="Y" >공개
-										<input type="radio" name="cm_openny" value="N" >비공개
+					<tr id="comment">
+						<td></td>					
+						<td id="demoFont" colspan="5">
+								<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
+							<!--<c:forEach items="${cList}" var="vo">
+								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
+									<form id="delete" action="/adboard/commentsDel" method="post">
+										${vo.mem_id} >>> ${vo.cm_content} [${vo.cm_date}]
+										<input type="hidden" name="cm_id" value="${vo.cm_id}">
+										<input type="hidden" name="bd_id" value="${vo.bd_id}">
+										<input type="hidden" name="mem_id" value="admin">-->
+										<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">
+										<button onclick="fn_replyReply(reno);" id="commentsdab" style="font-size:12px" class="btn btn-default">답글</button>
+										
+<!-- 											<br id="this"> 
+<!-- 											<span class="clazz"></span> 
 									</form>
-								</div>
-							</td>
-							<td>
-							</td>
+								<!--</c:if>
+								<c:if test="${vo.cm_delny == 'Y'}">
+									삭제된 댓글입니다.<br>
+								</c:if>
+								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
+									<form id="delect" action="/adboard/deleteComment" method="get">
+										비공개 댓글 입니다.
+										<input type="hidden" name="cm_id" value="${vo.cm_id}">
+										<input type="hidden" name="bd_id" value="${vo.bd_id}">
+										<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
+										<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
+										<br>
+									</form>
+								</c:if>
+							</c:forEach>-->
+						</td>
+			
 						</tr>
-							<td id="demoFont2">
-								<c:forEach items="${commentsList}" var="vo">
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}"  >
-										<form id="delect" action="/board/deleteComment" method="post">
-											${vo.mem_id}님의 댓글 : ${vo.cm_content}/[${vo.cm_date}]
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="hidden" name="bd_id" value="${vo.bd_id}">
-											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
-											<input type="button" name="reCommentsbt" id="reCommentsbt" style="font-size:12px" class="btn btn-default" value="답글">
-											<br id="this">
-										</form>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'Y'}">
-										삭제된 댓글입니다.<br>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-										<form id="delect" action="/board/deleteComment" method="post">
-											비공개 댓글 입니다.
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="hidden" name="bd_id" value="${vo.bd_id}">
-											<input type="submit" style="font-size:12px" class="btn btn-default" value="삭제">
-											<br>
-										</form>
-									</c:if>
-								</c:forEach>
-							</td>
+						<tr>
+							<div id="replyDialog" style="display:none">
+							    <form name="form3" action="board6ReplySave" method="post">
+							        <input type="hidden" name="brdno" value="admin">
+							        <input type="hidden" name="reno"> 
+							        <input type="hidden" name="reparent"> 
+							        작성자: <input type="text" name="rewriter" size="20" maxlength="20"> <br/>
+							        <textarea name="rememo" rows="3" cols="60" maxlength="500"></textarea>
+							        <a href="#" onclick="fn_replyReplySave()">저장</a>
+							        <a href="#" onclick="fn_replyReplyCancel()">취소</a>
+							    </form>
+							</div>
 						</tr>
 						
-						
-					</table>
-				</div>
+						<!-- 대댓글 달리는 곳 -->					
+											
+				</table>
 			</div>
 		</div>
+	<div class="col-md-10 w3ls_service_grid_left">
+		<div class="search"></div>							
 	</div>
-
-</div>
+</div>		
 <!-- //services -->
 <div class="clearfix"></div>
-

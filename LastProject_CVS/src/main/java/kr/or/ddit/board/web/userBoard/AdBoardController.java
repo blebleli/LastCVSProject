@@ -43,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/board")
 @Controller("adBoardController")
 public class AdBoardController {
+	
 	private Logger logger = LoggerFactory.getLogger(AdBoardController.class);
 
 	@Resource(name="boardService")
@@ -52,12 +53,12 @@ public class AdBoardController {
 	private BoardDaoInf boardDao;
 
 	/**
-	 * Method : boardView
-	 * Method 설명 : 공지사항 메인 화면 조회
+	 * Method : boardListView
+	 * Method 설명 : 사용자 공지사항 메인 화면 조회
 	 * 최초작성일 : 2018. 9. 4.
 	 * 작성자 : 조계환
 	 * 변경이력 : 신규
-	 * 조 회 : 공지사항 메인 화면 조회
+	 * 조 회 : 사용자 공지사항 메인 화면 조회
 	 * @return
 	 */
 	@RequestMapping("/boardMain")
@@ -80,12 +81,12 @@ public class AdBoardController {
 	}
 	
 	/**
-	 * Method : boardView
-	 * Method 설명 : 게시판 메인 화면으로 가는 길
-	 * 최초작성일 : 2018. 9. 4.
-	 * 작성자 : 조계환
-	 * 변경이력 :신규
-	 * 조 회 :public String boardView()_게시판 메인 화면으로 가는 길
+	 * Method : boardEventListView
+	 * Method 설명 : 사용자 이벤트&행사 게시판 메인 화면으로 가는 길
+	 * 최초작성일 : 2018. 9. 25.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * 조 회 : public String boardEventListView()_사용자 이벤트&행사 게시판 메인 화면으로 가는 길
 	 * @return
 	 */
 	@RequestMapping("/boardEventMain")
@@ -107,8 +108,6 @@ public class AdBoardController {
 		return "eventList";
 	}
 	
-	
-	
 	/**
 	* Method : createNoticePostView
 	* Method 설명 :공지사항 게시물 작성 화면으로 넘어가기
@@ -121,8 +120,7 @@ public class AdBoardController {
 	@RequestMapping("/createNoticePostView")
 	public String createNoticePostView(){
 		return "newNoticePost";
-	}
-	
+	}	
 	
 	/**
 	* Method : postView
@@ -151,9 +149,7 @@ public class AdBoardController {
 		model.addAttribute("commentsList",commentsList);
 		
 		return "viewPost";
-	}
-	
-	
+	}	
 	
 	/**
 	* Method : newComment
