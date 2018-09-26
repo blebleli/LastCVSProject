@@ -8,8 +8,10 @@ import javax.annotation.Resource;
 
 import kr.or.ddit.board.dao.BoardDaoInf;
 import kr.or.ddit.board.service.BoardServiceInf;
+import kr.or.ddit.filedata.service.FileServiceInf;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
+import kr.or.ddit.model.FiledataVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +50,9 @@ public class AdBoardController {
 
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
+	
+	@Resource(name="fileService")
+	private FileServiceInf fileService;
 
 	@Resource(name="boardDao")
 	private BoardDaoInf boardDao;
@@ -243,20 +248,18 @@ public class AdBoardController {
 	* @param model
 	* @return
 	*/
-	@RequestMapping(value="/view")
-	public String postView(@RequestParam(value="bd_id")String bd_id, Model model){
+	@RequestMapping("/view")
+	public String postView(@RequestParam(value="id", defaultValue="") String bd_id,
+			  			   @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2, Model model){
 		
-		//클릭한 게시글의 정보를 객체로 가져옴
-		BoardVo post = boardService.getBoard(bd_id);
-		
-		//댓글 리스트 출력
-		List<CommentsVo> commentsList = boardService.getListComments(bd_id);
-		
-		//게시글에 대한 정보를 뿌려주기 위함
-		model.addAttribute("post",post);
-		
-		//게시글에 대한 댓글들을 뿌려주기 위함
-		model.addAttribute("commentsList",commentsList);
+		BoardVo post = boardService.getBoard(bd_id); // 게시판 코드(bd_id)로 게시글 상세조회를 한다.
+		List<CommentsVo> commentsList = boardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
+		List<FiledataVo> FList = fileService.getFiledata(bd_id); // 게시판 코드(bd_id)로 해당 첨부파일 전체를 조회한다.
+		model.addAttribute("bd_id", bd_id);
+		model.addAttribute("bd_kind_id2", bd_kind_id2);
+		model.addAttribute("post", post); // model에 저장한다.
+		model.addAttribute("commentsList", commentsList); // model에 저장한다.
+		model.addAttribute("FList", FList); // model에 저장한다.
 		
 		return "viewPost";
 	}	

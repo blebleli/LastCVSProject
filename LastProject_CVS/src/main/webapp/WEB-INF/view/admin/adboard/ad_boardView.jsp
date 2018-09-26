@@ -202,10 +202,8 @@ $(function(){
 						
 						<table>
 							<tbody>
-								<c:if test="${bd_kind_id=='55'}">
-								<tr>
-								<th scope="row">카테고리별</th>
-								<td>					
+								<tr class="search">
+								<c:if test="${bd_kind_id=='55'}">												
 									<select id="ctgy_name" name="ctgy_name" style="width:130px;" onchange="searchCtgyList(this.value);">
 										<option value="">선택</option>
 											<c:forEach items="${categoryList}" var="vo">
@@ -216,15 +214,8 @@ $(function(){
 													</c:when>
 												</c:choose>													
 											</c:forEach>
-									</select>										
-									<select id="ctay_sub" name="ctay_sub" style="width:180px;">
-										<option value="">선택</option>
-									</select>										
-									<button type="button" class="btn btn-primary">검색</button>																																		
-									<button type="button" class="btn btn-default">초기화</button>		
-								</td>										
-								</tr></c:if>
-								<tr class="search">
+									</select>
+								</c:if>
 									<select id="i" name="i">
 										<option value="1">제목</option>
 										<option value="2">내용</option>

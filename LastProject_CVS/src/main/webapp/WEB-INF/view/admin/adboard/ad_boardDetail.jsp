@@ -77,11 +77,11 @@
 .list_service .group_service .text {
 	letter-spacing: -1px;
 	line-height: 1em;
-}
-
+} -->
+<style>
 #demoFont {
 	font-family: sans-serif;
-	font-size: 15px;
+	font-size: 13px;
 	letter-spacing: -0.6px;
 	word-spacing: -3.8px;
 	color: #000000;
@@ -237,7 +237,10 @@
 					
 						<tr>
 							<td id="demoFont" class="col-sm-1">제목</td>
-							<td id="demoFont" class="col-sm-9" colspan="5">${b.bd_title}</td>
+							<td id="demoFont" class="col-sm-9" colspan="3">${b.bd_title}</td>
+
+							<td></td>
+							<td></td>
 						</tr>
 						
 
@@ -254,12 +257,14 @@
 
 						<tr>
 							<td id="demoFont" class="col-sm-1">내용</td>
-							<td id="demoFont" class="col-sm-9" colspan="5">${b.bd_content}</td>
+							<td id="demoFont" class="col-sm-9" colspan="3">${b.bd_content}</td>
+							<td></td>
+							<td></td>							
 						</tr>
 						
 						<tr>
 							<td id="demoFont" class="col-sm-1">첨부파일</td>
-							<td id="demoFont" class="col-sm-9" colspan="5">
+							<td id="demoFont" class="col-sm-9" colspan="3">
 								<c:forEach items="${FList}" var="vo">
 									<c:choose>
 										<c:when test="${empty vo.file_name}">
@@ -272,6 +277,8 @@
 									</c:choose>						
 								</c:forEach>
 							</td>
+														<td></td>
+							<td></td>
 						</tr>
 						</table>
 					
@@ -290,28 +297,11 @@
 							</div>
 						</form>
 						
-					<table class="table table-striped table-hover" id="reply_area">
-						<tr>
-							<td id="demoFont" class="col-sm-1">댓글</td>
-							<td style="border-collapse:collapse;" colspan="5" class="col-sm-9">
-								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
-								<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
-									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
-									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
-									<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">									
-									<input type="hidden" id="mem_id" name="mem_id" value="admin">									
-									<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
-									<input type="hidden" name="cm_RadioCkeck">									 
-									<input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked" >공개
-									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
-								</form>
-							</td>
-						</tr>
-						
+					<table class="table table-striped table-hover" id="reply_area">					
+						<c:forEach items="${cList}" var="vo">
 						<tr id="comment">
-							<td></td>
-							<td id="demoFont2" colspan="5">
-								<c:forEach items="${cList}" var="vo">
+							<td>작성자 사진</td>
+							<td id="demoFont2" rowspan="2" colspan="6">
 									<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
 									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
 										<form id="delete" action="/adboard/commentsDel" method="post">
@@ -319,11 +309,6 @@
 											<input type="hidden" name="cm_id" value="${vo.cm_id}">
 											<input type="hidden" name="bd_id" value="${vo.bd_id}">
 											<input type="hidden" name="mem_id" value="admin">
-											<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">
-											<button id="commentsdab" style="font-size:12px" class="btn btn-default">답글</button>
-											
-<!-- 											<br id="this"> -->
-<!-- 											<span class="clazz"></span> -->
 										</form>
 									</c:if>
 									<c:if test="${vo.cm_delny == 'Y'}">
@@ -339,11 +324,48 @@
 											<br>
 										</form>
 									</c:if>
-								</c:forEach>
-							</td>
-						</tr>
+								</td>
+								<td rowspan="2">
+									<button id="commentsUpd" style="font-size:12px" class="btn btn-default">수정</button>
+									<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">
+									<button id="commentsdab" style="font-size:12px" class="btn btn-default">답글</button>								
+								</td>
+							</tr>
+							<tr>
+								<td>${vo.mem_id} / ${vo.cm_date}</td>
+							</tr>
+							</c:forEach>
+						
+						
+						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 						<tr>
-						</tr>						
+							<td id="demoFont" class="col-sm-1">댓글</td>
+							<td style="border-collapse:collapse;" rowspan="2" colspan="6" class="col-sm-9">
+								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
+									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
+									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
+									<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">									
+									<input type="hidden" id="mem_id" name="mem_id" value="admin">									
+									<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
+									<input type="hidden" name="cm_RadioCkeck">
+							</td>
+							<td>
+							</td>
+							
+						</tr>
+						
+						<tr>
+						<td><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개
+									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개</td>
+						<td>
+
+										
+												
+						</tr>
+							</form>
+						
+
+						
 						<!-- 대댓글 달리는 곳 -->
 					</table>
 					
