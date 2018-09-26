@@ -2,9 +2,6 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 
-<title>DataTables | gogoCVS prodList</title>
-
-
 
 <!-- Bootstrap -->
 <!-- <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -25,24 +22,46 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
-<script src="build/js/jquery-1.12.4.js"></script>
+<script src="/build/js/jquery-1.12.4.js"></script>
+
 <script>
-        function categoryPopup(){
-            var url="/adprod/categoryPopup";
-            window.open("/adprod/categoryPopup","카테고리추가","width=800,height=450,left=500, top=100");
-        }
-        
-        function eventPopup(){
-        	var url="/adprod/eventPopup";
-            window.open(url,"이벤트추가","width=800,height=450,left=500, top=100");
-        }
-        
-        function prodPopup(){
-        	var url="/adprod/prodPopup";
-            window.open(url,"제품추가","width=800,height=450,left=500, top=100");
-        }
-        
+function categoryPopup(){
+    var url="/adprod/categoryPopup";
+    window.open("/adprod/categoryPopup","카테고리추가","width=800,height=450,left=500, top=100");
+}
+
+function eventPopup(){
+	var url="/adprod/eventPopup";
+    window.open(url,"이벤트추가","width=800,height=450,left=500, top=100");
+}
+
+function prodPopup(){
+	var url="/adprod/prodPopup";
+    window.open(url,"제품추가","width=800,height=450,left=500, top=100");
+}
+
+// 제품 삭제
+function fn_prodDel(prod_id,prod_name){
+	
+	var chk = confirm("삭제\n\n["+prod_name+"] 을 삭제 하시겠습니까?");
+	
+	if(chk){
+		$("#prod_id").val(prod_id);
+		$("prod_action").submit();
+	}
+}
+// 제품 수정
+function fn_prodUp(prod_id){
+	var url="/adprod/prodUpdatePopup";
+    window.open(url,"제품추가","width=800,height=450,left=500, top=100");
+	
+}
+
 </script>
+
+<form action="/adprod/prodDel" method="post" id="prod_action">
+	<input type="hidden" id="prod_id"  name="prid_id" value="">
+</form>
 
 
 <!-- </head> -->
@@ -77,26 +96,17 @@
 								<div class="x_title">
 						
 									<div class="col-xs-12">
-<!-- 										<button class="btn btn-default" onclick="window.print();"> -->
-<!-- 											<i class="fa fa-print"></i> Print -->
-<!-- 										</button> -->
-										
-<!-- 										<span> -->
-<!-- 										<button class="btn btn-default" id="btnExcel" onclick="excelDown();"> -->
-<!-- 											<i class="fa fa-print"></i> Excel -->
-<!-- 										</button> -->
-<!-- 										</span> -->
 										
 										<button class="btn btn-default" id="categoryBtn" onclick="categoryPopup();">
-											<i class="fa fa-print"></i> 카테고리
+											<i class="fa fa-print"></i> 카테고리 등록
 										</button>
 										
 										<button class="btn btn-default" id="eventBtn" onclick="eventPopup();">
-											<i class="fa fa-print"></i> 행사
+											<i class="fa fa-print"></i> 행사 등록
 										</button>
 										
 										<button class="btn btn-default" id="prodBtn" onclick="prodPopup();">
-											<i class="fa fa-print"></i> 제품
+											<i class="fa fa-print"></i> 제품 등록
 										</button>
 									</div>
 									<div class="clearfix"></div>
@@ -119,9 +129,9 @@
 				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 10%;" aria-label="Start date: activate to sort column ascending">유통기한</th>
 				
 				<!-- 아래 상세보기 -->				
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; display: none; " aria-label="Salary: activate to sort column ascending" >행사</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Salary: activate to sort column ascending">소개</th>
-				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; display: none;" aria-label="Salary: activate to sort column ascending">사진</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; " aria-label="Salary: activate to sort column ascending" >행사</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; " aria-label="Salary: activate to sort column ascending">소개</th>
+				<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 0px; " aria-label="Salary: activate to sort column ascending">사진</th>
 				
 			</tr>
 		</thead>
@@ -130,7 +140,10 @@
 				<c:when test="${!empty prodList}">
 						<c:forEach items="${prodList }" var="vo">
 						<tr role="row" class="odd">
-							<th scope="row" align="center">${vo.cnt }</th>
+							<td scope="row" align="center">${vo.cnt }<button class="btn btn-default" id="prodDel" onclick="fn_prodDel('${vo.prod_id}','${vo.prod_name}'); return false">
+										<i class="fa fa-print"></i> 삭제</button>
+									<button class="btn btn-default" id="prodUp" onclick="fn_prodUp('${vo.prod_id}'); return false;"><i class="fa fa-print"></i> 수정</button>
+							</td>
 							<td class="" tabindex="0">${vo.pr_class_lg }</td>
 							<td class="sorting_1">${vo.pr_class_md }</td>
 							<td>${vo.prod_name }</td>
@@ -138,9 +151,9 @@
 							<td align="right">${vo.prod_price }원</td>          	
 							<td align="right">${vo.prod_exnum }일</td>          	
 
-							<td style="display: none;">${vo.event_id }</td>
-							<td style="display: none;">${vo.prod_intro }</td>
-						    <td style="display: none;"><img src="${vo.file_path }/${vo.file_upname }" width="50px;" height="50px;"/></td>
+							<td >${vo.event_id }</td>
+							<td >${vo.prod_intro }</td>
+						    <td ><img src="${vo.file_path }/${vo.file_upname }" width="50px;" height="50px;"/></td>
 						</tr>
 					</c:forEach>
 				</c:when>

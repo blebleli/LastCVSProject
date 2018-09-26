@@ -30,15 +30,6 @@
         <ul class="nav side-menu">
           <li><a href="main"><i class="fa fa-home"></i> Home </a>
           </li> 
-           <!-- 조종원 -->
-           <li><a><i class="fa fa-table"></i> 상품관리 <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-           	   <li><a href="/adprod/adprodView">상품 조회/삭제</a></li>
-               <li><a href="#">상품 등록</a></li>
-               <li><a href="#">상품 수정</a></li>
-            </ul>
-          </li>
-          <!-- 조종원 -->
           
           <!-- 조계환 -->
           <li><a><i class="fa fa-table"></i> 수주 처리 <span class="fa fa-chevron-down"></span></a>
@@ -69,7 +60,7 @@
 			<ul class="nav child_menu">
 				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/cvsMemberList' />">사업장(지점)관리</a></li>
 				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/userMemberList' />">사용자(회원)관리</a></li>
-				<li><a href="#">상품등록관리</a></li>
+				<li><a href="/adprod/adprodView">상품등록관리</a></li>
 				<li><a href="#">행사제품/이벤트관리</a></li>
 			</ul>
 		  </li>
