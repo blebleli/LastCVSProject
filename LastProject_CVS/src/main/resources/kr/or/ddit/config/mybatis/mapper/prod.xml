@@ -463,4 +463,29 @@ INSERT INTO PROD (PROD_ID, PROD_NAME, PROD_INTRO, PROD_INFO, PROD_PRICE, PROD_EX
             )
 </insert>
 
+
+<!-- 	아 이 디 : setProdDelete
+  		반 환 값 : 
+  		매개변수 : String
+  		설    명 : 제품 delete
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-27 
+-->
+<delete id="setProdDelete" parameterType="String">
+	DELETE FROM PROD WHERE PROD_ID = #{prod_id}
+</delete>
+
+<!-- 	아 이 디 : setProdUpdate
+  		반 환 값 : 
+  		매개변수 : prodVo
+  		설    명 : 제품 delete
+  		작 성 자 : 조종원
+  		일    시 : 2018-09-27 
+-->
+<delete id="setProdUpdate" parameterType="prodVo">
+	UPDATE PROD
+	SET		
+	WHERE  PROD_ID = #{prod_id}
+</delete>
+
 </mapper>
