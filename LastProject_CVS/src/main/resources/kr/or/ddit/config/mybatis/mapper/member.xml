@@ -324,4 +324,10 @@
 		  AND M.MEM_KIND = '01'        -- 편의점
 		  AND SL.PROD_ID   = #{prod_id}        -- 제품코드
   	</select>
+  	
+  	<delete id="deleteCvsMember" parameterType="memberVo">
+  		DELETE FROM MEMBER
+  		WHERE MEM_ID = #{mem_id}
+  	</delete>
+  	
 </mapper>
