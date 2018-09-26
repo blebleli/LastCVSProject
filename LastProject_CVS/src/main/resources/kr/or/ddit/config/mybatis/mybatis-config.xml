@@ -69,6 +69,7 @@
   	<typeAlias type="kr.or.ddit.admin.model.CvsCountVo" alias="cvsCountVo"/>
   	<typeAlias type="kr.or.ddit.admin.model.MonthTopVo" alias="monthTopVo"/>
   	<typeAlias type="kr.or.ddit.admin.model.RankVo" alias="rankVo"/>
+  	<typeAlias type="kr.or.ddit.store_owner.model.OnedayChartVo" alias="onedayChartVo"/>
   	
   	<!-- 0920한수정 POS결제관련 -->
   	<typeAlias type="kr.or.ddit.store_owner.model.PosPayVo" alias="posPayVo"/>
