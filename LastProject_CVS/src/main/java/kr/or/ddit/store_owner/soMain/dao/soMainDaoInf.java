@@ -2,7 +2,9 @@ package kr.or.ddit.store_owner.soMain.dao;
 
 import java.util.List;
 
+import kr.or.ddit.admin.model.RankVo;
 import kr.or.ddit.model.DisposalListVo;
+import kr.or.ddit.store_owner.model.OnedayChartVo;
 import kr.or.ddit.store_owner.model.salelistJoinVo;
 
 /**
@@ -73,4 +75,48 @@ public interface soMainDaoInf {
 	 * Method 설명 : List<salelistJoinVo> getListProdSales()_제품 판매량 리스트 출력
 	 */
 	List<salelistJoinVo> getListProdSales(String mem_id);
+	
+	/**
+	 * Method : cvsOnedayTotalSale
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return List<OnedayChartVo>
+	 * Method 설명 : 편의점의 일매출 
+	 */
+	List<OnedayChartVo> cvsOnedayTotalSale(String mem_id);
+	
+	/**
+	 * Method : cvsOnedayTotalIncome
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return List<OnedayChartVo>
+	 * Method 설명 : 편의점의 일 순이익(매출-원가) 
+	 */
+	List<OnedayChartVo> cvsOnedayTotalIncome(String mem_id);
+	
+	/**
+	 * Method : cvsCtgyRank
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return List<RankVo>
+	 * Method 설명 : 편의점의 인기 상품분류 
+	 */
+	List<RankVo> cvsCtgyRank(String mem_id);
+	
+	/**
+	 * Method : cvsBestProd
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return List<RankVo>
+	 * Method 설명 : 편의점의 인기 상품 
+	 */
+	List<RankVo> cvsBestProd(String mem_id);
 }
