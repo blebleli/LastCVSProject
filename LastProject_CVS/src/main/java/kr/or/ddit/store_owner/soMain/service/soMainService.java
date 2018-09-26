@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.admin.model.RankVo;
+import kr.or.ddit.store_owner.model.OnedayChartVo;
 import kr.or.ddit.store_owner.model.salelistJoinVo;
 import kr.or.ddit.store_owner.soMain.dao.soMainDaoInf;
 
@@ -55,5 +57,25 @@ public class soMainService implements soMainServiceInf {
 	@Override
 	public List<salelistJoinVo> getListProdSales(String mem_id) {
 		return somainDao.getListProdSales(mem_id);
+	}
+
+	@Override
+	public List<OnedayChartVo> cvsOnedayTotalSale(String mem_id) {
+		return somainDao.cvsOnedayTotalSale(mem_id);
+	}
+
+	@Override
+	public List<OnedayChartVo> cvsOnedayTotalIncome(String mem_id) {
+		return somainDao.cvsOnedayTotalIncome(mem_id);
+	}
+
+	@Override
+	public List<RankVo> cvsCtgyRank(String mem_id) {
+		return somainDao.cvsCtgyRank(mem_id);
+	}
+
+	@Override
+	public List<RankVo> cvsBestProd(String mem_id) {
+		return somainDao.cvsBestProd(mem_id);
 	}
 }
