@@ -7,10 +7,22 @@
 <!-- <head> -->
 <title>gogoCVS admin | cvsInsert </title>
 
+<script src="/build/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> 
+<!-- 달력 js -->
+<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/common/jquery.form.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
+
+
+<!-- 주소검색 -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <style type="text/css">
+div.field {width:850px;}
+span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
+	
 .form_wizard .stepContainer {
-   
    border: 2px solid #CCC;
    overflow-x: hidden;
 }
@@ -22,22 +34,20 @@
 .col-md-3 {
     width: 20%;
 }
-.glyphicon glyphicon-search {
-    border-left: 1px solid #ccc;
-    right: 13px;
-	margin-top: 8px;
-    height: 23px;
-    line-height: 24px;
-	font: normal normal normal 14px/1 FontAwesome;
-	top: 0;
-    position: absolute;
-    width: 34px;
-	text-align: center;
-}
+/* .glyphicon glyphicon-search { */
+/*     border-left: 1px solid #ccc; */
+/*     right: 13px; */
+/* 	margin-top: 8px; */
+/*     height: 23px; */
+/*     line-height: 24px; */
+/* 	font: normal normal normal 14px/1 FontAwesome; */
+/* 	top: 0; */
+/*     position: absolute; */
+/*     width: 34px; */
+/* 	text-align: center; */
+/* } */
 
 </style>
-
-<script src="build/js/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 <!--
 
@@ -48,7 +58,7 @@ var contextPath = "${pageContext.request.contextPath}";
 $(document).ready(function() {
 
 	// 달력
-	$("#mem_birth").calendar();
+	//$("#mem_birth").calendar();
 	
 	//  Message
 	if("${resultMessage}" != null && "${resultMessage}" != "") {
@@ -88,11 +98,11 @@ $(document).ready(function() {
 	/**
 	 * 생년월일 입력했을 때  pw값  생년월일로 임의로 셋팅
 	 */
-	$("#mem_birth").on("blur", function() {
-		if($("#mem_birth").val() != '') {
-			$("#mem_pw").val($("#mem_birth").val());
-		}
-	});
+	//$("#mem_birth").on("blur", function() {
+	//	if($("#mem_birth").val() != '') {
+	//		$("#mem_pw").val($("#mem_birth").val());
+	//	}
+	//});
 	
 	
 	/**
@@ -251,47 +261,46 @@ $(document).ready(function() {
 	 *	daum 주소검색 api
 	 */
 	 $("#btnOpenSearchZip").on("click", function() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
 
-		    new daum.Postcode({
-		        oncomplete: function(data) {
-		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+	        	 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullAddr = ''; // 최종 주소 변수
+                var extraAddr = ''; // 조합형 주소 변수
 
-		        	 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-	                var fullAddr = ''; // 최종 주소 변수
-	                var extraAddr = ''; // 조합형 주소 변수
+                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    fullAddr = data.roadAddress;
 
-	                // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-	                    fullAddr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    fullAddr = data.jibunAddress;
+                }
 
-	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-	                    fullAddr = data.jibunAddress;
-	                }
+                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+                if(data.userSelectedType === 'R'){
+                    //법정동명이 있을 경우 추가한다.
+                    if(data.bname !== ''){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있을 경우 추가한다.
+                    if(data.buildingName !== ''){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+                }
 
-	                // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-	                if(data.userSelectedType === 'R'){
-	                    //법정동명이 있을 경우 추가한다.
-	                    if(data.bname !== ''){
-	                        extraAddr += data.bname;
-	                    }
-	                    // 건물명이 있을 경우 추가한다.
-	                    if(data.buildingName !== ''){
-	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-	                    }
-	                    // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-	                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-	                }
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('mem_zip').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('mem_add').value = fullAddr;
 
-	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('mem_zip').value = data.zonecode; //5자리 새우편번호 사용
-	                document.getElementById('mem_add').value = fullAddr;
-
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById('mem_addr').focus();
-		        }
-		    }).open(); 
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById('mem_addr').focus();
+	        }
+	    }).open(); 
 	 });
 	
 	
@@ -312,10 +321,6 @@ function fn_errMessage(_obj, _text) {
 }
 </script>
 
-
-
-<!-- 주소검색 -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <!-- </head> -->   
       
@@ -341,9 +346,9 @@ function fn_errMessage(_obj, _text) {
             <div class="x_panel">
               <div class="x_title">
                 <h2><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">사업장 등록 정보 입력 |  </font></font></h2>
-                <span> <p>지점을 등록하시려면 아래의 필수사항을 반드시 입력하신 후 등록 버튼을 클릭해 주시기 바랍니다.</p></span><br>
-				<p class="join_txt">	<img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"> 표시는 필수입력 항목 이오니 반드시 입력해 주세요.
-				</p>
+                <span> <p class="join_txt">	<img src="//sstatic.ssgcdn.com/ui/ssg/img/mem/ico_star.gif" alt="필수"> 표시는 필수입력 항목 이오니 반드시 입력해 주세요.
+				</p> </span>
+				
                 <div class="clearfix"></div>
               </div>
               <div class="x_content">
@@ -359,7 +364,7 @@ function fn_errMessage(_obj, _text) {
                   <div id="step-11" class="content" style="display: block;">
                   
 
-                     <span class="section"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">편의점 기본정보</font></font></font></font></span>
+                     <span class="section" style="margin-bottom: 40px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">편의점 기본정보</font></font></font></font></span>
 					<!-- 편의점 사업자번호, hidden : 비밀번호, 회원유형,   -->
                      <div class="form-group">
                        <label class="control-label col-md-3 col-sm-3" for="first-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 사업자번호 </font></font></font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></font></font></span>
@@ -399,14 +404,28 @@ function fn_errMessage(_obj, _text) {
                        <label class="control-label col-md-3 col-sm-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">우편번호</font></font></font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></font></font></span>
                        </label>
                        
-                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback"><div class="input-group">
-                         <input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="" placeholder="우편번호찾기" class="form-control" readonly="readonly"  style="width: 150px;"/> <span>
-						 <a href="javascript:void(0);" id="btnOpenSearchZip"  title="새창열림"><span class="input-group-addon"><span class="fa-search form-control-feedback right" aria-hidden="true"></span></span></a></span>
-                         </div>
-                         
-                         
+<!--                       	<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search" style="width: 200px;"> -->
+<!-- 		                  <div class="input-group"> -->
+<!-- 		                    <input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="" class="form-control"  placeholder="우편번호찾기"   /> -->
+<!-- 		                    <span class="input-group-btn"> -->
+<!-- 		                      <button class="btn btn-default" type="button" id="btnOpenSearchZip" title="우편번호검색창열림"> <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span></button> -->
+<!-- 		                    </span> -->
+<!-- 		                  </div> -->
+<!-- 		                </div> -->
+		                
+					        <div class="col-md-5 col-sm-5 col-xs-12 form-group top_search" style="float:left; width:200px; padding-left: 10px;  margin-bottom: 0px;">
+			                  <div class="input-group"    >
+			                   <input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="" class="form-control"  placeholder="우편번호찾기.."   readonly="readonly"   />
+			                    <span class="input-group-btn">
+			                      <button class="btn btn-default" type="button" id="btnOpenSearchZip" style="background-color:#eee;"> <span class="fa fa-search form-control-feedback right" aria-hidden="true"></span>&nbsp;</button>
+			                    </span>
+			                  </div>
+			                </div>
+                        
                          <span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
-                       </div>
+                    
+                       
+                       
                        
                      </div>
                      <!-- 편의점 주소(주소)   -->
@@ -434,31 +453,40 @@ function fn_errMessage(_obj, _text) {
 <div class="form_wizard wizard_horizontal" id="wizard">
 
                  <div class="stepContainer" style="height: 281px; padding :10px; margin-top:30px;"><div id="step-1" class="content" style="display: block;">
-<!--                    <form class="form-horizontal form-label-left"> -->
+<!--             <form class="form-horizontal form-label-left"> -->
 				 <span class="section"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">점주 기본 정보</font></font></font></font></span>
-
+					
+					 <!-- 점주 이름   -->
                      <div class="form-group" style="margin-top: 20px;">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이름 </font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></span>
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">점주명 </font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></span>
                        </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                        </div>
                      </div>
+                     
+                      <!-- 점주 연락처   -->
                      <div class="form-group">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">성 </font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></span>
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">점주연락처 </font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></span>
                        </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
                          <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
                        </div>
                      </div>
+                     
+                      <!-- 점주 생년월일   -->
                      <div class="form-group">
-                       <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">중간 이름 / 이니셜</font></font></label>
+                       <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">생년월일</font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></span>
+                       </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
                          <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
                        </div>
                      </div>
+                     
+                      <!-- 점주 성별   -->
                      <div class="form-group">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">성별</font></font></label>
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">성별</font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></span>
+                       </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
                          <div id="gender" class="btn-group" data-toggle="buttons">
                            <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
@@ -470,13 +498,8 @@ function fn_errMessage(_obj, _text) {
                          </div>
                        </div>
                      </div>
-                     <div class="form-group">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">생년월일 </font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></span>
-                       </label>
-                       <div class="col-md-6 col-sm-6 col-xs-12">
-                         <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                       </div>
-                     </div>
+                     
+                  
 
 <!--                    </form> -->
 
@@ -495,56 +518,24 @@ function fn_errMessage(_obj, _text) {
                       
      
 
-                 <div class="stepContainer" style="height: 281px; padding :10px; margin-top:30px; margin-bottom:50px;"><div id="step-1" class="content" style="display: block;">
-<!--                     <form class="form-horizontal form-label-left"> -->
-<span class="section"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">기타 정보</font></font></font></font></font></font></span>
+                 <div class="stepContainer" style="height: 170px; padding :10px; margin-top:30px; margin-bottom:50px;">
+                 <div id="step-1" class="content" style="display: block;">
+<!--             <form class="form-horizontal form-label-left"> -->
+				<span class="section" style="margin-bottom: 30px;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">기타 정보</font></font></font></font></font></font></span>
 
-                     <div class="form-group" style="margin-top: 20px;">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">이름 </font></font></font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></font></font></span>
+ 					<!-- 편의점 소개(비고)  -->
+                     <div class="form-group" style="margin-top: 20px; margin-bottom: 30px;">
+                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">소개(비고) </font></font></font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></font></font></span>
                        </label>
                        <div class="col-md-6 col-sm-6 col-xs-12">
                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                        </div>
                      </div>
-                     <div class="form-group">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">성 </font></font></font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></font></font></span>
-                       </label>
-                       <div class="col-md-6 col-sm-6 col-xs-12">
-                         <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                       </div>
-                     </div>
-                     <div class="form-group">
-                       <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">middle name / 이니셜</font></font></font></font></label>
-                       <div class="col-md-6 col-sm-6 col-xs-12">
-                         <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
-                       </div>
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">성별</font></font></font></font></label>
-                       <div class="col-md-6 col-sm-6 col-xs-12">
-                         <div id="gender" class="btn-group" data-toggle="buttons">
-                           <label class="btn btn-default active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                             <input type="radio" name="gender" value="male"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> &nbsp; 남성 &nbsp;
-                           </font></font></font></font></label>
-                           <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                             <input type="radio" name="gender" value="female"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 여자
-                           </font></font></font></font></label>
-                         </div>
-                       </div>
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label col-md-3 col-sm-3 col-xs-12"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">생년월일 </font></font></font></font><span class="required"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*</font></font></font></font></span>
-                       </label>
-                       <div class="col-md-6 col-sm-6 col-xs-12">
-                         <input id="birthday" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                       </div>
-                     </div>
-
-<!--                    </form> -->
+<!--            </form> -->
 
                  </div>
-           </div>
-           </div>
+           		</div>
+</div>
                   <!-- Tabs -->
                   <!-- End SmartWizard Content -->
                   </form>

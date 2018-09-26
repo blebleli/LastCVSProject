@@ -27,14 +27,72 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
-<script src="build/js/jquery-1.12.4.js"></script>
+<script src="<c:url value='/build/js/jquery-1.12.4.js' />"></script>
 <script>
-       
-        
-        function eventPopup(){
-            var url="test.html";
-            window.open(url,"","width=1200,height=600,left=600");
-        }
+	$(document).ready(function() {
+		
+	// TR 선택 이벤트
+	$("table#datatable-responsive tbody tr").on("click", function() {
+		// 0 : pointer odd, 1 : pointer even
+		$("table#datatable-responsive tbody tr").each(function() {
+			$(this).css("background-color", "");
+			$(this).removeClass("selected");
+			// tr class 초기화
+			if($(this).index() % 2 == 0) {
+				$(this).css('pointer odd');
+			}
+			else {
+				$(this).css('pointer even');
+			}
+		});
+	
+		$(this).css("background-color", "#00ffcc");
+		$(this).addClass("selected");
+		
+	});
+	
+	// 삭제버튼 클릭 이벤트
+	$("#btnDelete").on("click", function() {
+		
+		if($("table#datatable-responsive tbody tr.selected").length == 0) {
+			alert("삭제할 행을 선택해주세요.");
+			return false;
+		}
+		
+		var mem_id = $("table#datatable-responsive tbody tr.selected").find("td:eq(1)").text();
+		alert("mem_id " + mem_id);
+		$.ajax({
+            type : "POST",
+            url : "<c:url value='/admin/deleteCvsMember' />",
+            dataType : "text",
+            data : {mem_id : mem_id},
+            success : function(data){
+            	if(data == "1") {
+            		alert("삭제되었습니다.");
+            		$(document).refresh();
+            	}
+            },
+            error: function(request, status, error) {
+                alert(error);
+            }
+        });
+		
+		
+	});
+	
+	
+	
+});
+
+
+function eventPopup(){
+    var url="test.html";
+    window.open(url,"","width=1200,height=600,left=600");
+}
+	
+	
+	
+	
 </script>
 
 
@@ -90,7 +148,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							</span>
 							
 							<span>
-							<button class="btn btn-default" onclick="window.print();">
+							<button class="btn btn-default" id="btnDelete">
 								<i class="fa fa-print"></i> 삭 제 
 							</button>
 							</span>

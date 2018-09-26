@@ -23,6 +23,8 @@
 <!-- iCheck -->
 <!-- <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet"> -->
 
+<script src="build/js/jquery-1.12.4.js"></script>
+
 <!-- Datatables -->
 <link href="/vendors/datatables.net-bs/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="/vendors/datatables.net-bs/buttons.bootstrap.min.css" rel="stylesheet">
@@ -33,7 +35,6 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
-<script src="build/js/jquery-1.12.4.js"></script>
 
 
 <!-- </head> -->
@@ -272,50 +273,50 @@
 <!-- 											aria-describedby="datatable-responsive_info" style="width: 100%;"> -->
  		<table id="datatable-buttons" class="table table-striped table-bordered">  <!-- buttons 모양 나오게함..  -->
  		
-											<thead>
-												<tr role="row">
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 20px;" aria-label="First name: activate to sort column ascending">#</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="First name: activate to sort column ascending">이메일아이디</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 86px;" aria-label="Last name: activate to sort column ascending">회원명</th>
-													<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Position: activate to sort column ascending"
-														aria-sort="descending">연락처</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 124px;" aria-label="Office: activate to sort column ascending">생년월일</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 50px;" aria-label="Age: activate to sort column ascending">성별</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 108px;" aria-label="Start date: activate to sort column ascending">우편번호</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="Salary: activate to sort column ascending">주소</th>
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Extn.: activate to sort column ascending">상세주소</th>
+			<thead>
+				<tr role="row">
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 20px;" aria-label="First name: activate to sort column ascending">#</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="First name: activate to sort column ascending">이메일아이디</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 86px;" aria-label="Last name: activate to sort column ascending">회원명</th>
+					<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 170px;" aria-label="Position: activate to sort column ascending"
+						aria-sort="descending">연락처</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 90px;" aria-label="Office: activate to sort column ascending">생년월일</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 30px;" aria-label="Age: activate to sort column ascending">성별</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 80px;" aria-label="Start date: activate to sort column ascending">우편번호</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="Salary: activate to sort column ascending">주소</th>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Extn.: activate to sort column ascending">상세주소</th>
 
-													<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 70px;" aria-label="E-mail: activate to sort column ascending">포인트</th>
-												</tr>
-											</thead>
+					<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 50px;" aria-label="E-mail: activate to sort column ascending">포인트</th>
+				</tr>
+			</thead>
 
 
-											<tbody>
-												<c:choose>
-													<c:when test="${!empty userMemberList}">
-														<c:forEach items="${userMemberList}" var="memberVo" varStatus="status">
-															<tr role="row" class="odd">
-																<th scope="row">${memberVo.rn}</th>
-																<td class="" tabindex="0">${memberVo.mem_id}</td>
-																<td class="sorting_1">${memberVo.mem_name}</td>
-																<td>${memberVo.mem_tel}</td>
-																<td>${memberVo.mem_birth}</td>
-																<td>${memberVo.mem_gen}</td>
-																<td>${memberVo.mem_zip}</td>
-																<td style="">${memberVo.mem_add}</td>
-																<td style="">${memberVo.mem_addr}</td>
-																<td style="">${memberVo.mem_point}</td>
-															</tr>
-														</c:forEach>
-													</c:when>
-													<c:otherwise>
-														<tr>
-															<td colspan="10" align="center">회원 목록이 없습니다.</td>
-														</tr>
-													</c:otherwise>
-												</c:choose>
-											</tbody>
-										</table>
+			<tbody>
+				<c:choose>
+					<c:when test="${!empty userMemberList}">
+						<c:forEach items="${userMemberList}" var="memberVo" varStatus="status">
+							<tr role="row" class="odd">
+								<th scope="row">${memberVo.rn}</th>
+								<td class="" tabindex="0">${memberVo.mem_id}</td>
+								<td class="sorting_1">${memberVo.mem_name}</td>
+								<td>${memberVo.mem_tel}</td>
+								<td>${memberVo.mem_birth}</td>
+								<td>${memberVo.mem_gen}</td>
+								<td>${memberVo.mem_zip}</td>
+								<td style="">${memberVo.mem_add}</td>
+								<td style="">${memberVo.mem_addr}</td>
+								<td style="">${memberVo.mem_point}</td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr>
+							<td colspan="10" align="center">회원 목록이 없습니다.</td>
+						</tr>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+		</table>
 <!-- 									</div> -->
 <!-- 								</div> -->
 
