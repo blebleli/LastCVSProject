@@ -2,8 +2,6 @@ package kr.or.ddit.admin.prod.web;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -13,16 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.admin.model.AdminProdVo;
-import kr.or.ddit.admin.prod.dao.EventDaoInf;
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.admin.prod.service.CategoryServiceInf;
 import kr.or.ddit.admin.prod.service.EventServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
-import kr.or.ddit.filedata.FileUtil;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.EventVo;
-import kr.or.ddit.model.FiledataVo;
-import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 
 import org.apache.commons.io.FileUtils;
@@ -67,7 +61,7 @@ public class AdminProdInfo {
 		// 제품 목록
 		Map<String, Object> result = adminProdService.getProdList(pvo);
 		List<AdminProdVo> prodList = (List<AdminProdVo>) result.get("prodList");
-		logger.debug("result == > {}", prodList);
+//		logger.debug("result == > {}", prodList);
 		
 //		model.addAllAttributes(result);
 		model.addAttribute("prodList", prodList);
@@ -148,7 +142,7 @@ public class AdminProdInfo {
 			mdVo.setCtgy_group(lgVo.getCtgy_id());		// 그룹 코드
 			
 			int result = categoryService.setInsertCategory(mdVo);
-			logger.debug("중분류 insert ==> {} ", result);
+//			logger.debug("중분류 insert ==> {} ", result);
 		}
 		
 		return "forward:/adprod/categoryPopup";
@@ -224,7 +218,7 @@ public class AdminProdInfo {
 		vo.setCtgy_parent("notnull");
 		// 중분류
 		List<CategoryVo> categoryMd = adminProdService.getProdCategory(vo);
-		logger.debug("vo.getCtgy_parent(m) ==> {} ",vo.getCtgy_parent());
+//		logger.debug("vo.getCtgy_parent(m) ==> {} ",vo.getCtgy_parent());
 		
 		// 이벤트
 		List<EventVo> eventList  =  eventService.getListEvent();
@@ -244,20 +238,7 @@ public class AdminProdInfo {
 		
 		List<CategoryVo> result = categoryService.getProdCategoryMd(select);
 		
-		logger.debug("result ==> {}" , result);
-		/*
-		ProdVo [file_path=null, file_upname=null, prod_id=null, 
-		prod_name=0, 
-		prod_intro=0, 
-		prod_info=null, 
-		prod_price=0, 
-		prod_exnum=0, 
-		pr_class_lg=CA39868000001, 
-		pr_class_md=CA95370000002, 
-		event_id=BASIC1, 
-		prod_cost=0, 
-		bd_rating=0] 
-		*/
+//		logger.debug("result ==> {}" , result);
 		return result;
 	}
 	
@@ -292,7 +273,7 @@ public class AdminProdInfo {
 		String prod_code = acc.autoCode(pathKind);		// 코드생성
 		prodVo.setProd_id(prod_code);
 		
-		logger.debug("prodVo==> {} ",prodVo);
+//		logger.debug("prodVo==> {} ",prodVo);
 		
 		if(prodVo.getUpload_file() != null) {
 			for(MultipartFile file : prodVo.getUpload_file()) {
@@ -300,18 +281,18 @@ public class AdminProdInfo {
 				tempSavePath = tempSavePath + File.separator +pathKind;	// 물리
 				path = path + File.separator + pathKind;				// DB
 				
-//				prodVo.setFile_upname(UUID.randomUUID().toString()+".png");			
-				prodVo.setFile_upname("111111111111111111111111111111.png");		// 테스트
+				prodVo.setFile_upname(UUID.randomUUID().toString()+".png");			
+//				prodVo.setFile_upname("111111111111111111111111111111.png");		// 테스트
 				
 				prodVo.setFile_path(path);
-
+				prodVo.setProd_info("");
 				// 디렉토리 없을 경우 생성
 				if(!new File(tempSavePath).exists()) {
 					new File(tempSavePath).mkdirs();
 				}
 
-				logger.debug("file_path :::::::::: {}", prodVo.getFile_path());
-				logger.debug("file_upname :::::::::: {}", prodVo.getFile_upname());
+//				logger.debug("file_path :::::::::: {}", prodVo.getFile_path());
+//				logger.debug("file_upname :::::::::: {}", prodVo.getFile_upname());
 
 				// 파일 저장
 				try {
@@ -325,10 +306,30 @@ public class AdminProdInfo {
 		
 		int result = adminProdService.setProdInsert(prodVo);
 		
-		logger.debug("result ==> {}", result);
+//		logger.debug("result ==> {}", result);
 		
-		return null;
+		return "forward:/adprod/prodPopup";
 		
+	}
+	
+	@RequestMapping("/prodDel")
+	public String prodDel(Model model, @RequestParam(value="prod_id", defaultValue="")String prod_id){
+		
+		logger.debug("prodDel == prod_id ==> {}", prod_id);
+		if (!prod_id.equals("")) {
+//			int result = adminProdService.setProdDelete(prod_id);
+		}
+		return "forward:/adprod/adprodView";
+	}
+	
+	@RequestMapping("/prodUpdate")
+	public String prodUpdate(Model model, @RequestParam(value="prod_id", defaultValue="")String prod_id){
+		
+		logger.debug("prodUpdate == prod_id ==> {}", prod_id);
+		if (!prod_id.equals("")) {
+//			int result = adminProdService.setProdDelete(prod_id);
+		}
+		return "forward:/adprod/adprodView";
 	}
 	
 }

@@ -65,4 +65,26 @@ public interface AdminProdServiceInf {
 	 * Method 설명 : 이벤트 insert
 	 */
 	int setEventInsert(EventVo vo);
+
+	/** 
+	 * Method   : setProdDelete 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param prod_id
+	 * @return int
+	 * Method 설명 : 제품 삭제
+	 */
+	int setProdDelete(String prod_id);
+	
+	/** 
+	 * Method   : setProdUpdate 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param prodVo
+	 * @return int
+	 * Method 설명 : 제품 수정
+	 */
+	int setProdUpdate(ProdVo prodVo);
 }

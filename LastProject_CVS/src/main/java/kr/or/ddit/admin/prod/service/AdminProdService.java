@@ -113,4 +113,32 @@ public class AdminProdService implements AdminProdServiceInf {
 		return adminProdDao.setEventInsert(vo);
 	}
 
+	/** 
+	 * Method   : setProdDelete 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param prod_id
+	 * @return int
+	 * Method 설명 : 제품 삭제
+	 */
+	@Override
+	public int setProdDelete(String prod_id) {
+		return  adminProdDao.setProdDelete(prod_id);
+	}
+
+	/** 
+	 * Method   : setProdUpdate 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @param prodVo
+	 * @return int
+	 * Method 설명 : 제품 수정
+	 */
+	@Override
+	public int setProdUpdate(ProdVo prodVo) {
+		return  adminProdDao.setProdUpdate(prodVo);
+	}
+
 }
