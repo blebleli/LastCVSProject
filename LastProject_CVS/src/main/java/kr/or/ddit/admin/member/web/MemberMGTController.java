@@ -439,6 +439,33 @@ public class MemberMGTController {
 	}
 
 	
+	/**
+	 * 편의점 삭제
+	 * 
+	 * 작 성 자   : 공은별(pc24)
+	 * @param request
+	 * @param memberVo
+	 * @param model
+	 * @return
+	 * @throws IOException  
+	 */
+	@RequestMapping("/deleteCvsMember")
+	public void deleteCvsMember( HttpServletRequest request
+			, HttpServletResponse response
+			, @ModelAttribute("memberVo") MemberVo memberVo
+			, Model model) throws Exception {
+		
+		logger.debug("Request URL : {}", request.getRequestURI());
+		logger.debug("param : {}", memberVo);
+		
+		int result = memberMgtService.deleteCvsMember(memberVo);
+		
+		// 사용자 ID 중복 조회
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		response.getWriter().print(result);
+	}
 	
 	
 }

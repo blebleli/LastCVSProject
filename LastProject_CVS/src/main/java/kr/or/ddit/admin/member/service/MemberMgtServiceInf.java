@@ -20,8 +20,18 @@ public interface MemberMgtServiceInf {
 	List<MemberVo> getMemberPageList(MemberVo paramMemberVo);
 	
 	
-	
-	
+	/**
+	 * 편의점 삭제
+	 * Method 	  : deleteCvsMember
+	 * Method 설명  :
+	 * 최초작성일 : 2018. 9. 27.
+	 * 작성자 	  : gugi
+	 * 변경이력   :
+	 *
+	 * @param paramMemberVo
+	 * @return
+	 */
+	int deleteCvsMember(MemberVo paramMemberVo);
 	
 	
 	

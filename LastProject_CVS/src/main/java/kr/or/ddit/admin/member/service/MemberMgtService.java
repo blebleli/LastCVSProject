@@ -54,13 +54,22 @@ public class MemberMgtService implements MemberMgtServiceInf {
 	public List<MemberVo> getMemberPageList(MemberVo paramMemberVo) {
 		return memberMgtDao.getMemberPageList(paramMemberVo);
 	}
-	
-	
-	
 
+	/**
+	 * 편의점 삭제
+	 * Method : deleteCvsMember
+	 * 최초작성일 : 2018. 9. 27.
+	 * 작성자 : gugi
+	 * 변경이력 :
+	 * @param paramMemberVo
+	 * @return
+	 * Method 설명 :
+	 */
+	@Override
+	public int deleteCvsMember(MemberVo paramMemberVo) {
+		memberMgtDao.deleteCvsMember(paramMemberVo);
+		return 1;
+	}
 	
-	
-
-
 
 }
