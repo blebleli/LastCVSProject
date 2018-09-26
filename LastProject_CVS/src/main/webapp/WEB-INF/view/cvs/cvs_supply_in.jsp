@@ -88,6 +88,7 @@
                         </tr>
                   	
                       </thead>
+                      <tbody> 
 	                      <c:forEach items="${supplyList}" var="vo"> <!-- 전체 입고 목록들 -->
 								<tr>
 									<td>${vo.rnum}</td>	<!-- 넘버 -->
@@ -114,15 +115,10 @@
 										</form>
 									</td>	 <!-- 상세보기 -->
 								</tr>
-	                      </c:forEach>
-	                      
-                      <tbody> 
-                                                                                                                                                      
+	                      </c:forEach>                                                                                                                            
                       </tbody>
                     </table>
-                    <div class="text-center" id="page">
-							<ul class="pagination">${pageNavi}</ul>
-					</div> 
+                    
                   </div>
                 </div>
               </div>

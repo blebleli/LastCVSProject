@@ -192,7 +192,7 @@
 			dayEndList.push({prod_id: data.find('.prod_id').html(),
 						 splylist_id: data.find('.splylist_id').html(),
 					 stcklist_exdate: data.find('.stcklist_exdate').html(),
-					 stcklist_amount: data.find('.amount').val()})
+					 stcklist_amount: data.find('.amount').val()});
 					 console.log("each index---"+data.find('.splylist_id').html());
 			};
 			

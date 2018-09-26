@@ -525,7 +525,8 @@
 				    	
 						//멈춤버튼
 				    	function stopCapture(e) {
-				    		player.pause(); 
+				    	
+				    		player.pause();			    		
 				    		clearInterval(intervalID);
 						}				    	
 				    	

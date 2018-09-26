@@ -34,7 +34,7 @@
           <li><a><i class="fa fa-desktop"></i> POS <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
            	  <li><a href="/cvs/POS">POS</a></li>
-               <li><a href="/cvs/barcode">인식</a></li>
+               <li><a href="/cvs/requestIN">입고하기</a></li>
             </ul>               
           </li>
 
@@ -53,15 +53,9 @@
                 <li><a href="dayend">마감</a></li>
             </ul>
           </li>  
-          <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-              <li><a href="/cvs/chartDay">날짜별
-<!--               <input type="hidden" name="mem_id" value="hsj"> --> <!-- 보류입니다. -->
-              </a></li> <!-- 날짜별을 누르면 월별 초기화면이 뜬다. -->
-              <li><a href="/cvs/chartProd">제품별</a></li>                 
-            </ul>
+          <li><a href="/cvs/main"><i class="fa fa-bar-chart-o"></i> 통계</a>
           </li>         
-           <li><a href="/cvs/setting"><i class="fa fa fa-gears"></i> setting </a>
+          <li><a href="/cvs/setting"><i class="fa fa fa-gears"></i> setting </a>
           </li>                  
         </ul>
       </div>
