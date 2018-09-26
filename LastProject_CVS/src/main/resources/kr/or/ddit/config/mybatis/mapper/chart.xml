@@ -41,18 +41,18 @@
 	  		일    시 : 2018-09-17     
 	 -->
 <select id="getCvsTop3" resultType="monthTopVo" >
-		SELECT tbl3.mon,c.mem_cvs_name as id, tbl3.amount, tbl3.rnk
+		SELECT tbl3.month,c.mem_cvs_name as id, tbl3.amount, tbl3.rnk
 		FROM
 			--단, 순위가 3등까지만 출력
-			(SELECT tbl2.mon,tbl2.place_id,tbl2.rslt AS amount ,tbl2.rnk 
+			(SELECT tbl2.month,tbl2.place_id,tbl2.rslt AS amount ,tbl2.rnk 
 			FROM
 			(
 			  --inline view결과 + 순위
-			  SELECT tbl1.mon,tbl1.place_id,tbl1.rslt,rank() OVER(partition by tbl1.mon order by tbl1.rslt desc) rnk
+			  SELECT tbl1.month,tbl1.place_id,tbl1.rslt,rank() OVER(partition by tbl1.month order by tbl1.rslt desc) rnk
 			  FROM
 			  (
 			    --월별, 지점별, 판매개수합을 구하기
-			    SELECT TO_CHAR(a.supply_date,'MM') mon, a.PLACE_ID, nvl(sum(b.splylist_sum),0) rslt
+			    SELECT TO_CHAR(a.supply_date,'MM') as month, a.PLACE_ID, nvl(sum(b.splylist_sum),0) rslt
 			    FROM supply a inner join supply_list b
 			    ON( a.supply_bcd = b.supply_bcd)
 			    WHERE TO_CHAR(a.supply_date,'yyyyMM') BETWEEN  TO_CHAR(ADD_MONTHS(sysdate,-3),'yyyyMM') AND TO_CHAR(sysdate,'yyyyMM')
@@ -72,7 +72,7 @@
 	  		일    시 : 2018-09-17     
 	 -->
 <select id="getProdTop5" resultType="rankVo">
-	select tb2.prod_name, tb2.amount, tb2.rnk
+	select tb2.prod_name as id, tb2.amount, tb2.rnk
 	from
 		(select tb1.prod_name, tb1.amount, ROW_NUMBER() over(order by tb1.amount desc) as rnk
 		from
@@ -112,7 +112,7 @@
 	  		일    시 : 2018-09-17     
 	 -->
 <select id="getBookmarkCvsTop5" resultType="rankVo">
-	select tb2.mem_cvs_name, tb2.amount, tb2.rnk
+	select tb2.mem_cvs_name as id, tb2.amount, tb2.rnk
 		(select tb1.mem_cvs_name, tb1.amount ROW_NUMBER() over(order by tb1.amount desc) as rnk
 			(select a.mem_cvs_name, count(*) as amount
 			from member a, bookmark b
@@ -122,6 +122,65 @@
 		) tb2
 	where tb2.rnk <![CDATA[<]]>=5
 </select>
+
+<!-- 	아 이 디 : cvsOnedayTotalSale
+	  		반 환 값 : onedayChartVo
+	  		설    명 : 편의점의 일 매출
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-21     
+	 -->
+<select id="cvsOnedayTotalSale" parameterType="String" resultType="onedayChartVo">
+	SELECT  TO_CHAR(a.sd_date,'yyyy') as year , TO_CHAR(a.sd_date,'MM') as month, TO_CHAR(a.sd_date,'dd') as day , SUM(b.sale_amount*b.sale_sum) as total
+		FROM sale_dis a, sale_list b
+		WHERE a.sd_id = b.sd_id
+		AND a.mem_id =#{mem_id}
+		GROUP BY TO_CHAR(a.sd_date,'yyyy'),TO_CHAR(a.sd_date,'MM'),TO_CHAR(a.sd_date,'dd')
+</select>
+
+<!-- 	아 이 디 : cvsOnedayTotalIncome
+	  		반 환 값 : onedayChartVo
+	  		설    명 : 편의점의 일 순이익(매출 - 원가)
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-21     
+	 -->
+<select id="cvsOnedayTotalIncome" parameterType="String" resultType="onedayChartVo">
+	SELECT TO_CHAR(a.sd_date,'yyyy') as year , TO_CHAR(a.sd_date,'MM') as month, TO_CHAR(a.sd_date,'dd') as day , sum(b.sale_amount*b.sale_sum)-sum(b.sale_amount*c.prod_cost) as total
+		FROM sale_dis a, sale_list b, prod c
+		WHERE a.sd_id = b.sd_id
+		AND b.prod_id = c.prod_id
+		AND a.mem_id = #{mem_id}
+		GROUP BY TO_CHAR(a.sd_date,'yyyy'),TO_CHAR(a.sd_date,'MM'),TO_CHAR(a.sd_date,'dd')
+</select>
+
+<select id="cvsCtgyRank" parameterType="String" resultType="rankVo">
+		SELECT tb1.id, tb1.amount, ROW_NUMBER() OVER(ORDER BY tb1.amount DESC) as rnk
+			FROM
+			(SELECT a.ctgy_name as id, SUM(b.sale_amount) as amount
+				FROM category a, sale_list b, prod c, sale_dis d
+				WHERE b.prod_id = c.prod_id
+				AND c.pr_class_lg = a.ctgy_id
+				AND b.sd_id = d.sd_id
+				AND d.mem_id =#{mem_id}
+				GROUP BY a.ctgy_name
+			)tb1
+</select>
+
+<select id="cvsBestProd" parameterType="String" resultType="rankVo">
+	SELECT tb2.id, tb2.amount, tb2.rnk
+		FROM
+		(SELECT tb1.id, tb1.amount, ROW_NUMBER() OVER(ORDER BY tb1.amount DESC) as rnk
+			FROM
+			(SELECT a.prod_name as id, sum(b.sale_amount) as amount
+				FROM prod a, sale_list b, sale_dis c
+				WHERE a.prod_id = b.prod_id
+				AND b.sd_id = c.sd_id
+				AND c.mem_id =#{mem_id}
+				GROUP BY a.prod_name
+			)tb1
+		)tb2
+		WHERE tb2.rnk <![CDATA[<]]>=3
+</select>
+
 
 
 </mapper>
