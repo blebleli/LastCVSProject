@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * 
  * </pre>
  */
-@SessionAttributes({"supplyList","pageNavi"})
+
 @RequestMapping("/cvs")
 @Controller("cvsSupplyIn")
 public class CvsSupplyInController {

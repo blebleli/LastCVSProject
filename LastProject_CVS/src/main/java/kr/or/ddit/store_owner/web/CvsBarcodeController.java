@@ -74,88 +74,52 @@ public class CvsBarcodeController {
 	@Resource(name="autoCodeCreate")
 	private AutoCodeCreate autoCodeCreate;
 	
-	@RequestMapping("/barcode")
-	public String cvsBarcode(Model model){
-		return "cvs_barcode_read";
-	}
-	
 	
 	
 	/**
-	* Method : barcodeScan
-	* Method 설명 :입고 바코드를 스캔하거나 직접입력했을 때 입고리스트 정보 출력 메서드
-	* 최초작성일 : 2018. 9. 14.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :
-	* @param barcodeValue
-	* @param model
-	* @return
-	*/
-	@RequestMapping(value="/barcodeScan", method={RequestMethod.GET,RequestMethod.POST})
-	public String barcodeScan(@RequestParam(value="barcodeValue",defaultValue="")String barcodeValue,
-							  Model model){
-		
-		//입고스캐너나 직접 입력을 통한 수불 바코드가 잘 가져오는지 확인 logger
-		logger.debug("barcodeValue : {}   ",  barcodeValue);
-		
-		//받아온 수불 바코드로 그에 대한 제품 정보들을 List형태로 가져온다
-		List<SupplyScanInfoVo>getSupplyScanInfoList = supplyService.getSupplyScanInfoList(barcodeValue);
-		
-//		for (SupplyScanInfoVo supplyScanInfoVo : getSupplyScanInfoList) {
-//			logger.debug("supplyProdVo.getProd_name() : {}",supplyScanInfoVo.getProd_name());
-//			logger.debug("supplyScanInfoVo.getSupply_state() : {}",supplyScanInfoVo.getSupply_state());
-//		}
-		
-		model.addAttribute("state",getSupplyScanInfoList.get(0).getSupply_state());
-		model.addAttribute("scanList",getSupplyScanInfoList);
-		
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/requestIN")
+	public String cvsBarcode(Model model){
 		return "cvs_barcode_read";
 	}
+
 	
+	/**
+	 * 입고확인시 controller
+	 * @param vo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/confirmed")
 	public String supplyConfirmed(SupplyScanInfoVo vo, Model model){
+//발주 - > supply 10 으로 supply list와 함께 insert
 		
-		logger.debug("vo.getSupply_bcd() : {}", vo.getSupply_bcd());
-		logger.debug("vo.getProd_id() : {} ", vo.getProd_id());
+//관리자 승인  - > supply 10이 11로 update 		
+
+		//발주한 내역만 따로 볼 순 없다 ----- 결국 입고만 남음
 		
-		String kind = "SUPPLY";
-		String barcode = autoCodeCreate.barcode(kind);
+//입고 - >
+//승인받은 내역을 불러와서 
+//supply 테이블 입고12로 update 
+//supply list 수량조절로 update 		
+
+// 재고 바코드가 생성되면서, 입고처리 됨	
+// 재고테이블insert
+// 바코드 테이블 insert (입고 리스트)
+// 재고 리스트 테이블 insert
 		
-		SupplyVo supplyVo = new SupplyVo();
-		
-		supplyVo.setSupply_bcd(barcode);
-		supplyVo.setSupply_state("12");
-		supplyVo.setPlace_id("3630000-104-2015-00121");
-		
-		/*	supply쪽
-			suppy_bcd	//수불바코드새로이 생성
-			supply_date	//날짜 sysdate
-			supply_state//수불상태(입고 : 12번)
-			place_id	//편의점코드 (임시값 : 3630000-104-2015-00121)
-		 */
-//		SupplyListVo supplyListVo = new SupplyListVo();
-		/*	supplyList쪽
-		 	splylist_id	//새로이 생성
-		 	splylist_info	//비고
-		 	splylist_exdate	//유통기한
-		 	splylist_sum	//물품 갯수
-		 	supply_bcd	//새로이 생성된 수불바코드
-		 	prod_id	//물품 코드
-		 */
-		
-		
-		
-		int cnt1 = supplyService.setInsertSupply(supplyVo);
-		
-		logger.debug("cnt1 : {}",cnt1);
-		
-//		int cnt2 = supplyService.setInsertSupplyList(supplyListVo);
-		
-		
+
 		return "cvs_barcode_read";
 		
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * 
@@ -195,11 +159,11 @@ public class CvsBarcodeController {
 			//코드확인용
 			mav.addObject("decodedText", decoded);				
 
-/*	    	//입고리스트일때
-	    	List<SupplyListVo> supplyList = supplyService.getListSupplyList(decoded);
- 			mav.addObject("supplyList", supplyList);*/
+			//입고리스트일때
+	    	List<SupplyListVo> supplyList = supplyService.getListSupply(decoded);
+ 			mav.addObject("supplyList", supplyList);
 	    	
-	    	//상품바코드일때 처리(결제,주머니, 폐기)
+	    	//상품바코드일때 처리(결제, 주머니, 폐기)
  			PresentStockListVo prodVo = stockService.getBarcodeProd(decoded);
  			logger.debug("controller 에서 prodVo ------"+prodVo);	
  			mav.addObject("prodVo", prodVo);

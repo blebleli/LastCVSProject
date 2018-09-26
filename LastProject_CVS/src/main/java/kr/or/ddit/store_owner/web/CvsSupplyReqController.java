@@ -92,6 +92,8 @@ public class CvsSupplyReqController {
 	
 	
 	
+	String mem_id = "6510000-104-2015-00153"; //session 값 넣기
+
 	/**
 	 * 
 	 * Method   : myStockList 
@@ -105,14 +107,34 @@ public class CvsSupplyReqController {
 	@RequestMapping("/stock")
 	public String myStockList(Model model){
 		
-		//mem_id 로 가장 최근1건의 stock의 stock-list 	
-		
-		String mem_id = "6510000-104-2015-00153";//session 값 넣기
+		//mem_id 로 가장 최근1건의 stock의 stock-list 			
 		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(mem_id);
 		model.addAttribute("myStockList", myStockList);
 
 		return "cvs_stock";
 	}
+	
+
+	/**
+	 * 
+	 * Method   : myStockList 
+	 * 최초작성일  : 2018. 9. 26. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @param model
+	 * @return 
+	 * Method 설명 : mem_id 로 발주내역 리스트 출력
+	 */
+	@RequestMapping("/reqList")
+	public String requestList(Model model){
+
+		List<SupplyVo> supplyList = supplyService.getSupplyList(mem_id);
+		model.addAttribute("supplyList", supplyList);
+		
+		return "cvs_supply_request_list";
+	}
+	
+
 	
 
 	
@@ -143,82 +165,6 @@ public class CvsSupplyReqController {
 	}
 	
 
-	
-/*	*//**
-	* Method : requestList
-	* Method 설명 : 현재 재고 목록에서 발주 신청하고 싶은 목록을 저장할 List<ProdVo>
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return StockVo
-	*//*
-	@ModelAttribute("requestList")
-	public List<ProdVo> requestList(){
-		List<ProdVo> requestList = new ArrayList<ProdVo>();
-		return requestList;
-	}
-*/
-	
-/*	@RequestMapping("/stock")
-	public String cvsStock(Model model){
-		return "cvs_stock";
-	}
-	
-	*//**
-	* Method : myStockList
-	* Method 설명 : 현재 재고 목록
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return StockVo
-	*//*
-	@ModelAttribute("myStockList")
-	public List<PresentStockListVo> myStockList(Model model){
-		Map modelMap = model.asMap();
-		StockVo myStock = (StockVo) modelMap.get("myStock");
-		logger.debug("myStock----"+myStock);
-		List<PresentStockListVo> myStockList = stockService.getListStockOne(myStock.getStock_id());
-		return myStockList;
-	}
-	
-
-
-
-	
-	//--------------------------------------------
-	
-	
-/*	*//**
-	* Method : myStock
-	* Method 설명 : 현재 재고 목록
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 김현경
-	* 변경이력 :신규
-	* 
-	* @param 
-	* @return StockVo
-	*//*
-	@ModelAttribute("myStock")
-	public StockVo myStock(Model model){
-		Map<String, Object> map = new HashMap<String, Object>();
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		
-		logger.debug("date---------------------------------------------"+sdf.format(date));
-		map.put("mem_id", "3630000-104-2015-00121");
-		map.put("stock_date", "20180911");
-		StockVo myStock = stockService.getStock(map);
-		
-		logger.debug("stock --------------"+ myStock);
-		model.addAttribute("myStock", myStock);
-		return myStock;
-	}*/
-
-	
 
 	/**
 	* Method : cvssupplyReqest
@@ -352,4 +298,96 @@ public class CvsSupplyReqController {
 		
 		return resultMap;
 	}
+	
+
+
+//---------------------------------------------------------------------------
+
+	
+/*	*//**
+	* Method : requestList
+	* Method 설명 : 현재 재고 목록에서 발주 신청하고 싶은 목록을 저장할 List<ProdVo>
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return StockVo
+	*//*
+	@ModelAttribute("requestList")
+	public List<ProdVo> requestList(){
+		List<ProdVo> requestList = new ArrayList<ProdVo>();
+		return requestList;
+	}
+*/
+	
+/*	@RequestMapping("/stock")
+	public String cvsStock(Model model){
+		return "cvs_stock";
+	}
+	
+	*//**
+	* Method : myStockList
+	* Method 설명 : 현재 재고 목록
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return StockVo
+	*//*
+	@ModelAttribute("myStockList")
+	public List<PresentStockListVo> myStockList(Model model){
+		Map modelMap = model.asMap();
+		StockVo myStock = (StockVo) modelMap.get("myStock");
+		logger.debug("myStock----"+myStock);
+		List<PresentStockListVo> myStockList = stockService.getListStockOne(myStock.getStock_id());
+		return myStockList;
+	}
+	
+
+/*	*//**
+	* Method : myStock
+	* Method 설명 : 현재 재고 목록
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return StockVo
+	*//*
+	@ModelAttribute("myStock")
+	public StockVo myStock(Model model){
+		Map<String, Object> map = new HashMap<String, Object>();
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		
+		logger.debug("date---------------------------------------------"+sdf.format(date));
+		map.put("mem_id", "3630000-104-2015-00121");
+		map.put("stock_date", "20180911");
+		StockVo myStock = stockService.getStock(map);
+		
+		logger.debug("stock --------------"+ myStock);
+		model.addAttribute("myStock", myStock);
+		return myStock;
+	}*/
+
+	
+	
+	/*@RequestMapping(value="/request", method = RequestMethod.GET)
+	@ResponseBody
+	public int requestComplete(@RequestParam(value="prod_id")String prod_id, @RequestParam(value="splylist_sum")int sum, Model model){
+		
+		Map modelMap = model.asMap();
+		
+		int result = 0;
+		SupplyListVo sup = new SupplyListVo();
+		SupplyVo todaySupply = (SupplyVo) modelMap.get("todaySupply");
+		sup.setProd_id(prod_id);
+		sup.setSplylist_sum(sum);
+		sup.setSupply_bcd(todaySupply.getSupply_bcd());
+		sup.setSplylist_id(autoCode.autoCode("SUP", "3630000-104-2015-00121"));
+		result = supplyService.setInsertSupplyList(sup);
+		return result;
+	}*/
 }
