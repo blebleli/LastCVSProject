@@ -204,34 +204,65 @@ $(function() {
 				</form>
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
-							<thead>
-								<tr >
-									<th id="demoFont">번호</th>
-									<th id="demoFont">제목</th>
-									<th id="demoFont">작성자</th>
-									<th id="demoFont">작성일</th>
-									<th id="demoFont">조회수</th>
-								</tr>
-							</thead>
 							<tbody>
 								<c:forEach items="${boardpage}" var="vo">
 									<c:if test="${vo.bd_del=='N'}">
 										<tr data-no="${vo.tot_cnt}" id="click">
-											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td id="demoFonts">${vo.bd_title}</td>
-											<td id="demoFonts">${vo.mem_id}</td>
-											<td id="demoFonts">${vo.bd_date}</td>
-											<td id="demoFonts">${vo.bd_views}</td>
+										
+											<td id="demoFonts">										
+										
+												
+													<div class="">
+<!-- 														<a href="/userProd/detail?prod_id=biscuit-01057" id="prodImage"></a> -->
+														<img src="/Image/product/biscuit/cd26dd6f-67c1-4ce6-9a1b-9818f916d60a.png"
+														 alt=" " class="img-responsive" width="200px" height="150px" />
+													</div>
+													
+												
+											
+											</td>
+											
+											<td id="demoFonts">
+												<div class="">
+													<h3>${vo.bd_title}</h3>
+													<p>${vo.bd_content}</p>
+													<dl class="">
+													<dt>작성일 :</dt>
+													<dd>${vo.bd_date}</dd>
+													</dl>
+												</div>
+											</td>
 										</tr>
 									</c:if>
 
 									<c:if test="${vo.bd_del=='Y'}">
 										<tr data-no="${vo.tot_cnt}">
-											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td id="demoFonts">삭제된 게시물 입니다</td>
-											<td id="demoFonts">${vo.mem_id}</td>
-											<td id="demoFonts">${vo.bd_date}</td>
-											<td id="demoFonts">${vo.bd_views}</td>
+											<td id="demoFonts">										
+											<figure>
+												<div class="snipcart-item block">
+													<div class="snipcart-thumb">
+														<a href="/userProd/detail?prod_id=biscuit-01057"
+															id="prodImage"> <img
+															src="/Image/product/biscuit/cd26dd6f-67c1-4ce6-9a1b-9818f916d60a.png" alt=" "
+															class="img-responsive" width="200px" height="150px" />
+														</a>
+													</div>
+													<div class="snipcart-details">
+													</div>
+												</div>
+											</figure>
+											</td>
+											
+											<td id="demoFonts">
+												<div class="">
+													<h4>${vo.bd_title}</h4>
+													<p>${vo.bd_content}</p>
+													<dl class="">
+													<dt>작성일 :</dt>
+													<dd>${vo.bd_date}</dd>
+													</dl>
+												</div>
+											</td>
 										</tr>
 									</c:if>
 								</c:forEach>

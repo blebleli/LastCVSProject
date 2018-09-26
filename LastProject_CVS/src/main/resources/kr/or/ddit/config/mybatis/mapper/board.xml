@@ -348,6 +348,7 @@
 									, bd_id
 									, bd_del
 									, bd_parent
+									, UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
 							FROM BOARD
 							WHERE bd_kind_id = #{bd_kind_id}
 			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
