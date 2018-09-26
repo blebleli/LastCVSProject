@@ -7,7 +7,9 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.admin.model.RankVo;
 import kr.or.ddit.model.DisposalListVo;
+import kr.or.ddit.store_owner.model.OnedayChartVo;
 import kr.or.ddit.store_owner.model.salelistJoinVo;
 @Repository("somainDao")
 public class soMainDao implements soMainDaoInf {
@@ -61,5 +63,25 @@ public class soMainDao implements soMainDaoInf {
 	@Override
 	public List<salelistJoinVo> getListProdSales(String mem_id) {
 		return template.selectList("saledisJoin.getListProdSales", mem_id);
+	}
+
+	@Override
+	public List<OnedayChartVo> cvsOnedayTotalSale(String mem_id) {
+		return template.selectList("chart.cvsOnedayTotalSale", mem_id);
+	}
+
+	@Override
+	public List<OnedayChartVo> cvsOnedayTotalIncome(String mem_id) {
+		return template.selectList("chart.cvsOnedayTotalIncome", mem_id);
+	}
+
+	@Override
+	public List<RankVo> cvsCtgyRank(String mem_id) {
+		return template.selectList("chart.cvsCtgyRank", mem_id);
+	}
+
+	@Override
+	public List<RankVo> cvsBestProd(String mem_id) {
+		return template.selectList("chart.cvsBestProd", mem_id);
 	}	
 }
