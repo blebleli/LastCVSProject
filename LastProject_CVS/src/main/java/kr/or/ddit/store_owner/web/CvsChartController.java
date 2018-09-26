@@ -1,9 +1,16 @@
 package kr.or.ddit.store_owner.web;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+
+import kr.or.ddit.admin.model.RankVo;
+import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.store_owner.model.OnedayChartVo;
 import kr.or.ddit.store_owner.model.salelistJoinVo;
 import kr.or.ddit.store_owner.soMain.service.soMainServiceInf;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -12,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 담당 --김마음
@@ -187,5 +195,31 @@ public class CvsChartController {
 		model.addAttribute("saleList", saleList);
 		model.addAttribute("mem_id", mem_id);
 		return "cvs_chart_prod";
-	}	
+	}
+	
+	@RequestMapping("/chart")
+	public ModelAndView storeOwnerChart(Model model){
+		Map modelMap = model.asMap();
+		MemberVo user = (MemberVo) modelMap.get("userInfo");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("cvs_chart");
+		
+//		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale(user.getMem_id());
+		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale("6510000-104-2015-00153");
+//		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome(user.getMem_id());
+		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome("6510000-104-2015-00153");
+//		List<RankVo> ctgyList = somainService.cvsCtgyRank(user.getMem_id());
+		List<RankVo> ctgyList = somainService.cvsCtgyRank("6510000-104-2015-00153");
+//		List<RankVo> prodList = somainService.cvsBestProd(user.getMem_id());
+		List<RankVo> prodList = somainService.cvsBestProd("6510000-104-2015-00153");
+		
+		
+		mav.addObject("saleList", saleList);
+		mav.addObject("incomeList", incomeList);
+		mav.addObject("ctgyList", ctgyList);
+		mav.addObject("prodList", prodList);
+		return mav;
+		
+	}
 }
