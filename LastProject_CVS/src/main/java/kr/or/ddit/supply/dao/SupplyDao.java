@@ -215,5 +215,20 @@ public class SupplyDao implements SupplyDaoInf {
 		return template.selectList("supply.supplyRequestList", place_id);
 	}
 
+	/**
+	* Method : supplyList
+	* Method 설명 :편의점의 발주 목록 전채내역
+	* 최초작성일 : 2018. 9. 26.
+	* 작성자 : 한수정
+	* 변경이력 :신규
+	* 조 회 :
+	* @param String place_id
+	* @return
+	*/
+	@Override
+	public List<SupplyVo> getSupplyList(String place_id) {
+		return template.selectList("supply.getSupplyList", place_id);
+	}
+	
 
 }
