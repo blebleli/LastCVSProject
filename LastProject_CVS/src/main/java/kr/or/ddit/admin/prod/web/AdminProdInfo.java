@@ -1,11 +1,16 @@
 package kr.or.ddit.admin.prod.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ddit.admin.model.AdminProdVo;
 import kr.or.ddit.admin.prod.dao.EventDaoInf;
@@ -13,16 +18,23 @@ import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.admin.prod.service.CategoryServiceInf;
 import kr.or.ddit.admin.prod.service.EventServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.filedata.FileUtil;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.EventVo;
+import kr.or.ddit.model.FiledataVo;
+import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.model.ProdVo;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RequestMapping("/adprod")
@@ -233,9 +245,90 @@ public class AdminProdInfo {
 		List<CategoryVo> result = categoryService.getProdCategoryMd(select);
 		
 		logger.debug("result ==> {}" , result);
-		
-		
+		/*
+		ProdVo [file_path=null, file_upname=null, prod_id=null, 
+		prod_name=0, 
+		prod_intro=0, 
+		prod_info=null, 
+		prod_price=0, 
+		prod_exnum=0, 
+		pr_class_lg=CA39868000001, 
+		pr_class_md=CA95370000002, 
+		event_id=BASIC1, 
+		prod_cost=0, 
+		bd_rating=0] 
+		*/
 		return result;
+	}
+	
+	// 제품 insert
+	@RequestMapping("/prodInsert")
+	public String prodInsert (HttpServletRequest request 
+								, HttpServletResponse response 
+								, @ModelAttribute("prodVo") ProdVo prodVo 
+								, Model model) throws Exception {
+
+
+		
+		
+		//★  서버 이미지 경로 
+//		String tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+		String tempSavePath = "D:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+		String path = "/Image/product";	// DB 저장 경로
+		
+		// 대분류에 따라 저장 장소가 변함
+		String[] groupKor ={"CA39868000001","CA30528000001","CA47861000001","CA79968000001","CA89187000001" ,"CA07760000001"};
+	    String[] groupEng ={"meal","biscuit","ice","food","drink","necessities"};
+
+	    String pathKind = "";
+	    for (int i =  0 ; i < groupKor.length; i++) {
+	    	if (prodVo.getPr_class_lg().equals(groupKor[i])) {
+	    		pathKind = groupEng[i];
+	    		break;
+	    	}
+	    }
+	    
+		// prodId 생성
+		String prod_code = acc.autoCode(pathKind);		// 코드생성
+		prodVo.setProd_id(prod_code);
+		
+		logger.debug("prodVo==> {} ",prodVo);
+		
+		if(prodVo.getUpload_file() != null) {
+			for(MultipartFile file : prodVo.getUpload_file()) {
+				
+				tempSavePath = tempSavePath + File.separator +pathKind;	// 물리
+				path = path + File.separator + pathKind;				// DB
+				
+//				prodVo.setFile_upname(UUID.randomUUID().toString()+".png");			
+				prodVo.setFile_upname("111111111111111111111111111111.png");		// 테스트
+				
+				prodVo.setFile_path(path);
+
+				// 디렉토리 없을 경우 생성
+				if(!new File(tempSavePath).exists()) {
+					new File(tempSavePath).mkdirs();
+				}
+
+				logger.debug("file_path :::::::::: {}", prodVo.getFile_path());
+				logger.debug("file_upname :::::::::: {}", prodVo.getFile_upname());
+
+				// 파일 저장
+				try {
+					FileUtils.writeByteArrayToFile(new File(tempSavePath, prodVo.getFile_upname()), file.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+					throw new Exception(file.getName() + " 파일 저장 실패");
+				}
+			}
+		}
+		
+		int result = adminProdService.setProdInsert(prodVo);
+		
+		logger.debug("result ==> {}", result);
+		
+		return null;
+		
 	}
 	
 }

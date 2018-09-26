@@ -42,6 +42,17 @@
 
 <script type="text/javascript">
 
+//사진 등록시
+function fn_loadImg(value){
+	if (value.files && value.files[0] ) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$("#imgPic").attr('src',e.target.result);
+		}
+		reader.readAsDataURL(value.files[0]);
+	}
+}
+
 $(function() {
 	
 	var isEmpty = function(value){
@@ -98,8 +109,8 @@ $(function() {
 		// 행사   event_id
 		var event_id   = document.getElementById("event_id");
 	    var selectValueEV = event_id.options[event_id.selectedIndex].value;
-		
-		// 상품명  prod_name
+
+	    // 상품명  prod_name
 		var prod_name = $("#prod_name").val();
 		
 		// 상품정보  prod_intro
@@ -115,24 +126,24 @@ $(function() {
 		var prod_exnum = $("#prod_exnum").val();
 		
 		// 사진		file
-		var file = $("#file").val();
+		var file = $("#upload_file").val();
 		
 		// null 체크
-		
-		if (isEmpty(pr_class_lg) || pr_class_lg == "선택") {
+// 		alert(selectValueLg + " : "+ pr_class_md +" : "+ event_id);
+		if (isEmpty(selectValueLg)) {
 			alert("대분류 선택 해주세요");
 			return;
 		}
 		
-		if (isEmpty(pr_class_md)) {
+		if (isEmpty(selectValueMd)) {
 			alert("중분류 선택 해주세요");
 			return;
 		}
 		
-		if (isEmpty(event_id)) {
-			alert("행사 선택 해주세요");
-			return;
-		}
+// 		if (isEmpty(selectValueEv)) {
+// 			alert("행사 선택 해주세요");
+// 			return;
+// 		}
 		
 		if (isEmpty(prod_name)) {
 			alert("상품명을 작성 해주세요");
@@ -171,6 +182,7 @@ $(function() {
 		}
 		
 		
+		$("#frm").submit();
 		
 		
 	});
@@ -202,13 +214,13 @@ $(function() {
 <div class="clearfix"></div>
     <div class="col-md-6 col-sm-8 col-xs-20 ">
     
-    <form action="" method="post" id="frm">
+    <form action="/adprod/prodInsert" method="post" id="frm" enctype="multipart/form-data">
     
     	<div class="form-group">
 	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">대분류</label>
 	       <div class="col-md-3 col-sm-4 col-xs-10">
 	         <select id="pr_class_lg" name="pr_class_lg" >
-	         		<option selected="selected">선택</option>
+	         		<option value="" selected="selected">선택</option>
 	         	<c:forEach items="${categoryLg }" var="lg">
 	         		<option value="${lg.ctgy_id }">${lg.ctgy_name }</option>
 	         	</c:forEach>
@@ -220,7 +232,7 @@ $(function() {
 	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">중분류</label>
 	       <div class="col-md-3 col-sm-4 col-xs-10">
 	       		<select id="pr_class_md" name="pr_class_md">
-	         		<option>대분류를 선택 해주세요</option>
+	         		<option value="">대분류를 선택 해주세요</option>
 	         	</select>
     	   </div>
 	    </div>
@@ -229,7 +241,6 @@ $(function() {
 	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">행사</label>
 	       <div class="col-md-3 col-sm-4 col-xs-10">
 	         <select id="event_id" name="event_id" >
-	         		<option selected="selected">선택</option>
 	         	<c:forEach items="${eventList }" var="ev">
 	         		<option value="${ev.event_id }">${ev.event_name }</option>
 	         	</c:forEach>
@@ -275,14 +286,14 @@ $(function() {
 	    <div class="form-group">
 	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">사진</label>
 	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="file" id="file" name="file" required="required" class="form-control col-md-7 col-xs-12">
+	         <input type="file" id="upload_file" name="upload_file" required="required" class="form-control col-md-7 col-xs-12" onchange="fn_loadImg(this);">
 	       </div>
 	    </div>
 	    
 	    <div class="form-group">
 	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">올린사진</label>
 	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <img alt="" src="">
+	         <img id="imgPic" src="" width="150px;" height="150px;">
 	       </div>
 	    </div>
 	    

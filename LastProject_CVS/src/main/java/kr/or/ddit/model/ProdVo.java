@@ -1,5 +1,7 @@
 package kr.or.ddit.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.or.ddit.commons.model.PageVo;
 
 public class ProdVo extends PageVo {
@@ -17,6 +19,8 @@ public class ProdVo extends PageVo {
 	private String event_id;                // 행사제품코드
 	private int prod_cost;					// 단가
 	
+	private MultipartFile[] upload_file;	// 이미지
+	
 	// 제품 상세 보기 평점 처리 위해서 추가 -2018.09.12-jw
 	private int bd_rating;		// 평점
 	
@@ -26,7 +30,13 @@ public class ProdVo extends PageVo {
 	public void setBd_rating(int bd_rating) {
 		this.bd_rating = bd_rating;
 	}
-	
+	// 사진 처리 위해서 추가 - 2018-09-26-jw
+	public MultipartFile[] getUpload_file() {
+		return upload_file;
+	}
+	public void setUpload_file(MultipartFile[] upload_file) {
+		this.upload_file = upload_file;
+	}
 	public ProdVo() {
 		super();
 	}
