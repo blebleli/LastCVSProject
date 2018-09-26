@@ -2,6 +2,7 @@ package kr.or.ddit.board.dao;
 
 import java.util.List;
 import java.util.Map;
+
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
@@ -206,6 +207,17 @@ public interface BoardDaoInf {
 	List<BoardVo> getBoardPageList(Map<String, Object> map);
 	
 	/**
+	 * Method : getBoardPageSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 공지사항 게시판 검색 페이징 기법
+	 */
+	List<BoardVo> getBoardPageSearch(Map<String, Object> map);
+	
+	/**
 	* Method : totCntBoardList
 	* Method 설명 : 사용자 공지사항 게시글 카운트
 	* 최초작성일 : 2018. 9. 5.
@@ -215,6 +227,17 @@ public interface BoardDaoInf {
 	* @return
 	*/
 	int getBoardListTotCnt(String bd_kind_id);
+	
+	/**
+	 * Method : getWriteTotCntSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 공지사항 게시판 검색 갯수
+	 */	
+	int getWriteTotCntSearch(Map<String, Object> map);
 	
 	/**
 	* Method : getBoardPageList1
@@ -227,6 +250,17 @@ public interface BoardDaoInf {
 	* @return
 	*/
 	List<BoardVo> getBoardPageList1(Map<String, Object> map);
+	
+	/**
+	 * Method : getEventPageSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 이벤트&행사 게시판 검색 페이징 기법
+	 */	
+	List<BoardVo> getEventPageSearch(Map<String, Object> map);
 	
 	/**
 	* Method : totCntBoardList1

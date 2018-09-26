@@ -146,17 +146,24 @@
 <link href="/css/login/common/JKH.css" rel="stylesheet">
 
 <script>
-	$(function() {
-		$("#click").on("click", function() {
-			$("#bd_id").val($(this).data("no"));
-			$("#frm").submit();
-		});
+$(function() {
+	$("#click").on("click", function() {
+		$("#bd_id").val($(this).data("no"));
+		$("#frm").submit();
 	});
-	$(function() {
-		$("#eventDetali").on("click",function(){
-			$()
-		});
-	});	
+
+
+	$("#eventDetali").on("click",function(){
+		$()
+	});
+
+	$("#search").on("click",function(){ // 제목 / 제목+내용 / 내용 / 작성자 중 선택 후 검색창을 누른다.
+		alert($("#i option:selected").val());
+		alert($("#i_search").val());
+		$("#boardGo").submit(); // 검색 결과로 이동한다.
+	});
+
+});	
 </script>
 
 <!-- products-breadcrumb -->
@@ -182,16 +189,19 @@
 		<!-- services -->
 		<div class="services">
 			<h3>이벤트&행사</h3>
+				<form action="/board/eventSearch" id="boardGo" method="post">
 				<div class="search">
-					<select id="ctgy_name" name="ctgy_name" onchange="searchCtgyList(this.value);">
-						<option id="" value="">제목</option>
-						<option id="" value="">내용</option>
-						<option id="" value="">제목+내용</option>
-						<option id="" value="">작성자</option>
+					<select id="i" name="i">
+						<option value="1">제목</option>
+						<option value="2">내용</option>
+						<option value="3">제목+내용</option>
+						<option value="4">작성자</option>
 					</select>
-					<input class="searchs" type="text">
-					<button type="button" class="btn btn-default">검색</button>
+					<input name="i_search" id="i_search" type="text">
+					<button id="search" type="button" class="btn btn-default">검색</button>
+					<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id}"> 
 				</div>
+				</form>
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<thead>

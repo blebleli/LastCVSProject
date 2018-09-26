@@ -243,6 +243,40 @@ public class BoardService implements BoardServiceInf {
 	}
 	
 	/**
+	 * Method : getBoardPageSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 공지사항 게시판 검색 페이징 기법
+	 */	
+	@Override
+	public Map<String, Object> getBoardPageSearch(Map<String, Object> map) {
+		Map<String, Object> resultMap = new HashMap<String, Object>(); // 검색 자료
+		
+		// 게시판 페이지 리스트 조회
+		List<BoardVo> boardpage = boardDao.getBoardPageSearch(map); // 검색 자료 쿼리 돌리기	
+			
+		resultMap.put("boardpage", boardpage); // 맵에 보관	
+
+		// 게시글 전체 건수 조회
+		int totCnt = boardDao.getWriteTotCntSearch(map); // 구분 값 및 검색 조건 넣고 건수 조회
+		
+		logger.debug("totCnt : {}", totCnt);
+		
+		resultMap.put("totCnt", totCnt);
+
+		// 페이지 네비게이션 html 생성
+		int page = (int) map.get("page");
+		int pageSize = (int) map.get("pageSize");
+
+		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));
+
+		return resultMap;
+	}
+	
+	/**
 	* Method : makePageNavi
 	* Method 설명 : 공지사항 게시판 페이징 처리
 	* 최초작성일 : 2018. 9. 5.
@@ -317,6 +351,29 @@ public class BoardService implements BoardServiceInf {
 
 		return resultMap;
 	}
+	
+	@Override
+	public Map<String, Object> getEventPageSearch(Map<String, Object> map) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		// 게시판 페이지 리스트 조회
+		List<BoardVo> boardpage = boardDao.getEventPageSearch(map);		
+		resultMap.put("boardpage", boardpage);
+
+		// 게시글 전체 건수 조회
+		int totCnt = boardDao.getWriteTotCntSearch(map); // 구분 값 및 검색 조건 넣고 건수 조회
+		logger.debug("totCnt ================================>> {}", totCnt);
+		resultMap.put("totCnt", totCnt);
+
+		// 페이지 네비게이션 html 생성
+		int page = (int) map.get("page");
+		int pageSize = (int) map.get("pageSize");
+
+		resultMap.put("pageNavi", makePageNavi1(page, pageSize, totCnt));
+
+		return resultMap;
+	}	
 	
 	/**
 	* Method : makePageNavi1

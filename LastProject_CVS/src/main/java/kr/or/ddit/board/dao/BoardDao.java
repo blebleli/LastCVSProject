@@ -2,9 +2,12 @@ package kr.or.ddit.board.dao;
 
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
@@ -54,7 +57,7 @@ public class BoardDao implements BoardDaoInf {
 	 * 변경이력 : 신규
 	 * @param boardVo
 	 * @return
-	 * Method 설명 : 검색(제목 1, 내용 2, 제목+내용 3, 작성자 4)
+	 * Method 설명 : 관리자 검색(제목 1, 내용 2, 제목+내용 3, 작성자 4)
 	 */
 	@Override	
 	public List<BoardVo> boardSearch(BoardVo boardVo) {
@@ -132,6 +135,20 @@ public class BoardDao implements BoardDaoInf {
 	}
 	
 	/**
+	 * Method : getBoardPageSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 공지사항 게시판 검색 페이징 기법
+	 */	
+	@Override
+	public List<BoardVo> getBoardPageSearch(Map<String, Object> map) {
+		return template.selectList("board.getBoardPageSearch",map);
+	}
+	
+	/**
 	* Method : getBoardListTotCnt
 	* Method 설명 : 사용자 공지사항 게시글 카운트
 	* 최초작성일 : 2018. 9. 5.
@@ -143,6 +160,20 @@ public class BoardDao implements BoardDaoInf {
 	@Override
 	public int getBoardListTotCnt(String bd_kind_id) {
 		return template.selectOne("board.getWriteTotCnt",bd_kind_id);
+	}
+	
+	/**
+	 * Method : getWriteTotCntSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 공지사항 게시판 검색 갯수
+	 */	
+	@Override
+	public int getWriteTotCntSearch(Map<String, Object> map) {
+		return template.selectOne("board.getWriteTotCntSearch",map);
 	}
 	
 	/**
@@ -158,6 +189,20 @@ public class BoardDao implements BoardDaoInf {
 	@Override
 	public List<BoardVo> getBoardPageList1(Map<String, Object> map) {
 		return template.selectList("board.getBoardPageList",map);
+	}
+	
+	/**
+	 * Method : getEventPageSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 이벤트&행사 게시판 검색 페이징 기법
+	 */	
+	@Override
+	public List<BoardVo> getEventPageSearch(Map<String, Object> map) {
+		return template.selectList("board.getEventPageSearch",map);
 	}
 	
 	/**
@@ -333,6 +378,4 @@ public class BoardDao implements BoardDaoInf {
 	public List<MainReviewsVo> getReviewTop3() {
 		return template.selectList("board.getReviewTop3");
 	}
-
-
 }

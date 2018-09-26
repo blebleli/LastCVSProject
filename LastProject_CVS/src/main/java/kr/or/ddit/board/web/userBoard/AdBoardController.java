@@ -51,6 +51,60 @@ public class AdBoardController {
 
 	@Resource(name="boardDao")
 	private BoardDaoInf boardDao;
+	
+	/**
+	 * Method : boardSearch
+	 * Method 설명 : 사용자 공지사항 검색 조회
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * 조 회 : 사용자 공지사항 검색 조회
+	 * @return
+	 */
+	@RequestMapping("/boardSearch")
+	public String boardSearch(@RequestParam(value="page", defaultValue="1") int page,
+							  @RequestParam(value="pageSize", defaultValue="10") int pageSize,
+							  @RequestParam(value="i", defaultValue="") String i,
+							  @RequestParam(value="i_search", defaultValue="") String i_search,
+							  @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id, Model model){
+		System.out.println("page >>>>>>>>>>>>>>>>>>>>>>>>>> "+page);
+		System.out.println("pageSize >>>>>>>>>>>>>>>>>>>>>>>>>> "+pageSize);
+		System.out.println("i >>>>>>>>>>>>>>>>>>>>>>>>>> "+i);
+		System.out.println("i_search >>>>>>>>>>>>>>>>>>>>>>>>>> "+i_search);
+		System.out.println("bd_kind_id >>>>>>>>>>>>>>>>>>>>>>>>>> "+bd_kind_id);
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("bd_kind_id", bd_kind_id);
+		
+		Map<String, Object> resultMap = null;
+		
+		if(i.equals("1")){ // 제목 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("bd_title", i_search);
+			resultMap = boardService.getBoardPageSearch(paramMap);
+		}else if(i.equals("2")){ // 내용 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("bd_content", i_search);
+			resultMap = boardService.getBoardPageSearch(paramMap);
+		}else if(i.equals("3")){ // 제목 + 내용 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("bd_parent", i_search); // 값이 분산되어 넣기가 불가능해서 부모코드에 임시로 검색량 넣어서 넘김.
+			resultMap = boardService.getBoardPageSearch(paramMap);
+		}else if(i.equals("4")){ // 작성자 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("mem_name", i_search);
+			resultMap = boardService.getBoardPageSearch(paramMap);
+		}
+		
+		model.addAttribute("i", i);
+		model.addAttribute("bd_kind_id",bd_kind_id);
+		model.addAllAttributes(resultMap);
+		
+		return "boardList";
+	}
 
 	/**
 	 * Method : boardListView
@@ -76,9 +130,64 @@ public class AdBoardController {
 		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
 		
 		model.addAllAttributes(resultMap);
+		model.addAttribute("bd_kind_id", bd_kind_id);
 		
 		return "boardList";
 	}
+
+	/**
+	 * Method : boardSearch
+	 * Method 설명 : 사용자 이벤트&행사 검색 조회
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * 조 회 : 사용자 이벤트&행사 검색 조회
+	 * @return
+	 */
+	@RequestMapping("/eventSearch")
+	public String eventSearch(@RequestParam(value="page", defaultValue="1") int page,
+							  @RequestParam(value="pageSize", defaultValue="10") int pageSize,
+							  @RequestParam(value="i", defaultValue="") String i,
+							  @RequestParam(value="i_search", defaultValue="") String i_search,
+							  @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id, Model model){
+		System.out.println("page >>>>>>>>>>>>>>>>>>>>>>>>>> "+page);
+		System.out.println("pageSize >>>>>>>>>>>>>>>>>>>>>>>>>> "+pageSize);
+		System.out.println("i >>>>>>>>>>>>>>>>>>>>>>>>>> "+i);
+		System.out.println("i_search >>>>>>>>>>>>>>>>>>>>>>>>>> "+i_search);
+		System.out.println("bd_kind_id >>>>>>>>>>>>>>>>>>>>>>>>>> "+bd_kind_id);
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("page", page);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("bd_kind_id", bd_kind_id);
+		
+		Map<String, Object> resultMap = null;
+		
+		if(i.equals("1")){ // 제목 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("bd_title", i_search);
+			resultMap = boardService.getEventPageSearch(paramMap);
+		}else if(i.equals("2")){ // 내용 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("bd_content", i_search);
+			resultMap = boardService.getEventPageSearch(paramMap);
+		}else if(i.equals("3")){ // 제목 + 내용 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("bd_parent", i_search); // 값이 분산되어 넣기가 불가능해서 부모코드에 임시로 검색량 넣어서 넘김.
+			resultMap = boardService.getEventPageSearch(paramMap);
+		}else if(i.equals("4")){ // 작성자 검색시
+			paramMap.put("bd_kind_id", bd_kind_id);
+			paramMap.put("mem_name", i_search);
+			resultMap = boardService.getEventPageSearch(paramMap);
+		}
+		
+		model.addAttribute("i", i);
+		model.addAttribute("bd_kind_id",bd_kind_id);
+		model.addAllAttributes(resultMap);
+		
+		return "eventList";
+	}	
 	
 	/**
 	 * Method : boardEventListView
@@ -104,6 +213,7 @@ public class AdBoardController {
 		Map<String, Object> resultMap = boardService.getBoardPageList1(paramMap);
 		
 		model.addAllAttributes(resultMap);
+		model.addAttribute("bd_kind_id", bd_kind_id);
 		
 		return "eventList";
 	}

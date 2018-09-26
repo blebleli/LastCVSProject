@@ -38,7 +38,7 @@ public interface BoardServiceInf {
 	 * 변경이력 : 신규
 	 * @param bd_kind_id
 	 * @return
-	 * Method 설명 : 게시물 전체 조회
+	 * Method 설명 : 관리자 게시물 전체 조회
 	 */
 	List<BoardVo> getBoardPageList2(String bd_kind_id);
 	
@@ -49,7 +49,7 @@ public interface BoardServiceInf {
 	 * 변경이력 : 신규
 	 * @param boardVo
 	 * @return
-	 * Method 설명 : 검색(제목 1, 내용 2, 제목+내용 3, 작성자 4)
+	 * Method 설명 : 관리자 검색(제목 1, 내용 2, 제목+내용 3, 작성자 4)
 	 */
 	List<BoardVo> boardSearch(BoardVo boardVo);
 
@@ -96,7 +96,7 @@ public interface BoardServiceInf {
 	* 조 회 :List<BoardVo> getListBoard()_공지사항 게시판의 게시물 리스트 출력
 	* @return
 	*/
-	List<BoardVo> getListBoard();
+	List<BoardVo> getListBoard();	
 	
 	/**
 	* Method : getListBestReviewOne
@@ -179,6 +179,17 @@ public interface BoardServiceInf {
 	Map<String, Object> getBoardPageList(Map<String, Object> map);
 	
 	/**
+	 * Method : getBoardPageSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 공지사항 게시판 검색 페이징 기법
+	 */
+	Map<String, Object> getBoardPageSearch(Map<String, Object> map);
+	
+	/**
 	 * Method : getBoardPageList
 	 * 최초작성일 : 2018. 9. 2.
 	 * 작성자 : 김마음
@@ -188,6 +199,17 @@ public interface BoardServiceInf {
 	 * Method 설명 : 사용자 이벤트&행사 게시판 페이징 기법
 	 */	
 	Map<String, Object> getBoardPageList1(Map<String, Object> map);
+	
+	/**
+	 * Method : getEventPageSearch
+	 * 최초작성일 : 2018. 9. 26.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param map
+	 * @return
+	 * Method 설명 : 사용자 이벤트&행사 게시판 검색 페이징 기법
+	 */	
+	Map<String, Object> getEventPageSearch(Map<String, Object> map);
 	
 	int setWriteInsert(BoardVo boardVo);
 	

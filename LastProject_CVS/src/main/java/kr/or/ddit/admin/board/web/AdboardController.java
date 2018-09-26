@@ -82,6 +82,7 @@ public class AdboardController {
 		
 		return "ad_boardView";
 	}
+	
 	/**
 	 * Method : boardView
 	 * 최초작성일 : 2018. 9. 17.

@@ -151,12 +151,19 @@
 			$("#bd_id").val($(this).data("no"));
 			$("#frm").submit();
 		});
-	});
-	$(function() {
+
+	
 		$("#eventDetali").on("click",function(){
 			$()
 		});
-	});	
+	
+		$("#search").on("click",function(){ // 제목 / 제목+내용 / 내용 / 작성자 중 선택 후 검색창을 누른다.
+			alert($("#i option:selected").val());
+			alert($("#i_search").val());
+			$("#boardGo").submit(); // 검색 결과로 이동한다.
+		});
+	
+	});
 </script>
 
 <script>
@@ -184,16 +191,19 @@
 		<!-- services -->
 		<div class="services">
 			<h3>공지사항</h3>
+				<form action="/board/boardSearch" id="boardGo" method="post">
 				<div class="search">
-					<select id="ctgy_name" name="ctgy_name" onchange="searchCtgyList(this.value);">
-						<option id="bd_title" value="bd_title">제목</option>
-						<option id="bd_content" value="bd_content">내용</option>
-						<option id="bd_title_content" value="bd_title_content">제목+내용</option>
-						<option id="mem_id" value="mem_id">작성자</option>
+					<select id="i" name="i">
+						<option value="1">제목</option>
+						<option value="2">내용</option>
+						<option value="3">제목+내용</option>
+						<option value="4">작성자</option>
 					</select>
-					<input class="searchs" type="text">
-					<button type="button" class="btn btn-default">검색</button>
+					<input name="i_search" id="i_search" type="text">
+					<button id="search" type="button" class="btn btn-default">검색</button>
+					<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id}"> 
 				</div>
+				</form>
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<thead>

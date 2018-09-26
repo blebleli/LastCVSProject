@@ -250,11 +250,85 @@
 			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
+	
+	<!-- 게시판 검색 기법 -->
+	<select id="getBoardPageSearch" parameterType="map" resultType="boardVo">	
+		SELECT * FROM (
+			SELECT ROWNUM tot_cnt, T.*
+					FROM  (
+					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+									, bd_rating
+									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+									, mem_id
+									, bd_kind_id
+									, prod_id
+									, bd_id
+									, bd_del
+									, bd_parent
+							FROM BOARD
+							WHERE 1=1						                		                			                
+		                	<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
+			                	<if test="bd_title != null and bd_title != ''">
+					                AND bd_title LIKE '%'|| #{bd_title} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>
+							</if>
+								
+							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
+								<if test="bd_content != null and bd_content != ''">
+					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>								
+							</if>
+							
+							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+								<if test="bd_parent != null and bd_parent != ''">
+					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>								
+							</if>
+							
+							<!-- 작성자는 보류 -->
+			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
+			                
+			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+	</select>
 		
   	<!-- 게시글 전체 건수 -->
   	<select id="getWriteTotCnt" parameterType="String" resultType="int">
-		SELECT count(*) FROM BOARD WHERE bd_kind_id = #{bd_kind_id}
+		SELECT count(*)
+		FROM BOARD
+		WHERE bd_kind_id = #{bd_kind_id}
   	</select>
+  	
+  	<!-- 게시글 검색 건수 -->
+  	<select id="getWriteTotCntSearch" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM BOARD
+		WHERE 1=1
+       	<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
+        	<if test="bd_title != null and bd_title != ''">
+	          AND bd_title LIKE '%'|| #{bd_title} ||'%'
+	          AND bd_kind_id = #{bd_kind_id}			                	
+			</if>
+		</if>
+			
+		<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
+			<if test="bd_content != null and bd_content != ''">
+               AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+               AND bd_kind_id = #{bd_kind_id}			                	
+			</if>								
+		</if>
+		
+		<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+			<if test="bd_parent != null and bd_parent != ''">
+               AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
+               AND bd_kind_id = #{bd_kind_id}			                	
+			</if>								
+		</if>		
+  	</select>  	
   	
  <!-- ==========================================사용자 이벤트&행사 게시판 ======================================================== -->
  
@@ -279,6 +353,51 @@
 			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
+	
+	<!-- 게시판 검색 기법 -->
+	<select id="getEventPageSearch" parameterType="map" resultType="boardVo">	
+		SELECT * FROM (
+			SELECT ROWNUM tot_cnt, T.*
+					FROM  (
+					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+									, bd_rating
+									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+									, mem_id
+									, bd_kind_id
+									, prod_id
+									, bd_id
+									, bd_del
+									, bd_parent
+							FROM BOARD
+							WHERE 1=1						                		                			                
+		                	<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
+			                	<if test="bd_title != null and bd_title != ''">
+					                AND bd_title LIKE '%'|| #{bd_title} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>
+							</if>
+								
+							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
+								<if test="bd_content != null and bd_content != ''">
+					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>								
+							</if>
+							
+							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+								<if test="bd_parent != null and bd_parent != ''">
+					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>								
+							</if>
+							
+							<!-- 작성자는 보류 -->
+			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
+			                
+			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+	</select>	
 		
   	<!-- 게시글 전체 건수 -->
   	<select id="getWriteTotCnt1" parameterType="String" resultType="int">
