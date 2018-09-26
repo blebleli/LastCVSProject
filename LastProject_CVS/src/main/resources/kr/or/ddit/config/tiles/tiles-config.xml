@@ -152,6 +152,11 @@
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_setting.jsp"/>
 	</definition>
 	
+	<!-- 통계 -->
+	<definition name="cvs_chart" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_chart.jsp"/>
+	</definition>
+	
 	<!-- 관리자 레이아웃======================================================= -->
 	<definition name="ad_basicLayout" template="/WEB-INF/view/common/admin/ad_basicLayout.jsp">
 		<put-attribute name="ad_top"  value="/WEB-INF/view/common/admin/ad_left.jsp" />
