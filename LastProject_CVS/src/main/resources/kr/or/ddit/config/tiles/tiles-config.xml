@@ -102,7 +102,7 @@
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_POS.jsp"/>
 	</definition>
 	
-	<!--  바코드인식 -->
+	<!--  입고인식 -->
 	<definition name="cvs_barcode_read" extends="cvs_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_barcode_read.jsp"/>
 	</definition>

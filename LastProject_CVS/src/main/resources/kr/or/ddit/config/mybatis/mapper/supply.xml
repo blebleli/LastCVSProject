@@ -189,8 +189,33 @@
  			AND a.SUPPLY_BCD = b.SUPPLY_BCD
 			GROUP BY a.supply_bcd, a.supply_date,a.supply_state, a.place_id
 			ORDER BY a.supply_date desc
+	</select> 
+
+
+	<!-- 	아 이 디 : supplyList
+	  		반 환 값 : supplyVo
+	  		매개변수 : String(place_id)
+	  		설    명 : 편의점이 발주한 목록 조회
+	  		작 성 자 : 한수정
+	  		일    시 : 2018-09-26     
+	-->
+	<select id="getSupplyList" parameterType="String" resultType="supplyVo">
+		SELECT   supply_bcd
+				,supply_date
+				,supply_state
+				,supply_info
+				,place_id
+		FROM SUPPLY 
+		WHERE PLACE_ID=#{place_id}
+		ORDER BY supply_date DESC
 	</select>
 
+
+
+
+
+
+                                         
 	<!--관리자용/////////////////////////////////////////////////////////////////////////////  -->
 	<!-- 	아 이 디 : adminApplyList
 	  		반 환 값 : adminApplyVo
