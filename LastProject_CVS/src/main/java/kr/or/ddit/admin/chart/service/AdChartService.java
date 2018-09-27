@@ -47,5 +47,15 @@ public class AdChartService implements AdChartServiceInf{
 		return adChartDao.getBookmarkCvsTop5();
 	}
 
+	@Override
+	public List<MonthTopVo> supReqMonthAmount() {
+		return adChartDao.supReqMonthAmount();
+	}
+
+	@Override
+	public List<MonthTopVo> supInMonthAmount() {
+		return adChartDao.supInMonthAmount();
+	}
+
 	
 }
