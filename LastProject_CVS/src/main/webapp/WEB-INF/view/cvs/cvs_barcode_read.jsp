@@ -51,7 +51,8 @@
  					<script>
 //바코드 인식 ------------------------------------------------------------
  					
- 					var intervalID;			
+ 					var intervalID;
+ 					var supply_bcd_data;
  					
 				    	function getImage(){
 				    		var context = snapshot.getContext('2d');
@@ -78,7 +79,9 @@
 		    				            	
 		    				            	//인식한바코드 상태 이미 입고된것인지 확인필요 -- 		    				            	
 		    				            	stopCapture();
-		    				            
+											
+		    				            	supply_bcd_data = data.decodedText;
+		    				            	console.log("data supply_bcd ---- :"+supply_bcd_data);
 		    				            	
 			    							addRow(data);
 			    							
@@ -124,14 +127,13 @@
 			    		$.each(data.supplyList,function(index, item){
 							$("#tbodyReqIN").append(
 								    '<tr>'+
-								     '  <td class=" ">'+index+'</td>'+
-			                         '  <td class=" "><span class="splylist_id">'+item.splylist_id+'</span></td>'+
-			                         '  <td class=" ">'+item.prod_id+'</td> '+
-			                         '  <td class=" ">'+item.splylist_sum+'</td> '+ 	                    
-			                         '	<td ><input style="width : 100%" class="amount" type="number" value='+item.splylist_sum+'>'+
+								     '  <td>'+index+'</td>'+
+			                         '  <td><span  class="splylist_id">'+item.splylist_id+'</span></td>'+
+			                         '  <td>'+item.prod_id+'</td> '+
+			                         '  <td>'+item.splylist_sum+'</td> '+ 	                    
+			                         '	<td><input class="amount" style="width : 100%"type="number" value='+item.splylist_sum+'>'+
 				                     '	</input></td>'+		                         
-			                         '  <td class=" ">'+item.splylist_info+'</td> '+
-			                         '  <td class=" "><span class="supply_bcd">'+item.supply_bcd+'</span></td> '+
+			                         '  <td>'+item.splylist_info+'</td> '+
 			                         '</tr>'
 			                    );			                   
 			    		});
@@ -142,13 +144,8 @@
 			    	        "paging":         false,
 			    	        "columnDefs": [
 							      { "width": "9%" , "targets": 0 },
-							      { "width": "15%", "targets": 4 },
-							      {
-						                "targets": [ 6 ],
-						                "visible": false,
-						                "searchable": false
-						          }
-							    		  ]
+							      { "width": "15%", "targets": 4 }
+							     		 ]
 			    	    } );
 					}   
 					
@@ -162,19 +159,17 @@
 				
 			    		
 			    		var reqInList=[];		
-			    
 			    		
-			    		$("#tbodyReqIN tr").each(function (index) {		                    	 
+			    		$("#tblReqIN tbody tr").each(function (index) {		                    	 
 			    			var data = $(this);		
-			    			
+
 			    			if(index<=10){ //test용---------------------------------------
 			    				
 			    				reqInList.push({
-			    						 splylist_id: data.find('.splylist_id').html(),			    					
-			    					 stcklist_amount: data.find('.amount').val(),
-			    					 	 supply_bcd : data.find('.supply_bcd').html()
-			    					 	  });
-			    					 console.log("supply_bcd---"+data.find('.supply_bcd').html());
+			    						splylist_id : data.find('.splylist_id').text(),			    					
+			    					   splylist_sum : data.find('.amount').val(),
+			    					 	 supply_bcd : supply_bcd_data
+			    					 	  });			  					
 			    			};
 			    			
 			    			
@@ -182,17 +177,17 @@
 			    		
 			    		console.log("reqInList ::: "+reqInList.size);
 
-			    	/* 	$.ajax({
-			    			  url: "/cvs/setDayEnd",
+			    	 	$.ajax({
+			    			  url: "/cvs/supplyIn/confirm",
 			    			  method: "post",
-			    			  data: JSON.stringify(dayEndList),
+			    			  data: JSON.stringify(reqInList),
 			    			  contentType: "application/json",
 			    			  success : function () {
 			    				  alert("입고완료 되었습니다.");
-			    				  $("#tbodyReqIN").empty(); 
+			    				  $("#tblReqIN").empty(); 
 			    		      },		 						
 			    			  error : function(){console.log("error");}		  								  
-			    		}); */					    		
+			    		}); 					    		
 			    	}
 			   
 				    </script>
@@ -226,7 +221,6 @@
                             <th class="column-title">수량</th>
                             <th class="column-title">실수량</th>
                             <th class="column-title">비고</th>          
-                            <th class="column-title"></th>
                           </tr>
                         </thead>
 

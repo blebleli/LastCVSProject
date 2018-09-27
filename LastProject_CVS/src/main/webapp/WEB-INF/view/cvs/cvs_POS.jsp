@@ -291,7 +291,7 @@
 				    				       prod_price: data.find('.price1').html(),
 				    				  stcklist_amount: data.find('.amount').val(),
 					    					  prod_id: data.find('.prod_id').html()
-					    					 })
+					    					 });
 		                     });	
 				    		
 				    		//saleList.push({kind : kind});

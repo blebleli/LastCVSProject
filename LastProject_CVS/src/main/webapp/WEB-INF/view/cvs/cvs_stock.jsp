@@ -61,7 +61,7 @@
 	    			method : "post",	    			
         			data: JSON.stringify(requestProd),
 				    contentType: "application/json",
-			    	success: function(res) {
+			    	success: function(res ) {
 			    		console.log("controller == response ==");
 			    	    window.location.href = "cvs_supply_request";
 			    	}
