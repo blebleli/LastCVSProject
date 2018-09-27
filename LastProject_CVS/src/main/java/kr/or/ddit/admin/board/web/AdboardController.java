@@ -393,8 +393,7 @@ public class AdboardController {
 			System.out.println("실패");
 		}
 		
-		b.setBd_id(bd_id); // 게시글 코드 저장		
-		b.setBd_group(bd_id); // 게시글 그룹코드 저장 (첫 글은 첫 글의 게시글 코드가 그룹코드임.)
+		b.setBd_id(bd_id); // 게시글 코드 저장
 		
 		int cnt = boardService.setInsertBoard(b); // 게시글 저장
 		

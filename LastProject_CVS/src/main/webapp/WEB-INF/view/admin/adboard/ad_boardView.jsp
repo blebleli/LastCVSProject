@@ -44,12 +44,8 @@
 			});
 		
 			$("table tbody tr").on("click", function(){
-				//tr태그의 data-id 속성 값을 읽어서 input 태그의 id 값으로 설정
-				//form 태그를 submit
-				if($(this).data("id2") == 'N'){
-					$("#id").val($(this).data("id"));
-					$("#frm").submit();
-				}
+				$("#id").val($(this).data("id")); // 관리자는 삭제여부 상관없이 모든 게시글 조회 가능
+				$("#frm").submit();
 			});
 			
 			$("#boardNew").on("click", function(){ // 게시글 작성을 누르면
@@ -319,7 +315,7 @@ $(function(){
 												<td class="a-center "><input type="checkbox"
 													class="flat" name="table_records"></td>
 												<td>${vo.tot_cnt }</td>
-												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')}</td>
+												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
 												<td>${vo.mem_name}</td>
 												<td>${vo.bd_date}</td>
 												<td>${vo.bd_views}</td>	
