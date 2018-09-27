@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.admin.model.AdminApplyViewVo;
 import kr.or.ddit.admin.model.AdminApplyVo;
 import kr.or.ddit.admin.supply.service.AdminSupplyServiceInf;
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
 * @Class Name : AdminSupplyController.java
@@ -48,6 +50,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 // ==========================================
 // 목록
 // 조회=============================================
+@SessionAttributes({"adminApplyVo"})
 @RequestMapping("/admin")
 @Controller("adminSupplyController")
 public class AdminSupplyController {
@@ -125,12 +128,13 @@ public class AdminSupplyController {
 		int sum = supplyService.sumProdPrice(supply_bcd);
 		MemberVo memberVo = supplyService.supplyMemberInfo(supply_bcd);
 		
-		//수불 바코드 넘기기
-		model.addAttribute("supply_bcd",supply_bcd);
+		//클릭한 발주에 대한 내역값 넘기기
+		model.addAttribute("adminApplyVo",adminApplyVo);
 		//합계 비용값 넘기기
 		model.addAttribute("sum",sum);
 		//점주 정보 넘기기
 		model.addAttribute("memberVo",memberVo);
+		
 		//키값(AdminApplyViewList,pageNavi)
 		model.addAllAttributes(resultMap);
 		
@@ -138,17 +142,19 @@ public class AdminSupplyController {
 	}
 	
 	@RequestMapping("/supplyCheck")
-	public String supplyCheck(@RequestParam(value="supply_bcd")String supply_bcd,
-											Model model,
-											MemberVo memberVo){
+	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
+							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
+							  @RequestParam(value="supply_bcd")String supply_bcd,
+							  AdminApplyVo adminApplyVo,
+							  Model model							  ){
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
 		
 		logger.debug("check: {}",check);
-		logger.debug("vo.getMem_id() : {}",memberVo.getMem_id());
+		logger.debug("vo.getMem_id() : {}",adminApplyVo.getMem_id());
 		
 		//점주 ID이자 편의점 ID
-		String mem_id = memberVo.getMem_id();
+		String mem_id = adminApplyVo.getMem_id();
 		
 		
 		//supply_bcd를 새로이 생성
@@ -245,7 +251,7 @@ public class AdminSupplyController {
 		}
 		
 		
-		return "ad_supplyLookupView";
+		return "redirect:/admin/lookupView";
 	}
 	
 }

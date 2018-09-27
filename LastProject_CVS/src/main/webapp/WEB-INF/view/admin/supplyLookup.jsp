@@ -123,6 +123,7 @@
 									<td>
 										<form action="/admin/lookupView" method="get">
 											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}">
+											<input type="hidden" name="supply_state" value="${vo.supply_state}">
 											<input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">
 										</form>
 									</td>

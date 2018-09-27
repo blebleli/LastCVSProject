@@ -71,12 +71,13 @@
 										<i class="fa fa-globe">수불 신청 내역</i> 
 										<small class="pull-right">
 										<td>
-											<form action="/admin/supplyCheck" method="post">
-												<input type="hidden" name="supply_bcd" value="${supply_bcd}">
+											<form action="/admin/supplyCheck" method="post" id="frm">
+												<input type="hidden" name="supply_bcd" value="${adminApplyVo.supply_bcd}">
 												<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
-												<button type="submit" onclick="supply_check();" class="btn btn-primary pull-right" style="margin-right: 5px;">
-													발주 신청 확인
-												</button>
+												<c:if test="${adminApplyVo.supply_state == 10 }">
+													<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
+													<!-- onclick="supply_check();" -->
+												</c:if>
 											</form>
 										</td>
 										</small>
@@ -105,7 +106,7 @@
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
-									<b>수불바코드 : ${supply_bcd}</b> <br> <br> <br>
+									<b>수불바코드 : ${adminApplyVo.supply_bcd}</b> <br> <br> <br>
 									<br>
 								</div>
 								<!-- /.col -->
@@ -137,11 +138,19 @@
 													<td>${vo.prod_name}</td>	<!-- 상품이름 -->
 													<td><fmt:formatDate value="${vo.exdate}" pattern="yyyy.MM.dd. HH:mm"/>
 													</td>	<!-- 유통기한 -->
-													<td><input type="text" size="1"></td>		
+													<c:if test="${adminApplyVo.supply_state == 10}">
+														<td>
+															<input type="text" size="1">
+														</td>		
+													</c:if>
+													<c:if test="${adminApplyVo.supply_state != 10}">
+														<td>
+														</td>		
+													</c:if>
 													<td>${vo.splylist_sum}</td>		<!-- 수량 -->
 													<td>${vo.prod_price}</td>		<!-- 판매가격 -->
 													<td>${vo.prod_cost}</td>		<!-- 단가 -->
-													<td>￦${vo.splylist_sum * vo.prod_cost}</td>	<!-- 합계 -->
+													<td>￦${vo.prod_cost * vo.splylist_sum}</td>	<!-- 합계 -->
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -235,15 +244,27 @@
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
 
-<script>
-function supply_check() {
-	var result = confirm('수불 확인 처리 하시겠습니까?');
-	if(result) {
-		alert('정상적으로 처리 되었습니다.');
-		location.replace('/admin/supplyCheck');
-
-	} else {
-		false;
-	}
-}
+<script type="text/javascript">
+window.onload = function() {
+    document.getElementById('btn').onclick = function() {
+    	if(confirm("발주 신청을 확인 하시겠습니까?")==true){
+	        document.getElementById('frm').submit();
+	        return false;
+    	}else{
+    		return;
+    	}
+    };
+};
 </script>
+
+<!-- <script> -->
+// function supply_check() {
+// 	if(confirm("수불 확인 처리 하시겠습니까?") == true) {
+// 		return true;
+// 		location.replace("/admin/supplyCheck");
+// 		document.submit.submit();
+// 	} else {
+// 		return false;
+// 	}
+// }
+<!-- </script> -->

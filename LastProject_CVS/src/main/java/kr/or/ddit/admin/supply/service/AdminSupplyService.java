@@ -127,7 +127,7 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 
 		int prevPage = page == 1? 1 : page-1;
 		int nextPage = page == cnt ? page : page+1;
-		pageNaviStr.append("<li><a href=\"/admin/lookupView?page=" + prevPage + "&pageSize=" + pageSize + "&supply_bcd="+ supply_bcd + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/lookupView?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
 
 		int pageCount = 10;
 		int startPage = ((page - 1)/pageCount) * pageCount +1;
@@ -137,10 +137,10 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 			String activeClass = "";
 			if(i == page)
 				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/lookupView?page=" + i + "&pageSize=" + pageSize + "&supply_bcd="+ supply_bcd + "\"> "+ i +" </a></li>");
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/lookupView?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
 		}
 
-		pageNaviStr.append("<li><a href=\"/admin/lookupView?page=" + nextPage + "&pageSize=" + pageSize + "&supply_bcd="+ supply_bcd + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
+		pageNaviStr.append("<li><a href=\"/admin/lookupView?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 
 		return pageNaviStr.toString();
 	}
