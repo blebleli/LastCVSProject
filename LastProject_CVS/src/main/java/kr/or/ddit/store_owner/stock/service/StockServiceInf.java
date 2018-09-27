@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
+import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 
 public interface StockServiceInf {
@@ -21,6 +22,19 @@ public interface StockServiceInf {
 	 * Method 설명 : dayendInsert
 	 */
 	int dayendInsert(List<PresentStockListVo> stockVoList, String stock_kind, String mem_id);
+	
+	/**
+	 * 
+	 * Method   : supplyStockInsert 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param StockListVo
+	 * @param mem_id
+	 * @return 
+	 * Method 설명 : 입고시, 재고insert를 위한 service
+	 */
+	int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id);
 	
 	/**
 	 * 

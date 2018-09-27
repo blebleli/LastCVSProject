@@ -66,7 +66,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("cvsSupplyReqController")
 
 public class CvsSupplyReqController {
-	//"myStock","myStockList",
+	
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
 
 	@Resource(name="stockService")
@@ -114,7 +114,6 @@ public class CvsSupplyReqController {
 		return "cvs_stock";
 	}
 	
-
 	/**
 	 * 
 	 * Method   : myStockList 
@@ -128,16 +127,12 @@ public class CvsSupplyReqController {
 	@RequestMapping("/reqList")
 	public String requestList(Model model){
 
-		List<SupplyVo> supplyList = supplyService.getSupplyList(mem_id);
-		model.addAttribute("supplyList", supplyList);
-		
+		List<SupplyVo> supplyList = supplyService.getSupply(mem_id);
+		model.addAttribute("supplyList", supplyList);	
 		return "cvs_supply_request_list";
 	}
-	
 
-	
 
-	
 	/** Method : requestList
 	* Method 설명 : 재고 목록에서 선택한 재고상품 리스트에 추가
 	* 최초작성일 : 2018. 9. 10.
@@ -153,6 +148,7 @@ public class CvsSupplyReqController {
 		//페이지요청으로
 		//requestvo ==>List<ProdVo>
 		//prod_id 로 vo 가져오기
+		
 		List<ProdVo> prodList = new ArrayList<ProdVo>();
 		
 		for (String prod_id : requestProd ) {			
@@ -160,11 +156,12 @@ public class CvsSupplyReqController {
 			prodList.add(requestpr);
 		}	
 		logger.debug("prodList ------"+prodList);
-		model.addAttribute("requestList", prodList);		
+		model.addAttribute("requestList", prodList);
+		
+
 		return new ResponseEntity<>( "Custom header set", HttpStatus.OK);
 	}
 	
-
 
 	/**
 	* Method : cvssupplyReqest
@@ -190,7 +187,7 @@ public class CvsSupplyReqController {
 		if(barResult > 0){
 			SupplyVo supply = new SupplyVo();
 			supply.setSupply_bcd(supBarcode.getBcd_id());
-			supply.setSupply_date(sdf.format(today));
+			//supply.setSupply_date(sdf.format(today));
 			supply.setSupply_state("10");
 			supply.setPlace_id("3630000-104-2015-00121");
 			int supResult=supplyService.setInsertSupply(supply);

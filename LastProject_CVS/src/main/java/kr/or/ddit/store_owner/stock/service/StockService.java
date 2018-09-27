@@ -12,6 +12,7 @@ import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
+import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.dao.StockDao;
 import kr.or.ddit.store_owner.stock.dao.StockDaoInf;
@@ -142,6 +143,79 @@ public class StockService implements StockServiceInf {
 			
 		}
 		logger.debug(stock_kind+" barcode + stocklist insert 완료 -----");
+		
+		return 1;
+	}
+	
+	
+	/**
+	 * 
+	 * Method   : dayendInsert 
+	 * 최초작성일  : 2018. 9. 21. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param stockVoList
+	 * @param stock_kind
+	 * @param mem_id
+	 * @return 
+	 * Method 설명 : stockList 로 재고와 재고마감을 진행 ( 마감 + 다음날재고)
+	 */
+	@Override
+	public int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id) {
+
+		//재고 테이블 insert
+		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
+		
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 1);
+		
+		Date today = new Date();
+		
+		StockVo stockVo = new StockVo();
+		stockVo.setMem_id(mem_id);
+		stockVo.setStock_date(today);
+		stockVo.setStock_id(stock_id);
+		stockVo.setStock_info(today + " : 입고 test");
+		stockVo.setStock_kind("888");
+		
+		//재고or마감 insert
+		stockService.setInsertStock(stockVo);
+		logger.debug("입고 stock insert 완료 -----");
+
+//재고 리스트 insert ---------------------------------
+		for (SupplyListVo vo : supplyListVo) {
+			
+			//바코드생성---------------------------------		
+			String bcd_id = autoCodeCreate.barcode("BCD");
+			
+			BarcodeVo barcodeVo = new BarcodeVo();
+			
+			barcodeVo.setBcd_id(bcd_id);      	 	 		    //바코드코드
+			barcodeVo.setBcd_content("입고 : "+mem_id);  	    //내용			
+			String kind = ("888");
+			barcodeVo.setBcd_kind("100"); 		      			//재고 : 100, 저장소 : 101, 수불 : 102 마감 :103
+			barcodeVo.setBcd_path("-");       	 	 			//경로 888일때는 이미지도 생성
+					 
+			barcodeService.setInsertBarcode(barcodeVo);			
+			
+			//재고 리스트생성---------------------------------				
+			
+			StockListVo stockListVo = new StockListVo();
+			stockListVo.setBcd_id(bcd_id);
+			stockListVo.setProd_id(vo.getProd_id());	        	 // prod id
+			stockListVo.setSplylist_id(vo.getSplylist_id()); 		 //stockVoin.getSplylist_id()); //수불입고리스트 id 보류
+			stockListVo.setStck_date(today); 						 //888일때 다음날짜 재고로 +1 
+			stockListVo.setStcklist_amount(vo.getSplylist_sum()); // 넘어온 수량값
+			stockListVo.setStcklist_exdate(vo.getSplylist_exdate());
+			stockListVo.setStcklist_info("입고 : "+mem_id);
+			stockListVo.setStcklist_kind("888");
+			stockListVo.setStock_id(stock_id);
+			
+			stockService.setInsertStockList(stockListVo);
+			
+		}
+		
+		logger.debug("입고 : stocklist insert 완료 -----");
 		
 		return 1;
 	}

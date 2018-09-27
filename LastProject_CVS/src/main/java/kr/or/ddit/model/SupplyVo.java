@@ -1,9 +1,11 @@
 package kr.or.ddit.model;
 
+import java.util.Date;
+
 public class SupplyVo {
 	
 	private String supply_bcd;                               // 수불바코드
-	private String supply_date;                               // 날짜
+	private Date supply_date;                               // 날짜
 	private String supply_state;                               // 발주 : 10 , 결제 : 11 , 입고 : 12
 	private String supply_info;                               // 비고
 	private String place_id;                               // 편의점
@@ -11,7 +13,7 @@ public class SupplyVo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SupplyVo(String supply_bcd, String supply_date, String supply_state,
+	public SupplyVo(String supply_bcd, Date supply_date, String supply_state,
 			String supply_info, String place_id) {
 		super();
 		this.supply_bcd = supply_bcd;
@@ -26,10 +28,10 @@ public class SupplyVo {
 	public void setSupply_bcd(String supply_bcd) {
 		this.supply_bcd = supply_bcd;
 	}
-	public String getSupply_date() {
+	public Date getSupply_date() {
 		return supply_date;
 	}
-	public void setSupply_date(String supply_date) {
+	public void setSupply_date(Date supply_date) {
 		this.supply_date = supply_date;
 	}
 	public String getSupply_state() {
@@ -57,7 +59,6 @@ public class SupplyVo {
 				+ ", supply_info=" + supply_info + ", place_id=" + place_id
 				+ "]";
 	}
-	
-	
 
+	
 }

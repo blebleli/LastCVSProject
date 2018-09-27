@@ -86,7 +86,7 @@ public interface SupplyDaoInf {
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 :int updateSupply(SupplyVo supplyVo)_점주가 신청한 수불 신청 내용을 변경하기 위한 메서드
+	* 조 회 : supply 수정 기능
 	* @param supplyVo
 	* @return
 	*/
@@ -122,9 +122,10 @@ public interface SupplyDaoInf {
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
 	* 변경이력 :신규
-	* 조 회 :int updateSupplyList(SupplyListVo supplyListVo)_수불 신청에 필요한 내용 수정 기능
+	* 조 회 : supplyIn 수정 기능
 	* @param supplyListVo
 	* @return
+	*  ---0927 supplyIn Controller 에서 사용
 	*/
 	int updateSupplyList(SupplyListVo supplyListVo);
 	
@@ -282,5 +283,6 @@ public interface SupplyDaoInf {
 	* @param String place_id
 	* @return
 	*/
-	List<SupplyVo> getSupplyList(String place_id);
+	List<SupplyVo> getSupply(String place_id);
+	
 }

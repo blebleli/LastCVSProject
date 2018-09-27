@@ -57,10 +57,34 @@ public class SupplyDao implements SupplyDaoInf {
 		return template.selectList("supply.supplyDetail",supply_bcd);
 	}
 
+	/**
+	 * 
+	 * Method   : updateSupply 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param supplyVo
+	 * @return 
+	 * Method 설명 : supply table 업데이트
+	 */
 	@Override
 	public int updateSupply(SupplyVo supplyVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.update("supply.updateSupply", supplyVo);
+	}
+	
+	/**
+	 * 
+	 * Method   : updateSupplyList 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param supplyListVo
+	 * @return 
+	 * Method 설명 : supply_list table 업데이트
+	 */
+	@Override
+	public int updateSupplyList(SupplyListVo supplyListVo) {
+		return template.update("supply.updateSupplyList", supplyListVo);
 	}
 
 	@Override
@@ -74,11 +98,6 @@ public class SupplyDao implements SupplyDaoInf {
 		return template.insert("supply.insertSupplyList", supplyListVo);
 	}
 
-	@Override
-	public int updateSupplyList(SupplyListVo supplyListVo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public List<SupplyListVo> getListSupplyList(String supply_bcd) {
@@ -226,8 +245,8 @@ public class SupplyDao implements SupplyDaoInf {
 	* @return
 	*/
 	@Override
-	public List<SupplyVo> getSupplyList(String place_id) {
-		return template.selectList("supply.getSupplyList", place_id);
+	public List<SupplyVo> getSupply(String place_id) {
+		return template.selectList("supply.getSupply", place_id);
 	}
 	
 

@@ -29,11 +29,11 @@ public class SupplyService implements SupplyServiceInf {
 	private Logger logger = LoggerFactory.getLogger(SupplyService.class);
 	
 	@Resource(name="supplyDao")
-	private SupplyDaoInf SupplyDao;
+	private SupplyDaoInf supplyDao;
 
 	@Override
 	public int setInsertSupply(SupplyVo supplyVo) {
-		return SupplyDao.setInsertSupply(supplyVo);
+		return supplyDao.setInsertSupply(supplyVo);
 	}
 
 //	/**
@@ -62,13 +62,22 @@ public class SupplyService implements SupplyServiceInf {
 	*/
 	@Override
 	public List<SupplyListVo> getListSupply(String supply_bcd) {
-		return SupplyDao.getListSupply(supply_bcd);
+		return supplyDao.getListSupply(supply_bcd);
 	}
 
+	/**
+	 * 
+	 * Method   : updateSupply 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param supplyVo
+	 * @return 
+	 * Method 설명 : supply table 업데이트
+	 */
 	@Override
 	public int updateSupply(SupplyVo supplyVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return supplyDao.updateSupply(supplyVo);
 	}
 
 	@Override
@@ -79,13 +88,23 @@ public class SupplyService implements SupplyServiceInf {
 
 	@Override
 	public int setInsertSupplyList(SupplyListVo supplyListVo) {
-		return SupplyDao.setInsertSupplyList(supplyListVo);
+		return supplyDao.setInsertSupplyList(supplyListVo);
 	}
 
+	/**
+	 * 
+	 * Method   : updateSupplyList 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param supplyListVo
+	 * @return 
+	 * Method 설명 : supplyList Update
+	 */
 	@Override
 	public int updateSupplyList(SupplyListVo supplyListVo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return supplyDao.updateSupplyList(supplyListVo);
 	}
 
 	/**
@@ -100,7 +119,7 @@ public class SupplyService implements SupplyServiceInf {
 	 */
 	@Override
 	public List<SupplyListVo> getListSupplyList(String supply_bcd) {
-		return SupplyDao.getListSupplyList(supply_bcd);
+		return supplyDao.getListSupplyList(supply_bcd);
 	}
 
 	@Override
@@ -121,7 +140,7 @@ public class SupplyService implements SupplyServiceInf {
 	*/
 	@Override
 	public List<SupplyListVo> getSupplyDetailProdList(String splylist_id) {
-		return SupplyDao.getSupplyDetailProdList(splylist_id);
+		return supplyDao.getSupplyDetailProdList(splylist_id);
 	}
 
 	
@@ -137,7 +156,7 @@ public class SupplyService implements SupplyServiceInf {
 	*/
 	@Override
 	public List<SupplyProdVo> getSupplyProdInfo(String supply_bcd) {
-		return SupplyDao.getSupplyProdInfo(supply_bcd);
+		return supplyDao.getSupplyProdInfo(supply_bcd);
 	}
 
 	/**
@@ -152,7 +171,7 @@ public class SupplyService implements SupplyServiceInf {
 	*/
 	@Override
 	public int sumProdPrice(String supply_bcd) {
-		return SupplyDao.sumProdPrice(supply_bcd);
+		return supplyDao.sumProdPrice(supply_bcd);
 	}
 
 	/**
@@ -167,7 +186,7 @@ public class SupplyService implements SupplyServiceInf {
 	*/
 	@Override
 	public MemberVo supplyMemberInfo(String supply_bcd) {
-		return SupplyDao.supplyMemberInfo(supply_bcd);
+		return supplyDao.supplyMemberInfo(supply_bcd);
 	}
 	
 	
@@ -187,14 +206,14 @@ public class SupplyService implements SupplyServiceInf {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		//입고 목록 페이징 처리후 리스트 가져오기(한 페이지에 10개씩)
-		List<SupplySumProdVo> supplyList = SupplyDao.getSupplyPageList(paramMap);
+		List<SupplySumProdVo> supplyList = supplyDao.getSupplyPageList(paramMap);
 		for (SupplySumProdVo supplySumProdVo : supplyList) {
 
 		}
 		resultMap.put("supplyList", supplyList);
 		
 		//입고 목록 전체 토탈 카운트
-		int totCnt = SupplyDao.getSupplyListTotCnt();
+		int totCnt = supplyDao.getSupplyListTotCnt();
 		
 		//컨트롤러에서 받아온 map에서 키값이 page와 pageSize인 놈들을 가져옴
 		int page = (int) paramMap.get("page");
@@ -256,7 +275,7 @@ public class SupplyService implements SupplyServiceInf {
 	*/
 	@Override
 	public int getSupplyListTotCnt() {
-		return SupplyDao.getSupplyListTotCnt();
+		return supplyDao.getSupplyListTotCnt();
 	}
 
 	/**
@@ -273,14 +292,14 @@ public class SupplyService implements SupplyServiceInf {
 	public Map<String, Object> getSupplyProdPageList(Map<String, Object> paramMap) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		//입고 상세 내역에서 제품들 리스트 10개씩 처리해서 가져오기
-		List<SupplyProdVo> supplyProdList = SupplyDao.getSupplyProdPageList(paramMap);
+		List<SupplyProdVo> supplyProdList = supplyDao.getSupplyProdPageList(paramMap);
 		for (SupplyProdVo supplyProdVo : supplyProdList) {
 		}
 		
 		resultMap.put("prodList", supplyProdList);
 		
 		String supply_bcd = (String) paramMap.get("supply_bcd");
-		int totCnt = SupplyDao.getSupplyProdListTotCnt(supply_bcd);
+		int totCnt = supplyDao.getSupplyProdListTotCnt(supply_bcd);
 		int page = (int) paramMap.get("page");
 		int pageSize = (int) paramMap.get("pageSize");
 		String supply_state = (String) paramMap.get("supply_state");
@@ -345,17 +364,17 @@ public class SupplyService implements SupplyServiceInf {
 	*/
 	@Override
 	public int getSupplyProdListTotCnt(String supply_bcd) {
-		return SupplyDao.getSupplyProdListTotCnt(supply_bcd);
+		return supplyDao.getSupplyProdListTotCnt(supply_bcd);
 	}
 
 	@Override
 	public List<SupplyScanInfoVo> getSupplyScanInfoList(String supply_bcd) {
-		return SupplyDao.getSupplyScanInfoList(supply_bcd);
+		return supplyDao.getSupplyScanInfoList(supply_bcd);
 	}
 
 	@Override
 	public List<SupRequestListVo> supplyRequestList(String place_id) {
-		return SupplyDao.supplyRequestList(place_id);
+		return supplyDao.supplyRequestList(place_id);
 	}
 
 	/**
@@ -369,8 +388,8 @@ public class SupplyService implements SupplyServiceInf {
 	* @return
 	*/
 	@Override
-	public List<SupplyVo> getSupplyList(String place_id) {
-		return SupplyDao.getSupplyList(place_id);
+	public List<SupplyVo> getSupply(String place_id) {
+		return supplyDao.getSupply(place_id);
 	}
 	
 	

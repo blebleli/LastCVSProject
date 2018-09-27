@@ -86,37 +86,7 @@ public class CvsBarcodeController {
 		return "cvs_barcode_read";
 	}
 
-	
-	/**
-	 * 입고확인시 controller
-	 * @param vo
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value="/confirmed")
-	public String supplyConfirmed(SupplyScanInfoVo vo, Model model){
-//발주 - > supply 10 으로 supply list와 함께 insert
 		
-//관리자 승인  - > supply 10이 11로 update 		
-
-		//발주한 내역만 따로 볼 순 없다 ----- 결국 입고만 남음
-		
-//입고 - >
-//승인받은 내역을 불러와서 
-//supply 테이블 입고12로 update 
-//supply list 수량조절로 update 		
-
-// 재고 바코드가 생성되면서, 입고처리 됨	
-// 재고테이블insert
-// 바코드 테이블 insert (입고 리스트)
-// 재고 리스트 테이블 insert
-		
-
-		return "cvs_barcode_read";
-		
-	}
-	
-	
 	
 	
 	
