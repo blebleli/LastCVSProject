@@ -40,7 +40,7 @@
    				
     			console.log(requestProd);
     			$.ajax({
-	    			url : "requestList",
+	    			url : "requestpageList",
 	    			method:"get",
 	    			data : {"requestProd": requestProd },
 	    			success : function(responseData){
