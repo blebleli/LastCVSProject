@@ -46,6 +46,16 @@ public class AdChartDao implements AdChartDaoInf {
 	public List<RankVo> getBookmarkCvsTop5() {
 		return template.selectList("chart.getBookmarkCvsTop5");
 	}
+
+	@Override
+	public List<MonthTopVo> supReqMonthAmount() {
+		return template.selectList("chart.supReqMonthAmount");
+	}
+
+	@Override
+	public List<MonthTopVo> supInMonthAmount() {
+		return template.selectList("chart.supInMonthAmount");
+	}
 	
 	
 }
