@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import kr.or.ddit.admin.model.AdminApplyViewVo;
 import kr.or.ddit.admin.model.AdminApplyVo;
 import kr.or.ddit.admin.supply.service.AdminSupplyServiceInf;
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
@@ -18,7 +17,6 @@ import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
-import kr.or.ddit.store_owner.web.CvsBarcodeController;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
