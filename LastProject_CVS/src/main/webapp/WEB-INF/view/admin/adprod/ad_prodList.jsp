@@ -47,20 +47,19 @@ function fn_prodDel(prod_id,prod_name){
 	
 	if(chk){
 		$("#prod_id").val(prod_id);
-		$("prod_action").submit();
+		$("#prod_action").submit();
 	}
 }
 // 제품 수정
 function fn_prodUp(prod_id){
-	var url="/adprod/prodUpdatePopup";
+	var url="/adprod/prodUpdatePopup?prod_id="+prod_id;
     window.open(url,"제품추가","width=800,height=450,left=500, top=100");
-	
 }
 
 </script>
 
 <form action="/adprod/prodDel" method="post" id="prod_action">
-	<input type="hidden" id="prod_id"  name="prid_id" value="">
+	<input type="hidden" id="prod_id"  name="prod_id" value="">
 </form>
 
 
@@ -140,7 +139,7 @@ function fn_prodUp(prod_id){
 				<c:when test="${!empty prodList}">
 						<c:forEach items="${prodList }" var="vo">
 						<tr role="row" class="odd">
-							<td scope="row" align="center">${vo.cnt }<button class="btn btn-default" id="prodDel" onclick="fn_prodDel('${vo.prod_id}','${vo.prod_name}'); return false">
+							<td scope="row" align="center">${vo.cnt }<br><button class="btn btn-default" id="prodDel" onclick="fn_prodDel('${vo.prod_id}','${vo.prod_name}'); return false">
 										<i class="fa fa-print"></i> 삭제</button>
 									<button class="btn btn-default" id="prodUp" onclick="fn_prodUp('${vo.prod_id}'); return false;"><i class="fa fa-print"></i> 수정</button>
 							</td>

@@ -87,4 +87,6 @@ public interface AdminProdServiceInf {
 	 * Method 설명 : 제품 수정
 	 */
 	int setProdUpdate(ProdVo prodVo);
+
+	
 }

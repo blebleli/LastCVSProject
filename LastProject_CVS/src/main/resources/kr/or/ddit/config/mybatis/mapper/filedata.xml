@@ -44,7 +44,6 @@
 	     AND MEM_ID = #{mem_id}
 	</select>
 	
-	
 	<!-- 파일데이터 삭제 -->
 	<delete id="deleteFiledata" parameterType="filedataVo">
 		DELETE FROM FILEDATA

@@ -28,9 +28,8 @@
 						<div class="x_content"> 
 		
 							<!-- 게시글 등록시 form submit -->
-							<form action="/adboard/boardCreate" method="post" id="frmInsert"
-								enctype="multipart/form-data" data-parsley-validate=""
-								class="form-horizontal form-label-left">
+							<form action="/adboard/boardCreate" method="post" id="frmInsert" 
+							enctype="multipart/form-data" data-parsley-validate="" class="form-horizontal form-label-left">
 								
 								<!-- 게시글 등록할 구분표시 (공지사항, 이벤트) -->
 <!-- 								<div class="form-group"> -->

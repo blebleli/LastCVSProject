@@ -97,4 +97,5 @@ public interface AdminProdDaoInf {
 	 * Method 설명 : 제품 수정
 	 */
 	int setProdUpdate(ProdVo prodVo);
+	
 }

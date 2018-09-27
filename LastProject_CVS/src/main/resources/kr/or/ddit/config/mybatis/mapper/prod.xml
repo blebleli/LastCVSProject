@@ -36,7 +36,6 @@
 	   SELECT  P.PROD_ID     
           ,P.PROD_NAME   
           ,P.PROD_INTRO  
-          ,P.PROD_INFO   
           ,P.PROD_PRICE  
           ,P.PROD_EXNUM  
           ,(SELECT CTGY_NAME FROM CATEGORY WHERE CTGY_ID = P.PR_CLASS_LG )  AS PR_CLASS_LG
@@ -44,7 +43,9 @@
           ,P.EVENT_ID    
           ,P.FILE_PATH   
           ,P.FILE_UPNAME
+          ,P.PROD_COST
           ,( SELECT NVL(  ROUND(AVG(BD_RATING)) ,1) FROM BOARD WHERE PROD_ID = P.PROD_ID ) AS BD_RATING
+          ,( SELECT EVENT_NAME FROM EVENT WHERE EVENT_ID = P.EVENT_ID) AS PROD_INFO	-- 대체 하여 사용
      FROM  PROD P
      WHERE P.PROD_ID =#{prod_id}
 </select>

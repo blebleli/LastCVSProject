@@ -18,6 +18,7 @@ import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.EventVo;
 import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.prod.service.ProdServiceInf;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -35,6 +36,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller("adminProdInfo")
 public class AdminProdInfo {
 
+	@Resource(name="prodService")
+	ProdServiceInf prodService;
+	
 	@Resource(name="adminProdService")
 	AdminProdServiceInf adminProdService;
 	
@@ -248,9 +252,6 @@ public class AdminProdInfo {
 								, HttpServletResponse response 
 								, @ModelAttribute("prodVo") ProdVo prodVo 
 								, Model model) throws Exception {
-
-
-		
 		
 		//★  서버 이미지 경로 
 //		String tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
@@ -312,6 +313,7 @@ public class AdminProdInfo {
 		
 	}
 	
+	// 해당 제품 삭제
 	@RequestMapping("/prodDel")
 	public String prodDel(Model model, @RequestParam(value="prod_id", defaultValue="")String prod_id){
 		
@@ -322,14 +324,37 @@ public class AdminProdInfo {
 		return "forward:/adprod/adprodView";
 	}
 	
-	@RequestMapping("/prodUpdate")
-	public String prodUpdate(Model model, @RequestParam(value="prod_id", defaultValue="")String prod_id){
+	// 해당 제품 수정 
+	@RequestMapping("/prodUpdatePopup")
+	public String prodUpdate(Model model
+				, @RequestParam(value="prod_id", defaultValue="")String prod_id
+				){
 		
-		logger.debug("prodUpdate == prod_id ==> {}", prod_id);
-		if (!prod_id.equals("")) {
-//			int result = adminProdService.setProdDelete(prod_id);
-		}
-		return "forward:/adprod/adprodView";
+//		logger.debug("prodUpdate == prod_id ==> {}", prod_id);
+
+		// 제품 1건 조회
+		ProdVo prodVo =  prodService.getProd(prod_id);
+		
+		CategoryVo vo = new CategoryVo();
+		vo.setCtgy_kind("301");
+		vo.setCtgy_parent("");
+		// 대분류
+		List<CategoryVo> categoryLg = adminProdService.getProdCategory(vo);
+		
+		vo.setCtgy_parent("notnull");
+		// 중분류
+		List<CategoryVo> categoryMd = adminProdService.getProdCategory(vo);
+//		logger.debug("vo.getCtgy_parent(m) ==> {} ",vo.getCtgy_parent());
+		
+		// 이벤트
+		List<EventVo> eventList  =  eventService.getListEvent();
+
+		model.addAttribute("prodVo", prodVo);
+		model.addAttribute("eventList", eventList);
+		model.addAttribute("categoryLg", categoryLg);
+		model.addAttribute("categoryMd", categoryMd);
+		
+		return "/admin/adprod/ad_prodUpdate_Popup";
 	}
 	
 }

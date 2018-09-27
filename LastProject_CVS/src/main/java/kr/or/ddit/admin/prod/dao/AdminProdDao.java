@@ -141,4 +141,6 @@ public class AdminProdDao implements AdminProdDaoInf {
 		return  session.update("prod.setProdUpdate", prodVo);
 	}
 
+
+
 }
