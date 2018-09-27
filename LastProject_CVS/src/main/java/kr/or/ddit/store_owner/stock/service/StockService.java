@@ -165,10 +165,7 @@ public class StockService implements StockServiceInf {
 
 		//재고 테이블 insert
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
-		
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, 1);
-		
+
 		Date today = new Date();
 		
 		StockVo stockVo = new StockVo();
@@ -180,7 +177,7 @@ public class StockService implements StockServiceInf {
 		
 		//재고or마감 insert
 		stockService.setInsertStock(stockVo);
-		logger.debug("입고 stock insert 완료 -----");
+		logger.debug("입고 : stock insert 완료 -----");
 
 //재고 리스트 insert ---------------------------------
 		for (SupplyListVo vo : supplyListVo) {

@@ -1,5 +1,8 @@
 package kr.or.ddit.store_owner.web;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -7,10 +10,14 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.barcode.service.BarcodeServiceInf;
+import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 import kr.or.ddit.supply.model.SupplyProdVo;
@@ -21,6 +28,7 @@ import kr.or.ddit.supply.service.SupplyServiceInf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,11 +61,20 @@ public class CvsSupplyInController {
 	
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyInController.class);
 	
+	@Resource(name="autoCodeCreate")
+	private AutoCodeCreate autoCodeCreate;	
+	
+	@Resource(name="barcodeService")
+	private BarcodeServiceInf barcodeService;
+	
 	@Resource(name="supplyService")
 	private SupplyServiceInf supplyService;
 	
 	@Resource(name="stockService")
 	private StockServiceInf stockService;	
+	
+	@Resource(name="prodService")
+	private ProdServiceInf prodService;
 	
 	String mem_id = "6510000-104-2015-00153";
 	
@@ -74,59 +91,68 @@ public class CvsSupplyInController {
 	 */
 	@RequestMapping("/supplyIn/confirm")
 	public String supplyInConfirm(@RequestBody List<SupplyListVo> supplyListVo, Model model){
-//발주 - > supply 10 으로 supply list와 함께 insert
 		
-//관리자 승인  - > supply 10이 11로 update 	
-//입고 바코드 생성				
-		
-//발주한 내역만 따로 볼 순 없다 ----- 결국 입고만 남음
-		
-//입고 - > 
-//승인받은 11 내역을 불러와서 
-		
-//supply 테이블 입고12로 insert 
-//supply list 수량조절로 insert	
-		
-// stock이 없을때만...
-// 원래있던거랑 재고 합쳐서 + 입고된 재고랑 더해서 insert		
-		
-// 재고 바코드가 생성되면서, 입고처리 됨	
-// 재고 테이블insert
-// 바코드 테이블 insert (입고 리스트)
-// 재고 리스트 테이블 insert
-		
-//마감 - >
-// --- 888이있어야 999생성 --- 맨처음 888을 만드는 작업이 입고		
-// stock 테이블 999 생성
-// stock_list 테이블 999생성
-// stock 테이블 888 생성
-// stock_list 테이블 888 생성 		
+		// prod_ id 랑 수량 이 jsp 에서 넘어온다.
 		
 		
-		String supply_bcd = supplyListVo.get(0).getSupply_bcd();
+	// 1.바코드 supply insert ===================================================
+		String supply_bcd = autoCodeCreate.barcode("SUPPLY");
 		
-	 // 가져온다음에...
-		// 유통기한 prod +++ 현재날짜에다가 + ---> 입고를 
+		BarcodeVo supply_BCD = new BarcodeVo();
+		
+		supply_BCD.setBcd_id(supply_bcd);      	 	 		//바코드코드
+		supply_BCD.setBcd_content("SUPPLY : "+mem_id);       //내용			
+		supply_BCD.setBcd_kind("102"); 		      			//재고 : 100, 저장소 : 101, 수불 : 102 마감 :103
+		supply_BCD.setBcd_path("-");       	 	 			//경로 결제 일때 이미지도 생성
+		
+		barcodeService.setInsertBarcode(supply_BCD);
+		
+		logger.debug("바코드 supply insert === 완료 ");	
+		
+		// 2.입고 supply insert ===================================================
 
-		
-		logger.debug("supply_bcd === "+supply_bcd);	
 		SupplyVo supplyVo = new SupplyVo();
+		supplyVo.setPlace_id(mem_id);
 		supplyVo.setSupply_bcd(supply_bcd);
+		supplyVo.setSupply_info("SUPPLY_REQ_IN : "+mem_id);
 		supplyVo.setSupply_state("12");
-		logger.debug("supplyVo === "+supplyVo);	
+
+		supplyService.setInsertSupply(supplyVo);
 		
-		supplyService.updateSupply(supplyVo);
+		logger.debug("입고 supply insert === 완료 ");	
 		
+		List<SupplyListVo> supplyListInsert = new ArrayList<SupplyListVo>();
+		
+		// supply list insert
 		for (SupplyListVo vo : supplyListVo) {
+
+			String splylist_id = autoCodeCreate.autoCode("SUP12",mem_id);
+
+			// 3. supply_list insert ===================================================
+			ProdVo prodvo = prodService.getProd(vo.getProd_id());
+			int exnum = prodvo.getProd_exnum(); //유통기한값
+			
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, exnum);
+			
 			SupplyListVo supplyList = new SupplyListVo();
-			supplyList.setSplylist_id(vo.getSplylist_id());
-			supplyList.setSplylist_sum(vo.getSplylist_sum());			
-			//supplyService.updateSupplyList(supplyList);
-	
+			supplyList.setProd_id(vo.getProd_id());
+			supplyList.setSplylist_exdate(cal.getTime()); //prod 유통기한값 가져와서 계산
+			supplyList.setSplylist_id(splylist_id);
+			supplyList.setSplylist_info(new Date()+"hsj 입고 test");
+			supplyList.setSplylist_sum(vo.getSplylist_sum());
+			supplyList.setSupply_bcd(supply_bcd);
+			
+			supplyService.setInsertSupplyList(supplyList);
+			supplyListInsert.add(supplyList);
+			
 		}
 		
-		//stock 생성, 바코드 생성, stock_list 생성, 
-		//stockService.setSupplyStockInsert(supplyListVo, mem_id);
+		//4. stock 생성, 
+		//5. stock_list 바코드 생성, 
+		//6. stock_list 생성 
+		//===================================================
+		stockService.setSupplyStockInsert(supplyListInsert, mem_id);
 		
 		return "cvs_barcode_read";
 		

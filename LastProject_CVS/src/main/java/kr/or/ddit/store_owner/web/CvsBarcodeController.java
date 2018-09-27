@@ -135,7 +135,6 @@ public class CvsBarcodeController {
 	    	
 	    	//상품바코드일때 처리(결제, 주머니, 폐기)
  			PresentStockListVo prodVo = stockService.getBarcodeProd(decoded);
- 			logger.debug("controller 에서 prodVo ------"+prodVo);	
  			mav.addObject("prodVo", prodVo);
 		}
 		

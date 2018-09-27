@@ -50,7 +50,6 @@ public class StockDao implements StockDaoInf {
 	 */
 	@Override
 	public int setInsertStockList(StockListVo stockListVo) {
-		// TODO Auto-generated method stub
 		return template.insert("stock.insertStockList", stockListVo);
 	}
 	

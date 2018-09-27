@@ -22,12 +22,44 @@ public class SupplyDao implements SupplyDaoInf {
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
 
+
+//insert =====================================================================================
+	/**
+	 * 
+	 * Method   : setInsertSupply 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param supplyVo
+	 * @return 
+	 * Method 설명 :
+	 */
 	@Override
 	public int setInsertSupply(SupplyVo supplyVo) {
 		int result =template.insert("supply.insertSupply", supplyVo);
 		return result;
 	}
+	
+	/**
+	 * 
+	 * Method   : setInsertSupplyList 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param supplyListVo
+	 * @return 
+	 * Method 설명 :
+	 */
+	@Override
+	public int setInsertSupplyList(SupplyListVo supplyListVo) {
+		return template.insert("supply.insertSupplyList", supplyListVo);
+	}
+	
 
+	
+	
+	
+	
 //	/**
 //	* Method : getListSupply
 //	* Method 설명 : 입고 리스트 쫙 출력
@@ -93,10 +125,6 @@ public class SupplyDao implements SupplyDaoInf {
 		return 0;
 	}
 
-	@Override
-	public int setInsertSupplyList(SupplyListVo supplyListVo) {
-		return template.insert("supply.insertSupplyList", supplyListVo);
-	}
 
 
 	@Override

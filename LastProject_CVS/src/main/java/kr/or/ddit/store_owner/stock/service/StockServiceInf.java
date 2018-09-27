@@ -13,31 +13,6 @@ public interface StockServiceInf {
 	
 	/**
 	 * 
-	 * Method   : dayendInsert 
-	 * 최초작성일  : 2018. 9. 21. 
-	 * 작성자 : 한수정 
-	 * 변경이력 : 
-	 * @param 
-	 * @return 
-	 * Method 설명 : dayendInsert
-	 */
-	int dayendInsert(List<PresentStockListVo> stockVoList, String stock_kind, String mem_id);
-	
-	/**
-	 * 
-	 * Method   : supplyStockInsert 
-	 * 최초작성일  : 2018. 9. 27. 
-	 * 작성자 : PC06 
-	 * 변경이력 : 
-	 * @param StockListVo
-	 * @param mem_id
-	 * @return 
-	 * Method 설명 : 입고시, 재고insert를 위한 service
-	 */
-	int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id);
-	
-	/**
-	 * 
 	 * Method   : setInsertStock 
 	 * 최초작성일  : 2018. 9. 17. 
 	 * 작성자 : 한수정 
@@ -60,6 +35,35 @@ public interface StockServiceInf {
 	 */
 	int setInsertStockList(StockListVo stockListVo);
 	
+	
+	
+	
+	
+	/**
+	 * 
+	 * Method   : dayendInsert 
+	 * 최초작성일  : 2018. 9. 21. 
+	 * 작성자 : 한수정 
+	 * 변경이력 : 
+	 * @param 
+	 * @return 
+	 * Method 설명 : dayendInsert
+	 */
+	int dayendInsert(List<PresentStockListVo> stockVoList, String stock_kind, String mem_id);
+	
+	/**
+	 * 
+	 * Method   : supplyStockInsert 
+	 * 최초작성일  : 2018. 9. 27. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param StockListVo
+	 * @param mem_id
+	 * @return 
+	 * Method 설명 : 입고시, 재고insert를 위한 service
+	 */
+	int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id);
+
 	/**
 	 * 
 	 * Method   : updateStockList 
