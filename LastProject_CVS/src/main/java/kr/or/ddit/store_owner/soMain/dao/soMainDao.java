@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kr.or.ddit.admin.model.MonthTopVo;
 import kr.or.ddit.admin.model.RankVo;
 import kr.or.ddit.model.DisposalListVo;
 import kr.or.ddit.store_owner.model.OnedayChartVo;
@@ -83,5 +84,15 @@ public class soMainDao implements soMainDaoInf {
 	@Override
 	public List<RankVo> cvsBestProd(String mem_id) {
 		return template.selectList("chart.cvsBestProd", mem_id);
+	}
+
+	@Override
+	public List<MonthTopVo> cvsSupReqMonthAvg(String place_id) {
+		return template.selectList("chart.cvsSupReqMonthAvg", place_id);
+	}
+
+	@Override
+	public List<MonthTopVo> cvsSupInMonthAvg(String place_id) {
+		return template.selectList("chart.cvsSupInMonthAvg", place_id);
 	}	
 }
