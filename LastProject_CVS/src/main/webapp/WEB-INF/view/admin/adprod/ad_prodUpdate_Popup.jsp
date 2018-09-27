@@ -219,17 +219,34 @@ $(function() {
           </div>
           <div class="x_content">
             <br>
+            
+            <form action="">
+            	<input type="hidden" name="prod_id" value="${prodVo.file_path   }"> <!--파일 경로  -->
+            	<input type="hidden" name="prod_id" value="${prodVo.file_upname }"> <!--파일 이름  -->
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_id     }"> <!--제품바코드  -->
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_name   }"> <!--이름     -->
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_intro  }"> <!--설명     -->
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_info   }"> <!--비고     -->
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_price  }"> <!--가격     -->
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_exnum  }"> <!--유통기한값  -->
+            	<input type="hidden" name="prod_id" value="${prodVo.pr_class_lg }"> <!--대분류    -->
+            	<input type="hidden" name="prod_id" value="${prodVo.pr_class_md }"> <!--중분류    -->
+            	<input type="hidden" name="prod_id" value="${prodVo.event_id    }"> <!--행사제품코드 -->
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_cost   }"> <!--단가     -->
+            </form>
+            
             <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+				
 				
 			  <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">구분</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">기존</label>
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;" >기존</label>
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">수정</label>
               </div>
              
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">대분류</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">${prodVo.pr_class_lg }</label>
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.pr_class_lg }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <select id="pr_class_lg" name="pr_class_lg" class="form-control col-md-7 col-xs-12">
 	         		<option value="" selected="selected">선택</option>
@@ -250,7 +267,7 @@ $(function() {
               
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">중분류</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">${prodVo.pr_class_md }</label>
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.pr_class_md }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   	<select id="pr_class_md" name="pr_class_md" class="form-control col-md-7 col-xs-12">
                   	
@@ -271,7 +288,7 @@ $(function() {
               
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">행사</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">${prodVo.prod_info }</label>
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_info }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   
                   <select id="event_id" name="event_id" class="form-control col-md-7 col-xs-12">
@@ -290,7 +307,7 @@ $(function() {
               
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">제품명</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">${prodVo.prod_name }</label>
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_name }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_name }">
                 </div>
@@ -298,7 +315,7 @@ $(function() {
               
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">단가</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">${prodVo.prod_cost }</label>
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_cost }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_cost }">
                 </div>
@@ -306,36 +323,36 @@ $(function() {
               
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">정가</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">${prodVo.prod_price }</label>
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_price }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
                   <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_price }">
                 </div>
               </div>
               
-              
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">유통기한</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">${prodVo.prod_exnum }</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_exnum }</label>
+                <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:center;">
                   <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_exnum }">
                 </div>
               </div>
               
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">사진</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">사진</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="file" name="middle-name" data-parsley-id="9">
+                <div class="col-md-3 col-sm-3 col-xs-12">
+					<img src="${prodVo.file_path }/${prodVo.file_upname}" width="150px;" height="150px;">
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12">
+                	<img id="imgPic" src="${prodVo.file_path }/${prodVo.file_upname}" width="150px;" height="150px;">
+                	<input type="file" id="upload_file" name="upload_file" required="required" class="form-control col-md-7 col-xs-12" onchange="fn_loadImg(this);">
                 </div>
               </div>
-              
               
               <div class="ln_solid"></div>
               <div class="form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                  <button class="btn btn-primary" type="button">Cancel</button>
-<button class="btn btn-primary" type="reset">Reset</button>
-                  <button type="submit" class="btn btn-success">Submit</button>
+				  <button class="btn btn-primary" type="reset">초기화</button>
+                  <button type="submit" class="btn btn-success">수정</button>
                 </div>
               </div>
 
@@ -344,77 +361,7 @@ $(function() {
         </div>
       </div>
      	
-    	<div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">행사</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <select id="event_id" name="event_id" >
-	         	<c:forEach items="${eventList }" var="ev">
-	         		<option value="${ev.event_id }">${ev.event_name }</option>
-	         	</c:forEach>
-	         </select>
-	       </div>
-	    </div>
     
-	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">상품명</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="text" id="prod_name" name="prod_name" required="required" class="form-control col-md-7 col-xs-12">
-	       </div>
-	    </div>
-	     
-	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">상품정보</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-		       <textarea rows="" cols="" id="prod_intro" name="prod_intro"></textarea>
-	       </div>
-	    </div>
-	    
-	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">단가</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="text" id="prod_cost" name="prod_cost" required="required" class="form-control col-md-7 col-xs-12">
-	       </div>
-	    </div>
-	    
-	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">정가</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="text" id="prod_price" name="prod_price" required="required" class="form-control col-md-7 col-xs-12">
-	       </div>
-	    </div>
-	    
-	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">유통기한</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="text" id="prod_exnum" name="prod_exnum" required="required" class="form-control col-md-7 col-xs-12">
-	       </div>
-	    </div>
-	    
-	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">사진</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="file" id="upload_file" name="upload_file" required="required" class="form-control col-md-7 col-xs-12" onchange="fn_loadImg(this);">
-	       </div>
-	    </div>
-	    
-	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">올린사진</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <img id="imgPic" src="" width="150px;" height="150px;">
-	       </div>
-	    </div>
-	    
-	    <div class="ln_solid"></div>
-        <div class="form-group">
-          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-			<button class="btn btn-primary" type="reset">초기화</button>
-           	<button type="button" class="btn btn-success" id="insertProd">제품추가</button>
-          </div>
-        </div>
-	      
-    </form>
-    
-    		</div> <!-- <div class="col-md-6 col-sm-8 col-xs-16 "> -->
     	</div> <!-- <div class="row"> -->
     </div> <!-- <div class="bg"> -->
 </body>
