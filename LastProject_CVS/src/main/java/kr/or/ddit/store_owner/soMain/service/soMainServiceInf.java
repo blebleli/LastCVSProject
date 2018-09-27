@@ -2,6 +2,7 @@ package kr.or.ddit.store_owner.soMain.service;
 
 import java.util.List;
 
+import kr.or.ddit.admin.model.MonthTopVo;
 import kr.or.ddit.admin.model.RankVo;
 import kr.or.ddit.store_owner.model.OnedayChartVo;
 import kr.or.ddit.store_owner.model.salelistJoinVo;
@@ -84,4 +85,26 @@ public interface soMainServiceInf {
 	 * Method 설명 : 편의점의 인기 상품 
 	 */
 	List<RankVo> cvsBestProd(String mem_id);
+	
+	/**
+	 * Method : cvsSupReqMonthAvg
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return List<MonthTopVo>
+	 * Method 설명 : 최근 3달간 평균 발주량
+	 */
+	List<MonthTopVo> cvsSupReqMonthAvg(String place_id);
+	
+	/**
+	 * Method : cvsSupInMonthAvg
+	 * 최초작성일 : 2018. 9. 21.
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param mem_id
+	 * @return List<MonthTopVo>
+	 * Method 설명 : 최근 3달간 평균 입고량
+	 */
+	List<MonthTopVo> cvsSupInMonthAvg(String place_id);
 }
