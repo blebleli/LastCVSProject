@@ -49,7 +49,7 @@ INSERT INTO BARCODE (BCD_ID, BCD_CONTENT, BCD_PATH, BCD_KIND)
 INSERT INTO SUPPLY( SUPPLY_BCD, SUPPLY_DATE, SUPPLY_STATE, SUPPLY_INFO, PLACE_ID ) 
 	   VALUES(
 		   		 #{supply_bcd  }
-				,TO_DATE(#{supply_date }, 'YYYY-MM-DD')
+				,#{supply_date }
 				,#{supply_state}
 				,#{supply_info }
 				,#{place_id    }    
@@ -60,7 +60,7 @@ INSERT INTO SUPPLY( SUPPLY_BCD, SUPPLY_DATE, SUPPLY_STATE, SUPPLY_INFO, PLACE_ID
 	INSERT INTO SUPPLY_LIST( SPLYLIST_ID, SPLYLIST_INFO, SPLYLIST_EXDATE, SPLYLIST_SUM, SUPPLY_BCD, PROD_ID ) 
        VALUES(
 		       	 #{splylist_id    } 
-				,null 
+				,#{splylist_info}
 				,#{splylist_exdate} 
 				,#{splylist_sum   } 
 				,#{supply_bcd     } 

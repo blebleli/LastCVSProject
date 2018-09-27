@@ -241,8 +241,8 @@
 	                             	rank() over (partition by mem_id order by stock_date desc) rnk
 	                         FROM stock
 	                         WHERE mem_id=#{mem_id}) 
-	                    WHERE rnk = 1)			
-           
+	                    WHERE rnk = 1)
+
 </select>
 
 
