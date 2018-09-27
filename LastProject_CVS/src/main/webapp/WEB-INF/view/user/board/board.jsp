@@ -222,7 +222,7 @@
 									<c:if test="${vo.bd_del=='N' && empty vo.bd_parent}">
 										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
 											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td id="demoFonts">${vo.bd_title}</td>
+											<td style="text-align: left;" id="demoFonts">${vo.bd_title}</td>
 											<td id="demoFonts">${vo.mem_id}</td>
 											<td id="demoFonts">${vo.bd_date}</td>
 											<td id="demoFonts">${vo.bd_views}</td>
@@ -231,7 +231,7 @@
 									<c:if test="${vo.bd_del=='N' && !empty vo.bd_parent}">
 										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
 											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td id="demoFonts">${vo.bd_title}</td>
+											<td style="text-align: left;"  id="demoFonts">${vo.bd_title}</td>
 											<td id="demoFonts">${vo.mem_id}</td>
 											<td id="demoFonts">${vo.bd_date}</td>
 											<td id="demoFonts">${vo.bd_views}</td>
@@ -240,7 +240,7 @@
 									<c:if test="${vo.bd_del=='Y'}">
 										<tr data-id="${vo.bd_id}">
 											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td id="demoFonts">삭제된 게시물 입니다</td>
+											<td style="text-align: left;"  id="demoFonts">삭제된 게시물 입니다</td>
 											<td id="demoFonts">${vo.mem_id}</td>
 											<td id="demoFonts">${vo.bd_date}</td>
 											<td id="demoFonts">${vo.bd_views}</td>

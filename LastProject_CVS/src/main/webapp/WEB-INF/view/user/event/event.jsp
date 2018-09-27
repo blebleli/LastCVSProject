@@ -99,6 +99,7 @@
 }
 
 #demoFont {
+
 	font-family: "Arial Black", Gadget, sans-serif;
 	font-size: 15px;
 	letter-spacing: -0.6px;
@@ -113,7 +114,7 @@
 
 }
 
-#demoFonts {
+#demoFonts td {
 	font-family: Gadget, sans-serif;
 	font-size: 13px;
 	letter-spacing: -0.6px;
@@ -124,8 +125,12 @@
 	font-style: normal;
 	font-variant: normal;
 	text-transform: none;
-	text-align: center;
 
+}
+
+.demoFontsDiv img {
+	width:200px;
+	height:150px;	
 }
 
 .services{
@@ -141,6 +146,17 @@
 	padding: 5px;
 	margin: 0px;
 }
+.col-md-9 w3agile_event_grid_right {
+  height:150px;
+  width:100px;
+}
+
+#size img {
+  height:100px;
+  width:100px;
+}
+
+
 </style>
 
 <link href="/css/login/common/JKH.css" rel="stylesheet">
@@ -200,41 +216,34 @@ $(function() {
 					<input name="i_search" id="i_search" type="text">
 					<button id="search" type="button" class="btn btn-default">검색</button>
 					<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id}"> 
-				</div>
+				</div><br><br>
 				</form>
+				
+				<!-- 사진 table 형식 -->
+				
 					<div class="table-responsive">
 						<table class="table table-striped table-hover">
 							<tbody>
 								<c:forEach items="${boardpage}" var="vo">
 									<c:if test="${vo.bd_del=='N'}">
-										<tr data-no="${vo.tot_cnt}" id="click">
-										
-											<td id="demoFonts">										
-										
-												
-													<div class="">
-<!-- 														<a href="/userProd/detail?prod_id=biscuit-01057" id="prodImage"></a> -->
-														<img src="/Image/product/biscuit/cd26dd6f-67c1-4ce6-9a1b-9818f916d60a.png"
-														 alt=" " class="img-responsive" width="200px" height="150px" />
-													</div>
-													
-												
-											
-											</td>
-											
-											<td id="demoFonts">
+										<tr data-no="${vo.tot_cnt}" id="click">										
+											<td width="100px" nowrap id="demoFonts">												
+													<div class="demoFontsDiv">
+ 														
+ 														<img src="${tempSavePath}${vo.prod_id}">
+													</div>	
+											</td>											
+											<td style="text-align: left;" id="demoFont">
 												<div class="">
-													<h3>${vo.bd_title}</h3>
-													<p>${vo.bd_content}</p>
+													<p>제목 : ${vo.bd_title}<p>
 													<dl class="">
-													<dt>작성일 :</dt>
-													<dd>${vo.bd_date}</dd>
+													<dt>작성일 : ${vo.bd_date}</dt>
+													<dt>조회수 : ${vo.bd_views}</dt>														
 													</dl>
 												</div>
 											</td>
 										</tr>
 									</c:if>
-
 									<c:if test="${vo.bd_del=='Y'}">
 										<tr data-no="${vo.tot_cnt}">
 											<td id="demoFonts">										
@@ -253,13 +262,12 @@ $(function() {
 											</figure>
 											</td>
 											
-											<td id="demoFonts">
+											<td style="text-align: left;" id="demoFont">
 												<div class="">
-													<h4>${vo.bd_title}</h4>
-													<p>${vo.bd_content}</p>
+													<p>제목 : ${vo.bd_title}<p>
 													<dl class="">
-													<dt>작성일 :</dt>
-													<dd>${vo.bd_date}</dd>
+													<dt>작성일 : ${vo.bd_date}</dt>
+													<dt>조회수 : ${vo.bd_views}</dt>														
 													</dl>
 												</div>
 											</td>
@@ -270,6 +278,9 @@ $(function() {
 						</table>
 						
 					</div>
+					
+					
+					<!-- 끝 -->
 						<div class="text-center" id="page">
 							<ul class="pagination">${pageNavi}</ul>
 						</div>

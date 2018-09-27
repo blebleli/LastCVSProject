@@ -207,6 +207,8 @@ public class AdBoardController {
 	public String boardEventListView(@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
 								Model model) {
+		
+		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp";
 		String bd_kind_id="66";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
@@ -219,6 +221,7 @@ public class AdBoardController {
 		
 		model.addAllAttributes(resultMap);
 		model.addAttribute("bd_kind_id", bd_kind_id);
+		model.addAttribute("tempSavePath", tempSavePath);
 		
 		return "eventList";
 	}

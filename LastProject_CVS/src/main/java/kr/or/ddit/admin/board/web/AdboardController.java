@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.mail.internet.ContentDisposition;
 import javax.servlet.ServletException;
 
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
@@ -20,6 +21,7 @@ import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -151,7 +153,8 @@ public class AdboardController {
 	 */
 	@RequestMapping("/boardCreate")
 	public String boardCreate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile, BoardVo b, Model model) throws ServletException, IOException{
-		String bd_id = "";	
+		String bd_id = "";
+		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp";
 		
 		if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
 			bd_id = code.autoCode("BNO"); // 가공		
@@ -167,20 +170,24 @@ public class AdboardController {
 		int cnt = boardService.setInsertBoard(b); // 게시글 저장
 		
 		if (cnt != 0){		
-			for (MultipartFile m : multipartFile) {
+			for (MultipartFile m : multipartFile) {		
 				
 				FiledataVo fileVo = new FiledataVo();
 				
+				String ext = FilenameUtils.getExtension(m.getOriginalFilename());
+				
 				if(m.isEmpty()==false){
 				fileVo.setBd_id(bd_id); // 게시글 코드
-				fileVo.setFile_path(FileUtil.fileUploadPath2); // 파일 경로
+				fileVo.setFile_path(FileUtil.Path); // 파일 경로
 				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
-				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
+				fileVo.setFile_upname(UUID.randomUUID().toString()+"."+ext); // 파일명
 				fileVo.setMem_id(b.getMem_id());
 				
+				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
+				
 				// 디렉토리 없을 경우 생성
-				if(!new File(FileUtil.fileUploadPath2).exists()) {
-					new File(FileUtil.fileUploadPath2).mkdirs();
+				if(!new File(tempSavePath+FileUtil.Path).exists()) {
+					new File(tempSavePath+FileUtil.Path).mkdirs();
 				}
 				
 				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
@@ -195,7 +202,7 @@ public class AdboardController {
 				fileService.insertFileBoard(fileVo);
 				
 				// 실제 물리경로에 파일 저장
-				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
+				File saveFile = new File(tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
 				m.transferTo(saveFile);				
 				
 				}
@@ -261,23 +268,27 @@ public class AdboardController {
 	public String boardUpdate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile,
 							  BoardVo b, Model model) throws ServletException, IOException {
 		
+		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp";
 		int cnt = boardService.boardUpdate(b); // 게시글 저장
 		
 		if (cnt != 0){		
 			for (MultipartFile m : multipartFile) {
 				
 				FiledataVo fileVo = new FiledataVo();
+				String ext = FilenameUtils.getExtension(m.getOriginalFilename());
 				
 				if(m.isEmpty()==false){
 				fileVo.setBd_id(b.getBd_id()); // 게시글 코드
-				fileVo.setFile_path(FileUtil.fileUploadPath2); // 파일 경로
+				fileVo.setFile_path(FileUtil.Path); // 파일 경로
 				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
-				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
+				fileVo.setFile_upname(UUID.randomUUID().toString()+"."+ext); // 파일명
 				fileVo.setMem_id(b.getMem_id());
 				
+				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
+				
 				// 디렉토리 없을 경우 생성
-				if(!new File(FileUtil.fileUploadPath2).exists()) {
-					new File(FileUtil.fileUploadPath2).mkdirs();
+				if(!new File(tempSavePath+FileUtil.Path).exists()) {
+					new File(tempSavePath+FileUtil.Path).mkdirs();
 				}
 				
 				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
@@ -292,7 +303,7 @@ public class AdboardController {
 				fileService.insertFileBoard(fileVo);
 				
 				// 실제 물리경로에 파일 저장
-				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
+				File saveFile = new File(tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
 				m.transferTo(saveFile);				
 				
 				}
@@ -370,7 +381,8 @@ public class AdboardController {
 	 */
 	@RequestMapping("/boardReCreate")
 	public String boardReCreate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile, BoardVo b, Model model) throws ServletException, IOException{
-		String bd_id = "";	
+		String bd_id = "";
+		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp";
 		
 		if(b.getBd_kind_id().equals("44")){ // 공지사항 구분
 			bd_id = code.autoCode("BNO"); // 가공		
@@ -381,24 +393,29 @@ public class AdboardController {
 		}
 		
 		b.setBd_id(bd_id); // 게시글 코드 저장		
+		b.setBd_group(bd_id); // 게시글 그룹코드 저장 (첫 글은 첫 글의 게시글 코드가 그룹코드임.)
 		
 		int cnt = boardService.setInsertBoard(b); // 게시글 저장
 		
 		if (cnt != 0){		
-			for (MultipartFile m : multipartFile) {
+			for (MultipartFile m : multipartFile) {		
 				
 				FiledataVo fileVo = new FiledataVo();
 				
+				String ext = FilenameUtils.getExtension(m.getOriginalFilename());
+				
 				if(m.isEmpty()==false){
 				fileVo.setBd_id(bd_id); // 게시글 코드
-				fileVo.setFile_path(FileUtil.fileUploadPath); // 파일 경로
+				fileVo.setFile_path(FileUtil.Path); // 파일 경로
 				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
-				fileVo.setFile_upname(UUID.randomUUID().toString()); // 파일명
+				fileVo.setFile_upname(UUID.randomUUID().toString()+"."+ext); // 파일명
 				fileVo.setMem_id(b.getMem_id());
 				
+				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
+				
 				// 디렉토리 없을 경우 생성
-				if(!new File(FileUtil.fileUploadPath).exists()) {
-					new File(FileUtil.fileUploadPath).mkdirs();
+				if(!new File(tempSavePath+FileUtil.Path).exists()) {
+					new File(tempSavePath+FileUtil.Path).mkdirs();
 				}
 				
 				// 만약에 공지사항 혹은 이벤트 구분 인식할 경우
@@ -413,7 +430,7 @@ public class AdboardController {
 				fileService.insertFileBoard(fileVo);
 				
 				// 실제 물리경로에 파일 저장
-				File saveFile = new File(fileVo.getFile_path() + File.separator + fileVo.getFile_name());
+				File saveFile = new File(tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
 				m.transferTo(saveFile);				
 				
 				}

@@ -6,7 +6,9 @@ public class FileUtil {
 	public final static String fileUploadPath = "C:/W/A_TeachingMaterial/7.JspSrpgin/fileUpload";
 	
 	// 김마음
-	public final static String fileUploadPath2 = "D:/A_TeachingMaterial/7.JspSpring/fileUpload";
+//	public final static String fileUploadPath2 = "D:/A_TeachingMaterial/7.JspSpring/fileUpload";
+	
+	public final static String Path = "/Image/board/";
 	
 	// 사용자 사진 업로드 경로
 	public final static String memberPicUploadPath = "C:/W/A_TeachingMaterial/7.JspSrpgin/fileUpload";
