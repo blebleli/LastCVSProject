@@ -32,9 +32,9 @@
 	
 
 	<!-- 	아 이 디 : setInsertSignUpUser
+	  		설    명 : 사용자정보 등록 (회원가입시 입력한 사용자정보 등록) 
 	  		매개변수 : memberVo
 	  		반 환 값 : 없음
-	  		설    명 : 사용자정보 등록 (회원가입시 입력한 사용자정보 등록) 
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
@@ -80,38 +80,39 @@
 	
 
 	<!-- 	아 이 디 : setUpdateMember
+			설    명 : 사용자 정보 수정
 	  		매개변수 : memberVo
 	  		반 환 값 : 없음
-	  		설    명 : 사용자 정보 수정
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-13     
 	 -->
 	<update id="setUpdateMember" parameterType="memberVo">
 		UPDATE MEMBER
 		   SET 
-<!-- 		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) 암호화  키 변경됨--> 
+--<!-- 		   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) 암호화  키 변경됨--> 
 		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, (SELECT  MEM_BIRTH FROM MEMBER WHERE MEM_ID = #{mem_id}))
-			 , MEM_TEL = #{mem_tel}
-			 , MEM_ZIP = #{mem_zip}
-			 , MEM_ADD = #{mem_add}
-			 , MEM_ADDR = #{mem_addr}
-			 , MEM_X = #{mem_x}
-			 , MEM_Y = #{mem_y}
+			 , MEM_TEL = #{mem_tel, jdbcType=VARCHAR}
+			 , MEM_ZIP = #{mem_zip, jdbcType=NUMERIC}
+			 , MEM_ADD = #{mem_add, jdbcType=VARCHAR}
+			 , MEM_ADDR = #{mem_addr, jdbcType=VARCHAR}
+			 , MEM_X = #{mem_x, jdbcType=NUMERIC, javaType=String}
+			 , MEM_Y = #{mem_y, jdbcType=NUMERIC, javaType=String}
+			 , MEM_KIND = #{mem_kind, jdbcType=VARCHAR}
 		 WHERE MEM_ID = #{mem_id}
 	</update>
 	
 	
 	
 	<!-- 	아 이 디 : setUpdateMemberPw
+	  		설    명 : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
 	  		매개변수 : memberVo
 	  		반 환 값 : 없음
-	  		설    명 : 사용자 비밀번호 수정 (비밀번호 찾기 후 새비밀번호로 변경) 
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
 	<update id="setUpdateMemberPw" parameterType="memberVo">
 		UPDATE MEMBER
-<!-- 		   SET MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) 암호화  키 변경됨 -->
+--<!-- 	   SET MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, #{mem_id, jdbcType=VARCHAR}) 암호화  키 변경됨 -->
 		   SET MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, (SELECT  MEM_BIRTH FROM MEMBER WHERE MEM_ID = #{mem_id}))
 		 WHERE MEM_ID = #{mem_id}
 		   <!-- AND MEM_PW = #{old_mem_pw} -->
@@ -119,9 +120,9 @@
 	
 	
 	<!-- 	아 이 디 : getMember
+	  		설    명 : 한 사용자 정보 조회
 	  		매개변수 : String(mem_id)
 	  		반 환 값 : memberVo
-	  		설    명 : 한 사용자 정보 조회
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
@@ -147,10 +148,12 @@
 		  WHERE MEM_ID = #{mem_id}
 	</select>
 
+
+
 	<!-- 	아 이 디 : getSearchMemberId
+	  		설    명 : 사용자ID찾기
 	  		매개변수 : memberVo
 	  		반 환 값 : memberVo
-	  		설    명 : 사용자ID찾기
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-08   
 	 -->
@@ -174,9 +177,9 @@
 	
 
 	<!-- 	아 이 디 : getMemberPageList
+	  		설    명 :  페이징 조회
 	  		매개변수 : map (mem_kind , mem_name / page , pageSize)
 	  		반 환 값 : memberVo
-	  		설    명 :  페이징 조회
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
@@ -203,12 +206,19 @@
 						, MEM_POINT
 					 FROM MEMBER
 				    WHERE 1=1
-				     <if test="mem_kind != null and mem_kind != ''">
-					    AND MEM_KIND = #{mem_kind, jdbcType=VARCHAR}
-					 </if>
-					  <if test="mem_name != null and mem_name != ''">
-					    AND MEM_NAME = #{mem_name, jdbcType=VARCHAR}
-					  </if>
+				    <if test="mem_kind != null and mem_kind != ''">
+					    <choose>
+					    	<when test="mem_kind.equals('01'.toString())">
+					    		AND MEM_KIND in ('01', '04')
+					    	</when>
+					    	<otherwise>
+						    	AND MEM_KIND = #{mem_kind, jdbcType=VARCHAR}
+					    	</otherwise>
+					    </choose>
+					</if>
+					<if test="mem_name != null and mem_name != ''">
+						AND MEM_NAME = #{mem_name, jdbcType=VARCHAR}
+					</if>
 				   -- <!-- ORDER BY MEM_NAME  -->
 				   )
 			  a )
@@ -217,9 +227,9 @@
 	
 
 	<!-- 	아 이 디 : getMemberListTotalCnt 
+	  		설    명 : 사용자 목록 총 건수   
 	  		매개변수 : 
 	  		반 환 값 : int
-	  		설    명 : 사용자 목록 총 건수   
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-05     
 	 -->
@@ -234,6 +244,38 @@
 <!-- 		   AND MEM_NAME = #{mem_name} -->
 <!-- 		 </if> -->
 <!--   	</select> -->
+
+
+	<!-- 
+  		아 이 디 : deleteCvsMember
+  		설    명 : 회원(편의점)삭제
+  		반 환 값 : memberVo
+  		매개변수 : String
+  		작 성 자 : 공은별
+  		일    시 : 2018-09-27
+  	 -->
+  	<delete id="deleteCvsMember" parameterType="memberVo">
+  		DELETE FROM MEMBER
+  		WHERE MEM_ID = #{mem_id}
+  	</delete>
+  	
+  	
+  	<!-- 
+  		아 이 디 : UpdateCvsMember
+  		설    명 : 편의점삭제시 해당편의점 사용안함 04로 업데이트 처리
+  		반 환 값 : 
+  		매개변수 : memberVo
+  		작 성 자 : 공은별
+  		일    시 : 2018-09-27
+  	 -->
+  	<update id="UpdateCvsMember" parameterType="memberVo">
+		UPDATE MEMBER
+		   SET 
+			  MEM_KIND = #{mem_kind, jdbcType=VARCHAR}
+		 WHERE MEM_ID = #{mem_id}
+	</update>
+  	
+  	
   	
   	
   	
@@ -272,7 +314,8 @@
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
   	</select>
   	
-  		<!-- 검색한 편의점의 목록 전체 건수 -->
+  	
+  	<!-- 검색한 편의점의 목록 전체 건수 -->
   	<select id="getTotCvsCnt" parameterType="String" resultType="int">
     	SELECT count(*) FROM member WHERE MEM_CVS_NAME like '%'||#{mem_cvs_name}||'%'
   	</select>
@@ -325,9 +368,6 @@
 		  AND SL.PROD_ID   = #{prod_id}        -- 제품코드
   	</select>
   	
-  	<delete id="deleteCvsMember" parameterType="memberVo">
-  		DELETE FROM MEMBER
-  		WHERE MEM_ID = #{mem_id}
-  	</delete>
+  	
   	
 </mapper>
