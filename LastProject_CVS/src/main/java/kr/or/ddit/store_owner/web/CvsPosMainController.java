@@ -2,21 +2,27 @@ package kr.or.ddit.store_owner.web;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.admin.model.MonthTopVo;
+import kr.or.ddit.admin.model.RankVo;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.DisposalListVo;
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.SaleDisVo;
 import kr.or.ddit.model.SaleListVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.store_owner.disposal_list.service.DisposalListServiceInf;
+import kr.or.ddit.store_owner.model.OnedayChartVo;
 import kr.or.ddit.store_owner.model.PosPayVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.saleDis.service.SaleDisServiceInf;
 import kr.or.ddit.store_owner.sale_list.service.SaleServiceInf;
+import kr.or.ddit.store_owner.soMain.service.soMainServiceInf;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 
 import org.slf4j.Logger;
@@ -28,6 +34,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 담당 --한수정
@@ -70,10 +77,42 @@ public class CvsPosMainController {
 	@Resource(name="saleService")
 	private SaleServiceInf saleService;
 	
+	@Resource(name="somainService")
+	private soMainServiceInf somainService;
+	
 
 	@RequestMapping("/main")
-	public String cvsMain(Model model){
-		return "cvs_index";
+	public ModelAndView cvsMain(Model model){
+		Map modelMap = model.asMap();
+		MemberVo user = (MemberVo) modelMap.get("userInfo");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("cvs_chart");
+		
+//		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale(user.getMem_id());
+		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale("6510000-104-2015-00153");
+//		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome(user.getMem_id());
+		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome("6510000-104-2015-00153");
+//		List<RankVo> ctgyList = somainService.cvsCtgyRank(user.getMem_id());
+		List<RankVo> ctgyList = somainService.cvsCtgyRank("6510000-104-2015-00153");
+//		List<RankVo> prodList = somainService.cvsBestProd(user.getMem_id());
+		List<RankVo> prodList = somainService.cvsBestProd("6510000-104-2015-00153");
+//		List<MonthTopVo> reqList = somainService.cvsSupReqMonthAvg(user.getMem_id());
+		List<MonthTopVo> reqList = somainService.cvsSupReqMonthAvg("5560000-104-2016-00010");
+//		List<MonthTopVo> inList = somainService.cvsSupInMonthAvg(user.getMem_id());
+		List<MonthTopVo> inList = somainService.cvsSupInMonthAvg("5560000-104-2016-00010");
+		
+		logger.debug("---reqList : "+reqList);
+		
+		
+		mav.addObject("saleList", saleList);
+		mav.addObject("incomeList", incomeList);
+		mav.addObject("ctgyList", ctgyList);
+		mav.addObject("prodList", prodList);
+		mav.addObject("reqList", reqList);
+		mav.addObject("inList", inList);
+		return mav;
+//		return "cvs_chart";
 	}
 	
 	@RequestMapping("/POS")
