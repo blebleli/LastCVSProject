@@ -45,10 +45,6 @@
 					</div>
 					
 	                <div class="input-group">
-	                  <input type="text" class="form-control" placeholder="Search for...">
-	                  <span class="input-group-btn">
-	                  	<button class="btn btn-default" type="button">Go!</button>
-	                  </span>
 	                </div>
                   
                 </div>
@@ -62,16 +58,18 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                  	<p id="p">
-						<input type="radio" class="flat" name="supply" id="all" checked="checked"/> 
-						전체 
-						<input type="radio" class="flat" name="supply" id="supply10" value="10"/> 
-						수불 
-						<input type="radio" class="flat" name="supply" id="supply11" value="11"/>
-						결제 
-						<input type="radio" class="flat" name="supply" id="supply12" value="12"/>
-						입고
-	                </p>
+                  	<tr>
+                  		<td>
+							<input type="radio" class="flat" name="supply" id="all" checked="checked"/> 
+							전체 
+							<input type="radio" class="flat" name="supply" id="supply10" value="10"/> 
+							수불 
+							<input type="radio" class="flat" name="supply" id="supply11" value="11"/>
+							결제 
+							<input type="radio" class="flat" name="supply" id="supply12" value="12"/>
+							입고
+                  		</td>
+                  	</tr>
                     <ul class="nav navbar-right panel_toolbox">
                       <li>
 		                  <a class="collapse-link">

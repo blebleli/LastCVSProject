@@ -209,19 +209,7 @@ public class AdminSupplyController {
 			//제품 아이디
 			supplyListVo.setProd_id(vo.getProd_id());
 			
-			String oldString = vo.getSplylist_exdate();
-			logger.debug("oldString : {}" , oldString);
-			try {
-				Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(oldString);
-				logger.debug("date : {}",date);
-				String newstring = new SimpleDateFormat("yyyy/MM/dd").format(date);
-				logger.debug("newstring : {}",newstring);
-				//유통기한
-				supplyListVo.setSplylist_exdate(newstring);
-				
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+			supplyListVo.setSplylist_exdate(vo.getSplylist_exdate());
 			
 			//비고
 			if(vo.getSplylist_info() != null){
