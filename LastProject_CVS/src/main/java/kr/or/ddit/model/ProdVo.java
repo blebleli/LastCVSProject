@@ -12,12 +12,12 @@ public class ProdVo extends PageVo {
 	private String prod_name;               // 이름
 	private String prod_intro;              // 설명
 	private String prod_info;               // 비고
-	private int prod_price;                 // 가격
-	private int prod_exnum;                 // 유통기한값
+	private int    prod_price;              // 가격
+	private int    prod_exnum;              // 유통기한값
 	private String pr_class_lg;             // 대분류
 	private String pr_class_md;             // 중분류
 	private String event_id;                // 행사제품코드
-	private int prod_cost;					// 단가
+	private int    prod_cost;				// 단가
 	
 	private MultipartFile[] upload_file;	// 이미지
 	
