@@ -2,9 +2,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!-- =======<tiles: ="content" /> ============> 회원가입 userJoin.jsp 끝  -->
+<!-- =======<tiles: ="content" /> ============> 회원가입 userJoin.jsp   -->
 <!-- login css  -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link> --%>
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/main.css' />"></link> 
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/mem.css' />"></link>
@@ -13,32 +13,18 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/common/common_layout.css' />"></link>
 
 <!-- css -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	<!-- font-awesome icons -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	<!-- //for-mobile-apps -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link>
-
-
-<!-- js -->
-<script type="text/javascript" src="<c:url value='/js/common/jquery-1.11.1.min.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/common/move-top.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
-<script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> <!-- 달력 : 별 09.07 -->
-
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	 --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/bootstrap.css' />" media="all"></link>	 --%>
+<%-- <link rel="stylesheet" type="text/css" href="<c:url value='/css/style.css' />" media="all"></link> --%>
 
 <!-- 달력 css  -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/jquery-ui-1.12.1/jquery-ui.min.css' />">
 <style type="text/css">
 	div.field {width:850px;}
 	span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
 </style>
 
-<!-- 달력 js -->
-<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/common/jquery.form.js' />"></script>
-<script src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
 
-
+<!-- 달력 js : 별 09.07 -->
 
 <script type="text/javascript">
 
@@ -583,24 +569,5 @@ function fn_errMessage(_obj, _text) {
 		</div>
 	</div>
 </div>
-
+        
 <!-- =======<tiles: ="content" /> ============> userJoin.jsp 끝  -->
-
-	<!-- jQuery -->
-	<script src="/vendors/jquery/dist/jquery.min.js"></script>
-	<!-- Bootstrap -->
-	<script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-	<!-- FastClick -->
-	<script src="/vendors/fastclick/lib/fastclick.js"></script>
-	<!-- NProgress -->
-	<script src="/vendors/nprogress/nprogress.js"></script>
-	<!-- iCheck -->
-	<script src="/vendors/iCheck/icheck.min.js"></script>
-	<!-- Datatables -->
-
-	<script src="/vendors/nprogress/nprogress.js"></script>
-
-	<!-- Custom Theme Scripts -->
-	<script src="<c:url value='/build/js/custom.min.js' />"></script>
-        
-        

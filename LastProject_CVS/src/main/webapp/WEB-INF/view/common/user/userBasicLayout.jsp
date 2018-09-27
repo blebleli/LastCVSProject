@@ -20,7 +20,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- login css  -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/login/login.css' />"></link>
-
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/mbs/css/main.css' />" />
 
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/font-awesome.css' />" media="all"></link>	<!-- font-awesome icons -->
@@ -34,12 +34,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 
 <!-- js -->
-<script type="text/javascript" src="<c:url value='/js/common/jquery-1.11.1.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-1.12.3.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/mbs/common.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/mbs/jquery.bxslider.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/mbs/jquery.blockUI.js' />"></script>
+
 <script type="text/javascript" src="<c:url value='/js/common/move-top.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
-<!-- 달력 js : 별 09.07 -->
+<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
+<script type="text/javascript" src="<c:url value='/js/common/jquery.form.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> 
+<script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/datepicker-ko.js' />"></script>
 
 
 <script type="text/javascript" >
@@ -84,7 +90,7 @@ $(document).ready(function(){
 		easingType: 'linear' 
 		};
 	*/
-	$().UItoTop({ easingType: 'easeOutQuart' });
+	//$().UItoTop({ easingType: 'easeOutQuart' });
 });
 </script>
 </head>

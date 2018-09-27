@@ -5,14 +5,6 @@
 <!-- ========================= userBasicLayout.jsp + <tiles:insertAttribute name="top" /> 부분 -->
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
- 
-<link rel="stylesheet" type="text/css" href="<c:url value='/css/mbs/css/main.css' />" />
-   
-<script type="text/javascript" src="<c:url value='/js/mbs/jquery-1.10.2.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/mbs/common.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/mbs/jquery.bxslider.min.js' />"></script>
-<script type="text/javascript" src="<c:url value='/js/mbs/jquery.blockUI.js' />"></script>
-   
 
 <!-- 최상단  -->
 <div class="agileits_header">
