@@ -140,7 +140,6 @@
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
                             <th class="column-title">상품명 </th>
-                            <th class="column-title">입고일 </th>
                             <th class="column-title">유통기한만료일 </th>
                             <th class="column-title">가격 </th>
                             <th class="column-title">재고 </th>
@@ -165,11 +164,10 @@
 				                      </div>
 		                            </td>
 		                            <td class=" ">${stock.prod_name }</td>		                           
-		                            <td class=" "><fmt:formatDate value="${stock.supply_date }" pattern="yyyy-MM-dd" /></td>
 		                            <td class=" "><fmt:formatDate value="${stock.stcklist_exdate }" pattern="yyyy-MM-dd" /></td>		   
 		                            <td class=" ">${stock.prod_price }</td>
 		                            <td class=" ">${stock.stcklist_amount }</td>
-		                            <td class="a-right a-right ">${stock.event_id }</td>
+		                            <td class="a-right a-right ">${stock.event_name }</td>
 		                          </tr>
 	                        	</c:forEach>
                         	</c:if>

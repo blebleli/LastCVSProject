@@ -129,7 +129,7 @@
 								    '<tr>'+
 								     '  <td>'+index+'</td>'+
 			                         '  <td><span  class="splylist_id">'+item.splylist_id+'</span></td>'+
-			                         '  <td>'+item.prod_id+'</td> '+
+			                         '  <td><span  class="prod_id">'+item.prod_id+'</span></td> '+
 			                         '  <td>'+item.splylist_sum+'</td> '+ 	                    
 			                         '	<td><input class="amount" style="width : 100%"type="number" value='+item.splylist_sum+'>'+
 				                     '	</input></td>'+		                         
@@ -165,10 +165,9 @@
 
 			    			if(index<=10){ //test용---------------------------------------
 			    				
-			    				reqInList.push({
-			    						splylist_id : data.find('.splylist_id').text(),			    					
+			    				reqInList.push({	    					
 			    					   splylist_sum : data.find('.amount').val(),
-			    					 	 supply_bcd : supply_bcd_data
+			    					        prod_id : data.find('.prod_id').text()
 			    					 	  });			  					
 			    			};
 			    			
