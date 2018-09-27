@@ -471,6 +471,7 @@ $(document).ready(function() {
 <%-- 										<input type="text" id="mem_id" name="mem_id" title="아이디(이메일) 입력" value="${memberVo.mem_id}" readonly="readonly" class="input_text small" style="width:337px" /> --%>
 											<label id="mem_id" title="아이디(이메일) 입력"  class="label" style="width:337px" >${member.mem_id}</label>
 											<input type="hidden" name="mem_id" value="${member.mem_id}" />
+											<input type="hidden" name="mem_kind" value="${member.mem_kind}" />
 										</div>
 									</div>
 									

@@ -28,6 +28,7 @@
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
 <script src="<c:url value='/build/js/jquery-1.12.4.js' />"></script>
+
 <script>
 	$(document).ready(function() {
 		
@@ -70,6 +71,7 @@
             	if(data == "1") {
             		alert("삭제되었습니다.");
             		$(document).refresh();
+//             		location.reload();
             	}
             },
             error: function(request, status, error) {
@@ -210,10 +212,11 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 								<thead>
 									<tr role="row" class="headings">
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 15px;" aria-label="First name: activate to sort column ascending">#</th>
+										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 20px;" aria-label="Age: activate to sort column ascending">사용여부</th>
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 230px;" aria-label="First name: activate to sort column ascending">사업자번호(ID)</th>
-										<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Last name: activate to sort column ascending">편의점명</th>
+										<th class="sorting_desc" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 170px;" aria-label="Last name: activate to sort column ascending">편의점명</th>
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 90px;" aria-label="Position: activate to sort column ascending" aria-sort="descending">편의점연락처</th>
-										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 70px;" aria-label="Start date: activate to sort column ascending">우편번호</th>
+										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 60px;" aria-label="Start date: activate to sort column ascending">우편번호</th>
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Salary: activate to sort column ascending">신(도로명)주소</th>
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 200px;" aria-label="Extn.: activate to sort column ascending">구주소</th>
 										<th class="sorting" tabindex="0" aria-controls="datatable-responsive" rowspan="1" colspan="1" style="width: 70px;" aria-label="First name: activate to sort column ascending">점주명</th>
@@ -229,21 +232,23 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 									<c:choose>
 										<c:when test="${!empty cvsMemberList}">
 											<c:forEach items="${cvsMemberList}" var="memberVo" varStatus="status">
-											<tr role="row" class="even pointer">
-												<td scope="row">${memberVo.rn}</td>
-												<td class="" tabindex="0">${memberVo.mem_id}</td>
-												<td class="sorting_1">${memberVo.mem_cvs_name}</td>
-												<td>${memberVo.mem_cvs_tel}</td>
-												<td>${memberVo.mem_zip}</td>
-												<td>${memberVo.mem_addr}</td>
-												<td>${memberVo.mem_add}</td>
-												<td>${memberVo.mem_name}</td>
-												<td>${memberVo.mem_tel}</td>
-												<td>${memberVo.mem_birth}</td>
-												<td>${memberVo.mem_gen}</td>
-												<td style="">${memberVo.mem_intro}</td>
-											</tr>
+												<tr role="row" class="even pointer">
+													<td scope="row">${memberVo.rn}</td>
+													<td>${memberVo.mem_kind eq '04' ? '미사용' : '사용'}</td>
+													<td class="" tabindex="0">${memberVo.mem_id}</td>
+													<td class="sorting_1">${memberVo.mem_cvs_name}</td>
+													<td>${memberVo.mem_cvs_tel}</td>
+													<td>${memberVo.mem_zip}</td>
+													<td>${memberVo.mem_addr}</td>
+													<td>${memberVo.mem_add}</td>
+													<td>${memberVo.mem_name}</td>
+													<td>${memberVo.mem_tel}</td>
+													<td>${memberVo.mem_birth}</td>
+													<td>${memberVo.mem_gen}</td>
+													<td style="">${memberVo.mem_intro}</td>
+												</tr>
 											</c:forEach>
+											
 										</c:when>
 										<c:otherwise>
 											<tr>
