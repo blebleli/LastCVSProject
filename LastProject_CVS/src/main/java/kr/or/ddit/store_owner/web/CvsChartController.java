@@ -198,39 +198,39 @@ public class CvsChartController {
 		return "cvs_chart_prod";
 	}
 	
-	@RequestMapping("/chart")
-	public ModelAndView storeOwnerChart(Model model){
-		Map modelMap = model.asMap();
-		MemberVo user = (MemberVo) modelMap.get("userInfo");
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("cvs_chart");
-		
-//		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale(user.getMem_id());
-		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale("6510000-104-2015-00153");
-//		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome(user.getMem_id());
-		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome("6510000-104-2015-00153");
-//		List<RankVo> ctgyList = somainService.cvsCtgyRank(user.getMem_id());
-		List<RankVo> ctgyList = somainService.cvsCtgyRank("6510000-104-2015-00153");
-//		List<RankVo> prodList = somainService.cvsBestProd(user.getMem_id());
-		List<RankVo> prodList = somainService.cvsBestProd("6510000-104-2015-00153");
-//		List<MonthTopVo> reqList = somainService.cvsSupReqMonthAvg(user.getMem_id());
-		List<MonthTopVo> reqList = somainService.cvsSupReqMonthAvg("5560000-104-2016-00010");
-//		List<MonthTopVo> inList = somainService.cvsSupInMonthAvg(user.getMem_id());
-		List<MonthTopVo> inList = somainService.cvsSupInMonthAvg("5560000-104-2016-00010");
-		
-		logger.debug("---reqList : "+reqList);
-		
-		
-		mav.addObject("saleList", saleList);
-		mav.addObject("incomeList", incomeList);
-		mav.addObject("ctgyList", ctgyList);
-		mav.addObject("prodList", prodList);
-		mav.addObject("reqList", reqList);
-		mav.addObject("inList", inList);
-		return mav;
-		
-	}
+//	@RequestMapping("/chart")
+//	public ModelAndView storeOwnerChart(Model model){
+//		Map modelMap = model.asMap();
+//		MemberVo user = (MemberVo) modelMap.get("userInfo");
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("cvs_chart");
+//		
+////		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale(user.getMem_id());
+//		List<OnedayChartVo> saleList = somainService.cvsOnedayTotalSale("6510000-104-2015-00153");
+////		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome(user.getMem_id());
+//		List<OnedayChartVo> incomeList = somainService.cvsOnedayTotalIncome("6510000-104-2015-00153");
+////		List<RankVo> ctgyList = somainService.cvsCtgyRank(user.getMem_id());
+//		List<RankVo> ctgyList = somainService.cvsCtgyRank("6510000-104-2015-00153");
+////		List<RankVo> prodList = somainService.cvsBestProd(user.getMem_id());
+//		List<RankVo> prodList = somainService.cvsBestProd("6510000-104-2015-00153");
+////		List<MonthTopVo> reqList = somainService.cvsSupReqMonthAvg(user.getMem_id());
+//		List<MonthTopVo> reqList = somainService.cvsSupReqMonthAvg("5560000-104-2016-00010");
+////		List<MonthTopVo> inList = somainService.cvsSupInMonthAvg(user.getMem_id());
+//		List<MonthTopVo> inList = somainService.cvsSupInMonthAvg("5560000-104-2016-00010");
+//		
+//		logger.debug("---reqList : "+reqList);
+//		
+//		
+//		mav.addObject("saleList", saleList);
+//		mav.addObject("incomeList", incomeList);
+//		mav.addObject("ctgyList", ctgyList);
+//		mav.addObject("prodList", prodList);
+//		mav.addObject("reqList", reqList);
+//		mav.addObject("inList", inList);
+//		return mav;
+//		
+//	}
 	
 	@RequestMapping("/saleTotal")
 	@ResponseBody
