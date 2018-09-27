@@ -104,10 +104,11 @@ public class AdboardController {
 		categoryVo.setCtgy_kind(ctgy_kind);
 		categoryVo.setCtgy_parent(ctgy_parent);
 		List<CategoryVo> categoryList = adminProdService.getProdCategory(categoryVo);
-		logger.debug("카테고리 ========================>> {} "+categoryVo.getCtgy_kind());
+//		logger.debug("카테고리 ========================>> {} "+categoryVo.getCtgy_kind());
 		List<BoardVo> boardList = boardService.getBoardPageList2(bd_kind_id);
-		logger.debug("categoryVo =========> {} ", categoryList);
-		System.out.println("bd_kind_id : "+bd_kind_id);
+//		logger.debug("categoryVo =========> {} ", categoryList);
+//		System.out.println("bd_kind_id : "+bd_kind_id);
+		logger.debug("boardList ===========>>> {} ", boardList);
 		// 카테고리 전체 조회
 		model.addAttribute("bd_kind_id", bd_kind_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);

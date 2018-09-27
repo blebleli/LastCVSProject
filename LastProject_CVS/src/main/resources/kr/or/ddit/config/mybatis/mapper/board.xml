@@ -10,7 +10,7 @@
 									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
 									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
 									, bd_rating
-									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+									, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
 									, mem_id
 									, bd_kind_id
 									, prod_id
@@ -22,9 +22,11 @@
 							WHERE 1=1
 			                <if test="_parameter != null and _parameter != ''">
 			                AND bd_kind_id = #{_parameter}
-			                </if>			                		                			                
+			                </if>
+			                			                		                			                
 			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
-			      		) T )
+			      		) 
+			      		T ORDER BY T.bd_date DESC )
 	</select>
 	
 	<!-- 관리자 - 자료 검색 -->
@@ -65,7 +67,14 @@
 					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
 					                AND bd_kind_id = #{bd_kind_id}			                	
 								</if>								
-							</if>							
+							</if>
+							
+							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+								<if test="mem_name != null and mem_name != ''">
+					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>								
+							</if>													
 										                	
 							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
 								<if test="bd_title != null and bd_title != ''">
@@ -79,13 +88,17 @@
 								</if>
 							</if>
 							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
 								<if test="bd_parent != null and bd_parent != ''">
 					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'			                	
 								</if>								
-							</if>	
+							</if>
 							
-							<!-- 작성자는 보류 -->						
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
+								<if test="mem_name != null and mem_name != ''">
+					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
+								</if>								
+							</if>
 																					
 			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			      		) T )		
@@ -107,7 +120,7 @@
 					VALUES (  #{bd_id}
 					 		, #{bd_title}
 					 		, RAWTOHEX(#{bd_content})
-					 		, TO_DATE(SYSDATE,#{bd_date})
+					 		, SYSDATE
 					 		, #{bd_del}
 					 		, #{bd_views}
 					 		, #{bd_group}
@@ -134,7 +147,7 @@
 		SELECT	  bd_id
 		 		, bd_title
 		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
-		 		, TO_CHAR(bd_date,'YY-MM-DD') AS bd_date
+		 		, TO_CHAR(bd_date,'YYYY-MM-DD') AS bd_date
 		 		, bd_del
 		 		, bd_rating
 		 		, bd_views
@@ -231,7 +244,7 @@
   	
  <!-- ===========================================사용자 공지사항 게시판========================================================= -->
 
-  	<!-- 게시판 페이징 기법 -->
+  	<!-- 사용자 공지사항 페이징 기법 -->
 	<select id="getBoardPageList" parameterType="map" resultType="boardVo">	
 		SELECT * FROM (
 			SELECT ROWNUM tot_cnt, T.*
@@ -254,7 +267,7 @@
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
-	<!-- 게시판 검색 기법 -->
+	<!-- 사용자 공지사항 검색 기법 -->
 	<select id="getBoardPageSearch" parameterType="map" resultType="boardVo">	
 		SELECT * FROM (
 			SELECT ROWNUM tot_cnt, T.*
@@ -294,7 +307,37 @@
 								</if>								
 							</if>
 							
-							<!-- 작성자는 보류 -->
+							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+								<if test="mem_name != null and mem_name != ''">
+					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>								
+							</if>													
+										                	
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
+								<if test="bd_title != null and bd_title != ''">
+									AND bd_title LIKE '%'|| #{bd_title} ||'%'
+								</if>
+							</if>
+							
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
+								<if test="bd_content != null and bd_content != ''">
+					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+								</if>
+							</if>
+							
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
+								<if test="bd_parent != null and bd_parent != ''">
+					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'			                	
+								</if>								
+							</if>
+							
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
+								<if test="mem_name != null and mem_name != ''">
+					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
+								</if>								
+							</if>
+							
 			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			                
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
@@ -332,11 +375,17 @@
                AND bd_kind_id = #{bd_kind_id}			                	
 			</if>								
 		</if>		
+		
+		<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+			<if test="mem_name != null and mem_name != ''">
+                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
+			</if>								
+		</if>		
   	</select>  	
   	
  <!-- ==========================================사용자 이벤트&행사 게시판 ======================================================== -->
  
-   	<!-- 게시판 페이징 기법 -->
+   	<!-- 사용자 이벤트&행사 페이징 기법 -->
 	<select id="getBoardPageList1" parameterType="map" resultType="boardVo">	
 		SELECT * FROM (
 			SELECT ROWNUM tot_cnt, T.*
@@ -361,7 +410,7 @@
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
-	<!-- 게시판 검색 기법 -->
+	<!-- 사용자 이벤트&행사 검색 기법 -->
 	<select id="getEventPageSearch" parameterType="map" resultType="boardVo">	
 		SELECT * FROM (
 			SELECT ROWNUM tot_cnt, T.*
@@ -401,7 +450,37 @@
 								</if>								
 							</if>
 							
-							<!-- 작성자는 보류 -->
+							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+								<if test="mem_name != null and mem_name != ''">
+					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
+					                AND bd_kind_id = #{bd_kind_id}			                	
+								</if>								
+							</if>													
+										                	
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
+								<if test="bd_title != null and bd_title != ''">
+									AND bd_title LIKE '%'|| #{bd_title} ||'%'
+								</if>
+							</if>
+							
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
+								<if test="bd_content != null and bd_content != ''">
+					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+								</if>
+							</if>
+							
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
+								<if test="bd_parent != null and bd_parent != ''">
+					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'			                	
+								</if>								
+							</if>
+							
+							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
+								<if test="mem_name != null and mem_name != ''">
+					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
+								</if>								
+							</if>
+							
 			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
 			                
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}

@@ -333,8 +333,9 @@ public class BoardService implements BoardServiceInf {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
 		// 게시판 페이지 리스트 조회
-		List<BoardVo> boardpage = boardDao.getBoardPageList(map);		
+		List<BoardVo> boardpage = boardDao.getBoardPageList1(map);		
 		resultMap.put("boardpage", boardpage);
+		logger.debug("boardpage ===================================>>>> {} ", boardpage);
 		
 		String bd_kind_id = (String) map.get("bd_kind_id"); // 게시판 구분 값 가져오기
 

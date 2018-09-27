@@ -43,22 +43,27 @@
 		<put-attribute name="content" value="/WEB-INF/view/user/board/board.jsp" />
 	</definition>
 
-	<!--조계환 공지사항 게시물 작성 화면 -->
+	<!--김마음 공지사항 게시물 작성 화면 -->
 	<definition name="newNoticePost" extends="userBasicLayout">
 		<put-attribute name="content"
 			value="/WEB-INF/view/admin/board/newNoticePost.jsp" />
 	</definition>
 
-	<!--조계환 공지사항 게시물 상세보기 화면 -->
+	<!--김마음 공지사항 게시물 상세보기 화면 -->
 	<definition name="viewPost" extends="userBasicLayout">
 		<put-attribute name="content"
 			value="/WEB-INF/view/user/board/viewPost.jsp" />
 	</definition>
 	
-	<!--조계환 이벤트 게시판 메인 화면 -->
+	<!--김마음 이벤트 게시판 메인 화면 -->
 	<definition name="eventList" extends="userBasicLayout">
 		<put-attribute name="content" value="/WEB-INF/view/user/event/event.jsp" />
 	</definition>
+	
+	<!--김마음 이벤트 게시판 메인 화면 -->
+	<definition name="eventView" extends="userBasicLayout">
+		<put-attribute name="content" value="/WEB-INF/view/user/event/eventView.jsp" />
+	</definition>	
 
 	<!-- best 상품 -->
 	<definition name="bestProducts" extends="userBasicLayout">

@@ -265,7 +265,33 @@ public class AdBoardController {
 		model.addAttribute("FList", FList); // model에 저장한다.
 		
 		return "viewPost";
-	}	
+	}
+	
+	/**
+	 * Method : postView
+	 * 최초작성일 : 2018. 9. 27.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @param bd_kind_id2
+	 * @param model
+	 * @return
+	 * Method 설명 : 이벤트&행사 게시글 상세조회 이동
+	 */
+	@RequestMapping("/eventView")
+	public String eventView(@RequestParam(value="id", defaultValue="") String bd_id,
+			  			   @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2, Model model){
+		
+		BoardVo post = boardService.getBoard(bd_id); // 게시판 코드(bd_id)로 게시글 상세조회를 한다.
+		List<CommentsVo> commentsList = boardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
+		List<FiledataVo> FList = fileService.getFiledata(bd_id); // 게시판 코드(bd_id)로 해당 첨부파일 전체를 조회한다.
+		model.addAttribute("bd_id", bd_id);
+		model.addAttribute("post", post); // model에 저장한다.
+		model.addAttribute("commentsList", commentsList); // model에 저장한다.
+		model.addAttribute("FList", FList); // model에 저장한다.
+		
+		return "eventView";
+	}
 	
 	/**
 	* Method : newComment

@@ -188,7 +188,7 @@ public class BoardDao implements BoardDaoInf {
 	*/	
 	@Override
 	public List<BoardVo> getBoardPageList1(Map<String, Object> map) {
-		return template.selectList("board.getBoardPageList",map);
+		return template.selectList("board.getBoardPageList1",map);
 	}
 	
 	/**

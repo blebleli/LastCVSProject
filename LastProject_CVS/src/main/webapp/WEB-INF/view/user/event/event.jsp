@@ -163,14 +163,13 @@
 
 <script>
 $(function() {
-	$("#click").on("click", function() {
-		$("#bd_id").val($(this).data("no"));
-		$("#frm").submit();
-	});
-
-
-	$("#eventDetali").on("click",function(){
-		$()
+	$("table tbody tr").on("click", function(){
+		//tr태그의 data-id 속성 값을 읽어서 input 태그의 id 값으로 설정
+		//form 태그를 submit
+		if($(this).data("id2") == 'N'){
+			$("#id").val($(this).data("id"));
+			$("#frm").submit();
+		}
 	});
 
 	$("#search").on("click",function(){ // 제목 / 제목+내용 / 내용 / 작성자 중 선택 후 검색창을 누른다.
@@ -178,8 +177,7 @@ $(function() {
 		alert($("#i_search").val());
 		$("#boardGo").submit(); // 검색 결과로 이동한다.
 	});
-
-});	
+});
 </script>
 
 <!-- products-breadcrumb -->
@@ -195,8 +193,9 @@ $(function() {
 
 <!-- banner -->
 
-<form action="/board/view" method="post" id="frm">
-	<input type="hidden" name="bd_id" id="bd_id">
+<form action="/board/eventView" method="post" id="frm">
+	<input type="hidden" name="id" id="id">
+	<input type="hidden" name="bd_kind_id" id="bd_kind_id" value="${bd_kind_id}">
 </form>
 
 
@@ -226,11 +225,10 @@ $(function() {
 							<tbody>
 								<c:forEach items="${boardpage}" var="vo">
 									<c:if test="${vo.bd_del=='N'}">
-										<tr data-no="${vo.tot_cnt}" id="click">										
+										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">										
 											<td width="100px" nowrap id="demoFonts">												
-													<div class="demoFontsDiv">
- 														
- 														<img src="${tempSavePath}${vo.prod_id}">
+													<div class="demoFontsDiv"> 														
+ 														<img src="${vo.prod_id}"/>
 													</div>	
 											</td>											
 											<td style="text-align: left;" id="demoFont">
@@ -245,8 +243,8 @@ $(function() {
 										</tr>
 									</c:if>
 									<c:if test="${vo.bd_del=='Y'}">
-										<tr data-no="${vo.tot_cnt}">
-											<td id="demoFonts">										
+										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
+											<td width="100px" id="demoFonts">										
 											<figure>
 												<div class="snipcart-item block">
 													<div class="snipcart-thumb">
