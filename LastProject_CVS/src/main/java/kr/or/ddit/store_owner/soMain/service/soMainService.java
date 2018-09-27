@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.admin.model.MonthTopVo;
 import kr.or.ddit.admin.model.RankVo;
 import kr.or.ddit.store_owner.model.OnedayChartVo;
 import kr.or.ddit.store_owner.model.salelistJoinVo;
@@ -77,5 +78,15 @@ public class soMainService implements soMainServiceInf {
 	@Override
 	public List<RankVo> cvsBestProd(String mem_id) {
 		return somainDao.cvsBestProd(mem_id);
+	}
+
+	@Override
+	public List<MonthTopVo> cvsSupReqMonthAvg(String place_id) {
+		return somainDao.cvsSupReqMonthAvg(place_id);
+	}
+
+	@Override
+	public List<MonthTopVo> cvsSupInMonthAvg(String place_id) {
+		return somainDao.cvsSupInMonthAvg(place_id);
 	}
 }
