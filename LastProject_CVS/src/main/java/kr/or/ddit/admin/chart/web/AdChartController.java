@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import kr.or.ddit.admin.chart.service.AdChartServiceInf;
 import kr.or.ddit.admin.model.CvsCountVo;
 import kr.or.ddit.admin.model.MonthTopVo;
+import kr.or.ddit.admin.model.RankVo;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -29,25 +32,60 @@ public class AdChartController {
 	public ModelAndView cvsCountChart(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("ad_chart");
+		
 		List<CvsCountVo> list1 = adChartService.getAllCvsCount();
 		List<CvsCountVo> list2 = adChartService.getCvsServiceCount();
-		List<MonthTopVo> list3 = adChartService.getCvsTop3();
-		List<String> color = new ArrayList<String>();
-		color.add("#0d259c");
-		color.add("#0663b8");
-		color.add("#17dbd6");
-		color.add("#29dba9");
-		color.add("#57d843");
-		color.add("#98cbfb");
-		color.add("#aefff1");
-		color.add("#3b8fa1");
+		List<RankVo> list4 = adChartService.getProdTop5();
+		List<MonthTopVo> reqList = adChartService.supReqMonthAmount();
+		List<MonthTopVo> inList =adChartService.supInMonthAmount();
+//		JSONObject object = areachart();
+//		logger.debug("------object :"+object);
 		
 		mav.addObject("list1", list1);
 		mav.addObject("list2", list2);
-		mav.addObject("list3", list3);
-		mav.addObject("color", color);
+		mav.addObject("list4", list4);
+		mav.addObject("reqList", reqList);
+		mav.addObject("inList", inList);
 		return mav;
 	}
 	
-	
+//	public JSONObject areachart(){
+//		JSONObject object = new JSONObject();
+//		List<MonthTopVo> list3 = adChartService.getCvsTop3();
+//		logger.debug("---list3 : " + list3);
+//		
+//		JSONArray array = new JSONArray();
+//		JSONArray array2 = new JSONArray();
+//		JSONArray array3 = new JSONArray();
+//		JSONArray array4 = new JSONArray();
+//		for(int i = 0; i < list3.size(); i++){
+//			if(!array.contains(list3.get(i).getId())){
+//				array.add(list3.get(i).getId());
+//			}
+//			if(i==0){
+//				array2.add(list3.get(i).getMonth());
+//			}
+//			if(i==3){
+//				array3.add(list3.get(i).getMonth());
+//			}if(i==6){
+//				array4.add(list3.get(i).getMonth());
+//			}
+//		}
+//		object.put("cvsname", array);
+//		
+//		for(int i =0; i < list3.size(); i++){
+//			for(int k =0; k < array.size(); i++){
+//				
+//					if(list3.get(i).getId().equals(array.get(k))){
+//						array2.add(list3.get(i).getAmount());
+//					}
+//				
+//				
+//			}
+//		}
+//		
+//		object.put("first", array2);
+//		object.put("second", array3);
+//		return object;
+//	}
 }
