@@ -48,18 +48,19 @@ public class MemberMgtDao implements MemberMgtDaoInf {
 		return template.selectList("member.getMemberPageList", paramMemberVo);
 	}
 
+	
 	/**
 	 * 편의점 삭제
-	 * Method : deleteCvsMember
+	 * Method : UpdateCvsMember
 	 * 최초작성일 : 2018. 9. 27.
-	 * 작성자 : gugi
+	 * 작성자 : 공은별
 	 * 변경이력 :
 	 * @param paramMemberVo
 	 * Method 설명 :
 	 */
 	@Override
 	public void deleteCvsMember(MemberVo paramMemberVo) {
-		template.delete("member.deleteCvsMember", paramMemberVo);
+		template.delete("member.UpdateCvsMember", paramMemberVo);
 	}
 	
 	

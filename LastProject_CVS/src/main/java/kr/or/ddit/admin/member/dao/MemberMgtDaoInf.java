@@ -25,7 +25,7 @@ public interface MemberMgtDaoInf {
 	 * Method 	  : deleteCvsMember
 	 * Method 설명  :
 	 * 최초작성일 : 2018. 9. 27.
-	 * 작성자 	  : gugi
+	 * 작성자 	  : 공은별
 	 * 변경이력   :
 	 *
 	 * @param paramMemberVo

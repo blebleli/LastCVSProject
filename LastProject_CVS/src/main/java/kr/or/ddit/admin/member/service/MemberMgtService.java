@@ -59,7 +59,7 @@ public class MemberMgtService implements MemberMgtServiceInf {
 	 * 편의점 삭제
 	 * Method : deleteCvsMember
 	 * 최초작성일 : 2018. 9. 27.
-	 * 작성자 : gugi
+	 * 작성자 : 공은별
 	 * 변경이력 :
 	 * @param paramMemberVo
 	 * @return

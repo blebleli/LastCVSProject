@@ -82,8 +82,6 @@ public class MemberMGTController {
 	 */
 	@RequestMapping("/memberListView")
 	public String memberListView(Model model){
-		
-		
 		return "/member/ad_userMember";
 	}
 	
@@ -96,8 +94,6 @@ public class MemberMGTController {
 	 */
 	@RequestMapping("/cvsListView")
 	public String cvsListView(Model model){
-		
-		
 		return "/member/ad_cvsMember";
 	}
 	
@@ -110,9 +106,6 @@ public class MemberMGTController {
 	 */
 	@RequestMapping("/cvsInsert")
 	public String cvsInsert(Model model){
-		
-		
-		
 		return "/member/ad_cvsInsert";
 	}
 
@@ -120,10 +113,10 @@ public class MemberMGTController {
 	
 	
 	/**
+	 * userMemberListView
 	 * 일반 회원리스트 출력
 	 * 공은별
 	 * 2019.09.17
-	 * userMemberListView
 	 * @param request
 	 * @param response
 	 * @param model
@@ -143,7 +136,6 @@ public class MemberMGTController {
 		paramMemberVo.setPageSize(pageSize);
 		paramMemberVo.setMem_kind("02"); 
 
-		
 		List<MemberVo> userMemberList= memberMgtService.getMemberPageList(paramMemberVo);
 		model.addAttribute("userMemberList", userMemberList);	
 		
@@ -164,10 +156,10 @@ public class MemberMGTController {
 	
 	
 	/**
+	 * cvsMemberList
 	 * 편의점 회원리스트 조회
 	 * 공은별
 	 * 2019.09.17
-	 * cvsMemberList
 	 * @param request
 	 * @param response
 	 * @param model
@@ -186,7 +178,6 @@ public class MemberMGTController {
 		paramMemberVo.setPage(page);
 		paramMemberVo.setPageSize(pageSize);
 		paramMemberVo.setMem_kind("01");
-
 		
 		List<MemberVo> cvsMemberList= memberMgtService.getMemberPageList(paramMemberVo);
 		model.addAttribute("cvsMemberList", cvsMemberList);	
@@ -207,9 +198,10 @@ public class MemberMGTController {
 
 
 	/**
-	 * 09.20 
+	 * chkMemIdDupli
 	 * 사업자번호 입력되었을 때 사업자번호 중복 조회 처리 - ajax
 	 * 작 성 자   : 공은별(pc24)
+	 * 09.20 
 	 * @param request
 	 * @param model
 	 * @return
@@ -231,9 +223,10 @@ public class MemberMGTController {
 	
 
 	/**
-	 * 09.20 
+	 * chkMemTelDupli
 	 * 점주 연락처 입력되었을 때 중복 조회 처리 - ajax
 	 * 작 성 자   : 공은별(pc24)
+	 * 09.20 
 	 * @param request
 	 * @param model
 	 * @return
@@ -253,17 +246,19 @@ public class MemberMGTController {
 	
 
 	/**
-	 * 등록 처리 -
+	 * cvsInsertProcess
+	 * 편의점 등록 처리 -
 	 * (처리 후 로그인 화면이동)
 	 * 작 성 자   : 공은별(pc24)
+	 * 09.26
 	 * @param request
 	 * @param memberVo
 	 * @param model
 	 * @return
 	 * @throws IOException  
 	 */
-	@RequestMapping("/joinProcess")
-	public String joinProcess( HttpServletRequest request
+	@RequestMapping("/cvsInsertProcess")
+	public String cvsInsertProcess( HttpServletRequest request
 			, HttpServletResponse response
 			, @ModelAttribute("memberVo") MemberVo memberVo
 			, @ModelAttribute("filedataVo") FiledataVo filedataVo
@@ -278,7 +273,7 @@ public class MemberMGTController {
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().print("DUPLI");
-			return "login/userJoin";
+			return "/member/ad_cvsInsert";
 		}
 
 		//============================================ 추가 사용자에게 받은 주소로 x, y 좌표로 변환 2018.09.10 - jw
@@ -346,7 +341,7 @@ public class MemberMGTController {
 		//		
 		//		response.getWriter().print(result);
 
-		return "redirect:/login/loginView";
+		return "redirect:/admin/cvsMemberList";
 	}
 	
 	
@@ -440,9 +435,10 @@ public class MemberMGTController {
 
 	
 	/**
-	 * 편의점 삭제
-	 * 
+	 * deleteCvsMember
+	 * 편의점 삭제 --- mem_kind 를 04로 업데이트 처리 
 	 * 작 성 자   : 공은별(pc24)
+	 * 09.26
 	 * @param request
 	 * @param memberVo
 	 * @param model
@@ -458,6 +454,8 @@ public class MemberMGTController {
 		logger.debug("Request URL : {}", request.getRequestURI());
 		logger.debug("param : {}", memberVo);
 		
+		memberVo.setMem_kind("04");
+//		int result = memberMgtService.deleteCvsMember(memberVo);
 		int result = memberMgtService.deleteCvsMember(memberVo);
 		
 		// 사용자 ID 중복 조회

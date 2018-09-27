@@ -26,6 +26,7 @@ public class MemberVo extends PageVo {
 	
 	private int rn;		   //
 	
+	private String mem_unUsed;   
 	private String pic_name;	// 사용자 사진 저장명, 파일리스트  09.11 추가 - KONG
 	private List<FiledataVo> fileList = new ArrayList<FiledataVo>();
 	
@@ -285,7 +286,19 @@ public class MemberVo extends PageVo {
 	public void setRn(int rn) {
 		this.rn = rn;
 	}
+	
+	
+	
 
+	public String getMem_unUsed() {
+		return mem_unUsed;
+	}
+
+	public void setMem_unUsed(String mem_unUsed) {
+		this.mem_unUsed = mem_unUsed;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "MemberVo [mem_id=" + mem_id + ", mem_pw=" + mem_pw
