@@ -263,14 +263,3 @@ window.onload = function() {
 };
 </script>
 
-<!-- <script> -->
-// function supply_check() {
-// 	if(confirm("수불 확인 처리 하시겠습니까?") == true) {
-// 		return true;
-// 		location.replace("/admin/supplyCheck");
-// 		document.submit.submit();
-// 	} else {
-// 		return false;
-// 	}
-// }
-<!-- </script> -->

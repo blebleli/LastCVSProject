@@ -62,7 +62,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                  	<p>
+                  	<p id="p">
 						<input type="radio" class="flat" name="supply" id="all" checked="checked"/> 
 						전체 
 						<input type="radio" class="flat" name="supply" id="supply10" value="10"/> 
@@ -194,4 +194,14 @@
 		});
 	});	
 	</script>
-    
+	
+	<script>
+	
+	$(function() {
+		$("#p").on("click", function() {
+		var checkedVal = $(".flat:checked").val();
+		alert(checkedVal)
+		});
+	});	
+	
+	</script>
