@@ -119,14 +119,14 @@
 								<div class="col-xs-12 table">
 									<table class="table table-striped">
 										<thead>
-											<tr><th>번호</th>
+											<tr><th>순번</th>
 												<th style="width: 20%">상품코드</th>
 												<th style="width: 20%">상품이름</th>
 												<th style="width: 20%">유통기한</th>
-												<th>실수량</th>
 												<th>요청수량</th>
-												<th>가격</th>
+												<th>출고가능수량</th>
 												<th>단가</th>
+												<th>가격</th>
 												<th>합계</th>
 											</tr>
 										</thead>
@@ -136,20 +136,26 @@
 													<td>${vo.rnum}</td>		<!-- 번호 -->
 													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
 													<td>${vo.prod_name}</td>	<!-- 상품이름 -->
-													<td><fmt:formatDate value="${vo.exdate}" pattern="yyyy.MM.dd. HH:mm"/>
-													</td>	<!-- 유통기한 -->
+													<td>
+														<fmt:formatDate value="${vo.exdate}" pattern="yyyy.MM.dd. HH:mm"/>	<!-- 유통기한 -->
+													</td>	
+													<td>${vo.splylist_sum}</td>		<!-- 요청수량 -->
+													
+													<!-- ------------------------------ 출고가능수량 -->
 													<c:if test="${adminApplyVo.supply_state == 10}">
 														<td>
 															<input type="text" size="1">
 														</td>		
 													</c:if>
+													
 													<c:if test="${adminApplyVo.supply_state != 10}">
 														<td>
 														</td>		
 													</c:if>
-													<td>${vo.splylist_sum}</td>		<!-- 수량 -->
-													<td>${vo.prod_price}</td>		<!-- 판매가격 -->
+													<!-- ------------------------------ -->
+													
 													<td>${vo.prod_cost}</td>		<!-- 단가 -->
+													<td>${vo.prod_price}</td>		<!-- 가격 -->
 													<td>￦${vo.prod_cost * vo.splylist_sum}</td>	<!-- 합계 -->
 												</tr>
 											</c:forEach>

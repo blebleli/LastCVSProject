@@ -22,7 +22,14 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
+   	<link href="/css/login/common/JKH.css" rel="stylesheet">
+    
         <!-- page content -->
+        <form action="/admin/lookupView" method="post" id="frm">
+			<input type="hidden" name="supply_bcd" id="supply_bcd">
+			<input type="hidden" name="supply_state" value="${vo.supply_state}">
+		</form>
+								
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
@@ -89,24 +96,23 @@
                     <table id="datatable-buttons" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>No.</th>
-                          <th>수불바코드</th>
-                          <th>점주명</th>
+                          <th>순번</th>
                           <th>편의점명</th>
-                          <th>수불 신청 날짜</th>
+                          <th>점주명</th>
+                          <th>바코드</th>
+                          <th>신청 날짜</th>
                           <th>상태</th>
-                          <th colspan="2">Action</th>                  
                         </tr>
                   	
                       </thead>
 						<c:forEach items="${adminApplyList}" var="vo"> <!-- 전체 입고 목록들 -->
-								<tr>
-									<td>${vo.rnum}</td>	
-									<td>${vo.supply_bcd}</td>	
-									<td>${vo.mem_name}</td>	
-									<td>${vo.mem_cvs_name}</td>	
+								<tr data-no="${vo.supply_bcd}" class="click">
+									<td>${vo.rnum}</td>			<!-- 순번 -->
+									<td>${vo.mem_cvs_name}</td>	<!-- 편의점명 -->
+									<td>${vo.mem_name}</td>		<!-- 점주명 -->
+									<td>${vo.supply_bcd}</td>	<!-- 바코드 -->
 									<td><fmt:formatDate value="${vo.supply_date}" pattern="yyyy.MM.dd. HH:mm"/></td>
-									<td>
+									<td>						<!-- 신청 날짜 -->
 									<c:choose>
 										<c:when test="${vo.supply_state == 10}">
 											발주
@@ -120,14 +126,8 @@
 									
 									</c:choose>
 									</td>	
-									<td>
-										<form action="/admin/lookupView" method="get">
-											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}">
-											<input type="hidden" name="supply_state" value="${vo.supply_state}">
-											<input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">
-										</form>
-									</td>
 								</tr>
+								
 	                      </c:forEach>                  
                       <tbody> 
                                                                                                                                                       
@@ -185,9 +185,13 @@
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     
-    <script type="text/javascript">
-//     $(document).ready(function () {
-//     	var supply = $('input:radio[name="supply"]:checked').val();
-//         alert(supply);
-//         });
-    </script>
+    <script>
+	$(function() {
+		$(".click").on("click", function() {
+			$("#supply_bcd").val($(this).data("no"));
+			
+			$("#frm").submit();
+		});
+	});	
+	</script>
+    

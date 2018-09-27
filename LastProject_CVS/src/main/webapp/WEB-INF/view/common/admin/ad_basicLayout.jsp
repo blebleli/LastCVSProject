@@ -34,6 +34,15 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     	    
+    <script>
+	$(function() {
+		$(".click").on("click", function() {
+			$("#supply_bcd").val($(this).data("no"));
+			$("#frm").submit();
+		});
+	});	
+	</script>
+    	    
   </head>
 
   <body class="nav-md">
