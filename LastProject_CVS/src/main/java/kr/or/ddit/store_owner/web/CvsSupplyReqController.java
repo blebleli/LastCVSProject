@@ -64,7 +64,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyReqController")
-
+@SessionAttributes({"requestList"})
 public class CvsSupplyReqController {
 	
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
@@ -143,8 +143,7 @@ public class CvsSupplyReqController {
 	* @return List<PresentStockListVo>
 	*/ 
 	@RequestMapping("/requestList")
-	public ResponseEntity<String>  requestList(@RequestBody List<String> requestProd, Model model){
-		
+	public ResponseEntity<String>  requestList(@RequestBody List<String> requestProd, HttpServletRequest request, Model model){
 		//페이지요청으로
 		//requestvo ==>List<ProdVo>
 		//prod_id 로 vo 가져오기
@@ -157,9 +156,27 @@ public class CvsSupplyReqController {
 		}	
 		logger.debug("prodList ------"+prodList);
 		model.addAttribute("requestList", prodList);
-		
-
 		return new ResponseEntity<>( "Custom header set", HttpStatus.OK);
+	}
+	
+	/** Method : requestpageList
+	* Method 설명 : 발주 신청 페이지에서 선택한 상품 리스트에 추가
+	* 최초작성일 : 2018. 9. 10.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return List<PresentStockListVo>
+	*/ 
+	@RequestMapping("/requestpageList")
+	@ResponseBody
+	public ProdVo requestpageList(@RequestParam(value="requestProd")String prod_id, Model model){
+		Map modelMap = model.asMap();
+		List<ProdVo> requestList = (List<ProdVo>) modelMap.get("requestList");
+		ProdVo addProd = prodService.getProd(prod_id);
+		requestList.add(addProd);
+		model.addAttribute("requestList", requestList);
+		return addProd;
 	}
 	
 
@@ -189,7 +206,7 @@ public class CvsSupplyReqController {
 			supply.setSupply_bcd(supBarcode.getBcd_id());
 			//supply.setSupply_date(sdf.format(today));
 			supply.setSupply_state("10");
-			supply.setPlace_id("3630000-104-2015-00121");
+			supply.setPlace_id("6510000-104-2015-00153");
 			int supResult=supplyService.setInsertSupply(supply);
 			if(supResult > 0){
 				model.addAttribute("todaySupply", supply);
@@ -210,6 +227,9 @@ public class CvsSupplyReqController {
 				lgCtgy.add(category.get(i));
 			}
 		}
+		
+		Map modelMap = model.asMap();
+		logger.debug("requestList-------: "+(List<ProdVo>)modelMap.get("requestList"));
 		mav.addObject("allProdList", allProdList);
 		mav.addObject("lgCtgy", lgCtgy);
 		return mav;
