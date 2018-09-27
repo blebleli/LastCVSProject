@@ -63,7 +63,7 @@
 				    contentType: "application/json",
 			    	success: function(res ) {
 			    		console.log("controller == response ==");
-			    	    window.location.href = "cvs_supply_request";
+			    	    window.location.href = "/cvs/supplyReqest?page=1&pageSize=15";
 			    	}
 	    		});   		
         		
