@@ -123,6 +123,31 @@
 	where tb2.rnk <![CDATA[<]]>=5
 </select>
 
+<select id="supReqMonthAmount" resultType="monthTopVo">
+	SELECT tb1.month, tb1.id, tb1.amount
+	FROM
+	(SELECT TO_CHAR(a.supply_date,'MM')as month, a.supply_state as id, sum(b.splylist_sum) as amount
+		FROM supply a, supply_list b
+		WHERE a.supply_bcd=b.supply_bcd
+		AND supply_state='10'
+		AND TO_CHAR(a.supply_date,'yyyyMM') BETWEEN to_char(ADD_MONTHS(sysdate,-3),'yyyyMM') AND to_char(sysdate,'yyyyMM')
+		GROUP BY TO_CHAR(a.supply_date,'MM'), a.supply_state)tb1
+	ORDER BY tb1.month
+</select>
+
+<select id="supInMonthAmount" resultType="monthTopVo">
+	SELECT tb1.month, tb1.id, tb1.amount
+	FROM
+	(SELECT TO_CHAR(a.supply_date,'MM')as month, a.supply_state as id, sum(b.splylist_sum) as amount
+		FROM supply a, supply_list b
+		WHERE a.supply_bcd=b.supply_bcd
+		AND supply_state='12'
+		AND TO_CHAR(a.supply_date,'yyyyMM') BETWEEN to_char(ADD_MONTHS(sysdate,-3),'yyyyMM') AND to_char(sysdate,'yyyyMM')
+		GROUP BY TO_CHAR(a.supply_date,'MM'), a.supply_state)tb1
+	ORDER BY tb1.month
+</select>
+
+<!-- 점주 통계 -->
 <!-- 	아 이 디 : cvsOnedayTotalSale
 	  		반 환 값 : onedayChartVo
 	  		설    명 : 편의점의 일 매출
@@ -152,6 +177,12 @@
 		GROUP BY TO_CHAR(a.sd_date,'yyyy'),TO_CHAR(a.sd_date,'MM'),TO_CHAR(a.sd_date,'dd')
 </select>
 
+<!-- 	아 이 디 : cvsCtgyRank
+	  		반 환 값 : rankVo
+	  		설    명 : 편의점 인기 상품분류
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-21     
+	 -->
 <select id="cvsCtgyRank" parameterType="String" resultType="rankVo">
 		SELECT tb1.id, tb1.amount, ROW_NUMBER() OVER(ORDER BY tb1.amount DESC) as rnk
 			FROM
@@ -165,6 +196,12 @@
 			)tb1
 </select>
 
+<!-- 	아 이 디 : cvsBestProd
+	  		반 환 값 : rankVo
+	  		설    명 : 편의점 인기 상품
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-21     
+	 -->
 <select id="cvsBestProd" parameterType="String" resultType="rankVo">
 	SELECT tb2.id, tb2.amount, tb2.rnk
 		FROM
@@ -179,6 +216,44 @@
 			)tb1
 		)tb2
 		WHERE tb2.rnk <![CDATA[<]]>=3
+</select>
+
+<!-- 	아 이 디 : cvsSupReqMonthAvg
+	  		반 환 값 : monthTopVo
+	  		설    명 : 편의점 최근 3달 평균발주량
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-21     
+	 -->
+<select id="cvsSupReqMonthAvg" parameterType="String" resultType="monthTopVo">
+	SELECT tb1.month, tb1.id, tb1.amount
+	FROM
+	(SELECT TO_CHAR(a.supply_date,'MM')as month, a.supply_state as id, round(avg(b.splylist_sum),1) as amount
+		FROM supply a, supply_list b
+		WHERE a.supply_bcd=b.supply_bcd
+		AND place_id =#{place_id}
+		AND supply_state='10'
+		AND TO_CHAR(a.supply_date,'yyyyMM') BETWEEN to_char(ADD_MONTHS(sysdate,-3),'yyyyMM') AND to_char(sysdate,'yyyyMM')
+		GROUP BY TO_CHAR(a.supply_date,'MM'), a.supply_state)tb1
+	ORDER BY tb1.month
+</select>
+
+<!-- 	아 이 디 : cvsSupInMonthAvg
+	  		반 환 값 : monthTopVo
+	  		설    명 : 편의점 최근 3달 평균입고량
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-21     
+	 -->
+<select id="cvsSupInMonthAvg" parameterType="String" resultType="monthTopVo">
+	SELECT tb1.month, tb1.id, tb1.amount
+	FROM
+	(SELECT TO_CHAR(a.supply_date,'MM')as month, a.supply_state as id, round(avg(b.splylist_sum),1) as amount
+		FROM supply a, supply_list b
+		WHERE a.supply_bcd=b.supply_bcd
+		AND place_id =#{place_id}
+		AND supply_state='12'
+		AND TO_CHAR(a.supply_date,'yyyyMM') BETWEEN to_char(ADD_MONTHS(sysdate,-3),'yyyyMM') AND to_char(sysdate,'yyyyMM')
+		GROUP BY TO_CHAR(a.supply_date,'MM'), a.supply_state)tb1
+	ORDER BY tb1.month
 </select>
 
 
