@@ -44,7 +44,7 @@
                <li><a href="/cvs/supplyIn">입고내역</a></li>
                <li><a href="#">발주<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li class="sub_menu"><a href="/cvs/supplyReqest">발주 신청</a>
+                    <li class="sub_menu"><a href="/cvs/supplyReqest?page=1&pageSize=15">발주 신청</a>
                     </li>
                     <li><a href="/cvs/reqList">발주 내역</a>
                     </li>
