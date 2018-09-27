@@ -73,4 +73,7 @@ public interface AdChartServiceInf {
 	* @return List<RankVo>
 	*/
 	List<RankVo> getBookmarkCvsTop5();
+	
+	List<MonthTopVo> supReqMonthAmount();
+	List<MonthTopVo> supInMonthAmount();
 }
