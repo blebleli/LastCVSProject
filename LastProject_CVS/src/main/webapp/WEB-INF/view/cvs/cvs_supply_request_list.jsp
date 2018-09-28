@@ -71,11 +71,22 @@
                   </div>
                   <div class="x_content">
                     <table id="datatable-buttons" class="table table-striped table-bordered">
+                    	<colgroup>
+					       <col span="1" style="width: 3%;">
+					       <col span="1" style="width: 37%;">
+					       <col span="1" style="width: 20%;">
+					       <col span="1" style="width: 10%;">
+					       <col span="1" style="width: 10%;">
+					       <col span="1" style="width: 10%;">
+					       <col span="1" style="width: 15%;">
+					    </colgroup>
                       <thead>
                         <tr>
                           <th>No.</th>
                           <th>코드</th>
                           <th>날짜</th>
+                          <th>수량</th>
+                          <th>금액</th>
                           <th>처리상황</th>                 
                           <th>상세보기</th>                 
                         </tr>
@@ -87,6 +98,8 @@
 									<td>${status.count}</td>	<!-- 넘버 -->
 									<td>${vo.supply_bcd}</td>	<!-- 바코드 -->
 									<td>${vo.supply_date}</td>	<!-- 입고날짜 -->			
+									<td>${vo.total_amount}</td>	<!-- 수량 -->			
+									<td>${vo.total}</td>	<!-- 금액-->			
 									<td>									
 										<c:choose>
 											<c:when test="${vo.supply_state==10}">
@@ -100,7 +113,7 @@
 											</c:otherwise>									
 										</c:choose>
 									</td>
-									<td>  <a href="cvs_invoice.html">Detail</a> </td>					
+									<td><a href="/requestDetail?bcd=${vo.supply_bcd }">Detail</a></td>					
 								</tr>
 	                      </c:forEach>	                                                                                                                                                                
                       </tbody>
