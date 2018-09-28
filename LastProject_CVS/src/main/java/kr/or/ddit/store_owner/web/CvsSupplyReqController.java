@@ -26,6 +26,8 @@ import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
+import kr.or.ddit.supply.model.SupRequestListVo;
+import kr.or.ddit.supply.model.SupplyProdVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 
 import org.slf4j.Logger;
@@ -127,7 +129,7 @@ public class CvsSupplyReqController {
 	@RequestMapping("/reqList")
 	public String requestList(Model model){
 
-		List<SupplyVo> supplyList = supplyService.getSupply(mem_id);
+		List<SupRequestListVo> supplyList = supplyService.supplyRequestList("6510000-104-2015-00153");
 		model.addAttribute("supplyList", supplyList);	
 		return "cvs_supply_request_list";
 	}
@@ -416,5 +418,13 @@ public class CvsSupplyReqController {
 		}
 		
 		return new ResponseEntity<String>( "Custom header set", HttpStatus.OK);
+	}
+	
+	@RequestMapping("/requestDetail")
+	public ModelAndView requestDetail(@RequestParam(value="bcd")String supply_bcd, Model model){
+		ModelAndView mav = new ModelAndView();
+		List<SupplyProdVo> reqDetailList = supplyService.reqDetail(supply_bcd);
+		mav.addObject("reqDetailList", reqDetailList);
+		return mav;
 	}
 }
