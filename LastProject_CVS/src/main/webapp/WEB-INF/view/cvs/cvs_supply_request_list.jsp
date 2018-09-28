@@ -1,4 +1,6 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <title>DataTables | Gentelella</title>
 
     <!-- Bootstrap -->
@@ -75,6 +77,7 @@
                           <th>코드</th>
                           <th>날짜</th>
                           <th>처리상황</th>                 
+                          <th>상세보기</th>                 
                         </tr>
                   	
                       </thead>
@@ -96,7 +99,8 @@
 												입고완료
 											</c:otherwise>									
 										</c:choose>
-									</td>					
+									</td>
+									<td>  <a href="cvs_invoice.html">Detail</a> </td>					
 								</tr>
 	                      </c:forEach>	                                                                                                                                                                
                       </tbody>
