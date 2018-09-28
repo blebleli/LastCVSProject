@@ -1,236 +1,145 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!--<style>
-.result_search .service {
-	overflow: hidden;
-}
-
-.service .result_txt {
-	overflow: hidden;
-	margin-bottom: 15px;
-}
-
-.service .result_txt h4 {
-	background: url("../images/icon/bullet_purple.png") no-repeat 0 0;
-	float: left;
-	font-size: 1.231em;
-	font-weight: normal;
-	padding-left: 17px;
-}
-
-.service .result_txt p {
-	float: right;
-}
-
-.service .result_txt span {
-	color: #782d91;
-	text-decoration: underline;
-}
-
-.service .list_service {
-	overflow: hidden;
-	margin-bottom: 25px;
-}
-
-.service .list_service ul {
-	overflow: hidden;
-	border-top: 2px solid #1e1e1e;
-	border-bottom: 1px solid #dadada;
-	height: 140px;
-}
-
-.service .list_service ul li {
-	background: url("../images/common/bg_diagonal_228.gif") repeat-x 0 0;
-	display: block;
-	float: left;
-	border-left: 1px solid #dadada;
-	height: 140px;
-	width: 119px;
-}
-
-.service .list_service ul li:first-child {
-	border-left: none;
-}
-
-.list_service .group_service {
-	overflow: hidden;
-	margin: 0 auto;
-	padding-top: 20px;
-	width: 70px;
-}
-
-.list_service .group_service a {
-	display: block;
-	overflow: hidden;
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+.checked
+{
 	text-align: center;
 }
-
-.list_service .group_service .emblem {
-	margin-bottom: 14px;
-	height: 65px;
-	width: 65px;
+.about
+{
+	text-align: center;
 }
-
-.list_service .group_service .emblem.on img {
-	margin-top: -66px;
+.profile
+{
+	text-align: center;
 }
-
-.list_service .group_service .text {
-	letter-spacing: -1px;
-	line-height: 1em;
+#demoFonts
+{
+	text-align: center;	
 }
-
-#demoFont {
-	font-family: sans-serif;
-	font-size: 15px;
-	letter-spacing: -0.6px;
-	word-spacing: -3.8px;
-	color: #000000;
-	font-weight: 400;
-	text-decoration: none;
-	font-style: normal;
-	font-variant: normal;
-	text-transform: none;
-}
-
-#demoFont2 {
-	font-family: sans-serif;
-	font-size: 15px;
-	letter-spacing: -0.6px;
-	word-spacing: -3.8px;
-	color: #000000;
-	font-weight: 400;
-	text-decoration: none;
-	font-style: normal;
-	font-variant: normal;
-	text-transform: none;
-}
-</style>-->
-    <script src="/js/common/jquery-1.12.4.js"></script>
- <!--     <script>
-		$(function(){
-			var status = false;
-            $("input[name='reCommentsbt']").on("click",function(){ //동적 이벤트
-            	
-                if(status){
-                    alert("현재 답글란이 있습니다.");
-                    return false;
-                }
-                
-                status = true;
-                
-            	var last_check = false;//마지막 tr 체크
-            	
-            	$("#demoFonts").remove();
-            	
-            	var replyEditor =                                                                                                   
-				'<tr>'+
-				'	<td id="demoFonts" class="col-sm-1">댓글</td>'+
-				'	<td style="border-collapse:collapse;" colspan="5" class="col-sm-9">'+
-				'		'+
-				'		<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">'+
-				'			<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">'+
-				'			<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">'+
-				'			<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">'+
-				'			<input type="hidden" id="mem_id" name="mem_id" value="admin">'+
-				'			<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">'+
-				'			<input type="hidden" name="cm_RadioCkeck">'+
-				'			<input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개 '+
-				'			<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N">비공개'+
-				'		</form>'+
-				'	</td>'+
-				'</tr>';
-				
-				var prevTr = $(this).parent().next();
-				
-                if(last_check){//마지막이라면 제일 마지막 tr 뒤에 댓글 입력을 붙인다.
-                    $('#reply_area tr:last').after(replyEditor);    
-                }else{
-                    prevTr.after(replyEditor);
-                } 
-            });   
-</script> -->
-
-<script>      		
-
-function hideDiv(id){
-    var div = document.getElementById(id);
-    div.style.display = "none";
-    document.body.appendChild(div);
-};
-
-function fn_replyReply(reno){
-    var form = document.form3;
-    var reply = document.getElementById("reply"+reno);
-    var replyDia = document.getElementById("replyDialog");
-    replyDia.style.display = "";
-    
-    if (updateReno) {
-        fn_replyUpdateCancel();
-    } 
-    
-    form.rememo.value = "";
-    form.reparent.value=reno;
-    reply.appendChild(replyDia);
-    form.rewriter.focus();
-} ;
-        	//파일다운로드
-        	function fn_fileDownload(file_path, file_name, file_upname) {
-        	   $("#frm_file input[name=file_path]").val(file_path);
-        	   $("#frm_file input[name=file_name]").val(file_name);
-        	   $("#frm_file input[name=file_upname]").val(file_upname);
-        	   
-        	   $("#frm_file").prop("action", "/fileDownload.jsp");
-        	   $("#frm_file").submit(); 
-    		}; 
+</style>
+<script src="/js/common/jquery-1.12.4.js"></script>
+<script>
+	//파일다운로드
+	function fn_fileDownload(file_path, file_name, file_upname) {
+		$("#frm_file input[name=file_path]").val(file_path);
+		$("#frm_file input[name=file_name]").val(file_name);
+		$("#frm_file input[name=file_upname]").val(file_upname);
+		
+		$("#frm_file").prop("action", "/fileDownload.jsp");
+		$("#frm_file").submit(); 
+	}; 
     		
-    		$(function(){         
-            
+	$(function(){
+		
+		$("#commentsUpd").on("click",function() { // 댓글 수정을 누를시
+			var cm_id = $("#cm_id").val();
+			alert(cm_id);
 
-			$("#boardUpd").on("click", function(){ // 게시글 수정 버튼을 누르면				
-				$("#frm").submit(); // 수정 이동				
-			}); // $("#boardNew").on("click", function(){});
-			
-			$("#boardRe").on("click", function(){ // 게시글 답글 버튼을 누르면
-				$("#frm").attr("action", "/adboard/boardReply"); // /adboard/boardNew 액션을 /adboard/boardReply 변경
-				$("#frm").submit(); // 답글 이동								
-			}); // $("#boardRe").on("click", function(){});           
-			
-			$("#boardDel").on("click", function(){ // 게시글 삭제 버튼을 누르면				
-				if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
-					$("#frm").attr("action", "/adboard/boardDel"); // /adboard/boardNew 액션을 /adboard/boardDel 변경
-					$("#frm").submit(); // 삭제 이동					
-				} else { // 삭제 경고창 '아니오'를 누를시					
-					return false; // 그대로 있는다.					
-				}			
-			}); // $("#boardDel").on("click", function(){});			
-			
-			$("#commentsDelY").on("click", function(){ // 댓글 삭제 버튼을 누르면
-				if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
-					$("#delect").submit(); // 삭제 이동					
-				} else { // 삭제 경고창 '아니오'를 누를시					
-					return false; // 그대로 있는다.					
-				}			
-			}); // $("#commentsDel").on("click", function(){});
-			
-			$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
-				var Y = $("input[id='cm_opennyY']:checked").val(); // 라디오 버튼 체크한 값			
-				if(Y=="Y"){ // 댓글 공개를 한다면
-					$("input[name='cm_RadioCkeck']").val("Y"); // cm_RadioCkeck에 Y값을 대입시킨다.					
-					$("#newComments").submit(); // 댓글 공개상태 저장 이동
-				}else if($("input[id='cm_opennyN']:checked").val()=='N'){ // 비공개를 한다면					
-					$("input[name='cm_RadioCkeck']").val("N"); // cm_RadioCkeck에 N값을 대입시킨다.	
-					$("#newComments").submit(); // 댓글 비공개상태 저장 이동
-				}else{ // 아무것도 체크 안할시
-					alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
-					return
-				}
-			});			
-    	});
+
+// 				$.ajax({
+// 					url : "review",
+// 					method : "get",
+// 					data : {
+// 						"bd_kind_id" : bd_kind_id // 게시판 구분(상품리뷰, 55) 저장
+// 					},
+
+// 					success : function(data) {
+// 						console.log(data); // 로그 검사
+// 						$("#reviews").html(""); // reviews 삭제
+// 						var content = ''; // content 생성
+// 						content +='<th><input type="checkbox" id="check-all" class="flat">'
+// 		                        +'  </th>'
+// 		                        +'  <th class="column-title">번호</th>'
+// 		                        +'  <th class="column-title">상품명</th>'
+// 		                        +'  <th class="column-title">제목</th>'
+// 		                        +'  <th class="column-title">평점</th>'
+// 		                        +'  <th class="column-title">작성자</th>'
+// 		                        +'  <th class="column-title">작성일</th>'
+// 		                        +'  <th class="bulk-actions" colspan="7">'
+// 		                        +'  <a class="antoo" style="color:#fff; font-weight:500;">'
+// 		                        +'  Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>'
+// 		                        +'  </th>'
+// 		                        +'  </tr>';							
+// 						$("#reviews").html(content); // content 추가
+						
+// 						$("#bd_code").html(""); // 성공시 기존 내용 삭제
+// 						$.each(data.boardpage, function(index,item){ // 상품리뷰 게시판 내용 조회 each
+// 							$("#bd_code").append( // 붙이기
+// 						'              <tr class="even pointer" data-id="'+item.bd_id+'">'+
+// 					    '                <td class="a-center ">'+
+// 					    '                  <input type="checkbox" class="flat" name="table_records">'+
+// 					    '                </td>'+
+// 					    '                <td class=" ">'+item.cnt+'</td>'+
+// 					    '                <td class=" ">'+item.prod_name+'</td>'+
+// 					    '                <td class=" ">'+item.bd_title+'</td>'+					    
+// 					    '                <td class=" ">'+item.bd_rating+'</td>'+
+// 					    '                <td class=" ">'+item.mem_name+'</td>'+
+// 					    '                <td class=" ">'+item.bd_date+'</td>'+
+// 					    '              </tr>'
+// 							); // append
+// 						}) // each
+						
+// 						$("#page").html(""); // 페이지 내비게이션 삭제
+// 						var navi = ''; // 내비게이션 추가
+// 						navi +='<ul class="pagination">'+data.pageNavi+'</ul>'
+// 							 +'<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="'+data.bd_kind_id+'">'
+// 							 +'	</div>';
+// 						$("#page").html(navi); // navi 추가
+						
+// 					} // success : function(data){
+// 				}); // $.ajax({
+				
+			}); // $("#bd_kind_id55").on("click", function(){	
+	
+		$("#boardUpd").on("click", function(){ // 게시글 수정 버튼을 누르면				
+			$("#frm").submit(); // 수정 이동				
+		}); // $("#boardNew").on("click", function(){});
+		
+		$("#boardRe").on("click", function(){ // 게시글 답글 버튼을 누르면
+			$("#frm").attr("action", "/adboard/boardReply"); // /adboard/boardNew 액션을 /adboard/boardReply 변경
+			$("#frm").submit(); // 답글 이동								
+		}); // $("#boardRe").on("click", function(){});           
+		
+		$("#boardDel").on("click", function(){ // 게시글 삭제 버튼을 누르면				
+			if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
+				$("#frm").attr("action", "/adboard/boardDel"); // /adboard/boardNew 액션을 /adboard/boardDel 변경
+				$("#frm").submit(); // 삭제 이동					
+			} else { // 삭제 경고창 '아니오'를 누를시					
+				return false; // 그대로 있는다.					
+			}			
+		}); // $("#boardDel").on("click", function(){});			
+		
+		$("#commentsDelY").on("click", function(){ // 댓글 삭제 버튼을 누르면
+			if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
+				$("#delect").submit(); // 삭제 이동					
+			} else { // 삭제 경고창 '아니오'를 누를시					
+				return false; // 그대로 있는다.					
+			}			
+		}); // $("#commentsDel").on("click", function(){});
+		
+		$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
+			alert("!");
+			var Y = $("input[id='cm_opennyY']:checked").val(); // 라디오 버튼 체크한 값			
+			if(Y=="Y"){ // 댓글 공개를 한다면
+				$("input[name='cm_RadioCkeck']").val("Y"); // cm_RadioCkeck에 Y값을 대입시킨다.					
+				$("#newComments").submit(); // 댓글 공개상태 저장 이동
+			}else if($("input[id='cm_opennyN']:checked").val()=='N'){ // 비공개를 한다면					
+				$("input[name='cm_RadioCkeck']").val("N"); // cm_RadioCkeck에 N값을 대입시킨다.	
+				$("#newComments").submit(); // 댓글 비공개상태 저장 이동
+			}else{ // 아무것도 체크 안할시
+				alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
+				return
+			}
+		});			
+   	});
 		  			
-	</script>
+</script>
 	
     <!-- Datatables -->
-    <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
         
         <!-- page content -->
         <div class="right_col" role="main">
@@ -255,49 +164,44 @@ function fn_replyReply(reno){
 		
 			<div class="w3ls_service_grids">
 
-				<div class="table-responsive">
-					<table class="table table-striped table-hover" id="reply_area">
-					
+				<div style="margin-left: auto; margin-right: auto; width: 1300px;" class="table-responsive">
+					<table class="table table-striped table-hover" id="reply_area">					
 						<tr>
-							<td id="demoFont" class="col-sm-1">제목</td>
+							<td id="demoFonts" class="col-sm-1">제목</td>
 							<td id="demoFont" class="col-sm-9" colspan="6">${b.bd_title}</td>
 						</tr>
 						
-
 						<tr>
-							<td id="demoFont" class="col-sm-1">작성자</td>
+							<td id="demoFonts" class="col-sm-1">작성자</td>
 							<td id="demoFont" class="col-sm-9">${b.mem_id}</td>
-							<td id="demoFont" class="col-sm-1">작성일</td>
+							<td id="demoFonts" class="col-sm-1">작성일</td>
 							<td id="demoFont" class="col-sm-9">${b.bd_date}</td>
-							<td id="demoFont" class="col-sm-1">조회수</td>
+							<td id="demoFonts" class="col-sm-1">조회수</td>
 							<td id="demoFont" class="col-sm-9">${b.bd_views}</td>
-						</tr>
+						</tr>	
 						
-						
-
 						<tr>
-							<td id="demoFont" class="col-sm-1">내용</td>
+							<td id="demoFonts" class="col-sm-1">내용</td>
 							<td id="demoFont" class="col-sm-9" colspan="6">${b.bd_content}</td>
 						</tr>
 						
 						<tr>
-							<td id="demoFont" class="col-sm-1">첨부파일</td>
+							<td id="demoFonts" class="col-sm-1">첨부파일</td>
 							<td id="demoFont" class="col-sm-9" colspan="6">
 								<c:forEach items="${FList}" var="vo">
+<%-- 								${vo.file_name}<br>${vo.file_path}<br>${vo.file_upname}<br>${vo.file_id}<br>${vo.mem_id}<br>${vo.bd_id} --%>
 									<c:choose>
-										<c:when test="${empty vo.file_name}">
-										파일이 없습니다.
-										</c:when>
-										<c:when test="${vo.file_name!=''}">
-											[ <a href="javascript:fn_fileDownload('${vo.file_path}', '${vo.file_name}', '${vo.file_upname}');">
-											<label class="control-label">${vo.file_name}</label></a> ]  
-										</c:when>
-									</c:choose>						
+										<c:when test="${FList == null}">파일이 없습니다.</c:when>							
+										<c:when test="${FList == ''}">파일이11</c:when>							
+										<c:when test="${empty FList}">11없습니다.</c:when>																					
+										<c:when test="${FList != null}">파일이있습니다</c:when>																					
+									</c:choose>	
+														
 								</c:forEach>
 							</td>
 						</tr>
-						</table>
-					
+						
+					</table>					
 							
 						<form id="frm" action="/adboard/boardUpdateGo" method="post">
 							<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
@@ -316,57 +220,49 @@ function fn_replyReply(reno){
 					<table class="table table-striped table-hover" id="reply_area">					
 						<c:forEach items="${cList}" var="vo">
 						<tr id="comment">
-							<td><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
-							<td id="demoFont2" rowspan="2" colspan="6">
-									<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
-										<form id="delete" action="/adboard/commentsDel" method="post">
-											${vo.cm_content}
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="hidden" name="bd_id" value="${vo.bd_id}">
-											<input type="hidden" name="mem_id" value="admin">
-										</form>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'Y'}">
-										삭제된 댓글입니다.<br>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-										<form id="delect" action="/adboard/deleteComment" method="get">
-											비공개 댓글 입니다.
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="hidden" name="bd_id" value="${vo.bd_id}">
-											<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
-											<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
-											<br>
-										</form>
-									</c:if>
-								</td>
-								<td rowspan="2">
-									<button id="commentsUpd" style="font-size:12px" class="btn btn-default">수정</button>
-									<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">
-									<button onclick="fn_replyReply('<c:out value="${vo.cm_id}"/>')>" id="commentsdab" style="font-size:12px" class="btn btn-default">답글</button>								
-									<div id="replyDialog" style="width: 99%; display:none">
-									   <form name="form3" action="board6ReplySave" method="post">
-									       <input type="hidden" name="bd_id" value="<c:out value="${vo.bd_id}"/>"> 
-									       <input type="hidden" name="cm_id"> 
-									       <input type="hidden" name="reparent"> 
-									       	작성자: <input type="text" name="mem_id" size="20" maxlength="20"> <br/>
-									       <textarea name="cm_id2" rows="3" cols="60" maxlength="500"></textarea>
-									   </form>
-									</div>
-								</td>
-								
-								
-							</tr>
-							<tr>
-								<td>${vo.mem_id} / ${vo.cm_date}</td>
-							</tr>
-							</c:forEach>
-						
+							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
+							<td id="demoFont2" rowspan="2" colspan="8">
+							<span style="float: left;">
+								<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
+								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
+									<form id="delete" action="/adboard/commentsDel" method="post">
+										${vo.cm_content}
+										<input type="hidden" name="cm_id" value="${vo.cm_id}">
+										<input type="hidden" name="bd_id" value="${vo.bd_id}">
+										<input type="hidden" name="mem_id" value="admin">
+									</form>
+								</c:if>
+								<c:if test="${vo.cm_delny == 'Y'}">
+									삭제된 댓글입니다.<br>
+								</c:if>
+								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
+									<form id="delect" action="/adboard/deleteComment" method="get">
+										비공개 댓글 입니다.
+										<input type="hidden" name="cm_id" value="${vo.cm_id}">
+										<input type="hidden" name="bd_id" value="${vo.bd_id}">
+										<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
+										<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
+										<br>
+									</form>
+								</c:if>
+								</span>
+							
+<!-- 							<form name="form3" action="board6ReplySave" method="post"> -->
+								<span style="float: right;100%">
+								<button id="commentsUpd" style="font-size:12px" class="btn btn-default">수정</button>
+								<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">								
+								       <input type="hidden" id="cm_id" name="cm_id" value="${vo.cm_id}"> 
+								</span>
+							</td>	
+						</tr>
+						<tr class="about">
+							<td>${vo.mem_id}<br>${vo.cm_date}</td>
+						</tr>
+						</c:forEach>
 						
 						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 						<tr>
-							<td id="demoFont" class="col-sm-1">댓글</td>
+							<td id="demoFonts" class="col-sm-1">댓글</td>
 							<td style="border-collapse:collapse;" rowspan="2" colspan="6" class="col-sm-9">
 								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
@@ -381,19 +277,13 @@ function fn_replyReply(reno){
 						</tr>
 						
 						<tr>
-						<td><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개
-									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개</td>
-									
-												
+						<td class="checked"><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개<br>
+									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
+						</td>
 						</tr>
-							</form>
-						
-
-						<tr>
-						
-						</tr>						
-						<!-- 대댓글 달리는 곳 -->
-
+						</form>
+						<tr>						
+						</tr>
 					</table>
 					
    
@@ -422,49 +312,46 @@ function fn_replyReply(reno){
 			</div>
 			<div class="clearfix"></div>
 		</footer>
-		<!-- /footer content -->
-		
+		<!-- /footer content -->	
 
 <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="/vendors/nprogress/nprogress.js"></script>
     <!-- Chart.js -->
-    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    <script src="/vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- gauge.js -->
-    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+    <script src="/vendors/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <script src="/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
     <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <script src="/vendors/iCheck/icheck.min.js"></script>
     <!-- Skycons -->
-    <script src="../vendors/skycons/skycons.js"></script>
+    <script src="/vendors/skycons/skycons.js"></script>
     <!-- Flot -->
-    <script src="../vendors/Flot/jquery.flot.js"></script>
-    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="../vendors/Flot/jquery.flot.time.js"></script>
-    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+    <script src="/vendors/Flot/jquery.flot.js"></script>
+    <script src="/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="/vendors/Flot/jquery.flot.time.js"></script>
+    <script src="/vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="/vendors/Flot/jquery.flot.resize.js"></script>
     <!-- Flot plugins -->
-    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+    <script src="/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="/vendors/flot.curvedlines/curvedLines.js"></script>
     <!-- DateJS -->
-    <script src="../vendors/DateJS/build/date.js"></script>
+    <script src="/vendors/DateJS/build/date.js"></script>
     <!-- JQVMap -->
-    <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="/vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <!-- bootstrap-daterangepicker -->
-    <script src="../vendors/moment/min/moment.min.js"></script>
-    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="/vendors/moment/min/moment.min.js"></script>
+    <script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Datatables -->
-    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
-
+    <script src="/vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
- 
+    <script src="/build/js/custom.min.js"></script>

@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * @Class Name : AdBoardController.java
+ * @Class Name : userBoardController.java
  *
  * @author 조계환
  * @since 2018. 9. 4.
- * @version 1.0
+ * @version 1.1
  * @see
  *
  * <pre>
@@ -34,19 +34,14 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 수정일 수정자 수정내용
  * ---------- ------ ------------------------
  * 2018. 9. 4. 조계환 최초 생성
- *
+ * 2018. 9. 28. 김마음 컨트롤러명 수정
  * </pre>
  */
-
-// ==========================================
-// 목록
-// 조회=============================================
-
 @RequestMapping("/board")
-@Controller("adBoardController")
-public class AdBoardController {
+@Controller("userBoardController")
+public class userBoardController {
 	
-	private Logger logger = LoggerFactory.getLogger(AdBoardController.class);
+	private Logger logger = LoggerFactory.getLogger(userBoardController.class);
 
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
@@ -72,11 +67,6 @@ public class AdBoardController {
 							  @RequestParam(value="i", defaultValue="") String i,
 							  @RequestParam(value="i_search", defaultValue="") String i_search,
 							  @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id, Model model){
-		System.out.println("page >>>>>>>>>>>>>>>>>>>>>>>>>> "+page);
-		System.out.println("pageSize >>>>>>>>>>>>>>>>>>>>>>>>>> "+pageSize);
-		System.out.println("i >>>>>>>>>>>>>>>>>>>>>>>>>> "+i);
-		System.out.println("i_search >>>>>>>>>>>>>>>>>>>>>>>>>> "+i_search);
-		System.out.println("bd_kind_id >>>>>>>>>>>>>>>>>>>>>>>>>> "+bd_kind_id);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
@@ -103,10 +93,12 @@ public class AdBoardController {
 			paramMap.put("mem_name", i_search);
 			resultMap = boardService.getBoardPageSearch(paramMap);
 		}
-		
+		logger.debug("pageNavi ===> {} ", resultMap.get("pageNavi"));
 		model.addAttribute("i", i);
+		model.addAttribute("i_search", i_search);		
 		model.addAttribute("bd_kind_id",bd_kind_id);
 		model.addAllAttributes(resultMap);
+	
 		
 		return "boardList";
 	}
@@ -123,17 +115,55 @@ public class AdBoardController {
 	@RequestMapping("/boardMain")
 	public String boardListView(@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+								@RequestParam(value="i_h", defaultValue="") String i,
+								@RequestParam(value="i_search_h", defaultValue="") String i_search,								
 								Model model) {
-		String bd_kind_id="44";
+		
+		logger.debug("i ====> {} ", i);
+		logger.debug("i_search ====> {} ", i_search);
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-
+		
+		Map<String, Object> resultMap = null;
+		
+		String bd_kind_id="44";
+		
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
 		paramMap.put("bd_kind_id", bd_kind_id);
-
-		//게시물 페이징 처리
-		Map<String, Object> resultMap = boardService.getBoardPageList(paramMap);
 		
+		if(!(i.equals(""))){ // 검색한 카테고리 값이 있다면
+			if(i.equals("1")){ // 제목 검색시
+				paramMap.put("i", i);
+				paramMap.put("bd_kind_id", bd_kind_id);
+				paramMap.put("bd_title", i_search);
+				resultMap = boardService.getBoardPageSearch(paramMap); //게시물 페이징 처리
+			}else if(i.equals("2")){ // 내용 검색시
+				paramMap.put("i", i);
+				paramMap.put("bd_kind_id", bd_kind_id);
+				paramMap.put("bd_content", i_search);
+				resultMap = boardService.getBoardPageSearch(paramMap);
+			}else if(i.equals("3")){ // 제목 + 내용 검색시
+				paramMap.put("i", i);
+				paramMap.put("bd_kind_id", bd_kind_id);
+				paramMap.put("bd_parent", i_search); // 값이 분산되어 넣기가 불가능해서 부모코드에 임시로 검색량 넣어서 넘김.
+				resultMap = boardService.getBoardPageSearch(paramMap);
+			}else if(i.equals("4")){ // 작성자 검색시
+				paramMap.put("i", i);
+				paramMap.put("bd_kind_id", bd_kind_id);
+				paramMap.put("mem_name", i_search);
+				resultMap = boardService.getBoardPageSearch(paramMap);
+			}
+		}else{ // 검색한 카데고리 값이 없다면 빠져나오고 기본 페이징 처리기법 Service로 넘어간다.
+			paramMap.put("i", i);
+			paramMap.put("mem_name", i_search);			
+			resultMap = boardService.getBoardPageList(paramMap);
+		}
+		
+		logger.debug("pageNavi ===> {} ", resultMap.get("pageNavi"));
+		
+		model.addAttribute("i", i);
+		model.addAttribute("i_search", i_search);
 		model.addAllAttributes(resultMap);
 		model.addAttribute("bd_kind_id", bd_kind_id);
 		

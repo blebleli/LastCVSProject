@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- /**
 * @Class Name : board.jsp
 *
@@ -117,7 +118,6 @@
 	font-family: Gadget, sans-serif;
 	font-size: 13px;
 	letter-spacing: -0.6px;
-	word-spacing: -3.8px;
 	color: #000000;
 	font-weight: 400;
 	text-decoration: none;
@@ -205,7 +205,7 @@
 					<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id}"> 
 				</div>
 				</form>
-					<div class="table-responsive">
+					<div style="margin-left: auto; margin-right: auto; width: 1600px;" class="table-responsive">
 						<table class="table table-striped table-hover">
 							<thead>
 								<tr >
@@ -219,33 +219,37 @@
 							<tbody>
 								<%request.setAttribute("nbsp", " ");%>
 								<c:forEach items="${boardpage}" var="vo">
-									<c:if test="${vo.bd_del=='N' && empty vo.bd_parent}">
-										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
-											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td style="text-align: left;" id="demoFonts">${vo.bd_title}</td>
-											<td id="demoFonts">${vo.mem_id}</td>
-											<td id="demoFonts">${vo.bd_date}</td>
-											<td id="demoFonts">${vo.bd_views}</td>
-										</tr>
-									</c:if>
-									<c:if test="${vo.bd_del=='N' && !empty vo.bd_parent}">
-										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
-											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td style="text-align: left;"  id="demoFonts">${vo.bd_title}</td>
-											<td id="demoFonts">${vo.mem_id}</td>
-											<td id="demoFonts">${vo.bd_date}</td>
-											<td id="demoFonts">${vo.bd_views}</td>
-										</tr>
-									</c:if>
-									<c:if test="${vo.bd_del=='Y'}">
-										<tr data-id="${vo.bd_id}">
-											<td id="demoFonts">${vo.tot_cnt}</td>
-											<td style="text-align: left;"  id="demoFonts">삭제된 게시물 입니다</td>
-											<td id="demoFonts">${vo.mem_id}</td>
-											<td id="demoFonts">${vo.bd_date}</td>
-											<td id="demoFonts">${vo.bd_views}</td>
-										</tr>
-									</c:if>
+									<c:choose>
+										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
+											<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
+												<td id="demoFonts">${vo.tot_cnt}</td>
+												<td style="text-align: left;" id="demoFonts">${vo.bd_title}</td>
+												<td id="demoFonts">${vo.mem_id}</td>
+												<td id="demoFonts">${vo.bd_date}</td>
+												<td id="demoFonts">${vo.bd_views}</td>
+											</tr>
+										</c:when>
+										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
+											<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
+												<td id="demoFonts">${vo.tot_cnt}</td>
+												<td style="text-align: left;"  id="demoFonts">
+												${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
+												<td id="demoFonts">${vo.mem_id}</td>
+												<td id="demoFonts">${vo.bd_date}</td>
+												<td id="demoFonts">${vo.bd_views}</td>
+											</tr>
+										</c:when>
+										<c:when test="${vo.bd_del=='Y'}">
+											<tr data-id="${vo.bd_id}">
+												<td id="demoFonts">${vo.tot_cnt}</td>
+												<td style="text-align: left;"  id="demoFonts">
+												${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')}</td>
+												<td id="demoFonts">${vo.mem_id}</td>
+												<td id="demoFonts">${vo.bd_date}</td>
+												<td id="demoFonts">${vo.bd_views}</td>
+											</tr>
+										</c:when>
+									</c:choose>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -254,6 +258,9 @@
 						<div class="text-center" id="page">
 							<ul class="pagination">${pageNavi}</ul>
 						</div>
+						
+						<input type="hidden" name="i_h" value="${i}">
+						<input type="hidden" name="i_search_h" value="${i_search}">
 				</div>
 				<div class="col-md-10 w3ls_service_grid_left">
 				<div class="search">

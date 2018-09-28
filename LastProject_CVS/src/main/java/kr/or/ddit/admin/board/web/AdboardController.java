@@ -2,6 +2,7 @@ package kr.or.ddit.admin.board.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -227,10 +228,17 @@ public class AdboardController {
 							  @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2, Model model){
 		BoardVo b = boardService.getBoard(bd_id); // 게시판 코드(bd_id)로 게시글 상세조회를 한다.
 		List<CommentsVo> cList = boardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
-		List<FiledataVo> FList = fileService.getFiledata(bd_id); // 게시판 코드(bd_id)로 해당 첨부파일 전체를 조회한다.
-		logger.debug("cList =====> {}", cList);
-		logger.debug("bd_id =====> {}", bd_id);
-		logger.debug("FList =====> {}", FList);
+//		List<FiledataVo> FList = fileService.getFiledata(bd_id); // 게시판 코드(bd_id)로 해당 첨부파일 전체를 조회한다.
+		List<FiledataVo> FList = new ArrayList<FiledataVo>();
+		FiledataVo F = new FiledataVo();
+		F.setFile_name("isfilename");
+		F.setBd_id("11");
+		F.setFile_path("isPath");
+		F.setFile_upname("isUUID");
+		F.setMem_id("isMemId");
+		FList.add(F);
+		logger.debug("FList ====> {}", FList);
+		logger.debug("FList ===>> {}",FList.size());
 		model.addAttribute("bd_id", bd_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);
 		model.addAttribute("b", b); // model에 저장한다.

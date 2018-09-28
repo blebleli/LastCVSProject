@@ -220,6 +220,8 @@ public class BoardService implements BoardServiceInf {
 	*/
 	@Override
 	public Map<String, Object> getBoardPageList(Map<String, Object> map) {
+		String i = null;
+		String i_search = null;
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 
@@ -237,7 +239,7 @@ public class BoardService implements BoardServiceInf {
 		int page = (int) map.get("page");
 		int pageSize = (int) map.get("pageSize");
 
-		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));
+		resultMap.put("pageNavi", makePageNavi(i, i_search, page, pageSize, totCnt));
 
 		return resultMap;
 	}
@@ -255,8 +257,25 @@ public class BoardService implements BoardServiceInf {
 	public Map<String, Object> getBoardPageSearch(Map<String, Object> map) {
 		Map<String, Object> resultMap = new HashMap<String, Object>(); // 검색 자료
 		
+		String i = null;
+		String i_search = null;
+		
 		// 게시판 페이지 리스트 조회
 		List<BoardVo> boardpage = boardDao.getBoardPageSearch(map); // 검색 자료 쿼리 돌리기	
+		
+//		if(map.get("1")!=null && map.get("bd_title")!=null){
+//			i_search = (String) map.get("bd_title");
+//			i = (String) map.get("1");
+//		}else if(map.get("2")!=null && map.get("bd_content")!=null){
+//			i_search = (String) map.get("bd_content");
+//			i = (String) map.get("2");			
+//		}else if(map.get("3")!=null && map.get("bd_parent")!=null){
+//			i_search = (String) map.get("bd_parent");
+//			i = (String) map.get("3");
+//		}else if(map.get("4")!=null && map.get("mem_name")!=null){
+//			i_search = (String) map.get("mem_name");
+//			i = (String) map.get("4");
+//		}
 			
 		resultMap.put("boardpage", boardpage); // 맵에 보관	
 
@@ -271,7 +290,7 @@ public class BoardService implements BoardServiceInf {
 		int page = (int) map.get("page");
 		int pageSize = (int) map.get("pageSize");
 
-		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));
+		resultMap.put("pageNavi", makePageNavi(i, i_search, page, pageSize, totCnt));
 
 		return resultMap;
 	}
@@ -288,26 +307,26 @@ public class BoardService implements BoardServiceInf {
 	* @param totCnt
 	* @return
 	*/
-	private String makePageNavi(int page, int pageSize, int totCnt){
+	private String makePageNavi(String i, String i_search, int page, int pageSize, int totCnt){
 
 		int cnt = totCnt / pageSize; // 몫
 		int mod = totCnt % pageSize; // 나머지
 
 		if (mod > 0)
 			cnt++;
-
+		
 		StringBuffer pageNaviStr = new StringBuffer();
 
 		int prevPage = page == 1? 1 : page-1;
 		int nextPage = page == cnt ? page : page+1;
 		pageNaviStr.append("<li><a href=\"/board/boardMain?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
 
-		for(int i = 1; i <= cnt; i++){
+		for(int l = 1; l <= cnt; l++){
 			// /board/list?page=3&pageSize=10
 			String activeClass = "";
-			if(i == page)
+			if(l == page)
 				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/board/boardMain?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
+			pageNaviStr.append("<li " + activeClass + "><a href=\"/board/boardMain?page=" + l + "&pageSize=" + pageSize + "\"> "+ l +" </a></li>");
 		}
 
 		pageNaviStr.append("<li><a href=\"/board/boardMain?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");

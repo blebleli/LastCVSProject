@@ -246,26 +246,29 @@
  <!-- ===========================================사용자 공지사항 게시판========================================================= -->
 
   	<!-- 사용자 공지사항 페이징 기법 -->
-	<select id="getBoardPageList" parameterType="map" resultType="boardVo">	
-		SELECT * FROM (
-			SELECT ROWNUM tot_cnt, T.*
-					FROM  (
-					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
-									, bd_rating
-									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
-									, mem_id
-									, bd_kind_id
-									, prod_id
-									, bd_id
-									, bd_del
-									, bd_parent
-									, bd_views									
-							FROM BOARD
-							WHERE bd_kind_id = #{bd_kind_id}
-			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
-			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+	<select id="getBoardPageList" parameterType="map" resultType="boardVo">
+		SELECT *
+		FROM (
+				SELECT ROWNUM tot_cnt, T.*
+				FROM (
+						SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+								, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+								, bd_rating
+								, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+								, mem_id
+								, bd_kind_id
+								, prod_id
+								, bd_id
+								, bd_del
+								, bd_parent
+								, bd_views
+						FROM BOARD
+						WHERE bd_kind_id = #{bd_kind_id}
+						START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
+					) T
+			) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}		
+
 	</select>
 	
 	<!-- 사용자 공지사항 검색 기법 -->
@@ -339,7 +342,7 @@
 								</if>								
 							</if>
 							
-			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
+							START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
 			                
 			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
