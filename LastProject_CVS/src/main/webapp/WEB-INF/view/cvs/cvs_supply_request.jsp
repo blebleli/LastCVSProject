@@ -114,29 +114,27 @@
  //------------------------------------------------------------------------------------------------  
  			// 발주 신청 버튼 처리
     		$("ul").on("click",":button[name=request]", function(){
-    			var amounts ="";
+    			var checkList =[];
     			var result ="";
     			$("tr[name=requestTr]").each( function(){
     				var trElement = $(this);
     				var td = trElement.find(".amount").val();
     				var prod_id = $(this).data("class");
-    				amounts +="&prod_id="+prod_id+"&splylist_sum="+td;
     				console.log("td----"+td);
     				console.log("prod_id----"+prod_id);
-    				console.log("amounts----"+amounts);
-    				
+    				checkList.push({prod_id:$(this).data("class"), 
+    								splylist_sum:parseInt(trElement.find(".amount").val())});
+    			});  // each end
+    				console.log(checkList);
 	    			$.ajax({
-	    				url : "request",
-	    				method : "get",
-	    				data : {"prod_id" : prod_id, "splylist_sum" : td},
+	    				url : "check",
+	    				method : "post",
+	    				data : JSON.stringify(checkList),
+	    				contentType: "application/json",
 	    				success : function(resultData){
 	    					result = resultData
-	    				}
-    				
-    			});  // each end
-	    				
-	    					if(result > 0){
 	    					alert("success");
+// 	    					if(result > 0){
 	    						$(".row").empty();
 	    						var content = "";
 	    						content += '<div class="col-md-12 col-sm-12 col-xs-12">'+
@@ -152,7 +150,8 @@
 	    									'</div>';
               					$(".row").html(content);
 	    											
-	    					}
+// 	    					}
+	    				}
 	    					    				
 	    			});	//ajax end
     			
@@ -227,7 +226,6 @@
                         <tr>
                           <th>상품명</th>
                           <th>가격</th>
-                          <th>Action</th>                  
                         </tr>
                       </thead>
 						
@@ -236,7 +234,6 @@
 							<tr data-class="${prod.prod_id }" class="evenpointer" name="prod_id">
 								<td>${prod.prod_name }	</td>
 								<td> ${prod.prod_price}</td> 
-								<td>  <a href="cvs_invoice.html">View</a> </td>	
 							</tr>
                       	</c:forEach>
  
@@ -279,7 +276,6 @@
                           <th>상품명</th>
                           <th>가격</th>
                           <th>수량</th>
-                          <th>Action</th>                  
                         </tr>
                       </thead>
                       <tbody>
@@ -290,7 +286,6 @@
 							<td>	${request.prod_name }		</td>
 							<td>  ${request.prod_price }</td> 
 							<td><input type="number" name="amount" class="amount"></td>
-							<td>  <a href="cvs_invoice.html">View</a> </td>	
 						</tr>
                       	</c:forEach>
                       </c:if>
