@@ -21,6 +21,7 @@ import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplyProdVo_back;
 import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.model.SupplySumProdVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
@@ -190,45 +191,34 @@ public class CvsSupplyInController {
 	}
 	
 	/**
-	* Method : cvsSupplyDetail
-	* Method 설명 :입고 리스트 상세보기
-	* 최초작성일 : 2018. 9. 10.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :
-	* @param model
-	* @return
-	*/
+	 * 
+	 * Method   : cvsSupplyDetail 
+	 * 최초작성일  : 2018. 9. 28. 
+	 * 작성자 : 한수정
+	 * 변경이력 : 
+	 * @param supply_bcd
+	 * @param model
+	 * @return 
+	 * Method 설명 : 발주리스트 상세보기
+	 */
 	@RequestMapping(value="/supplyDetail" )
-	public String cvsSupplyDetail(@RequestParam(value="page", defaultValue="1") int page,
-								  @RequestParam(value="pageSize", defaultValue="10") int pageSize,
-								  SupplyVo vo, 
-								  Model model){
+	public String cvsSupplyDetail(String supply_bcd, Model model){
+		logger.debug("supply_bcd === " + supply_bcd);	
 		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
+		//발주상세내역
+		List<SupplyProdVo> supplyList= supplyService.getSplyProdByBcdid(supply_bcd);
+		model.addAttribute("supplyList",supplyList);
 		
-		//getSupplyPageList메서드에서 원하는 Map 타입에 page이름으로 값을 1, pageSize이름으로 값을 10을 넣어서 넘겨준다
-		paramMap.put("page", page);
-		paramMap.put("pageSize", pageSize);
-		paramMap.put("supply_bcd", vo.getSupply_bcd());
-		paramMap.put("supply_date", vo.getSupply_date());
-		paramMap.put("supply_state", vo.getSupply_state());
+		Date supply_date = supplyList.get(0).getSupply_date();
 		
-		Map<String, Object> resultMap = supplyService.getSupplyProdPageList(paramMap);
+		//선택한 발주 총합
+		int sum = supplyService.sumProdPrice(supply_bcd);
+	
+		//점주정보
+		MemberVo supplyMemInfo = supplyService.supplyMemberInfo(supply_bcd);
 		
-		//입고 리스트 상세내역에서 날짜,편의점코드,수불바코드를 넘겨준다.
-		model.addAttribute("vo",vo);
-		
-		//입고 리스트 상세내역에 필요한 정보들(수량,제품이름,제품코드,제품가격)
-		model.addAllAttributes(resultMap);
-		
-		//입고 상세 내역에서 제품들 가격의 총합을 구하는 메서드 실행
-		int sum = supplyService.sumProdPrice(vo.getSupply_bcd());
-		logger.debug("sum = = = = = : " + sum);
-		
-		//입고 상세 내역에서 점주의 정보를 가져오는 메서드
-		MemberVo supplyMemInfo = supplyService.supplyMemberInfo(vo.getSupply_bcd());
-		
+		model.addAttribute("supply_bcd",supply_bcd);
+		model.addAttribute("supply_date",supply_date);
 		model.addAttribute("supplyMemInfo",supplyMemInfo);
 		model.addAttribute("sum",sum);
 		

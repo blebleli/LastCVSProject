@@ -79,9 +79,10 @@ public class CvsDayendController {
 	public String cvsDayend(Model model){
 		
 		//전체 stockList 가져온다
-
+		
+		//마감한 내역이 있다면, 막기
+		
 		List<StockVo> stock =  stockService.getAllStockByMemid(mem_id);
-
 		model.addAttribute("stock", stock);
 		
 		return "cvs_dayend";
@@ -100,9 +101,8 @@ public class CvsDayendController {
 	 */
 	@RequestMapping("/getNowStock")
 	@ResponseBody
-	public List<PresentStockListVo> getNowStock(@RequestParam("stockID")String stockID, Model model){
+	public List<PresentStockListVo> getNowStock(@RequestParam("stockID")String stockID){
  
-		logger.debug("stockID ==> {}",stockID);
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("cul", "c.stock_id");
 		map.put("param", stockID);

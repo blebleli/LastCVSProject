@@ -1,7 +1,9 @@
 package kr.or.ddit.store_owner.stock.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -89,21 +91,25 @@ public class StockService implements StockServiceInf {
 	@Override
 	public int dayendInsert(List<PresentStockListVo> stockVoList, String stock_kind, String mem_id) {
 
+		SimpleDateFormat format = new SimpleDateFormat("MM-dd");
+
 		//재고 테이블 insert (마감)
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
 		
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, 1);
+		Date today = stockVoList.get(0).getSupply_date(); //선택택재고의 날짜
 		
-		Date today = new Date();
-		Date tomorrow = cal.getTime();
+		Calendar c = Calendar.getInstance(); //선택supply 날짜에서 +1일
+		c.setTime(today); 
+		c.add(Calendar.DATE, 1);
+		Date tomorrow = c.getTime();
+
 		Date setDate = (stock_kind.equals("888") ? tomorrow: today);
 		
 		StockVo stockVo = new StockVo();
-		stockVo.setMem_id(mem_id);
-		stockVo.setStock_date(setDate);  //888일때 다음날짜 재고로 +1 
+		stockVo.setMem_id(mem_id); 
+		stockVo.setStock_date(setDate);   //888일때 다음날짜 재고로 +1 
 		stockVo.setStock_id(stock_id);
-		stockVo.setStock_info("0921 마감 test");
+		stockVo.setStock_info(stock_kind+" : "+format.format(setDate));
 		stockVo.setStock_kind(stock_kind); // 888 or 999
 		
 		//재고or마감 insert
@@ -151,14 +157,13 @@ public class StockService implements StockServiceInf {
 	/**
 	 * 
 	 * Method   : dayendInsert 
-	 * 최초작성일  : 2018. 9. 21. 
+	 * 최초작성일  : 2018. 9. 28. 
 	 * 작성자 : 한수정 
 	 * 변경이력 : 
-	 * @param stockVoList
-	 * @param stock_kind
+	 * @param supplyListVo
 	 * @param mem_id
 	 * @return 
-	 * Method 설명 : stockList 로 재고와 재고마감을 진행 ( 마감 + 다음날재고)
+	 * Method 설명 : SupplyListVo 로 재고입고 진행
 	 */
 	@Override
 	public int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id) {
@@ -191,8 +196,10 @@ public class StockService implements StockServiceInf {
 			barcodeVo.setBcd_content("입고 : "+mem_id);  	    //내용			
 			String kind = ("888");
 			barcodeVo.setBcd_kind("100"); 		      			//재고 : 100, 저장소 : 101, 수불 : 102 마감 :103
+
 			barcodeVo.setBcd_path("-");       	 	 			//경로 888일때는 이미지도 생성
-					 
+			logger.debug("바코드생성 --------------------------- ");
+
 			barcodeService.setInsertBarcode(barcodeVo);			
 			
 			//재고 리스트생성---------------------------------				
