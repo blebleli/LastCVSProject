@@ -11,39 +11,31 @@
     <!-- NProgress -->
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
-   <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-   
-       <!-- Datatables -->
+    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+
+	<!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
-    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet"> 
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <script src="/js/common/jquery-1.12.4.js"></script>
+    
     <script>
      	$(document).ready(function(){
     		
-     		$('#datatable').DataTable();
+     		$('#datatable').DataTable({
+			  "columnDefs": [
+							  { "width": "5%", "targets": 0 },            
+						      { "width": "50%", "targets": 1 },
+						      { "width": "15%", "targets": 3 }
+						      ]	
+				});
 
-	    	
-/*      		
-    		$('.bulk_action input').on('ifChecked', function () {
-    			var requestProd =$(this).val();
-    			console.log(requestProd);
-    			$.ajax({
-	    			url : "requestList",
-	    			method:"get",
-	    			data : {"requestProd": requestProd},
-	    		});
-    			
-   			}); */
-   			
-   			
-   			//----------- 발송방법 변경
-   			
+
    			//발주신청하려하는 id리스트를 controller로 넘기는 기능
      		$( "#requestBtn" ).click(function(){	
 
@@ -84,16 +76,6 @@
                 <h3>Stock <small>편의점의 현재 재고 </small></h3>
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">검색</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div class="clearfix"></div>
@@ -105,21 +87,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>CVS_StockList <small>재고</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                 
                     <div class="clearfix"></div>
                   </div>
 
@@ -206,7 +174,7 @@
     <!-- iCheck -->
     <script src="../vendors/iCheck/icheck.min.js"></script>
     
-    <!-- Datatables -->
+<!--     Datatables
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -221,7 +189,7 @@
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script> -->
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>

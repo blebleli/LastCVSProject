@@ -27,22 +27,6 @@
 <!-- page content -->
 <div class="right_col" role="main">
 	<div class="">
-		<!--             <div class="page-title">
-              <div class="title_left">
-                <h3>Invoice <small>Some examples to get you started</small></h3>
-              </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div> -->
 
 		<div class="clearfix"></div>
 
@@ -65,7 +49,7 @@
 									<h1>
 										<i class="fa fa-globe">입고 상품 내역</i> 
 										<small class="pull-right">
-											날짜:${vo.supply_date}
+											입고날짜:<fmt:formatDate value="${supply_date}" pattern="yyyy-MM-dd" />
 										</small>
 									</h1>
 								</div>
@@ -92,13 +76,12 @@
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
-									<b>수불바코드 : ${vo.supply_bcd}</b> <br> <br> <br>
+									<b>수불바코드 : ${supply_bcd}</b> <br> <br> <br>
 									<br>
 								</div>
-								<!-- /.col -->
+							
 							</div>
 							<!-- 상단 부분 끝 -->
-							<!-- /.row -->
 
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 -->
 							<div class="row">
@@ -106,20 +89,19 @@
 									<table id="TblSupplyIn"class="table table-striped">
 										<thead>
 											<tr><th class="column-title">번호</th>
-												<th class="column-title" style="width: 30%">상품이름</th>
-												<th class="column-title" style="width: 20%">상품코드</th>										
+												<th class="column-title">상품이름</th>
+												<th class="column-title">상품코드</th>										
 												<th class="column-title">수량</th>
 												<th class="column-title">가격</th>
 												<th class="column-title">합계</th>
 											</tr>
 										</thead>
 										<tbody>
-											<c:forEach items="${prodList}" var="vo">
+											<c:forEach items="${supplyList}" var="vo" varStatus="status">
 												<tr>
-													<td>${vo.rnum}</td>
+													<td>${status.count}</td> <!-- 번호 -->
 													<td>${vo.prod_name}</td> <!-- 상품이름 -->
-													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
-													
+													<td>${vo.prod_id}</td>	 <!-- 상품코드 -->
 													<td>${vo.splylist_sum}</td>	<!-- 수량 -->
 													<td>￦${vo.prod_price}</td>	<!-- 가격 -->
 													<td>￦${vo.splylist_sum * vo.prod_price}</td>	<!-- 합계 -->
@@ -127,16 +109,14 @@
 											</c:forEach>
 										</tbody>
 									</table>
-						<%-- 			<div class="text-center" id="page">
-										<ul class="pagination">${pageNavi}</ul>
-									</div>  --%>
+	
 								</div>
 							</div>
-							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 끝-->
+
 							
 							<!-- 하단 부분 -->
 							<div class="row">
-								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 -->
+								<!-- 입고 상태-->
 								<div class="col-xs-6">
 									<p class="lead">
 										<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 11=결제 10=발주 -->
@@ -157,8 +137,8 @@
 											</c:choose>
 									</p>
 								</div>
-								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 끝-->
-								<!-- 명세서 부분 -->
+	
+								<!-- 명세서 -->
 								<div class="col-xs-6">
 									<p class="lead">명세서</p>
 									<div class="table-responsive">
@@ -255,7 +235,13 @@
 
 <script type="text/javascript">
 $(document).ready(function () {	
-	$('#TblSupplyIn').DataTable();
+	$('#TblSupplyIn').DataTable({
+		  "columnDefs": [
+						  { "width": "5%", "targets": 0 },            
+					      { "width": "40%", "targets": 1 },
+					      { "width": "15%", "targets": 2 }
+					      ]	
+					});
 });
 
 

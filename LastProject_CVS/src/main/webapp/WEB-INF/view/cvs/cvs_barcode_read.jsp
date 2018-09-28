@@ -127,7 +127,7 @@
 			    		$.each(data.supplyList,function(index, item){
 							$("#tbodyReqIN").append(
 								    '<tr>'+
-								     '  <td>'+index+'</td>'+
+								     '  <td>'+(index+1)+'</td>'+
 			                         '  <td><span  class="splylist_id">'+item.splylist_id+'</span></td>'+
 			                         '  <td><span  class="prod_id">'+item.prod_id+'</span></td> '+
 			                         '  <td>'+item.splylist_sum+'</td> '+ 	                    
@@ -174,9 +174,11 @@
 			    			
 			             });	
 			    		
-			    		console.log("reqInList ::: "+reqInList.size);
-
-			    	 	$.ajax({
+			    		console.log("reqInList ::: "+reqInList.length);
+			    		
+			    		if(0<reqInList.length){
+			    			console.log('ajax진행');
+			    			 			    	 	$.ajax({
 			    			  url: "/cvs/supplyIn/confirm",
 			    			  method: "post",
 			    			  data: JSON.stringify(reqInList),
@@ -186,7 +188,11 @@
 			    				  $("#tblReqIN").empty(); 
 			    		      },		 						
 			    			  error : function(){console.log("error");}		  								  
-			    		}); 					    		
+			    			}); 	 	
+			    		}else{
+			    			alert('입고할 리스트가 없습니다.');
+			    		}
+		    		
 			    	}
 			   
 				    </script>

@@ -1,4 +1,5 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,19 +26,9 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Tables <small>Some examples to get you started</small></h3>
+                <h3>마감</h3>
               </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div class="clearfix"></div>
@@ -48,7 +39,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Table design <small>Custom design</small></h2>
+                    <h2><small>마감을 진행할 수 있는 화면입니다</small></h2>
                     
                     <ul class="nav navbar-right panel_toolbox">
                       <li>
@@ -81,8 +72,8 @@
                           <tr class="even pointer">      
                             <td class=" ">${status.count}</td>
                             <td class=" "><span class="stockID">${stock.stock_id}</span></td>
-                            <td class=" ">${stock.stock_date}</td> 
-                            <td class=" ">마감여부</td>                          
+                            <td class=" "><fmt:formatDate value="${stock.stock_date}" pattern="yyyy-MM-dd" /></td> 
+                            <td class=" ">${stock.stock_kind}</td>                          
                           </tr>
    						</c:forEach>
                                              
@@ -126,7 +117,9 @@
    </div>     
         <!-- /page content -->
 	<script>
-  
+  	var table;
+	
+	
 	//재고 상세리스트 출력
 	$("#stockTable tbody").on("click", "tr", function(){
 		var stockID =$(this).find(".stockID").html();	
@@ -137,9 +130,7 @@
 			method:"get",
 			data : {"stockID": stockID },
 			success : function(stockList){			
-			
-				$("#stockDetailTbody").empty();
-				
+						
 				$.each(stockList,function(index, item){				
 				$("#stockDetailTbody").append(		    								
 							'<tr class="even pointer">'+        
@@ -148,17 +139,15 @@
 	                        '<td >'+item.prod_name+'</td>'+
 	                        '<td ><input style="width : 100%" type="number" name="amount" class="amount" value='+item.stcklist_amount+'>'+
 	                        '</input></td>'+
-	                        '<td ><span class="stcklist_exdate">'+item.stcklist_exdate+'</span></td>'+
+	                        '<td ><span class="stcklist_exdate">'+ new Date(item.stcklist_exdate).toISOString().substring(0, 10)+'</span></td>'+
 	                        '<td ><span class="splylist_id">'+item.splylist_id+'</span></td>'+
 	                        '</tr>'
-
 					);
-			
-				 
 				})
 		
 				$('#stockListTable').DataTable({
 				  "columnDefs": [
+					  { "width": "5%", "targets": 0 },            
 				      { "width": "20%", "targets": 1 },
 				      { "width": "15%", "targets": 3 },
 				      {
@@ -190,10 +179,10 @@
 			if(index<=10){ //test용
 				
 			dayEndList.push({prod_id: data.find('.prod_id').html(),
-						 splylist_id: data.find('.splylist_id').html(),
+						 splylist_id: data.find('.splylist_id').text(),
 					 stcklist_exdate: data.find('.stcklist_exdate').html(),
 					 stcklist_amount: data.find('.amount').val()});
-					 console.log("each index---"+data.find('.splylist_id').html());
+					 console.log("each index---"+data.find('.splylist_id').text());
 			};
 			
 			
