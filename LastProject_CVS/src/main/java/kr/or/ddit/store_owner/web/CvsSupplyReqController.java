@@ -172,11 +172,20 @@ public class CvsSupplyReqController {
 	@ResponseBody
 	public ProdVo requestpageList(@RequestParam(value="requestProd")String prod_id, Model model){
 		Map modelMap = model.asMap();
-		List<ProdVo> requestList = (List<ProdVo>) modelMap.get("requestList");
 		ProdVo addProd = prodService.getProd(prod_id);
-		requestList.add(addProd);
-		model.addAttribute("requestList", requestList);
-		return addProd;
+		List<ProdVo> requestList = new ArrayList<ProdVo>();
+//		List<ProdVo> requestList = (List<ProdVo>) modelMap.get("requestList");
+		if((List<ProdVo>) modelMap.get("requestList") == null){
+			requestList.add(addProd);
+			model.addAttribute("requestList", requestList);
+			return addProd;
+			
+		}else{
+			requestList = (List<ProdVo>) modelMap.get("requestList");
+			requestList.add(addProd);
+			model.addAttribute("requestList", requestList);
+			return addProd;
+		}
 	}
 	
 
@@ -193,25 +202,6 @@ public class CvsSupplyReqController {
 	@RequestMapping("/supplyReqest")
 	public ModelAndView cvssupplyReqest(@RequestParam(value="page",defaultValue="1")int page, @RequestParam(value="pageSize",defaultValue="15")int pageSize, Model model){
 		ModelAndView mav = new ModelAndView();
-		
-		BarcodeVo supBarcode = new BarcodeVo();
-		supBarcode.setBcd_id(autoCode.barcode("SUPPLY"));
-		supBarcode.setBcd_content("발주 신청");
-		supBarcode.setBcd_kind("102");
-		supBarcode.setBcd_path("/barcode/supply");
-		int barResult = barcodeService.setInsertBarcode(supBarcode);
-		
-		if(barResult > 0){
-			SupplyVo supply = new SupplyVo();
-			supply.setSupply_bcd(supBarcode.getBcd_id());
-			//supply.setSupply_date(sdf.format(today));
-			supply.setSupply_state("10");
-			supply.setPlace_id("6510000-104-2015-00153");
-			int supResult=supplyService.setInsertSupply(supply);
-			if(supResult > 0){
-				model.addAttribute("todaySupply", supply);
-			}
-		}
 		
 		mav.setViewName("cvs_supply_request");
 		
@@ -391,20 +381,40 @@ public class CvsSupplyReqController {
 
 	
 	
-	/*@RequestMapping(value="/request", method = RequestMethod.GET)
-	@ResponseBody
-	public int requestComplete(@RequestParam(value="prod_id")String prod_id, @RequestParam(value="splylist_sum")int sum, Model model){
+	@RequestMapping(value="/check", method = RequestMethod.POST)
+	public ResponseEntity<String> requestComplete(@RequestBody List<SupplyListVo> checkList, Model model){
 		
+		logger.debug("controller-----------------------");
 		Map modelMap = model.asMap();
-		
 		int result = 0;
-		SupplyListVo sup = new SupplyListVo();
-		SupplyVo todaySupply = (SupplyVo) modelMap.get("todaySupply");
-		sup.setProd_id(prod_id);
-		sup.setSplylist_sum(sum);
-		sup.setSupply_bcd(todaySupply.getSupply_bcd());
-		sup.setSplylist_id(autoCode.autoCode("SUP", "3630000-104-2015-00121"));
-		result = supplyService.setInsertSupplyList(sup);
-		return result;
-	}*/
+		
+		String bcd_id =autoCode.barcode("SUPPLY");
+		BarcodeVo supBarcode = new BarcodeVo();
+		supBarcode.setBcd_id(bcd_id);
+		supBarcode.setBcd_content("발주 신청");
+		supBarcode.setBcd_kind("102");
+		supBarcode.setBcd_path("/barcode/supply");
+		int barResult = barcodeService.setInsertBarcode(supBarcode);
+		
+		if(barResult > 0){
+			SupplyVo supply = new SupplyVo();
+			supply.setSupply_bcd(supBarcode.getBcd_id());
+			supply.setSupply_date(today);
+			supply.setSupply_state("10");
+			supply.setPlace_id("6510000-104-2015-00153");
+			int supResult=supplyService.setInsertSupply(supply);
+			if(supResult > 0){
+				model.addAttribute("todaySupply", supply);
+			}
+		}
+		for(SupplyListVo sup : checkList){
+			sup.setSplylist_id(autoCode.autoCode("SUP10", "6510000-104-2015-00153"));
+			sup.setSupply_bcd(bcd_id);
+			sup.setSplylist_exdate(today);
+			sup.setSplylist_info("발주신청");
+			result += supplyService.setInsertSupplyList(sup);
+		}
+		
+		return new ResponseEntity<String>( "Custom header set", HttpStatus.OK);
+	}
 }
