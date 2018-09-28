@@ -78,18 +78,11 @@ public class AdminSupplyController {
 	* @return
 	*/
 	@RequestMapping("/lookup")
-	public String adminSupplyLookup(@RequestParam(value="page", defaultValue="1") int page,
-									@RequestParam(value="pageSize", defaultValue="10") int pageSize,
-									Model model){
+	public String adminSupplyLookup(Model model){
 		
-		//페이징 처리를 위한 부분
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", page);
-		paramMap.put("pageSize", pageSize);
+		Map<String, Object> resultMap = adminSupplyService.adminApplyList();
 		
-		Map<String, Object> resultMap = adminSupplyService.adminApplyList(paramMap);
-		
-		//키값(adminApplyList,pageNavi)
+		//키값(adminApplyList)
 		model.addAllAttributes(resultMap);
 		
 		return "ad_supplyLookup";

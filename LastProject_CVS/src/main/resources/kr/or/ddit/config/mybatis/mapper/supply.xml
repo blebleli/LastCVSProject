@@ -269,7 +269,7 @@
 	  		작 성 자 : 조계환
 	  		일    시 : 2018-09-17     
 	-->
-	<select id="adminApplyList" parameterType="map" resultType="adminApplyVo">
+	<select id="adminApplyList" resultType="adminApplyVo">
 		SELECT *
 		FROM
 		(
@@ -279,7 +279,6 @@
 		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state, a.supply_date
 		FROM supply a, member b
 		WHERE a.place_id = b.mem_id) T)
-		WHERE rnum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>
 	
 	<!-- 	아 이 디 : adminApplyListTotCnt

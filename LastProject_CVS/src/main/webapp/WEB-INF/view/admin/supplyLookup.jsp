@@ -120,9 +120,9 @@
                                                                                                                                                       
                       </tbody>
                     </table>
-                    <div class="text-center" id="page">
-							<ul class="pagination">${pageNavi}</ul>
-					</div> 
+<!--                     <div class="text-center" id="page"> -->
+<%-- 							<ul class="pagination">${pageNavi}</ul> --%>
+<!-- 					</div>  -->
                   </div>
                 </div>
               </div>
