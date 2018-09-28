@@ -110,6 +110,7 @@ public class AdminSupplyController {
 										AdminApplyVo adminApplyVo,
 										Model model){
 		logger.debug("adminApplyVo.getSupply_bcd() : {}" , adminApplyVo.getSupply_bcd());
+		logger.debug("adminApplyVo.getSupply_state() : {}" , adminApplyVo.getSupply_state());
 		
 		//수불 리스트중 클릭한 놈의 수불 바코드를 가져옴
 		String supply_bcd = adminApplyVo.getSupply_bcd();

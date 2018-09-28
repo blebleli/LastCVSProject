@@ -25,10 +25,7 @@
    	<link href="/css/login/common/JKH.css" rel="stylesheet">
     
         <!-- page content -->
-        <form action="/admin/lookupView" method="post" id="frm">
-			<input type="hidden" name="supply_bcd" id="supply_bcd">
-			<input type="hidden" name="supply_state" value="${vo.supply_state}">
-		</form>
+       
 								
         <div class="right_col" role="main">
           <div class="">
@@ -109,11 +106,14 @@
 										<c:when test="${vo.supply_state == 12}">
 											입고
 										</c:when>
-									
 									</c:choose>
+									
 									</td>	
 								</tr>
-								
+								<form action="/admin/lookupView" method="post" id="frm">
+									<input type="hidden" name="supply_bcd" id="supply_bcd">
+									<input type="hidden" name="supply_state" value="${vo.supply_state}">
+								</form>
 	                      </c:forEach>                  
                       <tbody> 
                                                                                                                                                       
@@ -175,7 +175,6 @@
 	$(function() {
 		$(".click").on("click", function() {
 			$("#supply_bcd").val($(this).data("no"));
-			
 			$("#frm").submit();
 		});
 	});	
