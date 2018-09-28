@@ -276,6 +276,11 @@ public class SupplyDao implements SupplyDaoInf {
 	public List<SupplyVo> getSupply(String place_id) {
 		return template.selectList("supply.getSupply", place_id);
 	}
+
+	@Override
+	public List<SupplyProdVo> reqDetail(String supply_bcd) {
+		return template.selectList("supply.reqDetail", supply_bcd);
+	}
 	
 
 }
