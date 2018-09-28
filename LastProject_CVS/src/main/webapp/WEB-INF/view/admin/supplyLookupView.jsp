@@ -1,5 +1,5 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <title>Gentelella Alela! |</title>
 
 
@@ -18,22 +18,7 @@
 <!-- page content -->
 <div class="right_col" role="main">
 	<div class="">
-		<!--             <div class="page-title">
-              <div class="title_left">
-                <h3>Invoice <small>Some examples to get you started</small></h3>
-              </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div> -->
 
 		<div class="clearfix"></div>
 
@@ -42,24 +27,17 @@
 				<div class="x_panel">
 					<div class="x_title">
 						<h2>
-						<small></small>
+							<small></small>
 						</h2>
-						<!--                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul> -->
+
 						<div class="clearfix"></div>
+						<div class="row no-print">
+							<div class="col-xs-12">
+								<button class="btn btn-default" onclick="window.print();">
+									<i class="fa fa-print"></i> Print
+								</button>
+							</div>
+						</div>
 					</div>
 					<div class="x_content">
 						<!-- 최상단 부분 날짜와 입고 상품 내역이 시작되는 부분  -->
@@ -68,17 +46,19 @@
 							<div class="row">
 								<div class="col-xs-12 invoice-header">
 									<h1>
-										<i class="fa fa-globe">수불 신청 내역</i> 
-										<small class="pull-right">
-										<td>
-											<form action="/admin/supplyCheck" method="post" id="frm">
-												<input type="hidden" name="supply_bcd" value="${adminApplyVo.supply_bcd}">
-												<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
-												<c:if test="${adminApplyVo.supply_state == 10 }">
-													<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
-													<!-- onclick="supply_check();" -->
-												</c:if>
-											</form>
+										<i class="fa fa-globe">수불 신청 내역</i> <small class="pull-right">
+											<td>
+												<form action="/admin/supplyCheck" method="post" id="frm">
+													<input type="hidden" name="supply_bcd"
+														value="${adminApplyVo.supply_bcd}"> <input
+														type="hidden" name="mem_id" value="${memberVo.mem_id}">
+													<c:if test="${adminApplyVo.supply_state == 10 }">
+														<input type="button" id="btn" value="발주 신청 확인"
+															class="btn btn-primary pull-right"
+															style="margin-right: 5px;">
+														<!-- onclick="supply_check();" -->
+													</c:if>
+												</form>
 										</td>
 										</small>
 									</h1>
@@ -90,18 +70,19 @@
 								<div class="col-sm-4 invoice-col">
 									From
 									<address>
-										<strong>gogoCVS</strong>
-										<br>관리자(본사)
+										<strong>gogoCVS</strong> <br>관리자(본사)
 									</address>
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
 									To
 									<address>
-										<strong>${memberVo.mem_cvs_name}</strong> 
-										<br>${memberVo.mem_addr}  <!-- 편의점 주소 -->
-										<br>Phone: ${memberVo.mem_cvs_tel}	<!-- 편의점 연락처 -->
-										<br>담당자 :  ${memberVo.mem_name}	<!-- 점주 이름 -->
+										<strong>${memberVo.mem_cvs_name}</strong> <br>${memberVo.mem_addr}
+										<!-- 편의점 주소 -->
+										<br>Phone: ${memberVo.mem_cvs_tel}
+										<!-- 편의점 연락처 -->
+										<br>담당자 : ${memberVo.mem_name}
+										<!-- 점주 이름 -->
 									</address>
 								</div>
 								<!-- /.col -->
@@ -119,7 +100,8 @@
 								<div class="col-xs-12 table">
 									<table class="table table-striped">
 										<thead>
-											<tr><th>순번</th>
+											<tr>
+												<th>순번</th>
 												<th style="width: 20%">상품코드</th>
 												<th style="width: 20%">상품이름</th>
 												<th style="width: 20%">유통기한</th>
@@ -133,50 +115,51 @@
 										<tbody>
 											<c:forEach items="${AdminApplyViewList}" var="vo">
 												<tr>
-													<td>${vo.rnum}</td>		<!-- 번호 -->
-													<td>${vo.prod_id}</td>	<!-- 상품코드 -->
-													<td>${vo.prod_name}</td>	<!-- 상품이름 -->
-													<td>
-														<fmt:formatDate value="${vo.exdate}" pattern="yyyy.MM.dd. HH:mm"/>	<!-- 유통기한 -->
-													</td>	
-													<td>${vo.splylist_sum}</td>		<!-- 요청수량 -->
-													
+													<td>${vo.rnum}</td>
+													<!-- 번호 -->
+													<td>${vo.prod_id}</td>
+													<!-- 상품코드 -->
+													<td>${vo.prod_name}</td>
+													<!-- 상품이름 -->
+													<td><fmt:formatDate value="${vo.exdate}"
+															pattern="yyyy.MM.dd. HH:mm" /> <!-- 유통기한 --></td>
+													<td>${vo.splylist_sum}</td>
+													<!-- 요청수량 -->
+
 													<!-- ------------------------------ 출고가능수량 -->
 													<c:if test="${adminApplyVo.supply_state == 10}">
-														<td>
-															<input type="text" size="1">
-														</td>		
+														<td><input type="text" size="1"></td>
 													</c:if>
-													
+
 													<c:if test="${adminApplyVo.supply_state != 10}">
-														<td>
-														</td>		
+														<td></td>
 													</c:if>
 													<!-- ------------------------------ -->
-													
-													<td>${vo.prod_cost}</td>		<!-- 단가 -->
-													<td>${vo.prod_price}</td>		<!-- 가격 -->
-													<td>￦${vo.prod_cost * vo.splylist_sum}</td>	<!-- 합계 -->
+
+													<td>${vo.prod_cost}</td>
+													<!-- 단가 -->
+													<td>${vo.prod_price}</td>
+													<!-- 가격 -->
+													<td>￦${vo.prod_cost * vo.splylist_sum}</td>
+													<!-- 합계 -->
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 									<div class="text-center" id="page">
 										<ul class="pagination">${pageNavi}</ul>
-									</div> 
+									</div>
 								</div>
 							</div>
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 끝-->
-							
+
 							<!-- 하단 부분 -->
 							<div class="row">
 								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 -->
 								<div class="col-xs-6">
-									<p class="lead">
-										뭘 적을까
-										<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-										뭘 적을까
-										</p>
+									<p class="lead">뭘 적을까
+									<p class="text-muted well well-sm no-shadow"
+										style="margin-top: 10px;">뭘 적을까</p>
 									</p>
 								</div>
 								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 끝-->
@@ -187,21 +170,26 @@
 										<table class="table">
 											<tbody>
 												<tr>
-													<th style="width: 50%">합계 :</th>
-													<td>￦${sum}</td>
+													<th style="width: 30%">합계 :</th>
+													<td>￦<fmt:formatNumber value="${sum}" type="number"></fmt:formatNumber></td>
+													<td>실시간</td>
 												</tr>
 												<tr>
 													<th>세금(10%)</th>
-													<td>￦${sum/10}</td>
+													<td>￦<fmt:formatNumber value="${sum/10}" type="number"></fmt:formatNumber></td>
+													<td>실시간</td>
 												</tr>
 												<tr>
 													<th>배송비:</th>
-													<td>￦5000</td>
+													<td>￦<fmt:formatNumber value="5000" type="number"></fmt:formatNumber></td>
+													<td>실시간</td>
 												</tr>
 												<tr>
 													<th>총합계:</th>
-													<td>￦${sum + (sum/10) + 5000}</td>
+													<td>￦<fmt:formatNumber value="${sum + (sum/10) + 5000}" type="number"></fmt:formatNumber></td>
+													<td>실시간</td>
 												</tr>
+											
 											</tbody>
 										</table>
 									</div>
@@ -211,13 +199,7 @@
 							<!-- 하단 부분 끝-->
 
 							<!-- this row will not appear when printing -->
-							<div class="row no-print">
-								<div class="col-xs-12">
-									<button class="btn btn-default" onclick="window.print();">
-										<i class="fa fa-print"></i> Print
-									</button>
-								</div>
-							</div>
+
 							<!-- 최하단 부분 끝 -->
 						</section>
 					</div>

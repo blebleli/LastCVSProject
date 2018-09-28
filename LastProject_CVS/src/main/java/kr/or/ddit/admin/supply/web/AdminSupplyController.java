@@ -78,8 +78,10 @@ public class AdminSupplyController {
 	* @return
 	*/
 	@RequestMapping("/lookup")
-	public String adminSupplyLookup(Model model){
+	public String adminSupplyLookup(@RequestParam(value="check", defaultValue="all") String check,
+									Model model){
 		
+		logger.debug("check : {}", check);
 		Map<String, Object> resultMap = adminSupplyService.adminApplyList();
 		
 		//키값(adminApplyList)
