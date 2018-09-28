@@ -98,22 +98,23 @@
 									<td>						<!-- 신청 날짜 -->
 									<c:choose>
 										<c:when test="${vo.supply_state == 10}">
-											발주
+											요청
 										</c:when>
 										<c:when test="${vo.supply_state == 11}">
-											결제
+											승인
 										</c:when>
 										<c:when test="${vo.supply_state == 12}">
-											입고
+											확인
 										</c:when>
-									</c:choose>
 									
+									</c:choose>
+									<form action="/admin/lookupView" method="post" id="frm">
+										<input type="hidden" name="supply_bcd" id="supply_bcd">
+										<input type="hidden" name="supply_state" value="${vo.supply_state}">
+									</form>
 									</td>	
 								</tr>
-								<form action="/admin/lookupView" method="post" id="frm">
-									<input type="hidden" name="supply_bcd" id="supply_bcd">
-									<input type="hidden" name="supply_state" value="${vo.supply_state}">
-								</form>
+								
 	                      </c:forEach>                  
                       <tbody> 
                                                                                                                                                       
