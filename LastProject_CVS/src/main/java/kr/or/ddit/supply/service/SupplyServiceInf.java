@@ -253,4 +253,16 @@ public interface SupplyServiceInf {
 	* @return
 	*/
 	List<SupplyVo> getSupply(String place_id);
+	
+	/**
+	* Method : reqDetail
+	* Method 설명 :편의점의 발주 상세내역
+	* 최초작성일 : 2018. 9. 26.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 조 회 :
+	* @param String supply_bcd
+	* @return List<SupplyProdVo>
+	*/
+	List<SupplyProdVo> reqDetail(String supply_bcd);
 }
