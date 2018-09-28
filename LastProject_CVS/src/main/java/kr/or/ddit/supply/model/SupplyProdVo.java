@@ -8,6 +8,9 @@ public class SupplyProdVo {
 	String prod_name;	//제품 이름
 	int prod_price;		//제품 가격
 	int splylist_sum;	//발주 수량
+	
+	int prod_cost;		//제품 단가
+	int price;			//합계 
 	public int getRnum() {
 		return rnum;
 	}
