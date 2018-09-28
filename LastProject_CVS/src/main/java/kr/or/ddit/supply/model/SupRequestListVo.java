@@ -1,16 +1,24 @@
 package kr.or.ddit.supply.model;
 
+import java.util.Date;
+
 public class SupRequestListVo {
 
 	private String supply_bcd;                               // 수불바코드
-	private String supply_date;                               // 날짜
+	private Date supply_date;                               // 날짜
 	private String supply_state;                               // 발주 : 10 , 결제 : 11 , 입고 : 12
 	private String place_id;                               // 편의점
 	private int total_amount;								//발주내역 총 수량
 	private int total;										// 총 금액
 	
 	
-	public SupRequestListVo(String supply_bcd, String supply_date,
+	
+	public SupRequestListVo() {
+		super();
+	}
+
+
+	public SupRequestListVo(String supply_bcd, Date supply_date,
 			String supply_state, String place_id, int total_amount, int total) {
 		super();
 		this.supply_bcd = supply_bcd;
@@ -32,12 +40,12 @@ public class SupRequestListVo {
 	}
 
 
-	public String getSupply_date() {
+	public Date getSupply_date() {
 		return supply_date;
 	}
 
 
-	public void setSupply_date(String supply_date) {
+	public void setSupply_date(Date supply_date) {
 		this.supply_date = supply_date;
 	}
 
