@@ -117,6 +117,7 @@
 	select * 
 	from stock 
 	where mem_id=#{mem_id}
+	ORDER BY stock_date DESC
 </select>
 
 
@@ -153,6 +154,9 @@
 	FROM prod a, supply b, stock_list c
 	WHERE ${cul} = #{param} AND c.prod_id = a.prod_id AND b.supply_state = '12'
 </select>
+
+
+
 
 	
 <!-- 편의점의 현재고 리스트 조회 -->

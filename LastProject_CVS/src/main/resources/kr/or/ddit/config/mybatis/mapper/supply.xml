@@ -85,6 +85,30 @@
  	  
 <!-- select ============================================================================= -->	 	  
 	
+	
+
+	<!-- 	아 이 디 : getSplyProdByBcdid
+		  		반 환 값 : presentStockListVo
+		  		매개변수 : String - supply_bcd
+		  		설    명 : supply id로 해당상품정보를 검색하는 기능
+		  		작 성 자 : 한수정
+		  		일    시 : 2018-09-28     
+	 -->
+	<select id="getSplyProdByBcdid" parameterType="String" resultType="supplyProdVo">
+		SELECT   a.prod_id, 
+			     a.prod_name,
+			     a.prod_price,
+		         b.supply_date,
+		         b.supply_bcd,
+		         c.splylist_sum
+		FROM prod a, supply b, supply_list c
+		WHERE b.supply_bcd = #{supply_bcd}
+		  AND c.prod_id    = a.prod_id 
+		  AND c.supply_bcd = b.supply_bcd
+	</select>
+	
+	
+	
 	<!-- 	아 이 디 : supplyList
 	  		반 환 값 : supplyVo
 	  		매개변수 : String(place_id)
@@ -192,7 +216,7 @@
 		SELECT a.mem_cvs_name, a.mem_name, a.mem_cvs_tel, a.mem_kind, a.mem_addr, a.mem_id 
 		FROM member a, supply b
 		WHERE b.supply_bcd=#{supply_bcd}
-		and a.mem_kind = 01
+<!-- 		and a.mem_kind = 01 -->
 		AND a.mem_id = b.place_id
 	</select>
 	
