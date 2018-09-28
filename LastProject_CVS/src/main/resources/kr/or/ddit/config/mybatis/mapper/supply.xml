@@ -351,7 +351,7 @@
 		where b.SUPPLY_BCD=a.SUPPLY_BCD
 		and b.SUPPLY_BCD=#{supply_bcd}
 		and a.PROD_ID= c.PROD_ID
-		) T)WHERE rnum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+		) T)
 	</select>
 	
 	<!-- 	아 이 디 : adminApplyViewTotCnt

@@ -31,13 +31,7 @@
 						</h2>
 
 						<div class="clearfix"></div>
-						<div class="row no-print">
-							<div class="col-xs-12">
-								<button class="btn btn-default" onclick="window.print();">
-									<i class="fa fa-print"></i> Print
-								</button>
-							</div>
-						</div>
+
 					</div>
 					<div class="x_content">
 						<!-- 최상단 부분 날짜와 입고 상품 내역이 시작되는 부분  -->
@@ -48,6 +42,13 @@
 									<h1>
 										<i class="fa fa-globe">수불 신청 내역</i> <small class="pull-right">
 											<td>
+												<div class="row no-print">
+													<div class="col-xs-12">
+														<button class="btn btn-default" onclick="window.print();">
+															<i class="fa fa-print"></i> Print
+														</button>
+													</div>
+												</div>
 												<form action="/admin/supplyCheck" method="post" id="frm">
 													<input type="hidden" name="supply_bcd"
 														value="${adminApplyVo.supply_bcd}"> <input
@@ -128,7 +129,8 @@
 
 													<!-- ------------------------------ 출고가능수량 -->
 													<c:if test="${adminApplyVo.supply_state == 10}">
-														<td><input type="text" size="1"></td>
+														<td><input type="text" size="1"
+															value="${vo.splylist_sum}"></td>
 													</c:if>
 
 													<c:if test="${adminApplyVo.supply_state != 10}">
@@ -136,19 +138,19 @@
 													</c:if>
 													<!-- ------------------------------ -->
 
-													<td>${vo.prod_cost}</td>
+													<td>￦<fmt:formatNumber value="${vo.prod_cost}"
+															type="number"></fmt:formatNumber></td>
 													<!-- 단가 -->
-													<td>${vo.prod_price}</td>
+													<td>￦<fmt:formatNumber value="${vo.prod_price}"
+															type="number"></fmt:formatNumber></td>
 													<!-- 가격 -->
-													<td>￦${vo.prod_cost * vo.splylist_sum}</td>
+													<td>￦<fmt:formatNumber
+															value="${vo.prod_cost * vo.splylist_sum}" type="number"></fmt:formatNumber></td>
 													<!-- 합계 -->
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
-									<div class="text-center" id="page">
-										<ul class="pagination">${pageNavi}</ul>
-									</div>
 								</div>
 							</div>
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 끝-->
@@ -156,12 +158,7 @@
 							<!-- 하단 부분 -->
 							<div class="row">
 								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 -->
-								<div class="col-xs-6">
-									<p class="lead">뭘 적을까
-									<p class="text-muted well well-sm no-shadow"
-										style="margin-top: 10px;">뭘 적을까</p>
-									</p>
-								</div>
+								<div class="col-xs-6"></div>
 								<!-- 조계환 왼쪽 하단 입고 상태를 보여주는 부분 끝-->
 								<!-- 명세서 부분 -->
 								<div class="col-xs-6">
@@ -175,21 +172,22 @@
 													<td>실시간</td>
 												</tr>
 												<tr>
-													<th>세금(10%)</th>
-													<td>￦<fmt:formatNumber value="${sum/10}" type="number"></fmt:formatNumber></td>
+													<th>세금(5%) :</th>
+													<td>￦<fmt:formatNumber value="${sum/5}" type="number"></fmt:formatNumber></td>
 													<td>실시간</td>
 												</tr>
 												<tr>
-													<th>배송비:</th>
-													<td>￦<fmt:formatNumber value="5000" type="number"></fmt:formatNumber></td>
+													<th>배송비(5%) :</th>
+													<td>￦<fmt:formatNumber value="${sum/5}" type="number"></fmt:formatNumber></td>
 													<td>실시간</td>
 												</tr>
 												<tr>
-													<th>총합계:</th>
-													<td>￦<fmt:formatNumber value="${sum + (sum/10) + 5000}" type="number"></fmt:formatNumber></td>
+													<th>총합계 :</th>
+													<td>￦<fmt:formatNumber value="${sum + ((sum/5)*2)}"
+															type="number"></fmt:formatNumber></td>
 													<td>실시간</td>
 												</tr>
-											
+
 											</tbody>
 										</table>
 									</div>
@@ -233,15 +231,15 @@
 <script src="../build/js/custom.min.js"></script>
 
 <script type="text/javascript">
-window.onload = function() {
-    document.getElementById('btn').onclick = function() {
-    	if(confirm("발주 신청을 확인 하시겠습니까?")==true){
-	        document.getElementById('frm').submit();
-	        return false;
-    	}else{
-    		return;
-    	}
-    };
-};
+	window.onload = function() {
+		document.getElementById('btn').onclick = function() {
+			if (confirm("발주 신청을 확인 하시겠습니까?") == true) {
+				document.getElementById('frm').submit();
+				return false;
+			} else {
+				return;
+			}
+		};
+	};
 </script>
 
