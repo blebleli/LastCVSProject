@@ -324,7 +324,7 @@ public class AdminProdInfo {
 		return "forward:/adprod/adprodView";
 	}
 	
-	// 해당 제품 수정 
+	// 해당 제품 수정 view
 	@RequestMapping("/prodUpdatePopup")
 	public String prodUpdate(Model model
 				, @RequestParam(value="prod_id", defaultValue="")String prod_id
@@ -342,6 +342,7 @@ public class AdminProdInfo {
 		List<CategoryVo> categoryLg = adminProdService.getProdCategory(vo);
 		
 		vo.setCtgy_parent("notnull");
+		
 		// 중분류
 		List<CategoryVo> categoryMd = adminProdService.getProdCategory(vo);
 //		logger.debug("vo.getCtgy_parent(m) ==> {} ",vo.getCtgy_parent());
@@ -355,6 +356,94 @@ public class AdminProdInfo {
 		model.addAttribute("categoryMd", categoryMd);
 		
 		return "/admin/adprod/ad_prodUpdate_Popup";
+	}
+	
+	// 제품 insert
+	@RequestMapping("/prodUpdate")
+	public String prodUpdate (HttpServletRequest request , HttpServletResponse response , @ModelAttribute("prodVo") ProdVo prodVo 
+								, Model model) throws Exception {
+
+		//★  서버 이미지 경로 
+//		String tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+		String tempSavePath = "D:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+		String path = "/Image/product";	// DB 저장 경로
+		
+		
+		
+		// 대분류에 따라 저장 장소가 변함
+		String[] groupKor ={"CA39868000001","CA30528000001","CA47861000001","CA79968000001","CA89187000001" ,"CA07760000001"};
+	    String[] groupEng ={"meal","biscuit","ice","food","drink","necessities"};
+
+	    String pathKind = "";
+	    for (int i =  0 ; i < groupKor.length; i++) {
+	    	if (prodVo.getPr_class_lg().equals(groupKor[i])) {
+	    		pathKind = groupEng[i];
+	    		break;
+	    	}
+	    }
+	    
+		logger.debug("prodVo==> {} ",prodVo);
+
+		
+		// 구분 처리 해주어야 함 (사진 새롭게 업로드 했을 경우에만 처리 되어야 하는 구문)=======================
+		
+		// 파일 삭제
+        File fileDel = new File(tempSavePath+prodVo.getFile_path()+prodVo.getFile_upname());
+         
+        if( fileDel.exists() ){
+        	logger.debug("파일 존재함");
+//            if(fileDel.delete()){
+//                System.out.println("파일삭제 성공");
+//            }else{
+//                System.out.println("파일삭제 실패");
+//            }
+        }else{
+        	logger.debug("파일이 존재하지 않습니다.");
+        }
+		
+		// 파일 생성
+		if(prodVo.getUpload_file() != null) {
+			for(MultipartFile file : prodVo.getUpload_file()) {
+				
+				tempSavePath = tempSavePath + File.separator +pathKind;	// 물리
+				path = path + File.separator + pathKind;				// DB
+				
+				prodVo.setFile_upname(UUID.randomUUID().toString()+".png");			
+//				prodVo.setFile_upname("111111111111111111111111111111.png");		// 테스트
+				
+				prodVo.setFile_path(path);
+				prodVo.setProd_info("");
+				// 디렉토리 없을 경우 생성
+				if(!new File(tempSavePath).exists()) {
+					new File(tempSavePath).mkdirs();
+				}
+
+//				logger.debug("file_path :::::::::: {}", prodVo.getFile_path());
+//				logger.debug("file_upname :::::::::: {}", prodVo.getFile_upname());
+
+				// 파일 저장
+//				try {
+//					FileUtils.writeByteArrayToFile(new File(tempSavePath, prodVo.getFile_upname()), file.getBytes());
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//					throw new Exception(file.getName() + " 파일 저장 실패");
+//				}
+			}
+		}
+		
+		// 구분 처리 해주어야 함 (사진 새롭게 업로드 했을 경우에만 처리 되어야 하는 구문)=======================
+		
+		// 값 확인
+		logger.debug("prodVo == > {}" , prodVo);
+		
+		
+		// 업데이트
+//		int result = adminProdService.setProdUpdate(prodVo);
+		
+		// 결과 확인
+//		logger.debug("result ==> {}", result);
+		
+		return "";
 	}
 	
 }
