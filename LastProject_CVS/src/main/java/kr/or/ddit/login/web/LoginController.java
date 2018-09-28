@@ -286,7 +286,7 @@ public class LoginController {
 				
 				
 				filedataVo.setMem_id(memberVo.getMem_id());
-				filedataVo.setFile_id(autoCodeCreate.autoCode("FD")); //파일코드
+				filedataVo.setFile_id(autoCodeCreate.autoCode("MP")); //파일코드
 				filedataVo.setFile_path(tempSavePath);    
 				filedataVo.setFile_name(fileName); 
 				filedataVo.setFile_upname(UUID.randomUUID().toString()+fileExt); 
