@@ -391,6 +391,11 @@ public class SupplyService implements SupplyServiceInf {
 	public List<SupplyVo> getSupply(String place_id) {
 		return supplyDao.getSupply(place_id);
 	}
+
+	@Override
+	public List<SupplyProdVo> reqDetail(String supply_bcd) {
+		return supplyDao.reqDetail(supply_bcd);
+	}
 	
 	
 	
