@@ -126,7 +126,7 @@ $(function() {
 		var prod_exnum = $("#prod_exnum").val();
 		
 		// 사진		file
-		var file = $("#upload_file").val();
+// 		var file = $("#upload_file").val();
 		
 		// null 체크
 // 		alert(selectValueLg + " : "+ pr_class_md +" : "+ event_id);
@@ -175,19 +175,13 @@ $(function() {
 			return;
 		}
 		
-		if (isEmpty(file)) {
-			alert("상품 사진을 등록 해주세요");
-			$("#file").focus();
-			return;
-		}
-		
-		
+// 		if (isEmpty(file)) {
+// 			alert("상품 사진을 등록 해주세요");
+// 			$("#file").focus();
+// 			return;
+// 		}
 		$("#frm").submit();
-		
-		
 	});
-	
-	
 });	
 	
 
@@ -220,23 +214,10 @@ $(function() {
           <div class="x_content">
             <br>
             
-            <form action="">
-            	<input type="hidden" name="prod_id" value="${prodVo.file_path   }"> <!--파일 경로  -->
-            	<input type="hidden" name="prod_id" value="${prodVo.file_upname }"> <!--파일 이름  -->
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_id     }"> <!--제품바코드  -->
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_name   }"> <!--이름     -->
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_intro  }"> <!--설명     -->
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_info   }"> <!--비고     -->
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_price  }"> <!--가격     -->
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_exnum  }"> <!--유통기한값  -->
-            	<input type="hidden" name="prod_id" value="${prodVo.pr_class_lg }"> <!--대분류    -->
-            	<input type="hidden" name="prod_id" value="${prodVo.pr_class_md }"> <!--중분류    -->
-            	<input type="hidden" name="prod_id" value="${prodVo.event_id    }"> <!--행사제품코드 -->
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_cost   }"> <!--단가     -->
-            </form>
-            
-            <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
-				
+            <form id="frm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="/adprod/prodUpdate" enctype="multipart/form-data">
+            	<input type="hidden" name="prod_id" value="${prodVo.prod_id}">
+            	<input type="hidden" name="file_path" value="${prodVo.file_path}">
+            	<input type="hidden" name="file_upname" value="${prodVo.file_upname}">
 				
 			  <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">구분</label>
@@ -309,7 +290,7 @@ $(function() {
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">제품명</label>
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_name }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_name }">
+                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prod_name" data-parsley-id="9" value="${prodVo.prod_name }">
                 </div>
               </div>
               
@@ -317,7 +298,7 @@ $(function() {
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">단가</label>
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_cost }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_cost }">
+                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prod_cost" data-parsley-id="9" value="${prodVo.prod_cost }">
                 </div>
               </div>
               
@@ -325,7 +306,7 @@ $(function() {
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">정가</label>
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_price }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_price }">
+                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prod_price" data-parsley-id="9" value="${prodVo.prod_price }">
                 </div>
               </div>
               
@@ -333,7 +314,7 @@ $(function() {
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">유통기한</label>
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_exnum }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:center;">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="9" value="${prodVo.prod_exnum }">
+                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prod_exnum" data-parsley-id="9" value="${prodVo.prod_exnum }">
                 </div>
               </div>
               
