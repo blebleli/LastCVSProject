@@ -16,7 +16,7 @@ public interface AdminSupplyServiceInf {
 	* 조 회 :
 	* @return
 	*/
-	Map<String, Object> adminApplyList(Map<String, Object> paramMap);
+	Map<String, Object> adminApplyList();
 	
 	/**
 	* Method : adminApplyListTotCnt

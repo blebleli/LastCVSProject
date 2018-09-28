@@ -29,48 +29,16 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 	* @return
 	*/
 	@Override
-	public Map<String, Object> adminApplyList(Map<String, Object> paramMap) {
+	public Map<String, Object> adminApplyList() {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		List<AdminApplyVo> adminApplyList = adminSupplyDao.adminApplyList(paramMap);
+		List<AdminApplyVo> adminApplyList = adminSupplyDao.adminApplyList();
 		
 		resultMap.put("adminApplyList", adminApplyList);
-		
-		int totCnt = adminSupplyDao.adminApplyListTotCnt();
-		int page = (int) paramMap.get("page");
-		int pageSize = (int) paramMap.get("pageSize");
-		
-		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt));
 		
 		return resultMap;
 	}
 	
-	private String makePageNavi(int page, int pageSize, int totCnt){
-
-		int cnt = totCnt / pageSize; // 몫
-		int mod = totCnt % pageSize; // 나머지
-
-		if (mod > 0)
-			cnt++;
-
-		StringBuffer pageNaviStr = new StringBuffer();
-
-		int prevPage = page == 1? 1 : page-1;
-		int nextPage = page == cnt ? page : page+1;
-		pageNaviStr.append("<li><a href=\"/admin/lookup?page=" + prevPage + "&pageSize=" + pageSize + "\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
-
-		for(int i = 1; i <= cnt; i++){
-			// /board/list?page=3&pageSize=10
-			String activeClass = "";
-			if(i == page)
-				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/admin/lookup?page=" + i + "&pageSize=" + pageSize + "\"> "+ i +" </a></li>");
-		}
-
-		pageNaviStr.append("<li><a href=\"/admin/lookup?page=" + nextPage + "&pageSize=" + pageSize + "\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
-
-		return pageNaviStr.toString();
-	}
 
 	/**
 	* Method : adminApplyListTotCnt

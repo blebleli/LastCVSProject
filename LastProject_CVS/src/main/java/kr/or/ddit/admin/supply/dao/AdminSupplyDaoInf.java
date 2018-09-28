@@ -17,7 +17,7 @@ public interface AdminSupplyDaoInf {
 	* 조 회 :
 	* @return
 	*/
-	List<AdminApplyVo> adminApplyList(Map<String, Object> paramMap);
+	List<AdminApplyVo> adminApplyList();
 	
 	/**
 	* Method : adminApplyListTotCnt

@@ -28,8 +28,8 @@ public class AdminSupplyDao implements AdminSupplyDaoInf{
 	* @return
 	*/
 	@Override
-	public List<AdminApplyVo> adminApplyList(Map<String, Object> paramMap) {
-		return template.selectList("supply.adminApplyList",paramMap);
+	public List<AdminApplyVo> adminApplyList() {
+		return template.selectList("supply.adminApplyList");
 	}
 
 	/**
