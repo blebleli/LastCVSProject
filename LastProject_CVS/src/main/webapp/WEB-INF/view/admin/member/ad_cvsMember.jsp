@@ -3,20 +3,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
     
-<!-- <head> -->
+<!-- 09.20 KEB : 관리자단에서 편의점 리스트 출력하는 화면  -->
 
-<title> gogoCVS admin | cvsNember </title>
+<title> CVStore_admin | cvsMember </title>
 
-
-<!-- Bootstrap -->
-<!-- <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-<!-- Font Awesome -->
-<!-- <link href="/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
-<!-- NProgress -->
-<!-- <link href="/vendors/nprogress/nprogress.css" rel="stylesheet"> -->
-<!-- iCheck -->
-<!-- <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet"> -->
-
+<script src="<c:url value='/build/js/jquery-1.12.4.js' />"></script>
 <!-- Datatables -->
 <link href="/vendors/datatables.net-bs/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="/vendors/datatables.net-bs/buttons.bootstrap.min.css" rel="stylesheet">
@@ -27,7 +18,7 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
-<script src="<c:url value='/build/js/jquery-1.12.4.js' />"></script>
+
 
 <script>
 	$(document).ready(function() {
@@ -59,28 +50,38 @@
 			alert("삭제할 행을 선택해주세요.");
 			return false;
 		}
+		var used = $("table#datatable-responsive tbody tr.selected").find("td:eq(1)").text(); // 미사용,사용 
+		var cvsNm = $("table#datatable-responsive tbody tr.selected").find("td:eq(3)").text(); // 편의점명
 		
-		var mem_id = $("table#datatable-responsive tbody tr.selected").find("td:eq(1)").text();
-		alert("mem_id " + mem_id);
-		$.ajax({
-            type : "POST",
-            url : "<c:url value='/admin/deleteCvsMember' />",
-            dataType : "text",
-            data : {mem_id : mem_id},
-            success : function(data){
-            	if(data == "1") {
-            		alert("삭제되었습니다.");
-            		$(document).refresh();
-//             		location.reload();
-            	}
-            },
-            error: function(request, status, error) {
-                alert(error);
-            }
-        });
-		
-		
-	});
+		if(used == "미사용"){
+			alert("이미 미사용처리(삭제)된 매장입니다");
+			return false;
+		}else{
+			if(confirm(cvsNm +  "을 정말로 미사용상태로 변경하시겠습니까?")){
+				
+				var mem_id = $("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text(); // 사업자 번호
+				alert("mem_id " + mem_id);
+				
+				$.ajax({
+		            type : "POST",
+		            url : "<c:url value='/admin/deleteCvsMember' />",
+		            dataType : "text",
+		            data : {mem_id : mem_id},
+		            success : function(data){
+		            	if(data == "1") {
+		            		alert("삭제되었습니다.");
+		            		$(document).refresh();
+		            		window.location.reload();  // 안먹음
+		            	}
+		            },
+		            error: function(request, status, error) {
+		                alert(error);
+		            }
+		        });
+				
+			}
+		}
+	});// 삭제버튼 클릭 이벤트 끝
 	
 	
 	
@@ -112,20 +113,10 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 <div class="right_col" role="main" style="min-height: 900px;">
 	<div class="">
 		<div class="page-title">
-			<div class="title_left">
+			<div class="title_left" style="margin-bottom: 20px;">
 				<h3>
-					[ 편의점(사업장)관리화면 ]<small> 편의점 리스트,등록,수정,삭제관리</small>
+					[ 편의점(사업장)관리 화면 ] <small> </small>
 				</h3>
-			</div>
-
-			<div class="title_right">
-				<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search for..."> <span class="input-group-btn">
-							<button class="btn btn-default" type="button">Go!</button>
-						</span>
-					</div>
-				</div>
 			</div>
 		</div>
 
@@ -138,13 +129,14 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 					
 					<div class="x_title">
 			
-						<div class="col-xs-12">
+						<div class="col-xs-12" style="padding-bottom: 10px;"  >
 							<button class="btn btn-default" onclick="location.href ='<c:url value='${pageContext.request.contextPath}/admin/cvsInsert' />';">
 								<i class="fa fa-print"></i> 등 록  
 							</button>
 							
 							<span>
-							<button class="btn btn-default" onclick="window.print();">
+							<button class="btn btn-default" onclick="location.href ='<c:url value='${pageContext.request.contextPath}/admin/cvsUpdate' />';">
+															
 								<i class="fa fa-print"></i> 수 정
 							</button>
 							</span>

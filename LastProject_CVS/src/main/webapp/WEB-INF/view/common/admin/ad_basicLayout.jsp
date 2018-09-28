@@ -13,8 +13,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>CVStore | </title>
+<!--     <title>CVStore | </title> -->
+    
+    
+    <!--====================== js ======================-->
+	<!-- jquery -->
+	<script type="text/javascript" src="<c:url value='/build/js/jquery-1.12.4.js' />"></script>
+	
 
+	<!--====================== css ======================-->
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -33,6 +40,8 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    	    
+    	    
     	    
     <script>
 	$(function() {
