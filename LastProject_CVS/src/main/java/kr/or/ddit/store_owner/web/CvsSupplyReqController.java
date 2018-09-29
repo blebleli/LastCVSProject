@@ -1,5 +1,6 @@
 package kr.or.ddit.store_owner.web;
 
+import java.text.ParseException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -9,10 +10,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
@@ -47,6 +51,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -70,7 +75,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyReqController")
-@SessionAttributes({"requestList"})
+@SessionAttributes({"requestList","user"})
 public class CvsSupplyReqController {
 	
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
@@ -112,7 +117,7 @@ public class CvsSupplyReqController {
 	 */
 	@RequestMapping("/stock")
 	public String myStockList(Model model){
-
+		
 		//mem_id 로 가장 최근1건의 stock의 stock-list 			
 		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(mem_id);
 		model.addAttribute("myStockList", myStockList);
@@ -162,6 +167,7 @@ public class CvsSupplyReqController {
 		}	
 		logger.debug("prodList ------"+prodList);
 		model.addAttribute("requestList", prodList);
+		model.addAttribute("user", "6510000-104-2015-00153");
 		return new ResponseEntity<>( "Custom header set", HttpStatus.OK);
 	}
 	
@@ -388,7 +394,7 @@ public class CvsSupplyReqController {
 	
 	
 	@RequestMapping(value="/check", method = RequestMethod.POST)
-	public ResponseEntity<String> requestComplete(@RequestBody List<SupplyListVo> checkList, Model model){
+	public ResponseEntity<String> requestComplete(@RequestBody List<SupplyListVo> checkList, Model model, HttpSession session){
 		
 		logger.debug("controller-----------------------");
 		Map modelMap = model.asMap();
@@ -420,15 +426,20 @@ public class CvsSupplyReqController {
 			sup.setSplylist_info("발주신청");
 			result += supplyService.setInsertSupplyList(sup);
 		}
-		
+		session.removeAttribute("requestList");
 		return new ResponseEntity<String>( "Custom header set", HttpStatus.OK);
 	}
 	
-	@RequestMapping("/requestDetail")
-	public ModelAndView requestDetail(@RequestParam(value="bcd")String supply_bcd, Model model){
+	@RequestMapping(value="/requestDetail", method=RequestMethod.GET)
+	public ModelAndView requestDetail(@RequestParam(value="bcd")String supply_bcd,@RequestParam(value="date")String date, Model model) throws ParseException{
 		ModelAndView mav = new ModelAndView();
+		Map modelMap = model.asMap();
+		logger.debug("user------"+modelMap.get("user"));
 		List<SupplyProdVo> reqDetailList = supplyService.reqDetail(supply_bcd);
 		mav.addObject("reqDetailList", reqDetailList);
+		mav.setViewName("cvs_req_detail");
+		mav.addObject("bcd", supply_bcd);
+		mav.addObject("reqDate", date);
 		return mav;
 	}
 }
