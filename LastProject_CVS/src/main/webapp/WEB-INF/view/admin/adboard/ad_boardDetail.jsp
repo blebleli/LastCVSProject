@@ -152,23 +152,25 @@
 
             <div class="clearfix"></div>
         <!-- page content -->
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
+              <div style="margin-left: auto; margin-right: auto; width: 1100px;" class="col-md-12 col-sm-12 col-xs-12">
+                <div style="margin-left: auto; margin-right: auto; width: 1100px;" class="x_panel">
+                  <div style="margin-left: auto; margin-right: auto; width: 1000px;" class="x_title">
                     <h2>해당 글 정보입니다.</h2>
                     <div class="clearfix"></div>
                   </div>                  
                   
 				  <!-- ========================================================================== -->
-                  <div class="x_content">
+                  <div style="margin-left: auto; margin-right: auto; width: 1000px;" class="x_content">
 		
-			<div class="w3ls_service_grids">
+			<div style="margin-left: auto; margin-right: auto; width: 1000px;" class="w3ls_service_grids">
 
-				<div style="margin-left: auto; margin-right: auto; width: 1300px;" class="table-responsive">
-					<table class="table table-striped table-hover" id="reply_area">					
+				<div style="margin:auto; width: 1000px;" class="table-responsive">
+					<table style="margin:auto;  width: 1000px;" class="table table-striped table-hover" id="reply_area">					
 						<tr>
 							<td id="demoFonts" class="col-sm-1">제목</td>
-							<td id="demoFont" class="col-sm-9" colspan="6">${b.bd_title}</td>
+							<td id="demoFont" class="col-sm-9">${b.bd_title}</td>
+							<td id="demoFonts" class="col-sm-1">조회수</td>
+							<td id="demoFont" class="col-sm-9">${b.bd_views}</td>
 						</tr>
 						
 						<tr>
@@ -176,18 +178,16 @@
 							<td id="demoFont" class="col-sm-9">${b.mem_id}</td>
 							<td id="demoFonts" class="col-sm-1">작성일</td>
 							<td id="demoFont" class="col-sm-9">${b.bd_date}</td>
-							<td id="demoFonts" class="col-sm-1">조회수</td>
-							<td id="demoFont" class="col-sm-9">${b.bd_views}</td>
 						</tr>	
 						
 						<tr>
 							<td id="demoFonts" class="col-sm-1">내용</td>
-							<td id="demoFont" class="col-sm-9" colspan="6">${b.bd_content}</td>
+							<td id="demoFont" class="col-sm-9" colspan="3">${b.bd_content}</td>
 						</tr>
 						
 						<tr>
 							<td id="demoFonts" class="col-sm-1">첨부파일</td>
-							<td id="demoFont" class="col-sm-9" colspan="6">
+							<td id="demoFont" class="col-sm-9" colspan="3">
 								<c:forEach items="${FList}" var="vo">
 <%-- 								${vo.file_name}<br>${vo.file_path}<br>${vo.file_upname}<br>${vo.file_id}<br>${vo.mem_id}<br>${vo.bd_id} --%>
 									<c:choose>
@@ -217,11 +217,15 @@
 							</div>
 						</form>
 						
-					<table class="table table-striped table-hover" id="reply_area">					
+					<table class="table table-striped table-hover" id="reply_area">
+										
 						<c:forEach items="${cList}" var="vo">
+						
+						<!-- 댓글 조회 -->
 						<tr id="comment">
 							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
-							<td id="demoFont2" rowspan="2" colspan="8">
+							
+							<td id="demoFont2" rowspan="2" colspan="3">
 							<span style="float: left;">
 								<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
 								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
@@ -253,17 +257,20 @@
 								<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">								
 								       <input type="hidden" id="cm_id" name="cm_id" value="${vo.cm_id}"> 
 								</span>
-							</td>	
+							</td>								
 						</tr>
+						
 						<tr class="about">
 							<td>${vo.mem_id}<br>${vo.cm_date}</td>
 						</tr>
+						
 						</c:forEach>
 						
+						<!-- 댓글 작성 -->
 						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 						<tr>
 							<td id="demoFonts" class="col-sm-1">댓글</td>
-							<td style="border-collapse:collapse;" rowspan="2" colspan="6" class="col-sm-9">
+							<td style="border-collapse:collapse;" rowspan="2" colspan="3" class="col-sm-9">
 								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
 									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
@@ -271,8 +278,6 @@
 									<input type="hidden" id="mem_id" name="mem_id" value="admin">									
 									<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
 									<input type="hidden" name="cm_RadioCkeck">
-							</td>
-							<td>
 							</td>
 						</tr>
 						
@@ -282,8 +287,6 @@
 						</td>
 						</tr>
 						</form>
-						<tr>						
-						</tr>
 					</table>
 					
    
