@@ -149,9 +149,9 @@
                 <h3>게시글 조회</h3>
               </div>
             </div>
-
             <div class="clearfix"></div>
         <!-- page content -->
+
               <div style="margin-left: auto; margin-right: auto; width: 1100px;" class="col-md-12 col-sm-12 col-xs-12">
                 <div style="margin-left: auto; margin-right: auto; width: 1100px;" class="x_panel">
                   <div style="margin-left: auto; margin-right: auto; width: 1000px;" class="x_title">
@@ -164,8 +164,8 @@
 		
 			<div style="margin-left: auto; margin-right: auto; width: 1000px;" class="w3ls_service_grids">
 
-				<div style="margin:auto; width: 1000px;" class="table-responsive">
-					<table style="margin:auto;  width: 1000px;" class="table table-striped table-hover" id="reply_area">					
+				<div style="margin-left: auto; margin-right: auto; width: 1000px;" class="table-responsive">
+					<table style="margin-left: auto; margin-right: auto; width: 1000px;" class="table table-striped table-hover" id="reply_area">					
 						<tr>
 							<td id="demoFonts" class="col-sm-1">제목</td>
 							<td id="demoFont" class="col-sm-9">${b.bd_title}</td>
@@ -217,8 +217,9 @@
 							</div>
 						</form>
 						
+													
 					<table class="table table-striped table-hover" id="reply_area">
-										
+						<form id="delete" action="/adboard/commentsDel" method="post">				
 						<c:forEach items="${cList}" var="vo">
 						
 						<!-- 댓글 조회 -->
@@ -226,37 +227,34 @@
 							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
 							
 							<td id="demoFont2" rowspan="2" colspan="3">
-							<span style="float: left;">
-								<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
-								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
-									<form id="delete" action="/adboard/commentsDel" method="post">
-										${vo.cm_content}
-										<input type="hidden" name="cm_id" value="${vo.cm_id}">
-										<input type="hidden" name="bd_id" value="${vo.bd_id}">
-										<input type="hidden" name="mem_id" value="admin">
-									</form>
-								</c:if>
-								<c:if test="${vo.cm_delny == 'Y'}">
-									삭제된 댓글입니다.<br>
-								</c:if>
-								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-									<form id="delect" action="/adboard/deleteComment" method="get">
-										비공개 댓글 입니다.
-										<input type="hidden" name="cm_id" value="${vo.cm_id}">
-										<input type="hidden" name="bd_id" value="${vo.bd_id}">
-										<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
-										<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
-										<br>
-									</form>
-								</c:if>
-								</span>
+									<span style="float: left;">
+									<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
+									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
+									
+											${vo.cm_content}
+											<input type="hidden" name="cm_id" value="${vo.cm_id}">
+											<input type="hidden" name="bd_id" value="${vo.bd_id}">
+											<input type="hidden" name="mem_id" value="admin">
+										
+									</c:if>
+									<c:if test="${vo.cm_delny == 'Y'}">
+										삭제된 댓글입니다.<br>
+									</c:if>
+									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
+											비공개 댓글 입니다.
+											<input type="hidden" name="cm_id" value="${vo.cm_id}">
+											<input type="hidden" name="bd_id" value="${vo.bd_id}">
+											<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
+											<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
+											<br>
+									</c:if>
+									</span>
 							
 <!-- 							<form name="form3" action="board6ReplySave" method="post"> -->
-								<span style="float: right;100%">
-								<button id="commentsUpd" style="font-size:12px" class="btn btn-default">수정</button>
-								<input type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="삭제">								
-								       <input type="hidden" id="cm_id" name="cm_id" value="${vo.cm_id}"> 
-								</span>
+									<span style="float: right;100%">
+									<button id="commentsUpd" style="font-size:12px" class="btn btn-default">수정</button>
+									<button type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="cm_id">삭제</button>								
+									</span>
 							</td>								
 						</tr>
 						
@@ -266,9 +264,12 @@
 						
 						</c:forEach>
 						
+											<input type="hidden" id="cm_id" name="cm_id" value="${vo.cm_id}"> 
+					</form>
+						
 						<!-- 댓글 작성 -->
-						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 						<tr>
+						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 							<td id="demoFonts" class="col-sm-1">댓글</td>
 							<td style="border-collapse:collapse;" rowspan="2" colspan="3" class="col-sm-9">
 								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
@@ -284,9 +285,9 @@
 						<tr>
 						<td class="checked"><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개<br>
 									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
+						</form>
 						</td>
 						</tr>
-						</form>
 					</table>
 					
    
@@ -304,8 +305,9 @@
 				</div>
 				<!-- ========================================================================== -->
                 </div>
+                </div>
               </div>
-            </div>
+          
 		<!-- /page content -->
 
 		<!-- footer content -->

@@ -205,15 +205,15 @@
 					<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${bd_kind_id}"> 
 				</div>
 				</form>
-					<div style="margin-left: auto; margin-right: auto; width: 1600px;" class="table-responsive">
-						<table class="table table-striped table-hover">
+					<div style="margin-left: auto; margin-right: auto; width: 1359px;" class="table-responsive">
+						<table style="margin-left: auto; margin-right: auto; width:1359px;" class="table table-striped table-hover">
 							<thead>
 								<tr >
-									<th id="demoFont">번호</th>
-									<th id="demoFont">제목</th>
-									<th id="demoFont">작성자</th>
-									<th id="demoFont">작성일</th>
-									<th id="demoFont">조회수</th>
+									<th width="200px;" id="demoFont">번호</th>
+									<th width="659px;" id="demoFont">제목</th>
+									<th width="300px;" id="demoFont">작성자</th>
+									<th width="200px;" id="demoFont">작성일</th>
+									<th  width="200px;" id="demoFont">조회수</th>
 								</tr>
 							</thead>
 							<tbody>
