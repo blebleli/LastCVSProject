@@ -119,9 +119,8 @@
 								<!-- 입고 상태-->
 								<div class="col-xs-6">
 									<p class="lead">
-										<c:set var="kind" value="${vo.supply_state}"/> <!-- 처리상태 예)12=입고처리 11=결제 10=발주 -->
 											<c:choose>
-												<c:when test="${vo.supply_state == 12 }">
+												<c:when test="${state == 12 }">
 													입고상태
 													<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
 													입고가 완료되었습니다.
