@@ -17,6 +17,23 @@
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+    
+    <script>
+	//-----입고목록 바코드 text입력으로검색
+	$(function(){
+		$("#searchBcd").on("click", function(){
+			var text = $("#bcdText").val();
+			console.log(text);
+			$.ajax({
+				url : "/cvs/supplyIn/search",
+				data : {"bcdText":text},
+				success:function(responseData){
+					addRow(responseData);
+				}
+			});
+		});
+	});
+	</script>
    
         <!-- page content -->
         <div class="right_col" role="main">
@@ -215,6 +232,15 @@
                   </div>
 
                   <div class="x_content">
+                  	<div class="col-md-6 col-sm-6 col-xs-12 form-group pull-center top_search">
+	                  <div class="input-group">
+	                    <input type="text" class="form-control" id="bcdText" placeholder="입고바코드입력..">
+	                    <span class="input-group-btn">
+	                      <button class="btn btn-default" id="searchBcd" type="button">검색</button>
+	                    </span>
+	                  </div>
+	                </div>
+	                 <div class="clearfix"></div>
                     <div class="table-responsive">
                       <table id="tblReqIN" class="table table-striped jambo_table">
                         <thead>
