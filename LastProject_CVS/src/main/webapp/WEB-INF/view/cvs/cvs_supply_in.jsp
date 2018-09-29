@@ -71,8 +71,9 @@
 									<td>￦${vo.sum}</td>				<!-- 가격 -->
 									<!-- 원하는 입고 목록 상세보기 화면으로 전환-->
 									<td>
-										<form action="/cvs/supplyDetail" method="get">
+										<form action="/cvs/supplyDetail" method="post">
 											<input type="hidden" name="supply_bcd" value="${vo.supply_bcd}">  	<!-- 수불바코드 -->
+											<input type="hidden" name="state" value="${kind}">  	<!-- 수불바코드 -->
 											<input type="submit" class="btn btn-default" style="padding-bottom:1px; padding-top:1px; font-size:12px;" value="View">
 										</form>
 									</td>	
