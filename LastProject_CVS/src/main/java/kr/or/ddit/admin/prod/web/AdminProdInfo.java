@@ -358,17 +358,20 @@ public class AdminProdInfo {
 		return "/admin/adprod/ad_prodUpdate_Popup";
 	}
 	
-	// 제품 insert
+	// 제품 업데이트
 	@RequestMapping("/prodUpdate")
 	public String prodUpdate (HttpServletRequest request , HttpServletResponse response , @ModelAttribute("prodVo") ProdVo prodVo 
 								, Model model) throws Exception {
 
+		
 		//★  서버 이미지 경로 
-//		String tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
-		String tempSavePath = "D:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+		String tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+//		String tempSavePath = "D:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+		
+		String tempDeletePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp";				// 파일 삭제 경로
+//		String tempDeletePath = "D:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp";				// 파일 삭제 경로
+		
 		String path = "/Image/product";	// DB 저장 경로
-		
-		
 		
 		// 대분류에 따라 저장 장소가 변함
 		String[] groupKor ={"CA39868000001","CA30528000001","CA47861000001","CA79968000001","CA89187000001" ,"CA07760000001"};
@@ -382,21 +385,22 @@ public class AdminProdInfo {
 	    	}
 	    }
 	    
-		logger.debug("prodVo==> {} ",prodVo);
+//		logger.debug("prodVo==> {} ",prodVo);
+		logger.debug(prodVo.getFile_path());
+		logger.debug(prodVo.getFile_upname());
 
 		
 		// 구분 처리 해주어야 함 (사진 새롭게 업로드 했을 경우에만 처리 되어야 하는 구문)=======================
 		
 		// 파일 삭제
-        File fileDel = new File(tempSavePath+prodVo.getFile_path()+prodVo.getFile_upname());
+        File fileDel = new File(tempDeletePath+prodVo.getFile_path()+File.separator+prodVo.getFile_upname());
          
         if( fileDel.exists() ){
-        	logger.debug("파일 존재함");
-//            if(fileDel.delete()){
-//                System.out.println("파일삭제 성공");
-//            }else{
-//                System.out.println("파일삭제 실패");
-//            }
+            if(fileDel.delete()){
+            	logger.debug("파일삭제 성공");
+            }else{
+            	logger.debug("파일삭제 실패");
+            }
         }else{
         	logger.debug("파일이 존재하지 않습니다.");
         }
@@ -422,12 +426,12 @@ public class AdminProdInfo {
 //				logger.debug("file_upname :::::::::: {}", prodVo.getFile_upname());
 
 				// 파일 저장
-//				try {
-//					FileUtils.writeByteArrayToFile(new File(tempSavePath, prodVo.getFile_upname()), file.getBytes());
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//					throw new Exception(file.getName() + " 파일 저장 실패");
-//				}
+				try {
+					FileUtils.writeByteArrayToFile(new File(tempSavePath, prodVo.getFile_upname()), file.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+					throw new Exception(file.getName() + " 파일 저장 실패");
+				}
 			}
 		}
 		
@@ -436,14 +440,13 @@ public class AdminProdInfo {
 		// 값 확인
 		logger.debug("prodVo == > {}" , prodVo);
 		
-		
 		// 업데이트
-//		int result = adminProdService.setProdUpdate(prodVo);
+		int result = adminProdService.setProdUpdate(prodVo);
 		
 		// 결과 확인
-//		logger.debug("result ==> {}", result);
+		logger.debug("result ==> {}", result);
 		
-		return "";
+		return "forward:/adprod/prodUpdatePopup";
 	}
 	
 }

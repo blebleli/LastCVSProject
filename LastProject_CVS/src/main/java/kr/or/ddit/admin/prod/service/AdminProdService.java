@@ -27,10 +27,6 @@ public class AdminProdService implements AdminProdServiceInf {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("prodList", adminProdDao.getProdList(vo));
 		
-//		int totCnt = adminProdDao.getProdListCount(vo);
-		
-//		result.put("pageNavi",  makePageNavi(vo.getPage(), vo.getPageSize(), totCnt));
-		
 		return  result;
 	}
 
