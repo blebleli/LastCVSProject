@@ -30,7 +30,7 @@
   	<typeAlias type="kr.or.ddit.model.StockListVo" 		alias="stockListVo"/>
   	<typeAlias type="kr.or.ddit.model.FiledataVo" 		alias="filedataVo"/>
   	<!-- 조계환 입고 상세보기 화면에 필요한 정보들(supplylist에 있는 수량과 제품 바코드, prod에 있는 제품이름을 동시에 가져와야 하기 때문에 만든 객체) -->
-<!--   	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo" 		alias="supplyProdVo"/> -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo" 		alias="supplyProdVo"/>
   	<!-- 조계환 입고 리스트에서 뿌려줄 입고에 대한 정보들  -->
   	<typeAlias type="kr.or.ddit.supply.model.SupplySumProdVo" 		alias="supplySumProdVo"/>
   	<!-- 조계환 수불바코드를 직접입력하거나 스캔했을때 그에 대한 제품 정보들을 저장하는 객체 -->
@@ -60,7 +60,7 @@
   	<typeAlias type="kr.or.ddit.store_owner.model.PresentStockListVo"	alias="presentStockListVo"/>
   	
   	<!-- 수발주BCD로 상품검색 -->
-  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo"	alias="supplyProdVo"/>
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdInfoVo"	alias="supplyProdInfoVo"/>
   	
   	<!-- 리뷰+제품(파일) -->
   	<typeAlias type="kr.or.ddit.user.model.MainReviewsVo"	alias="mainReviewsVo"/>

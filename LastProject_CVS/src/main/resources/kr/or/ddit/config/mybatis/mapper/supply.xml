@@ -94,7 +94,7 @@
 		  		작 성 자 : 한수정
 		  		일    시 : 2018-09-28     
 	 -->
-	<select id="getSplyProdByBcdid" parameterType="String" resultType="supplyProdVo">
+	<select id="getSplyProdByBcdid" parameterType="String" resultType="supplyProdInfoVo">
 		SELECT   a.prod_id, 
 			     a.prod_name,
 			     a.prod_price,
