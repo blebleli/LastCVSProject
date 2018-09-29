@@ -117,7 +117,7 @@
    </div>     
         <!-- /page content -->
 	<script>
-  	var table;
+  	var table = null;
 	
 	
 	//재고 상세리스트 출력
@@ -129,8 +129,14 @@
 			url : "/cvs/getNowStock",
 			method:"get",
 			data : {"stockID": stockID },
-			success : function(stockList){			
-						
+			success : function(stockList){
+				
+				if (table !== null) {
+					table.destroy();
+					table = null;
+				    $('#stockListTable').empty();
+				}
+			
 				$.each(stockList,function(index, item){				
 				$("#stockDetailTbody").append(		    								
 							'<tr class="even pointer">'+        
@@ -143,9 +149,9 @@
 	                        '<td ><span class="splylist_id">'+item.splylist_id+'</span></td>'+
 	                        '</tr>'
 					);
-				})
-		
-				$('#stockListTable').DataTable({
+				});
+	
+				table = $('#stockListTable').DataTable({
 				  "columnDefs": [
 					  { "width": "5%", "targets": 0 },            
 				      { "width": "20%", "targets": 1 },
@@ -157,11 +163,13 @@
 			          }
 				      ]	
 				});
-			
-			}
+				
+				
+				
+			  }
+			});
 		}); 
 
-	});	
 	
 	/* 마감하기 버튼 클릭시*/
 	function btnDayEnd() {

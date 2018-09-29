@@ -40,7 +40,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>바코드 인식 <small>입고된 물품리스트의 바코드를 스캔하는 페이지입니다.</small></h3>
+                <h3>입고진행 <small>입고될 물품리스트의 바코드를 스캔하는 페이지입니다.</small></h3>
               </div>
             </div>
 
@@ -49,16 +49,28 @@
               <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>바코드 인식</h2>              
+                    <h2>바코드 인식</h2> 
+                     <ul class="nav navbar-right panel_toolbox">
+                      <li>
+                      	 <button type="button" class="btn btn-primary" onclick="startCapture(this)">인식</button>
+                      </li>
+                      <li>
+                   		<button type="button" class="btn btn-default" onclick="stopCapture(this)">완료</button>					
+  				      </li>
+                  </ul>
                     <div class="clearfix"></div>
                   </div>
   				  
  <!-- 바코드 인식 화면 =============================================================== -->                                                       
                   <div class="x_content">
-                  
-                   <button type="button" class="btn btn-primary" onclick="startCapture(this)">인식</button>
-                   <button type="button" class="btn btn-default" onclick="stopCapture(this)">완료</button>					
- 
+                     <div class="input-group">
+	                    <input type="text" class="form-control" id="bcdText" placeholder="입고바코드입력..">
+	                    <span class="input-group-btn">
+	                      <button class="btn btn-default" id="searchBcd" type="button">검색</button>
+	                    </span>
+	                  </div>
+                          
+                
 				   <div class="clearfix"></div>
 				   
                    <video  id="player" width="300" height="300"></video>  
@@ -227,12 +239,13 @@
                       <li>
                       	<button type="button" class="btn btn-success" onclick="btnReqIn()">입고하기</button>                      
                       </li>
+                 
                     </ul>
                     <div class="clearfix"></div>
                   </div>
 
                   <div class="x_content">
-                  	<div class="col-md-6 col-sm-6 col-xs-12 form-group pull-center top_search">
+                 <!--  	<div class="col-md-6 col-sm-6 col-xs-12 form-group pull-center top_search">
 	                  <div class="input-group">
 	                    <input type="text" class="form-control" id="bcdText" placeholder="입고바코드입력..">
 	                    <span class="input-group-btn">
@@ -240,7 +253,7 @@
 	                    </span>
 	                  </div>
 	                </div>
-	                 <div class="clearfix"></div>
+	                 <div class="clearfix"></div> -->
                     <div class="table-responsive">
                       <table id="tblReqIN" class="table table-striped jambo_table">
                         <thead>
