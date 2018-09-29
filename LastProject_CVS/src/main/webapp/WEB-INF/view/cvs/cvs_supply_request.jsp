@@ -49,8 +49,7 @@
 	    					$("#datatable-buttons2 > tbody").append('<tr class="evenpointer2" data-class="'+responseData.prod_id +'" name="requestTr">'+
 	    																'<td>'+responseData.prod_name+'</td>'+
 	    																'<td>'+responseData.prod_price+'</td>'+
-	    																'<td><input type="number" name="amount" class="amount"></td>'+
-	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
+	    																'<td><input type="number" name="amount" class="amount" value="0"></td>'+
 	    															+'</tr>');
 	    			}
 	    		});
@@ -79,7 +78,6 @@
 	    					$("#datatable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
 	    																'<td>'+item.prod_name+'</td>'+
 	    																'<td>'+item.prod_price+'</td>'+
-	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
 	    															+'</tr>'
 							);
 	    				})
@@ -89,7 +87,6 @@
  //------------------------------------------------------------------------------------------------
  			//중분류 선택,  중분류에 해당하는 상품목록 테이블처리
     		$("select[name=mdCtgyBtn]").on("change", function(){
-    			alert($("select[name=mdCtgyBtn]").val());
     			
     			var mdC = $("select[name=mdCtgyBtn]").val();
     			$.ajax({
@@ -104,7 +101,6 @@
 	    					$("#datatable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
 	    																'<td>'+item.prod_name+'</td>'+
 	    																'<td>'+item.prod_price+'</td>'+
-	    																'<td> <a href="cvs_invoice.html">View</a> </td>'+
 	    															+'</tr>'
 							);
 	    				})
@@ -119,6 +115,10 @@
     			$("tr[name=requestTr]").each( function(){
     				var trElement = $(this);
     				var td = trElement.find(".amount").val();
+    				if(td == "0"){
+    					alert(" 수량을 기입해주세요 ");
+	    				off();
+    				}
     				var prod_id = $(this).data("class");
     				console.log("td----"+td);
     				console.log("prod_id----"+prod_id);
@@ -169,18 +169,6 @@
                 <h3>발주 <small>현재 재고 확인 후 발주 신청</small></h3>
               </div>
 
-           	<form action="/cvs/searchProd" method="get">
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-9 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for..." name="searchTxt" id="searchTxt">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button" id="search">검색</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-           	</form>
             </div>
 
             <div class="clearfix"></div>
@@ -191,32 +179,19 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>제품<small>All products</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
                     <p class="text-muted font-13 m-b-30">
                       	<div class="btn-group open" id="ctgy">
-						  <select class="btn btn-primary" name="lgCtgyBtn">대분류
+						  <select class="btn btn-primary" name="lgCtgyBtn" >
+						  	<option value="" disabled selected hidden>선택하세요</option>
 						  	<c:forEach items="${lgCtgy }" var="ctgy">
 						  		<option value="${ctgy.ctgy_id}">${ctgy.ctgy_name}</option>
 						  	</c:forEach>
 						  </select>
 						  <select class="btn btn-primary" name="mdCtgyBtn">
+						  	<option value="" disabled selected hidden>선택하세요</option>
 						  </select>
 						</div>
                     </p>
@@ -248,21 +223,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>발주 신청<small>Request Lists</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
