@@ -404,8 +404,8 @@ FROM   (
                 </if> 
              )a
 		)
- --WHERE cnt BETWEEN (1-1)*10+1 AND 1*10
-WHERE cnt BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize}
+<!--  WHERE cnt BETWEEN (1-1)*10+1 AND 1*10 -->
+<!-- WHERE cnt BETWEEN (#{page}-1) * #{pageSize} + 1 AND #{page} * #{pageSize} -->
 
 </select>
 
@@ -479,14 +479,27 @@ INSERT INTO PROD (PROD_ID, PROD_NAME, PROD_INTRO, PROD_INFO, PROD_PRICE, PROD_EX
 <!-- 	아 이 디 : setProdUpdate
   		반 환 값 : 
   		매개변수 : prodVo
-  		설    명 : 제품 delete
+  		설    명 : 제품 
   		작 성 자 : 조종원
   		일    시 : 2018-09-27 
 -->
-<delete id="setProdUpdate" parameterType="prodVo">
-	UPDATE PROD
-	SET		
-	WHERE  PROD_ID = #{prod_id}
-</delete>
+
+<update id="setProdUpdate" parameterType="prodVo">
+UPDATE PROD 
+SET    PROD_NAME 	= #{prod_name}
+<!--       ,PROD_INTRO   = #{prod_intro} -->
+      ,PROD_INFO    = #{prod_info}
+      ,PROD_PRICE   = #{prod_price}
+      ,PROD_EXNUM   = #{prod_exnum}
+      
+      ,FILE_PATH    = #{file_path}
+      ,FILE_UPNAME  = #{file_upname}
+      
+      ,PR_CLASS_LG  = #{pr_class_lg}
+      ,PR_CLASS_MD  = #{pr_class_md}
+      ,EVENT_ID     = #{event_id}
+      ,PROD_COST    = #{prod_cost}
+WHERE  PROD_ID 		= #{prod_id} 
+</update>
 
 </mapper>
