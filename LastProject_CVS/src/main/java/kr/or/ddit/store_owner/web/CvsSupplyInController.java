@@ -15,7 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
@@ -193,9 +196,10 @@ public class CvsSupplyInController {
 	 * @return 
 	 * Method 설명 : 발주리스트 상세보기
 	 */
-	@RequestMapping(value="/supplyDetail" )
-	public String cvsSupplyDetail(String supply_bcd, Model model){
+	@RequestMapping(value="/supplyDetail", method=RequestMethod.POST )
+	public String cvsSupplyDetail(String supply_bcd, String state, Model model){
 		logger.debug("supply_bcd === " + supply_bcd);	
+		logger.debug("state === " + state);	
 		
 		//발주상세내역
 		List<SupplyProdInfoVo> supplyList= supplyService.getSplyProdByBcdid(supply_bcd);
@@ -213,10 +217,19 @@ public class CvsSupplyInController {
 		model.addAttribute("supply_date",supply_date);
 		model.addAttribute("supplyMemInfo",supplyMemInfo);
 		model.addAttribute("sum",sum);
+		model.addAttribute("state",state);
 		
 		return "cvs_invoice";
 	}
 	
-	
+	@RequestMapping("/supplyIn/search")
+	@ResponseBody
+	public ModelAndView searchSupplyInList(@RequestParam(value="bcdText")String supply_bcd, Model model){
+		ModelAndView mav = new ModelAndView("jsonView");
+		List<SupplyListVo> supplyList = supplyService.getListSupply(supply_bcd);
+		mav.addObject("supplyList", supplyList);
+		logger.debug("bcdText-----"+supply_bcd);
+		return mav;
+	}
 	
 }
