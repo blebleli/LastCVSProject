@@ -137,6 +137,11 @@
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_supply_request_list.jsp"/>
 	</definition>
 	
+	<!-- 발주 상세 내역 -->
+	<definition name="cvs_req_detail" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_supply_request_detail.jsp"/>
+	</definition>
+	
 	<!--  마감 -->
 	<definition name="cvs_dayend" extends="cvs_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_dayend.jsp"/>
@@ -161,6 +166,7 @@
 	<definition name="cvs_chart" extends="cvs_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_chart.jsp"/>
 	</definition>
+	
 	
 	<!-- 관리자 레이아웃======================================================= -->
 	<definition name="ad_basicLayout" template="/WEB-INF/view/common/admin/ad_basicLayout.jsp">
