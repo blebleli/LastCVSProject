@@ -117,6 +117,16 @@
    </div>     
         <!-- /page content -->
 	<script>
+	$(document).ready(function(){
+		$('#stockTable').DataTable({
+			"scrollY":        "380px",
+			"lengthMenu": [[5,10], [5,10]],
+		    "columnDefs": [{ "width": "18%" , "targets": 3 }]
+		});
+		
+	});
+	
+	
   	var table = null;
 	
 	
@@ -152,6 +162,7 @@
 				});
 	
 				table = $('#stockListTable').DataTable({
+				  "scrollY":        "380px",
 				  "columnDefs": [
 					  { "width": "5%", "targets": 0 },            
 				      { "width": "20%", "targets": 1 },
