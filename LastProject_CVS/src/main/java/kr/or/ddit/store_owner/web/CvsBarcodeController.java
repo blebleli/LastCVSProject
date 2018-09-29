@@ -13,21 +13,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
-import kr.or.ddit.commons.service.AutoCodeCreate;
-import kr.or.ddit.model.SupplyListVo;
-import kr.or.ddit.model.SupplyVo;
-import kr.or.ddit.store_owner.model.PresentStockListVo;
-import kr.or.ddit.store_owner.stock.service.StockServiceInf;
-import kr.or.ddit.supply.model.SupplyProdVo_back;
-import kr.or.ddit.supply.model.SupplyScanInfoVo;
-import kr.or.ddit.supply.service.SupplyServiceInf;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,6 +29,12 @@ import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+
+import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.model.SupplyListVo;
+import kr.or.ddit.store_owner.model.PresentStockListVo;
+import kr.or.ddit.store_owner.stock.service.StockServiceInf;
+import kr.or.ddit.supply.service.SupplyServiceInf;
 
 /**
  * 담당 -- 한수정

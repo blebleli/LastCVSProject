@@ -4,11 +4,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
@@ -18,24 +25,9 @@ import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
-import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
-import kr.or.ddit.supply.model.SupplyProdVo;
-import kr.or.ddit.supply.model.SupplyProdVo_back;
-import kr.or.ddit.supply.model.SupplyScanInfoVo;
-import kr.or.ddit.supply.model.SupplySumProdVo;
+import kr.or.ddit.supply.model.SupplyProdInfoVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * 담당 -- 조계환
@@ -206,7 +198,7 @@ public class CvsSupplyInController {
 		logger.debug("supply_bcd === " + supply_bcd);	
 		
 		//발주상세내역
-		List<SupplyProdVo> supplyList= supplyService.getSplyProdByBcdid(supply_bcd);
+		List<SupplyProdInfoVo> supplyList= supplyService.getSplyProdByBcdid(supply_bcd);
 		model.addAttribute("supplyList",supplyList);
 		
 		Date supply_date = supplyList.get(0).getSupply_date();

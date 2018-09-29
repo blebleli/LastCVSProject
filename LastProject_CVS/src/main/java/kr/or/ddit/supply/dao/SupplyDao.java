@@ -13,6 +13,7 @@ import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplyProdInfoVo;
 import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.model.SupplySumProdVo;
 
@@ -281,6 +282,20 @@ public class SupplyDao implements SupplyDaoInf {
 	public List<SupplyProdVo> reqDetail(String supply_bcd) {
 		return template.selectList("supply.reqDetail", supply_bcd);
 	}
-	
+
+	/**
+	 * 
+	 * Method   : getSplyProdByBcdid 
+	 * 최초작성일  : 2018. 9. 28. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param supply_bcd
+	 * @return 
+	 * Method 설명 :
+	 */
+	@Override
+	public List<SupplyProdInfoVo> getSplyProdByBcdid(String supply_bcd) {
+		return template.selectList("supply.getSplyProdByBcdid", supply_bcd);
+	}
 
 }

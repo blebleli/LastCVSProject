@@ -10,6 +10,7 @@ import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
+import kr.or.ddit.supply.model.SupplyProdInfoVo;
 import kr.or.ddit.supply.model.SupplyScanInfoVo;
 import kr.or.ddit.supply.model.SupplySumProdVo;
 
@@ -296,5 +297,17 @@ public interface SupplyDaoInf {
 	* @return List<SupplyProdVo>
 	*/
 	List<SupplyProdVo> reqDetail(String supply_bcd);
+
+	/**
+	 * 
+	 * Method   : getSplyProdByBcdid 
+	 * 최초작성일  : 2018. 9. 28. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param supply_bcd
+	 * @return 
+	 * Method 설명 : supply id로 해당상품정보를 검색하는 기능
+	 */
+	List<SupplyProdInfoVo> getSplyProdByBcdid (String supply_bcd);
 	
 }
