@@ -346,7 +346,7 @@
 		       ,M.MEM_INTRO        -- 매장소개
 		       ,M.MEM_X            -- 매장X좌표
 		       ,M.MEM_Y            -- 매장Y좌표
-		       ,SL.STCKLIST_ID     -- 재고리스트코드
+		       ,SL.BCD_ID     -- 재고리스트코드
 		       ,SL.STCKLIST_AMOUNT -- 수량
 		       ,SL.STCK_DATE       -- 날짜
 		       ,SL.STCKLIST_INFO   -- 비고

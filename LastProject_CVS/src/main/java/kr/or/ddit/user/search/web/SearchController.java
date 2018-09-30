@@ -1,17 +1,13 @@
 package kr.or.ddit.user.search.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
-import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
-import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
 import kr.or.ddit.user.search.model.CvsSearchVo;
 import kr.or.ddit.user.search.service.CvsSearchServiceInf;
 
