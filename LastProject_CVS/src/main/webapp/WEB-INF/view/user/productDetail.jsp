@@ -37,6 +37,42 @@
     
     <script>
     $(function(){
+    	
+    	var isEmpty = function(value){
+    		if(    value == "" || value == null || value == undefined 
+    		   || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+    			return true 
+    		}else{ 
+    			return false 
+    		}
+    	}
+    	
+    	$("#boardInsert").on("click", function(){
+    		var  mem_id = $("#mem_id").val();
+    		
+    		if (isEmpty(mem_id)) {
+    			if (confirm("로그인 후 이용 가능합니다. \n 로그인 하시겠습니까?")){
+    				location.href="/login/loginView";
+    			} else {
+    				return;
+    			}
+    		}
+    		
+    		var rat = $(":input:radio[name=rat]:checked").val();
+    		var bd_title = $("#bd_title").val();
+			var bd_content = $("#bd_content").val();
+			$("#bd_rating").val(rat);
+
+			
+			alert(rat + "\n" + bd_title + "\n" + bd_content + "\n" + $("#bd_rating").val()+ "\n" + $("#prod_id").val()+ "\n" + $("#mem_id").val());
+			
+			$("#frm").submit();
+			
+			
+    		
+    		
+    	});
+    	
     	$(".tbl-accordion-nested").each(function() {
     		  var thead = $(this).find("thead");
     		  var tbody = $(this).find("tbody");
@@ -155,20 +191,20 @@
 											<br />
 											<div class="col-md-8 w3agile_event_grid_right">
 												<!-- 평점 -->
-												<div class="rating2" style="float: right;">
-													<span class="starRating"> 
-														<input id="rating5" type="radio" name="rating2" value="5">
-														<label for="rating5">5</label>
-														<input id="rating4" type="radio" name="rating2" value="4">
-														<label for="rating4">4</label>
-														<input id="rating3" type="radio" name="rating2" value="3" checked>
-														<label for="rating3">3</label>
-														<input id="rating2" type="radio" name="rating2" value="2">
-														<label for="rating2">2</label>
-														<input id="rating1" type="radio" name="rating2" value="1">
-														<label for="rating1">1</label>
-													</span>
-												</div>
+<!-- 												<div class="rating2" style="float: right;"> -->
+<!-- 													<span class="starRating">  -->
+<!-- 														<input id="rating5" type="radio" name="rating2" value="5"> -->
+<!-- 														<label for="rating5">5</label> -->
+<!-- 														<input id="rating4" type="radio" name="rating2" value="4"> -->
+<!-- 														<label for="rating4">4</label> -->
+<!-- 														<input id="rating3" type="radio" name="rating2" value="3" checked> -->
+<!-- 														<label for="rating3">3</label> -->
+<!-- 														<input id="rating2" type="radio" name="rating2" value="2"> -->
+<!-- 														<label for="rating2">2</label> -->
+<!-- 														<input id="rating1" type="radio" name="rating2" value="1"> -->
+<!-- 														<label for="rating1">1</label> -->
+<!-- 													</span> -->
+<!-- 												</div> -->
 												<h4>${review.bd_title }(제목)</h4>
 												<p>(내용)${review.bd_content }</p>
 											</div>
@@ -189,48 +225,49 @@
           <div class="x_content">
             <br>
             
-            <form id="frm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="/adprod/prodUpdate" enctype="multipart/form-data">
-            	<input type="hidden" name="prod_id" value="${prodVo.prod_id}">
-            	<input type="hidden" name="file_path" value="${prodVo.file_path}">
-            	<input type="hidden" name="file_upname" value="${prodVo.file_upname}">
-				
-			  <div class="form-group">
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">구분</label>
+            <form id="frm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="/review/write" enctype="multipart/form-data">
+            	<input type="hidden" id="prod_id" name="prod_id" value="${prod.prod_id}">
+            	<input type="hidden" id="bd_rating" name="bd_rating" value="">
+            	<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
+            	<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="55">
+              
+              <div class="form-group">
+              
+              	<label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">평점</label>
+              	<div class="rating" class="col-md-6 col-sm-6 col-xs-12">
+					<span class="rating"> 
+						<input id="rating1" type="radio" name="rat" value="1">
+						<label for="rating1">1</label>
+						<input id="rating2" type="radio" name="rat" value="2">
+						<label for="rating2">2</label>
+						<input id="rating3" type="radio" name="rat" value="3" >
+						<label for="rating3">3</label>
+						<input id="rating4" type="radio" name="rat" value="4">
+						<label for="rating4">4</label>
+						<input id="rating5" type="radio" name="rat" value="5">
+						<label for="rating5">5</label>
+					</span>
+				</div>
+              </div>
+              
+              <div class="form-group">
+                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">제목</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input id="bd_title" class="form-control col-md-7 col-xs-12" type="text" name="bd_title" data-parsley-id="9" value="${prodVo.prod_cost }">
+                </div>
+              </div>
+              
+              <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">내용</label>
-              </div>
-              
-              <div class="form-group">
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">단가</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_cost }</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prod_cost" data-parsley-id="9" value="${prodVo.prod_cost }">
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">정가</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_price }</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prod_price" data-parsley-id="9" value="${prodVo.prod_price }">
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">유통기한</label>
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align:center;">${prodVo.prod_exnum }</label>
-                <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:center;">
-                  <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="prod_exnum" data-parsley-id="9" value="${prodVo.prod_exnum }">
+                	<textarea rows="" cols="" id="bd_content" name="bd_content" data-parsley-id="9" class="form-control col-md-7 col-xs-12"></textarea>
                 </div>
               </div>
               
               <div class="form-group">
                 <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">사진</label>
                 <div class="col-md-3 col-sm-3 col-xs-12">
-					<img src="${prodVo.file_path }/${prodVo.file_upname}" width="150px;" height="150px;">
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                	<img id="imgPic" src="${prodVo.file_path }/${prodVo.file_upname}" width="150px;" height="150px;">
-                	<input type="file" id="upload_file" name="upload_file" required="required" class="form-control col-md-7 col-xs-12" onchange="fn_loadImg(this);">
+                	<input type="file" id="fileList" name="fileList" required="required" class="form-control col-md-7 col-xs-12" onchange="fn_loadImg(this);">
                 </div>
               </div>
               
@@ -238,7 +275,7 @@
               <div class="form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 				  <button class="btn btn-primary" type="reset">초기화</button>
-                  <button type="submit" class="btn btn-success">수정</button>
+                  <button type="button" id="boardInsert" class="btn btn-success">등록</button>
                 </div>
               </div>
 
