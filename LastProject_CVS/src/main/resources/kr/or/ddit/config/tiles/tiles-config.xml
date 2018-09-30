@@ -109,7 +109,7 @@
 	
 	<!--  입고인식 -->
 	<definition name="cvs_barcode_read" extends="cvs_basicLayout">
-	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_barcode_read.jsp"/>
+	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_request_In_barcode.jsp"/>
 	</definition>
 	
 	<!--  현재재고-->
