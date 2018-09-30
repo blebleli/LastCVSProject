@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.board.service.BoardServiceInf;
+import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 
@@ -29,25 +30,23 @@ public class ReviewController {
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
 	
+	@Resource(name="autoCodeCreate")
+	AutoCodeCreate autoCodeCreate;
+	
 	//리뷰작성
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public ModelAndView writeReview(@RequestParam(value="prod_id")String prod_id, @RequestParam(value="reviewCont")String reviewCont, @RequestParam(value="rating")int rating, Model model){
-		ModelAndView mav = new ModelAndView();
-		BoardVo review = new BoardVo();
-		String title = reviewCont.substring(0, 3);
-		Map modelMap = model.asMap();
-		MemberVo user = (MemberVo) modelMap.get("userInfo");
-		logger.debug("userInfo"+user);
-		review.setBd_id("NOTICE0000000046");
-		review.setBd_title(title);
-		review.setBd_content(reviewCont);
-		review.setProd_id(prod_id);
-		review.setBd_del("N");
-		review.setBd_rating(rating);
+	public ModelAndView writeReview(BoardVo review, Model model){
 		
-		review.setMem_id(user.getMem_id());
-		boardService.insertReview(review);
-		mav.addObject("prod_id", prod_id);
+		logger.debug("writeReview===========================================");
+		ModelAndView mav = new ModelAndView();
+//
+		String bd_id = autoCodeCreate.autoCode("BRE");
+		review.setBd_id(bd_id);
+		review.setBd_del("N");
+		logger.debug("review ==> {} ", review);
+		
+		boardService.setInsertBoard(review);
+		mav.addObject("prod_id", review.getProd_id());
 		mav.setViewName("redirect:/userProd/detail");
 		return mav;
 	}
