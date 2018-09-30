@@ -244,8 +244,8 @@ var content="";
 		$("#searchList li").on("click",function(){
 			// 해당 제품 id 가져옴
 			var prod_id = $("#searchList li [name=prod_id]").val();
-			//String x = "";
-        	//String y = "";
+			var x ;
+        	var y ;
 		    $.ajax({
 		        type:"get",
 		        url:"search/storeSearch",
@@ -257,8 +257,8 @@ var content="";
 		        	 $.each(data,function(index,item){
 						// 리턴 받은 값 (좌표) set
 						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
-// 						x = item.mem_x+"";
-// 						y = item.mem_y+"";
+						x = item.mem_x;
+						y = item.mem_y;
 						
 // 						alert(item.mem_x + " : " + item.mem_y);
 						// 커스텀 오버레이에 표시할 컨텐츠 입니다
@@ -306,10 +306,10 @@ var content="";
 		        	
 		        	// 맨 마지막 편의점으로 이동
 		        	// 이동할 위도 경도 위치를 생성합니다 
-// 	        	    var moveLatLon = new daum.maps.LatLng(y, x);
+	        	    var moveLatLon = new daum.maps.LatLng(y, x);
 	        	    
 	        	    // 지도 중심을 이동 시킵니다
-	        	    //map.setCenter(moveLatLon);
+	        	    map.setCenter(moveLatLon);
 
 		        	
 		        }
