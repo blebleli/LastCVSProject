@@ -56,8 +56,7 @@ public class AdboardController {
 							  @RequestParam(value="i_search", defaultValue="") String i_search,
 							  @RequestParam(value="btnChk", defaultValue="") String bd_kind_id1,
 							  @RequestParam(value="bd_kind_id3", defaultValue="") String bd_kind_id, Model model){
-		System.out.println("ctgy_name : "+i);
-		System.out.println("bd_kind_id >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+bd_kind_id);
+
 		BoardVo boardVo = new BoardVo();
 		List<BoardVo> boardList = null;
 		
@@ -78,7 +77,7 @@ public class AdboardController {
 			boardVo.setMem_name(i_search);
 			boardList = boardService.boardSearch(boardVo);
 		}
-		logger.debug("boardList >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> {} ",boardList);
+
 		model.addAttribute("i", i);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("bd_kind_id",bd_kind_id);
@@ -105,10 +104,9 @@ public class AdboardController {
 		categoryVo.setCtgy_kind(ctgy_kind);
 		categoryVo.setCtgy_parent(ctgy_parent);
 		List<CategoryVo> categoryList = adminProdService.getProdCategory(categoryVo);
-//		logger.debug("카테고리 ========================>> {} "+categoryVo.getCtgy_kind());
+
 		List<BoardVo> boardList = boardService.getBoardPageList2(bd_kind_id);
-//		logger.debug("categoryVo =========> {} ", categoryList);
-//		System.out.println("bd_kind_id : "+bd_kind_id);
+
 		logger.debug("boardList ===========>>> {} ", boardList);
 		// 카테고리 전체 조회
 		model.addAttribute("bd_kind_id", bd_kind_id);
@@ -228,17 +226,7 @@ public class AdboardController {
 							  @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2, Model model){
 		BoardVo b = boardService.getBoard(bd_id); // 게시판 코드(bd_id)로 게시글 상세조회를 한다.
 		List<CommentsVo> cList = boardService.getListComments(bd_id); // 게시판 코드(bd_id)로 게시글 내 전체 댓글을 조회한다.
-//		List<FiledataVo> FList = fileService.getFiledata(bd_id); // 게시판 코드(bd_id)로 해당 첨부파일 전체를 조회한다.
-		List<FiledataVo> FList = new ArrayList<FiledataVo>();
-		FiledataVo F = new FiledataVo();
-		F.setFile_name("isfilename");
-		F.setBd_id("11");
-		F.setFile_path("isPath");
-		F.setFile_upname("isUUID");
-		F.setMem_id("isMemId");
-		FList.add(F);
-		logger.debug("FList ====> {}", FList);
-		logger.debug("FList ===>> {}",FList.size());
+		List<FiledataVo> FList = fileService.getFiledata(bd_id); // 게시판 코드(bd_id)로 해당 첨부파일 전체를 조회한다.
 		model.addAttribute("bd_id", bd_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);
 		model.addAttribute("b", b); // model에 저장한다.

@@ -219,10 +219,10 @@
 						
 													
 					<table class="table table-striped table-hover" id="reply_area">
-						<form id="delete" action="/adboard/commentsDel" method="post">				
 						<c:forEach items="${cList}" var="vo">
 						
 						<!-- 댓글 조회 -->
+						<form id="delete" action="/adboard/commentsDel" method="post">				
 						<tr id="comment">
 							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
 							
@@ -250,11 +250,12 @@
 									</c:if>
 									</span>
 							
-<!-- 							<form name="form3" action="board6ReplySave" method="post"> -->
+
 									<span style="float: right;100%">
 									<button id="commentsUpd" style="font-size:12px" class="btn btn-default">수정</button>
 									<button type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="cm_id">삭제</button>								
 									</span>
+											<input type="hidden" id="cm_id" name="cm_id" value="${vo.cm_id}"> 
 							</td>								
 						</tr>
 						
@@ -263,9 +264,8 @@
 						</tr>
 						
 						</c:forEach>
-						
-											<input type="hidden" id="cm_id" name="cm_id" value="${vo.cm_id}"> 
 					</form>
+						
 						
 						<!-- 댓글 작성 -->
 						<tr>
