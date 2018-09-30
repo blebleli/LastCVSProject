@@ -32,11 +32,22 @@ function categoryPopup(){
 
 function eventPopup(){
 	var url="/adprod/eventPopup";
-    window.open(url,"이벤트추가","width=800,height=450,left=500, top=100");
+	
+	$.ajax({
+		url : "/adprod/eventPopup",
+		datatype : "html",
+		success:function(responseData){
+			console.log("성공");
+			 $('#testDiv').html(responseData);
+		}
+	});
+	
+    //window.open(url,"이벤트추가","width=800,height=450,left=500, top=100");
 }
 
 function prodPopup(){
 	var url="/adprod/prodPopup";
+	
     window.open(url,"제품추가","width=800,height=450,left=500, top=100");
 }
 
@@ -99,11 +110,29 @@ function fn_prodUp(prod_id){
 										<button class="btn btn-default" id="categoryBtn" onclick="categoryPopup();">
 											<i class="fa fa-print"></i> 카테고리 등록
 										</button>
-										
-										<button class="btn btn-default" id="eventBtn" onclick="eventPopup();">
+										<!-- 
+										 <button class="btn btn-default" id="eventBtn" onclick="eventPopup();">
 											<i class="fa fa-print"></i> 행사 등록
-										</button>
+										</button> -->
 										
+										
+										<!-- modal test ============================================ -->
+										<button type="button" id="eventBtn" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="eventPopup();">
+										<i class="fa fa-print"></i>
+										행사 등록</button>
+
+										<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										  <div class="modal-dialog modal-lg">
+										    <div id="testDiv" class="modal-content">
+										      
+										   
+
+										    </div>
+										  </div>
+										</div>
+										
+										<!-- modal test ============================== -->
+																				
 										<button class="btn btn-default" id="prodBtn" onclick="prodPopup();">
 											<i class="fa fa-print"></i> 제품 등록
 										</button>

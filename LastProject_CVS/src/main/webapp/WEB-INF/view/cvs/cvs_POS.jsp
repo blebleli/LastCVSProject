@@ -76,6 +76,7 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
 .culcBtn.number {
   background-color: #efefef;
 }
@@ -106,7 +107,11 @@
   font-size: 50px;
   color: #286090;
 }
-
+.subtot_text{
+ text-align: right;
+  font-size: 50px;
+  color: #efefef;
+}
 #saleTable td{
 	text-align: right;
 }
@@ -539,18 +544,19 @@
 				      </tr>
 				      <tr>
 				        <td><button class="culcBtn number">받을<br>금액</button></td>
-				        <td><b><span id="subtot_sum" class="subtot_sum"></span></b>원</td>
+				        <td><b class="subtot_text"><span id="subtot_sum" class="subtot_sum"></span>원</b></td>
 				      </tr> 
 				      <tr>
 				        <td><button class="culcBtn number">받은<br>금액</button></td>
 				     	<td><div class="input-box">
-						    <input id="received" class="numInput" type="number" placeholder="0">원
+						    <input id="received" class="numInput" type="number" placeholder="0">
+						    <b class="subtot_text">원</b>
 						  </div>
 						</td>
 				      </tr>
 				      <tr>
 				       	<td><button class="culcBtn number">거스<br>름돈</button></td>
-				     	<td><b><span id="change" class="subtot_sum"></span>원</b></td>
+				     	<td><b class="subtot_text"><span id="change" class="subtot_sum"></span>원</b></td>
 				      </tr>
 				    </tbody>
 				  </table>
