@@ -17,10 +17,12 @@ import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.filedata.FileUtil;
 import kr.or.ddit.filedata.service.FileServiceInf;
+
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
+
 
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -247,7 +249,9 @@ public class AdboardController {
 	 */
 	@RequestMapping("/boardUpdateGo")
 	public String boardUpdateGo(@RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){		
-		BoardVo boardVo = boardService.getBoard(bd_id); // 게시코드로 게시글 정보 조회	
+		BoardVo boardVo = boardService.getBoard(bd_id); // 게시코드로 게시글 정보 조회
+		List<FiledataVo> FList = fileService.getFiledata(bd_id);
+		model.addAttribute("FList", FList);
 		model.addAttribute("boardVo", boardVo); // model에 저장한다.		
 		return "ad_boardUpdate"; // 게시글 수정화면으로 이동
 	}
@@ -305,11 +309,46 @@ public class AdboardController {
 				
 				}
 			} // for
-			return "redirect:/adboard/adboard/boardDetail?id="+b.getBd_id(); // 게시글 상세조회 화면으로 이동
+			return "redirect:/adboard/boardDetail?id="+b.getBd_id(); // 게시글 상세조회 화면으로 이동
 		}else{
 			return "ad_index"; // 실패시 관리자 메인화면으로 이동
 		}
 	}
+
+	/**
+	 * Method : deleteFiles
+	 * 최초작성일 : 2018. 9. 30.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param bd_id
+	 * @param file_id
+	 * @param fvo
+	 * @param model
+	 * @return
+	 * Method 설명 : 게시글 내 파일 삭제
+	 */
+	@RequestMapping("/deleteFiles") // 게시글 내 파일 삭제..
+	public String deleteFiles(@RequestParam("bd_id") String bd_id,
+							  FiledataVo fvo, Model model){
+		
+		BoardVo boardVo = boardService.getBoard(bd_id);
+		List<FiledataVo> filesVo = fileService.getFiledata(bd_id); // 첨부파일 조회
+		System.out.println(fvo.getFile_id());
+		
+		model.addAttribute("bd_id",bd_id);
+		model.addAttribute("boardVo", boardVo);
+		model.addAttribute("filesVo", filesVo);
+		
+		int cnt = fileService.deleteFileBoard(fvo);
+		
+		if(cnt > 0){
+			System.out.println("파일 삭제 완료");
+			return "redirect:/adboard/boardUpdateGo?bd_id="+bd_id;
+		}else{
+			System.out.println("파일 삭제 실패");
+			return "redirect:/adboard/boardDetail?bd_id="+bd_id;
+		}
+	} // deleteFiles
 	
 	/**
 	 * Method : boardDel

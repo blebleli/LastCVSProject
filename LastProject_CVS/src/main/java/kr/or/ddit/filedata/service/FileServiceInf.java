@@ -50,6 +50,8 @@ public interface FileServiceInf {
 	 */
 	int insertFileBoard(FiledataVo fileVo);
 	
+	int deleteFileBoard(FiledataVo fileVo);	
+	
 	/**
 	 * Method : getFiledata
 	 * 최초작성일 : 2018. 9. 22.

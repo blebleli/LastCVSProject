@@ -57,7 +57,7 @@
 									<label for="middle-name"
 										class="control-label col-md-3 col-sm-3 col-xs-12">내용</label>
 									<div class="col-md-6 col-sm-6 col-xs-12">
-										<textarea name="smarteditor" id="smarteditor" rows="10" cols="100"
+										<textarea name="bd_content" id="smarteditor" rows="10" cols="100"
 											style="width: 760px; height: 412px;">${boardVo.bd_content }</textarea>
 									</div>
 								</div>
@@ -67,8 +67,9 @@
 									<label for="f_name"
 										class="control-label col-md-3 col-sm-3 col-xs-12">첨부파일</label>
 									<div id="w_cntLabel" class="col-md-6 col-sm-6 col-xs-12">
+
 										<div id="addfile">
-											<input type="file" name="f_name[0]" id="f_name"
+											<input type="file" name="file_name" id="file_name"
 												multiple="multiple">
 										</div>
 										<input type="button" name="plusfileBtn" id="plusfileBtn"
@@ -86,69 +87,93 @@
 								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${boardVo.bd_kind_id }">
 								<input type="hidden" id="bd_id" name="bd_id" value="${boardVo.bd_id }">
 							</form>
+							
+						<!-- 파일삭제 Form -->
+					   <form id="frm_file" action="/adboard/deleteFiles" method="post">
+					      <input type="hidden" name="file_id"    /> <!-- 파일 코드 -->
+					      <input type="hidden" name="file_name"    /> <!-- 파일명 -->
+					      <input type="hidden" name="file_upname"    /> <!-- 파일 UUID -->       
+					      <input type="hidden" name="bd_id" value="bd_id" /> <!-- 게시글 번호 -->
+					      <input type="hidden" name="mem_id" value="mem_id" /> <!-- 게시글 번호 -->
+					   </form>
+
 						</div>
+						
+						  
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->
 		
 					</div>
 		
 					<!-- 첨부파일 및 게시글 등록 -->
 					<script type="text/javascript">
+					
+					function fn_div(id, file_name, file_upname, bd_id){
+						$("div [id="+id+"]").hide();
 						
-							// 첨부파일 추가/삭제 버튼(editor 소스보다 위에 있어야 함)						
-							 $("#plusfileBtn").on("click", function() {
-						         var fileLen = $("div#addfile input[id=f_name]").size();
-						         if(fileLen == 5) {
-						            alert("첨부파일은 5개이상 추가할 수 없습니다.");
-						            return false;
-						         }
-						         $("div#addfile").append($("<input type='file' id=f_name name='f_name["+fileLen+"]' multiple='multiple' />"));
-						      });
-							
-							// editor
-							var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
-							
-							$(function() {
-								// Editor Setting
-								nhn.husky.EZCreator.createInIFrame({
-									oAppRef : oEditors, // 전역변수 명과 동일해야 함.
-									elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
-									sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
-									fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
-									htParams : {
-										// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseToolbar : true,
-										// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseVerticalResizer : true,
-										// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-										bUseModeChanger : true, 
-									}
-								});
-							
-								// 전송버튼 클릭이벤트
-								$("#savebutton").click(function(){
-									if(confirm("저장하시겠습니까?")) {
-										// id가 smarteditor인 textarea에 에디터에서 대입
-										oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-										
-										// 이부분에 에디터 validation 검증
-										if(validation()) {
-											$("#frmInsert").submit();
-										}
-									}
-								});
-							});
-							
-							// 필수값 Check
-							function validation(){
-								var contents = $.trim(oEditors[0].getContents());
-								if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
-									alert("내용을 입력하세요.");
-									oEditors.getById['smarteditor'].exec('FOCUS');
-									return false;
+					    var file_name = $("#frm_file input[name=file_id]").val(id); // 파일 번호
+					    $("#frm_file input[name=file_name]").val(file_name); // 파일 경로
+					    $("#frm_file input[name=file_upname]").val(file_upname); // 파일 업로드한 명
+					    $("#frm_file input[name=bd_id]").val(bd_id);
+					    
+					    alert(file_name);
+					    
+// 					    $("#frm_file").submit();
+					}
+						
+					// 첨부파일 추가/삭제 버튼(editor 소스보다 위에 있어야 함)						
+				 $("#plusfileBtn").on("click", function() {
+			         var fileLen = $("div#addfile input[id=file_name]").size();
+			         if(fileLen == 5) {
+			            alert("첨부파일은 5개이상 추가할 수 없습니다.");
+			            return false;
+			         }
+			         $("div#addfile").append($("<input type='file' id='file_name' name='file_name' multiple='multiple' />"));
+			      });
+					
+						// editor
+						var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.
+						
+						$(function() {
+							// Editor Setting
+							nhn.husky.EZCreator.createInIFrame({
+								oAppRef : oEditors, // 전역변수 명과 동일해야 함.
+								elPlaceHolder : "smarteditor", // 에디터가 그려질 textarea ID 값과 동일 해야 함.
+								sSkinURI : "/SE2/SmartEditor2Skin.html", // Editor HTML
+								fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
+								htParams : {
+									// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+									bUseToolbar : true,
+									// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+									bUseVerticalResizer : true,
+									// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+									bUseModeChanger : true, 
 								}
-							
-								return true;
-							}						
+							});
+						
+							// 전송버튼 클릭이벤트
+							$("#savebutton").click(function(){
+								if(confirm("저장하시겠습니까?")) {
+									// id가 smarteditor인 textarea에 에디터에서 대입
+									oEditors.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+									
+									// 이부분에 에디터 validation 검증
+									if(validation()) {
+										$("#frmInsert").submit();
+									}
+								}
+							});
+						});
+						
+						// 필수값 Check
+						function validation(){
+							var contents = $.trim(oEditors[0].getContents());
+							if(contents === '<p>&nbsp;</p>' || contents === ''){ // 기본적으로 아무것도 입력하지 않아도 <p>&nbsp;</p> 값이 입력되어 있음. 
+								alert("내용을 입력하세요.");
+								oEditors.getById['smarteditor'].exec('FOCUS');
+								return false;
+							}							
+							return true;
+						}
 					</script>
 				</div>
 			</div>

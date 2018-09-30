@@ -74,6 +74,11 @@ public class FileDao implements FileDaoInf {
 	public int insertFileBoard(FiledataVo fileVo) {
 		return template.insert("filedata.insertFileBoard",fileVo);
 	}
+	
+	@Override
+	public int deleteFileBoard(FiledataVo fileVo) {
+		return template.insert("filedata.deleteFileBoard", fileVo);
+	}	
 
 	/**
 	 * Method : getFiledata

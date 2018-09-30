@@ -50,6 +50,8 @@ public interface FileDaoInf {
 	 * Method 설명 : 게시판 파일 첨부
 	 */
 	int insertFileBoard(FiledataVo fileVo);
+
+	int deleteFileBoard(FiledataVo fileVo);
 	
 	/**
 	 * Method : getFiledata

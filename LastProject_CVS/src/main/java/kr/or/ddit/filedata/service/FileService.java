@@ -73,6 +73,11 @@ public class FileService implements FileServiceInf {
 		return fileDao.insertFileBoard(fileVo);
 	}
 	
+	@Override
+	public int deleteFileBoard(FiledataVo fileVo) {
+		return fileDao.deleteFileBoard(fileVo);
+	}	
+	
 	/**
 	 * Method : getFiledata
 	 * 최초작성일 : 2018. 9. 22.

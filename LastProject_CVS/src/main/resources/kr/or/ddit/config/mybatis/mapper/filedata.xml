@@ -90,6 +90,12 @@
 		)
 	</insert>
 	
+	<!-- 게시글 내 파일데이터 삭제 -->
+	<delete id="deleteFileBoard" parameterType="filedataVo">
+		DELETE FROM FILEDATA
+		WHERE FILE_ID = #{file_id}
+	</delete>	
+	
 	<!-- 게시글 내 첨부파일 전체 조회 -->
 	<select id="getFiledata" parameterType="String" resultType="filedataVo">
 		SELECT * FROM FILEDATA WHERE bd_id = #{bd_id}
