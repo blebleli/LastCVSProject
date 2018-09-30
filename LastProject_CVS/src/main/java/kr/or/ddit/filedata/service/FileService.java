@@ -72,7 +72,16 @@ public class FileService implements FileServiceInf {
 	public int insertFileBoard(FiledataVo fileVo) {
 		return fileDao.insertFileBoard(fileVo);
 	}
-	
+
+	/**
+	 * Method : deleteFileBoard
+	 * 최초작성일 : 2018. 9. 30.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param fileVo
+	 * @return
+	 * Method 설명 : 게시판 파일 삭제
+	 */		
 	@Override
 	public int deleteFileBoard(FiledataVo fileVo) {
 		return fileDao.deleteFileBoard(fileVo);

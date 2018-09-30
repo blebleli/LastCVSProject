@@ -91,6 +91,13 @@
 	</insert>
 	
 	<!-- 게시글 내 파일데이터 삭제 -->
+	<!-- 	아 이 디 : deleteFileBoard
+	  		매개변수 : filedataVo
+	  		반 환 값 : 없음
+	  		설    명 : 게시글 파일 삭제
+	  		작 성 자 : 김마음
+	  		일    시 : 2018-09-30     
+	 -->	
 	<delete id="deleteFileBoard" parameterType="filedataVo">
 		DELETE FROM FILEDATA
 		WHERE FILE_ID = #{file_id}

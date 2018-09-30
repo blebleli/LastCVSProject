@@ -263,7 +263,7 @@ public class AdboardController {
 	 * 변경이력 : 신규
 	 * @param model
 	 * @return
-	 * Method 설명 : 게시글 수정 완료 U
+	 * Method 설명 : 게시글 수정, 첨부파일 추가(수정)완료 U
 	 */
 	@RequestMapping("/boardUpdate")
 	public String boardUpdate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile,
