@@ -80,6 +80,7 @@ public class CvsDayendController {
 		
 		//전체 stockList 가져온다
 		
+		
 		//마감한 내역이 있다면, 막기
 		
 		List<StockVo> stock =  stockService.getAllStockByMemid(mem_id);
