@@ -250,6 +250,8 @@ $(function(){
 					<div class="table-responsive">
 						<table id="datatable-buttons" class="table table-striped jambo_table bulk_action">
 						<!-- <table id="datatable-buttons" class="table table-striped jambo_table bulk_action"> -->
+						<c:choose>
+							<c:when test="${bd_kind_id=='' || bd_kind_id=='44'}">
 							<thead>
 								<tr id="reviews" role="row" class="headings">
 									<th style="width: 5px;"><input type="checkbox"
@@ -263,7 +265,7 @@ $(function(){
                              		<a class="antoo" style="color:#fff; font-weight:500;">
                              		선택한 상품 ( <span class="action-cnt"> </span> )
                              		<i class="fa fa-chevron-down"></i></a></th>
-                            </th>
+                            
 								</tr>
 							</thead>
 							<tbody id="bd_code">
@@ -318,6 +320,152 @@ $(function(){
 									</c:choose>
 								</c:forEach>
 							</tbody>
+							</c:when>
+							<c:when test="${bd_kind_id=='55'}">
+							<thead>
+								<tr id="reviews" role="row" class="headings">
+									<th style="width: 5px;"><input type="checkbox"
+										id="check-all" class="flat"></th>
+									<th class="sorting" style="width: 5px;">번호</th>
+									<th class="sorting" style="width: 230px;">상품명</th>
+									<th class="sorting" style="width: 250px;">제목</th>
+									<th class="sorting" style="width: 25px;">작성자</th>
+									<th class="sorting_desc" style="width: 25px;">작성일</th>
+									<th class="sorting_desc" style="width: 25px;">조회수</th>
+									<th class="bulk-actions" colspan="7">
+                             		<a class="antoo" style="color:#fff; font-weight:500;">
+                             		선택한 상품 ( <span class="action-cnt"> </span> )
+                             		<i class="fa fa-chevron-down"></i></a></th>
+                            
+								</tr>
+							</thead>
+							<tbody id="bd_code">
+								<!-- 게시글 조회 foreach문 -->
+								<%request.setAttribute("nbsp", " ");%>
+								<c:forEach items="${boardList}" var="vo">
+									<c:choose>
+										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
+											<tr class="even pointer" data-id="${vo.bd_id}"
+												data-id2="${vo.bd_del}">
+												<td>
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" name="table_records">
+													</div>
+												</td>
+												<td>${vo.tot_cnt}</td>
+												<td>${vo.bd_title}</td>
+												<td>${vo.bd_title}</td>
+												<td>${vo.mem_name}</td>
+												<td>${vo.bd_date}</td>
+												<td class="a-right a-right">${vo.bd_views}</td>												
+											</tr>
+										</c:when>
+										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
+											<tr class="even pointer" data-id="${vo.bd_id}"
+												data-id2="${vo.bd_del}">
+												<td>
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" name="table_records">
+													</div>
+												</td>
+												<td>${vo.tot_cnt }</td>
+												<td>${vo.bd_title}</td>
+												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
+												<td>${vo.mem_name}</td>
+												<td>${vo.bd_date}</td>
+												<td>${vo.bd_views}</td>												
+											</tr>
+										</c:when>										
+										<c:when test="${vo.bd_del=='Y'}">
+											<tr class="even pointer" data-id="${vo.bd_id}">
+												<td>
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" name="table_records">
+													</div>
+												</td>
+												<td>${vo.tot_cnt }</td>
+												<td>${vo.bd_title}</td>
+												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
+												<td>${vo.mem_name}</td>
+												<td>${vo.bd_date}</td>
+												<td>${vo.bd_views}</td>	
+											</tr>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+							</tbody>
+							</c:when>
+							<c:when test="${bd_kind_id=='66'}">
+							<thead>
+								<tr id="reviews" role="row" class="headings">
+									<th style="width: 5px;"><input type="checkbox"
+										id="check-all" class="flat"></th>
+									<th class="sorting" style="width: 5px;">번호</th>
+									<th class="sorting" style="width: 250px;">이미지</th>
+									<th class="sorting" style="width: 275px;">제목</th>
+									<th class="sorting_desc" style="width: 25px;">작성일</th>
+									<th class="sorting_desc" style="width: 25px;">조회수</th>
+									<th class="bulk-actions" colspan="7">
+                             		<a class="antoo" style="color:#fff; font-weight:500;">
+                             		선택한 상품 ( <span class="action-cnt"> </span> )
+                             		<i class="fa fa-chevron-down"></i></a></th>
+                            
+								</tr>
+							</thead>
+							<tbody id="bd_code">
+								<!-- 게시글 조회 foreach문 -->
+								<%request.setAttribute("nbsp", " ");%>
+								<c:forEach items="${boardList}" var="vo">
+									<c:choose>
+										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
+											<tr class="even pointer" data-id="${vo.bd_id}"
+												data-id2="${vo.bd_del}">
+												<td>
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" name="table_records">
+													</div>
+												</td>
+												<td>${vo.tot_cnt}</td>
+												<td>${vo.bd_title}</td>
+												<td>${vo.bd_title}</td>
+												<td>${vo.bd_date}</td>
+												<td class="a-right a-right">${vo.bd_views}</td>												
+											</tr>
+										</c:when>
+										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
+											<tr class="even pointer" data-id="${vo.bd_id}"
+												data-id2="${vo.bd_del}">
+												<td>
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" name="table_records">
+													</div>
+												</td>
+												<td>${vo.tot_cnt }</td>
+												<td>${vo.bd_title}</td>
+												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
+												<td>${vo.bd_date}</td>
+												<td>${vo.bd_views}</td>												
+											</tr>
+										</c:when>										
+										<c:when test="${vo.bd_del=='Y'}">
+											<tr class="even pointer" data-id="${vo.bd_id}">
+												<td>
+													<div class="icheckbox_flat-green" style="position: relative;">
+														<input type="checkbox" class="flat" name="table_records">
+													</div>
+												</td>
+												<td>${vo.tot_cnt }</td>
+												<td>${vo.bd_title}</td>
+												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
+												<td>${vo.bd_date}</td>
+												<td>${vo.bd_views}</td>	
+											</tr>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+							</tbody>
+							</c:when>																					
+							</c:choose>
 						</table>					
 					</div>									
 				</div>
