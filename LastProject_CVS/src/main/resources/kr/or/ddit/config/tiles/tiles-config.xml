@@ -177,7 +177,13 @@
 	
 	<!--  관리자 메인 -->
 	<definition name="ad_index" extends="ad_basicLayout">
-	<put-attribute name="content" value="/WEB-INF/view/admin/ad_index.jsp"/>
+	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>
+	</definition>
+	
+	
+	<!--  관리자 - 통계화면 -->
+	<definition name="ad_chart" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>
 	</definition>
 	
 	
@@ -222,10 +228,6 @@
 	</definition>
 	
 
-	<!--  관리자 - 통계화면 -->
-	<definition name="ad_chart" extends="ad_basicLayout">
-	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>
-	</definition>
 	
 	<!-- 관리자 => 회원 리스트화면 / 편의점 리스트화면 / 편의점 등록 화면  : 은별 09.17 -->
 	<definition name="/member/*" extends="ad_basicLayout">
