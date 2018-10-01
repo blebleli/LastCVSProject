@@ -97,4 +97,27 @@
 	select * from cvs_service where place_id = #{place_id}
 </select>
 
+<select id="searchCvsCtgy" parameterType="Map" resultType="">
+	 select   a.MEM_ID
+			, a.MEM_PW
+			, a.MEM_KIND
+			, a.MEM_NAME
+			, a.MEM_TEL
+			, a.MEM_BIRTH
+			, a.MEM_GEN
+			, a.MEM_ZIP
+			, a.MEM_ADD
+			, a.MEM_ADDR
+			, a.MEM_CVS_NAME
+			, a.MEM_CVS_TEL
+			, a.MEM_INTRO
+			, TO_CHAR(a.MEM_X) MEM_X
+			, TO_CHAR(a.MEM_Y) MEM_Y, b.ctgy_id, b.ctgy_name 
+      from member a, category b, cvs_service c
+      where a.mem_id = c.place_id
+      and b.ctgy_id = c.ctgy_id
+      and b.ctgy_id =#{ctgy_id}      
+      and a.mem_cvs_name like '%#{mem_cvs_name}%'
+</select>
+
 </mapper>
