@@ -249,23 +249,23 @@ $(function(){
                   <div class="x_content">
 					<div class="table-responsive">
 						<table id="datatable-buttons" class="table table-striped jambo_table bulk_action">
-						<!-- <table id="datatable-buttons" class="table table-striped jambo_table bulk_action"> -->
 						<c:choose>
 							<c:when test="${bd_kind_id=='' || bd_kind_id=='44'}">
 							<thead>
-								<tr id="reviews" role="row" class="headings">
-									<th style="width: 5px;"><input type="checkbox"
-										id="check-all" class="flat"></th>
+								<tr role="row" class="headings">
+									<th style="width: 5px;">
+										<input type="checkbox" id="check-all" class="flat">
+									</th>
 									<th class="sorting" style="width: 5px;">번호</th>
 									<th class="sorting" style="width: 500px;">제목</th>
 									<th class="sorting" style="width: 25px;">작성자</th>
 									<th class="sorting_desc" style="width: 25px;">작성일</th>
 									<th class="sorting_desc" style="width: 25px;">조회수</th>
-									<th class="bulk-actions" colspan="7">
-                             		<a class="antoo" style="color:#fff; font-weight:500;">
-                             		선택한 상품 ( <span class="action-cnt"> </span> )
-                             		<i class="fa fa-chevron-down"></i></a></th>
-                            
+									<th class="bulk-actions" colspan="5">
+	                             		<a class="antoo" style="color:#fff; font-weight:500;">
+	                             		선택한 상품 ( <span class="action-cnt"> </span> )
+	                             		<i class="fa fa-chevron-down"></i></a>
+	                             	</th>                            
 								</tr>
 							</thead>
 							<tbody id="bd_code">

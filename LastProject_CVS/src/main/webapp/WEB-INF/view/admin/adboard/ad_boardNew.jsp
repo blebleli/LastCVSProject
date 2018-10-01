@@ -65,12 +65,11 @@
 									<label for="f_name"
 										class="control-label col-md-3 col-sm-3 col-xs-12">첨부파일</label>
 									<div id="w_cntLabel" class="col-md-6 col-sm-6 col-xs-12">
-										<div id="addfile">
+										<div id="addfile"><i id="plusfileBtn" class="fa fa-plus-square"></i>
 											<input type="file" name="file_name" id="file_name"
 												multiple="multiple">
 										</div>
-										<input type="button" name="plusfileBtn" id="plusfileBtn"
-											value="+">
+										
 									</div>
 								</div>		
 								

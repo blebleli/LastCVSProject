@@ -112,13 +112,13 @@
 			}			
 		}); // $("#boardDel").on("click", function(){});			
 		
-		$("#commentsDelY").on("click", function(){ // 댓글 삭제 버튼을 누르면
-			if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
-				$("#delect").submit(); // 삭제 이동					
-			} else { // 삭제 경고창 '아니오'를 누를시					
-				return false; // 그대로 있는다.					
-			}			
-		}); // $("#commentsDel").on("click", function(){});
+// 		$("#commentsDelY").on("click", function(){ // 댓글 삭제 버튼을 누르면
+// 			if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
+// 				$("#delete").submit(); // 삭제 이동					
+// 			} else { // 삭제 경고창 '아니오'를 누를시					
+// 				return false; // 그대로 있는다.					
+// 			}			
+// 		}); // $("#commentsDel").on("click", function(){});
 		
 		$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
 			alert("!");
@@ -135,7 +135,44 @@
 			}
 		});			
    	});
-		  			
+	
+	function fn_delete(geta){
+		
+	
+		if($('#commentsUpd')){
+			alert("dd");
+		}
+		
+		//a: form 자체를 의미
+		var a = document.getElementById(geta);
+		
+		alert(a);
+				
+		// 삭제 경고창 '예'를 누를시
+		if (confirm("삭제하시겠습니까?")){		
+			// 삭제 이동
+			a.submit();
+		} else { // 삭제 경고창 '아니오'를 누를시					
+			// 그대로 있는다.
+			return false; 					
+		}
+	}
+	
+	function fn_update(geta){		
+		//a: form 자체를 의미
+		var a = document.getElementById(geta);
+		
+		alert(a);
+				
+		// 삭제 경고창 '예'를 누를시
+		if (confirm("삭제하시겠습니까?")){		
+			// 삭제 이동
+			a.submit();
+		} else { // 삭제 경고창 '아니오'를 누를시					
+			// 그대로 있는다.
+			return false; 					
+		}
+	}
 </script>
 	
     <!-- Datatables -->
@@ -219,57 +256,52 @@
 						
 													
 					<table class="table table-striped table-hover" id="reply_area">
-						<c:forEach items="${cList}" var="vo">
-						
-						<!-- 댓글 조회 -->
-						<form id="delete" action="/adboard/commentsDel" method="post">				
+						<!-- 댓글 조회 -->										
+						<c:forEach items="${cList}" var="vo" varStatus="status">
+						<form name="delete${status.index}" id="delete${status.index}" action="/adboard/commentsDel" method="post">						
 						<tr id="comment">
 							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
 							
-							<td id="demoFont2" rowspan="2" colspan="3">
-									<span style="float: left;">
-									<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">
-									
-											${vo.cm_content}
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="hidden" name="bd_id" value="${vo.bd_id}">
-											<input type="hidden" name="mem_id" value="admin">
-										
-									</c:if>
-									<c:if test="${vo.cm_delny == 'Y'}">
-										삭제된 댓글입니다.<br>
-									</c:if>
-									<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-											비공개 댓글 입니다.
-											<input type="hidden" name="cm_id" value="${vo.cm_id}">
-											<input type="hidden" name="bd_id" value="${vo.bd_id}">
-											<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
-											<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
-											<br>
-									</c:if>
-									</span>
-							
+							<td id="demoFont2" rowspan="2" colspan="3">							
+								<span style="float: left;">								
+								<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
+								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">									
+										${vo.cm_content}
+										<input type="hidden" name="cm_id" id="cm_id${status.index}" value="${vo.cm_id}">
+										<input type="hidden" name="bd_id" id="bd_id${status.index}" value="${vo.bd_id}">
+										<input type="hidden" name="mem_id" id="mem_id${status.index}" value="admin">										
+								</c:if>
+								
+								<c:if test="${vo.cm_delny == 'Y'}">
+									삭제된 댓글입니다.<br>
+								</c:if>
+								
+								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
+										비공개 댓글 입니다.
+										<input type="hidden" name="cm_id" value="${vo.cm_id}">
+										<input type="hidden" name="bd_id" value="${vo.bd_id}">
+										<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
+										<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
+										<br>
+								</c:if>
+								</span>						
 
-									<span style="float: right;100%">
-									<button id="commentsUpd" style="font-size:12px" class="btn btn-default">수정</button>
-									<button type="submit" id="commentsDelY" style="font-size:12px" class="btn btn-default" value="cm_id">삭제</button>								
-									</span>
-											<input type="hidden" id="cm_id" name="cm_id" value="${vo.cm_id}"> 
+								<span style="float: right;100%">
+								<button type="button" id="commentsUpd" style="font-size:12px" onclick="return fn_update('update${status.index}')" class="btn btn-default">수정</button>
+								<button type="button" id="commentsDelY" style="font-size:12px" onclick="return fn_delete('delete${status.index}')" class="btn btn-default">삭제</button>								
+								</span>
 							</td>								
 						</tr>
 						
 						<tr class="about">
 							<td>${vo.mem_id}<br>${vo.cm_date}</td>
-						</tr>
-						
-						</c:forEach>
-					</form>
-						
+						</tr>		
+						</form>						
+						</c:forEach>								
 						
 						<!-- 댓글 작성 -->
+						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">						
 						<tr>
-						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">
 							<td id="demoFonts" class="col-sm-1">댓글</td>
 							<td style="border-collapse:collapse;" rowspan="2" colspan="3" class="col-sm-9">
 								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
@@ -285,11 +317,10 @@
 						<tr>
 						<td class="checked"><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개<br>
 									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
-						</form>
 						</td>
-						</tr>
-					</table>
-					
+						</tr>						
+						</form>
+					</table>					
    
 					</div>
 				</div>

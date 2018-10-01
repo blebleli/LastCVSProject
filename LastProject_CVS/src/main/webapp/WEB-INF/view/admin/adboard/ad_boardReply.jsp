@@ -84,7 +84,6 @@
 								<input type="text" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
 								<input type="text" id="bd_kind_id" name="bd_kind_id" value="${boardVo.bd_kind_id}">
 								<input type="text" id="bd_del" name="bd_del" value="N">
-								<input type="text" id="bd_date" name="bd_date" value="YYYY-MM-DD">
 								<input type="text" id="bd_views" name="bd_views" value='0'>
 								<input type="text" id="bd_parent" name="bd_parent" value="${boardVo.bd_parent}">
 								<input type="text" id="bd_group" name="bd_group" value="${boardVo.bd_group}">			
