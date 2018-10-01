@@ -179,6 +179,8 @@ public class AdboardController {
 			logger.debug("답글일 경우 bd_id & bd_parent==> {}",boardVo.getBd_id());
 			// 받아오는 bd_id ==> bd_parent set
 			boardVo.setBd_parent(boardVo.getBd_id());
+		}else{
+			boardVo.setBd_parent("");
 		}
 		
 		// 새글 쓰기
@@ -451,6 +453,7 @@ public class AdboardController {
 		BoardVo boardVo = new BoardVo();
 		boardVo.setBd_group(bd_group); // 그룹아이디
 		boardVo.setBd_parent(bd_id); // 부모아이디
+		boardVo.setBd_id(bd_id); // 아이디
 		boardVo.setBd_kind_id(bd_kind_id);
 		System.out.println("bd_group : "+bd_group+", bd_parent : "+bd_id);
 		
