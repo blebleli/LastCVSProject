@@ -109,7 +109,7 @@ public class AdboardController {
 
 		List<BoardVo> boardList = boardService.getBoardPageList2(bd_kind_id);
 
-		logger.debug("boardList ===========>>> {} ", boardList);
+//		logger.debug("boardList ===========>>> {} ", boardList);
 		// 카테고리 전체 조회
 		model.addAttribute("bd_kind_id", bd_kind_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);
@@ -131,7 +131,7 @@ public class AdboardController {
 	public String boardNew(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
 						   @RequestParam(value="bd_kind_id3", defaultValue="") String bd_kind_id3,Model model){
 		
-		logger.debug("bd_kind_id ==================================>> {} ", bd_kind_id);
+//		logger.debug("bd_kind_id ==================================>> {} ", bd_kind_id);
 		BoardVo boardVo = new BoardVo();
 		boardVo.setBd_kind_id(bd_kind_id3);
 		System.out.println("bd_kind_id3 : "+bd_kind_id3);
@@ -176,11 +176,12 @@ public class AdboardController {
 			
 			// 그룹코드 받아 오기
 			groupCode = boardVo.getBd_group();
-
 			
 		}else{
 			boardVo.setBd_parent("");
 		}
+		
+		logger.debug("boardVo.getProd_id()==> {}", boardVo.getProd_id());
 		
 		// 새글 쓰기
 		if(boardVo.getBd_kind_id().equals("44")){ // 공지사항
@@ -196,7 +197,8 @@ public class AdboardController {
 			boardVo.setBd_id(code.autoCode("BRE"));
 			tempSavePath += "/BRE";
 			path+= "/BRE";
-			returnPage = "";
+			returnPage = "redirect:/userProd/detail";
+			
 		}else if(boardVo.getBd_kind_id().equals("66")){ // 이벤트
 			boardVo.setBd_id(code.autoCode("BEV"));
 			tempSavePath += "/BEV";
@@ -210,13 +212,14 @@ public class AdboardController {
 //		logger.debug("boardVo ==> {}" , boardVo);
 		
 		// 게시글 그룹코드 저장 (첫 글은 첫 글의 게시글 코드가 그룹코드임.)
+//		logger.debug("groupCode ==> {} ", groupCode);
 		groupCode = (groupCode.equals("")) ? boardVo.getBd_id(): groupCode ;
-		boardVo.setBd_group(boardVo.getBd_id());
+//		logger.debug("groupCode ==> {} ", groupCode);
+		boardVo.setBd_group(groupCode);
 		
 		int cnt = boardService.setInsertBoard(boardVo); // 게시글 저장
 		
 //		logger.debug("cnt==> {}" , cnt);
-		
 		
 		int fileResult = 0;
 		if (cnt != 0){		
@@ -262,6 +265,8 @@ public class AdboardController {
 			} // for
 			
 //			logger.debug("fileResult ==> {}" ,fileResult);
+			
+			model.addAttribute("prod_id", boardVo.getProd_id());
 			
 			return returnPage;
 			
@@ -341,7 +346,7 @@ public class AdboardController {
 				fileVo.setFile_upname(UUID.randomUUID().toString()+"."+ext); // 파일명
 				fileVo.setMem_id(b.getMem_id());
 				
-				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
+//				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
 				
 				// 디렉토리 없을 경우 생성
 				if(!new File(tempSavePath+FileUtil.Path).exists()) {
@@ -426,7 +431,7 @@ public class AdboardController {
 			return "redirect:/adboard/boardView?bd_kind_id=" + bd_kind_id;
 		}else{
 			// 삭제 실패시 내용을 디버그로 출력하며, 관리자 메인화면으로 이동한다.
-			logger.debug("write delete fail ====>>>> {} ", cnt);
+//			logger.debug("write delete fail ====>>>> {} ", cnt);
 			return "admin/main";
 		}
 	}
@@ -474,7 +479,7 @@ public class AdboardController {
 	public String newComment(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
 							 @RequestParam(value="cm_RadioCkeck", defaultValue="") String cm_RadioCkeck, CommentsVo cList, Model model){
 		
-		logger.debug("cm_RadioCkeck =====>> {}", cm_RadioCkeck);
+//		logger.debug("cm_RadioCkeck =====>> {}", cm_RadioCkeck);
 		System.out.println(bd_kind_id);
 				
 		if(cm_RadioCkeck.equals("Y")){ // 댓글 공개하였다면
@@ -489,13 +494,13 @@ public class AdboardController {
 			String CNOCODE = "CNO"; // 공지사항 코드 생성 준비
 			String cm_id = code.autoCode(CNOCODE); // 코드 생성
 			cList.setCm_id(cm_id); // 댓글코드 저장
-			logger.debug("cm_id ==========> {} ", cm_id);
+//			logger.debug("cm_id ==========> {} ", cm_id);
 			System.out.println("공지사항 입니다. ========================>>>>");
 		} else { // 이벤트이면
 			String CEVCODE = "CEV"; // 이벤트 코드 생성 준비
 			String cm_id = code.autoCode(CEVCODE); // 코드 생성
 			cList.setCm_id(cm_id); // 댓글코드 저장
-			logger.debug("cm_id ==========> {} ", cm_id);
+//			logger.debug("cm_id ==========> {} ", cm_id);
 			System.out.println("이벤트 입니다 =========================>>>>>");
 		}
 		
