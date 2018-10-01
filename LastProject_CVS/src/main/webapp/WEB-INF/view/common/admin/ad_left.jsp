@@ -32,7 +32,7 @@
           </li> 
           
           <!-- 조계환 -->
-          <li><a href="lookup"><i class="fa fa-table"></i> 수주 처리</a>
+          <li><a href="/admin/lookup"><i class="fa fa-table"></i> 수주 처리</a>
           </li>
           <!-- 조계환 -->
            

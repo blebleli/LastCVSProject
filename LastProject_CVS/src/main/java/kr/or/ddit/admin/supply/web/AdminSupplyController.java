@@ -104,6 +104,7 @@ public class AdminSupplyController {
 										@RequestParam(value="pageSize", defaultValue="25") int pageSize,
 										AdminApplyVo adminApplyVo,
 										Model model){
+		
 		logger.debug("adminApplyVo.getSupply_bcd() : {}" , adminApplyVo.getSupply_bcd());
 		logger.debug("adminApplyVo.getSupply_state() : {}" , adminApplyVo.getSupply_state());
 		

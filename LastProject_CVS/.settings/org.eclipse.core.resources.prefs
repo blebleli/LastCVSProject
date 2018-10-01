@@ -1,7 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/view/admin/supplyLookup.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/admin/supplyLookupView.jsp=UTF-8
-encoding//src/main/webapp/WEB-INF/view/cvs/cvs_barcode_read.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/cvs/cvs_invoice.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/cvs/cvs_stock.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/cvs/cvs_supply_in.jsp=UTF-8

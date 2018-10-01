@@ -66,7 +66,7 @@
 		<div class="row">
 
 			<form action="/admin/lookupView" method="post" id="frm">
-				<input type="hidden" name="supply_bcd" id="supply_bcd" value="">
+				<input type="hidden" name="supply_bcd" id="bcd" value="">
 				<input type="hidden" name="supply_state" id="supply_state" value="">
 			</form>
 
@@ -188,19 +188,13 @@
 <script src="../build/js/custom.min.js"></script>
 
 <script>
-// 	$(function() {
-// 		$(".click").on("click", function() {
-// 			$("#supply_bcd").val($(this).data("no"));
-// 			$("#frm").submit();
-// 		});
-// 	});	
 	
-	function fn_spls(supply_bcd,supply_state){
-		$("#supply_bcd").val(supply_bcd);
-		$("#supply_state").val(supply_state);
+	function fn_spls(bcd, state){
+		$("#bcd").val(bcd);
+		$("#supply_state").val(state);
 		$("#frm").submit();
 	}
-	</script>
+</script>
 
 <script>
 	
@@ -211,4 +205,4 @@
 		});
 	});	
 	
-	</script>
+</script>

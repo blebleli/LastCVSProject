@@ -107,7 +107,12 @@
 												<th style="width: 20%">상품이름</th>
 												<th style="width: 20%">유통기한</th>
 												<th>요청수량</th>
-												<th>출고가능수량</th>
+												<c:if test="${adminApplyVo.supply_state == 10}">
+													<th>출고가능수량</th>
+												</c:if>
+												<c:if test="${adminApplyVo.supply_state != 10}">
+													<th>실입고수량</th>
+												</c:if>
 												<th>단가</th>
 												<th>가격</th>
 												<th>합계</th>
