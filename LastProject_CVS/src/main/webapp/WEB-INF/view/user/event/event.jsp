@@ -102,8 +102,6 @@
 
 	font-family: "Arial Black", Gadget, sans-serif;
 	font-size: 15px;
-	letter-spacing: -0.6px;
-	word-spacing: -3.8px;
 	color: #000000;
 	font-weight: 400;
 	text-decoration: none;
@@ -117,8 +115,6 @@
 #demoFonts td {
 	font-family: Gadget, sans-serif;
 	font-size: 13px;
-	letter-spacing: -0.6px;
-	word-spacing: -3.8px;
 	color: #000000;
 	font-weight: 400;
 	text-decoration: none;
