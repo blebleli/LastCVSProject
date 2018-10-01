@@ -426,7 +426,7 @@ $(function(){
 												<td>${vo.tot_cnt}</td>
 												<td>
 													<div class="demoFontsDiv"> 														
- 														<img src="${vo.prod_id}"/>
+ 														<img style="width:75px;" src="${vo.prod_id}"/>
 													</div>
 												</td>
 												<td>${vo.bd_title}</td>
