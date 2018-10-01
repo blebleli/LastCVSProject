@@ -50,16 +50,14 @@
 													</div>
 												</div>
 												<form action="/admin/supplyCheck" method="post" id="frm">
-													<input type="hidden" name="supply_bcd"
-														value="${adminApplyVo.supply_bcd}"> <input
-														type="hidden" name="mem_id" value="${memberVo.mem_id}">
+													<input type="hidden" name="supply_bcd" value="${adminApplyVo.supply_bcd}"> 
+													<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
 													<c:if test="${adminApplyVo.supply_state == 10 }">
-														<input type="button" id="btn" value="발주 신청 확인"
-															class="btn btn-primary pull-right"
-															style="margin-right: 5px;">
-														<!-- onclick="supply_check();" -->
+														<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
 													</c:if>
+													<input type="hidden" name="array" id="array">
 												</form>
+												
 										</td>
 										</small>
 									</h1>
@@ -134,8 +132,14 @@
 
 													<!-- ------------------------------ 출고가능수량 -->
 													<c:if test="${adminApplyVo.supply_state == 10}">
-														<td><input type="text" size="1"
-															value="${vo.splylist_sum}"></td>
+														<td>
+															<p id="first_p">
+																<input type="text" maxlength="2" onkeypress="return fn_press(event, 'numbers');"
+																onkeyup="removeChar(event)"
+																style='ime-mode:disabled;'
+																size="1" name="sum" id="sum" value="${vo.splylist_sum}">
+															</p>
+														</td>
 													</c:if>
 
 													<c:if test="${adminApplyVo.supply_state != 10}">
@@ -178,17 +182,17 @@
 												</tr>
 												<tr>
 													<th>세금(5%) :</th>
-													<td>￦<fmt:formatNumber value="${sum/5}" type="number"></fmt:formatNumber></td>
+													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
 													<td>실시간</td>
 												</tr>
 												<tr>
 													<th>배송비(5%) :</th>
-													<td>￦<fmt:formatNumber value="${sum/5}" type="number"></fmt:formatNumber></td>
+													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
 													<td>실시간</td>
 												</tr>
 												<tr>
 													<th>총합계 :</th>
-													<td>￦<fmt:formatNumber value="${sum + ((sum/5)*2)}"
+													<td>￦<fmt:formatNumber value="${sum + ((sum/20)*2)}"
 															type="number"></fmt:formatNumber></td>
 													<td>실시간</td>
 												</tr>
@@ -238,13 +242,72 @@
 <script type="text/javascript">
 	window.onload = function() {
 		document.getElementById('btn').onclick = function() {
+			var get_input = $("#first_p input[type=text]");
+			var length = $("input[name='sum']").length;
+			var array = new Array(length);
+			
+			//확인을 눌렀을때
 			if (confirm("발주 신청을 확인 하시겠습니까?") == true) {
-				document.getElementById('frm').submit();
-				return false;
+
+				for(var i=0; i<length; i++){
+					array[i] = $("input[name='sum']")[i].value;
+					alert(array[i]);
+// 					$("#array[i]").val($(array[i]).val());
+					$('input[name=array]').val(array); 
+				}
+				
+				$.each(get_input, function(index,value){
+// 					alert('인덱스 = ' + index + '값 = ' + $(value).val());
+
+					if($(value).val() == 0 || $(value).val() == '' || $(value).val() == null ){
+						alert("순번 "+(index+1)+"번째 값을 입력하지 않았거나 0을 입력하셨습니다.");
+						return;
+					}else if($(value).val() >= 100){
+						alert("순번 "+(index+1)+"번째 값을 100이상 입력 할 수 없습니다.");
+						return;
+					}else{
+						$("#index").val(index);
+						$("#value").val($(value).val());
+						
+						document.getElementById('frm').submit();
+						return false;
+					}
+					
+				});
+				
+			//취소를 눌렀을때 
 			} else {
 				return;
 			}
 		};
 	};
+	
 </script>
+
+//숫자만 입력 받기
+<script type="text/javascript">
+	function fn_press(event, type) {
+	    if(type == "numbers") {
+	        if(event.keyCode < 48 || event.keyCode > 57) return false;
+		}
+	}
+
+</script>
+
+//한글 입력 방지
+<script type="text/javascript">
+
+	function removeChar(event) {
+        event = event || window.event;
+        var keyID = (event.which) ? event.which : event.keyCode;
+        if ( keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39 )
+            return;
+        else
+            event.target.value = event.target.value.replace(/[^0-9]/g, "");
+    }
+
+</script>
+
+
+
 

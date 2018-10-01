@@ -118,7 +118,7 @@
 											발주요청
 										</c:when>
 										<c:when test="${vo.supply_state == 11}">
-											승인
+											발주승인
 										</c:when>
 										<c:when test="${vo.supply_state == 12}">
 											입고확인
