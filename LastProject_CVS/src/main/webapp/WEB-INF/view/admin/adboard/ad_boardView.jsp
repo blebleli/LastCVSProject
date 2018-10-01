@@ -225,13 +225,13 @@
 								<tr id="reviews" role="row" class="headings">
 									<th style="width: 5px;"><input type="checkbox"
 										id="check-all" class="flat"></th>
-									<th class="sorting" style="width: 5px;">번호</th>
-									<th class="sorting" style="width: 230px;">상품명</th>
-									<th class="sorting" style="width: 250px;">제목</th>
-									<th class="sorting" style="width: 25px;">작성자</th>
-									<th class="sorting_desc" style="width: 25px;">작성일</th>
-									<th class="sorting_desc" style="width: 25px;">조회수</th>
-									<th class="bulk-actions" colspan="7">
+									<th class="column-title" style="width: 5px;">번호</th>
+									<th class="column-title" style="width: 230px;">상품명</th>
+									<th class="column-title" style="width: 250px;">제목</th>
+									<th class="column-title" style="width: 25px;">작성자</th>
+									<th class="column-title" style="width: 25px;">작성일</th>
+									<th class="column-title" style="width: 25px;">조회수</th>
+									<th class="bulk-actions" colspan="8">
                              		<a class="antoo" style="color:#fff; font-weight:500;">
                              		선택한 상품 ( <span class="action-cnt"> </span> )
                              		<i class="fa fa-chevron-down"></i></a></th>
@@ -299,12 +299,12 @@
 								<tr id="reviews" role="row" class="headings">
 									<th style="width: 5px;"><input type="checkbox"
 										id="check-all" class="flat"></th>
-									<th class="sorting" style="width: 5px;">번호</th>
-									<th class="sorting" style="width: 250px;">이미지</th>
-									<th class="sorting" style="width: 275px;">제목</th>
-									<th class="sorting_desc" style="width: 25px;">작성일</th>
-									<th class="sorting_desc" style="width: 25px;">조회수</th>
-									<th class="bulk-actions" colspan="7">
+									<th class="column-title" style="width: 5px;">번호</th>
+									<th class="column-title" style="width: 150px;">이미지</th>
+									<th class="column-title" style="width: 375px;">제목</th>
+									<th class="column-title" style="width: 25px;">작성일</th>
+									<th class="column-title" style="width: 25px;">조회수</th>
+									<th class="bulk-actions" colspan="8">
                              		<a class="antoo" style="color:#fff; font-weight:500;">
                              		선택한 상품 ( <span class="action-cnt"> </span> )
                              		<i class="fa fa-chevron-down"></i></a></th>
