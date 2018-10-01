@@ -162,7 +162,7 @@ public class AdboardController {
 		// 파일 물리 저장 기본 경로
 		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp/Image/board/";
 		// 파일 DB 저장 기본 경로
-		String path = "/Image/board/";
+		String path = "/Image/board";
 		
 		// 그룹코드
 		String groupCode = "";
