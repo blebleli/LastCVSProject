@@ -82,11 +82,16 @@ public class UserProdController {
 		
 		ModelAndView mav = new ModelAndView("prodDetail");
 		
+		// 상품 정보
 		ProdVo prod = prodService.getProd(prod_id);
+		
+		// 리뷰 갯수
+		int reviewCnt = boardService.getReviewCnt(prod_id) ;
 		
 		List<ReviewVo> reviews = boardService.getReviewOfProd(prod_id);
 		mav.addObject("reviewList", reviews);
 		mav.addObject("prod", prod);
+		mav.addObject("reviewCnt", reviewCnt);
 		return mav;
 	}
 	

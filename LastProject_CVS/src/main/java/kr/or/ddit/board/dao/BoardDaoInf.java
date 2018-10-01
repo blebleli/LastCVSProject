@@ -332,5 +332,15 @@ public interface BoardDaoInf {
 	 */
 	List<MainReviewsVo> getReviewTop3();
 
+	/**
+	 * 
+	 * Method	: getReviewCnt
+	 * 최초작성일 : 2018. 10. 01
+	 * 작성자 : 조종원
+	 * 변경이력 : 신규
+	 * @return  해당 제품 리뷰 개수
+	 * Method 설명 : 제품에 해당 하는 리뷰 수 를 구하는 기능
+	 */
+	int getReviewCnt(String prod_id);
 	
 }
