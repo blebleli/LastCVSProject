@@ -218,7 +218,7 @@
 				<form id="frm" action="/adboard/boardUpdateGo" method="post">
 					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
 						<span style="float: right">
-							<c:if test="${b.bd_kind_id=='44' || b.bd_kind_id=='66'}">
+							<c:if test="${userInfo.mem_id == 'admin'}">
 							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>
 							<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
 							<button class="btn btn-primary" id="boardRe" type="reset">답글</button>
