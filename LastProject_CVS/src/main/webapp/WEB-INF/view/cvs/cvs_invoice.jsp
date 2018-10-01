@@ -12,9 +12,6 @@
 <!-- NProgress -->
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
-<!-- Custom styling plus plugins -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-
 <!-- Datatables -->
 <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
@@ -22,7 +19,9 @@
 <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
 <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
-   
+  <!-- Custom Theme Style -->
+    <link href="../build/css/cvsCustom.min.css" rel="stylesheet">
+       
 
 <!-- page content -->
 <div class="right_col" role="main">

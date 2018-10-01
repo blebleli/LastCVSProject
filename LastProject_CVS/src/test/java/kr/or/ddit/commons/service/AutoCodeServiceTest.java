@@ -65,7 +65,7 @@ public class AutoCodeServiceTest {
 		
 		// 이벤트  BASIC, 이벤트 : EVENT, 할인 : DIS)
 //		logger.debug("code.autoCode(BASIC) ==> {}",code.autoCode("BASIC"));
-//		logger.debug("code.autoCode(EVENT) ==> {}",code.autoCode("EVENT"));
+		logger.debug("code.autoCode(EVENT) ==> {}",code.autoCode("EVENT"));
 //		logger.debug("code.autoCode(DIS) ==> {}",code.autoCode("DIS"));
 		
 		// 게시판
@@ -91,9 +91,9 @@ public class AutoCodeServiceTest {
 //		폐기리스트(DIS_L)
 
 		//  수불/입고 리스트
-		logger.debug("code.autoCode(SUP10) ==> {}",code.autoCode("SUP10","3010000-104-2017-00333"));
-		logger.debug("code.autoCode(SUP11) ==> {}",code.autoCode("SUP11","3010000-104-2017-00333"));
-		logger.debug("code.autoCode(SUP12) ==> {}",code.autoCode("SUP12","3010000-104-2017-00333"));
+//		logger.debug("code.autoCode(SUP10) ==> {}",code.autoCode("SUP10","3010000-104-2017-00333"));
+//		logger.debug("code.autoCode(SUP11) ==> {}",code.autoCode("SUP11","3010000-104-2017-00333"));
+//		logger.debug("code.autoCode(SUP12) ==> {}",code.autoCode("SUP12","3010000-104-2017-00333"));
 	
 		// 즐겨찾기
 //		logger.debug("code.autoCode(BOOKP) ==> {}",code.autoCode("BOOKP","jongwon_ny@naver.com"));
@@ -126,7 +126,7 @@ public class AutoCodeServiceTest {
 		
 		
 //	  상품저장바코드   : POCKET
-//	  수불/입고 바코드       : SUPPLY
+//	  발주/수불/입고 바코드       : SUPPLY
 //	  제고리스트바코드 : BCD 
 //		logger.debug("code.barcode(POCKET) ==> {}",code.barcode("POCKET"));
 //		logger.debug("code.barcode(SUPPLY) ==> {}",code.barcode("SUPPLY"));

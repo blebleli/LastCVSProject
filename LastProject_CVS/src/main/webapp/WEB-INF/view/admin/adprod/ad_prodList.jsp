@@ -22,33 +22,61 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
+<style>
+fieldset {
+   border: none;
+}
+</style>
+
 <script src="/build/js/jquery-1.12.4.js"></script>
 
 <script>
 function categoryPopup(){
+	
+	$.ajax({
+		url : "/adprod/categoryPopup",
+		datatype : "html",
+		success:function(responseData){
+			console.log("성공");
+			 $('#ctgrDiv').html(responseData);
+		}
+	});
+	
+/* 	
     var url="/adprod/categoryPopup";
-    window.open("/adprod/categoryPopup","카테고리추가","width=800,height=450,left=500, top=100");
+    window.open("/adprod/categoryPopup","카테고리추가","width=800,height=450,left=500, top=100"); */
 }
 
 function eventPopup(){
-	var url="/adprod/eventPopup";
+	
 	
 	$.ajax({
 		url : "/adprod/eventPopup",
 		datatype : "html",
 		success:function(responseData){
 			console.log("성공");
-			 $('#testDiv').html(responseData);
+			 $('#eventDiv').html(responseData);
 		}
 	});
 	
+	//var url="/adprod/eventPopup";
     //window.open(url,"이벤트추가","width=800,height=450,left=500, top=100");
 }
 
 function prodPopup(){
-	var url="/adprod/prodPopup";
+
 	
-    window.open(url,"제품추가","width=800,height=450,left=500, top=100");
+	$.ajax({
+		url : "/adprod/prodPopup",
+		datatype : "html",
+		success:function(responseData){
+			console.log("성공");
+			 $('#prodDiv').html(responseData);
+		}
+	});
+	
+	//var url="/adprod/prodPopup";
+	//window.open(url,"제품추가","width=800,height=450,left=500, top=100");
 }
 
 // 제품 삭제
@@ -104,39 +132,59 @@ function fn_prodUp(prod_id){
 						<div class="col-md-12 col-sm-12 col-xs-12">
 							<div class="x_panel">
 								<div class="x_title">
-						
-									<div class="col-xs-12">
-										
-										<button class="btn btn-default" id="categoryBtn" onclick="categoryPopup();">
-											<i class="fa fa-print"></i> 카테고리 등록
-										</button>
-										<!-- 
-										 <button class="btn btn-default" id="eventBtn" onclick="eventPopup();">
-											<i class="fa fa-print"></i> 행사 등록
-										</button> -->
+
+										<button type="button" id="categoryBtn" class="btn btn-default" data-toggle="modal" data-target=".ctgr-modal-lg" onclick="categoryPopup();">
+										<i class="fa fa-sitemap"></i> 카테고리 등록</button>
+
+										<div class="modal fade ctgr-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										  <div class="modal-dialog modal-lg">
+											<div class="modal-content">								  
+											  <div class="modal-header">
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										        <h4 class="modal-title">카테고리 등록 </h4>
+										      </div>										      
+										      	<div id="ctgrDiv" class="modal-content"></div>																			   												
+										    </div>
+										  </div>
+										</div>
+									
+								
 										
 										
 										<!-- modal test ============================================ -->
-										<button type="button" id="eventBtn" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" onclick="eventPopup();">
-										<i class="fa fa-print"></i>
-										행사 등록</button>
+	
+										<button type="button" id="eventBtn" class="btn btn-default" data-toggle="modal" data-target=".event-modal-lg" onclick="eventPopup();">
+										<i class="fa fa-bell-o"></i> 행사 등록</button>
 
-										<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										<div class="modal fade event-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 										  <div class="modal-dialog modal-lg">
-										    <div id="testDiv" class="modal-content">
-										      
-										   
-
+											<div class="modal-content">								  
+											  <div class="modal-header">
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										        <h4 class="modal-title">행사 등록 </h4>
+										      </div>										      
+										      	<div id="eventDiv" class="modal-content"></div>																			   												
 										    </div>
 										  </div>
 										</div>
 										
 										<!-- modal test ============================== -->
-																				
-										<button class="btn btn-default" id="prodBtn" onclick="prodPopup();">
-											<i class="fa fa-print"></i> 제품 등록
-										</button>
-									</div>
+										
+										<button type="button" id="prodBtn" class="btn btn-default" data-toggle="modal" data-target=".prod-modal-md" onclick="prodPopup();">
+										<i class="fa fa-cubes"></i> 제품 등록</button>
+
+										<div class="modal fade prod-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+										  <div class="modal-dialog modal-md">
+											<div class="modal-content">								  
+											  <div class="modal-header">
+										        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+										        <h4 class="modal-title">제품 등록 </h4>
+										      </div>										      
+										      	<div id="prodDiv" class="modal-content"></div>																			   												
+										    </div>
+										  </div>
+										</div>
+								
 									<div class="clearfix"></div>
 								</div>
 							
@@ -165,8 +213,13 @@ function fn_prodUp(prod_id){
 		</thead>
 		<tbody>
 			<c:choose>
+			
+		
 				<c:when test="${!empty prodList}">
-						<c:forEach items="${prodList }" var="vo">
+						<c:forEach items="${prodList }" var="vo" varStatus="status">
+						
+						<c:if test="${status.index < 10}">
+						
 						<tr role="row" class="odd">
 							<td scope="row" align="center">${vo.cnt }<br><button class="btn btn-default" id="prodDel" onclick="fn_prodDel('${vo.prod_id}','${vo.prod_name}'); return false">
 										<i class="fa fa-print"></i> 삭제</button>
@@ -183,6 +236,8 @@ function fn_prodUp(prod_id){
 							<td >${vo.prod_intro }</td>
 						    <td ><img src="${vo.file_path }/${vo.file_upname }" width="50px;" height="50px;"/></td>
 						</tr>
+						
+						</c:if>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>

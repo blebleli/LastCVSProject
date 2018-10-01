@@ -2,17 +2,11 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Meta, title, CSS, favicons, etc. -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
 
 <!-- Bootstrap -->
 <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -69,7 +63,6 @@ ul,ol, li {list-style:none}
 
 #categoryDiv{
 	overflow-x:hidden; width:250px; height:350px;
-	border: 1px solid blue;
 	 
 }
 </style>
@@ -136,7 +129,7 @@ $(function() {
 </head>
 <body class="nav-md">
 <div class="bg"> 
-<div class="page-title">
+<!-- <div class="page-title">
   <div class="title_left">
     <h3> 카테고리 추가 <small>제품</small></h3>
   </div>
@@ -149,7 +142,7 @@ $(function() {
     </div>
   </div>
 </div>
-<div class="clearfix"></div>
+<div class="clearfix"></div> -->
 
 <div class="row">
 <div class="clearfix"></div>
@@ -232,8 +225,5 @@ $(function() {
    
    
 </div> <!-- <div class="col-md-6 col-sm-6 col-xs-12 "> -->
-
 </div>  <!-- <div class> --> 
 </div>  <!-- <div class="row">  -->
-</body>
-</html>

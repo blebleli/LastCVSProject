@@ -32,7 +32,7 @@
 <link href="/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
 <!-- Ion.RangeSlider -->
-<link href="/vendors/normalize-css/normalize.css" rel="stylesheet">
+<!-- <link href="/vendors/normalize-css/normalize.css" rel="stylesheet"> -->
 <link href="/vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
 <link href="/vendors/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
 <!-- Bootstrap Colorpicker -->
@@ -79,6 +79,15 @@ ul,ol, li {list-style:none}
 /* 	border: 1px solid blue; */
 	 
 }
+
+fieldset {
+   border: none;
+}
+
+.x_title span {
+    color: none;
+}
+
 </style>
 
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -135,8 +144,8 @@ $(function() {
 </script>
 </head>
 <body class="nav-md">
-<div class="bg"> 
-<div class="page-title">
+
+<!-- <div class="page-title">
   <div class="title_left">
     <h3> 이벤트 추가 <small>제품</small></h3>
   </div>
@@ -149,42 +158,42 @@ $(function() {
     </div>
   </div>
 </div>
-<div class="clearfix"></div>
+<div class="clearfix"></div> -->
 
 <div class="row">
-<div class="clearfix"></div>
-<div class="col-md-6 col-sm-4 col-xs-16" id="categoryDiv" >
-<!-- 카테고리 tree view -->
-<ul class="tree" id = '1234'>
-    <c:forEach items="${eventList }" var="ev">
-    	<li><a href="#" id="category_lg">${ev.event_name }
-    			<input type="hidden" id="${ev.event_id }" name="${ev.event_startday }~${ev.event_endday}" value="${ev.event_name }">
-    		</a>
-	    </li>	
-    </c:forEach>
-</ul>
-</div> <!-- <div class="col-md-6 col-sm-6 col-xs-12"> -->
+  <div class="col-md-11 col-sm-11 col-xs-11 ">
+	<div class="col-md-6 col-sm-6 col-xs-6" id="categoryDiv" >
+	<!-- 카테고리 tree view -->
+	<ul class="tree" id = '1234'>
+	    <c:forEach items="${eventList }" var="ev">
+	    	<li><a href="#" id="category_lg">${ev.event_name }
+	    			<input type="hidden" id="${ev.event_id }" name="${ev.event_startday }~${ev.event_endday}" value="${ev.event_name }">
+	    		</a>
+		    </li>	
+	    </c:forEach>
+	</ul>
+	</div> 
 
-<div class="col-md-6 col-sm-8 col-xs-16 ">
+<div class="col-md-6 col-sm-6 col-xs-6 ">
 <!-- 추가 작업 하는곳 -->
    
    <div class="x_panel">
           <div class="x_title">
-            <h2>New 이벤트<small>different form elements</small></h2>
+            <h2>New 이벤트</h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
             <br>
             <form id="eventForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="/adprod/eventInsert" method="post">
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">이벤트명</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >이벤트명</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
                   <input type="text" id="event_name" name="event_name" required="required" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-20" for="first-name">종류</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >종류</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
                 <select id="event_kind" name="event_kind" class="form-control col-md-7 col-xs-12" required="required" >
                 	<option value="행사" selected="selected">행사</option>
                 	<option value="할인">할인</option>
@@ -194,10 +203,10 @@ $(function() {
                 </div>
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">기간</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" >기간</label>
 
                  <fieldset>
-                       <div class="input-group">
+                       <div class="input-group" style="margin-bottom: 0px; margin-left: 10px;">
                          <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
                          <input type="text" style="width: 200px" name="reservation" id="reservation" class="form-control" value="10/01/2018 - 11/25/2018">
                          
@@ -225,15 +234,16 @@ $(function() {
                       </div><!-- /.modal -->
               </div>
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">할인율</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="number" id="event_discount" name="event_discount" required="required" class="form-control col-md-7 col-xs-12">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">할인율</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input type="number" id="event_discount" name="event_discount" required="required" 
+                  placeholder="0" class="form-control col-md-7 col-xs-12">
                 </div>
               </div>
               
               <div class="ln_solid"></div>
               <div class="form-group">
-                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 					<button class="btn btn-primary" type="reset">초기화</button>
                   	<button type="button" class="btn btn-success" id="insertEvent">생성</button>
                 </div>
@@ -242,11 +252,11 @@ $(function() {
             </form>
           </div>
         </div>
-</div> <!-- <div class="col-md-6 col-sm-6 col-xs-12 "> -->
+</div>
 
-</div>  <!-- <div class> -->
+</div>  
  
-</div>  <!-- <div class="row">  -->
+</div> 
     <!-- jQuery -->
     <script src="/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
@@ -267,11 +277,13 @@ $(function() {
     <script src="/build/js/custom.min.js"></script>
     
     <!-- Initialize datetimepicker -->
+    
 <script>
     $('#myDatepicker').datetimepicker();
     
     $('#myDatepicker2').datetimepicker({
-        format: 'DD.MM.YYYY'
+        /* format: 'DD.MM.YYYY' */
+        format: 'YYYY.MM.DD'
     });
     
     $('#myDatepicker3').datetimepicker({

@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
 <!-- Bootstrap -->
 <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <!-- Font Awesome -->
@@ -30,7 +26,7 @@
 <link href="/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
 <!-- Ion.RangeSlider -->
-<link href="/vendors/normalize-css/normalize.css" rel="stylesheet">
+<!-- <link href="/vendors/normalize-css/normalize.css" rel="stylesheet"> -->
 <link href="/vendors/ion.rangeSlider/css/ion.rangeSlider.css" rel="stylesheet">
 <link href="/vendors/ion.rangeSlider/css/ion.rangeSlider.skinFlat.css" rel="stylesheet">
 <!-- Bootstrap Colorpicker -->
@@ -192,10 +188,9 @@ $(function() {
 	
 
 </script>
-</head>
-<body class="nav-md">
+
 <div class="bg"> 
-<div class="page-title">
+<!-- <div class="page-title">
   <div class="title_left">
     <h3> 제품추가 </h3>
   </div>
@@ -209,17 +204,17 @@ $(function() {
   </div>
 </div>
 <div class="clearfix"></div>
-
-<div class="row">
+ -->
+<div class="row" style="margin-top: 20px">
 <div class="clearfix"></div>
-    <div class="col-md-6 col-sm-8 col-xs-20 ">
+    <div class="col-md-11 col-sm-11 col-xs-11 ">
     
-    <form action="/adprod/prodInsert" method="post" id="frm" enctype="multipart/form-data">
+    <form class="form-horizontal form-label-left" action="/adprod/prodInsert" method="post" id="frm" enctype="multipart/form-data">
     
     	<div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">대분류</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <select id="pr_class_lg" name="pr_class_lg" >
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">대분류</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
+	         <select id="pr_class_lg" name="pr_class_lg" class="form-control" >
 	         		<option value="" selected="selected">선택</option>
 	         	<c:forEach items="${categoryLg }" var="lg">
 	         		<option value="${lg.ctgy_id }">${lg.ctgy_name }</option>
@@ -227,72 +222,72 @@ $(function() {
 	         </select>
 	       </div>
 	    </div>
-	    
+	   
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">중분류</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	       		<select id="pr_class_md" name="pr_class_md">
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">중분류</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
+	       		<select id="pr_class_md" name="pr_class_md" class="form-control">
 	         		<option value="">대분류를 선택 해주세요</option>
 	         	</select>
     	   </div>
 	    </div>
     	
     	<div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">행사</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <select id="event_id" name="event_id" >
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">행사</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12" >
+	         <select id="event_id" name="event_id" class="form-control">
 	         	<c:forEach items="${eventList }" var="ev">
 	         		<option value="${ev.event_id }">${ev.event_name }</option>
 	         	</c:forEach>
 	         </select>
 	       </div>
 	    </div>
-    
+    	
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">상품명</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">상품명</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
 	         <input type="text" id="prod_name" name="prod_name" required="required" class="form-control col-md-7 col-xs-12">
 	       </div>
 	    </div>
 	     
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">상품정보</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-		       <textarea rows="" cols="" id="prod_intro" name="prod_intro"></textarea>
+	       <label class="control-label col-md-3 colsm-3 col-xs-12">상품정보</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
+		       <textarea class="form-control" rows="3" id="prod_intro" name="prod_intro"></textarea>
 	       </div>
 	    </div>
 	    
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">단가</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="text" id="prod_cost" name="prod_cost" required="required" class="form-control col-md-7 col-xs-12">
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">단가</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
+	         <input type="number" id="prod_cost" name="prod_cost" required="required" class="form-control col-md-7 col-xs-12">
 	       </div>
 	    </div>
 	    
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">정가</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
-	         <input type="text" id="prod_price" name="prod_price" required="required" class="form-control col-md-7 col-xs-12">
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">정가</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
+	         <input type="number" id="prod_price" name="prod_price" required="required" class="form-control col-md-7 col-xs-12">
 	       </div>
 	    </div>
 	    
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">유통기한</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">유통기한</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
 	         <input type="text" id="prod_exnum" name="prod_exnum" required="required" class="form-control col-md-7 col-xs-12">
 	       </div>
 	    </div>
 	    
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">사진</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">사진</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
 	         <input type="file" id="upload_file" name="upload_file" required="required" class="form-control col-md-7 col-xs-12" onchange="fn_loadImg(this);">
 	       </div>
 	    </div>
 	    
 	    <div class="form-group">
-	       <label class="control-label col-md-6 col-sm-8 col-xs-20" for="first-name">올린사진</label>
-	       <div class="col-md-3 col-sm-4 col-xs-10">
+	       <label class="control-label col-md-3 col-sm-3 col-xs-12">올린사진</label>
+	       <div class="col-md-9 col-sm-9 col-xs-12">
 	         <img id="imgPic" src="" width="150px;" height="150px;">
 	       </div>
 	    </div>
@@ -310,5 +305,3 @@ $(function() {
     		</div> <!-- <div class="col-md-6 col-sm-8 col-xs-16 "> -->
     	</div> <!-- <div class="row"> -->
     </div> <!-- <div class="bg"> -->
-</body>
-</html>

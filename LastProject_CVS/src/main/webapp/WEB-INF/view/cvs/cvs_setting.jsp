@@ -20,9 +20,9 @@
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
- 
+  <!-- Custom Theme Style -->
+    <link href="../build/css/cvsCustom.min.css" rel="stylesheet">
+    
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">

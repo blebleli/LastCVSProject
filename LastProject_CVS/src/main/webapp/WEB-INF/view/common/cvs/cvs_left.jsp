@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
         
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
@@ -15,8 +16,18 @@
         <img src="../production/images/img.jpg" alt="..." class="img-circle profile_img">
       </div>
       <div class="profile_info">
-        <span>Welcome,</span>
-        <h2>John Doe</h2>
+
+        	<c:choose>
+				<c:when test="${empty sessionScope.userInfo}">
+					<span>Welcome,</span>
+					<h2>로그인/회원가입</h2>
+				</c:when>
+				<c:otherwise>
+					<span>Welcome,</span>
+			        <h2>${sessionScope.userInfo.mem_cvs_name}</h2>			
+				</c:otherwise>
+			</c:choose>
+        
       </div>
     </div>
     <!-- /menu profile quick info -->

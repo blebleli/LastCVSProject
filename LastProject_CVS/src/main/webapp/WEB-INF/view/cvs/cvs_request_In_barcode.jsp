@@ -8,8 +8,8 @@
     <!-- iCheck -->
    <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+   <!-- Custom Theme Style -->
+    <link href="../build/css/cvsCustom.min.css" rel="stylesheet">
     
    <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
