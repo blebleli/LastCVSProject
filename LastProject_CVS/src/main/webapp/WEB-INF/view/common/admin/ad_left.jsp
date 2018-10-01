@@ -27,7 +27,7 @@
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
       <div class="menu_section">
         <ul class="nav side-menu">
-          <li><a href="main"><i class="fa fa-home"></i> Home </a>
+          <li><a href="/adChart/chart"><i class="fa fa-home"></i> Home </a>
           </li> 
           
           <!-- 조계환 -->
@@ -67,19 +67,9 @@
           </li>
           <!-- 김마음 -->
           
-          <!-- 김현경 -->
-          <li><a><i class="fa fa-bar-chart-o"></i> 통계 <span class="fa fa-chevron-down"></span></a>
-            <ul class="nav child_menu">
-           	   <li><a href="/adChart/chart">편의점</a></li>
-           	   <li><a href="#">제품</a></li>
-           	   <li><a href="#">무슨통계?</a></li>
-           	   <li><a href="#">무슨통계?</a></li>
-           	   <li><a href="#">무슨통계?</a></li>
-            </ul>
-          </li>
-          <!-- 김현경 -->
-           	   
-           <li><a href="setting"><i class="fa fa fa-gears"></i> setting </a>
+          <!-- 김현경 통계 -  메인으로 변경 -->
+<!--            	   
+           <li><a href="setting"><i class="fa fa fa-gears"></i> setting </a> -->
           </li>                  
         </ul>
       </div>

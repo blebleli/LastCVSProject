@@ -176,11 +176,7 @@
 	</definition>
 	
 	<!--  관리자 메인 -->
-	<definition name="ad_index" extends="ad_basicLayout">
-	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>
-	</definition>
-	
-	
+
 	<!--  관리자 - 통계화면 -->
 	<definition name="ad_chart" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>

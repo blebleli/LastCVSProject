@@ -18,17 +18,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-@RequestMapping("/adChart")
+@Controller("adMainController")
+@SessionAttributes({"userInfo"})
+@RequestMapping("/admin")
 public class AdChartController {
 	private Logger logger = LoggerFactory.getLogger(AdChartController.class);
 	
 	@Resource(name="adChartService")
 	private AdChartServiceInf adChartService;
 
-	@RequestMapping("/chart")
+	@RequestMapping("/main")
 	public ModelAndView cvsCountChart(HttpServletRequest request){
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("ad_chart");

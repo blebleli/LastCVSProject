@@ -274,17 +274,6 @@
               <div class="title_left">
                 <h3>GoGoCVS <small>StoreOwner</small></h3>
               </div>
-
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
             
             <div class="clearfix"></div>
@@ -425,32 +414,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             <div class="row">
                <!-- bar chart -->
               <div class="col-md-8 col-sm-8 col-xs-9">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>CVS-Sale total <small><a id="saleTotal">편의점 일 매출</a> |<a id="incomeTotal">일 순수익 매출</a></small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>CVS-Sale total <small><a id="saleTotal">편의점 일 매출</a> |<a id="incomeTotal">일 순수익 매출</a></small></h2>         
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -464,13 +433,7 @@
                <div class="col-md-4 col-sm-4 col-xs-9">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Best Category for CVS <small>인기있는 상품분류</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>Best Category for CVS <small>인기있는 상품분류</small></h2>     
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content1">
@@ -486,14 +449,7 @@
               <div class="col-md-8 col-sm-8 col-xs-9">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>CVS-Supply_Req & Supply_In<small>최근 3달간 편의점 평균 발주, 입고량</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>CVS-Supply_Req & Supply_In<small>최근 3달간 편의점 평균 발주, 입고량</small></h2>        
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -508,22 +464,7 @@
               <div class="col-md-4 col-sm-4 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>CVS-Best Prod<small>편의점 인기 상품</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2>CVS-Best Prod<small>편의점 인기 상품</small></h2>   
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content2">
@@ -533,11 +474,7 @@
               </div>
               <!-- /bar charts group -->
               
-     
 
-              
-
-            
             </div>
           </div>
         </div>
