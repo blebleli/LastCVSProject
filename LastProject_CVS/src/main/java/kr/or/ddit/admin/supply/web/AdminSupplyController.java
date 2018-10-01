@@ -1,8 +1,6 @@
 package kr.or.ddit.admin.supply.web;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,6 +138,7 @@ public class AdminSupplyController {
 	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
 							  @RequestParam(value="supply_bcd")String supply_bcd,
+							  @RequestParam(value="array") String[] array,
 							  AdminApplyVo adminApplyVo,
 							  Model model							  ){
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
@@ -234,7 +233,23 @@ public class AdminSupplyController {
 		}
 		
 		
+		
 		return "redirect:/admin/lookupView";
 	}
 	
+	@RequestMapping("/inputCheck")
+	public String inputCheck(@RequestParam(value="index") int index,
+			  				 @RequestParam(value="value") int value,
+			  				 @RequestParam(value="array") String[] array,
+			  				 Model model){
+		
+		logger.debug("index : {}" , index);
+		logger.debug("value : {}" , value);
+		
+		for (int i = 0; i < array.length; i++) {
+			logger.debug("array : {}" , array[i]);
+		}
+		
+		return "";
+	}
 }
