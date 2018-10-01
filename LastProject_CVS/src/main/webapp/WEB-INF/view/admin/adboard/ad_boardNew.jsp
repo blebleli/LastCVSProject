@@ -30,14 +30,6 @@
 							<!-- 게시글 등록시 form submit -->
 							<form action="/adboard/boardCreate" method="post" id="frmInsert" 
 							enctype="multipart/form-data" data-parsley-validate="" class="form-horizontal form-label-left">
-								
-								<!-- 게시글 등록할 구분표시 (공지사항, 이벤트) -->
-<!-- 								<div class="form-group"> -->
-<!-- 			                      <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">구분</label> -->
-<!-- 				                        공지사항 -->
-<!-- 				                        <input type="radio" name="gender" id="bd_kind_id" value="" checked="" required /> 이벤트 -->
-<!-- 				                        <input type="radio" name="gender" id="bd_kind_id" value="F" />	                     			  -->
-<!-- 								</div>							 -->
 
 								<!-- 제목 -->
 								<div class="form-group">
@@ -68,8 +60,7 @@
 										<div id="addfile"><i id="plusfileBtn" class="fa fa-plus-square"></i>
 											<input type="file" name="file_name" id="file_name"
 												multiple="multiple">
-										</div>
-										
+										</div>										
 									</div>
 								</div>		
 								
@@ -82,9 +73,7 @@
 								<input type="text" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
 								<input type="text" id="bd_kind_id" name="bd_kind_id" value="${boardVo.bd_kind_id}">
 								<input type="text" id="bd_del" name="bd_del" value="N">
-								<input type="text" id="bd_date" name="bd_date" value="YYYY-MM-DD">
 								<input type="text" id="bd_views" name="bd_views" value='0'>
-								<input type="text" id="bd_parent" name="bd_parent" value="${boardVo.bd_parent}">			
 							</form>
 						</div>
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->

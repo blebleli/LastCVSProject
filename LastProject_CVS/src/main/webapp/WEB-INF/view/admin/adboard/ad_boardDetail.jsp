@@ -226,15 +226,15 @@
 							<td id="demoFonts" class="col-sm-1">첨부파일</td>
 							<td id="demoFont" class="col-sm-9" colspan="3">
 								<c:forEach items="${FList}" var="vo">
-<%-- 								${vo.file_name}<br>${vo.file_path}<br>${vo.file_upname}<br>${vo.file_id}<br>${vo.mem_id}<br>${vo.bd_id} --%>
-									<c:choose>
-										<c:when test="${FList == null}">파일이 없습니다.</c:when>							
-										<c:when test="${FList == ''}">파일이11</c:when>							
-										<c:when test="${empty FList}">11없습니다.</c:when>																					
-										<c:when test="${FList != null}">파일이있습니다</c:when>																					
-									</c:choose>	
-														
-								</c:forEach>
+								<c:choose>
+									<c:when test="${empty vo.file_name}">
+										파일이 없습니다.
+									</c:when>
+									<c:when test="${vo.file_name!=''}">
+										[ ${vo.file_name } ]   
+									</c:when>
+								</c:choose>						
+							</c:forEach>
 							</td>
 						</tr>
 						
