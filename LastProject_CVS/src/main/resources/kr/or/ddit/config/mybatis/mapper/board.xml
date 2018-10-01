@@ -117,8 +117,10 @@
 							, mem_id
 							, bd_parent
 							, bd_kind_id
-						  )
-					VALUES (  #{bd_id}
+							, prod_id
+							, bd_rating
+						  )                                    
+					VALUES (  #{bd_id}                        
 					 		, #{bd_title}
 					 		, RAWTOHEX(#{bd_content})
 					 		, SYSDATE
@@ -128,6 +130,8 @@
 					 		, #{mem_id}
 					 		, #{bd_parent}
 					 		, #{bd_kind_id}
+					 		, #{prod_id  }         
+							, #{bd_rating}
 					 		)
 	</insert>
 	
@@ -180,29 +184,6 @@
   	
   <!-- ======================================================================================================================= --> 	
   	
-  	<!-- 리뷰 작성 -->
-  	<insert id="insertReview" parameterType="boardVo">
-  		INSERT INTO board (bd_id, 
-  						   bd_content, 
-  						   bd_title,
-  						   bd_date,
-  						   bd_del,
-  						   bd_rating,
-  						   prod_id,
-  						   mem_id,
-  						   bd_kind_id,
-  						   bd_views)
-		VALUES(#{bd_id},
-				RAWTOHEX(#{bd_content}),
-				SUBSTR(#{bd_content},1,4),
-				sysdate,
-				#{bd_del},
-				#{bd_rating},
-				#{prod_id},
-				#{mem_id},
-				'55',
-				0)
-  	</insert>
   	
   	<!-- 리뷰 조회 -->
   	<select id="getReviewOfProd" parameterType="String" resultType="reviewVo">
