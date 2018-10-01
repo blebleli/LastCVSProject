@@ -12,6 +12,7 @@ import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.DisposalListVo;
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
@@ -24,10 +25,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -51,6 +54,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsDayendController")
+@SessionAttributes({"userInfo"})
 public class CvsDayendController {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -76,14 +80,12 @@ public class CvsDayendController {
 	 * Method 설명 :
 	 */
 	@RequestMapping("/dayend")
-	public String cvsDayend(Model model){
+	public String cvsDayend(Model model,@ModelAttribute("userInfo") MemberVo memberVo){
 		
 		//전체 stockList 가져온다
-		
-		
 		//마감한 내역이 있다면, 막기
 		
-		List<StockVo> stock =  stockService.getAllStockByMemid(mem_id);
+		List<StockVo> stock =  stockService.getAllStockByMemid(memberVo.getMem_id());
 		model.addAttribute("stock", stock);
 		
 		return "cvs_dayend";
@@ -127,14 +129,15 @@ public class CvsDayendController {
 	 * Method 설명 : stockVo 로 마감과 재고insert 를 진행
 	 */
 	@RequestMapping("/setDayEnd")
-	public ResponseEntity<String> setDayEnd(@RequestBody List<PresentStockListVo> stockVoList, Model model){
+	public ResponseEntity<String> setDayEnd(@RequestBody List<PresentStockListVo> stockVoList
+									  	   ,@ModelAttribute("userInfo") MemberVo memberVo){
 		
 		//마감재고 insert 진행
-		int end = stockService.dayendInsert(stockVoList, "999", mem_id);
+		int end = stockService.dayendInsert(stockVoList, "999", memberVo.getMem_id());
 		logger.debug("마감재고 insert 완료");
 		
 		//내일재고 insert 진행
-		int tomorrow = stockService.dayendInsert(stockVoList, "888", mem_id);
+		int tomorrow = stockService.dayendInsert(stockVoList, "888", memberVo.getMem_id());
 		logger.debug("내일재고 insert 완료");
 		return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
 

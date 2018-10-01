@@ -75,7 +75,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyReqController")
-@SessionAttributes({"requestList","user"})
+@SessionAttributes({"requestList","user","userInfo"})
+
 public class CvsSupplyReqController {
 	
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);
@@ -101,9 +102,6 @@ public class CvsSupplyReqController {
 	private Date today = new Date();
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 	
-	
-	
-	String mem_id = "6510000-104-2015-00153"; //session 값 넣기
 
 	/**
 	 * 
@@ -116,10 +114,12 @@ public class CvsSupplyReqController {
 	 * Method 설명 : mem_id 로 현재재고 출력
 	 */
 	@RequestMapping("/stock")
-	public String myStockList(Model model){
-		
+	public String myStockList(Model model, @ModelAttribute("userInfo") MemberVo memberVo){
+
+		logger.debug("memberVo.getMem_id()------"+memberVo.getMem_id());
+
 		//mem_id 로 가장 최근1건의 stock의 stock-list 			
-		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(mem_id);
+		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(memberVo.getMem_id());
 		model.addAttribute("myStockList", myStockList);
 
 		return "cvs_stock";
@@ -136,9 +136,9 @@ public class CvsSupplyReqController {
 	 * Method 설명 : mem_id 로 발주내역 리스트 출력
 	 */
 	@RequestMapping("/reqList")
-	public String requestList(Model model){
+	public String requestList(Model model,@ModelAttribute("userInfo") MemberVo memberVo){
 
-		List<SupRequestListVo> supplyList = supplyService.supplyRequestList("6510000-104-2015-00153");
+		List<SupRequestListVo> supplyList = supplyService.supplyRequestList(memberVo.getMem_id());
 		model.addAttribute("supplyList", supplyList);	
 		return "cvs_supply_request_list";
 	}
@@ -154,7 +154,9 @@ public class CvsSupplyReqController {
 	* @return List<PresentStockListVo>
 	*/ 
 	@RequestMapping("/requestList")
-	public ResponseEntity<String>  requestList(@RequestBody List<String> requestProd, HttpServletRequest request, Model model){
+	public ResponseEntity<String>  requestList( @ModelAttribute("userInfo") MemberVo memberVo,
+												@RequestBody List<String> requestProd,
+												HttpServletRequest request, Model model){
 		//페이지요청으로
 		//requestvo ==>List<ProdVo>
 		//prod_id 로 vo 가져오기
@@ -167,7 +169,7 @@ public class CvsSupplyReqController {
 		}	
 		logger.debug("prodList ------"+prodList);
 		model.addAttribute("requestList", prodList);
-		model.addAttribute("user", "6510000-104-2015-00153");
+		model.addAttribute("user", memberVo.getMem_id());
 		return new ResponseEntity<>( "Custom header set", HttpStatus.OK);
 	}
 	

@@ -149,7 +149,8 @@ public class AdminProdInfo {
 //			logger.debug("중분류 insert ==> {} ", result);
 		}
 		
-		return "forward:/adprod/categoryPopup";
+		return "redirect:/adprod/adprodView";
+				//"forward:/adprod/categoryPopup";
 	}
 	
 	
@@ -204,7 +205,7 @@ public class AdminProdInfo {
 		
 //		logger.debug("result ==> {} ",result);
 		
-		return "forward:/adprod/eventPopup";
+		return "redirect:/adprod/adprodView";
 	}
 	
 	
@@ -309,7 +310,8 @@ public class AdminProdInfo {
 		
 //		logger.debug("result ==> {}", result);
 		
-		return "forward:/adprod/prodPopup";
+		return "redirect:/adprod/adprodView";
+				//"forward:/adprod/prodPopup";
 		
 	}
 	

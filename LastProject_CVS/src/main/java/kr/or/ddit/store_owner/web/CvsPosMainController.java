@@ -32,6 +32,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -56,6 +57,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RequestMapping("/cvs")
 @Controller("cvsMainController")
+@SessionAttributes({"userInfo"})
 public class CvsPosMainController {
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);	
 
@@ -124,9 +126,7 @@ public class CvsPosMainController {
 	public String cvsSupplyInvoice(Model model){
 		return "cvs_invoice";
 	}
- 
-	 String allmem_id = "6510000-104-2015-00153";
-	 
+
 	/**
 	 * 
 	 * Method   : dispInsert 
@@ -139,7 +139,9 @@ public class CvsPosMainController {
 	 * Method 설명 : 판매 처리하는 메서드
 	 */
 	@RequestMapping("/pos/saleInsert")	
-	 public ResponseEntity<String> saleInsert(List<PosPayVo> posPayVo,Model model) {
+	 public ResponseEntity<String> saleInsert(@ModelAttribute("userInfo") MemberVo memberVo,
+			 								  List<PosPayVo> posPayVo,
+											  Model model) {
 		
 		List<PresentStockListVo> preStockList = (List<PresentStockListVo>) posPayVo.get(0).getPresentStockListVo();
 		logger.debug("stock --------------"+ preStockList);
@@ -149,7 +151,7 @@ public class CvsPosMainController {
 		//판매(sale) insert =====================================================
 		
 		//sale dis 의 dis코드 생성
-		String sale_id = autoCodeCreate.autoCode("SALE",allmem_id);	
+		String sale_id = autoCodeCreate.autoCode("SALE",memberVo.getMem_id());	
 
 		//합계계산
 		int sum = preStockList.stream().mapToInt(vo -> {
@@ -163,7 +165,7 @@ public class CvsPosMainController {
 		saleDisVo.setSd_date(new Date()); // 지금날짜
 		saleDisVo.setSd_sum(sum);		  // 위에서 합계로 처리
 		saleDisVo.setSale_kind("88");	  // 판매코드 88
-		saleDisVo.setMem_id(allmem_id);	  // 편의점 id
+		saleDisVo.setMem_id(memberVo.getMem_id());	  // 편의점 id
 		
 		int insertS = saleDisService.setInsertSaleDis(saleDisVo);
 		
@@ -172,7 +174,7 @@ public class CvsPosMainController {
 		//판매리스트(saleList) insert ==============================================
 		for (PresentStockListVo dispVo : preStockList) {
 			//sale 코드 생성
-			String saleList_id = autoCodeCreate.autoCode("SALE_L",allmem_id);	
+			String saleList_id = autoCodeCreate.autoCode("SALE_L",memberVo.getMem_id());	
 
 			SaleListVo saleListVo = new SaleListVo();
 
@@ -205,7 +207,7 @@ public class CvsPosMainController {
 		
 		//결제(pay) insert ==============================================
 		//-- 현금일때, 카드일때 걸러주기
-		String pay_id = autoCodeCreate.autoCode("SALE",allmem_id);	
+		String pay_id = autoCodeCreate.autoCode("SALE",memberVo.getMem_id());	
 	
 		PayVo payvo = new PayVo();
 		payvo.setPay_id     (pay_id);         //결제코드
@@ -248,7 +250,8 @@ public class CvsPosMainController {
 	 * Method 설명 : 폐기 처리하는 메서드
 	 */
 	@RequestMapping("/pos/dispInsert")	//vo 만들어서
-	 public ResponseEntity<String> dispInsert( List<PosPayVo> posPayVo, Model model) {
+	 public ResponseEntity<String> dispInsert(@ModelAttribute("userInfo") MemberVo memberVo,
+			 								  List<PosPayVo> posPayVo, Model model) {
 		
 		List<PresentStockListVo> preStockList = (List<PresentStockListVo>) posPayVo.get(0).getPresentStockListVo();
 		String payKind= (String) posPayVo.get(0).getPay_kind();
@@ -260,7 +263,7 @@ public class CvsPosMainController {
 		//폐기 insert  =====================================================
 		
 		//sale dis 의 dis코드 생성
-		String dis_id = autoCodeCreate.autoCode("DIS",allmem_id);	
+		String dis_id = autoCodeCreate.autoCode("DIS",memberVo.getMem_id());	
 
 		//가격합계
 		int sum = preStockList.stream().mapToInt(vo -> {
@@ -273,7 +276,7 @@ public class CvsPosMainController {
 		saleDisVo.setSd_date(new Date()); // 날짜
 		saleDisVo.setSd_sum(sum);		  // 위에서 합계로 처리
 		saleDisVo.setSale_kind("99");	  // 폐기코드 99
-		saleDisVo.setMem_id(allmem_id);	  // 편의점 id
+		saleDisVo.setMem_id(memberVo.getMem_id());	  // 편의점 id
 		
 		int insertS = saleDisService.setInsertSaleDis(saleDisVo);
 		
@@ -282,7 +285,7 @@ public class CvsPosMainController {
 		//폐기리스트 insert  =====================================================
 		for (PresentStockListVo dispVo : preStockList) {
 			//disposal 코드 생성
-			String disList_id = autoCodeCreate.autoCode("DIS_L",allmem_id);				
+			String disList_id = autoCodeCreate.autoCode("DIS_L",memberVo.getMem_id());				
 			DisposalListVo disposalListVo = new DisposalListVo();
 			disposalListVo.setDisp_id(disList_id); 						//Autocode 로 생성
 			disposalListVo.setBcd_id(dispVo.getBcd_id()); 				// 이미 존재

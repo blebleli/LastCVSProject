@@ -82,11 +82,7 @@ public class CvsBarcodeController {
 		return "cvs_barcode_read";
 	}
 
-		
-	
-	
-	
-	
+
 	/**
 	 * 
 	 * Method   : bcdRead 

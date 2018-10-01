@@ -25,11 +25,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -53,6 +55,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RequestMapping("/cvs")
 @Controller("cvsSupplyIn")
+@SessionAttributes({"userInfo"})
 public class CvsSupplyInController {
 	
 	private Logger logger = LoggerFactory.getLogger(CvsSupplyInController.class);
@@ -72,7 +75,7 @@ public class CvsSupplyInController {
 	@Resource(name="prodService")
 	private ProdServiceInf prodService;
 	
-	String mem_id = "6510000-104-2015-00153";
+	//String mem_id = "6510000-104-2015-00153";
 	
 	/**
 	 * 
@@ -86,7 +89,8 @@ public class CvsSupplyInController {
 	 * Method 설명 :
 	 */
 	@RequestMapping("/supplyIn/confirm")
-	public String supplyInConfirm(@RequestBody List<SupplyListVo> supplyListVo, Model model){
+	public String supplyInConfirm(@ModelAttribute("userInfo") MemberVo memberVo,
+								  @RequestBody List<SupplyListVo> supplyListVo, Model model){
 		
 		// prod_ id 랑 수량 이 jsp 에서 넘어온다.
 		
@@ -97,7 +101,7 @@ public class CvsSupplyInController {
 		BarcodeVo supply_BCD = new BarcodeVo();
 		
 		supply_BCD.setBcd_id(supply_bcd);      	 	 		//바코드코드
-		supply_BCD.setBcd_content("SUPPLY : "+mem_id);       //내용			
+		supply_BCD.setBcd_content("SUPPLY : "+memberVo.getMem_id());       //내용			
 		supply_BCD.setBcd_kind("102"); 		      			//재고 : 100, 저장소 : 101, 수불 : 102 마감 :103
 		supply_BCD.setBcd_path("-");       	 	 			//경로 결제 일때 이미지도 생성
 		
@@ -108,9 +112,9 @@ public class CvsSupplyInController {
 		// 2.입고 supply insert ===================================================
 
 		SupplyVo supplyVo = new SupplyVo();
-		supplyVo.setPlace_id(mem_id);
+		supplyVo.setPlace_id(memberVo.getMem_id());
 		supplyVo.setSupply_bcd(supply_bcd);
-		supplyVo.setSupply_info("SUPPLY_REQ_IN : "+mem_id);
+		supplyVo.setSupply_info("SUPPLY_REQ_IN : "+memberVo.getMem_id());
 		supplyVo.setSupply_state("12");
 
 		supplyService.setInsertSupply(supplyVo);
@@ -122,7 +126,7 @@ public class CvsSupplyInController {
 		// supply list insert
 		for (SupplyListVo vo : supplyListVo) {
 
-			String splylist_id = autoCodeCreate.autoCode("SUP12",mem_id);
+			String splylist_id = autoCodeCreate.autoCode("SUP12",memberVo.getMem_id());
 
 			// 3. supply_list insert ===================================================
 			ProdVo prodvo = prodService.getProd(vo.getProd_id());
@@ -148,7 +152,7 @@ public class CvsSupplyInController {
 		//5. stock_list 바코드 생성, 
 		//6. stock_list 생성 
 		//===================================================
-		stockService.setSupplyStockInsert(supplyListInsert, mem_id);
+		stockService.setSupplyStockInsert(supplyListInsert, memberVo.getMem_id());
 		
 		return "cvs_barcode_read";
 		
@@ -168,13 +172,14 @@ public class CvsSupplyInController {
 	@RequestMapping("/supplyIn")
 	public String cvsSupplyIn(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="10") int pageSize,
+							  @ModelAttribute("userInfo") MemberVo memberVo,
 							  Model model){
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
 		//getSupplyPageList메서드에서 원하는 Map 타입에 page이름으로 값을 1, pageSize이름으로 값을 10을 넣어서 넘겨준다
 		paramMap.put("page", page);
 		paramMap.put("pageSize", pageSize);
-		String place_id = "6510000-104-2015-00153";
+		String place_id = memberVo.getMem_id();
 		paramMap.put("place_id",place_id);
 		//입고 리스트 전체 출력 
 		Map<String, Object> resultMap = supplyService.getSupplyPageList(paramMap);
