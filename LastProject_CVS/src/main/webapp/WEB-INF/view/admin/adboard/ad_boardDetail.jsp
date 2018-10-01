@@ -183,25 +183,25 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>게시글 조회</h3>
+                <h3>'${b.bd_title}' 글입니다.</h3>
               </div>
             </div>
             <div class="clearfix"></div>
         <!-- page content -->
 
-              <div style="margin-left: auto; margin-right: auto; width: 1100px;" class="col-md-12 col-sm-12 col-xs-12">
-                <div style="margin-left: auto; margin-right: auto; width: 1100px;" class="x_panel">
+              <div style="float:inherit; margin-left: auto; margin-right: auto; width: 1100px;" class="col-md-12 col-sm-12 col-xs-12">
+                <div style="margin-left: auto; margin-right: auto;" class="x_panel">
                   <div style="margin-left: auto; margin-right: auto; width: 1000px;" class="x_title">
                     <h2>해당 글 정보입니다.</h2>
                     <div class="clearfix"></div>
                   </div>                  
                   
 				  <!-- ========================================================================== -->
-                  <div style="margin-left: auto; margin-right: auto; width: 1000px;" class="x_content">
+                  <div style="float:inherit; margin-left: auto; margin-right: auto; width: 1000px;" class="x_content">
 		
-			<div style="margin-left: auto; margin-right: auto; width: 1000px;" class="w3ls_service_grids">
+			<div style="width: 1000px;" class="w3ls_service_grids">
 
-				<div style="margin-left: auto; margin-right: auto; width: 1000px;" class="table-responsive">
+				<div style="width: 1000px;" class="table-responsive">
 					<table style="margin-left: auto; margin-right: auto; width: 1000px;" class="table table-striped table-hover" id="reply_area">					
 						<tr>
 							<td id="demoFonts" class="col-sm-1">제목</td>

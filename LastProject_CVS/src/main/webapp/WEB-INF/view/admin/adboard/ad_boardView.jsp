@@ -172,10 +172,10 @@ $(function(){
           <div class="">   
             <div class="page-title">
               <div class="title_left">
-                <c:if test="${bd_kind_id==''}"><h3>게시판 관리<small> 전체 조회</small></h3></c:if>
-                <c:if test="${bd_kind_id=='44'}"><h3>게시판 관리<small> 공지사항 조회</small></h3></c:if>
-                <c:if test="${bd_kind_id=='55'}"><h3>게시판 관리<small> 상품리뷰 조회</small></h3></c:if>
-                <c:if test="${bd_kind_id=='66'}"><h3>게시판 관리<small> 이벤트 조회</small></h3></c:if>
+                <c:if test="${bd_kind_id==''}"><h3>전체 조회</small></h3></c:if>
+                <c:if test="${bd_kind_id=='44'}"><h3>공지사항 조회</small></h3></c:if>
+                <c:if test="${bd_kind_id=='55'}"><h3>상품리뷰 조회</small></h3></c:if>
+                <c:if test="${bd_kind_id=='66'}"><h3>이벤트 조회</small></h3></c:if>
               </div>
             </div>
             <div class="clearfix"></div>
@@ -246,9 +246,9 @@ $(function(){
                   </div>                  
                   
 				  <!-- ========================================================================== -->
-                  <div class="x_content">
+                  <div class="x_content">                  
 					<div class="table-responsive">
-						<table id="datatable-buttons" class="table table-striped jambo_table bulk_action">
+						<table id="datatable" class="table table-striped jambo_table bulk_action">
 						<c:choose>
 							<c:when test="${bd_kind_id=='' || bd_kind_id=='44'}">
 							<thead>
@@ -256,15 +256,13 @@ $(function(){
 									<th style="width: 5px;">
 										<input type="checkbox" id="check-all" class="flat">
 									</th>
-									<th class="sorting" style="width: 5px;">번호</th>
-									<th class="sorting" style="width: 500px;">제목</th>
-									<th class="sorting" style="width: 25px;">작성자</th>
-									<th class="sorting_desc" style="width: 25px;">작성일</th>
-									<th class="sorting_desc" style="width: 25px;">조회수</th>
-									<th class="bulk-actions" colspan="5">
-	                             		<a class="antoo" style="color:#fff; font-weight:500;">
-	                             		선택한 상품 ( <span class="action-cnt"> </span> )
-	                             		<i class="fa fa-chevron-down"></i></a>
+									<th class="column-title" style="width: 5px;">번호</th>
+									<th class="column-title" style="width: 500px;">제목</th>
+									<th class="column-title" style="width: 25px;">작성자</th>
+									<th class="column-title" style="width: 25px;">작성일</th>
+									<th class="column-title" style="width: 25px;">조회수</th>
+									<th class="bulk-actions" colspan="7">
+	                             		<a class="antoo" style="color:#fff; font-weight:500;">선택한 상품 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
 	                             	</th>                            
 								</tr>
 							</thead>

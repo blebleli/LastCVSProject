@@ -189,8 +189,7 @@
 
 <div class="banner">
 		<!-- services -->
-		<div class="services">
-		
+		<div class="services">		
 			<h3>공지사항</h3><br>
 				<form action="/board/boardSearch" id="boardGo" method="post">
 				<div style="margin-left: auto; margin-right: auto; width:1359px;" class="search">

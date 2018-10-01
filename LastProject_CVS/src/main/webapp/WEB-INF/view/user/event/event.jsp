@@ -205,7 +205,7 @@ $(function() {
 		<div class="services">
 			<h3>이벤트&행사</h3>
 				<form action="/board/eventSearch" id="boardGo" method="post">
-				<div class="search">
+				<div style="margin-left: auto; margin-right: auto; width:1359px;" class="search">
 					<select id="i" name="i">
 						<option value="1">제목</option>
 						<option value="2">내용</option>
@@ -218,17 +218,16 @@ $(function() {
 				</div><br><br>
 				</form>
 				
-				<!-- 사진 table 형식 -->
-				
-					<div class="table-responsive">
-						<table class="table table-striped table-hover">
+				<!-- 사진 table 형식 -->				
+				<div style="margin-left: auto; margin-right: auto; width: 1359px;" class="table-responsive">
+						<table style="margin-left: auto; margin-right: auto; width:1359px;" class="table table-striped table-hover">
 							<tbody>
 								<c:forEach items="${boardpage}" var="vo">
 									<c:if test="${vo.bd_del=='N'}">
 										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">										
 											<td width="100px" nowrap id="demoFonts">												
 													<div class="demoFontsDiv"> 														
- 														<img src="${vo.prod_id}"/>
+ 														<img src="${vo.prod_id}"+/+"${file_upname}"/>
 													</div>	
 											</td>											
 											<td style="text-align: left;" id="demoFont">
