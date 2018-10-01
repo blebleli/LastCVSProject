@@ -156,16 +156,6 @@ public class AdboardController {
 	@RequestMapping("/boardCreate")
 	public String boardCreate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile, BoardVo boardVo, Model model) throws ServletException, IOException{
 		
-		logger.debug("boardVo ==> {}", boardVo);
-		
-		if (boardVo.getBd_id() != null) {
-			logger.debug("boardVo.getBd_id() != null===================");
-		}
-		
-		
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// 리턴 페이지 
 		String returnPage = "";
 		
@@ -173,12 +163,21 @@ public class AdboardController {
 		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp/Image/board/";
 		// 파일 DB 저장 기본 경로
 		String path = "/Image/board/";
+		
+		// 그룹코드
+		String groupCode = "";
+		
 		// 답글일 경우
 		if (boardVo.getBd_id() != null) {
 			
-			logger.debug("답글일 경우 bd_id & bd_parent==> {}",boardVo.getBd_id());
+//			logger.debug("답글일 경우 bd_id & bd_parent==> {}",boardVo.getBd_id());
 			// 받아오는 bd_id ==> bd_parent set
 			boardVo.setBd_parent(boardVo.getBd_id());
+			
+			// 그룹코드 받아 오기
+			groupCode = boardVo.getBd_group();
+
+			
 		}else{
 			boardVo.setBd_parent("");
 		}
@@ -208,15 +207,15 @@ public class AdboardController {
 			returnPage = "redirect:/adboard/boardView?btnChk=" + boardVo.getBd_kind_id();
 		}
 		
-		logger.debug("boardVo ==> {}" , boardVo);
+//		logger.debug("boardVo ==> {}" , boardVo);
 		
 		// 게시글 그룹코드 저장 (첫 글은 첫 글의 게시글 코드가 그룹코드임.)
+		groupCode = (groupCode.equals("")) ? boardVo.getBd_id(): groupCode ;
 		boardVo.setBd_group(boardVo.getBd_id());
-		
 		
 		int cnt = boardService.setInsertBoard(boardVo); // 게시글 저장
 		
-		logger.debug("cnt==> {}" , cnt);
+//		logger.debug("cnt==> {}" , cnt);
 		
 		
 		int fileResult = 0;
@@ -234,7 +233,7 @@ public class AdboardController {
 				fileVo.setFile_upname(UUID.randomUUID().toString()+"."+ext); // 파일명
 				fileVo.setMem_id(boardVo.getMem_id());
 				
-				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
+//				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
 				
 				// 디렉토리 없을 경우 생성
 				if(!new File(tempSavePath).exists()) {
@@ -251,7 +250,7 @@ public class AdboardController {
 					fileVo.setFile_id(code.autoCode("EV"));		// 파일 코드
 				}
 				
-				logger.debug("fileVo.getFile_id() ==> {}", fileVo.getFile_id());
+//				logger.debug("fileVo.getFile_id() ==> {}", fileVo.getFile_id());
 				
 				fileResult += fileService.insertFileBoard(fileVo);
 
@@ -262,7 +261,7 @@ public class AdboardController {
 				}
 			} // for
 			
-			logger.debug("fileResult ==> {}" ,fileResult);
+//			logger.debug("fileResult ==> {}" ,fileResult);
 			
 			return returnPage;
 			
