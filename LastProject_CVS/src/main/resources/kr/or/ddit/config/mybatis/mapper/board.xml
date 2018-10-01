@@ -28,7 +28,9 @@
 						</if>
 						START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
 					) T
+					<if test="_parameter != '66'">
 					 order by T.levels
+					</if>
 			)
 				
 	</select>
