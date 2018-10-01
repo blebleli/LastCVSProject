@@ -41,6 +41,23 @@
 		});
 	});
 </script>
+<script>
+function categoryPopup(){
+	
+	$.ajax({
+		url : "/user/speech",
+		datatype : "html",
+		success:function(responseData){
+			console.log("성공");
+			 $('#speechDiv').html(responseData);
+		}
+	});
+	
+/* 	
+    var url="/adprod/categoryPopup";
+    window.open("/adprod/categoryPopup","카테고리추가","width=800,height=450,left=500, top=100"); */
+}
+</script>
 
 <!-- 데이터 전송 -->
 <form action="/userProd/detail" method="post" id="detailFrm">
@@ -50,7 +67,19 @@
 <!-- boader------------------------------------------------------------------------------ -->
 <div class="products-breadcrumb">
 	<div class="container">
-
+<!-- 		<a><i class="fa fa-microphone" aria-hidden="true"></i></a> -->
+	<a data-toggle="modal" data-target=".ctgr-modal-lg" onclick="categoryPopup();"><i class="fa fa-microphone" aria-hidden="true"></i></a>
+			<div class="modal fade ctgr-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+				<div class="modal-content">								  
+				  <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title">MIC-Search</h4>
+			      </div>										      
+			      	<div id="speechDiv" class="modal-content"></div>																			   												
+			    </div>
+			  </div>
+			</div>
 	</div>
 </div>
 
