@@ -191,9 +191,9 @@
 		<!-- services -->
 		<div class="services">
 		
-			<h3>공지사항</h3>
+			<h3>공지사항</h3><br>
 				<form action="/board/boardSearch" id="boardGo" method="post">
-				<div class="search">
+				<div style="margin-left: auto; margin-right: auto; width:1359px;" class="search">
 					<select id="i" name="i">
 						<option value="1">제목</option>
 						<option value="2">내용</option>
@@ -208,7 +208,7 @@
 					<div style="margin-left: auto; margin-right: auto; width: 1359px;" class="table-responsive">
 						<table style="margin-left: auto; margin-right: auto; width:1359px;" class="table table-striped table-hover">
 							<thead>
-								<tr >
+								<tr>
 									<th width="200px;" id="demoFont">번호</th>
 									<th width="659px;" id="demoFont">제목</th>
 									<th width="300px;" id="demoFont">작성자</th>
