@@ -265,7 +265,7 @@ public class AdboardController {
 			} // for
 			
 //			logger.debug("fileResult ==> {}" ,fileResult);
-			
+			logger.debug("prod_id ==> {}", boardVo.getProd_id());
 			model.addAttribute("prod_id", boardVo.getProd_id());
 			
 			return returnPage;

@@ -16,6 +16,17 @@ public class ReviewVo {
 	private String bd_kind_id ="55";                          // 공지사항 : 44 , 리뷰 : 55, 이벤트 : 66
 	private String mem_name;								//작성자 이름
 	
+	private String src;
+	
+
+	public String getSrc() {
+		return src;
+	}
+
+	public void setSrc(String src) {
+		this.src = src;
+	}
+
 	public ReviewVo(){
 		
 	}
@@ -143,6 +154,19 @@ public class ReviewVo {
 	public void setMem_name(String mem_name) {
 		this.mem_name = mem_name;
 	}
+
+	@Override
+	public String toString() {
+		return "ReviewVo [bd_id=" + bd_id + ", bd_title=" + bd_title
+				+ ", bd_content=" + bd_content + ", bd_date=" + bd_date
+				+ ", bd_del=" + bd_del + ", bd_rating=" + bd_rating
+				+ ", bd_views=" + bd_views + ", bd_group=" + bd_group
+				+ ", prod_id=" + prod_id + ", mem_id=" + mem_id
+				+ ", bd_parent=" + bd_parent + ", bd_kind_id=" + bd_kind_id
+				+ ", mem_name=" + mem_name + ", src=" + src + "]";
+	}
+	
+	
 	
 	
 }

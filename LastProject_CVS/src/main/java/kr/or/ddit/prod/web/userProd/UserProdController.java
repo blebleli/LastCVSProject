@@ -89,6 +89,8 @@ public class UserProdController {
 		int reviewCnt = boardService.getReviewCnt(prod_id) ;
 		
 		List<ReviewVo> reviews = boardService.getReviewOfProd(prod_id);
+		logger.debug("reviews==> {}",reviews);
+		
 		mav.addObject("reviewList", reviews);
 		mav.addObject("prod", prod);
 		mav.addObject("reviewCnt", reviewCnt);
