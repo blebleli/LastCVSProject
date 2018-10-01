@@ -8,16 +8,21 @@
 
 <!-- 최상단  -->
 <div class="agileits_header">
-
+<!-- 	<div class="w3l_header_left"> -->
+<!-- 		<a><i class="fa fa-microphone" aria-hidden="true" style="color : white;"></i></a> -->
+<!-- 	</div> -->
 	<div class="w3l_search">
+		
 		<!-- 검색하기 submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->
 		<form action="/search/prodSearch" method="post">
 			<input type="text" name="Product" value="검색하기"
 				onfocus="this.value = '';"
 				onblur="if (this.value == '') {this.value = '검색하기';}" required="">
 			<input type="submit" value="">
+			
 		</form>
 	</div>
+	
 	
 	<div class="product_list_header">
 		<!-- 장바구니 submit버튼 클릭시  ★ 이동 경로 주기(장바구니 화면) -->
