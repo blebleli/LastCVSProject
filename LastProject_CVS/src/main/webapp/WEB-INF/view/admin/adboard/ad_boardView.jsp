@@ -351,7 +351,7 @@ $(function(){
 													</div>
 												</td>
 												<td>${vo.tot_cnt}</td>
-												<td>${vo.bd_title}</td>
+												<td>${vo.prod_name}</td>
 												<td>${vo.bd_title}</td>
 												<td>${vo.mem_name}</td>
 												<td>${vo.bd_date}</td>
@@ -367,7 +367,7 @@ $(function(){
 													</div>
 												</td>
 												<td>${vo.tot_cnt }</td>
-												<td>${vo.bd_title}</td>
+												<td>${vo.prod_name}</td>
 												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
 												<td>${vo.mem_name}</td>
 												<td>${vo.bd_date}</td>
@@ -382,7 +382,7 @@ $(function(){
 													</div>
 												</td>
 												<td>${vo.tot_cnt }</td>
-												<td>${vo.bd_title}</td>
+												<td>${vo.prod_name}</td>
 												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
 												<td>${vo.mem_name}</td>
 												<td>${vo.bd_date}</td>
@@ -425,7 +425,7 @@ $(function(){
 												</td>
 												<td>${vo.tot_cnt}</td>
 												<td>
-																									<div class="demoFontsDiv"> 														
+													<div class="demoFontsDiv"> 														
  														<img src="${vo.prod_id}"/>
 													</div>
 												</td>
@@ -443,7 +443,11 @@ $(function(){
 													</div>
 												</td>
 												<td>${vo.tot_cnt }</td>
-												<td>${vo.bd_title}</td>
+												<td>
+													<div class="demoFontsDiv"> 														
+ 														<img src="${vo.prod_id}"/>
+													</div>
+												</td>
 												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
 												<td>${vo.bd_date}</td>
 												<td>${vo.bd_views}</td>												
@@ -457,7 +461,11 @@ $(function(){
 													</div>
 												</td>
 												<td>${vo.tot_cnt }</td>
-												<td>${vo.bd_title}</td>
+												<td>
+													<div class="demoFontsDiv"> 														
+ 														<img src="${vo.prod_id}"/>
+													</div>
+												</td>
 												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
 												<td>${vo.bd_date}</td>
 												<td>${vo.bd_views}</td>	
