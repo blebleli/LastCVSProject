@@ -270,7 +270,7 @@ $(function(){
 							</thead>
 							<tbody id="bd_code">
 								<!-- 게시글 조회 foreach문 -->
-								<%request.setAttribute("nbsp", " ");%>
+								<%request.setAttribute("nbsp", "         [RE:]");%>
 								<c:forEach items="${boardList}" var="vo">
 									<c:choose>
 										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
@@ -297,7 +297,7 @@ $(function(){
 													</div>
 												</td>
 												<td>${vo.tot_cnt }</td>
-												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
+												<td>　　　[RE:]${vo.bd_title}</td>
 												<td>${vo.mem_name}</td>
 												<td>${vo.bd_date}</td>
 												<td>${vo.bd_views}</td>												

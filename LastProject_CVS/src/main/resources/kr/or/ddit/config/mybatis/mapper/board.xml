@@ -9,9 +9,9 @@
 				FROM (
 						SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
 								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-								, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+								, bd_title
 								, bd_rating
-								, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+								, bd_date
 								, mem_id
 								, bd_kind_id
 								, prod_id
@@ -19,6 +19,7 @@
 								, bd_del
 								, bd_parent
 								, bd_views
+								, level as levels
 						FROM BOARD
 						WHERE 1=1
 						<if test="_parameter != null and _parameter != ''">
@@ -26,6 +27,7 @@
 						</if>
 						START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
 					) T
+					 order by T.levels
 			)
 				
 	</select>

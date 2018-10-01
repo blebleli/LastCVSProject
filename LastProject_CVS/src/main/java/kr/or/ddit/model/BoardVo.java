@@ -18,6 +18,7 @@ public class BoardVo extends PageVo {
 	private String mem_id;                              // 아이디
 	private String bd_parent;                           // 부모코드
 	private String bd_kind_id;                          // 공지사항 : 44 , 리뷰 : 55, 이벤트 : 66
+	private String levels;
 	
 	// 관리자 - review 
 	private String prod_name;		// 상품명
@@ -40,7 +41,7 @@ public class BoardVo extends PageVo {
 	public BoardVo(String bd_id, String bd_title, String bd_content,
 			String bd_date, String bd_del, int bd_rating, int bd_views,
 			String bd_group, String prod_id, String mem_id, String bd_parent,
-			String bd_kind_id, String prod_name, String mem_name) {
+			String bd_kind_id, String prod_name, String mem_name, String levels) {
 		super();
 		this.bd_id = bd_id;
 		this.bd_title = bd_title;
@@ -56,8 +57,17 @@ public class BoardVo extends PageVo {
 		this.bd_kind_id = bd_kind_id;
 		this.prod_name = prod_name;
 		this.mem_name = mem_name;
+		this.levels = levels;
+	}
+	
+	public String getLevels() {
+		return levels;
 	}
 
+	public void setLevels(String levels) {
+		this.levels = levels;
+	}
+	
 	public String getBd_id() {
 		return bd_id;
 	}
@@ -178,6 +188,7 @@ public class BoardVo extends PageVo {
 				+ ", bd_views=" + bd_views + ", bd_group=" + bd_group
 				+ ", prod_id=" + prod_id + ", mem_id=" + mem_id
 				+ ", bd_parent=" + bd_parent + ", bd_kind_id=" + bd_kind_id
-				+ ", prod_name=" + prod_name + ", mem_name=" + mem_name + "]";
+				+ ", levels=" + levels + ", prod_name=" + prod_name
+				+ ", mem_name=" + mem_name + ", fileList=" + fileList + "]";
 	}
 }
