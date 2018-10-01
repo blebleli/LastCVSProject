@@ -189,20 +189,20 @@ public class AdboardController {
 			// 리뷰가 아닐시.. BoardVo 나머지 값 null 
 			boardVo.setProd_id("");
 			boardVo.setBd_rating(0);
-			tempSavePath += "/BNO";
-			path+= "/BNO";
+			tempSavePath += "/BNO/";
+			path+= "/BNO/";
 			returnPage = "redirect:/adboard/boardView?btnChk=" + boardVo.getBd_kind_id();
 			
 		}else if(boardVo.getBd_kind_id().equals("55")){ // 리뷰
 			boardVo.setBd_id(code.autoCode("BRE"));
-			tempSavePath += "/BRE";
-			path+= "/BRE";
+			tempSavePath += "/BRE/";
+			path+= "/BRE/";
 			returnPage = "redirect:/userProd/detail";
 			
 		}else if(boardVo.getBd_kind_id().equals("66")){ // 이벤트
 			boardVo.setBd_id(code.autoCode("BEV"));
-			tempSavePath += "/BEV";
-			path+= "/BEV";
+			tempSavePath += "/BEV/";
+			path+= "/BEV/";
 			// 리뷰가 아닐시.. BoardVo 나머지 값 null 
 			boardVo.setProd_id("");
 			boardVo.setBd_rating(0);

@@ -227,7 +227,7 @@ $(function() {
 										<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">										
 											<td width="100px" nowrap id="demoFonts">												
 													<div class="demoFontsDiv"> 														
- 														<img src="${vo.prod_id}"+/+"${file_upname}"/>
+ 														<img src="${vo.prod_id}"/>
 													</div>	
 											</td>											
 											<td style="text-align: left;" id="demoFont">
