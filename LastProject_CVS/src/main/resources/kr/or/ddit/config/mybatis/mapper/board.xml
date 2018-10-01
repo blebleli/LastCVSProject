@@ -477,4 +477,15 @@
   	<select id="getWriteTotCnt1" parameterType="String" resultType="int">
 		SELECT count(*) FROM BOARD WHERE bd_kind_id = #{bd_kind_id}
   	</select>
+  	
+  	<!-- 	아 이 디 : getReviewCnt
+	  		반 환 값 : int
+	  		매개변수 : string(prod_id)
+	  		설    명 : 제품 리뷰 개수 
+	  		작 성 자 : 조종원
+	  		일    시 : 2018-10-01     
+	 -->
+	 <select id="getReviewCnt" resultType="int" parameterType="String">
+	 	SELECT COUNT(*) AS CNT FROM BOARD WHERE PROD_ID = #{prod_id}
+	 </select>
 </mapper>
