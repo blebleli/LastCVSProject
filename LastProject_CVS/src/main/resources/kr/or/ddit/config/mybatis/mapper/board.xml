@@ -8,13 +8,14 @@
 				SELECT ROWNUM tot_cnt, T.*
 				FROM (
 						SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+								, (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
+                           			||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id
+                           		, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
 								, bd_title
 								, bd_rating
 								, bd_date
 								, mem_id
 								, bd_kind_id
-								, prod_id
 								, bd_id
 								, bd_del
 								, bd_parent

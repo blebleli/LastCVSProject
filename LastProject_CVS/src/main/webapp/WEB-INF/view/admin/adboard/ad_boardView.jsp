@@ -424,7 +424,11 @@ $(function(){
 													</div>
 												</td>
 												<td>${vo.tot_cnt}</td>
-												<td>${vo.bd_title}</td>
+												<td>
+																									<div class="demoFontsDiv"> 														
+ 														<img src="${vo.prod_id}"/>
+													</div>
+												</td>
 												<td>${vo.bd_title}</td>
 												<td>${vo.bd_date}</td>
 												<td class="a-right a-right">${vo.bd_views}</td>												
