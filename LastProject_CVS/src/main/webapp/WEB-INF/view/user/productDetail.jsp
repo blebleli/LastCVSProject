@@ -38,6 +38,16 @@
     <script>
     $(function(){
     	
+    	// 첨부파일 추가/삭제 버튼(editor 소스보다 위에 있어야 함)						
+		 $("#plusfileBtn").on("click", function() {
+	         var fileLen = $("div#addfile input[id=fileList]").size();
+	         if(fileLen == 5) {
+	            alert("첨부파일은 5개이상 추가할 수 없습니다.");
+	            return false;
+	         }
+	         $("div#addfile").append($("<input type='file' id='file_name' name='file_name' required='required' class='form-control col-md-5 col-xs-12' onchange='fn_loadImg(this);'>"));
+	      });
+    	
     	var isEmpty = function(value){
     		if(    value == "" || value == null || value == undefined 
     		   || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
@@ -151,25 +161,20 @@
 			</div>
 			<br>
 
-
 			<div class="col-md-15 col-sm-10 col-xs-12">
-
 				<div class="" role="tabpanel" data-example-id="togglable-tabs">
 					<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
 
 						<li role="presentation" class="active">
-							<a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">상품 리뷰(개수)</a>
+							<a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false">상품 리뷰(${reviewCnt})</a>
 						</li>
 						<li role="presentation" class="">
 							<a href="#tab_content2" role="tab" id="reviewInsert" data-toggle="tab" aria-expanded="false">리뷰작성</a>
 						</li>
 					</ul>
-
 					<!-- Tab panes -->
 					<div id="myTabContent"  class="tab-content col-md-15 col-sm-9 col-xs-12" style="width: 100%">
-
 						<!-- 상품리뷰 -------------------------------------------------------------------------------------------------------- -->
-
 							<c:forEach items="${reviewList }" var="review">
 							<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 								<div id="content" class="content_primary forgot_user_information" ">
@@ -216,20 +221,16 @@
 								
 								</div>
 								<hr/>
-								<br/><br/>
 							</c:forEach>
-						
-
 						<!-- 리뷰작성 -------------------------------------------------------------------------------------------------------- -->
-						<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="reviewInsert">
+		<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="reviewInsert">
           <div class="x_content">
-            <br>
-            
-            <form id="frm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="/review/write" enctype="multipart/form-data">
+            <form id="frm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="post" action="/adboard/boardCreate" enctype="multipart/form-data">
             	<input type="hidden" id="prod_id" name="prod_id" value="${prod.prod_id}">
             	<input type="hidden" id="bd_rating" name="bd_rating" value="">
             	<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
             	<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="55">
+            	<input type="hidden" id="bd_del" name="bd_del" value="N">
               
               <div class="form-group">
               
@@ -265,9 +266,12 @@
               </div>
               
               <div class="form-group">
-                <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">사진</label>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                	<input type="file" id="fileList" name="fileList" required="required" class="form-control col-md-7 col-xs-12" onchange="fn_loadImg(this);">
+                <label for="file_name" class="control-label col-md-3 col-sm-3 col-xs-12">사진</label>
+                <div class="col-md-5 col-sm-5 col-xs-12" id="addfile" >
+                	<input type="file" id="file_name" name="file_name" required="required" class="form-control col-md-5 col-xs-12" onchange="fn_loadImg(this);">
+                </div>
+                <div class="col-md-1 col-sm-2 col-xs-12">
+                	<button type="button" class="fa fa-plus-square" name="plusfileBtn" id="plusfileBtn" ></button>
                 </div>
               </div>
               
@@ -282,7 +286,6 @@
             </form>
           </div>
         </div>			
-									
 						</div>
 					</div>
 						
@@ -297,11 +300,6 @@
 </div>
 
 <br>
-
-
-
-
-
 
 </body>
 </html>
