@@ -158,14 +158,6 @@ public class AdboardController {
 		
 		logger.debug("boardVo ==> {}", boardVo);
 		
-		if (!boardVo.getBd_id().isEmpty()) {
-			logger.debug("(!boardVo.getBd_id().isEmpty()===================");
-		}
-		
-		if (!boardVo.getBd_id().equals("")) {
-			logger.debug("(!boardVo.getBd_id().equals('')===================");
-		}
-		
 		if (boardVo.getBd_id() != null) {
 			logger.debug("boardVo.getBd_id() != null===================");
 		}
@@ -182,7 +174,7 @@ public class AdboardController {
 		// 파일 DB 저장 기본 경로
 		String path = "/Image/board/";
 		// 답글일 경우
-		if ( (!boardVo.getBd_id().isEmpty()) || (!boardVo.getBd_id().equals("")) || boardVo.getBd_id() != null) {
+		if (boardVo.getBd_id() != null) {
 			
 			logger.debug("답글일 경우 bd_id & bd_parent==> {}",boardVo.getBd_id());
 			// 받아오는 bd_id ==> bd_parent set
