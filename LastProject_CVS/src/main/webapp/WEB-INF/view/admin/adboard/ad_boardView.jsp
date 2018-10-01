@@ -17,10 +17,13 @@
 		$(function(){
 			
 			$("#boardsearch").on("click",function(){ // 제목 / 제목+내용 / 내용 / 작성자 중 선택 후 검색창을 누른다.
-				alert($("#i option:selected").val());
-				alert($("#i_search").val());
-				$("#boardGo").attr("action","/adboard/boardSearch") // form 액션이 검색 결과로 바뀐다.
-				$("#boardGo").submit(); // 검색 결과로 이동한다.
+				if($("#i_search").val()==""){
+					alert("검색어를 입력하세요.");
+					return;
+				}else{
+					$("#boardGo").attr("action","/adboard/boardSearch"); // form 액션이 검색 결과로 바뀐다.
+					$("#boardGo").submit(); // 검색 결과로 이동한다.
+				}
 			});
 			
 			$("#all").on("click", function() { 		// 게시판 - 전체를 누른다.		
