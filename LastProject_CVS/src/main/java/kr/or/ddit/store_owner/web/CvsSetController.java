@@ -83,20 +83,18 @@ public class CvsSetController {
 		mav.setViewName("redirect:/cvs/setting");
 //		MemberVo user = modelMap.get("user");
 		MemberVo user = userMainService.getMyPage("6510000-104-2015-00153");
-		user.setMem_pw(pw);
-		user.setMem_tel(tel);
-		user.setMem_intro(mem_intro);
-		logger.debug("mem_pw-------{}", pw);
-		logger.debug("mem_tel-------{}", tel);
-		logger.debug("mem_intro-------{}", mem_intro);
-		
 		
 		if(file.getContentType() != null){
 			
 				String fileOriginalName= file.getOriginalFilename();
 				String ext = fileOriginalName.substring(fileOriginalName.lastIndexOf("."), fileOriginalName.length());
-				String path = "C:/mypro/W/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";
+//				String path = "C:/mypro/W/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";
+//				String path = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/ ";
+				String path = "D:/W/";
 				String upName = UUID.randomUUID().toString();
+				
+				File uploadFile = new File(path+upName);
+				
 				FiledataVo fileDataVo = new FiledataVo();
 				fileDataVo.setMem_id("6510000-104-2015-00153");
 				fileDataVo.setFile_id(autoCodeCreate.autoCode("CP"));
@@ -111,16 +109,23 @@ public class CvsSetController {
 				user.getFileList().add(fileDataVo);
 				
 				try{
-					FileUtils.writeByteArrayToFile(new File(fileDataVo.getFile_path(), fileDataVo.getFile_upname()), file.getBytes());
+					file.transferTo(uploadFile);
+//					FileUtils.writeByteArrayToFile(new File(fileDataVo.getFile_path(), fileDataVo.getFile_upname()), file.getBytes());
+					user.setMem_pw(pw);
+					user.setMem_tel(tel);
+					user.setMem_intro(mem_intro);
+					logger.debug("mem_pw-------{}", pw);
+					logger.debug("mem_tel-------{}", tel);
+					logger.debug("mem_intro-------{}", mem_intro);
+					logger.debug("user======={}",user);
+					int result = signUpService.updateMember(user);
+					logger.debug("result:{}",result);
 				}catch(IOException e){
 					e.printStackTrace();
 					throw new Exception(file.getName()+"저장 실패");
 				}
 			
 		}
-		
-		
-		int result = signUpService.updateMember(user);
 		return mav;
 	}
 
