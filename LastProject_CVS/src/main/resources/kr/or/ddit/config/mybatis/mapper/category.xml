@@ -97,7 +97,7 @@
 	select * from cvs_service where place_id = #{place_id}
 </select>
 
-<select id="searchCvsCtgy" parameterType="Map" resultType="">
+<select id="searchCvsService" parameterType="Map" resultType="searchCvsServiceVo">
 	 select   a.MEM_ID
 			, a.MEM_PW
 			, a.MEM_KIND
@@ -117,7 +117,7 @@
       where a.mem_id = c.place_id
       and b.ctgy_id = c.ctgy_id
       and b.ctgy_id =#{ctgy_id}      
-      and a.mem_cvs_name like '%#{mem_cvs_name}%'
+      and a.mem_cvs_name like '%'||#{mem_cvs_name}||'%'
 </select>
 
 </mapper>
