@@ -107,7 +107,6 @@ var ctgys =[];
 function myFunc(e, ctgy) {
 	var cvsList =[];
     if(e.className == 'emblem') {
-    	alert(ctgy);
 		ctgys.push(ctgy);
 		console.log(ctgys);
         e.className = 'emblem on';
