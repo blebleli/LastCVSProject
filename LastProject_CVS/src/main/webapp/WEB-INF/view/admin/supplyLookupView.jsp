@@ -199,22 +199,30 @@
 															<fmt:formatNumber value="${sum}" type="number"/>
 														</span>
 													</td>
-													<td class="m1"></td>
+													<td class="m1">
+													
+													</td>
 												</tr>
 												<tr>
 													<th>세금(5%) :</th>
 													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
-													<td class="m2"></td>
+													<td class="m2">
+													
+													</td>
 												</tr>
 												<tr>
 													<th>배송비(5%) :</th>
 													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
-													<td class="m3"></td>
+													<td class="m3">
+													
+													</td>
 												</tr>
 												<tr>
 													<th>총합계 :</th>
 													<td>￦<fmt:formatNumber value="${sum + ((sum/20)*2)}" type="number"></fmt:formatNumber></td>
-													<td class="m4"></td>
+													<td class="m4">
+													
+													</td>
 												</tr>
 
 											</tbody>
@@ -347,12 +355,18 @@ function fn_changeCost(el){
 	
 	//명세서 부분
 	var m1 = $(".m1");
+	var m2 = $(".m2");
+	var m3 = $(".m3");
+	var m4 = $(".m4");
 	
 	item.on("blur", function(){
 		
 		result.text(cost * item.val());
 		
-		m1.text();
+		m1.text(1);
+		m2.text(2);
+		m3.text(3);
+		m4.text(4);
 		
 	});
 	
