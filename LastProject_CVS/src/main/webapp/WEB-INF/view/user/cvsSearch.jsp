@@ -102,32 +102,24 @@
 
 </style> 
 <script>
+var ctgys =[];
 
-function myFunc(e) {
-	var ctgys =[];
+function myFunc(e, ctgy) {
 	var cvsList =[];
     if(e.className == 'emblem') {
-    	alert($(this).data("class"));
-		ctgys.push($("input[name=ctgy_id]").val());
+    	alert(ctgy);
+		ctgys.push(ctgy);
 		console.log(ctgys);
         e.className = 'emblem on';
-//         $("tr[name=cvsTr]").each(function(){
-//         	var nameAndTelStr = $(this).find(".nameAndTel").val();
-//         	var nameTel = nameAndTelStr.split("/");
-//         	cvsList.push({mem_id : $(this).data("class"),
-//         				  mem_name : nameTel[0],
-//         				  mem_tel : nameTel[1],
-//         				  })
-//         }); //each end
 			$.ajax({
 				url : "/search/cvsServiceSearch",
 				method : "post",
    				data : JSON.stringify(ctgys),
    				contentType: "application/json",
    				success : function(data){
-   					$(".table > tbody").empty();
+   					$("#table > tbody").empty();
    					$.each(data, function(index, item){
-	   					$(".table > tbody").append('<tr name="cvsTr">'+
+	   					$("#table > tbody").append('<tr name="cvsTr">'+
 	   												'<td class="nameAndTel">'+
 														item.mem_cvs_name+'/'+
 														item.mem_cvs_tel+'<br>'+
@@ -144,9 +136,39 @@ function myFunc(e) {
    						
    					});
    				}
-			})
+			}); //ajax end
     } else {
         e.className = 'emblem';
+        ctgys = jQuery.grep(ctgys, function(value){
+        	return value != ctgy;
+        });
+        console.log(ctgys.length);
+        $.ajax({
+			url : "/search/cvsServiceSearch",
+			method : "post",
+				data : JSON.stringify(ctgys),
+				contentType: "application/json",
+				success : function(data){
+					$("#table > tbody").empty();
+					$.each(data, function(index, item){
+   					$("#table > tbody").append('<tr name="cvsTr">'+
+   												'<td class="nameAndTel">'+
+													item.mem_cvs_name+'/'+
+													item.mem_cvs_tel+'<br>'+
+													'</td>'+
+												'<td class="addrAndService">'+
+													item.mem_addr+'<br>'+
+												'</td>'+
+												'<td>'+
+													'<input type="hidden" name="mem_x" id="mem_x" class="mem_x" value="'+item.mem_x+'">'+
+													'<input type="hidden" name="mem_y" id="mem_y" class="mem_y" value="'+item.mem_y+'">'+
+													'<button id ="clickCvs" name="clickCvs" onclick="fn_click(${vo.mem_x}, ${vo.mem_y});">위치</button>'+
+												'</td>'+
+											'</tr>');
+						
+					});
+				}
+		}); //ajax end
     }
 }
 
@@ -246,9 +268,9 @@ function searchList(pageNo){
 										<td >
 											<div class="col-lg-10 input-group">
 											<!-- -->
-      												<form action="/search/cvsSearchAction" method="get">
+      												<form action="/search/cvsSearchAction" method="get" id="searchFrm">
     		  											<span class="input-group-btn">
-			   												<input type="text" class="form-control" name="searchWord"  placeholder="Search for...">
+			   												<input type="text" class="form-control" name="searchWord" id="searchWord"  placeholder="Search for...">
 		      												<button class="btn btn-default" type="submit">Go!</button>
 	      												</span>
       												</form>
@@ -287,58 +309,50 @@ function searchList(pageNo){
 								<ul>
 									<li>
 										<div class="group_service">
-											<a class="emblem on" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_01_hour.png" alt=""></a><!-- 선택한a태그 class="on" 추가 -->
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500001'); return false;"><img src="/images/store/icon_big_01_hour.png" alt=""></a><!-- 선택한a태그 class="on" 추가 -->
 											<a class="text" href="#" onclick="myFunc(this); return false;">24시간</a>
-											<input type="hidden" data-class="CVS1234500001" name="ctgy_id" value="CVS1234500001">
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this); return false;" value="CVS1234500002"><img src="/images/store/icon_big_02_delivery.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500002'); return false;"><img src="/images/store/icon_big_02_delivery.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">택배 서비스</a>
-											<input type="hidden" data-class="CVS1234500002" name="ctgy_id"  value="CVS1234500002">
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_03_bakery.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500003'); return false;"><img src="/images/store/icon_big_03_bakery.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">베이커리 판매</a>
-											<input type="hidden" data-class="CVS1234500003" name="ctgy_id"  value="CVS1234500003">
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_04_fried.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500004'); return false;"><img src="/images/store/icon_big_04_fried.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">튀김 판매</a>
-											<input type="hidden" data-class="CVS1234500004" name="ctgy_id"  value="CVS1234500004">
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_05_coffee.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500005'); return false;"><img src="/images/store/icon_big_05_coffee.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">에스프레소<br>커피 판매</a>
-											<input type="hidden" data-class="CVS1234500005" name="ctgy_id"  value="CVS1234500005">
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this); return false;" ><img src="/images/store/icon_big_06_lotto.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500006'); return false;" ><img src="/images/store/icon_big_06_lotto.png" alt=""></a>
 											<a class="text" href="#"  onclick="myFunc(this); return false;">로또 판매</a>
-											<input type="hidden" data-class="CVS1234500006" name="ctgy_id"  value="CVS1234500006">
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_07_toto.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500007'); return false;"><img src="/images/store/icon_big_07_toto.png" alt=""></a>
 											<a class="text" href="#"   onclick="myFunc(this); return false;">스포츠토토</a>
-											<input type="hidden" data-class="CVS1234500007" name="ctgy_id"  value="CVS1234500007">
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this); return false;"><img src="/images/store/icon_big_08_cash.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500008'); return false;"><img src="/images/store/icon_big_08_cash.png" alt=""></a>
 											<a class="text" href="#"   onclick="myFunc(this); return false;">현금지급기</a>
-											<input type="hidden" data-class="CVS1234500008" name="ctgy_id"  value="CVS1234500008">
 										</div>
 									</li>
 								</ul>
@@ -354,7 +368,7 @@ function searchList(pageNo){
 
 				<div class="clearfix"> </div>
 				<div class="col-md-6 w3ls_service_grids3">
-				<table class="table">
+				<table class="table" id="table">
 					<thead>	
 					<tr class="active">										
 						<th>매장명 / 연락처	</th>
