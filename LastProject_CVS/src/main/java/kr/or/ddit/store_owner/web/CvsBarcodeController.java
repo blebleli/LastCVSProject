@@ -17,9 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.zxing.BinaryBitmap;
@@ -31,6 +33,7 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
@@ -57,6 +60,7 @@ import kr.or.ddit.supply.service.SupplyServiceInf;
 
 @RequestMapping("/cvs")
 @Controller("cvsBarcodeController")
+@SessionAttributes({"userInfo"})
 public class CvsBarcodeController {
 	
 	private Logger logger = LoggerFactory.getLogger(CvsBarcodeController.class);
@@ -96,7 +100,9 @@ public class CvsBarcodeController {
 	 */	
 	@RequestMapping("/bcdRead")
 	@ResponseBody
-	 public ModelAndView bcdRead(@RequestParam("file") String file,Model model) {
+	 public ModelAndView bcdRead(@RequestParam("file") String file,
+								 @ModelAttribute("userInfo") MemberVo memberVo,
+								 Model model) {
 		
 		ModelAndView mav = new ModelAndView("jsonView");
 		
@@ -126,8 +132,16 @@ public class CvsBarcodeController {
  			mav.addObject("supplyList", supplyList);
 	    	
 	    	//상품바코드일때 처리(결제, 주머니, 폐기)
- 			PresentStockListVo prodVo = stockService.getBarcodeProd(decoded);
- 			mav.addObject("prodVo", prodVo);
+ 			Map<String,String> map = new HashMap<String, String>();
+	
+ 			map.put("mem_id",memberVo.getMem_id());
+ 			map.put("stock_kind", "888");
+ 			map.put("bcd_id", decoded);
+ 			
+  			PresentStockListVo prodVo = stockService.getBarcodeProd(map);
+  			
+  			logger.debug("prodVo 확인용------"+prodVo);	
+ 			mav.addObject("prodVo", prodVo);			
 		}
 		
 		return mav;

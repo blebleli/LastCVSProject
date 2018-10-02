@@ -134,8 +134,8 @@ public class StockDao implements StockDaoInf {
 	 *  *** ---0918  한수정 saleDispService 에서 사용
 	 */
 	@Override
-	public PresentStockListVo getBarcodeProd(String bcd_id) {
-		return template.selectOne("stock.getBarcodeProd", bcd_id);
+	public PresentStockListVo getBarcodeProd(Map<String,String> map) {
+		return template.selectOne("stock.getBarcodeProd", map);
 	}
  
 	

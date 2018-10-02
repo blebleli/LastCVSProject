@@ -339,10 +339,15 @@ public class StockService implements StockServiceInf {
 	 *  stock 의 bcd_id 로 상품정보를 가져오는 메서드
 	 *  *** ---0918  한수정 saleDispService 에서 사용
 	 */
+
 	@Override
-	public PresentStockListVo getBarcodeProd(String bcd_id) {
-		return stockDao.getBarcodeProd(bcd_id);
+	public PresentStockListVo getBarcodeProd(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return stockDao.getBarcodeProd(map);
 	}
+
+
+
 
 	/**
 	* Method : getStockListByMemid

@@ -212,7 +212,7 @@ public interface StockDaoInf {
 	* @param String prod_id
 	* @return PresentStockListVo
 	*/
-	PresentStockListVo getBarcodeProd(String prod_id);
+	PresentStockListVo getBarcodeProd(Map<String,String> map);
 	
 
 }
