@@ -158,6 +158,20 @@
     			
     		})
     		
+    		// 초기화 버튼 처리
+    		$("ul").on("click",":button[name=reset]", function(){
+    			$.ajax({
+    				url : "reset",
+    				method : "get",
+    				success:function(data){
+    					if(data == true){
+	    					$("#datatable-buttons2 > tbody").empty();
+    						console.log("reset success");
+    					}
+    				}
+    			})
+    		});
+    		
     	});
     </script>
   </head>
@@ -257,6 +271,9 @@
                     
                   </div>
                   <ul class="nav navbar-right panel_toolbox">
+               		<button class="btn btn-default" id="reset" name="reset">
+             		<i class="fa fa-repeat" aria-hidden="true"></i>Reset
+               		</button>
                		<button class="btn btn-default" id="request" name="request">
              		<i class="fa fa-sign-out" aria-hidden="true"></i>발주신청
                		</button>
