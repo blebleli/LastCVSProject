@@ -51,5 +51,8 @@ public interface AdminSupplyServiceInf {
 	* @return
 	*/
 	int adminApplyViewTotCnt(String supply_bcd);
+	
+	
+	
 
 }

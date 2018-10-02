@@ -375,5 +375,17 @@
 		and a.PROD_ID= c.PROD_ID
 		) T)
 	</select>
+	
+	<!-- 	아 이 디 : setSuccessSupply
+	  		반 환 값 : 
+	  		매개변수 : String(SUPPLY_BCD)
+	  		설    명 : 발주 신청 승인 확인할때 승인 된것은 비고란에 success를 넣어서 구분짓는다
+	  		작 성 자 : 조계환
+	  		일    시 : 2018-10-02    
+	-->
+	<update id="setSuccessSupply" parameterType="String">
+		UPDATE supply SET supply_info = 'success'
+		WHERE supply_bcd = #{supply_bcd}
+	</update>
 
 </mapper>
