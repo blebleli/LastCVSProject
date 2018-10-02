@@ -444,4 +444,15 @@ public class CvsSupplyReqController {
 		mav.addObject("reqDate", date);
 		return mav;
 	}
+	
+	@RequestMapping(value="/reset")
+	@ResponseBody
+	public Boolean reset(HttpSession session){
+		session.removeAttribute("requestList");
+		Boolean result = false;
+		if(session.getAttribute("requestList") ==null){
+			result = true;
+		}
+		return result;
+	}
 }
