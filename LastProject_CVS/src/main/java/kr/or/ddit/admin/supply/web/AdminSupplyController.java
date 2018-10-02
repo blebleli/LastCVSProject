@@ -151,6 +151,7 @@ public class AdminSupplyController {
 		String mem_id = adminApplyVo.getMem_id();
 		
 		
+		
 		//supply_bcd를 새로이 생성
 		String code = "SUPPLY";
 		String supply_bcdCode = autoCodeCreate.barcode(code);

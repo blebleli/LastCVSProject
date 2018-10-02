@@ -152,7 +152,7 @@
 													<td class="prod-cost">
 													￦
 														<span>
-															<fmt:formatNumber value="${vo.prod_cost}" type="number"/><!-- 단가 -->
+															<fmt:formatNumber value="${vo.prod_cost}" type="number" /><!-- 단가 -->
 														</span>
 													</td>
 													
@@ -167,7 +167,7 @@
 														<p>
 															￦
 															<span>
-																<fmt:formatNumber value="${vo.splylist_sum * vo.prod_cost}" type="number"/><!-- 합계 -->
+																${vo.splylist_sum * vo.prod_cost}
 															</span> 
 														</p>
 													</td>
@@ -199,29 +199,48 @@
 															<fmt:formatNumber value="${sum}" type="number"/>
 														</span>
 													</td>
-													<td class="m1">
 													
+													<td class="m1">
+														￦
+														<span>
+															<fmt:formatNumber value="${sum}" type="number"/>
+														</span>
 													</td>
 												</tr>
 												<tr>
 													<th>세금(5%) :</th>
-													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
-													<td class="m2">
+													<td>￦<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/></td>
 													
+													<td class="m2">
+														￦
+														<span>
+															<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/>
+														</span>
 													</td>
 												</tr>
 												<tr>
 													<th>배송비(5%) :</th>
-													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
+													<td>￦<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/></td>
 													<td class="m3">
-													
+														￦
+														<span>
+															<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/>
+														</span>
 													</td>
 												</tr>
+												
 												<tr>
 													<th>총합계 :</th>
-													<td>￦<fmt:formatNumber value="${sum + ((sum/20)*2)}" type="number"></fmt:formatNumber></td>
-													<td class="m4">
+													<td>
+														￦
+														<fmt:formatNumber value="${sum + ((sum/20)*2)}" type="number"/>
+													</td>
 													
+													<td class="m4">
+														￦
+														<span>
+															<fmt:formatNumber value="${sum + ((sum/20)*2)}" type="number"/>
+														</span>
 													</td>
 												</tr>
 
@@ -279,7 +298,7 @@
 
 				for(var i=0; i<length; i++){
 					array[i] = $("input[name='sum']")[i].value;
-					alert(array[i]);
+// 					alert(array[i]);
 // 					$("#array[i]").val($(array[i]).val());
 					$('input[name=array]').val(array); 
 				}
@@ -297,9 +316,9 @@
 						$("#index").val(index);
 						$("#value").val($(value).val());
 						
-						document.getElementById('frm').submit();
-						return false;
-// 						return;
+// 						document.getElementById('frm').submit();
+// 						return false;
+						return;
 					}
 					
 				});
@@ -354,19 +373,38 @@ function fn_changeCost(el){
 	var result = item.parent().parent().siblings(".cost-result").children("p").children("span");
 	
 	//명세서 부분
-	var m1 = $(".m1");
-	var m2 = $(".m2");
-	var m3 = $(".m3");
-	var m4 = $(".m4");
+	var m1 = $(".m1").children("span");
+	var m2 = $(".m2").children("span");
+	var m3 = $(".m3").children("span");
+	var m4 = $(".m4").children("span");
+	
 	
 	item.on("blur", function(){
 		
 		result.text(cost * item.val());
 		
-		m1.text(1);
-		m2.text(2);
-		m3.text(3);
-		m4.text(4);
+// 		alert($(".cost-result").length);
+		
+// 		alert("????"+$(".cost-result").children("p").children("span").eq(2).text());
+// 		alert("???????????"+parseInt($(".cost-result").children("p").children("span").eq(2).text()));
+		
+		var cnt = 0;
+		var resultSum =0 ;
+		for(i = 0; i < $(".cost-result").length; i++){
+// 			alert("td1== "+ parseInt($(".cost-result").children("p").children("span").eq(0).text()));
+// 			alert("td2== "+ parseInt($(".cost-result").children("p").children("span").eq(1).text()));
+// 			alert("td3== "+ parseInt($(".cost-result").children("p").children("span").eq(2).text()));
+			resultSum = resultSum + parseInt($(".cost-result").children("p").children("span").eq(i).text()); 
+// 			alert("total ="+resultSum);
+			
+			resultSum = Number(resultSum);
+			m1.text(resultSum);
+			m2.text(resultSum/20);
+			m3.text(resultSum/20);
+			m4.text(resultSum+((resultSum/20)*2));
+			cnt++;
+		}
+// 		alert("finish :"+ cnt);
 		
 	});
 	
