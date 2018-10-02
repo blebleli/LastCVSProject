@@ -93,7 +93,7 @@
                            <th class="column-title">상품번호 </th> <!-- PROD JOIN -->
                            <th class="column-title">상품이름 </th>
                            <th class="column-title">수량 </th>
-                           <th class="column-title">유통기한 </th>                 	  
+                           <th class="column-title">유통기한 </th>                	  
                          </tr>
                        </thead>
 						<!--  재고 상세 리스트  -->
@@ -140,42 +140,38 @@
 			data : {"stockID": stockID },
 			success : function(stockList){
 				
-				if (table !== null) {
-					table.destroy();
-					table = null;
-				    $('#stockListTable').empty();
+				$("#stockDetailTbody").empty();
+				
+				if (table !== null) {								
+
+				    table.clear().draw();
+				    table.destroy();
+				    table = null;    
 				}
 			
 				$.each(stockList,function(index, item){				
 				$("#stockDetailTbody").append(		    								
-							'<tr class="even pointer">'+        
+							'<tr class="even pointer" data-splylist_id="'+item.splylist_id+'" data-supply_date="'+item.supply_date+'">'+        
 	                        '<td >'+(index+1)+'</td>'+	                        
 	                        '<td ><span class="prod_id">'+item.prod_id+'</span></td>'+
 	                        '<td >'+item.prod_name+'</td>'+
 	                        '<td ><input style="width : 100%" type="number" name="amount" class="amount" value='+item.stcklist_amount+'>'+
 	                        '</input></td>'+
 	                        '<td ><span class="stcklist_exdate">'+ new Date(item.stcklist_exdate).toISOString().substring(0, 10)+'</span></td>'+
-	                        '<td ><span class="splylist_id">'+item.splylist_id+'</span></td>'+
 	                        '</tr>'
 					);
 				});
-	
+				
+				
 				table = $('#stockListTable').DataTable({
 				  "scrollY":        "380px",
 				  "columnDefs": [
 					  { "width": "5%", "targets": 0 },            
 				      { "width": "20%", "targets": 1 },
-				      { "width": "15%", "targets": 3 },
-				      {
-			                "targets": [ 5 ],
-			                "visible": false,
-			                "searchable": false
-			          }
+				      { "width": "15%", "targets": 3 }
 				      ]	
 				});
-				
-				
-				
+
 			  }
 			});
 		}); 
@@ -192,18 +188,18 @@
 		//다음날짜로 재고리스트 추가
 		
 		$("#stockDetailTbody tr").each(function (index) {		                    	 
-			var data = $(this);		
+			var trData = $(this);		
 			
 			if(index<=10){ //test용
 				
-			dayEndList.push({prod_id: data.find('.prod_id').html(),
-						 splylist_id: data.find('.splylist_id').text(),
-					 stcklist_exdate: data.find('.stcklist_exdate').html(),
-					 stcklist_amount: data.find('.amount').val()});
-					 console.log("each index---"+data.find('.splylist_id').text());
+			dayEndList.push({prod_id: trData.find('.prod_id').html(),
+						 splylist_id: trData.data('splylist_id'),
+						 supply_date: trData.data('supply_date'),
+					 stcklist_exdate: trData.find('.stcklist_exdate').html(),
+					 stcklist_amount: trData.find('.amount').val()});
+					 console.log("each index---"+trData.data('splylist_id'));
 			};
-			
-			
+
          });	
 		
 		console.log("dayEndList ::: "+dayEndList.size);
@@ -220,6 +216,7 @@
 			  error : function(){console.log("error");}		  								  
 		});					    		
 	}
+	
 	</script>
 
 
