@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.user.search.model.CvsSearchVo;
+import kr.or.ddit.user.search.model.SearchCvsServiceVo;
 
 /** 
  * UserSearchDao.java 
@@ -87,6 +88,16 @@ public class CvsSearchDao implements CvsSearchDaoInf{
 	@Override
 	public int TotCvsListCnt(String mem_cvs_name) {
 		return template.selectOne("member.getTotCvsCnt",mem_cvs_name);
+	}
+
+	@Override
+	public List<SearchCvsServiceVo> searchCvsService(Map<String, Object> map) {
+		return template.selectList("category.searchCvsService", map);
+	}
+
+	@Override
+	public MemberVo getCvs(String mem_id) {
+		return template.selectOne("member.getCvs", mem_id);
 	}
 	
 	
