@@ -49,6 +49,9 @@
 
 	<!-- 제품 검색 -->
   	<typeAlias type="kr.or.ddit.user.search.model.CvsSearchVo" 		alias="cvsSearchVo"/>
+  	
+  	<!-- 편의점 검색 -->
+  	<typeAlias type="kr.or.ddit.user.search.model.SearchCvsServiceVo" 		alias="searchCvsServiceVo"/>
 	
 	<!-- 리뷰 목록 조회 -->
   	<typeAlias type="kr.or.ddit.board.model.ReviewVo" 		alias="reviewVo"/>
