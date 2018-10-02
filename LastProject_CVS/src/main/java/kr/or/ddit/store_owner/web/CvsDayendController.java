@@ -132,6 +132,9 @@ public class CvsDayendController {
 	public ResponseEntity<String> setDayEnd(@RequestBody List<PresentStockListVo> stockVoList
 									  	   ,@ModelAttribute("userInfo") MemberVo memberVo){
 		
+		
+		logger.debug("insert test ------------------"+stockVoList);
+		
 		//마감재고 insert 진행
 		int end = stockService.dayendInsert(stockVoList, "999", memberVo.getMem_id());
 		logger.debug("마감재고 insert 완료");
@@ -139,6 +142,8 @@ public class CvsDayendController {
 		//내일재고 insert 진행
 		int tomorrow = stockService.dayendInsert(stockVoList, "888", memberVo.getMem_id());
 		logger.debug("내일재고 insert 완료");
+		
+		
 		return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
 
 	}

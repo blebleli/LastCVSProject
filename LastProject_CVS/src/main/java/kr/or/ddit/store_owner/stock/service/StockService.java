@@ -96,7 +96,10 @@ public class StockService implements StockServiceInf {
 		//재고 테이블 insert (마감)
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
 		
+		logger.debug("set time 선택날짜 ---------------" + stockVoList);
+		
 		Date today = stockVoList.get(0).getSupply_date(); //선택택재고의 날짜
+		logger.debug("set time 선택날짜 ---------------" + today);
 		
 		Calendar c = Calendar.getInstance(); //선택supply 날짜에서 +1일
 		c.setTime(today); 

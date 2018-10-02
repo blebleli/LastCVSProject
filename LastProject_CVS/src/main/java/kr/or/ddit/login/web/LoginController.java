@@ -145,7 +145,6 @@ public class LoginController {
 				
 				return "forward:/user/main";
 			} else {
-				
 				return "forward:/login/loginView";
 			}
 
