@@ -22,9 +22,7 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/cvsCustom.min.css" rel="stylesheet">
-    
-    <script src="/js/common/jquery-1.12.4.js"></script>
-    
+
     <script>
      	$(document).ready(function(){
     		
@@ -173,9 +171,8 @@
     <!-- NProgress -->
     <script src="../vendors/nprogress/nprogress.js"></script>
     <!-- iCheck -->
-    <script src="../vendors/iCheck/icheck.min.js"></script>
-    
-<!--     Datatables
+    <script src="../vendors/iCheck/icheck.min.js"></script> 
+	<!--  Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
@@ -190,7 +187,7 @@
     <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
     <script src="../vendors/jszip/dist/jszip.min.js"></script>
     <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script> -->
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>

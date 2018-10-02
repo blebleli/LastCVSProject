@@ -143,7 +143,6 @@
 			    	addRow({prodVo : {prodID : "prodID2",bcd_id : "22",prod_name : "name2",prod_price : "2200",stcklist_amount:"2",event_id:"eventid2"}});
 			    	addRow({prodVo : {prodID : "prodID2",bcd_id : "33",prod_name : "name2",prod_price : "2200",stcklist_amount:"1",event_id:"eventid2"}}); */
                  });
-       
                  </script>
                   
             <div class="row">
