@@ -331,12 +331,15 @@
 				    	function addRow(data){
 				    		
 				    		//아이디가 같을때 처리 
-				    		var dataProdId = data.prodVo.prodID;
+				    		var dataProdId = data.prodVo.prod_id;
 				    		
-				    		var findProdEle = $("#posTable .prodID").toArray().find(function(e){ 
+				    		console.log('같은 dataProdId 있는지'+data.prodVo.prod_id);
+				    		
+				    		var findProdEle = $("#posTable tbody tr .prod_id").toArray().find(function(e){ 	    			
 				    		 	return dataProdId == e.innerText;
-				    		});
+				    		});			
 				    		
+				    		console.log('같은 prod 있는지'+findProdEle);
 				    		//같은prodID 없을때
 				    		if(findProdEle == undefined){
 				    	
@@ -353,7 +356,7 @@
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
 			                         '  <td ><input type="number" class="amount" value="' +1+'"></td>'+    				                         
 			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
-			                         '  <td ><span class="distot">'+ data.prodVo.event_id+'</span></td> '+
+			                         '  <td ><span class="distot">'+ data.prodVo.event_name+'</span></td> '+
 			                         '  <td style="display: none"><span class="stcklist_exdate">'+ data.prodVo.stcklist_exdate+'</span></td> '+		        
 			                         '  <td style="display: none"><span class="prod_id">'+ data.prodVo.prod_id+'</span></td> '+
 			                         '</tr>'			    								                                                                                     
