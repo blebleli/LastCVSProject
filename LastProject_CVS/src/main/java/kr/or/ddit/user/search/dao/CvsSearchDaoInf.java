@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.user.search.model.CvsSearchVo;
+import kr.or.ddit.user.search.model.SearchCvsServiceVo;
 
 /** 
  * UserSearchDaoInf.java 
@@ -72,4 +73,8 @@ public interface CvsSearchDaoInf {
 	 * Method 설명 : 제품코드로 현재 고를 가지고 있는 편의점 검색 기능
 	 */
 	List<CvsSearchVo> getListProdMember(String prod_id);
+	
+	List<SearchCvsServiceVo> searchCvsService(Map<String, Object> map);
+	
+	MemberVo getCvs(String mem_id);
 }
