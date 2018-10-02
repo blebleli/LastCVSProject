@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.user.search.dao.CvsSearchDaoInf;
 import kr.or.ddit.user.search.model.CvsSearchVo;
+import kr.or.ddit.user.search.model.SearchCvsServiceVo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -154,6 +155,16 @@ public class CvsSearchService implements CvsSearchServiceInf{
 		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + cnt + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
 
 		return pageNaviStr.toString();
+	}
+
+	@Override
+	public List<SearchCvsServiceVo> searchCvsService(Map<String, Object> map) {
+		return cvsSearchDao.searchCvsService(map);
+	}
+
+	@Override
+	public MemberVo getCvs(String mem_id) {
+		return cvsSearchDao.getCvs(mem_id);
 	}
 
 }
