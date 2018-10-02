@@ -134,9 +134,11 @@
 													<c:if test="${adminApplyVo.supply_state == 10}">
 														<td>
 															<p id="first_p">
-																<input type="text" maxlength="2" onkeypress="return fn_press(event, 'numbers');"
+																<input type="text" maxlength="2" 
+																onkeypress="return fn_press(event, 'numbers');"
 																onkeyup="removeChar(event)"
 																style='ime-mode:disabled;'
+																onchange="fn_changeCost(this)"
 																size="1" name="sum" id="sum" value="${vo.splylist_sum}">
 															</p>
 														</td>
@@ -147,15 +149,29 @@
 													</c:if>
 													<!-- ------------------------------ -->
 
-													<td>￦<fmt:formatNumber value="${vo.prod_cost}"
-															type="number"></fmt:formatNumber></td>
-													<!-- 단가 -->
-													<td>￦<fmt:formatNumber value="${vo.prod_price}"
-															type="number"></fmt:formatNumber></td>
-													<!-- 가격 -->
-													<td>￦<fmt:formatNumber
-															value="${vo.prod_cost * vo.splylist_sum}" type="number"></fmt:formatNumber></td>
-													<!-- 합계 -->
+													<td class="prod-cost">
+													￦
+														<span>
+															<fmt:formatNumber value="${vo.prod_cost}" type="number"/><!-- 단가 -->
+														</span>
+													</td>
+													
+													<td>
+													￦
+														<span>
+															<fmt:formatNumber value="${vo.prod_price}" type="number"/><!-- 가격 -->
+														</span>
+													</td>
+													
+													<td class="cost-result">
+														<p>
+															￦
+															<span>
+																<fmt:formatNumber value="${vo.splylist_sum * vo.prod_cost}" type="number"/><!-- 합계 -->
+															</span> 
+														</p>
+													</td>
+													
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -177,24 +193,28 @@
 											<tbody>
 												<tr>
 													<th style="width: 30%">합계 :</th>
-													<td>￦<fmt:formatNumber value="${sum}" type="number"></fmt:formatNumber></td>
-													<td>실시간</td>
+													<td>
+														￦
+														<span>
+															<fmt:formatNumber value="${sum}" type="number"/>
+														</span>
+													</td>
+													<td class="m1"></td>
 												</tr>
 												<tr>
 													<th>세금(5%) :</th>
 													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
-													<td>실시간</td>
+													<td class="m2"></td>
 												</tr>
 												<tr>
 													<th>배송비(5%) :</th>
 													<td>￦<fmt:formatNumber value="${sum/20}" type="number"></fmt:formatNumber></td>
-													<td>실시간</td>
+													<td class="m3"></td>
 												</tr>
 												<tr>
 													<th>총합계 :</th>
-													<td>￦<fmt:formatNumber value="${sum + ((sum/20)*2)}"
-															type="number"></fmt:formatNumber></td>
-													<td>실시간</td>
+													<td>￦<fmt:formatNumber value="${sum + ((sum/20)*2)}" type="number"></fmt:formatNumber></td>
+													<td class="m4"></td>
 												</tr>
 
 											</tbody>
@@ -271,6 +291,7 @@
 						
 						document.getElementById('frm').submit();
 						return false;
+// 						return;
 					}
 					
 				});
@@ -308,6 +329,36 @@
 
 </script>
 
+<script>
+// function myFunction(val) {
+//    alert(val);
+ 
+// }
+
+function fn_changeCost(el){
+	//가능 수량 입력한 값
+	var item = $(el);
+	
+	//단가
+	var cost = item.parent().parent().siblings(".prod-cost").children("span").text();
+	
+	//실시간으로 값이 변경될 부분
+	var result = item.parent().parent().siblings(".cost-result").children("p").children("span");
+	
+	//명세서 부분
+	var m1 = $(".m1");
+	
+	item.on("blur", function(){
+		
+		result.text(cost * item.val());
+		
+		m1.text();
+		
+	});
+	
+}
+
+</script>
 
 
 
