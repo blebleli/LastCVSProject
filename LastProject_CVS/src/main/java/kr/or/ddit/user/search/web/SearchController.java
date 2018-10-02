@@ -1,5 +1,6 @@
 package kr.or.ddit.user.search.web;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.model.MemberVo;
@@ -155,29 +158,44 @@ public class SearchController {
 	}
 	
 	@RequestMapping(value="/cvsServiceSearch", method=RequestMethod.POST)
-	public @ResponseBody List<MemberVo> cvsServiceSearch(@RequestBody List<String> ctgys, HttpSession session){
+	public @ResponseBody List<MemberVo> cvsServiceSearch(@RequestBody List<String> ctgys, HttpSession session, HttpServletResponse response) throws IOException, ServletException{
 		List<MemberVo> cvsList = new ArrayList<MemberVo>();
 		List<SearchCvsServiceVo> serviceList = new ArrayList<SearchCvsServiceVo>();
+		List<MemberVo> resultList = new ArrayList<MemberVo>();
+		
 		Map<String, Object> param = new HashMap<String, Object>();
 		String word = (String) session.getAttribute("searchWord");
-		for(int j = 0; j <ctgys.size(); j++){
-			param.put("ctgy_id", ctgys.get(j));
-			param.put("mem_cvs_name", word);
-			List<SearchCvsServiceVo> list= cvsSearchService.searchCvsService(param);
-			logger.debug("list=======>{}", list);
-			for(int r = 0; r < list.size(); r++){
-				serviceList.add(list.get(r));
-			}
+		logger.debug("ctgys======{}",ctgys);
+		if(ctgys.size() != 0){
+			for(int j = 0; j <ctgys.size(); j++){
+				param.put("ctgy_id", ctgys.get(j));
+				param.put("mem_cvs_name", word);
+				List<SearchCvsServiceVo> list= cvsSearchService.searchCvsService(param);
+				logger.debug("list=======>{}", list);
+				for(int r = 0; r < list.size(); r++){
+					serviceList.add(list.get(r));
+				}
 //			serviceList.add((SearchCvsServiceVo) list);
+				
+			}
+			logger.debug("serviceList======{}", serviceList);
+			for(int i = 0; i <serviceList.size(); i++){
+				MemberVo cvs = cvsSearchService.getCvs(serviceList.get(i).getMem_id());
+				cvsList.add(cvs);
+			}
+			resultList = new ArrayList<MemberVo>(new HashSet<MemberVo>(cvsList));
+			logger.debug("resultList-----------{}", resultList);
 			
+		}else{
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("page", 1);
+			paramMap.put("pageSize", 10);
+			paramMap.put("mem_cvs_name", word);
+			
+			Map<String, Object> map = cvsSearchService.getCvsPageList(paramMap);
+			resultList = (List<MemberVo>) map.get("CvsPageList");
+			logger.debug("resultList-----------{}", resultList);
 		}
-		logger.debug("serviceList======{}", serviceList);
-		for(int i = 0; i <serviceList.size(); i++){
-			MemberVo cvs = cvsSearchService.getCvs(serviceList.get(i).getMem_id());
-			cvsList.add(cvs);
-		}
-		List<MemberVo> resultList = new ArrayList<MemberVo>(new HashSet<MemberVo>(cvsList));
-		logger.debug("resultList-----------{}", resultList);
 		return resultList;
 		
 	}
