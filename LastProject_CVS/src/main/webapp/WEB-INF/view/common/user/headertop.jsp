@@ -133,11 +133,7 @@
 						                        </li>
 						                <li>
 						                        <a href="<c:url value='/board/boardMain' />">공지사항</a>
-						                        </li>
-						                <li>
-						                        <a href="<c:url value='/board/boardEventMain' />">이벤트&행사</a>
-						                   </li>
-						       
+						                        </li>						       
 						              </ul>
 						         </li>
 				

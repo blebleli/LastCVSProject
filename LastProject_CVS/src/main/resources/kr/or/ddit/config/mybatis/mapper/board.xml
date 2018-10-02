@@ -10,11 +10,11 @@
             FROM (
                   SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
                         , (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
-                                    ||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id
-                                 , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                          ||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id
+                        , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
                         , bd_title
                         , bd_rating
-                        , bd_date
+                        , TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
                         , mem_id
                         , bd_kind_id
                         , bd_id
@@ -29,9 +29,6 @@
                   </if>
                   START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
                ) T
-               <if test="_parameter != '66'">
-                order by T.levels
-                </if>
          )
             
    </select>
@@ -166,6 +163,7 @@
              , mem_id
              , bd_parent
              , bd_kind_id
+             , bd_views
       FROM board
       WHERE bd_id=#{bd_id}
      </select>
@@ -255,18 +253,19 @@
             FROM (
                   SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
                         , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-                        , lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+                        , bd_title
                         , bd_rating
                         , TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
                         , mem_id
                         , bd_kind_id
-                        , prod_id
                         , bd_id
                         , bd_del
                         , bd_parent
                         , bd_views
+                        , level as levels
                   FROM BOARD
-                  WHERE bd_kind_id = #{bd_kind_id}
+                  WHERE 1=1
+                  AND bd_kind_id = #{bd_kind_id}
                   START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
                ) T
          ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}      
@@ -282,7 +281,7 @@
                            , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
                            , lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
                            , bd_rating
-                           , TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+                           , TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
                            , mem_id
                            , bd_kind_id
                            , prod_id
@@ -393,34 +392,29 @@
  
       <!-- 사용자 이벤트&행사 페이징 기법 -->
    <select id="getBoardPageList1" parameterType="map" resultType="boardVo">   
-      SELECT * FROM (
-         SELECT ROWNUM tot_cnt, T.*
-                  SELECT *
+	SELECT *
       FROM (
             SELECT ROWNUM tot_cnt, T.*
             FROM (
-                  SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                  SELECT  (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                        , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
                         , (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
-                                 , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                          ||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id
                         , bd_title
                         , bd_rating
-                        , bd_date
+                        , TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
                         , mem_id
                         , bd_kind_id
                         , bd_id
                         , bd_del
                         , bd_parent
                         , bd_views
-                        , level as levels
                   FROM BOARD
                   WHERE 1=1
                   AND bd_kind_id = '66'
-                  START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
-               ) T ) 
-               WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
-
- SIBLINGS BY bd_group
-                     ) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+                  START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC
+               ) T 
+             ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
    </select>
    
    <!-- 사용자 이벤트&행사 검색 기법 -->
@@ -430,12 +424,13 @@
                FROM  (
                        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
                            , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-                           , lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+                           , (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
+                             ||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id                           
+                           , bd_title
                            , bd_rating
-                           , TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+                           , TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
                            , mem_id
                            , bd_kind_id
-                           , prod_id
                            , bd_id
                            , bd_del
                            , bd_parent
@@ -494,10 +489,10 @@
                         </if>                        
                      </if>
                      
-                         START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
+                         START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC
                          
                      ) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
-   </select>   
+   </select>
       
      <!-- 게시글 전체 건수 -->
      <select id="getWriteTotCnt1" parameterType="String" resultType="int">

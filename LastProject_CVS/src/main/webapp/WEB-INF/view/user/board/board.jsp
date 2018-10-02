@@ -214,14 +214,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								<%request.setAttribute("nbsp", " ");%>
+								<%request.setAttribute("nbsp", "         [RE:]");%>
 								<c:forEach items="${boardpage}" var="vo">
 									<c:choose>
 										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
 											<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
 												<td id="demoFonts">${vo.tot_cnt}</td>
 												<td style="text-align: left;" id="demoFonts">${vo.bd_title}</td>
-												<td id="demoFonts">${vo.mem_id}</td>
+												<td id="demoFonts">관리자</td>
 												<td id="demoFonts">${vo.bd_date}</td>
 												<td id="demoFonts">${vo.bd_views}</td>
 											</tr>
@@ -230,8 +230,8 @@
 											<tr data-id="${vo.bd_id}" data-id2="${vo.bd_del}">
 												<td id="demoFonts">${vo.tot_cnt}</td>
 												<td style="text-align: left;"  id="demoFonts">
-												${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
-												<td id="demoFonts">${vo.mem_id}</td>
+												　　　[RE:]${vo.bd_title}</td>
+												<td id="demoFonts">관리자</td>
 												<td id="demoFonts">${vo.bd_date}</td>
 												<td id="demoFonts">${vo.bd_views}</td>
 											</tr>
@@ -241,7 +241,7 @@
 												<td id="demoFonts">${vo.tot_cnt}</td>
 												<td style="text-align: left;"  id="demoFonts">
 												${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')}</td>
-												<td id="demoFonts">${vo.mem_id}</td>
+												<td id="demoFonts">관리자</td>
 												<td id="demoFonts">${vo.bd_date}</td>
 												<td id="demoFonts">${vo.bd_views}</td>
 											</tr>

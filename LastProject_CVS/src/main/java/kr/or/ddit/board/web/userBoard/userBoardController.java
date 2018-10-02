@@ -185,11 +185,6 @@ public class userBoardController {
 							  @RequestParam(value="i", defaultValue="") String i,
 							  @RequestParam(value="i_search", defaultValue="") String i_search,
 							  @RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id, Model model){
-		System.out.println("page >>>>>>>>>>>>>>>>>>>>>>>>>> "+page);
-		System.out.println("pageSize >>>>>>>>>>>>>>>>>>>>>>>>>> "+pageSize);
-		System.out.println("i >>>>>>>>>>>>>>>>>>>>>>>>>> "+i);
-		System.out.println("i_search >>>>>>>>>>>>>>>>>>>>>>>>>> "+i_search);
-		System.out.println("bd_kind_id >>>>>>>>>>>>>>>>>>>>>>>>>> "+bd_kind_id);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
@@ -238,7 +233,7 @@ public class userBoardController {
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
 								Model model) {
 		
-		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp";
+		String tempSavePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/Image/board/";
 		String bd_kind_id="66";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 

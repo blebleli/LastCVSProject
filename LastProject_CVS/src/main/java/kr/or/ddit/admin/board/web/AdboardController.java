@@ -2,16 +2,10 @@ package kr.or.ddit.admin.board.web;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-
 import javax.annotation.Resource;
-import javax.mail.internet.ContentDisposition;
 import javax.servlet.ServletException;
-
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
@@ -21,9 +15,6 @@ import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
-
-
-
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -160,7 +151,7 @@ public class AdboardController {
 		String returnPage = "";
 		
 		// 파일 물리 저장 기본 경로
-		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp/Image/board/";
+		String tempSavePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/Image/board/";
 		// 파일 DB 저장 기본 경로
 		String path = "/Image/board";
 		
@@ -219,8 +210,6 @@ public class AdboardController {
 		
 		int cnt = boardService.setInsertBoard(boardVo); // 게시글 저장
 		
-//		logger.debug("cnt==> {}" , cnt);
-		
 		int fileResult = 0;
 		if (cnt != 0){		
 			for (MultipartFile m : multipartFile) {		
@@ -235,8 +224,6 @@ public class AdboardController {
 				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
 				fileVo.setFile_upname(UUID.randomUUID().toString()+"."+ext); // 파일명
 				fileVo.setMem_id(boardVo.getMem_id());
-				
-//				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
 				
 				// 디렉토리 없을 경우 생성
 				if(!new File(tempSavePath).exists()) {
@@ -253,8 +240,6 @@ public class AdboardController {
 					fileVo.setFile_id(code.autoCode("EV"));		// 파일 코드
 				}
 				
-//				logger.debug("fileVo.getFile_id() ==> {}", fileVo.getFile_id());
-				
 				fileResult += fileService.insertFileBoard(fileVo);
 
 				// 실제 물리경로에 파일 저장
@@ -263,8 +248,6 @@ public class AdboardController {
 				
 				}
 			} // for
-			
-//			logger.debug("fileResult ==> {}" ,fileResult);
 			logger.debug("prod_id ==> {}", boardVo.getProd_id());
 			model.addAttribute("prod_id", boardVo.getProd_id());
 			
@@ -330,7 +313,7 @@ public class AdboardController {
 	public String boardUpdate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile,
 							  BoardVo b, Model model) throws ServletException, IOException {
 		
-		String tempSavePath = "D:/A_TeachingMaterial/7.JspSpring/workspace/LastProject_CVS/src/main/webapp";
+		String tempSavePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/";
 		int cnt = boardService.boardUpdate(b); // 게시글 저장
 		
 		if (cnt != 0){		
@@ -345,8 +328,6 @@ public class AdboardController {
 				fileVo.setFile_name(m.getOriginalFilename()); // 파일 업로드명
 				fileVo.setFile_upname(UUID.randomUUID().toString()+"."+ext); // 파일명
 				fileVo.setMem_id(b.getMem_id());
-				
-//				logger.debug("경로저장 =>> {}", tempSavePath+fileVo.getFile_path() + File.separator + fileVo.getFile_upname());
 				
 				// 디렉토리 없을 경우 생성
 				if(!new File(tempSavePath+FileUtil.Path).exists()) {
@@ -431,7 +412,6 @@ public class AdboardController {
 			return "redirect:/adboard/boardView?bd_kind_id=" + bd_kind_id;
 		}else{
 			// 삭제 실패시 내용을 디버그로 출력하며, 관리자 메인화면으로 이동한다.
-//			logger.debug("write delete fail ====>>>> {} ", cnt);
 			return "admin/main";
 		}
 	}
@@ -459,10 +439,8 @@ public class AdboardController {
 		boardVo.setBd_parent(bd_id); // 부모아이디
 		boardVo.setBd_id(bd_id); // 아이디
 		boardVo.setBd_kind_id(bd_kind_id);
-		System.out.println("bd_group : "+bd_group+", bd_parent : "+bd_id);
-		
-		model.addAttribute("boardVo", boardVo);
-		
+		System.out.println("bd_group : "+bd_group+", bd_parent : "+bd_id);		
+		model.addAttribute("boardVo", boardVo);		
 		return "ad_boardReply";
 	}
 	
@@ -478,9 +456,6 @@ public class AdboardController {
 	@RequestMapping("/newComment")
 	public String newComment(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
 							 @RequestParam(value="cm_RadioCkeck", defaultValue="") String cm_RadioCkeck, CommentsVo cList, Model model){
-		
-//		logger.debug("cm_RadioCkeck =====>> {}", cm_RadioCkeck);
-		System.out.println(bd_kind_id);
 				
 		if(cm_RadioCkeck.equals("Y")){ // 댓글 공개하였다면
 			cList.setCm_openny(cm_RadioCkeck); // 공개 체크 저장
@@ -494,16 +469,13 @@ public class AdboardController {
 			String CNOCODE = "CNO"; // 공지사항 코드 생성 준비
 			String cm_id = code.autoCode(CNOCODE); // 코드 생성
 			cList.setCm_id(cm_id); // 댓글코드 저장
-//			logger.debug("cm_id ==========> {} ", cm_id);
 			System.out.println("공지사항 입니다. ========================>>>>");
 		} else { // 이벤트이면
 			String CEVCODE = "CEV"; // 이벤트 코드 생성 준비
 			String cm_id = code.autoCode(CEVCODE); // 코드 생성
 			cList.setCm_id(cm_id); // 댓글코드 저장
-//			logger.debug("cm_id ==========> {} ", cm_id);
 			System.out.println("이벤트 입니다 =========================>>>>>");
-		}
-		
+		}		
 		String cm_group = cList.getBd_id(); // 게시글 코드를
 		cList.setCm_group(cm_group); // 그룹코드에 저장(첫 댓글은 자기 자신이 그룹코드이다.)
 		
@@ -537,42 +509,4 @@ public class AdboardController {
 			return "ad_index"; // 관리자 메인으로 돌아간다.
 		}
 	}
-	
-//	@RequestMapping(value="/review", method=RequestMethod.GET)
-//	@ResponseBody
-//	public Map<String, Object> review(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
-//								@RequestParam(value="page", defaultValue="1") int page,
-//								@RequestParam(value="pageSize", defaultValue="10") int pageSize){
-//		
-//		logger.debug("bd_kind_id ============> {} " + bd_kind_id);
-//		
-//		Map<String, Object> paramMap = new HashMap<String, Object>();
-//		
-//		paramMap.put("page", page); // page 1
-//		paramMap.put("pageSize", pageSize); // pageSize 10
-//		paramMap.put("bd_kind_id",bd_kind_id); // 리뷰 코드(55)맵에 저장
-//		
-//		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력
-//		
-//		return resultMap;
-//	}
-	
-//	@RequestMapping(value="/ctgy_parent", method=RequestMethod.GET)
-//	@ResponseBody
-//	public Map<String, Object> review(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
-//								@RequestParam(value="page", defaultValue="1") int page,
-//								@RequestParam(value="pageSize", defaultValue="10") int pageSize){
-//		
-//		logger.debug("bd_kind_id ============> {} " + bd_kind_id);
-//		
-//		Map<String, Object> paramMap = new HashMap<String, Object>();
-//		
-//		paramMap.put("page", page); // page 1
-//		paramMap.put("pageSize", pageSize); // pageSize 10
-//		paramMap.put("bd_kind_id",bd_kind_id); // 리뷰 코드(55)맵에 저장
-//		
-//		Map<String, Object> resultMap = adboardService.adBoardViewList(paramMap); // 게시판 초기화면 출력
-//		
-//		return resultMap;
-//	}
 }
