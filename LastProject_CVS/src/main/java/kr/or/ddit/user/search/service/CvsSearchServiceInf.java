@@ -5,6 +5,7 @@ import java.util.Map;
 
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.user.search.model.CvsSearchVo;
+import kr.or.ddit.user.search.model.SearchCvsServiceVo;
 
 /** 
  * UserSearchServiceInf.java 
@@ -58,5 +59,8 @@ public interface CvsSearchServiceInf {
 		 */
 	List<CvsSearchVo> getListProdMember(String prod_id);
 	
+	List<SearchCvsServiceVo> searchCvsService(Map<String, Object> map);
+	
+	MemberVo getCvs(String mem_id);
 
 }
