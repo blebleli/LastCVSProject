@@ -201,5 +201,10 @@ public class UserMainController {
 
 		return "myPage";
 	}
+	
+	@RequestMapping("/speech")
+	public String speechSearch(){
+		return "/speech/speech";
+	}
 
 }
