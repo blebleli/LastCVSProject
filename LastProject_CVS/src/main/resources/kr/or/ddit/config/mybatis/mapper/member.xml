@@ -368,6 +368,9 @@
 		  AND SL.PROD_ID   = #{prod_id}        -- 제품코드
   	</select>
   	
+  	<select id="getCvs" parameterType="String" resultType="memberVo">
+  		select * from member where mem_id = #{mem_id}
+  	</select>
   	
   	
 </mapper>
