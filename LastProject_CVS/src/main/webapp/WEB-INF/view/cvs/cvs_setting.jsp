@@ -1,4 +1,5 @@
 ﻿
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <title>Gentelella Alela! | </title>
 
     <!-- Bootstrap -->
@@ -20,6 +21,73 @@
     <!-- bootstrap-daterangepicker -->
     <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
+    <!-- Custom Theme Style -->
+    <link href="../build/css/custom.min.css" rel="stylesheet">
+    
+    <script>
+    	$(function(){
+    		var pw = $("#pass").val();
+    		
+    		/**
+    		 * 비밀번호 유효성 검증
+    		 */
+    		$("#pass").on("blur",function() {
+    			$(".error").hide();
+   				if ($("#pass").val() != '') {
+   					var reg_pwd = /^.*(?=.{6,12})(?=.*[0-9])(?=.*[a-zA-Z]).*$/;
+   					if (!reg_pwd.test($("#pass").val())) {
+   					 	$("#pass").after('<span class="error" style="color : red;">비밀번호는 영문,숫자를 혼합하여 6~12자 이내로 입력하시기 바랍니다.</span>');
+   						$("#pass").val("");
+   						$("#pass").focus();
+   						return false;
+   					} 
+   					else {
+   						return true;
+   					}
+   				}
+    		});
+    		/**
+    		* 비밀번호를 수정하려고 할시 비밀번호 확인이 비워진다
+    		*/
+    		$("#pass").keyup(function(){
+    			$("#passCheck").val("");
+    		});
+    		
+    		/**
+    		 * 비밀번호 확인
+    		 */
+    		$("#passCheck").on("blur",function() {
+    			$(".error").hide();
+    			var passText = $("#pass").val();
+    			var passCheckText = $("#passCheck").val();
+    			if(passText ==''){
+    				$("#pass").after('<span class="error" style="color : red;">비밀번호를 입력해주세요</span>');
+    				$("#pass").focus();
+    			}
+    			else if(passCheckText==''){
+    				$("#passCheck").after('<span class="error" style="color : red;">비밀번호를 재입력 해주세요</span>');
+    				$("#passCheck").focus();
+    			}else if(passText != passCheckText){
+    				$("#passCheck").after('<span class="error" style="color : red;">비밀번호가 일치하지 않습니다.</span>');
+    				$("#passCheck").val("");
+    				$("#passCheck").focus();
+    			}else{
+    				$("#passCheck").after('<span class="error" style="color : green;">비밀번호 일치</span>');
+    				
+    			}
+    			
+    		});
+    		
+    		$("#ckeckBtn").on("click", function(){
+    			console.log($("#pass").val());
+    			console.log($("#tel").val());
+    			console.log($("#mem_intro").val());
+    			
+    			$("#demo-form2").submit();
+    		});
+    	});
+    </script>
+ 
   <!-- Custom Theme Style -->
     <link href="../build/css/cvsCustom.min.css" rel="stylesheet">
     
@@ -52,12 +120,33 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="/cvs/changeInfo" method="post" enctype="multipart/form-data">
 					   <div class="form-group">
+<!-- 					   	<div class="flex-viewport" style="overflow: hidden; position: relative;"> -->
+<!-- 						<section class="slider"> -->
+<!-- 							<div class="flexslider"> -->
+								<div class="form-group">
+									<div class="col-md-6 col-sm-6 col-xs-12">
+									  	<c:forEach items="${fileList }" var="file">
+								      		<img src="/images/userpic/${file.file_upname}" align="middle" width="70%"/>
+									  	</c:forEach>
+									</div>
+								</div>
+<!-- 							</div> -->
+<!-- 						</section> -->
+<!-- 						</div> -->
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="picture">사진 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="picture" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="file" id="picture" required="required" class="form-control col-md-7 col-xs-12" name="file">
+                          
+                          	<c:if test="${user.pic_name == null }">
+                          		<span>첨부파일 없음</span>
+                          	</c:if>
+                          	<c:if test="${user.pic_name != null }">
+                          		<span>${user.pic_name }</span>
+                          	</c:if>
+                          	
                         </div>
                       </div>
                       
@@ -65,21 +154,21 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">비밀번호 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="password" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="password" id="pass" name="password" required="required" class="form-control col-md-7 col-xs-12" value="${user.mem_pw }">
                         </div>
                       </div>
                        <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="passCheck">비밀번호 확인<span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="passCheck" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="password" id="passCheck" required="required" class="form-control col-md-7 col-xs-12" value="${user.mem_pw }">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tel">점주연락처 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="tel" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="tel" name="tel" required="required" class="form-control col-md-7 col-xs-12" value="${user.mem_tel }">
                         </div>
                       </div>
                       
@@ -87,7 +176,12 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">소개글 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea class="form-control" rows="3" placeholder="소개글을 입력하세요.."></textarea>
+                        	<c:if test="${user.mem_intro == ' ' }">
+	                          <textarea class="form-control" rows="3" name="mem_intro" id="mem_intro" placeholder="소개글을 입력하세요.." ></textarea>
+                        	</c:if>
+                        	<c:if test="${user.mem_intro != ' ' }">
+	                          <textarea class="form-control" rows="3" id="mem_intro"  name="mem_intro" value="${user.mem_intro }"></textarea>
+                        	</c:if>
                         </div>
                       </div>
                       
@@ -96,10 +190,10 @@
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button class="btn btn-primary" type="button">Cancel</button>
 						  <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
+                          <button type="button" class="btn btn-success" id="ckeckBtn">저장</button>
                         </div>
                       </div>
-
+						
                     </form>
                   </div>
                 </div>
