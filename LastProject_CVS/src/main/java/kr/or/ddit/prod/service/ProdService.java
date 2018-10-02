@@ -176,7 +176,7 @@ public class ProdService implements ProdServiceInf {
 		String iKind = (String) map.get("iKind");
 		
 		if (iKind.equals("1")) {	// 전체
-			map.put("event_id", "200");
+			map.put("event_id", "BASIC1");
 			result = prodDao.getListAllSearchProd(map); 
 		} else if (iKind.equals("2")) {	// 베스트
 			map.put("pageSize", 30);

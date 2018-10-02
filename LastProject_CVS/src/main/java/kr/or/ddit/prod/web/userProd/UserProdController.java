@@ -202,7 +202,7 @@ public class UserProdController {
 			prodName = "";
 		}
 		paramMap.put("prodName", prodName);
-		paramMap.put("iKind"	, iKind         );
+		paramMap.put("iKind"	, iKind);
 		
 		paramMap.put("mealChk",mealChk);
 		paramMap.put("iceChk",iceChk);
@@ -215,6 +215,9 @@ public class UserProdController {
 		
 		
 		List<ProdVo> searchList = prodService.searchProd(paramMap);
+		
+		logger.debug("paramMap ==> {} ", paramMap.toString());
+		logger.debug("paramMap.get('iKind') ==> {}",paramMap.get("iKind"));
 		logger.debug("searchList==> {}",searchList);
 		return searchList;
 	}
