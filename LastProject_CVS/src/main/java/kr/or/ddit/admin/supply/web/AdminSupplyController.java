@@ -232,24 +232,7 @@ public class AdminSupplyController {
 			
 		}
 		
-		
-		
 		return "redirect:/admin/lookupView";
 	}
 	
-	@RequestMapping("/inputCheck")
-	public String inputCheck(@RequestParam(value="index") int index,
-			  				 @RequestParam(value="value") int value,
-			  				 @RequestParam(value="array") String[] array,
-			  				 Model model){
-		
-		logger.debug("index : {}" , index);
-		logger.debug("value : {}" , value);
-		
-		for (int i = 0; i < array.length; i++) {
-			logger.debug("array : {}" , array[i]);
-		}
-		
-		return "";
-	}
 }
