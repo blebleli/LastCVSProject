@@ -1,498 +1,517 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="board">	
-	<!-- 관리자 게시판 페이징 기법 -->
-	<select id="getBoardPageList2" parameterType="String" resultType="boardVo">	
-		SELECT *
-		FROM (
-				SELECT ROWNUM tot_cnt, T.*
-				FROM (
-						SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-								, (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
-                           			||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id
-                           		, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-								, bd_title
-								, bd_rating
-								, bd_date
-								, mem_id
-								, bd_kind_id
-								, bd_id
-								, bd_del
-								, bd_parent
-								, bd_views
-								, level as levels
-						FROM BOARD
-						WHERE 1=1
-						<if test="_parameter != null and _parameter != ''">
-						AND bd_kind_id = #{_parameter}
-						</if>
-						START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
-					) T
-					<if test="_parameter != '66'">
-					 order by T.levels
-					</if>
-			)
-				
-	</select>
-	
-	<!-- 관리자 - 자료 검색 -->
-	<select id="boardSearch" parameterType="boardVo" resultType="boardVo">
-		SELECT * FROM (
-			SELECT ROWNUM tot_cnt, T.*
-					FROM  (
-					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
-									, bd_rating
-									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
-									, mem_id
-									, bd_kind_id
-									, prod_id
-									, bd_id	
-									, bd_del
-									, bd_parent
-									, bd_views									
-							FROM BOARD
-							WHERE 1=1		                		                			                
-		                	<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
-			                	<if test="bd_title != null and bd_title != ''">
-					                AND bd_title LIKE '%'|| #{bd_title} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>
-							</if>
-								
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
-								<if test="bd_content != null and bd_content != ''">
-					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
-								<if test="bd_parent != null and bd_parent != ''">
-					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
-								<if test="mem_name != null and mem_name != ''">
-					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>													
-										                	
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
-								<if test="bd_title != null and bd_title != ''">
-									AND bd_title LIKE '%'|| #{bd_title} ||'%'
-								</if>
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
-								<if test="bd_content != null and bd_content != ''">
-					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
-								</if>
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
-								<if test="bd_parent != null and bd_parent != ''">
-					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
-								<if test="mem_name != null and mem_name != ''">
-					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
-								</if>								
-							</if>
-																					
-			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
-			      		) T )		
-	</select>
-	
-	<!-- 게시글 작성 (공지사항 / 이벤트)-->
-	<insert id="setInsertBoard" parameterType="boardVo">
-		INSERT INTO BOARD (   bd_id
-							, bd_title
-							, bd_content
-							, bd_date
-							, bd_del
-							, bd_views
-							, bd_group
-							, mem_id
-							, bd_parent
-							, bd_kind_id
-							, prod_id
-							, bd_rating
-						  )                                    
-					VALUES (  #{bd_id}                        
-					 		, #{bd_title}
-					 		, RAWTOHEX(#{bd_content})
-					 		, SYSDATE
-					 		, #{bd_del}
-					 		, #{bd_views}
-					 		, #{bd_group}
-					 		, #{mem_id}
-					 		, #{bd_parent}
-					 		, #{bd_kind_id}
-					 		, #{prod_id  }         
-							, #{bd_rating}
-					 		)
-	</insert>
-	
-	<!-- 관리자 - 게시글 수정 -->
-  	<update id="boardUpdate" parameterType="boardVo">
-  		UPDATE board SET bd_title = #{bd_title}
-  						,bd_content = RAWTOHEX(#{bd_content})
-  		WHERE bd_id = #{bd_id}
-  	</update>
-  	
-  	<!-- 관리자 - 게시글 삭제 -->
-  	<update id="boardDelete" parameterType="String">
-  		UPDATE board SET bd_del='Y' WHERE bd_id = #{bd_id}
-  	</update>
-	
-	<!-- 게시글 상세조회 --> <!-- 게시글 수정화면 이동 -->
-  	<select id="getBoard" parameterType="String" resultType="boardVo">
-		SELECT	  bd_id
-		 		, bd_title
-		 		, UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
-		 		, TO_CHAR(bd_date,'YYYY-MM-DD') AS bd_date
-		 		, bd_del
-		 		, bd_rating
-		 		, bd_views
-		 		, bd_group
-		 		, mem_id
-		 		, bd_parent
-		 		, bd_kind_id
-		FROM board
-		WHERE bd_id=#{bd_id}
-  	</select>
-	
-	<!-- 공지사항 게시글 전체 조회 -->
-	<select id="getListBoard" resultType="boardVo">
-		SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(BD_CONTENT), bd_date, bd_del, bd_rating, bd_views,
-			   bd_group, prod_id, mem_id, bd_parent, bd_kind_id
-		FROM board WHERE bd_kind_id ='44'
-		ORDER BY BD_DATE DESC
-	</select>
-	
-	<update id="updateBoardView" parameterType="String">
-		update board set BD_VIEWS = BD_VIEWS+1 where bd_id = (SELECT bd_id
-		FROM board
-		WHERE BD_ID = #{BD_ID})
-	</update>	
-  	
-  	
-  	
-  	
-  	
-  <!-- ======================================================================================================================= --> 	
-  	
-  	
-  	<!-- 리뷰 조회 -->
-  	<select id="getReviewOfProd" parameterType="String" resultType="reviewVo">
-  		SELECT a.bd_id, a.bd_title, UTL_RAW.CAST_TO_VARCHAR2(bd_content) AS bd_content, a.bd_date, a.bd_del, a.bd_rating, a.bd_views,
-			a.bd_group, a.prod_id, a.mem_id, a.bd_parent, a.bd_kind_id , b.mem_name
-			FROM board a, member b
-			WHERE prod_id = #{prod_id} AND a.mem_id = b.mem_id
-  	</select>
-  		  	
-  	<select id="getBestProdReview" parameterType="String" resultType="boardVo" >	
-  	 SELECT *FROM ( SELECT bd_id, bd_title, bd_date, bd_del, bd_rating, bd_views,prod_id, mem_id, bd_kind_id
+<mapper namespace="board">   
+
+   <!-- 관리자 게시판 페이징 기법 -->
+   <select id="getBoardPageList2" parameterType="String" resultType="boardVo">   
+      SELECT *
+      FROM (
+            SELECT ROWNUM tot_cnt, T.*
+            FROM (
+                  SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                        , (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
+                                    ||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id
+                                 , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                        , bd_title
+                        , bd_rating
+                        , bd_date
+                        , mem_id
+                        , bd_kind_id
+                        , bd_id
+                        , bd_del
+                        , bd_parent
+                        , bd_views
+                        , level as levels
+                  FROM BOARD
+                  WHERE 1=1
+                  <if test="_parameter != null and _parameter != ''">
+                  AND bd_kind_id = #{_parameter}
+                  </if>
+                  START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
+               ) T
+               <if test="_parameter != '66'">
+                order by T.levels
+                </if>
+         )
+            
+   </select>
+   
+   <!-- 관리자 - 자료 검색 -->
+   <select id="boardSearch" parameterType="boardVo" resultType="boardVo">
+      SELECT * FROM (
+         SELECT ROWNUM tot_cnt, T.*
+               FROM  (
+                       SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                           , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                           , lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+                           , bd_rating
+                           , TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+                           , mem_id
+                           , bd_kind_id
+                           , prod_id
+                           , bd_id   
+                           , bd_del
+                           , bd_parent
+                           , bd_views                           
+                     FROM BOARD
+                     WHERE 1=1                                                                     
+                         <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
+                            <if test="bd_title != null and bd_title != ''">
+                               AND bd_title LIKE '%'|| #{bd_title} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>
+                     </if>
+                        
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
+                        <if test="bd_content != null and bd_content != ''">
+                               AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+                        <if test="bd_parent != null and bd_parent != ''">
+                               AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+                        <if test="mem_name != null and mem_name != ''">
+                               AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>                                       
+                                                 
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
+                        <if test="bd_title != null and bd_title != ''">
+                           AND bd_title LIKE '%'|| #{bd_title} ||'%'
+                        </if>
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
+                        <if test="bd_content != null and bd_content != ''">
+                               AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+                        </if>
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
+                        <if test="bd_parent != null and bd_parent != ''">
+                               AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
+                        <if test="mem_name != null and mem_name != ''">
+                               AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'                         
+                        </if>                        
+                     </if>
+                                                               
+                         START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
+                     ) T )      
+   </select>
+   
+   <!-- 게시글 작성 (공지사항 / 이벤트)-->
+   <insert id="setInsertBoard" parameterType="boardVo">
+      INSERT INTO BOARD (   bd_id
+                     , bd_title
+                     , bd_content
+                     , bd_date
+                     , bd_del
+                     , bd_views
+                     , bd_group
+                     , mem_id
+                     , bd_parent
+                     , bd_kind_id
+                     , prod_id
+                     , bd_rating
+                    )                                    
+               VALUES (  #{bd_id}                        
+                      , #{bd_title}
+                      , RAWTOHEX(#{bd_content})
+                      , SYSDATE
+                      , #{bd_del}
+                      , #{bd_views}
+                      , #{bd_group}
+                      , #{mem_id}
+                      , #{bd_parent}
+                      , #{bd_kind_id}
+                      , #{prod_id  }         
+                     , #{bd_rating}
+                      )
+   </insert>
+   
+   <!-- 관리자 - 게시글 수정 -->
+     <update id="boardUpdate" parameterType="boardVo">
+        UPDATE board SET bd_title = #{bd_title}
+                    ,bd_content = RAWTOHEX(#{bd_content})
+        WHERE bd_id = #{bd_id}
+     </update>
+     
+     <!-- 관리자 - 게시글 삭제 -->
+     <update id="boardDelete" parameterType="String">
+        UPDATE board SET bd_del='Y' WHERE bd_id = #{bd_id}
+     </update>
+   
+   <!-- 게시글 상세조회 --> <!-- 게시글 수정화면 이동 -->
+     <select id="getBoard" parameterType="String" resultType="boardVo">
+      SELECT     bd_id
+             , bd_title
+             , UTL_RAW.CAST_TO_VARCHAR2(bd_content) as bd_content
+             , TO_CHAR(bd_date,'YYYY-MM-DD') AS bd_date
+             , bd_del
+             , bd_rating
+             , bd_views
+             , bd_group
+             , mem_id
+             , bd_parent
+             , bd_kind_id
+      FROM board
+      WHERE bd_id=#{bd_id}
+     </select>
+   
+   <!-- 공지사항 게시글 전체 조회 -->
+   <select id="getListBoard" resultType="boardVo">
+      SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(BD_CONTENT), bd_date, bd_del, bd_rating, bd_views,
+            bd_group, prod_id, mem_id, bd_parent, bd_kind_id
+      FROM board WHERE bd_kind_id ='44'
+      ORDER BY BD_DATE DESC
+   </select>
+   
+   <update id="updateBoardView" parameterType="String">
+      update board set BD_VIEWS = BD_VIEWS+1 where bd_id = (SELECT bd_id
+      FROM board
+      WHERE BD_ID = #{BD_ID})
+   </update>   
+     
+     
+     
+     
+     
+  <!-- ======================================================================================================================= -->    
+     
+     
+     <!-- 리뷰 조회 -->
+     <select id="getReviewOfProd" parameterType="String" resultType="reviewVo">
+        SELECT  B.bd_id
+            , B.bd_title
+            , UTL_RAW.CAST_TO_VARCHAR2(bd_content) AS bd_content
+            , B.bd_date
+            , B.bd_del
+            , B.bd_rating
+            , B.bd_views
+            ,   B.bd_group
+            , B.prod_id
+            , B.mem_id
+            , B.bd_parent
+            , B.bd_kind_id
+            , M.mem_name
+            , (SELECT FILE_PATH || '/' ||  FILE_UPNAME FROM FILEDATA WHERE MEM_ID = B.MEM_ID) AS SRC
+          --F.FILE_PATH || '/' || F.FILE_UPNAME  AS prod_name -- 교체 하여 사용
+      FROM board B
+      JOIN member M
+      ON B.MEM_ID = M.MEM_ID
+      WHERE prod_id = #{prod_id} 
+     </select>
+             
+     <select id="getBestProdReview" parameterType="String" resultType="boardVo" >   
+      SELECT *FROM ( SELECT bd_id, bd_title, bd_date, bd_del, bd_rating, bd_views,prod_id, mem_id, bd_kind_id
            FROM BOARD
            WHERE bd_kind_id = '55'
            ORDER BY bd_views DESC
-		)where ROWNUM &lt;=3
-	</select>
-	
-	<!-- 메인 리뷰 top3 -->
-	<select id="getReviewTop3" resultType="mainReviewsVo">
-	
-		SELECT    
-	            P.PROD_ID
-	           ,P.FILE_PATH
-	           ,P.FILE_UPNAME
-	           ,B.BD_ID
-	           ,B.BD_TITLE
-	           ,SUBSTR(UTL_RAW.CAST_TO_VARCHAR2(B.BD_CONTENT),0,30) AS BD_CONTENT
-	           ,B.BD_DATE
-	           ,B.BD_VIEWS
-	           ,B.BD_KIND_ID
-	           ,b.BD_RATING
-	    FROM BOARD B
-	    JOIN PROD P
-	    ON B.PROD_ID = P.PROD_ID
-	    WHERE B.BD_KIND_ID = '55'
-	      AND B.BD_VIEWS != 0
-	      AND  ROWNUM &lt; 4
-	    ORDER  BY B.BD_VIEWS DESC
-	</select>
-  	
+      )where ROWNUM &lt;=3
+   </select>
+   
+   <!-- 메인 리뷰 top3 -->
+   <select id="getReviewTop3" resultType="mainReviewsVo">
+   
+      SELECT    
+               P.PROD_ID
+              ,P.FILE_PATH
+              ,P.FILE_UPNAME
+              ,B.BD_ID
+              ,B.BD_TITLE
+              ,SUBSTR(UTL_RAW.CAST_TO_VARCHAR2(B.BD_CONTENT),0,30) AS BD_CONTENT
+              ,B.BD_DATE
+              ,B.BD_VIEWS
+              ,B.BD_KIND_ID
+              ,b.BD_RATING
+       FROM BOARD B
+       JOIN PROD P
+       ON B.PROD_ID = P.PROD_ID
+       WHERE B.BD_KIND_ID = '55'
+         AND B.BD_VIEWS != 0
+         AND  ROWNUM &lt; 4
+       ORDER  BY B.BD_VIEWS DESC
+   </select>
+     
  <!-- ===========================================사용자 공지사항 게시판========================================================= -->
 
-  	<!-- 사용자 공지사항 페이징 기법 -->
-	<select id="getBoardPageList" parameterType="map" resultType="boardVo">
-		SELECT *
-		FROM (
-				SELECT ROWNUM tot_cnt, T.*
-				FROM (
-						SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-								, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-								, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
-								, bd_rating
-								, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
-								, mem_id
-								, bd_kind_id
-								, prod_id
-								, bd_id
-								, bd_del
-								, bd_parent
-								, bd_views
-						FROM BOARD
-						WHERE bd_kind_id = #{bd_kind_id}
-						START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
-					) T
-			) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}		
+     <!-- 사용자 공지사항 페이징 기법 -->
+   <select id="getBoardPageList" parameterType="map" resultType="boardVo">
+      SELECT *
+      FROM (
+            SELECT ROWNUM tot_cnt, T.*
+            FROM (
+                  SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                        , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                        , lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+                        , bd_rating
+                        , TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date
+                        , mem_id
+                        , bd_kind_id
+                        , prod_id
+                        , bd_id
+                        , bd_del
+                        , bd_parent
+                        , bd_views
+                  FROM BOARD
+                  WHERE bd_kind_id = #{bd_kind_id}
+                  START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
+               ) T
+         ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}      
 
-	</select>
-	
-	<!-- 사용자 공지사항 검색 기법 -->
-	<select id="getBoardPageSearch" parameterType="map" resultType="boardVo">	
-		SELECT * FROM (
-			SELECT ROWNUM tot_cnt, T.*
-					FROM  (
-					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
-									, bd_rating
-									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
-									, mem_id
-									, bd_kind_id
-									, prod_id
-									, bd_id
-									, bd_del
-									, bd_parent
-									, bd_views									
-							FROM BOARD
-							WHERE 1=1						                		                			                
-		                	<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
-			                	<if test="bd_title != null and bd_title != ''">
-					                AND bd_title LIKE '%'|| #{bd_title} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>
-							</if>
-								
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
-								<if test="bd_content != null and bd_content != ''">
-					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
-								<if test="bd_parent != null and bd_parent != ''">
-					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
-								<if test="mem_name != null and mem_name != ''">
-					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>													
-										                	
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
-								<if test="bd_title != null and bd_title != ''">
-									AND bd_title LIKE '%'|| #{bd_title} ||'%'
-								</if>
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
-								<if test="bd_content != null and bd_content != ''">
-					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
-								</if>
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
-								<if test="bd_parent != null and bd_parent != ''">
-					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
-								<if test="mem_name != null and mem_name != ''">
-					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
-								</if>								
-							</if>
-							
-							START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
-			                
-			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
-	</select>
-		
-  	<!-- 게시글 전체 건수 -->
-  	<select id="getWriteTotCnt" parameterType="String" resultType="int">
-		SELECT count(*)
-		FROM BOARD
-		WHERE bd_kind_id = #{bd_kind_id}
-  	</select>
-  	
-  	<!-- 게시글 검색 건수 -->
-  	<select id="getWriteTotCntSearch" parameterType="map" resultType="int">
-		SELECT count(*)
-		FROM BOARD
-		WHERE 1=1
-       	<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
-        	<if test="bd_title != null and bd_title != ''">
-	          AND bd_title LIKE '%'|| #{bd_title} ||'%'
-	          AND bd_kind_id = #{bd_kind_id}			                	
-			</if>
-		</if>
-			
-		<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
-			<if test="bd_content != null and bd_content != ''">
+   </select>
+   
+   <!-- 사용자 공지사항 검색 기법 -->
+   <select id="getBoardPageSearch" parameterType="map" resultType="boardVo">   
+      SELECT * FROM (
+         SELECT ROWNUM tot_cnt, T.*
+               FROM  (
+                       SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                           , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                           , lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+                           , bd_rating
+                           , TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+                           , mem_id
+                           , bd_kind_id
+                           , prod_id
+                           , bd_id
+                           , bd_del
+                           , bd_parent
+                           , bd_views                           
+                     FROM BOARD
+                     WHERE 1=1                                                                                 
+                         <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
+                            <if test="bd_title != null and bd_title != ''">
+                               AND bd_title LIKE '%'|| #{bd_title} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>
+                     </if>
+                        
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
+                        <if test="bd_content != null and bd_content != ''">
+                               AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+                        <if test="bd_parent != null and bd_parent != ''">
+                               AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+                        <if test="mem_name != null and mem_name != ''">
+                               AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>                                       
+                                                 
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
+                        <if test="bd_title != null and bd_title != ''">
+                           AND bd_title LIKE '%'|| #{bd_title} ||'%'
+                        </if>
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
+                        <if test="bd_content != null and bd_content != ''">
+                               AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+                        </if>
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
+                        <if test="bd_parent != null and bd_parent != ''">
+                               AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
+                        <if test="mem_name != null and mem_name != ''">
+                               AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'                         
+                        </if>                        
+                     </if>
+                     
+                     START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
+                         
+                     ) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+   </select>
+      
+     <!-- 게시글 전체 건수 -->
+     <select id="getWriteTotCnt" parameterType="String" resultType="int">
+      SELECT count(*)
+      FROM BOARD
+      WHERE bd_kind_id = #{bd_kind_id}
+     </select>
+     
+     <!-- 게시글 검색 건수 -->
+     <select id="getWriteTotCntSearch" parameterType="map" resultType="int">
+      SELECT count(*)
+      FROM BOARD
+      WHERE 1=1
+          <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
+           <if test="bd_title != null and bd_title != ''">
+             AND bd_title LIKE '%'|| #{bd_title} ||'%'
+             AND bd_kind_id = #{bd_kind_id}                            
+         </if>
+      </if>
+         
+      <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
+         <if test="bd_content != null and bd_content != ''">
                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
-               AND bd_kind_id = #{bd_kind_id}			                	
-			</if>								
-		</if>
-		
-		<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
-			<if test="bd_parent != null and bd_parent != ''">
+               AND bd_kind_id = #{bd_kind_id}                            
+         </if>                        
+      </if>
+      
+      <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+         <if test="bd_parent != null and bd_parent != ''">
                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
-               AND bd_kind_id = #{bd_kind_id}			                	
-			</if>								
-		</if>		
-		
-		<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
-			<if test="mem_name != null and mem_name != ''">
-                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
-			</if>								
-		</if>		
-  	</select>  	
-  	
+               AND bd_kind_id = #{bd_kind_id}                            
+         </if>                        
+      </if>      
+      
+      <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+         <if test="mem_name != null and mem_name != ''">
+                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'                         
+         </if>                        
+      </if>      
+     </select>     
+     
  <!-- ==========================================사용자 이벤트&행사 게시판 ======================================================== -->
  
-   	<!-- 사용자 이벤트&행사 페이징 기법 -->
-	<select id="getBoardPageList1" parameterType="map" resultType="boardVo">	
-						SELECT *
-		FROM (
-				SELECT ROWNUM tot_cnt, T.*
-				FROM (
-						SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-								, (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
-                           			||(SELECT file_upname from filedata where board.bd_id = filedata.bd_id) AS prod_id
-                           		, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-								, bd_title
-								, bd_rating
-								, bd_date
-								, mem_id
-								, bd_kind_id
-								, bd_id
-								, bd_del
-								, bd_parent
-								, bd_views
-								, level as levels
-						FROM BOARD
-						WHERE 1=1
-						AND bd_kind_id = '66'
-						START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
-					) T ) 
-					WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+      <!-- 사용자 이벤트&행사 페이징 기법 -->
+   <select id="getBoardPageList1" parameterType="map" resultType="boardVo">   
+      SELECT * FROM (
+         SELECT ROWNUM tot_cnt, T.*
+                  SELECT *
+      FROM (
+            SELECT ROWNUM tot_cnt, T.*
+            FROM (
+                  SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                        , (SELECT file_path from filedata where board.bd_id = filedata.bd_id) 
+                                 , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                        , bd_title
+                        , bd_rating
+                        , bd_date
+                        , mem_id
+                        , bd_kind_id
+                        , bd_id
+                        , bd_del
+                        , bd_parent
+                        , bd_views
+                        , level as levels
+                  FROM BOARD
+                  WHERE 1=1
+                  AND bd_kind_id = '66'
+                  START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_date DESC, bd_group DESC
+               ) T ) 
+               WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 
-	</select>
-	
-	<!-- 사용자 이벤트&행사 검색 기법 -->
-	<select id="getEventPageSearch" parameterType="map" resultType="boardVo">	
-		SELECT * FROM (
-			SELECT ROWNUM tot_cnt, T.*
-					FROM  (
-					        SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
-									, (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
-									, lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
-									, bd_rating
-									, TO_CHAR(bd_date,'YY-MM-DD') as bd_date
-									, mem_id
-									, bd_kind_id
-									, prod_id
-									, bd_id
-									, bd_del
-									, bd_parent
-									, bd_views									
-							FROM BOARD
-							WHERE 1=1						                		                			                
-		                	<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
-			                	<if test="bd_title != null and bd_title != ''">
-					                AND bd_title LIKE '%'|| #{bd_title} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>
-							</if>
-								
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
-								<if test="bd_content != null and bd_content != ''">
-					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
-								<if test="bd_parent != null and bd_parent != ''">
-					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
-								<if test="mem_name != null and mem_name != ''">
-					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
-					                AND bd_kind_id = #{bd_kind_id}			                	
-								</if>								
-							</if>													
-										                	
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
-								<if test="bd_title != null and bd_title != ''">
-									AND bd_title LIKE '%'|| #{bd_title} ||'%'
-								</if>
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
-								<if test="bd_content != null and bd_content != ''">
-					                AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
-								</if>
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
-								<if test="bd_parent != null and bd_parent != ''">
-					                AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'			                	
-								</if>								
-							</if>
-							
-							<if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
-								<if test="mem_name != null and mem_name != ''">
-					                AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'		                	
-								</if>								
-							</if>
-							
-			                START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
-			                
-			      		) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
-	</select>	
-		
-  	<!-- 게시글 전체 건수 -->
-  	<select id="getWriteTotCnt1" parameterType="String" resultType="int">
-		SELECT count(*) FROM BOARD WHERE bd_kind_id = #{bd_kind_id}
-  	</select>
-  	
-  	<!-- 	아 이 디 : getReviewCnt
-	  		반 환 값 : int
-	  		매개변수 : string(prod_id)
-	  		설    명 : 제품 리뷰 개수 
-	  		작 성 자 : 조종원
-	  		일    시 : 2018-10-01     
-	 -->
-	 <select id="getReviewCnt" resultType="int" parameterType="String">
-	 	SELECT COUNT(*) AS CNT FROM BOARD WHERE PROD_ID = #{prod_id}
-	 </select>
+ SIBLINGS BY bd_group
+                     ) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+   </select>
+   
+   <!-- 사용자 이벤트&행사 검색 기법 -->
+   <select id="getEventPageSearch" parameterType="map" resultType="boardVo">   
+      SELECT * FROM (
+         SELECT ROWNUM tot_cnt, T.*
+               FROM  (
+                       SELECT    (SELECT prod_name FROM prod WHERE board.prod_id = prod.prod_id) AS prod_name
+                           , (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) AS mem_name
+                           , lpad('    ', level*4, '    ')|| BOARD.bd_title as bd_title
+                           , bd_rating
+                           , TO_CHAR(bd_date,'YY-MM-DD') as bd_date
+                           , mem_id
+                           , bd_kind_id
+                           , prod_id
+                           , bd_id
+                           , bd_del
+                           , bd_parent
+                           , bd_views                           
+                     FROM BOARD
+                     WHERE 1=1                                                                                 
+                         <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목이 있으면 검색 -->
+                            <if test="bd_title != null and bd_title != ''">
+                               AND bd_title LIKE '%'|| #{bd_title} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>
+                     </if>
+                        
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 내용이 있으면 검색 -->
+                        <if test="bd_content != null and bd_content != ''">
+                               AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 제목 & 내용이 있으면 검색 -->
+                        <if test="bd_parent != null and bd_parent != ''">
+                               AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id != null and bd_kind_id != ''"> <!-- 구분 값이 있고 작성자가 있으면 검색 -->
+                        <if test="mem_name != null and mem_name != ''">
+                               AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'
+                               AND bd_kind_id = #{bd_kind_id}                            
+                        </if>                        
+                     </if>                                       
+                                                 
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목이 있으면 검색 -->
+                        <if test="bd_title != null and bd_title != ''">
+                           AND bd_title LIKE '%'|| #{bd_title} ||'%'
+                        </if>
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 내용이 있으면 검색 -->
+                        <if test="bd_content != null and bd_content != ''">
+                               AND UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_content} ||'%'
+                        </if>
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 제목 & 내용이 있으면 검색 -->
+                        <if test="bd_parent != null and bd_parent != ''">
+                               AND bd_title||UTL_RAW.CAST_TO_VARCHAR2(bd_content) LIKE '%'|| #{bd_parent} ||'%'                            
+                        </if>                        
+                     </if>
+                     
+                     <if test="bd_kind_id == ''"> <!-- 구분 값이 전체이고 작성자가 있으면 검색 -->
+                        <if test="mem_name != null and mem_name != ''">
+                               AND (SELECT mem_name FROM member WHERE board.mem_id = member.mem_id) LIKE '%'|| #{mem_name} ||'%'                         
+                        </if>                        
+                     </if>
+                     
+                         START WITH bd_parent IS NULL CONNECT BY PRIOR bd_id = bd_parent ORDER SIBLINGS BY bd_group
+                         
+                     ) T ) WHERE tot_cnt BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+   </select>   
+      
+     <!-- 게시글 전체 건수 -->
+     <select id="getWriteTotCnt1" parameterType="String" resultType="int">
+      SELECT count(*) FROM BOARD WHERE bd_kind_id = #{bd_kind_id}
+     </select>
+     
+     <!--    아 이 디 : getReviewCnt
+           반 환 값 : int
+           매개변수 : string(prod_id)
+           설    명 : 제품 리뷰 개수 
+           작 성 자 : 조종원
+           일    시 : 2018-10-01     
+    -->
+    <select id="getReviewCnt" resultType="int" parameterType="String">
+       SELECT COUNT(*) AS CNT FROM BOARD WHERE PROD_ID = #{prod_id}
+    </select>
 </mapper>
