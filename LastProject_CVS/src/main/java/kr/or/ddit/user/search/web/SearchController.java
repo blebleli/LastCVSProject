@@ -1,28 +1,36 @@
 package kr.or.ddit.user.search.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.user.search.model.CvsSearchVo;
+import kr.or.ddit.user.search.model.SearchCvsServiceVo;
 import kr.or.ddit.user.search.service.CvsSearchServiceInf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @RequestMapping("/search")
 @Controller("searchController")
+@SessionAttributes({"searchWord"})
 public class SearchController {
 	
 	private Logger logger = LoggerFactory.getLogger(SearchController.class);
@@ -122,6 +130,7 @@ public class SearchController {
 	public String view(@RequestParam(value="page", defaultValue="1") int page,
 					   @RequestParam(value="pageSize", defaultValue="10") int pageSize,
 					   @RequestParam(value="searchWord",defaultValue="word")String searchWord,
+					   HttpSession session,
 					   Model model){
 		
 		logger.debug("{}searchWord",searchWord);
@@ -139,10 +148,38 @@ public class SearchController {
 		logger.debug("{}=========================list.get(CvsPageList) : " + list.get("CvsPageList"));
 		
 //		model.addAttribute("list", list.get("CvsPageList"));
-		model.addAllAttributes(list);   
+		model.addAllAttributes(list);
+		session.setAttribute("searchWord", searchWord);
 		
 		return "cvsSearch";
 	}
 	
+	@RequestMapping(value="/cvsServiceSearch", method=RequestMethod.POST)
+	public @ResponseBody List<MemberVo> cvsServiceSearch(@RequestBody List<String> ctgys, HttpSession session){
+		List<MemberVo> cvsList = new ArrayList<MemberVo>();
+		List<SearchCvsServiceVo> serviceList = new ArrayList<SearchCvsServiceVo>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		String word = (String) session.getAttribute("searchWord");
+		for(int j = 0; j <ctgys.size(); j++){
+			param.put("ctgy_id", ctgys.get(j));
+			param.put("mem_cvs_name", word);
+			List<SearchCvsServiceVo> list= cvsSearchService.searchCvsService(param);
+			logger.debug("list=======>{}", list);
+			for(int r = 0; r < list.size(); r++){
+				serviceList.add(list.get(r));
+			}
+//			serviceList.add((SearchCvsServiceVo) list);
+			
+		}
+		logger.debug("serviceList======{}", serviceList);
+		for(int i = 0; i <serviceList.size(); i++){
+			MemberVo cvs = cvsSearchService.getCvs(serviceList.get(i).getMem_id());
+			cvsList.add(cvs);
+		}
+		List<MemberVo> resultList = new ArrayList<MemberVo>(new HashSet<MemberVo>(cvsList));
+		logger.debug("resultList-----------{}", resultList);
+		return resultList;
+		
+	}
 	
 }
