@@ -139,7 +139,9 @@
 																onkeyup="removeChar(event)"
 																style='ime-mode:disabled;'
 																onchange="fn_changeCost(this)"
-																size="1" name="sum" id="sum" value="${vo.splylist_sum}">
+																size="1" name="sum" id="formatSum" value="${vo.splylist_sum}">
+																
+																<input type="hidden" id="sum" value="${vo.splylist_sum}">
 															</p>
 														</td>
 													</c:if>
