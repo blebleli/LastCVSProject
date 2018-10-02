@@ -123,36 +123,7 @@
 	font-variant: normal;
 	text-transform: none;
 }
-
 </style>
-
-<script>
-	$(function() {
-		$("#reCommentsbt").on("click", function() {
-			var cnt = $("td#demoFont2 input[id=cm_content]").size();
-			if(cnt == 1) {
-			    return false;
-		    }
-	        $("td#demoFont2").append($("<input type='text' size='80' style='height:50px' id='cm_content' name='cm_content["+cnt+"]' required='required' />"
-	        		+"<input type='submit' id='commentButton' style='height:50px' class='btn btn-default' value='댓글 저장'/>"));
-		});
-	});
-	
-	$(function() {
-		$("[id=commentButton]").on("click", function() {
-			var check = $(':input[name=cm_openny]:radio:checked').val();
-			if(check == "Y"){
-				return true;
-			}else if(check == "N"){
-				return true;
-			}else {
-				alert("공개 비공개를 선택하세요");
-				return false;
-			}
-		});
-	});
-</script>
-
 
 <!-- products-breadcrumb -->
 <div class="products-breadcrumb">
