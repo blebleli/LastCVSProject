@@ -176,7 +176,6 @@
 	</definition>
 	
 	<!--  관리자 메인 -->
-
 	<!--  관리자 - 통계화면 -->
 	<definition name="ad_chart" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/chart/adChart.jsp"/>
@@ -212,6 +211,12 @@
 	<definition name="ad_prod" extends="ad_basicLayout">
 	<put-attribute name="content" value="/WEB-INF/view/admin/adprod/ad_prodList.jsp"/>
 	</definition>
+	
+	<!--  관리자 행사/행사상품 등록  -->
+	<definition name="ad_eventAdd" extends="ad_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/admin/adprod/ad_event_add.jsp"/>
+	</definition>
+	
 	
 	<!--  관리자 수주 처리 조회 메인 화면 -->
 	<definition name="ad_supplyLookup" extends="ad_basicLayout">
