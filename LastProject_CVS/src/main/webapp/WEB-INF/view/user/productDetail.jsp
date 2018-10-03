@@ -167,7 +167,7 @@
 							<fieldset>
 								<input type="hidden" name="cmd" value="_cart"> 
 								<input type="hidden" name="currency_code" value="KRW">
-								<input type="hidden" name="prod_id"   value="${prod.prod_id }">
+								<input type="hidden" name="prod"   value="${prod.prod_id }">
 								<input type="hidden" name="item_name" value="${prod.prod_name}">
 								<input type="hidden" name="amount"    value="${prod.prod_price}">
 								<input type="hidden" name="add"       value="1">
@@ -175,7 +175,7 @@
 								<input type="hidden" name="discount_amount" value="0.0">
 								<input type="hidden" name="return"    value="">
 								<input type="hidden" name="cancel_return" value="">
-								<input type="submit" name="submit"    value="Add to cart" class="button">
+								<input type="submit" name="submit"    value="장바구니에 담기" class="button">
 							</fieldset>
 						</form>
 
@@ -183,9 +183,8 @@
 							<fieldset>
 								<input type="hidden" name="prod_id" value="${prod.prod_id }">
 
-								<input type="submit" name="submit" value="장바구니에 담기"
-									class="button" /> <input type="submit" name="submit"
-									value="결제" class="button" />
+<!-- 								<input type="submit" name="submit" value="장바구니에 담기" class="button" />-->
+								 <input type="submit" name="submit" value="결제" class="button" />
 							</fieldset>
 						</form>
 					</div>

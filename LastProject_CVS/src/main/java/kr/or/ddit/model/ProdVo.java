@@ -1,5 +1,7 @@
 package kr.or.ddit.model;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.ddit.commons.model.PageVo;
@@ -20,6 +22,16 @@ public class ProdVo extends PageVo {
 	private int    prod_cost;				// 단가
 	
 	private MultipartFile[] upload_file;	// 이미지
+	
+	
+	private List<ProdVo> prodList;
+	
+	public List<ProdVo> getProdList() {
+		return prodList;
+	}
+	public void setProdList(List<ProdVo> prodList) {
+		this.prodList = prodList;
+	}
 	
 	// 제품 상세 보기 평점 처리 위해서 추가 -2018.09.12-jw
 	private int bd_rating;		// 평점

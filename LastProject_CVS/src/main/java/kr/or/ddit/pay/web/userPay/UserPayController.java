@@ -1,6 +1,17 @@
 package kr.or.ddit.pay.web.userPay;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
+
+
+
+
+
+
 
 
 
@@ -10,6 +21,7 @@ import kr.or.ddit.prod.service.ProdServiceInf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -58,35 +70,45 @@ public class UserPayController {
 //	<input type="hidden" name="cancel_return"     value=" "> 
 	
 	@RequestMapping("/pay")
-	public ModelAndView payView( @RequestParam(value="prod_id"        ,defaultValue="" ) String prod_id
-			                    ,@RequestParam(value="cmd"            ,defaultValue="" ) String cmd            
-			                    ,@RequestParam(value="add"            ,defaultValue="" ) String add            
-			                    ,@RequestParam(value="business"       ,defaultValue="" ) String business       
-//			                    ,@RequestParam(value="prod_id"        ,defaultValue="" ) String prod_id        
-			                    ,@RequestParam(value="item_name"      ,defaultValue="" ) String item_name      
-			                    ,@RequestParam(value="amount"         ,defaultValue="" ) String amount         
-			                    ,@RequestParam(value="discount_amount",defaultValue="" ) String discount_amount
-			                    ,@RequestParam(value="currency_code"  ,defaultValue="" ) String currency_code 
-			                    ,@RequestParam(value="return"         ,defaultValue="" ) String return1         
-			                    ,@RequestParam(value="cancel_return"  ,defaultValue="" ) String cancel_return  
-			){
+	public String payView(@RequestParam(value="prod_name")String prod_name, @RequestParam(value="prod_info" ,defaultValue="")String prod_info, 
+			                    @RequestParam(value="prod_cnt")String prod_cnt, Model model){
 		
-		logger.debug("cmd             ==> {}", cmd             );
-		logger.debug("add             ==> {}", add             );
-		logger.debug("business        ==> {}", business        );
-		logger.debug("prod_id         ==> {}", prod_id         );
-		logger.debug("item_name       ==> {}", item_name       );
-		logger.debug("amount          ==> {}", amount          );
-		logger.debug("discount_amount ==> {}", discount_amount );
-		logger.debug("currency_code   ==> {}", currency_code   );
-		logger.debug("return1         ==> {}", return1         );
-		logger.debug("cancel_return   ==> {}", cancel_return   );
+		logger.debug("payView=================================================================") ;
+		logger.debug("prod_name ==> {}",prod_name) ;
+		logger.debug("prod_info ==> {}",prod_info) ;
+		logger.debug("prod_cnt ==> {}",prod_cnt) ;
 		
-		ModelAndView mav = new ModelAndView("pay");
-		ProdVo prod = prodService.getProd(prod_id);
-		mav.addObject("prod", prod);
+		String[] name = prod_name.split(",") ;
+		String[] cnt = prod_cnt.split(",") ;
 		
-		return mav;
+		List<ProdVo> prod = new ArrayList<ProdVo>();
+		ProdVo vo ;
+		Map<String, String> result ;
+		for (int i = 0 ; i < name.length; i++) {
+			vo = null;
+			result = new HashMap<String, String>();
+			
+			result.put("name", name[i]);
+			result.put("cnt", cnt[i]);
+			// 쿼리 실행
+			vo = prodService.getPayProd(result);
+			
+			prod.add(vo);
+		}
+		
+		logger.debug("prod == > {} ",prod);
+		
+		// prod_name 으로 각각 구해야됨..
+		
+//		logger.debug("prodList ==> {}", prodList);
+		
+//		ModelAndView mav = new ModelAndView("pay");
+		
+//		ProdVo prod = prodService.getProd();
+		
+		model.addAttribute("prod", prod);
+		
+		return "pay";
 	}
 	
 	@RequestMapping("/cardForPay")

@@ -199,5 +199,18 @@ public interface ProdServiceInf {
 	 * Method 설명 : 이벤트  상품
 	 */
 	List<ProdVo> getEventList(Map<String, Object> map);
+
+	
+	/** 
+	 * Method   : getPayProd 
+	 * 최초작성일  : 2018. 10. 3. 
+	 * 작성자 :  조종원 
+	 * 변경이력 : 신규
+	 * @param string
+	 * @param string2
+	 * @return 
+	 * Method 설명 : 제품명, 갯수를 넘겨서 해당 제품 정보 가져 오는거
+	 */
+	ProdVo getPayProd(Map<String, String> result);
 	
 }

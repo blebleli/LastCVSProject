@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<head>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
@@ -83,10 +83,6 @@ $(function(){
 });
 </script>
 
-</head>
-<html>
-
-
 <!-- banner -->
 <div class="banner">
 
@@ -107,31 +103,40 @@ $(function(){
 							<th>선택 개수</th>
 						
 							<th>가격</th>
+							<th>합계</th>
 							<th>삭제</th>
 						</tr>
 					</thead>
-					<tbody><tr class="rem1">
-						<td class="invert">1</td>
-						<td class="invert">${prod.prod_name }</td>
-						<td class="invert-image"><a href="/userProd/detail"><img src="/images/1.png" alt=" " class="img-responsive"></a></td>
-						<td class="invert">
-							 <div class="quantity"> 
-								<div class="quantity-select">                           
-									<div class="entry value-minus active" id="minus">&nbsp;</div>
-									<div class="entry value"><span id="num">1</span></div>
-									<div class="entry value-plus active" id="plus">&nbsp;</div>
+					<tbody>
+					
+					<c:forEach items="${prod }" var="vo">
+						<tr class="rem1">
+							<td class="invert">순번 쿼리 수정</td>
+							<td class="invert">${vo.prod_name }</td>
+							<td class="invert-image">
+								<img width="150px" height="150px" src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive">
+							</td>
+							<td class="invert">
+								 <div class="quantity"> 
+									<div class="quantity-select">                           
+										<div class="entry value-minus active" id="minus">&nbsp;</div>
+										<div class="entry value"><span id="num">${vo.prod_exnum }</span></div>
+										<div class="entry value-plus active" id="plus">&nbsp;</div>
+									</div>
 								</div>
-							</div>
-						</td>
+							</td>
+							<td class="invert">${vo.prod_price }</td>
+							<td class="invert">${vo.prod_price * vo.prod_exnum }</td>
+							<td class="invert">
+								<div class="rem">
+									<div class="close1"> </div>
+								</div>
+	
+							</td>
+						</tr>
+					
+					</c:forEach>
 						
-						<td class="invert">${prod.prod_price }</td>
-						<td class="invert">
-							<div class="rem">
-								<div class="close1"> </div>
-							</div>
-
-						</td>
-					</tr>
 					</tbody></table>
 			</div>
 			
@@ -139,9 +144,9 @@ $(function(){
 				<div class="col-md-4 checkout-left-basket">
 					<h4>결제 내역</h4>
 					<ul>
-						<li>Product1 <i>-</i> <span id="prodPrice">${prod.prod_price } </span></li>
+						<li>Product1 <i>-</i> <span id="prodPrice">price</span></li>
 <!-- 						<li>Total Service Charges <i>-</i> <span>$1.00</span></li> -->
-						<li><label>Total</label><span id="totalPrice">${prod.prod_price }</span></li>
+						<li><label>Total</label><span id="totalPrice">price</span></li>
 					</ul>
 				</div>
 			
@@ -178,5 +183,3 @@ $(function(){
 		<div class="clearfix"></div>
 	</div>
 <!-- //banner -->
-</body>
-</html>

@@ -6,6 +6,19 @@
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
+
+<script type="text/javascript">
+
+	$(function(){
+		$("#payBtn").on("click", function() {
+			$("#frm").attr("action", "/userPay/pay");
+			$("#frm").submit();
+		});
+				
+	});
+
+</script>
+
 <!-- 최상단  -->
 <div class="agileits_header">
 <!-- 	<div class="w3l_header_left"> -->
@@ -24,7 +37,7 @@
 	</div>
 	
 	
-	<div class="product_list_header">
+	<div class="product_list_header" >
 		<!-- 장바구니 submit버튼 클릭시  ★ 이동 경로 주기(장바구니 화면) -->
 		<form action="#" method="post" class="last">
 			<fieldset>
@@ -252,6 +265,7 @@ $(".panel-group").hover(function(){
 			}
 		});
 
-	</script>
+</script>
+
 
 <!-- ========================= userBasicLayout.jsp + <tiles:insertAttribute name="top" /> 부분 끝 -->
