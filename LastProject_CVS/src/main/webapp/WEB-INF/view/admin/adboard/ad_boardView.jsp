@@ -94,6 +94,7 @@
 	                        <button class="btn btn-default" type="button" id="44"  name="bd_kind_id44" value="44">공지사항</button>
 	                        <button class="btn btn-default" type="button" id="55"  name="bd_kind_id55" value="55">상품리뷰</button>
 						</div>
+						
 						<ul class="nav navbar-right panel_toolbox">
 							<li class="dropdown">
 								<div class="btn-group  btn-group-sm">									
@@ -117,20 +118,16 @@
 				  <!-- ========================================================================== -->
                   <div class="x_content">                  
 					<div class="table-responsive">
-						<table id="datatable" class="table table-striped jambo_table bulk_action">
+						<table id="datatable" class="table table-striped jambo_table bulk_action dataTable no-footer">
 						<c:choose>
 							<c:when test="${bd_kind_id=='' || bd_kind_id=='44'}">
 							<thead>
-								<tr role="row" class="headings">
+								<tr id="reviews" role="row" class="headings">
 									<th class="column-title" style="width: 5px;">번호</th>
-									<th class="column-title" style="width: 475px;">제목</th>
-									<th class="column-title" style="width: 25px;">작성자</th>
-									<th class="column-title" style="width: 25px;">작성일</th>
-									<th class="column-title" style="width: 25px;">조회수</th>
-									<th> 
-									<th class="bulk-actions" colspan="7">
-	                             		<a class="antoo" style="color:#fff; font-weight:500;">선택한 상품 ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
-	                             	</th>                            
+									<th class="column-title" style="width: 480px;">제목</th>
+									<th class="column-title" style="width: 30px;">작성자</th>
+									<th class="column-title" style="width: 35px;">작성일</th>
+									<th class="column-title" style="width: 35px;">조회수</th>
 								</tr>
 							</thead>
 							<tbody id="bd_code">
@@ -145,7 +142,7 @@
 												<td>${vo.bd_title}</td>
 												<td>관리자</td>
 												<td>${vo.bd_date}</td>
-												<td class="a-right a-right">${vo.bd_views}</td>												
+												<td>${vo.bd_views}</td>												
 											</tr>
 										</c:when>
 										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
@@ -160,7 +157,6 @@
 										</c:when>										
 										<c:when test="${vo.bd_del=='Y'}">
 											<tr class="even pointer" data-id="${vo.bd_id}">
-											
 												<td>${vo.tot_cnt }</td>
 												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
 												<td>관리자</td>
@@ -182,11 +178,6 @@
 									<th class="column-title" style="width: 25px;">평점</th>
 									<th class="column-title" style="width: 25px;">작성일</th>
 									<th class="column-title" style="width: 25px;">조회수</th>
-									<th class="bulk-actions" colspan="8">
-                             		<a class="antoo" style="color:#fff; font-weight:500;">
-                             		선택한 상품 ( <span class="action-cnt"> </span> )
-                             		<i class="fa fa-chevron-down"></i></a></th>
-                            
 								</tr>
 							</thead>
 							<tbody id="bd_code">
@@ -197,23 +188,21 @@
 										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
 											<tr class="even pointer" data-id="${vo.bd_id}"
 												data-id2="${vo.bd_del}">
-											
 												<td>${vo.tot_cnt}</td>
 												<td>${vo.prod_name}</td>
 												<td>${vo.bd_title}</td>
 												<td>${vo.mem_name}</td>
 												<td>${vo.bd_rating}</td>
 												<td>${vo.bd_date}</td>
-												<td class="a-right a-right">${vo.bd_views}</td>												
+												<td>${vo.bd_views}</td>												
 											</tr>
 										</c:when>
 										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
 											<tr class="even pointer" data-id="${vo.bd_id}"
 												data-id2="${vo.bd_del}">
-												
 												<td>${vo.tot_cnt }</td>
 												<td>${vo.prod_name}</td>
-												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
+												<td>　　　[RE:]${vo.bd_title}</td>
 												<td>${vo.mem_name}</td>
 												<td>${vo.bd_date}</td>
 												<td>${vo.bd_views}</td>												
@@ -221,76 +210,10 @@
 										</c:when>										
 										<c:when test="${vo.bd_del=='Y'}">
 											<tr class="even pointer" data-id="${vo.bd_id}">
-												
 												<td>${vo.tot_cnt }</td>
 												<td>${vo.prod_name}</td>
-												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
+												<td>[삭제된 글입니다] -- [ 원제목 : ${vo.bd_title} ]</td>
 												<td>${vo.mem_name}</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>	
-											</tr>
-										</c:when>
-									</c:choose>
-								</c:forEach>
-							</tbody>
-							</c:when>
-							<c:when test="${bd_kind_id=='66'}">
-							<thead>
-								<tr id="reviews" role="row" class="headings">
-									<th class="column-title" style="width: 5px;">순번</th>
-									<th class="column-title" style="width: 150px;">이미지</th>
-									<th class="column-title" style="width: 375px;">제목</th>
-									<th class="column-title" style="width: 25px;">작성일</th>
-									<th class="column-title" style="width: 25px;">조회수</th>
-									<th class="bulk-actions" colspan="8">
-                             		<a class="antoo" style="color:#fff; font-weight:500;">
-                             		선택한 상품 ( <span class="action-cnt"> </span> )
-                             		<i class="fa fa-chevron-down"></i></a></th>
-                            
-								</tr>
-							</thead>
-							<tbody id="bd_code">
-								<!-- 게시글 조회 foreach문 -->
-								<%request.setAttribute("nbsp", " ");%>
-								<c:forEach items="${boardList}" var="vo">
-									<c:choose>
-										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
-											<tr class="even pointer" data-id="${vo.bd_id}"
-												data-id2="${vo.bd_del}">												
-												<td>${vo.tot_cnt}</td>
-												<td>
-													<div class="demoFontsDiv"> 														
- 														<img style="width:75px;" src="${vo.prod_id}"/>
-													</div>
-												</td>
-												<td>${vo.bd_title}</td>
-												<td>${vo.bd_date}</td>
-												<td class="a-right a-right">${vo.bd_views}</td>												
-											</tr>
-										</c:when>
-										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
-											<tr class="even pointer" data-id="${vo.bd_id}"
-												data-id2="${vo.bd_del}">												
-												<td>${vo.tot_cnt }</td>
-												<td>
-													<div class="demoFontsDiv"> 														
- 														<img src="${vo.prod_id}"/>
-													</div>
-												</td>
-												<td>${fn:replace(vo.bd_title, nbsp, '&nbsp&nbsp;')}</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>												
-											</tr>
-										</c:when>										
-										<c:when test="${vo.bd_del=='Y'}">
-											<tr class="even pointer" data-id="${vo.bd_id}">												
-												<td>${vo.tot_cnt }</td>
-												<td>
-													<div class="demoFontsDiv"> 														
- 														<img src="${vo.prod_id}"/>
-													</div>
-												</td>
-												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
 												<td>${vo.bd_date}</td>
 												<td>${vo.bd_views}</td>	
 											</tr>
@@ -300,7 +223,7 @@
 							</tbody>
 							</c:when>																					
 							</c:choose>
-						</table>					
+						</table>			
 					</div>									
 				</div>
 				<!-- ========================================================================== -->
