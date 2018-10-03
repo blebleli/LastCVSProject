@@ -144,9 +144,9 @@ public class CvsPosMainController {
 											  Model model) {
 		
 		List<PresentStockListVo> preStockList = (List<PresentStockListVo>) posPayVo.get(0).getPresentStockListVo();
-		logger.debug("stock --------------"+ preStockList);
+		logger.debug("controller stock --------------"+ preStockList);
 		
-		String payKind= (String) posPayVo.get(0).getPay_kind();
+/*		String payKind= (String) posPayVo.get(0).getPay_kind();
 		
 		//판매(sale) insert =====================================================
 		
@@ -222,16 +222,16 @@ public class CvsPosMainController {
 	
 		payService.setInsertPay(payvo);
 		
-		logger.debug("pay insert 완료 --------------");
+		logger.debug("pay insert 완료 --------------");*/
 		
-		if(insertS ==1){  //성공조건 체크
-		   	HttpHeaders headers = new HttpHeaders();
-		    headers.add("Custom-Header", "foo");
+	//	if(insertS ==1){  //성공조건 체크
+	//	   	HttpHeaders headers = new HttpHeaders();
+	//	    headers.add("Custom-Header", "foo");
 		         
-		    return new ResponseEntity<>( "Custom header set", headers, HttpStatus.OK);
-		}
+		    return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
+	//	}
 		
-		return null;  //return new ResponseEntity<> 실패 조건 확인
+	//	return null;  //return new ResponseEntity<> 실패 조건 확인
 
 		
 	 }

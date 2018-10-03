@@ -7,11 +7,13 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import kr.or.ddit.admin.prod.service.EventServiceInf;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.util.PageNavi;
 import kr.or.ddit.commons.util.SessionUtil;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.BookmarkVo;
+import kr.or.ddit.model.EventVo;
 import kr.or.ddit.model.MemberShipVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
@@ -47,6 +49,10 @@ public class UserMainController {
 
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
+	
+	@Resource(name="eventService")
+	private EventServiceInf eventService;
+	
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	/**
@@ -99,7 +105,9 @@ public class UserMainController {
 
 		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();
-
+		//이벤트
+		List<EventVo> events = eventService.getListEvent();				
+		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProduct",bestProd);
 		
@@ -110,7 +118,8 @@ public class UserMainController {
 		
 		model.addAttribute("bestReview",bestReview);
 		model.addAttribute("notice",notice);
-
+		model.addAttribute("events",events);
+		
 		return "userMain";
 	}
 
