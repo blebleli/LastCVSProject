@@ -502,4 +502,23 @@ SET    PROD_NAME 	= #{prod_name}
 WHERE  PROD_ID 		= #{prod_id} 
 </update>
 
+
+<select id="getPayProd" resultType="prodVo" parameterType="map">
+
+SELECT   prod_id     
+        ,prod_name   
+        ,prod_intro  
+        ,prod_info   
+        ,prod_price  
+        ,#{cnt} AS prod_exnum  -- CNT로 대체
+        ,file_path   
+        ,file_upname 
+        ,pr_class_lg 
+        ,pr_class_md 
+        ,event_id    
+        ,prod_cost   
+FROM PROD 
+WHERE PROD_NAME = #{name}
+</select>
+
 </mapper>
