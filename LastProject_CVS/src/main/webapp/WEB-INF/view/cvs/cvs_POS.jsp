@@ -1,5 +1,5 @@
 ﻿
-    <title>Gentelella Alela! | </title>
+     <title> CVStore_owner| cvsPOS </title> 
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +24,11 @@
  
  <style>
  
- table, tbody, tr, td, button {
+ table, tbody, th , tr, td, button {
   margin: 0;
   padding: 0;
+  font-size: 20px;
+  text-align: center;
 }
 .culcBtn {
   width: 100px;
@@ -110,7 +112,7 @@
 .subtot_text{
  text-align: right;
   font-size: 50px;
-  color: #efefef;
+  color: #73879c;
 }
 #saleTable td{
 	text-align: right;
@@ -133,8 +135,11 @@
             
        <!-- 테이블 계산에 사용될 script ============================================  -->           
                  <script type="text/javascript">
+                 
+ 
                  $(document).ready(function () {
-                	 
+              
+ 
                 	registerAmountChange();
 					registerReceiveChange(); // ---처음부터 거스름돈 체크 문제
 					
@@ -274,7 +279,7 @@
 				    		
 				    		console.log("param ::: "+ JSON.stringify(param));
 				    		
-				    	 	$.ajax({
+				    	  	$.ajax({
 		    					  url: "/cvs/pos/saleInsert",
 		    					  method: "post",
 		    					  //data: JSON.stringify(saleList),
@@ -286,7 +291,7 @@
 		    						  emptyTable(); 
 		    				      },		 						
 								  error : function(){console.log("error");}		  								  
-				    		});	 
+				    		});	  
 						}
 				    	
 				    	/*폐기버튼 클릭시*/
@@ -346,21 +351,23 @@
 							$("#prodList").append(		    								
 								     '<tr>'+
 			                         '  <td> '+   
-			                         '	<div class="icheckbox_flat-green" style="position: relative;">'+
-			                         '    <input type="checkbox" class="flat" name="table_records">'+
-			                         '	 </div>'+
+			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
 			                         '  </td>'+
-			                         '  <td><span class="bcd_id">'+ data.prodVo.bcd_id+'</span></td>'+
+			                         '  <td><span class="bcd_id">'+1+'</span></td>'+
 			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
-			                         '  <td ><input type="number" class="amount" value="' +1+'"></td>'+    				                         
+			                         '  <td ><input type="number" class="amount" value="'+1+'"style="width:100px; text-align: center "></td>'+    				                         
 			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
 			                         '  <td ><span class="distot">'+ data.prodVo.event_name+'</span></td> '+
 			                         '  <td style="display: none"><span class="stcklist_exdate">'+ data.prodVo.stcklist_exdate+'</span></td> '+		        
 			                         '  <td style="display: none"><span class="prod_id">'+ data.prodVo.prod_id+'</span></td> '+
 			                         '</tr>'			    								                                                                                     
 							);
-							
+							 
+							 $('input[type="checkbox"]').iCheck({
+				   		            checkboxClass: 'icheckbox_flat-green'
+				   		     });
+						
 				    		} else{
 				    			//수량증가
 				    			var amountEle = $(findProdEle).parent().parent().find('.amount');
@@ -474,6 +481,7 @@
 		    				            	
 		    				            	clearInterval(intervalID);
 			    							addRow(data);
+			    					
 			    							
 		    				          } else {
 		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
@@ -519,20 +527,6 @@
                       
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
-<!--                   <div class="x_title">
-                    <h2>결과창 <small>Custom design</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div> -->
-                  
-                  
-       
-              
 
                   <div class="x_content">
 					

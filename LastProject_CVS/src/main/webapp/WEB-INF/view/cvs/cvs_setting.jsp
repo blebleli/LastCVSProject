@@ -1,6 +1,6 @@
 ﻿
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <title>Gentelella Alela! | </title>
+    <title> CVStore_owner| cvsOwnerSet </title> 
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

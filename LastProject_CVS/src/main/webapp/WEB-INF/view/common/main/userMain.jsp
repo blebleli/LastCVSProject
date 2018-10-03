@@ -346,16 +346,15 @@ function categoryPopup(){
 		</div>
 	</div>
 	
-	<div class="col-md-5" style="padding-left: 20px">
-	<h3>CU25 소식 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
+	<div class="col-md-6" style="padding-left: 20px">
+	<h3>진행중인 이벤트 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
 		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	
 		<div class="row">	
 			<table class="table table-condensed" >
-				 <c:forEach items="${notice}" end="5" var="vo">	
+				 <c:forEach items="${events}" end="5" var="vo">	
 				<tr> 
-					<td>${vo.bd_title}</td>
-					<td>${vo.bd_date}</td>
-					<%-- <fmt:formatDate value="${vo.bd_date}" pattern="yyyy-MM-dd" /> --%>
+					<td>${vo.event_name}</td>
+					<td><fmt:formatDate value="${vo.event_startday}" pattern="yyyy-MM-dd" /></td>
 				</tr>	
 				</c:forEach>			
 			</table>

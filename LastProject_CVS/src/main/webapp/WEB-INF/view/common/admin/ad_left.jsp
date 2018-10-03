@@ -27,7 +27,7 @@
     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
       <div class="menu_section">
         <ul class="nav side-menu">
-          <li><a href="/adChart/chart"><i class="fa fa-home"></i> Home </a>
+          <li><a href="/admin/main"><i class="fa fa-home"></i> Home </a>
           </li> 
           
           <!-- 조계환 -->
@@ -55,10 +55,10 @@
 				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/cvsMemberList' />">사업장(지점)관리</a></li>
 				<li><a href="<c:url value='${pageContext.request.contextPath}/admin/userMemberList' />">사용자(회원)관리</a></li>
 				<li><a href="/adprod/adprodView">상품등록관리</a></li>
-				<li><a href="#">행사제품/이벤트관리</a></li>
+				<li><a href="/event/add">행사제품/이벤트관리</a></li>
 			</ul>
 		  </li>
-          <!-- 공은별 -->
+        
           
           <!-- 김마음 -->
           <li><a href="/adboard/boardView">
@@ -70,7 +70,7 @@
           <!-- 김현경 통계 -  메인으로 변경 -->
 <!--            	   
            <li><a href="setting"><i class="fa fa fa-gears"></i> setting </a> -->
-          </li>                  
+                      
         </ul>
       </div>
 

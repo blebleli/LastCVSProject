@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-    <title>CVS | </title>
+     <title> CVStore_owner| cvsStock </title> 
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,11 @@
      	$(document).ready(function(){
     		
      		$('#datatable').DataTable({
+   		     'drawCallback': function(){
+   		         $('input[type="checkbox"]').iCheck({
+   		            checkboxClass: 'icheckbox_flat-green'
+   		         });
+   		      },
 			  "columnDefs": [
 							  { "width": "5%", "targets": 0 },            
 						      { "width": "50%", "targets": 1 },
@@ -126,9 +131,7 @@
 	                        	
 		                          <tr class="even pointer">
 		                          	<td>
-			                          <div class="icheckbox_flat-green" style="position: relative;">
-			                            <input type="checkbox" class="flat" name="table_records" value="${stock.prod_id}">
-				                      </div>
+			                       		<input type="checkbox" class="flat" name="table_records" value="${stock.prod_id}">           
 		                            </td>
 		                            <td class=" ">${stock.prod_name }</td>		                           
 		                            <td class=" "><fmt:formatDate value="${stock.stcklist_exdate }" pattern="yyyy-MM-dd" /></td>		   

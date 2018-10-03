@@ -38,57 +38,6 @@
 <!-- Bootstrap Colorpicker -->
 <link href="/vendors/cropper/dist/cropper.min.css" rel="stylesheet">
 
-<style>
-ul,ol, li {list-style:none}
-.tree .bg {
-	 background-color:#2C3E50; 
-	 color:#46CFB0;
-}
-.tree li, .tree li > a,  .tree li > span {
-    padding: 4pt;
-    border-radius: 4px;
-}
-
-.tree li a {
-   color:#46CFB0;
-    text-decoration: none;
-    line-height: 20pt;
-    border-radius: 4px;
-}
-
-.tree li a:hover {
-    background-color: #34BC9D;
-    color: #fff;
-}
-
-.active {
-    background-color: #34495E;
-    color: white;
-}
-
-.active a {
-    color: #fff;
-}
-
-.tree li a.active:hover {
-    background-color: #34BC9D;
-}
-
-#categoryDiv{
-	overflow-x:hidden; width:250px; height:350px;
-/* 	border: 1px solid blue; */
-	 
-}
-
-fieldset {
-   border: none;
-}
-
-.x_title span {
-    color: none;
-}
-
-</style>
 
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="/treeview/jquery.treemenu.js"></script>

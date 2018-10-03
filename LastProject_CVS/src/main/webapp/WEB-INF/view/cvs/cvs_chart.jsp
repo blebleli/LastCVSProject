@@ -4,7 +4,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-
+ <title> CVStore_owner| cvsChart </title> 
 <!-- Custom Theme Style -->
 <link href="../build/css/cvsCustom.min.css" rel="stylesheet">
 

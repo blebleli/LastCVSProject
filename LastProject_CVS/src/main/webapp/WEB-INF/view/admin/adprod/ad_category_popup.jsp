@@ -48,11 +48,11 @@ ul,ol, li {list-style:none}
     color: #fff;
 }
 
-.active {
+/* .active {
     background-color: #34495E;
     color: white;
 }
-
+ */
 .active a {
     color: #fff;
 }
@@ -176,7 +176,7 @@ $(function() {
    
    <div class="x_panel">
           <div class="x_title">
-            <h2>New 카테고리<small>different form elements</small></h2>
+            <h2>New 카테고리</h2>
             <div class="clearfix"></div>
           </div>
           <div class="x_content">
