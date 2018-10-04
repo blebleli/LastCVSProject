@@ -13,7 +13,7 @@ public class AdminApplyViewVo {
 	private int prod_cost;		//단가
 	private String prod_id;		//제품 코드
 	private String supply_state;//수불 상태(10=발주,11=결제,12=입고)
-	
+	private String supply_info; //비고란
 	public int getRnum() {
 		return rnum;
 	}
@@ -62,17 +62,23 @@ public class AdminApplyViewVo {
 	public void setSupply_state(String supply_state) {
 		this.supply_state = supply_state;
 	}
+	public String getSupply_info() {
+		return supply_info;
+	}
+	public void setSupply_info(String supply_info) {
+		this.supply_info = supply_info;
+	}
 	@Override
 	public String toString() {
 		return "AdminApplyViewVo [rnum=" + rnum + ", exdate=" + exdate
 				+ ", prod_name=" + prod_name + ", splylist_sum=" + splylist_sum
 				+ ", prod_price=" + prod_price + ", prod_cost=" + prod_cost
 				+ ", prod_id=" + prod_id + ", supply_state=" + supply_state
-				+ "]";
+				+ ", supply_info=" + supply_info + "]";
 	}
 	public AdminApplyViewVo(int rnum, Date exdate, String prod_name,
 			int splylist_sum, int prod_price, int prod_cost, String prod_id,
-			String supply_state) {
+			String supply_state, String supply_info) {
 		super();
 		this.rnum = rnum;
 		this.exdate = exdate;
@@ -82,10 +88,12 @@ public class AdminApplyViewVo {
 		this.prod_cost = prod_cost;
 		this.prod_id = prod_id;
 		this.supply_state = supply_state;
+		this.supply_info = supply_info;
 	}
 	public AdminApplyViewVo() {
 		super();
 	}
+
 	
 	
 }

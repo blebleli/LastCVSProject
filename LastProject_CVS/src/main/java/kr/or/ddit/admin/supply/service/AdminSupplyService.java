@@ -126,9 +126,34 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 		return adminSupplyDao.adminApplyViewTotCnt(supply_bcd);
 	}
 
+	/**
+	* Method : adminApplyStateList
+	* Method 설명 :관리자 발주 관리 리스트에서 상태에 따른 페이지 전환(10번을 누르면 발주 신청한 리스트만 나오고 11번을 누르면 승인된 리스트만 나온다)
+	* 최초작성일 : 2018. 10. 04.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_state
+	* @return
+	*/
 	@Override
 	public List<AdminApplyVo> adminApplyStateList(String supply_state) {
 		return adminSupplyDao.adminApplyStateList(supply_state);
+	}
+
+	/**
+	* Method : setSuccessSupply
+	* Method 설명 :관리자_수불 관리할때 승인이 완료되었으면 이전 발주 요청 상태인 것 비고란에 success를 넣어 구분을 시켜준다 
+	* 최초작성일 : 2018. 10. 04.
+	* 작성자 : 조계환
+	* 변경이력 :신규
+	* 조 회 :
+	* @param supply_bcd
+	* @return
+	*/
+	@Override
+	public int setSuccessSupply(String supply_bcd) {
+		return adminSupplyDao.setSuccessSupply(supply_bcd);
 	}
 
 }

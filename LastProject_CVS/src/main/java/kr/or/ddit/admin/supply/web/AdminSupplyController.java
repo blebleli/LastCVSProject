@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.admin.model.AdminApplyViewVo;
 import kr.or.ddit.admin.model.AdminApplyVo;
 import kr.or.ddit.admin.supply.service.AdminSupplyServiceInf;
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
@@ -140,6 +141,12 @@ public class AdminSupplyController {
 		//점주 정보 넘기기
 		model.addAttribute("memberVo",memberVo);
 		
+		List<AdminApplyViewVo> AdminApplyViewList = (List<AdminApplyViewVo>) resultMap.get("AdminApplyViewList");
+		logger.debug("AdminApplyViewList.get(0).getSupply_info(): {}",AdminApplyViewList.get(0).getSupply_info());
+		String info = AdminApplyViewList.get(0).getSupply_info();
+		
+		model.addAttribute("info",info);
+		
 		//키값(AdminApplyViewList,pageNavi)
 		model.addAllAttributes(resultMap);
 		
@@ -156,13 +163,13 @@ public class AdminSupplyController {
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
 		
+		adminSupplyService.setSuccessSupply(supply_bcd);
+		
 		logger.debug("check: {}",check);
 		logger.debug("vo.getMem_id() : {}",adminApplyVo.getMem_id());
 		
 		//점주 ID이자 편의점 ID
 		String mem_id = adminApplyVo.getMem_id();
-		
-		
 		
 		//supply_bcd를 새로이 생성
 		String code = "SUPPLY";
