@@ -80,6 +80,7 @@
 					location.href = "/login/loginView";
 					return;
 				} else {
+
 					return;
 				}
 			}
@@ -91,7 +92,8 @@
 
 			// 			alert(rat + "\n" + bd_title + "\n" + bd_content + "\n" + $("#bd_rating").val()+ "\n" + $("#prod_id").val()+ "\n" + $("#mem_id").val());
 
-			$("#frm").submit();
+			$("#reFrm").submit();
+			
 
 		});
 
@@ -260,7 +262,7 @@
 						<div role="tabpanel" class="tab-pane fade" id="tab_content2"
 							aria-labelledby="reviewInsert">
 							<div class="x_content">
-								<form id="frm" data-parsley-validate=""
+								<form id="reFrm" data-parsley-validate=""
 									class="form-horizontal form-label-left" novalidate=""
 									method="post" action="/adboard/boardCreate"
 									enctype="multipart/form-data">
@@ -309,15 +311,15 @@
 										</div>
 									</div>
 
-									<!--               <div class="form-group"> -->
-									<!--                 <label for="file_name" class="control-label col-md-3 col-sm-3 col-xs-12">사진</label> -->
-									<!--                 <div class="col-md-5 col-sm-5 col-xs-12" id="addfile" > -->
-									<!--                 	<input type="file" id="file_name" name="file_name" required="required" class="form-control col-md-5 col-xs-12" onchange="fn_loadImg(this);"> -->
-									<!--                 </div> -->
-									<!--                 <div class="col-md-1 col-sm-2 col-xs-12"> -->
-									<!--                 	<button type="button" class="fa fa-plus-square" name="plusfileBtn" id="plusfileBtn" ></button> -->
-									<!--                 </div> -->
-									<!--               </div> -->
+<!-- 									              <div class="form-group"> -->
+<!-- 									                <label for="file_name" class="control-label col-md-3 col-sm-3 col-xs-12">사진</label> -->
+<!-- 									                <div class="col-md-5 col-sm-5 col-xs-12" id="addfile" > -->
+<!-- 									                	<input type="file" id="file_name" name="file_name" required="required" class="form-control col-md-5 col-xs-12" onchange="fn_loadImg(this);"> -->
+<!-- 									                </div> -->
+<!-- 									                <div class="col-md-1 col-sm-2 col-xs-12"> -->
+<!-- 									                	<button type="button" class="fa fa-plus-square" name="plusfileBtn" id="plusfileBtn" ></button> -->
+<!-- 									                </div> -->
+<!-- 									              </div> -->
 
 									<div class="ln_solid"></div>
 									<div class="form-group">
