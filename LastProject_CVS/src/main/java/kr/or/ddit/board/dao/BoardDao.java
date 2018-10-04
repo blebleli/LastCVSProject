@@ -393,4 +393,10 @@ public class BoardDao implements BoardDaoInf {
 	public int getReviewCnt(String prod_id) {
 		return template.selectOne("board.getReviewCnt", prod_id);
 	}
+
+	@Override
+	public List<BoardVo> reviewList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

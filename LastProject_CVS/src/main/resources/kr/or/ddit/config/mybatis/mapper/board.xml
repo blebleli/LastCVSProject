@@ -170,7 +170,7 @@
    
    <!-- 공지사항 게시글 전체 조회 -->
    <select id="getListBoard" resultType="boardVo">
-      SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(BD_CONTENT), bd_date, bd_del, bd_rating, bd_views,
+      SELECT bd_id, bd_title, UTL_RAW.CAST_TO_VARCHAR2(BD_CONTENT), TO_CHAR(bd_date,'YYYY-MM-DD') AS bd_date, bd_del, bd_rating, bd_views,
             bd_group, prod_id, mem_id, bd_parent, bd_kind_id
       FROM board WHERE bd_kind_id ='44'
       ORDER BY BD_DATE DESC
@@ -223,6 +223,10 @@
    <update id="getUserReview" parameterType="map">
 		UPDATE BOARD SET bd_del = 'Y' WHERE bd_id = #{bd_id}
    </update>
+   
+   <select id="reviewList" resultType="boardVo">
+		SELECT bd_id, bd_title, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date FROM board where bd_kind_id='55'
+   </select>
    
    <!-- 메인 리뷰 top3 -->
    <select id="getReviewTop3" resultType="mainReviewsVo">

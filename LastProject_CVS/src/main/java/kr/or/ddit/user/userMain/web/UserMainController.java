@@ -104,7 +104,7 @@ public class UserMainController {
 		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();
 		//이벤트
-		List<EventVo> events = eventService.getListEvent();				
+		List<BoardVo> review = boardService.getReviewOfProd();				
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProduct",bestProd);

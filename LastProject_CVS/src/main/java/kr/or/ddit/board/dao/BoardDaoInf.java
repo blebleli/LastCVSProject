@@ -343,4 +343,13 @@ public interface BoardDaoInf {
 	 */
 	int getReviewCnt(String prod_id);
 	
+	/**
+	 * Method : reviewList
+	 * 최초작성일 : 2018. 10. 4.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : 메인 화면 실시간 상품 리뷰 상황 조회
+	 */
+	List<BoardVo> reviewList();
 }
