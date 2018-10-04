@@ -14,7 +14,11 @@
 			$("#frm").attr("action", "/userPay/pay");
 			$("#frm").submit();
 		});
-				
+		
+		$("#prodPay").on("click", function() {
+			$("#frm").attr("action", "/userPay/pay");
+			$("#frm").submit();
+		});
 	});
 
 </script>
@@ -163,6 +167,9 @@
 						            <ul style="display: none;">
 										 <li>
 						                       <a id="btnMypage" href="<c:url value='/user/mypage' />">마이페이지</a>
+						                 </li>
+						                 <li>
+						                       <a id="prodPay" href="#">장바구니결제</a>
 						                 </li>
 						<!--             <li> -->
 						<!--                   <a href="/mbshome/mbs/nahh001/subview.do?id=nahh001_050100000000">회원정보 관리</a> -->
