@@ -375,8 +375,8 @@ public class LoginController {
 //				tempSavePath = request.getSession().getServletContext().getRealPath("/images/userpic");	 // 소스가 배포된 경로 - 실제 서버운영 시 이걸로 해야함
 //				tempSavePath = "C:/Storage/workspaces/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
 				
-//				tempSavePath = "D:/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
-				tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+				tempSavePath = "D:/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+//				tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
 				dbSavePath = "/images/userpic";
 				
 				filedataVo.setMem_id(memberVo.getMem_id());
