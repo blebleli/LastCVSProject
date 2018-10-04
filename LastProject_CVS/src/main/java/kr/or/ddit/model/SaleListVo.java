@@ -6,9 +6,9 @@ public class SaleListVo {
 	private int sale_amount;    // 수량
 	private int sale_sum;       // 금액
 	private String sale_kind;   // 판매유형
-	private String sd_id;       //판매코드
-	private String prod_id;     //제품코드
-	private String bcd_id;	    //재고코드
+	private String sd_id;       // 판매코드
+	private String prod_id;     // 제품코드
+	private String bcd_id;	    // 재고코드
 	public SaleListVo() {
 		super();
 		// TODO Auto-generated constructor stub

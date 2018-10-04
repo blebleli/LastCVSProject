@@ -6,9 +6,9 @@ public class SaleDisVo {
 	
 	private String sd_id;                               // 판매코드
 	private Date sd_date;                               // 판매일시
-	private int sd_sum;                               // 총금액
-	private String sale_kind;                               // 판매 : 88, 폐기 : 99
-	private String mem_id;                               // 아이디
+	private int sd_sum;                                 // 총금액
+	private String sale_kind;                           // 판매 : 88, 폐기 : 99
+	private String mem_id;                              // 아이디
 	
 	public SaleDisVo() {
 		super();

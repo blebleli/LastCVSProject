@@ -80,7 +80,7 @@ public class UserPayController {
 		
 		String[] name = prod_name.split(",") ;
 		String[] cnt = prod_cnt.split(",") ;
-		
+
 		List<ProdVo> prod = new ArrayList<ProdVo>();
 		ProdVo vo ;
 		Map<String, String> result ;

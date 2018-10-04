@@ -7,8 +7,8 @@ import kr.or.ddit.commons.model.PageVo;
 public class PayVo extends PageVo {
 	
 	private String pay_id;                      // 결제코드
-	private int pay_sum;                        // 결제금액
-	private Date pay_date;                    // 결제일시
+	private int    pay_sum;                     // 결제금액
+	private Date   pay_date;                    // 결제일시
 	private String pay_ny;                      // 결제여부
 	private String mem_id;                      // 회원: 아이디, 비회원 : null
 	private String sd_id;  						// 판매코드
