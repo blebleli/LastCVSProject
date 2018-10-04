@@ -125,7 +125,7 @@ public class AdminSupplyController {
 		String supply_bcd = adminApplyVo.getSupply_bcd();
 		
 		
-		logger.debug("lookupView ======================adminApplyVo ===============> {} " ,adminApplyVo);
+//		logger.debug("lookupView ======================adminApplyVo ===============> {} " ,adminApplyVo);
 		
 		
 		//페이징 처리를 위한 부분
@@ -163,17 +163,21 @@ public class AdminSupplyController {
 							  AdminApplyVo adminApplyVo,
 							  Model model							  ){
 		
-//		logger.debug("supplyCheck ======================adminApplyVo ===============> {} " ,adminApplyVo);
+		logger.debug("supplyCheck ======================adminApplyVo ===============> {} " ,adminApplyVo);
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
+		
+		//제품 아이디
+		String [] prod_idArray = prod_id.split(",");
+		
+		// 제품 수량
+		String [] sumArray = sum.split(",");
 		
 		//success 처리
 		adminSupplyService.setSuccessSupply(supply_bcd);
 		logger.debug("prod_id == > {} " , prod_id);
 		logger.debug("sum == > {} " , sum);
 		
-		//제품 아이디 배열 선언
-		String [] prod_idArray = prod_id.split(",");
 		
 		logger.debug("prod_idArray == > {} " , prod_idArray);
 		
@@ -186,11 +190,13 @@ public class AdminSupplyController {
 		//////////////////////////////////////////////////////
 		
 		//
-		String [] sumArray = sum.split(",");
-//		int [] intSumArray = null;
-//		for (int j = 0; j < sumArray.length; j++) {
-//			intSumArray[j] = Integer.parseInt(sumArray[j].toString());
-//		}
+		
+		
+		// 최종 제품 개수 (형변환)
+		int [] intSumArray = null;
+		for (int j = 0; j < sumArray.length; j++) {
+			intSumArray[j] = Integer.parseInt(sumArray[j].toString());
+		}
 		
 //		logger.debug("sum:{}",sum);
 //		for (String string : sumArray) {
@@ -211,13 +217,16 @@ public class AdminSupplyController {
 		
 		//text : 입고 아이디, filePath: 경로.+jpg
 		String text = supply_bcdCode;
-//		String filePath = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\LastProject_CVS\\src\\main\\webapp\\barcode\\supply\\"+supply_bcdCode+".jpg";
-		String filePath = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\LastProject_CVS\\src\\main\\webapp\\Image\\board\\BEV\\"+supply_bcdCode+".jpg";
-		//D:\A_TeachingMaterial\8.LastProject\workspace\LastProject_CVS\LastProject_CVS\src\main\webapp\Image\board\BEV\SUPPLY-5a872ced-b630-41ff-8331-5cb8e8ae3602.jpg
+
+		// 실제 저장될 경로
+		String filePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/LastProject_CVS/src/main/webapp/barcode/supply/"+mem_id+"/"+supply_bcdCode+".jpg";
+		String dbPath = "/barcode/supply/"+mem_id; 
+
+		
+		// 큐알코드 생성
 		try {
 			barcodeService.generateQRCodeImage(text, filePath);
 		} catch (WriterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -227,9 +236,9 @@ public class AdminSupplyController {
 		
 		//바코드이자 supply_bcd
 		barcodeVo.setBcd_id(supply_bcdCode);
-		barcodeVo.setBcd_content("발주 처리시 새로이 insert를 위한 (결제상태)바코드");
+		barcodeVo.setBcd_content("편의점 입고 처리 큐알코드 생성");
 		barcodeVo.setBcd_kind("102");
-		barcodeVo.setBcd_path("D:\\최종프\\barcodeImg\\");
+		barcodeVo.setBcd_path(dbPath);
 		
 		int i = barcodeService.setInsertBarcode(barcodeVo);
 //		logger.debug("barcodeVo.getBcd_id() : {}",barcodeVo.getBcd_id());
@@ -247,11 +256,12 @@ public class AdminSupplyController {
 			supplyService.setInsertSupply(supplyVo);
 			
 		}else {
-			System.out.println("바코드 생성을 실패 하였습니다.");
-			
+			logger.debug("바코드 생성을 실패 하였습니다.");
 		}
 		
 		List<SupplyListVo> list = supplyService.getListSupplyList(check);
+		SupplyListVo supplyListVo = null;
+		
 		for (SupplyListVo vo : list) {
 //			logger.debug("/////////////////////////////////////////////////////////////{}");
 //			logger.debug("supplyListVo.getSplylist_id() : {}",vo.getSplylist_id());
@@ -262,16 +272,17 @@ public class AdminSupplyController {
 //			logger.debug("supplyListVo.getSplylist_sum() : {}",vo.getSplylist_sum());
 //			logger.debug("supplyListVo.getProd_id() : {}",vo.getProd_id());
 			
-			
 			//supply_list를 만들기 위한 객체
-			SupplyListVo supplyListVo = new SupplyListVo();
+			supplyListVo = new SupplyListVo();
 			
 			////////////////////////////////////////////////////////
 			//기존에 있던 supply_list 정보를 가져다 넣는다
 			//제품 아이디
 			supplyListVo.setProd_id(vo.getProd_id());
 			
+			// 유통기한
 			supplyListVo.setSplylist_exdate(vo.getSplylist_exdate());
+			
 			
 			//비고
 			if(vo.getSplylist_info() != null){
@@ -280,8 +291,14 @@ public class AdminSupplyController {
 				supplyListVo.setSplylist_info("");
 			}
 			
-			//수량
-			supplyListVo.setSplylist_sum(vo.getSplylist_sum());
+			//수량 ===============================================
+			
+			for (int k = 0 ; k < prod_idArray.length; k++) {
+				if (supplyListVo.getProd_id().equals(prod_idArray[k])){
+					supplyListVo.setSplylist_sum(intSumArray[k]);
+				}
+			}
+			
 			////////////////////////////////////////////////////////
 			
 			//새로이 만든 바코드로 supply와 supply_list의 supply_bcd값을 일치 시킨다.
@@ -289,7 +306,10 @@ public class AdminSupplyController {
 			
 			//splylist_id를 새로이 만들기 위한 코드 자동 생성 메서드 실행
 			String code2 = "SUP11";
+			
+			// splylist_id ..
 			String splylist_id = autoCodeCreate.autoCode(code2, mem_id);
+			
 			//새로 만든 코드를 가지고 supply_list의 splylist_id값으로 집어 넣는다.
 			supplyListVo.setSplylist_id(splylist_id);
 			
