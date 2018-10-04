@@ -19,6 +19,13 @@
 
 </script>
 
+<style>
+#PPMiniCart{
+    z-index: 100;
+}
+
+</style>
+
 <!-- 최상단  -->
 <div class="agileits_header">
 <!-- 	<div class="w3l_header_left"> -->
@@ -127,13 +134,13 @@
 							                    <a href="<c:url value='/search/prodSearch' />">내주변 제품찾기</a>
 							                </li>
 							                <li>
-							                    <a href="<c:url value='/userProd/view?i=2&page=1&pageSize=32' />">Best상품</a>
+							                    <a href="<c:url value='/userProd/view?i=2&page=1&pageSize=16' />">Best상품</a>
 							                </li>
 											<li>
-							                    <a href="<c:url value='/userProd/view?i=3&page=1&pageSize=32' />">이벤트상품</a>
+							                    <a href="<c:url value='/userProd/view?i=3&page=1&pageSize=16' />">이벤트상품</a>
 							                </li>
 											<li>
-							                    <a href="<c:url value='/userProd/view?i=1&page=1&pageSize=32' />">전체상품</a>
+							                    <a href="<c:url value='/userProd/view?i=1&page=1&pageSize=16' />">전체상품</a>
 							                </li>
 							           </ul>
 							    </li>

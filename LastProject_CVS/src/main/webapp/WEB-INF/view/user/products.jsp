@@ -12,6 +12,11 @@
 <script type="text/javascript"
 	src="<c:url value='/js/ion.rangeSlider.js' />"></script>
 
+<style>
+.col-md-4{
+	width : 25%;
+}
+</style>
 <script> 
 	$(function() {
 
@@ -234,6 +239,7 @@
 					} else {
 						
 						$.each(data,function(index,item){
+
 						content += '		<div class="col-md-4 w3ls_w3l_banner_left liiist" name="liiist">'
 								+'			<div class="hover14 column">'
 								+'				<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">'
@@ -272,7 +278,7 @@
 								+'				</div>'
 								+'			</div>'
 								+'		</div>';
-								
+											
 						});	// $.each(data,function(index,item){
 							
 						content += '</div>'

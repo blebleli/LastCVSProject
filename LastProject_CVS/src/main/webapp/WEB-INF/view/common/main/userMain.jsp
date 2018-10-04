@@ -4,7 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css' />" media="all"></link>
-
+<style>
+  .col-md-3 {
+    width: 20%;
+}
+</style>
 <script type="text/javascript">
 	//<![CDATA[
 		$(document).ready(function(){
@@ -138,7 +142,7 @@ function categoryPopup(){
 		    
  		  <c:forEach items="${bestProduct}" var="vo">	
 		     
-		    	<div class="col-sm-6 col-md-4">
+		    	<div class="col-sm-6 col-md-3">
 		    		<label>${vo.pr_class_lg}</label>
 		            <div class="thumbnail">
 		            	<a href="/userProd/detail?prod_id=${vo.prod_id}"	id="prodImage">
