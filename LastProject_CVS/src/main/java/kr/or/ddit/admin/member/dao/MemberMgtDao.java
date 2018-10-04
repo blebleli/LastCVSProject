@@ -62,6 +62,12 @@ public class MemberMgtDao implements MemberMgtDaoInf {
 	public void deleteCvsMember(MemberVo paramMemberVo) {
 		template.delete("member.UpdateCvsMember", paramMemberVo);
 	}
+
+
+	@Override
+	public int updateCvsInfo(MemberVo cvs) {
+		return template.update("member.updateCvsInfo", cvs);
+	}
 	
 	
 }
