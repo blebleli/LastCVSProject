@@ -315,7 +315,8 @@
 		(
 		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state, a.supply_date
 		FROM supply a, member b
-		WHERE a.place_id = b.mem_id) T)
+		WHERE a.place_id = b.mem_id
+		ORDER BY supply_date DESC) T)
 	</select>
 	
 	<select id="adminApplyStateList" parameterType="String" resultType="adminApplyVo">
@@ -328,7 +329,8 @@
 		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state, a.supply_date
 		FROM supply a, member b
 		WHERE a.place_id = b.mem_id
-    	AND a.supply_state=#{supply_state}) T)
+    	AND a.supply_state=#{supply_state}
+    	ORDER BY supply_date DESC) T)
 	</select>
 	
 	<!-- 	아 이 디 : adminApplyListTotCnt
