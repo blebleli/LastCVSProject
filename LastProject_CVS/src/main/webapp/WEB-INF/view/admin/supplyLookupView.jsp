@@ -78,12 +78,14 @@
 								<div class="col-sm-4 invoice-col">
 									To
 									<address>
-										<strong>${memberVo.mem_cvs_name}</strong> <br>${memberVo.mem_addr}
-										<!-- 편의점 주소 -->
-										<br>Phone: ${memberVo.mem_cvs_tel}
-										<!-- 편의점 연락처 -->
-										<br>담당자 : ${memberVo.mem_name}
-										<!-- 점주 이름 -->
+										<strong>${memberVo.mem_cvs_name}</strong> <br>${memberVo.mem_addr}	<!-- 편의점 주소 -->
+										
+										<br>Phone: ${memberVo.mem_tel}			<!-- 점주 폰번 -->
+										
+										<br>Tel: ${memberVo.mem_cvs_tel}		<!-- 편의점 연락처 -->
+										
+										<br>담당자 : ${memberVo.mem_name}			<!-- 점주 이름 -->
+										
 									</address>
 								</div>
 								<!-- /.col -->
@@ -146,7 +148,7 @@
 
 													<!-- ------------------------------ 출고가능수량 -->
 														<td>
-															<c:if test="${adminApplyVo.supply_state == 10 && info != 'success'}">
+															<c:if test="${adminApplyVo.supply_state == 10 && adminApplyVo.supply_info != 'success'}">
 																<p id="first_p">
 																	<input type="text" maxlength="2" 
 																	onkeypress="return fn_press(event, 'numbers');"
