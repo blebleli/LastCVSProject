@@ -92,7 +92,7 @@ public class AdminSupplyController {
 	public String adminSupplyLookup(@RequestParam(value="btnChk", defaultValue="") String check,
 									Model model){
 		
-		logger.debug("check : {}", check);
+//		logger.debug("check : {}", check);
 		
 		String supply_state = check;
 		
@@ -118,11 +118,15 @@ public class AdminSupplyController {
 										AdminApplyVo adminApplyVo,
 										Model model){
 		
-		logger.debug("adminApplyVo.getSupply_bcd() : {}" , adminApplyVo.getSupply_bcd());
-		logger.debug("adminApplyVo.getSupply_state() : {}" , adminApplyVo.getSupply_state());
+//		logger.debug("adminApplyVo.getSupply_bcd() : {}" , adminApplyVo.getSupply_bcd());
+//		logger.debug("adminApplyVo.getSupply_state() : {}" , adminApplyVo.getSupply_state());
 		
 		//수불 리스트중 클릭한 놈의 수불 바코드를 가져옴
 		String supply_bcd = adminApplyVo.getSupply_bcd();
+		
+		
+		logger.debug("lookupView ======================adminApplyVo ===============> {} " ,adminApplyVo);
+		
 		
 		//페이징 처리를 위한 부분
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -153,25 +157,32 @@ public class AdminSupplyController {
 	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
 							  @RequestParam(value="supply_bcd")String supply_bcd,
-							  @RequestParam(value="mem_id")String mem_id2,
+							  @RequestParam(value="mem_id")String mem_id,
 							  @RequestParam(value="prod_id")String prod_id,
 							  @RequestParam(value="sum")String sum,
 							  AdminApplyVo adminApplyVo,
 							  Model model							  ){
+		
+//		logger.debug("supplyCheck ======================adminApplyVo ===============> {} " ,adminApplyVo);
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
 		
 		//success 처리
 		adminSupplyService.setSuccessSupply(supply_bcd);
+		logger.debug("prod_id == > {} " , prod_id);
+		logger.debug("sum == > {} " , sum);
 		
 		//제품 아이디 배열 선언
-		String [] prod_idArray = prod_id.split("\\,");
+		String [] prod_idArray = prod_id.split(",");
+		
+		logger.debug("prod_idArray == > {} " , prod_idArray);
+		
 		
 		//찍어보기
-		logger.debug("prod_id:{}",prod_id);
-		for (String string : prod_idArray) {
-			logger.debug("prod_idArray:{}",string);
-		}
+//		logger.debug("prod_id:{}",prod_id);
+//		for (String string : prod_idArray) {
+//			logger.debug("prod_idArray:{}",string);
+//		}
 		//////////////////////////////////////////////////////
 		
 		//
@@ -181,18 +192,18 @@ public class AdminSupplyController {
 //			intSumArray[j] = Integer.parseInt(sumArray[j].toString());
 //		}
 		
-		logger.debug("sum:{}",sum);
-		for (String string : sumArray) {
-			logger.debug("sumArray:{}",string);
+//		logger.debug("sum:{}",sum);
+//		for (String string : sumArray) {
+//			logger.debug("sumArray:{}",string);
 			
-		}
+//		}
 		
-		logger.debug("check: {}",check);
-		logger.debug("vo.getMem_id() : {}",adminApplyVo.getMem_id());
+//		logger.debug("check: {}",check);
+//		logger.debug("vo.getMem_id() : {}",adminApplyVo.getMem_id());
 		
 		
 		//점주 ID이자 편의점 ID
-		String mem_id = adminApplyVo.getMem_id();
+//		String mem_id = adminApplyVo.getMem_id();
 		
 		//supply_bcd를 새로이 생성
 		String code = "SUPPLY";
@@ -202,6 +213,7 @@ public class AdminSupplyController {
 		String text = supply_bcdCode;
 //		String filePath = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\LastProject_CVS\\src\\main\\webapp\\barcode\\supply\\"+supply_bcdCode+".jpg";
 		String filePath = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\LastProject_CVS\\src\\main\\webapp\\Image\\board\\BEV\\"+supply_bcdCode+".jpg";
+		//D:\A_TeachingMaterial\8.LastProject\workspace\LastProject_CVS\LastProject_CVS\src\main\webapp\Image\board\BEV\SUPPLY-5a872ced-b630-41ff-8331-5cb8e8ae3602.jpg
 		try {
 			barcodeService.generateQRCodeImage(text, filePath);
 		} catch (WriterException e) {
@@ -220,7 +232,7 @@ public class AdminSupplyController {
 		barcodeVo.setBcd_path("D:\\최종프\\barcodeImg\\");
 		
 		int i = barcodeService.setInsertBarcode(barcodeVo);
-		logger.debug("barcodeVo.getBcd_id() : {}",barcodeVo.getBcd_id());
+//		logger.debug("barcodeVo.getBcd_id() : {}",barcodeVo.getBcd_id());
 		///////////////////////////////////////////////////////
 		
 		//만약 바코드가 성공적으로 생성 되었다면 . . .
@@ -241,14 +253,14 @@ public class AdminSupplyController {
 		
 		List<SupplyListVo> list = supplyService.getListSupplyList(check);
 		for (SupplyListVo vo : list) {
-			logger.debug("/////////////////////////////////////////////////////////////{}");
-			logger.debug("supplyListVo.getSplylist_id() : {}",vo.getSplylist_id());
-			logger.debug("supplyListVo.getSupply_bcd() : {}",vo.getSupply_bcd());
-			logger.debug("/////////////////////////////////////////////////////////////{}");
-			logger.debug("supplyListVo.getSplylist_info() : {}",vo.getSplylist_info());
-			logger.debug("supplyListVo.getSplylist_exdate() : {}",vo.getSplylist_exdate());
-			logger.debug("supplyListVo.getSplylist_sum() : {}",vo.getSplylist_sum());
-			logger.debug("supplyListVo.getProd_id() : {}",vo.getProd_id());
+//			logger.debug("/////////////////////////////////////////////////////////////{}");
+//			logger.debug("supplyListVo.getSplylist_id() : {}",vo.getSplylist_id());
+//			logger.debug("supplyListVo.getSupply_bcd() : {}",vo.getSupply_bcd());
+//			logger.debug("/////////////////////////////////////////////////////////////{}");
+//			logger.debug("supplyListVo.getSplylist_info() : {}",vo.getSplylist_info());
+//			logger.debug("supplyListVo.getSplylist_exdate() : {}",vo.getSplylist_exdate());
+//			logger.debug("supplyListVo.getSplylist_sum() : {}",vo.getSplylist_sum());
+//			logger.debug("supplyListVo.getProd_id() : {}",vo.getProd_id());
 			
 			
 			//supply_list를 만들기 위한 객체
