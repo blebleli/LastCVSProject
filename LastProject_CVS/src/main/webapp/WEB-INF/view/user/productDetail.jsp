@@ -135,21 +135,16 @@
 
 			<div class="col-md-8 agileinfo_single_right">
 				<div class="rating1">
-					<span class="starRating"> <input id="rating5" type="radio"
-						name="rating" value="5"
-						<c:if test="${prod.bd_rating eq 5 }"> checked="checked" </c:if>>
-						<label for="rating5">5</label> <input id="rating4" type="radio"
-						name="rating" value="4"
-						<c:if test="${prod.bd_rating eq 4 }"> checked="checked" </c:if>>
-						<label for="rating4">4</label> <input id="rating3" type="radio"
-						name="rating" value="3"
-						<c:if test="${prod.bd_rating eq 3 }"> checked="checked" </c:if>>
-						<label for="rating3">3</label> <input id="rating2" type="radio"
-						name="rating" value="2"
-						<c:if test="${prod.bd_rating eq 2 }"> checked="checked" </c:if>>
-						<label for="rating2">2</label> <input id="rating1" type="radio"
-						name="rating" value="1"
-						<c:if test="${prod.bd_rating eq 1 }"> checked="checked" </c:if>>
+					<span class="starRating"> 
+					    <input id="rating5" type="radio" name="rating" value="5" <c:if test="${prod.bd_rating eq 5 }"> checked="checked" </c:if>>
+						<label for="rating5">5</label> 
+						<input id="rating4" type="radio" name="rating" value="4" <c:if test="${prod.bd_rating eq 4 }"> checked="checked" </c:if>>
+						<label for="rating4">4</label> 
+						<input id="rating3" type="radio" name="rating" value="3" <c:if test="${prod.bd_rating eq 3 }"> checked="checked" </c:if>>
+						<label for="rating3">3</label> 
+						<input id="rating2" type="radio" name="rating" value="2" <c:if test="${prod.bd_rating eq 2 }"> checked="checked" </c:if>>
+						<label for="rating2">2</label> 
+						<input id="rating1" type="radio" name="rating" value="1" <c:if test="${prod.bd_rating eq 1 }"> checked="checked" </c:if>>
 						<label for="rating1">1</label>
 					</span>
 				</div>
@@ -206,74 +201,85 @@
 							aria-expanded="false">리뷰작성</a></li>
 					</ul>
 					<!-- Tab panes -->
-					<div id="myTabContent"
-						class="tab-content col-md-15 col-sm-9 col-xs-12"
-						style="width: 100%">
+					<div id="myTabContent" class="tab-content col-md-15 col-sm-9 col-xs-12" style="width: 100%">
 						<!-- 상품리뷰 -------------------------------------------------------------------------------------------------------- -->
 						<c:forEach items="${reviewList }" var="review">
-							<div role="tabpanel" class="tab-pane fade active in"
-								id="tab_content1" aria-labelledby="home-tab">
-								<div id="content"
-									class="content_primary forgot_user_information"">
-
-									<div>
-										<div class="col-md-12 w3agile_event_grid">
+							<div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+								<div id="content" class="content_primary forgot_user_information"">
+									<div class="col-md-12 w3agile_event_grid">
+											<br/>
+											<br/>												
+									<c:choose>
+										<c:when test="${review.bd_del=='N'}">
 											<div class="col-md-4 w3agile_event_grid_left">
-												<br/>
-												<br/>												
-												<c:choose>
-													<c:when test="${review.bd_del=='N'}">
-												<img id="meal" src="${review.src }" width="40px" height="35px"/>
-												<label>${review.mem_name } : ${review.bd_date }													
+													<img id="meal" src="${review.src }" width="40px" height="35px"/>
+													<label>${review.mem_name } : ${review.bd_date }													
 													<c:if test="${userInfo.mem_id == review.mem_id }">
-														<a class="btn btn-danger"
-														 href="/review/delete?bd_id=${review.bd_id}&prod_id=${review.prod_id}"
-																aria-label="Delete"> 삭제 </a>
+														<a class="btn btn-danger" 
+														 href="/review/delete?bd_id=${review.bd_id}&prod_id=${review.prod_id}" aria-label="Delete"> 삭제 </a>
 													</c:if>
-												</label><br>
-												<div style="text-align: center;">평점 : ${review.bd_rating} 점</div>
+													</label>
+													<br>
+													<div style="text-align: center;">
+													<!-- 평점 -->
+													<div class="rating2" style="float: right;">
+														<span class="starRating"> 
+															<input id="rating5" type="radio" name="" value="5" <c:if test="${review.bd_rating eq 5 }"> checked="checked" </c:if>>
+															<label for="rating5">5</label>
+															<input id="rating4" type="radio" name="" value="4" <c:if test="${review.bd_rating eq 4 }"> checked="checked" </c:if>>
+															<label for="rating4">4</label>
+															<input id="rating3" type="radio" name="" value="3" <c:if test="${review.bd_rating eq 3 }"> checked="checked" </c:if>>
+															<label for="rating3">3</label>
+															<input id="rating2" type="radio" name="" value="2" <c:if test="${review.bd_rating eq 2 }"> checked="checked" </c:if>>
+															<label for="rating2">2</label>
+															<input id="rating1" type="radio" name="" value="1" <c:if test="${review.bd_rating eq 1 }"> checked="checked" </c:if>>
+															<label for="rating1">1</label>
+														</span>
+													</div>
+													</div>
 											</div>
 											<br/>
 											<div class="col-md-8 w3agile_event_grid_right">
-												<!-- 평점 -->
-												<!-- 												<div class="rating2" style="float: right;"> -->
-												<!-- 													<span class="starRating">  -->
-												<!-- 														<input id="rating5" type="radio" name="rating2" value="5"> -->
-												<!-- 														<label for="rating5">5</label> -->
-												<!-- 														<input id="rating4" type="radio" name="rating2" value="4"> -->
-												<!-- 														<label for="rating4">4</label> -->
-												<!-- 														<input id="rating3" type="radio" name="rating2" value="3" checked> -->
-												<!-- 														<label for="rating3">3</label> -->
-												<!-- 														<input id="rating2" type="radio" name="rating2" value="2"> -->
-												<!-- 														<label for="rating2">2</label> -->
-												<!-- 														<input id="rating1" type="radio" name="rating2" value="1"> -->
-												<!-- 														<label for="rating1">1</label> -->
-												<!-- 													</span> -->
-												<!-- 												</div> -->
 												<h4>${review.bd_title }</h4>
 												<p>${review.bd_content }</p>
 											</div>
-											</c:when>
-											<c:otherwise>
-												<img id="meal" src="" width="40px" height="35px"/>
-													<label>*****</label>												
-				
-													<div style="text-align: center;"></b></div>
+										</c:when>
+										<c:otherwise>
+											
+											<div class="col-md-4 w3agile_event_grid_left">
+													<img id="meal" src="" width="40px" height="35px"/>
+													<label>***</label>
+													<br>
+													<div style="text-align: center;">
+													<!-- 평점 -->
+													<div class="rating2" style="float: right;">
+														<span class="starRating"> 
+															<input id="rating5" type="radio" name="" value="5" <c:if test="${review.bd_rating eq 5 }"> checked="checked" </c:if>>
+															<label for="rating5">5</label>
+															<input id="rating4" type="radio" name="" value="4" <c:if test="${review.bd_rating eq 4 }"> checked="checked" </c:if>>
+															<label for="rating4">4</label>
+															<input id="rating3" type="radio" name="" value="3" <c:if test="${review.bd_rating eq 3 }"> checked="checked" </c:if>>
+															<label for="rating3">3</label>
+															<input id="rating2" type="radio" name="" value="2" <c:if test="${review.bd_rating eq 2 }"> checked="checked" </c:if>>
+															<label for="rating2">2</label>
+															<input id="rating1" type="radio" name="" value="1" <c:if test="${review.bd_rating eq 1 }"> checked="checked" </c:if>>
+															<label for="rating1">1</label>
+														</span>
+													</div>
+													</div>
 											</div>
 											<br/>
 											<div class="col-md-8 w3agile_event_grid_right">
 												<h4>삭제된 리뷰입니다.</h4>
 												<p>조회할 수 없는 내용입니다.</p>
-											</div>										
-											</c:otherwise>
-											</c:choose>
-										</div>
+											</div>
+										</c:otherwise>
+									</c:choose>
 									</div>
 								</div>
-
 							</div>
-							<hr />
 						</c:forEach>
+					<hr />
 						<!-- 리뷰작성 -------------------------------------------------------------------------------------------------------- -->
 						<div role="tabpanel" class="tab-pane fade" id="tab_content2"
 							aria-labelledby="reviewInsert">
