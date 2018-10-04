@@ -198,19 +198,23 @@
 	  		일    시 : 2018-09-12     
 	 -->	 
 <select id="getBarcodeProd" parameterType="Map" resultType="presentStockListVo">
-	SELECT    T.PROD_NAME  					  	 -- 상품명
+SELECT    T.PROD_NAME  					  	 -- 상품명
 	        , T.PROD_COST  						 -- 단가
 	        , NVL(SUM(T.stcklist_amount) , 0)  	 -- 수량
 	        , T.PROD_PRICE  					 -- 가격
 	        , T.EVENT_NAME  					 -- 이벤트명
-          , T.prod_id  							 -- 상품id
+            , T.prod_id  						 -- 상품id
+            , T.bcd_id  						 -- 상품id
+            , T.STCKLIST_EXDATE					 -- 유통기한
 --	        , T.EVENT_DISCOUNT  				 -- 할인율
 FROM (
       SELECT    P.PROD_NAME    	  		-- 상품명
 	            , P.PROD_COST     		-- 단가
 	            , STL.stcklist_amount 	-- 수량
 	            , P.PROD_PRICE    		-- 가격
-              , p.prod_id
+                , p.prod_id
+                , STL.bcd_id 			-- 수량
+                , STL.STCKLIST_EXDATE 	-- 유통기한
 	            , (SELECT EVENT_NAME FROM EVENT WHERE EVENT_ID = P.EVENT_ID) AS EVENT_NAME
 	            , (SELECT EVENT.EVENT_DISCOUNT FROM EVENT WHERE EVENT_ID = P.EVENT_ID) AS EVENT_DISCOUNT
       FROM MEMBER MEM
@@ -224,13 +228,7 @@ FROM (
         AND  ST.STOCK_KIND = #{stock_kind}
         AND  STL.PROD_ID = (SELECT PROD_ID FROM STOCK_LIST WHERE BCD_ID = #{bcd_id} )
 )T
-GROUP BY    T.PROD_NAME , T.PROD_COST , T.PROD_PRICE  , T.EVENT_NAME, T.EVENT_DISCOUNT,T.prod_id
-
-<!-- 	SELECT a.prod_id, a.prod_name, b.supply_date, c.stcklist_exdate, a.prod_price, c.stcklist_amount, a.event_id, c.bcd_id
-	FROM prod a, supply b, stock_list c
-	WHERE c.bcd_id =#{bcd_id} and c.prod_id = a.prod_id AND b.supply_state = '12'
-	
--->
+GROUP BY    T.PROD_NAME , T.PROD_COST , T.PROD_PRICE  , T.EVENT_NAME, T.EVENT_DISCOUNT,T.prod_id, T.bcd_id, T.STCKLIST_EXDATE
 
 </select>
 

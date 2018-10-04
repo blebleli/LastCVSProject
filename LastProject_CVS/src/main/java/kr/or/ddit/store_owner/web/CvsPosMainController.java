@@ -33,6 +33,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
@@ -140,21 +141,20 @@ public class CvsPosMainController {
 	 */
 	@RequestMapping("/pos/saleInsert")	
 	 public ResponseEntity<String> saleInsert(@ModelAttribute("userInfo") MemberVo memberVo,
-			 								  List<PosPayVo> posPayVo,
+			 								  @RequestBody List<PosPayVo> posPayVo,
 											  Model model) {
+		logger.debug("controller접속확인 --------------");
+		logger.debug("controller posPayVo --------------"+posPayVo);
 		
-		List<PresentStockListVo> preStockList = (List<PresentStockListVo>) posPayVo.get(0).getPresentStockListVo();
-		logger.debug("controller stock --------------"+ preStockList);
-		
-/*		String payKind= (String) posPayVo.get(0).getPay_kind();
-		
+		//바코드로 재고리스트 그 건을 가져온다 
+		//stockService.getStockListByBcdID(posPayVo);		
 		//판매(sale) insert =====================================================
 		
 		//sale dis 의 dis코드 생성
 		String sale_id = autoCodeCreate.autoCode("SALE",memberVo.getMem_id());	
 
 		//합계계산
-		int sum = preStockList.stream().mapToInt(vo -> {
+		int sum = posPayVo.stream().mapToInt(vo -> {
 			int price = vo.getProd_price();
 			return vo.getStcklist_amount() * price;
 		}).sum();
@@ -172,31 +172,32 @@ public class CvsPosMainController {
 		logger.debug("saleDis insert 완료 --------------");
 		
 		//판매리스트(saleList) insert ==============================================
-		for (PresentStockListVo dispVo : preStockList) {
-			//sale 코드 생성
+		for (PosPayVo posPay : posPayVo) {
+
+			//salelist 코드 생성
 			String saleList_id = autoCodeCreate.autoCode("SALE_L",memberVo.getMem_id());	
 
 			SaleListVo saleListVo = new SaleListVo();
 
-			saleListVo.setBcd_id(dispVo.getBcd_id());
-			saleListVo.setProd_id(dispVo.getProd_id()); 
-			saleListVo.setSale_amount(dispVo.getStcklist_amount());
+			saleListVo.setBcd_id(posPay.getBcd_id());
+			saleListVo.setProd_id(posPay.getProd_id()); 
+			saleListVo.setSale_amount(posPay.getStcklist_amount());
 			saleListVo.setSale_id(saleList_id);
-			saleListVo.setSale_kind("현");  // 4byte ---  현금인지 카드인지 구분
+			saleListVo.setSale_kind(posPay.getPay_kind());  // ---  현금인지 카드인지 구분
 			saleListVo.setSale_sum(sum);	
-			saleListVo.setSd_id(saleDisVo.getSd_id());
+			saleListVo.setSd_id(saleDisVo.getSd_id()); //sale_dis id
 			
 			// 판매 list 
 			saleService.setInsertSaleList(saleListVo);
 			
 			logger.debug("saleList insert 완료 --------------");	
-			
+				
 		//재고(stock) update ==============================================			
 			
 			//수량 업데이트
-			StockListVo StockListVo = stockService.getStockListByBcdID(dispVo.getBcd_id());		
+			StockListVo StockListVo = stockService.getStockListByBcdID(posPay.getBcd_id());		
 			int nowAmount = StockListVo.getStcklist_amount();
-			int saledAmount = dispVo.getStcklist_amount();		
+			int saledAmount = posPay.getStcklist_amount();		
 			
 			StockListVo.setStcklist_amount(nowAmount-saledAmount);
 			
@@ -216,22 +217,29 @@ public class CvsPosMainController {
 		payvo.setPay_ny     ("Y");            //결제여부
 		payvo.setMem_id     ("");             //회원: 아이디, 비회원 : null (""로 처리)
 		payvo.setSd_id 		(saleDisVo.getSd_id());  //판매코드
-		payvo.setPay_cash   (sum);            //사용시 금액, 미사용시 0 ---  현금인지 카드인지 구분
-		payvo.setPay_card   (0);              //사용시 금액, 미사용시 0
+		
+		int payCash = 0;
+		int payCard = 0;
+		if( posPayVo.get(0).getPay_kind().equals("현")) 
+			{payCash = sum;}
+		else{payCard = sum;}
+
+		payvo.setPay_cash   (payCash);            //사용시 금액, 미사용시 0 ---  현금인지 카드인지 구분
+		payvo.setPay_card   (payCard);              //사용시 금액, 미사용시 0
+		
 		payvo.setShiplist_id("");             //사용시  맴버쉽코드, 미사용시 null(""로 처리)
 	
-		payService.setInsertPay(payvo);
-		
-		logger.debug("pay insert 완료 --------------");*/
-		
-	//	if(insertS ==1){  //성공조건 체크
-	//	   	HttpHeaders headers = new HttpHeaders();
-	//	    headers.add("Custom-Header", "foo");
+		int insertPay = payService.setInsertPay(payvo);
+		logger.debug("pay insert 완료 --------------");
+	
+		if(insertPay ==1){  //성공조건 체크
+		   	HttpHeaders headers = new HttpHeaders();
+		    headers.add("Custom-Header", "foo");
 		         
 		    return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
-	//	}
+		}
 		
-	//	return null;  //return new ResponseEntity<> 실패 조건 확인
+		return null;  //return 실패 조건 확인
 
 		
 	 }
@@ -251,22 +259,18 @@ public class CvsPosMainController {
 	 */
 	@RequestMapping("/pos/dispInsert")	//vo 만들어서
 	 public ResponseEntity<String> dispInsert(@ModelAttribute("userInfo") MemberVo memberVo,
-			 								  List<PosPayVo> posPayVo, Model model) {
-		
-		List<PresentStockListVo> preStockList = (List<PresentStockListVo>) posPayVo.get(0).getPresentStockListVo();
-		String payKind= (String) posPayVo.get(0).getPay_kind();
-				
-		logger.debug("stock --------------"+ preStockList);
+			 								  @RequestBody List<PosPayVo> posPayVo, Model model) {
 	
-		//유통기한 오늘날짜와 확인해서 지난것
+
+	
+		//유통기한 오늘날짜와 확인해서 지난것 확인
 		
 		//폐기 insert  =====================================================
-		
 		//sale dis 의 dis코드 생성
 		String dis_id = autoCodeCreate.autoCode("DIS",memberVo.getMem_id());	
 
 		//가격합계
-		int sum = preStockList.stream().mapToInt(vo -> {
+		int sum = posPayVo.stream().mapToInt(vo -> {
 			int price = vo.getProd_price(); 
 			return vo.getStcklist_amount() * price;
 		}).sum();
@@ -280,33 +284,33 @@ public class CvsPosMainController {
 		
 		int insertS = saleDisService.setInsertSaleDis(saleDisVo);
 		
-		logger.debug("폐기 insert 완료 --------------");
+		logger.debug("폐기 insert 완료 --------------"+saleDisVo );
 		
 		//폐기리스트 insert  =====================================================
-		for (PresentStockListVo dispVo : preStockList) {
+		for (PosPayVo posDis : posPayVo) {
 			//disposal 코드 생성
 			String disList_id = autoCodeCreate.autoCode("DIS_L",memberVo.getMem_id());				
 			DisposalListVo disposalListVo = new DisposalListVo();
 			disposalListVo.setDisp_id(disList_id); 						//Autocode 로 생성
-			disposalListVo.setBcd_id(dispVo.getBcd_id()); 				// 이미 존재
-			disposalListVo.setDisp_amount(dispVo.getStcklist_amount()); // 이미 존재	
-			disposalListVo.setDisp_exdate(dispVo.getStcklist_exdate()); //bcd_id로 유통기한 가져오는 db 필요
+			disposalListVo.setBcd_id(posDis.getBcd_id()); 				// 이미 존재
+			disposalListVo.setDisp_amount(posDis.getStcklist_amount()); // 이미 존재	
+			disposalListVo.setDisp_exdate(posDis.getStcklist_exdate()); //bcd_id로 유통기한 가져오는 db 필요
 			disposalListVo.setSd_id(saleDisVo.getSd_id());  			//위에서의 id
 			
 			int insertSli = disService.setInsertDispList(disposalListVo);
 			
-			logger.debug("폐기 list insert 완료 --------------");
+			logger.debug("폐기 list insert 완료 --------------"+disposalListVo);
 			
 		//재고 수량 update  =====================================================
-			StockListVo StockListVo = stockService.getStockListByBcdID(dispVo.getBcd_id());	
+			StockListVo StockListVo = stockService.getStockListByBcdID(posDis.getBcd_id());	
 			int nowAmount = StockListVo.getStcklist_amount();
-			int dispAmount = dispVo.getStcklist_amount();	
+			int dispAmount = posDis.getStcklist_amount();	
 			StockListVo.setStcklist_amount(nowAmount-dispAmount);
 			StockListVo.setBcd_id(StockListVo.getBcd_id());
 
 			int updateS = stockService.updateStockList(StockListVo);
 			
-			logger.debug("재고 update 완료 --------------");
+			logger.debug("재고 update 완료 --------------"+StockListVo);
 		}
 		
 			if(insertS ==1){  //성공조건 체크
@@ -315,8 +319,8 @@ public class CvsPosMainController {
 			         
 			    return new ResponseEntity<>( "Custom header set", headers, HttpStatus.OK);
 			}
-			
-			return null;  //return new ResponseEntity<> 실패 조건 확인
+		
+		return null;  //return 실패 조건 확인
 			
 	 }
 	

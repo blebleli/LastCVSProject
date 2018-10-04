@@ -263,49 +263,47 @@
 							var saleList=[];		
 				    		
 				    		$("#posTable tbody tr").each(function () {		                    	 
-				    			var data = $(this);					    			
-				    			saleList.push({bcd_id: data.find('.bcd_id').html(),
-				    				       prod_price: data.find('.price1').html(),
-				    				  stcklist_amount: data.find('.amount').val(),
-					    					  prod_id: data.find('.prod_id').html()
-					    					 });
+				    			var trData = $(this);					    			
+				    			saleList.push({bcd_id: trData.data('bcd_id'),
+				    				       prod_price: trData.find('.price1').html(),
+				    				  stcklist_amount: trData.find('.amount').val(),
+					    					  prod_id: trData.find('.prod_id').html(),
+					    					  pay_kind : kind
+					    					  });
+				    			console.log("saleList ::: "+saleList.pay_kind);
 		                     });	
-				    		
-				    		//saleList.push({kind : kind});
-				    		
-				    		console.log("saleList ::: "+saleList);
-				    		
-				    		var param = { salesList : saleList, kind : kind};
-				    		
-				    		console.log("param ::: "+ JSON.stringify(param));
+				    	
 				    		
 				    	  	$.ajax({
 		    					  url: "/cvs/pos/saleInsert",
 		    					  method: "post",
-		    					  //data: JSON.stringify(saleList),
-		    					  data: JSON.stringify(param),
+		    					  data: JSON.stringify(saleList),
+		    					  //data: JSON.stringify(param),
 		    					  contentType: "application/json",
 		    					  success : function (data) {
 		    						  // --------------------------------  data == retun ???
 		    						  alert("결제 되었습니다.");
 		    						  emptyTable(); 
+		    						  $("#saleModalBtn").click();
+		    						  
 		    				      },		 						
 								  error : function(){console.log("error");}		  								  
 				    		});	  
 						}
-				    	
+			    	
 				    	/*폐기버튼 클릭시*/
 				    	function btnDisposal() {
 			    		
 				    		var dispList=[];		
 				    		
 				    		$("#posTable tbody tr").each(function () {		                    	 
-				    			var data = $(this);		
+				    			var trData = $(this);		
 				    			
-				    			dispList.push({bcd_id: data.find('.bcd_id').html(),
-				    					   prod_price: data.find('.price1').html(),
-				    				  stcklist_amount: data.find('.amount').val(),
-				    				  stcklist_exdate: data.find('.stcklist_exdate').html()})
+				    			dispList.push({bcd_id: trData.data('bcd_id'),
+				    					   prod_price: trData.find('.price1').html(),
+				    				  stcklist_amount: trData.find('.amount').val(),
+				    				  stcklist_exdate: trData.data('stcklist_exdate'),
+				    				  })
 		                    	 });	
 				    		
 				    		console.log("dispListSize ::: "+dispList.size);
@@ -320,6 +318,7 @@
 		    					  success : function () {
 		    						  alert("폐기처리 되었습니다.");
 		    						  emptyTable(); 
+		    						  $("#saleModalBtn").click();
 		    				      },		 						
 								  error : function(){console.log("error");}		  								  
 				    		});				    		
@@ -349,17 +348,16 @@
 				    	
 				    		//행추가
 							$("#prodList").append(		    								
-								     '<tr>'+
+								     '<tr data-bcd_id="'+data.prodVo.bcd_id+'" data-stcklist_exdate="'+data.prodVo.stcklist_exdate+'">'+
 			                         '  <td> '+   
 			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
 			                         '  </td>'+
-			                         '  <td><span class="bcd_id">'+1+'</span></td>'+
+			                         '  <td><span class="num">'+1+'</span></td>'+
 			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
 			                         '  <td ><input type="number" class="amount" value="'+1+'"style="width:100px; text-align: center "></td>'+    				                         
 			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
-			                         '  <td ><span class="distot">'+ data.prodVo.event_name+'</span></td> '+
-			                         '  <td style="display: none"><span class="stcklist_exdate">'+ data.prodVo.stcklist_exdate+'</span></td> '+		        
+			                         '  <td ><span class="distot">'+ data.prodVo.event_name+'</span></td> '+	        
 			                         '  <td style="display: none"><span class="prod_id">'+ data.prodVo.prod_id+'</span></td> '+
 			                         '</tr>'			    								                                                                                     
 							);
@@ -584,8 +582,7 @@
 					        <button type="button" class="culcBtn op" onclick="btnSale('카')">카드</button>
 					      </div>
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="button" class="btn btn-primary">Save changes</button>
+					        <button id="saleModalBtn" type="button" class="btn btn-primary" data-dismiss="modal">Close</button>	
 					      </div>
 					    </div>
 					  </div>
