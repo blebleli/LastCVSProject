@@ -19,8 +19,7 @@ public class AutoCodeServiceTest {
 	private AutoCodeCreate code;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	
+
 	@Test
 	public void test() {
 		
@@ -64,8 +63,8 @@ public class AutoCodeServiceTest {
 //		logger.debug("code.autoCode(etc) ==> {}",code.autoCode("etc"));
 		
 		// 이벤트  BASIC, 이벤트 : EVENT, 할인 : DIS)
-//		logger.debug("code.autoCode(BASIC) ==> {}",code.autoCode("BASIC"));
-		logger.debug("code.autoCode(EVENT) ==> {}",code.autoCode("EVENT"));
+		logger.debug("code.autoCode(BASIC) ==> {}",code.autoCode("BASIC"));
+//		logger.debug("code.autoCode(EVENT) ==> {}",code.autoCode("EVENT"));
 //		logger.debug("code.autoCode(DIS) ==> {}",code.autoCode("DIS"));
 		
 		// 게시판
@@ -91,7 +90,9 @@ public class AutoCodeServiceTest {
 //		폐기리스트(DIS_L)
 
 		//  수불/입고 리스트
-//		logger.debug("code.autoCode(SUP10) ==> {}",code.autoCode("SUP10","3010000-104-2017-00333"));
+//		logger.debug("code.autoCode(SUP10) ==> {}",code.autoCode("SUP10","3670000-104-2012-00104"));
+	
+		
 //		logger.debug("code.autoCode(SUP11) ==> {}",code.autoCode("SUP11","3010000-104-2017-00333"));
 //		logger.debug("code.autoCode(SUP12) ==> {}",code.autoCode("SUP12","3010000-104-2017-00333"));
 	
@@ -130,8 +131,6 @@ public class AutoCodeServiceTest {
 //	  제고리스트바코드 : BCD 
 //		logger.debug("code.barcode(POCKET) ==> {}",code.barcode("POCKET"));
 //		logger.debug("code.barcode(SUPPLY) ==> {}",code.barcode("SUPPLY"));
-//		logger.debug("code.barcode(BCD) ==> {}",code.barcode("BCD"));
-		
+//		logger.debug("code.barcode(BCD) ==> {}",code.barcode("BCD");		
 	}
-
 }

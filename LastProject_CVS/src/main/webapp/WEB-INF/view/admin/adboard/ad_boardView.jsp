@@ -258,10 +258,10 @@
 										</c:when>										
 										<c:when test="${vo.bd_del=='Y'}">
 											<tr class="even pointer" data-id="${vo.bd_id}">
-												<td>${vo.tot_cnt }</td>
-												<td>${vo.prod_name}</td>
+												<td id="iscenter">${vo.tot_cnt }</td>
+												<td id="iscenter">${vo.prod_name}</td>
 												<td>[삭제된 글입니다] -- [ 원제목 : ${vo.bd_title} ]</td>
-												<td>
+												<td id="iscenter">
 													<c:choose>
 														<c:when test="${vo.mem_id=='admin'}">
 														관리자
