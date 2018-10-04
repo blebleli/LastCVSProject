@@ -320,7 +320,7 @@ function categoryPopup(){
 	                </h4>
 	                <img src="${vo.file_path }/${vo.file_upname}" alt="..." width="200" height="200">
 	                 ${vo.bd_content}
-	                <a href="#reviewBoard" class="btn btn-primary col-xs-12" role="button">${vo.bd_title }</a>
+	                <a href="/userProd/detail?prod_id=${vo.prod_id }" class="btn btn-primary col-xs-12" role="button">${vo.bd_title }</a>
 	                <div class="clearfix"></div>              
 	            </div>
 	        </div>
