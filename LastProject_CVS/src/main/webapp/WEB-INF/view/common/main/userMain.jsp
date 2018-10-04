@@ -9,32 +9,7 @@
     width: 20%;
 }
 </style>
-<script type="text/javascript">
-	//<![CDATA[
-		$(document).ready(function(){
-			jQuery(function($){
-				// List Tab Navigation
-				var tab_list = $('.prod_tab');
-				var tab_list_i = tab_list.find('>ul>li');
-				tab_list.removeClass('jx');
-				tab_list_i.find('>div').hide();
-				tab_list.find('>ul>li').eq(0).addClass("active");
-				tab_list.find('>ul>li[class=active]').find('>div').show();
-				tab_list.css('height', tab_list.find('>ul>li.active>div').height()+40);
-				function listTabMenuToggle(event){
-					var t = $(this);
-					tab_list_i.find('>div').hide();
-					t.next('div').show();
-					tab_list_i.removeClass('active');
-					t.parent('li').addClass('active');
-					tab_list.css('height', t.next('div').height()+40);
-					return false;
-				}
-				tab_list_i.find('>a[href=#]').click(listTabMenuToggle).focus(listTabMenuToggle);
-			});
-		});
-	//]]>
-</script>
+
 
 <script>
 	$(function() {
@@ -162,10 +137,38 @@ function categoryPopup(){
 
 <!-- 행사상품 ---------------------------------------------------------------------------------- -->
 
+
+<script type="text/javascript">
+	//<![CDATA[
+		$(document).ready(function(){
+			jQuery(function($){
+				// List Tab Navigation
+				var tab_list = $('.prod_tab');
+				var tab_list_i = tab_list.find('>ul>li');
+				tab_list.removeClass('jx');
+				tab_list_i.find('>div').hide();
+				tab_list.find('>ul>li').eq(0).addClass("active");
+				tab_list.find('>ul>li[class=active]').find('>div').show();
+				tab_list.css('height', tab_list.find('>ul>li.active>div').height()+40);
+				function listTabMenuToggle(event){
+					var t = $(this);
+					tab_list_i.find('>div').hide();
+					t.next('div').show();
+					tab_list_i.removeClass('active');
+					t.parent('li').addClass('active');
+					tab_list.css('height', t.next('div').height()+40);
+					return false;
+				}
+				tab_list_i.find('>a[href="#"]').click(listTabMenuToggle).focus(listTabMenuToggle);
+			});
+		});
+	//]]>
+</script>
+
 <div class="all_wrap prod_wrap" style="background: #ddf5fb; ">
 <!-- 상품소개 -->
 <div class="prod_tab" style="height: 280px;">
-	<ul>
+	<ul >
    		<li class="" style="list-style: none">
 			<a href="#">
 				<span class="tit"><em>1+1</em> 상품</span>
@@ -176,7 +179,6 @@ function categoryPopup(){
 			<!-- <div class="prd_lst"> -->
 			<div class="prd_lst" style="display: none;">
 				<ul style="list-style: none"  >
-					
 					<c:forEach items="${eventProd1}" var="vo">					
 					<li>
 						<div class="sbbox pro">
@@ -290,6 +292,7 @@ function categoryPopup(){
 			<!-- //product list -->
 		</li>
 		<!-- //상품소개 -->
+		</ul>
 	</div>
 </div>
 <div class="clearfix"></div>
@@ -368,6 +371,3 @@ function categoryPopup(){
 	
 	</div>
 </div>
-
-<br>
-<br>
