@@ -133,7 +133,9 @@ function cvsUpdatePopup(){
 	}
 }
 
+function excelDown(){
 	
+}	
 	
 
 
@@ -211,12 +213,9 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							</span>
 							
 							<span>
-<!-- 							<button class="btn btn-default" id="btnExcel" onclick="excelDown();"> -->
-<!-- 							<button class="btn btn-default buttons-csv buttons-html5 btn-sm" tabindex="0" aria-controls="datatable-buttons" href="#"> -->
-<!-- 							<button class="btn btn-default" > -->
-								<a class="btn btn-default buttons-csv buttons-html5 btn-sm" tabindex="0" aria-controls="datatable-buttons" href="#">
-								<i class="fa fa-print"></i> 엑 셀</a>
-<!-- 							</button> -->
+							<button class="btn btn-default" id="btnExcel">
+								<a href="/admin/cvsListExcelDown"><i class="fa fa-print"></i> 엑 셀</a>
+							</button>
 							</span>
 							
 <!-- 						</div> -->
