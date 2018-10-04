@@ -68,6 +68,7 @@
 			<form action="/admin/lookupView" method="post" id="frm">
 				<input type="hidden" name="supply_bcd" id="bcd" value="">
 				<input type="hidden" name="supply_state" id="supply_state" value="">
+				<input type="hidden" name="supply_info" id="supply_info" value="">
 			</form>
 
 			<div class="col-md-12 col-sm-12 col-xs-12">
@@ -107,7 +108,7 @@
 							</thead>
 							<c:forEach items="${adminApplyList}" var="vo">
 								<!-- 전체 입고 목록들 -->
-								<tr class="click" onclick="fn_spls('${vo.supply_bcd}','${vo.supply_state}'); return false">
+								<tr class="click" onclick="fn_spls('${vo.supply_bcd}','${vo.supply_state}','${vo.supply_info}'); return false">
 									<td>${vo.rnum}</td>			<!-- 순번 -->
 									<td>${vo.mem_cvs_name}</td>	<!-- 편의점명 -->
 									<td>${vo.mem_name}</td>		<!-- 점주명 -->
@@ -118,8 +119,11 @@
 									<td>
 										<!-- 신청 날짜 --> 
 										<c:choose>
-										<c:when test="${vo.supply_state == 10}">
-											발주요청
+										<c:when test="${vo.supply_state == 10 && vo.supply_info != 'success'}">
+											발주요청 
+										</c:when>
+										<c:when test="${vo.supply_state == 10 && vo.supply_info eq 'success'}">
+											발주요청(완료)
 										</c:when>
 										<c:when test="${vo.supply_state == 11}">
 											발주승인
@@ -192,9 +196,12 @@
 <script src="../build/js/custom.min.js"></script>
 
 <script>
-	function fn_spls(bcd, state){
+	function fn_spls(bcd, state, info){
+		
+		// SUPPLY-502ececa-f905-4984-b472-23c45eb8db7c	18/09/19	10	success	5560000-104-2016-00010
 		$("#bcd").val(bcd);
 		$("#supply_state").val(state);
+		$("#supply_info").val(info);
 		$("#frm").submit();
 	}
 </script>
@@ -218,6 +225,6 @@
 	$("#12").on("click", function() { 				
 		$("#btnChk").val($("#12").val());  
 		$("#button2").submit(); 			
-	});	
+	});
 	
 </script>
