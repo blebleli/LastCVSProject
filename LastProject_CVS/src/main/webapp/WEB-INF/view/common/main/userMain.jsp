@@ -341,7 +341,7 @@ function categoryPopup(){
 
 	<div class="container">
 	<div class="col-md-6">
-	<h3>CU25 소식 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
+	<h3>CU25 소식 <a href="/board/boardMain" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
 		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	
 		<div class="row">	
 			<table class="table table-condensed" >
@@ -357,8 +357,7 @@ function categoryPopup(){
 	</div>
 	
 	<div class="col-md-6" style="padding-left: 20px">
-	<h3>진행중인 이벤트 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
-		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	
+	<h3>실시간 상품리뷰</h3>	
 		<div class="row">	
 			<table class="table table-condensed" >
 				 <c:forEach items="${events}" end="5" var="vo">	
@@ -370,7 +369,22 @@ function categoryPopup(){
 			</table>
 		</div>
 	</div>
-
+	
+<!-- 이벤트 게시판 삭제 -->
+<!-- 	<div class="col-md-6" style="padding-left: 20px"> -->
+<!-- 	<h3>진행중인 이벤트 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right">  -->
+<!-- 		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	 -->
+<!-- 		<div class="row">	 -->
+<!-- 			<table class="table table-condensed" > -->
+<%-- 				 <c:forEach items="${events}" end="5" var="vo">	 --%>
+<!-- 				<tr>  -->
+<%-- 					<td>${vo.event_name}</td> --%>
+<%-- 					<td><fmt:formatDate value="${vo.event_startday}" pattern="yyyy-MM-dd" /></td> --%>
+<!-- 				</tr>	 -->
+<%-- 				</c:forEach>			 --%>
+<!-- 			</table> -->
+<!-- 		</div> -->
+<!-- 	</div>	 -->
 	
 	</div>
 </div>
