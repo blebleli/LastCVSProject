@@ -213,10 +213,9 @@
 	  		일    시 : 2018-09-12     
 	 -->
 	<select id="supplyMemberInfo" parameterType="String" resultType="memberVo">
-		SELECT a.mem_cvs_name, a.mem_name, a.mem_cvs_tel, a.mem_kind, a.mem_addr, a.mem_id 
+		SELECT a.mem_cvs_name, a.mem_name, a.mem_cvs_tel, a.mem_kind, a.mem_addr, a.mem_id, b.supply_info 
 		FROM member a, supply b
 		WHERE b.supply_bcd=#{supply_bcd}
-<!-- 		and a.mem_kind = 01 -->
 		AND a.mem_id = b.place_id
 	</select>
 	

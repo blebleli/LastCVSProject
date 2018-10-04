@@ -47,6 +47,9 @@
 														<button class="btn btn-default" onclick="window.print();">
 															<i class="fa fa-print"></i> Print
 														</button>
+														<c:if test="${info == 'success'}">
+															승인완료
+														</c:if>
 													</div>
 												</div>
 												<form action="/admin/supplyCheck" method="post" id="frm">
@@ -127,30 +130,31 @@
 													<!-- 상품코드 -->
 													<td>${vo.prod_name}</td>
 													<!-- 상품이름 -->
-													<td><fmt:formatDate value="${vo.exdate}"
-															pattern="yyyy.MM.dd. HH:mm" /> <!-- 유통기한 --></td>
-													<td>${vo.splylist_sum}</td>
-													<!-- 요청수량 -->
+													<td>
+														<fmt:formatDate value="${vo.exdate}" pattern="yyyy.MM.dd. HH:mm" /> <!-- 유통기한 -->
+													</td>
+													
+													<td>${vo.splylist_sum}</td>		<!-- 요청수량 -->
 
 													<!-- ------------------------------ 출고가능수량 -->
-													<c:if test="${adminApplyVo.supply_state == 10}">
 														<td>
-															<p id="first_p">
-																<input type="text" maxlength="2" 
-																onkeypress="return fn_press(event, 'numbers');"
-																onkeyup="removeChar(event)"
-																style='ime-mode:disabled;'
-																onchange="fn_changeCost(this)"
-																size="1" name="sum" id="formatSum" value="${vo.splylist_sum}">
-																
-																<input type="hidden" id="sum" value="${vo.splylist_sum}">
-															</p>
+															<c:if test="${adminApplyVo.supply_state == 10 && info != 'success'}">
+																<p id="first_p">
+																	<input type="text" maxlength="2" 
+																	onkeypress="return fn_press(event, 'numbers');"
+																	onkeyup="removeChar(event)"
+																	style='ime-mode:disabled;'
+																	onchange="fn_changeCost(this)"
+																	size="1" name="sum" id="formatSum" value="${vo.splylist_sum}">
+																	
+																	<input type="hidden" id="sum" value="${vo.splylist_sum}">
+																</p>
+															</c:if>
+															<c:if test="${info == 'success'}">
+																${vo.splylist_sum}
+															</c:if>
 														</td>
-													</c:if>
 
-													<c:if test="${adminApplyVo.supply_state != 10}">
-														<td></td>
-													</c:if>
 													<!-- ------------------------------ -->
 
 													<td class="prod-cost">
@@ -237,13 +241,13 @@
 													<th>총합계 :</th>
 													<td>
 														￦
-														<fmt:formatNumber value="${sum + ((sum/20)*2)}" type="number"/>
+														<fmt:formatNumber value="${sum}" type="number"/>
 													</td>
 													
 													<td class="m4">
 														￦
 														<span>
-															<fmt:formatNumber value="${sum + ((sum/20)*2)}" type="number"/>
+															<fmt:formatNumber value="${sum}" type="number"/>
 														</span>
 													</td>
 												</tr>

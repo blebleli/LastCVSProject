@@ -145,6 +145,10 @@ public class AdminSupplyController {
 		logger.debug("AdminApplyViewList.get(0).getSupply_info(): {}",AdminApplyViewList.get(0).getSupply_info());
 		String info = AdminApplyViewList.get(0).getSupply_info();
 		
+//		if(AdminApplyViewList.get(0).getSupply_info() == null ){
+//			info = "없음";
+//		}
+		
 		model.addAttribute("info",info);
 		
 		//키값(AdminApplyViewList,pageNavi)
