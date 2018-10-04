@@ -52,8 +52,10 @@
 												<form action="/admin/supplyCheck" method="post" id="frm">
 													<input type="hidden" name="supply_bcd" value="${adminApplyVo.supply_bcd}"> 
 													<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
-													<c:if test="${adminApplyVo.supply_state == 10 }">
-														<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
+													<c:if test="${adminApplyVo.supply_state == 10}">
+														<c:if test="${info != 'success'}">
+															<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
+														</c:if>
 													</c:if>
 													<input type="hidden" name="array" id="array">
 												</form>
@@ -134,8 +136,12 @@
 													<c:if test="${adminApplyVo.supply_state == 10}">
 														<td>
 															<p id="first_p">
-<input type="number" maxlength="2"  onkeypress="return fn_press(event, 'numbers');" onkeyup="removeChar(event)" style='ime-mode:disabled;'
-onchange="fn_changeCost(this)" size="1" name="formatSum" id="formatSum" value="${vo.splylist_sum}">
+																<input type="text" maxlength="2" 
+																onkeypress="return fn_press(event, 'numbers');"
+																onkeyup="removeChar(event)"
+																style='ime-mode:disabled;'
+																onchange="fn_changeCost(this)"
+																size="1" name="sum" id="formatSum" value="${vo.splylist_sum}">
 																
 																<input type="hidden" id="sum" value="${vo.splylist_sum}">
 															</p>
@@ -314,9 +320,9 @@ onchange="fn_changeCost(this)" size="1" name="formatSum" id="formatSum" value="$
 						$("#index").val(index);
 						$("#value").val($(value).val());
 						
-// 						document.getElementById('frm').submit();
-// 						return false;
-						return;
+						document.getElementById('frm').submit();
+						return false;
+// 						return;
 					}
 					
 				});
@@ -330,7 +336,7 @@ onchange="fn_changeCost(this)" size="1" name="formatSum" id="formatSum" value="$
 	
 </script>
 
-<!-- //숫자만 입력 받기 -->
+//숫자만 입력 받기
 <script type="text/javascript">
 	function fn_press(event, type) {
 	    if(type == "numbers") {
@@ -340,7 +346,7 @@ onchange="fn_changeCost(this)" size="1" name="formatSum" id="formatSum" value="$
 
 </script>
 
-<!-- //한글 입력 방지 -->
+//한글 입력 방지
 <script type="text/javascript">
 
 	function removeChar(event) {
@@ -361,8 +367,6 @@ onchange="fn_changeCost(this)" size="1" name="formatSum" id="formatSum" value="$
 // }
 
 function fn_changeCost(el){
-	
-	
 	//가능 수량 입력한 값
 	var item = $(el);
 	
@@ -378,10 +382,10 @@ function fn_changeCost(el){
 	var m3 = $(".m3").children("span");
 	var m4 = $(".m4").children("span");
 	
+	
 	item.on("blur", function(){
 		
-		result.text (cost * item.val());
-		
+		result.text(cost * item.val());
 		
 // 		alert($(".cost-result").length);
 		
