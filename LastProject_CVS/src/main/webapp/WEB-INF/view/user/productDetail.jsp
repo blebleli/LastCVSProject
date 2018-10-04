@@ -284,8 +284,7 @@
 						<div role="tabpanel" class="tab-pane fade" id="tab_content2"
 							aria-labelledby="reviewInsert">
 							<div class="x_content">
-								<form id="reFrm" data-parsley-validate=""
-									class="form-horizontal form-label-left" novalidate=""
+								<form id="reFrm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate=""
 									method="post" action="/adboard/boardCreate"
 									enctype="multipart/form-data">
 									<input type="hidden" id="prod_id" name="prod_id"

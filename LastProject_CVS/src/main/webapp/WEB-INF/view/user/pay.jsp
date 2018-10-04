@@ -5,27 +5,54 @@
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
-$(function(){
-	$("#minus").on("click",function(){
-		var number =parseInt($("#num").html());
+
+	function fn_minus() {
+		alert("감소");
+		var sale_amount = $("input[name=sale_amount]").val();
+		alert(sale_amount);
+		
 		var prodPrice = parseInt($("#prodPrice").html());
 		var totalPrice =parseInt($("#totalPrice").html());
 		number--;
 		totalPrice = totalPrice-prodPrice;
 		
-		$("#num").html(number);
-		$("#totalPrice").html(totalPrice);
-	})
-	$("#plus").on("click",function(){
-		var number =parseInt($("#num").html());
-		var prodPrice = parseInt($("#prodPrice").html());
-		var totalPrice =parseInt($("#totalPrice").html());
-		number++;
-		totalPrice = totalPrice+prodPrice;
+	}
+	
+	function fn_plus() {
+		alert("증가");
+		var sale_amount = $("input[name=sale_amount]").val();
+		alert(sale_amount);
 		
-		$("#num").html(number);
-		$("#totalPrice").html(totalPrice);
-	})
+	}
+	
+$(function(){
+	
+	
+// 	$("button [name=minus]").on("click",function(){
+// 		alert("감소");
+		
+// 		var number =parseInt($("#num").html());
+// 		var prodPrice = parseInt($("#prodPrice").html());
+// 		var totalPrice =parseInt($("#totalPrice").html());
+// 		number--;
+// 		totalPrice = totalPrice-prodPrice;
+		
+// 		$("#num").html(number);
+// 		$("#totalPrice").html(totalPrice);
+// 	});
+	
+// 	$("button [name=plus]").on("click",function(){
+// 		alert("증가");
+		
+// 		var number =parseInt($("#num").html());
+// 		var prodPrice = parseInt($("#prodPrice").html());
+// 		var totalPrice =parseInt($("#totalPrice").html());
+// 		number++;
+// 		totalPrice = totalPrice+prodPrice;
+		
+// 		$("#num").html(number);
+// 		$("#totalPrice").html(totalPrice);
+// 	});
 	
 	$("#cardBtn").on("click",function(){
 		$("#payfor").html("");
@@ -78,7 +105,15 @@ $(function(){
 				'</div></form></div>';
 				
 		$("#payfor").append(content);	
-	});		
+	});	
+	
+	
+	$("#num").change(function() {
+		
+		alert("변경");
+		
+	});
+	
 				
 });
 </script>
@@ -91,8 +126,9 @@ $(function(){
 <!-- about -->
 		<div class="privacy about">
 			<h3>Chec<span>kout</span></h3>
-			
-	      <div class="checkout-right">
+	<form action="" method="post" id="payListFrm">
+		
+	      <div class="checkout-right" >
 					<h4>선택한 상품 : <span>1</span>개의 상품</h4>
 				<table class="timetable_sub">
 					<thead>
@@ -101,7 +137,6 @@ $(function(){
 							<th>상품 이름</th>
 							<th>상품</th>
 							<th>선택 개수</th>
-						
 							<th>가격</th>
 							<th>합계</th>
 							<th>삭제</th>
@@ -112,21 +147,23 @@ $(function(){
 					<c:forEach items="${prod }" var="vo">
 						<tr class="rem1">
 							<td class="invert">순번 쿼리 수정</td>
-							<td class="invert">${vo.prod_name }</td>
+							<td class="invert">${vo.prod_name }
+								<input type="hidden" name="prod_id" value="${vo.prod_id }">
+							</td>
 							<td class="invert-image">
 								<img width="150px" height="150px" src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive">
 							</td>
 							<td class="invert">
 								 <div class="quantity"> 
-									<div class="quantity-select">                           
-										<div class="entry value-minus active" id="minus">&nbsp;</div>
-										<div class="entry value"><span id="num">${vo.prod_exnum }</span></div>
-										<div class="entry value-plus active" id="plus">&nbsp;</div>
+									<div class="quantity-select">
+										<button class="entry value-minus active" onclick="fn_minus()">&nbsp;</button>
+										<input width="80px" class="entry value" type="number" name="sale_amount" value="${vo.prod_exnum }">
+										<button class="entry value-plus active"  onclick="fn_plus()">&nbsp;</button>
 									</div>
 								</div>
 							</td>
 							<td class="invert">${vo.prod_price }</td>
-							<td class="invert">${vo.prod_price * vo.prod_exnum }</td>
+							<td class="invert"><span id="totalPay">${vo.prod_price * vo.prod_exnum }</span> </td>
 							<td class="invert">
 								<div class="rem">
 									<div class="close1"> </div>
@@ -153,7 +190,7 @@ $(function(){
 				<div class="clearfix"> </div>
 				
 			</div>
-			
+	</form>
 			<!-- ------------------------------------------------------------------------ -->
 					<!-- payment -->
 		<div class="privacy about">
