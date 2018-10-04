@@ -84,19 +84,17 @@ public class UserMainController {
 		//이벤트별 리스트 들어가야함
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("view", "4");		  // 출력 개수
-		map.put("eventId", "201"); //1+1 행사
+		map.put("eventId", "EVENT1"); //1+1 행사
 		List<ProdVo> eventProd1 = prodService.getEventList(map);
 		
-		map.put("eventId", "200"); //2+1 행사
+		map.put("eventId", "EVENT2"); //2+1 행사
 		List<ProdVo> eventProd2 = prodService.getEventList(map);
 		
-		map.put("eventId", "201"); //할인
+		map.put("eventId", "DIS1"); //할인
 		List<ProdVo> eventProd3 = prodService.getEventList(map);
 		
-		map.put("eventId", "200"); //pb
+		map.put("eventId", "PB1"); //pb
 		List<ProdVo> eventProd4 = prodService.getEventList(map);
-		
-		
 		
 		//조회수 리뷰 best3
 //		List<BoardVo> bestReview = boardService.getBestProdReview();
@@ -110,6 +108,12 @@ public class UserMainController {
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProduct",bestProd);
+		
+		
+		logger.debug("eventProd1 ==> {}" ,eventProd1);
+		logger.debug("eventProd2 ==> {}" ,eventProd2);
+		logger.debug("eventProd3 ==> {}" ,eventProd3);
+		logger.debug("eventProd4 ==> {}" ,eventProd4);
 		
 		model.addAttribute("eventProd1",eventProd1);
 		model.addAttribute("eventProd2",eventProd2);
