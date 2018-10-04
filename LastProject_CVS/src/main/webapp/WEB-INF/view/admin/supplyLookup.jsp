@@ -79,11 +79,15 @@
 							</li>
 						</ul>
 						<div class="clearfix">
-							<form action="/admin/lookup" method="get" id="radioCheck">
-								<input type="radio" name="check" class="a" value="all">전체
-								<input type="radio" name="check" class="a" value="10">요청
-								<input type="radio" name="check" class="a" value="11">승인
-								<input type="radio" name="check" class="a" value="12">확인
+							<form action="/admin/lookup" method="post" id="button">
+							</form>
+							
+							<form action="/admin/lookup2" method="post" id="button2" >
+								<input type="hidden" name="btnChk" id="btnChk">
+								<button type="button" id="all" name="check" class="btn btn-default" value="">전체</button>
+								<button type="button" id="10" name="check" class="btn btn-default" value="10">요청</button>
+								<button type="button" id="11" name="check" class="btn btn-default" value="11">승인</button>
+								<button type="button" id="12" name="check" class="btn btn-default" value="12">확인</button>
 							</form>
 						</div>
 					</div>
@@ -188,7 +192,6 @@
 <script src="../build/js/custom.min.js"></script>
 
 <script>
-	
 	function fn_spls(bcd, state){
 		$("#bcd").val(bcd);
 		$("#supply_state").val(state);
@@ -197,12 +200,24 @@
 </script>
 
 <script>
+
+	$("#all").on("click", function() { 				
+		$("#button").submit(); 			
+	});
 	
-	$(function() {
-		$(".a").on("click", function() {
-		var checkedVal = $(".a:checked").val();
-		$("#radioCheck").submit();
-		});
+	$("#10").on("click", function() { 				
+		$("#btnChk").val($("#10").val());  
+		$("#button2").submit(); 			
+	});
+	
+	$("#11").on("click", function() { 				
+		$("#btnChk").val($("#11").val());  
+		$("#button2").submit(); 			
+	});
+	
+	$("#12").on("click", function() { 				
+		$("#btnChk").val($("#12").val());  
+		$("#button2").submit(); 			
 	});	
 	
 </script>
