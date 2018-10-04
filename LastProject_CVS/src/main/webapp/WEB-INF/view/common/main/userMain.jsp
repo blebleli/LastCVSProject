@@ -42,8 +42,8 @@ function categoryPopup(){
 </script>
 <script>
 	$(function(){
-		$("table tr").on("click", function(){
-			$("#prod_id").val($(this).data("id")); // 관리자는 삭제여부 상관없이 모든 게시글 조회 가능
+		$("table tbody tr").on("click", function(){ // 실시간 상품 리뷰 글 클릭시 상품 정보창으로 이동함
+			$("#prod_id").val($(this).data("id"));
 			$("#reviewsDetail").submit();
 		});
 	});
@@ -371,7 +371,7 @@ function categoryPopup(){
 				 <c:forEach items="${review}" end="5" var="vo">	
 					<c:choose>
 						<c:when test="${vo.bd_del=='N'}">
-							<tr data-id="${vo.prod_id}" data-id2="${vo.bd_del}">
+							<tr data-id="${vo.prod_id}">
 								<td>${vo.bd_title}</td>
 								<td>${vo.bd_date}</td>
 							</tr>						
@@ -382,9 +382,8 @@ function categoryPopup(){
 		</div>
 	</div>
 	
-	<form id="reviewsDetail" action="/user/detail" method="get">
+	<form id="reviewsDetail" action="/user/detail" method="post">
 		<input type="hidden" name="prod_id" id="prod_id">
-		<input type="hidden" name="bd_id" id="bd_id" value="${bd_id}">
 	</form>	
 	
 <!-- 이벤트 게시판 삭제 -->
