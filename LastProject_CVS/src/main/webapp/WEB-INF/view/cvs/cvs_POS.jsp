@@ -273,22 +273,26 @@
 				    			console.log("saleList ::: "+saleList.pay_kind);
 		                     });	
 				    	
-				    		
-				    	  	$.ajax({
-		    					  url: "/cvs/pos/saleInsert",
-		    					  method: "post",
-		    					  data: JSON.stringify(saleList),
-		    					  //data: JSON.stringify(param),
-		    					  contentType: "application/json",
-		    					  success : function (data) {
-		    						  // --------------------------------  data == retun ???
-		    						  alert("결제 되었습니다.");
-		    						  emptyTable(); 
-		    						  $("#saleModalBtn").click();
-		    						  
-		    				      },		 						
-								  error : function(){console.log("error");}		  								  
-				    		});	  
+				    		if(saleList.length > 0){
+					    	  	$.ajax({
+			    					  url: "/cvs/pos/saleInsert",
+			    					  method: "post",
+			    					  data: JSON.stringify(saleList),
+			    					  contentType: "application/json",
+			    					  success : function (data) {
+	
+			    						  alert("결제 되었습니다.");
+			    						  emptyTable(); 
+			    						  $("#saleModalBtn").click();
+			    						  
+			    				      },		 						
+									  error : function(){console.log("error");}		  								  
+					    		});
+				    		}else{
+				    			alert('결제할 리스트가 없습니다.');
+				    			$("#saleModalBtn").click();
+				    			saleList=[];
+				    		}
 						}
 			    	
 				    	/*폐기버튼 클릭시*/
@@ -309,19 +313,23 @@
 				    		console.log("dispListSize ::: "+dispList.size);
 				    		
 				    		/* return false; */
-				    		
-				   			$.ajax({
-		    					  url: "/cvs/pos/dispInsert",
-		    					  method: "post",
-		    					  data: JSON.stringify(dispList),
-		    					  contentType: "application/json",
-		    					  success : function () {
-		    						  alert("폐기처리 되었습니다.");
-		    						  emptyTable(); 
-		    						  $("#saleModalBtn").click();
-		    				      },		 						
-								  error : function(){console.log("error");}		  								  
-				    		});				    		
+				    		if(dispList.length > 0){
+					   			$.ajax({
+			    					  url: "/cvs/pos/dispInsert",
+			    					  method: "post",
+			    					  data: JSON.stringify(dispList),
+			    					  contentType: "application/json",
+			    					  success : function () {
+			    						  alert("폐기처리 되었습니다.");
+			    						  emptyTable(); 
+			    						  $("#saleModalBtn").click();
+			    				      },		 						
+									  error : function(){console.log("error");}		  								  
+					    		});		
+				    		}else{
+				    			alert('폐기할 리스트가 없습니다.');
+				    			dispList=[];
+				    		}
 						}
 				    	
 				    	/*삭제버튼 클릭시 */

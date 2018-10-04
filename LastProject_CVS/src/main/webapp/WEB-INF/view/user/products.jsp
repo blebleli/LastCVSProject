@@ -15,6 +15,7 @@
 <style>
 .col-md-4{
 	width : 25%;
+	height: 400px;
 }
 </style>
 <script> 

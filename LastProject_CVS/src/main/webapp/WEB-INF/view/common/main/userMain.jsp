@@ -6,8 +6,11 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css' />" media="all"></link>
 <style>
   .col-md-3 {
-    width: 20%;
+    width: 16%;
 }
+   .bestImg{
+	 height : 200px;
+	}
 </style>
 
 
@@ -108,7 +111,7 @@ function categoryPopup(){
 <!-- 카테고리별 best ------------------------------------------------------------------------------ -->
 
 	<div class="agile_top_brands_grids">
-		<div class="container">
+		<div class="container" style="width : 1500px">
 			<div class="row">
 				<h2 class="text-center">Best Product </h2>
 		        <hr/>
@@ -121,7 +124,7 @@ function categoryPopup(){
 		    		<label>${vo.pr_class_lg}</label>
 		            <div class="thumbnail">
 		            	<a href="/userProd/detail?prod_id=${vo.prod_id}"	id="prodImage">
-		                	<img src="${vo.file_path}/${vo.file_upname}" alt="..." width="400px" height="200px">
+		                	<img class="bestImg" src="${vo.file_path}/${vo.file_upname}" alt="..." width="400px" height="200px">
 		                </a>
 		                <div class="clearfix"></div>		              
 		            </div>

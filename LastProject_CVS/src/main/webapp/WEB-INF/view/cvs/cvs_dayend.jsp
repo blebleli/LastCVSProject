@@ -190,33 +190,40 @@
 		//다음날짜로 재고리스트 추가
 		
 		$("#stockDetailTbody tr").each(function (index) {		                    	 
-			var trData = $(this);		
-			
-			if(index<=10){ //test용
+				var trData = $(this);		
 				
-			dayEndList.push({prod_id: trData.find('.prod_id').html(),
-						 splylist_id: trData.data('splylist_id'),
-						 supply_date: trData.data('supply_date'),
-					 stcklist_exdate: trData.find('.stcklist_exdate').html(),
-					 stcklist_amount: trData.find('.amount').val()});
-					 console.log("each index---"+trData.data('splylist_id'));
-			};
-
-         });	
-		
-		console.log("dayEndList ::: "+dayEndList.size);
-
-		$.ajax({
-			  url: "/cvs/setDayEnd",
-			  method: "post",
-			  data: JSON.stringify(dayEndList),
-			  contentType: "application/json",
-			  success : function () {
-				  alert("마감처리 되었습니다.");
-				  $("#stockDetailTbody").empty(); 
-		      },		 						
-			  error : function(){console.log("error");}		  								  
-		});					    		
+				if(index<=10){ //test용
+					
+				dayEndList.push({prod_id: trData.find('.prod_id').html(),
+							 splylist_id: trData.data('splylist_id'),
+							 supply_date: trData.data('supply_date'),
+						 stcklist_exdate: trData.find('.stcklist_exdate').html(),
+						 stcklist_amount: trData.find('.amount').val()});
+						 console.log("each index---"+trData.data('splylist_id'));
+				};
+	
+	         });	
+			
+			console.log("dayEndList ::: "+dayEndList.length);
+				
+				if(dayEndList.length > 0){
+					
+				$.ajax({
+					  url: "/cvs/setDayEnd",
+					  method: "post",
+					  data: JSON.stringify(dayEndList),
+					  contentType: "application/json",
+					  success : function () {
+						  alert("마감처리 되었습니다.");
+						  $("#stockDetailTbody").empty(); 
+				      },		 						
+					  error : function(){console.log("error");}		  								  
+				});	
+				
+				}else{
+	    			alert('마감할 리스트가 없습니다.');
+	    			dayEndList=[];
+	    		}
 	}
 	
 	</script>
