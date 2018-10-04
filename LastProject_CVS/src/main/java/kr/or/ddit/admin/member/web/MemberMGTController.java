@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -493,6 +494,29 @@ public class MemberMGTController {
 		return new ResponseEntity<String>( "Custom header set", HttpStatus.OK);
 	}
 	
-	
+	@RequestMapping("/cvsListExcelDown")
+	public String cvsListExcelDown(@RequestParam(value="page", defaultValue="1") int page,
+			@RequestParam(value="pageSize", defaultValue="25") int pageSize,Model model, HttpServletRequest request){
+		
+		logger.debug("excelDown.........");
+		MemberVo paramMemberVo = new MemberVo();
+		paramMemberVo.setPage(page);
+		paramMemberVo.setPageSize(pageSize);
+		paramMemberVo.setMem_kind("01");
+		
+		List<MemberVo> cvsMemberList= memberMgtService.getMemberPageList(paramMemberVo);
+		model.addAttribute("cvsMemberList", cvsMemberList);
+		
+//		int tot_cnt = 0;
+//		if(cvsMemberList != null && cvsMemberList.size() > 0) {
+//			tot_cnt = cvsMemberList.get(0).getTot_cnt();
+//		}
+//		
+//		// 페이지 네비게이션 문자열 
+//		PageNavi pageNavi = new PageNavi(page, pageSize, tot_cnt);
+//		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/cvsMemberList"));
+		
+		return "excelDownloadView";
+	}
 	
 }
