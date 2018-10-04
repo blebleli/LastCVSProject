@@ -326,7 +326,7 @@
 		SELECT rownum rnum,T.* 
 		FROM 
 		(
-		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state, a.supply_date a.supply_info
+		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state, a.supply_date, a.supply_info
 		FROM supply a, member b
 		WHERE a.place_id = b.mem_id
     	AND a.supply_state=#{supply_state}
