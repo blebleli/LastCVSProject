@@ -219,17 +219,21 @@
 									<div>
 										<div class="col-md-12 w3agile_event_grid">
 											<div class="col-md-4 w3agile_event_grid_left">
-												<br />
-												<br /> <img id="meal" src="${review.src }" width="40px"
-													height="35px" /> <label>${review.mem_name } :
-													${review.bd_date }</label>
-												<c:if test="${userInfo.mem_id == review.mem_id }">
-													<a class="btn btn-danger"
-														href="/review/delete?bd_id=${review.bd_id }&prod_id="
-														aria-label="Delete"> 삭제 </a>
-												</c:if>
+												<br/>
+												<br/>												
+												<c:choose>
+													<c:when test="${review.bd_del=='N'}">
+												<img id="meal" src="${review.src }" width="40px" height="35px"/>
+												<label>${review.mem_name } : ${review.bd_date }													
+													<c:if test="${userInfo.mem_id == review.mem_id }">
+														<a class="btn btn-danger"
+														 href="/review/delete?bd_id=${review.bd_id}&prod_id=${review.prod_id}"
+																aria-label="Delete"> 삭제 </a>
+													</c:if>
+												</label><br>
+												<div style="text-align: center;">평점 : ${review.bd_rating} 점</div>
 											</div>
-											<br />
+											<br/>
 											<div class="col-md-8 w3agile_event_grid_right">
 												<!-- 평점 -->
 												<!-- 												<div class="rating2" style="float: right;"> -->
@@ -249,8 +253,20 @@
 												<h4>${review.bd_title }</h4>
 												<p>${review.bd_content }</p>
 											</div>
-
-
+											</c:when>
+											<c:otherwise>
+												<img id="meal" src="${review.src }" width="40px" height="35px"/>
+													<label>***** : *************</label>												
+				
+													<div style="text-align: center;">** : ****</b></div>
+											</div>
+											<br/>
+											<div class="col-md-8 w3agile_event_grid_right">
+												<h4>삭제된 리뷰입니다.</h4>
+												<p>조회할 수 없는 내용입니다.</p>
+											</div>										
+											</c:otherwise>
+											</c:choose>
 										</div>
 									</div>
 								</div>

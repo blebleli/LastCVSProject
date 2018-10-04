@@ -61,10 +61,11 @@ public class ReviewController {
 		paramMap.put("mem_id", userInfo.getMem_id());
 		paramMap.put("bd_id", bd_id);
 		ReviewVo review = boardService.getUserReview(paramMap);
-		review.setBd_del("Y");
+//		review.setBd_del("Y");
 		
 		
 		mav.addObject("prod_id", prod_id);
+		mav.addObject("review",review);
 		mav.setViewName("redirect:/userProd/detail");
 		return mav;
 	}

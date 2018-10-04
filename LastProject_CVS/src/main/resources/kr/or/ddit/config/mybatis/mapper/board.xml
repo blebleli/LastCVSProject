@@ -194,11 +194,11 @@
         SELECT  B.bd_id
             , B.bd_title
             , UTL_RAW.CAST_TO_VARCHAR2(bd_content) AS bd_content
-            , B.bd_date
+            , TO_CHAR(B.bd_date,'YYYY-MM-DD') as bd_date
             , B.bd_del
             , B.bd_rating
             , B.bd_views
-            ,   B.bd_group
+            , B.bd_group
             , B.prod_id
             , B.mem_id
             , B.bd_parent
@@ -219,6 +219,10 @@
            ORDER BY bd_views DESC
       )where ROWNUM &lt;=3
    </select>
+   
+   <update id="getUserReview" parameterType="map">
+		UPDATE BOARD SET bd_del = 'Y' WHERE bd_id = #{bd_id}
+   </update>
    
    <!-- 메인 리뷰 top3 -->
    <select id="getReviewTop3" resultType="mainReviewsVo">
