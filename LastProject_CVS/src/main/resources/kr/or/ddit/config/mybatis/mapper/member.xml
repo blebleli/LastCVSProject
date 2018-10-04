@@ -98,6 +98,7 @@
 			 , MEM_X = #{mem_x, jdbcType=NUMERIC, javaType=String}
 			 , MEM_Y = #{mem_y, jdbcType=NUMERIC, javaType=String}
 			 , MEM_KIND = #{mem_kind, jdbcType=VARCHAR}
+			 , MEM_INTRO = #{mem_intro, jdbcType=VARCHAR}
 		 WHERE MEM_ID = #{mem_id}
 	</update>
 	
@@ -372,5 +373,20 @@
   		select * from member where mem_id = #{mem_id}
   	</select>
   	
+  	<select id="updateCvsInfo" parameterType="memberVo">
+  		UPDATE MEMBER
+		   SET 
+		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, (SELECT  MEM_BIRTH FROM MEMBER WHERE MEM_ID = #{mem_id}))
+			 , MEM_TEL = #{mem_tel, jdbcType=VARCHAR}
+			 , MEM_ZIP = #{mem_zip, jdbcType=NUMERIC}
+			 , MEM_ADD = #{mem_add, jdbcType=VARCHAR}
+			 , MEM_ADDR = #{mem_addr, jdbcType=VARCHAR}
+			 , MEM_X = #{mem_x, jdbcType=NUMERIC, javaType=String}
+			 , MEM_Y = #{mem_y, jdbcType=NUMERIC, javaType=String}
+			 , MEM_KIND = #{mem_kind, jdbcType=VARCHAR}
+			 , MEM_CVS_NAME =#{mem_cvs_name, jdbcType=VARCHAR}
+			 , MEM_CVS_TEL = #{mem_cvs_tel, jdbcType=VARCHAR}
+		 WHERE MEM_ID = #{mem_id}
+  	</select>
   	
 </mapper>
