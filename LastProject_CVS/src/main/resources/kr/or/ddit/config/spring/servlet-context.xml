@@ -57,8 +57,8 @@
 	<!-- 0909 한수정 qrcode generator -->
 	<bean id="qrCodeGenerator" class="kr.or.ddit.barcode.util.QRCodeGenerator" />
 
-	<!-- excelDownload view -->
-<!-- 	<bean id="excelDawnloadView" class="kr.or.ddit.mvc.view.ExcelDownloadView"></bean> -->
+	<!-- 김현경excelDownload view -->
+	<bean id="excelDownloadView" class="kr.or.ddit.admin.member.view.CvsMemberExcelDownloadView"></bean>
 
 <!-- 	fileDownload view -->
 <!-- 	<bean id="fileDownloadView" class="kr.or.ddit.file.FileDownloadView" /> -->
