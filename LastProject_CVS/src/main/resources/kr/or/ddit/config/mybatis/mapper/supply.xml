@@ -319,6 +319,19 @@
 		WHERE a.place_id = b.mem_id) T)
 	</select>
 	
+	<select id="adminApplyStateList" parameterType="String" resultType="adminApplyVo">
+	 	SELECT *
+		FROM
+		(
+		SELECT rownum rnum,T.* 
+		FROM 
+		(
+		SELECT a.supply_bcd, b.mem_name, b.mem_cvs_name, a.supply_state, a.supply_date
+		FROM supply a, member b
+		WHERE a.place_id = b.mem_id
+    	AND a.supply_state=#{supply_state}) T)
+	</select>
+	
 	<!-- 	아 이 디 : adminApplyListTotCnt
 	  		반 환 값 : Integer
 	  		매개변수 : 
