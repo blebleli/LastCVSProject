@@ -3,6 +3,8 @@ package kr.or.ddit.store_owner.stock.service;
 import java.util.List;
 import java.util.Map;
 
+import com.google.zxing.WriterException;
+
 import kr.or.ddit.model.StockListVo;
 import kr.or.ddit.model.StockVo;
 import kr.or.ddit.model.SupplyListVo;
@@ -176,6 +178,4 @@ public interface StockServiceInf {
 	* @return
 	*/
 	List<PresentStockListVo> getStockListByMemid(String mem_id);
-	
-	
 }

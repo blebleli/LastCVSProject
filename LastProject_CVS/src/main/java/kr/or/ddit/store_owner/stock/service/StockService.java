@@ -1,5 +1,8 @@
 package kr.or.ddit.store_owner.stock.service;
 
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,6 +25,12 @@ import kr.or.ddit.store_owner.stock.dao.StockDaoInf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 @Service("stockService")
 public class StockService implements StockServiceInf {
@@ -202,6 +211,14 @@ public class StockService implements StockServiceInf {
 
 			barcodeVo.setBcd_path("-");       	 	 			//경로 888일때는 이미지도 생성
 			logger.debug("바코드생성 --------------------------- ");
+			
+			try {
+				barcodeService.generateQRCodeImage(bcd_id,"D:\\최종프\\barcodeImg\\"+bcd_id+".jpg");
+			} catch (WriterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 
 			barcodeService.setInsertBarcode(barcodeVo);			
 			
@@ -376,14 +393,6 @@ public class StockService implements StockServiceInf {
 	public int totalCountProd() {
 		return stockDao.totalCountProd();
 	}
-
-
-
-
-
-
-
-
 
 
 }
