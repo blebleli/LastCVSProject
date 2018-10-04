@@ -1,8 +1,11 @@
 package kr.or.ddit.store_owner.stock.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -180,6 +183,15 @@ public class StockService implements StockServiceInf {
 	@Override
 	public int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id) {
 
+		String patt = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\src\\main\\webapp\\barcode\\"+mem_id;
+		Path path = Paths.get(patt);
+		File pahh = path.toFile();
+		
+		if (!Files.exists(path)) {
+			try{pahh.mkdir();} 
+		    catch(SecurityException se){}        
+		}
+		
 		//재고 테이블 insert
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
 
@@ -212,6 +224,8 @@ public class StockService implements StockServiceInf {
 			barcodeVo.setBcd_path("-");       	 	 			//경로 888일때는 이미지도 생성
 			logger.debug("바코드생성 --------------------------- ");
 			
+			
+			
 			try {
 				barcodeService.generateQRCodeImage(bcd_id,"D:\\최종프\\barcodeImg\\"+bcd_id+".jpg");
 			} catch (WriterException e) {
@@ -240,7 +254,7 @@ public class StockService implements StockServiceInf {
 		}
 		
 		logger.debug("입고 : stocklist insert 완료 -----");
-		
+
 		return 1;
 	}
 
