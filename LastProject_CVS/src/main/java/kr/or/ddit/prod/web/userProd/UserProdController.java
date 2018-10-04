@@ -75,9 +75,10 @@ public class UserProdController {
 	}
 	
 	
-	//  상품 이미지 클릭 했을때 
+	//  상품 이미지 클릭 했을때
+//	@RequestMapping(value="/detail", method=RequestMethod.GET )
 	@RequestMapping("/detail")
-	public ModelAndView prodDetail(@RequestParam(value="prod_id")String prod_id){
+	public ModelAndView prodDetail(@RequestParam(value="prod_id") String prod_id){
 		
 		ModelAndView mav = new ModelAndView("prodDetail");
 		
@@ -85,7 +86,7 @@ public class UserProdController {
 		ProdVo prod = prodService.getProd(prod_id);
 		
 		// 리뷰 갯수
-		int reviewCnt = boardService.getReviewCnt(prod_id) ;
+		int reviewCnt = boardService.getReviewCnt(prod_id);
 		
 		List<ReviewVo> reviews = boardService.getReviewOfProd(prod_id);
 		logger.debug("reviews==> {}",reviews);

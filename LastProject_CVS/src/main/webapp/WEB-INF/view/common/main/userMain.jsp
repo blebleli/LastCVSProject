@@ -341,36 +341,40 @@ function categoryPopup(){
 	</div>
 </div>
 
-
 <div class="clearfix"></div>
 
 <!-- 공지사항------------------------------------------------------------------------------ -->
 <div class="agile_top_brands_grids">
-
 	<div class="container">
 	<div class="col-md-6">
 	<h3>CU25 소식 <a href="/board/boardMain" class="btn_more" style="font-size: 15px; color: #777; float: right"> 
 		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	
-		<div class="row">	
+		<div class="row">
 			<table class="table table-condensed" >
 				 <c:forEach items="${notice}" end="5" var="vo">	
-				<tr> 
-					<td>${vo.bd_title}</td>
-					<td>${vo.bd_date}</td>
-					<%-- <fmt:formatDate value="${vo.bd_date}" pattern="yyyy-MM-dd" /> --%>
+				<tr>
+				<td>			
+						
+					<a class="txt" href="/board/view?id=${vo.bd_id}&bd_kind_id=${vo.bd_kind_id}">
+						${vo.bd_title}
+						
+					</a>
+				</td>
+				<td>${vo.bd_date}</td>
 				</tr>	
 				</c:forEach>			
 			</table>
 		</div>
 	</div>
 	
-	<div class="col-md-6" style="padding-left: 20px">
-	<h3>실시간 상품리뷰</h3>	
+	<div class="col-md-6" style="padding-left: 20px">		
+	<h3>실시간 상품리뷰 <a href="/userProd/view?i=1&page=1&pageSize=16"	 class="btn_more" style="font-size: 15px; color: #777; float: right"> 
+		더보기<span class="glyphicon glyphicon-plus"></span></a> </h3>	
 		<div class="row">	
 			<table class="table table-condensed">
 				 <c:forEach items="${review}" end="5" var="vo">	
 					<c:choose>
-						<c:when test="${vo.bd_del=='N'}">
+						<c:when test="${vo.bd_del=='N'}">						
 							<tr data-id="${vo.prod_id}">
 								<td>${vo.bd_title}</td>
 								<td>${vo.bd_date}</td>
@@ -381,11 +385,9 @@ function categoryPopup(){
 			</table>
 		</div>
 	</div>
-	
-	<form id="reviewsDetail" action="/user/detail" method="post">
+	<form id="reviewsDetail" action="/userProd/detail" method="get">
 		<input type="hidden" name="prod_id" id="prod_id">
-	</form>	
-	
+	</form>		
 <!-- 이벤트 게시판 삭제 -->
 <!-- 	<div class="col-md-6" style="padding-left: 20px"> -->
 <!-- 	<h3>진행중인 이벤트 <a href="/user/eventProducts" class="btn_more" style="font-size: 15px; color: #777; float: right">  -->
@@ -400,7 +402,6 @@ function categoryPopup(){
 <%-- 				</c:forEach>			 --%>
 <!-- 			</table> -->
 <!-- 		</div> -->
-<!-- 	</div>	 -->
-	
+<!-- 	</div>	 -->	
 	</div>
 </div>
