@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 /**
 * @Class Name : AdminSupplyController.java
 *
@@ -150,31 +153,33 @@ public class AdminSupplyController {
 	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
 							  @RequestParam(value="supply_bcd")String supply_bcd,
-							  
+							  @RequestParam(value="mem_id")String mem_id2,
 							  @RequestParam(value="prod_id")String prod_id,
 							  @RequestParam(value="sum")String sum,
 							  AdminApplyVo adminApplyVo,
 							  Model model							  ){
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
+		
 		//success 처리
 		adminSupplyService.setSuccessSupply(supply_bcd);
 		
+		//제품 아이디 배열 선언
 		String [] prod_idArray = prod_id.split("\\,");
 		
-		
-		
+		//찍어보기
 		logger.debug("prod_id:{}",prod_id);
 		for (String string : prod_idArray) {
 			logger.debug("prod_idArray:{}",string);
 		}
+		//////////////////////////////////////////////////////
 		
+		//
 		String [] sumArray = sum.split(",");
-		int [] intSumArray = null;
-		
-		for (int j = 0; j < sumArray.length; j++) {
-			intSumArray[j] = Integer.parseInt(sumArray[j].toString());
-		}
+//		int [] intSumArray = null;
+//		for (int j = 0; j < sumArray.length; j++) {
+//			intSumArray[j] = Integer.parseInt(sumArray[j].toString());
+//		}
 		
 		logger.debug("sum:{}",sum);
 		for (String string : sumArray) {
@@ -185,12 +190,24 @@ public class AdminSupplyController {
 		logger.debug("check: {}",check);
 		logger.debug("vo.getMem_id() : {}",adminApplyVo.getMem_id());
 		
+		
 		//점주 ID이자 편의점 ID
 		String mem_id = adminApplyVo.getMem_id();
 		
 		//supply_bcd를 새로이 생성
 		String code = "SUPPLY";
 		String supply_bcdCode = autoCodeCreate.barcode(code);
+		
+		//text : 입고 아이디, filePath: 경로.+jpg
+		String text = supply_bcdCode;
+//		String filePath = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\LastProject_CVS\\src\\main\\webapp\\barcode\\supply\\"+supply_bcdCode+".jpg";
+		String filePath = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\LastProject_CVS\\src\\main\\webapp\\Image\\board\\BEV\\"+supply_bcdCode+".jpg";
+		try {
+			barcodeService.generateQRCodeImage(text, filePath);
+		} catch (WriterException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		///////////////////////////////////////////////////////
 		//새로운 바코드 생성을 위한 셋팅
@@ -250,8 +267,6 @@ public class AdminSupplyController {
 			}else if(vo.getSplylist_info() == null){
 				supplyListVo.setSplylist_info("");
 			}
-			
-			
 			
 			//수량
 			supplyListVo.setSplylist_sum(vo.getSplylist_sum());
