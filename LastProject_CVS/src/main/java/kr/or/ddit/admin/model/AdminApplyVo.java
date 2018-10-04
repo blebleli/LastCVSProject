@@ -11,7 +11,16 @@ public class AdminApplyVo {
 	private String supply_state;	//신청처리상태 (10=수불,11=결제,12=입고)
 	private Date supply_date;		//신청 날짜
 	private String mem_id;			//사용자 아이디
+	private String supply_info;      // 정보
 	
+	
+	
+	public String getSupply_info() {
+		return supply_info;
+	}
+	public void setSupply_info(String supply_info) {
+		this.supply_info = supply_info;
+	}
 	public int getRnum() {
 		return rnum;
 	}
@@ -54,12 +63,15 @@ public class AdminApplyVo {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "AdminApplyVo [rnum=" + rnum + ", supply_bcd=" + supply_bcd
 				+ ", mem_name=" + mem_name + ", mem_cvs_name=" + mem_cvs_name
 				+ ", supply_state=" + supply_state + ", supply_date="
-				+ supply_date + ", mem_id=" + mem_id + "]";
+				+ supply_date + ", mem_id=" + mem_id + ", supply_info="
+				+ supply_info + "]";
 	}
 	public AdminApplyVo(int rnum, String supply_bcd, String mem_name,
 			String mem_cvs_name, String supply_state, Date supply_date,
