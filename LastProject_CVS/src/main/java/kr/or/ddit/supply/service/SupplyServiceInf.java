@@ -3,16 +3,13 @@ package kr.or.ddit.supply.service;
 import java.util.List;
 import java.util.Map;
 
-import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
-import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
 import kr.or.ddit.supply.model.SupplyProdInfoVo;
 import kr.or.ddit.supply.model.SupplyScanInfoVo;
-import kr.or.ddit.supply.model.SupplySumProdVo;
 
 public interface SupplyServiceInf {
 

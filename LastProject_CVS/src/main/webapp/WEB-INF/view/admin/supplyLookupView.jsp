@@ -55,6 +55,8 @@
 												<form action="/admin/supplyCheck" method="post" id="frm">
 													<input type="hidden" name="supply_bcd" value="${adminApplyVo.supply_bcd}"> 
 													<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
+													<input type="hidden" name="inputCount" id="inputCount">
+													
 													<c:if test="${adminApplyVo.supply_state == 10}">
 														<c:if test="${info != 'success'}">
 															<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
@@ -409,7 +411,7 @@ function fn_changeCost(el){
 			m1.text(resultSum);
 			m2.text(resultSum/20);
 			m3.text(resultSum/20);
-			m4.text(resultSum+((resultSum/20)*2));
+			m4.text(resultSum);
 			cnt++;
 		}
 // 		alert("finish :"+ cnt);
@@ -418,6 +420,16 @@ function fn_changeCost(el){
 	
 }
 
+</script>
+
+<script>
+//버튼 아이디
+$("#btn").on("click", function() { 		
+	//폼태그 안에 있는 히든타입 아이디	//가능수량입력한 텍스트 타입의 아이디
+	$("#inputCount").val($("#formatSum").val());  
+	//폼태그 아이디
+	$("#frm").submit(); 			
+});
 </script>
 
 

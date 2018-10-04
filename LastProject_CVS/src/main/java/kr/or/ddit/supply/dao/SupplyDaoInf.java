@@ -3,9 +3,7 @@ package kr.or.ddit.supply.dao;
 import java.util.List;
 import java.util.Map;
 
-import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
-import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.supply.model.SupRequestListVo;

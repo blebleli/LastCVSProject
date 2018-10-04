@@ -10,13 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
-import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
-import kr.or.ddit.store_owner.web.CvsSupplyInController;
-import kr.or.ddit.supply.dao.SupplyDao;
 import kr.or.ddit.supply.dao.SupplyDaoInf;
 import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
@@ -83,7 +79,6 @@ public class SupplyService implements SupplyServiceInf {
 
 	@Override
 	public int deleteSupply(String supply_bcd) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

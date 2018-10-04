@@ -1,13 +1,11 @@
 package kr.or.ddit.admin.supply.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
-import kr.or.ddit.admin.model.AdminApplyViewVo;
 import kr.or.ddit.admin.model.AdminApplyVo;
 import kr.or.ddit.admin.supply.service.AdminSupplyServiceInf;
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
@@ -141,16 +139,6 @@ public class AdminSupplyController {
 		//점주 정보 넘기기
 		model.addAttribute("memberVo",memberVo);
 		
-		List<AdminApplyViewVo> AdminApplyViewList = (List<AdminApplyViewVo>) resultMap.get("AdminApplyViewList");
-		logger.debug("AdminApplyViewList.get(0).getSupply_info(): {}",AdminApplyViewList.get(0).getSupply_info());
-		String info = AdminApplyViewList.get(0).getSupply_info();
-		
-//		if(AdminApplyViewList.get(0).getSupply_info() == null ){
-//			info = "없음";
-//		}
-		
-		model.addAttribute("info",info);
-		
 		//키값(AdminApplyViewList,pageNavi)
 		model.addAllAttributes(resultMap);
 		
@@ -161,13 +149,15 @@ public class AdminSupplyController {
 	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
 							  @RequestParam(value="supply_bcd")String supply_bcd,
-							  @RequestParam(value="array") String[] array,
+							  @RequestParam(value="inputCount")String inputCount,
 							  AdminApplyVo adminApplyVo,
 							  Model model							  ){
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
-		
+		//success 처리
 		adminSupplyService.setSuccessSupply(supply_bcd);
+		
+		logger.debug("inputCount : {}", inputCount);
 		
 		logger.debug("check: {}",check);
 		logger.debug("vo.getMem_id() : {}",adminApplyVo.getMem_id());
