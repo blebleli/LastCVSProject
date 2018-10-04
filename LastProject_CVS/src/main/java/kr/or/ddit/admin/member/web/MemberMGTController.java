@@ -26,10 +26,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -467,15 +471,28 @@ public class MemberMGTController {
 	}
 	
 	@RequestMapping("/cvsUpdate")
-//	@ResponseBody
 	public String cvsUpdate(@RequestParam(value="mem_id")String mem_id, Model model){
 		MemberVo cvs = signUpService.getMember(mem_id);
 		if(cvs != null){
 			model.addAttribute("cvs", cvs);
 		}
-//		return "admin/member/ad_cvsMemberUpdate";
-		return "/admin/adprod/ad_category_popup";
+		return "/admin/member/ad_cvsMemberUpdate";
 	}
+	
+	@RequestMapping(value="/updateCvsCheck", method=RequestMethod.POST)
+	public ResponseEntity<String> cvsUpdateCheck(@RequestBody MemberVo cvs, Model model){
+		String totalAdd= cvs.getMem_add() + cvs.getMem_addr();
+		Map<String, String> addResult  = commonService.transformationAddr(totalAdd);
+		cvs.setMem_x(addResult.get("x"));
+		cvs.setMem_y(addResult.get("y"));
+
+		int result = memberMgtService.updateCvsInfo(cvs);
+		if (result >0){
+			logger.debug("UpdateCvsInfo========{}", cvs);
+		}
+		return new ResponseEntity<String>( "Custom header set", HttpStatus.OK);
+	}
+	
 	
 	
 }
