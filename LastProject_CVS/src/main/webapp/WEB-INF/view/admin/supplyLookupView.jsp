@@ -88,7 +88,12 @@
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
-									<b>수불바코드 : ${adminApplyVo.supply_bcd}</b> <br> <br> <br>
+									<c:if test="${adminApplyVo.supply_state == 10}">
+										<b>수불바코드 : ${adminApplyVo.supply_bcd}</b> <br> <br> <br>
+									</c:if>
+									<c:if test="${adminApplyVo.supply_state != 10}">
+										<img src="/Image/board/BEV/${adminApplyVo.supply_bcd}.jpg" width="200" height="200">
+									</c:if>
 									<br>
 								</div>
 								<!-- /.col -->
