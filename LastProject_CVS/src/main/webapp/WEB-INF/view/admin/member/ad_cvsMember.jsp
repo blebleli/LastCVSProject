@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-    
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>    
 <!-- 09.20 KEB : 관리자단에서 편의점 리스트 출력하는 화면  -->
 
 <title> CVStore_admin | cvsMember </title>
@@ -18,7 +18,7 @@
 <!-- Custom Theme Style -->
 <!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 
-
+<script src="/build/js/jquery-1.12.4.js"></script>
 
 <script>
 	$(document).ready(function() {
@@ -83,17 +83,61 @@
 		}
 	});// 삭제버튼 클릭 이벤트 끝
 	
+// 	$("#updateCvsBtn").on("click", function(){
+// 		var url = "/admin/cvsUpdate?mem_id="+$("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text();
+// 		window.open(url);
+// 		if($("table#datatable-responsive tbody tr.selected").length == 0) {
+// 			alert("수정할 행을 선택해주세요.");
+// 			return false;
+// 		}else{
+// 			alert($("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text());
+// 			$.ajax({
+// 				url : "/admin/cvsUpdate",
+// 				data : {mem_id : $("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text()},
+// 				datatype : "html",
+// 				success:function(responseData){
+// 					console.log(responseData);
+// 					 $("#cvsUpdateDiv").html(responseData);
+// 				}
+// 			});
+// 		}
+		
+// 	});
+	
 	
 	
 });
-
 
 function eventPopup(){
     var url="test.html";
     window.open(url,"","width=1200,height=600,left=600");
 }
+</script>
+<script>
+function cvsUpdatePopup(){
+	if($("table#datatable-responsive tbody tr.selected").length == 0) {
+		alert("수정할 행을 선택해주세요.");
+		return false;
+	}else{
+// 		alert($("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text());
+		$.ajax({
+			url : "/admin/cvsUpdate?mem_id="+$("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text(),
+// 			data : {mem_id : $("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text()},
+			datatype : "html",
+			success:function(responseData){
+				console.log(responseData);
+				console.log("성공");
+				 $('#cvsUpdateDiv').html(responseData);
+			}
+		});
+	}
+}
+
 	
 	
+
+
+
 	
 	
 </script>
@@ -129,17 +173,27 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 					
 					<div class="x_title">
 			
-						<div class="col-xs-12" style="padding-bottom: 10px;"  >
-							<button class="btn btn-default" onclick="location.href ='<c:url value='${pageContext.request.contextPath}/admin/cvsInsert' />';">
-								<i class="fa fa-print"></i> 등 록  
+<!-- 						<div class="col-xs-12" style="padding-bottom: 10px;"  > -->
+<%-- 							<button class="btn btn-default" onclick="location.href ='<c:url value='${pageContext.request.contextPath}/admin/cvsInsert' />';"> --%>
+							<button class="btn btn-default">
+							<a href="/admin/cvsInsert">
+								<i class="fa fa-print"></i> 등 록  </a>
 							</button>
-							
-							<span>
-							<button class="btn btn-default" onclick="location.href ='<c:url value='${pageContext.request.contextPath}/admin/cvsUpdate' />';">
-															
+							<button class="btn btn-default" id="updateCvsBtn" onclick="cvsUpdatePopup();">
+<!-- 							<button class="btn btn-default" id="updateCvsBtn"> -->
 								<i class="fa fa-print"></i> 수 정
 							</button>
-							</span>
+							<div class="modal fade prod-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							  <div class="modal-dialog modal-md">
+								<div class="modal-content">								  
+								  <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h4 class="modal-title">CVS-Member 수정</h4>
+							      </div>										      
+							      	<div id="cvsUpdateDiv" class="modal-content"></div>																			   												
+							    </div>
+							  </div>
+							</div>
 							
 							<span>
 							<button class="btn btn-default" id="btnDelete">
@@ -161,7 +215,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							</button>
 							</span>
 							
-						</div>
+<!-- 						</div> -->
 						
 
 						<div class="clearfix"></div>
@@ -224,7 +278,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 									<c:choose>
 										<c:when test="${!empty cvsMemberList}">
 											<c:forEach items="${cvsMemberList}" var="memberVo" varStatus="status">
-												<tr role="row" class="even pointer">
+												<tr role="row" class="even pointer" data-class="${memberVo.mem_id}">
 													<td scope="row">${memberVo.rn}</td>
 													<td>${memberVo.mem_kind eq '04' ? '미사용' : '사용'}</td>
 													<td class="" tabindex="0">${memberVo.mem_id}</td>
