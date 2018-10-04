@@ -276,4 +276,6 @@ public interface SupplyServiceInf {
 	 * Method 설명 : supply id로 해당상품정보를 검색하는 기능
 	 */
 	List<SupplyProdInfoVo> getSplyProdByBcdid (String supply_bcd);
+	
+	
 }
