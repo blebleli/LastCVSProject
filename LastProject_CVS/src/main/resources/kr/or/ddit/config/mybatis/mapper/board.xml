@@ -225,7 +225,7 @@
    </update>
    
    <select id="reviewList" resultType="boardVo">
-		SELECT bd_id, bd_title, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date FROM board where bd_kind_id='55'
+		SELECT bd_del, bd_id, bd_title, TO_CHAR(bd_date,'YYYY-MM-DD') as bd_date FROM board where bd_kind_id='55' ORDER BY bd_date DESC
    </select>
    
    <!-- 메인 리뷰 top3 -->

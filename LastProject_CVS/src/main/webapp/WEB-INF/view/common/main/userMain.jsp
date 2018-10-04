@@ -40,6 +40,14 @@ function categoryPopup(){
     window.open("/adprod/categoryPopup","카테고리추가","width=800,height=450,left=500, top=100"); */
 }
 </script>
+<script>
+	$(function(){
+		$("table tr").on("click", function(){
+			$("#prod_id").val($(this).data("id")); // 관리자는 삭제여부 상관없이 모든 게시글 조회 가능
+			$("#reviewsDetail").submit();
+		});
+	});
+</script>
 
 <!-- 데이터 전송 -->
 <form action="/userProd/detail" method="post" id="detailFrm">
@@ -359,16 +367,25 @@ function categoryPopup(){
 	<div class="col-md-6" style="padding-left: 20px">
 	<h3>실시간 상품리뷰</h3>	
 		<div class="row">	
-			<table class="table table-condensed" >
-				 <c:forEach items="${events}" end="5" var="vo">	
-				<tr> 
-					<td>${vo.event_name}</td>
-					<td><fmt:formatDate value="${vo.event_startday}" pattern="yyyy-MM-dd" /></td>
-				</tr>	
+			<table class="table table-condensed">
+				 <c:forEach items="${review}" end="5" var="vo">	
+					<c:choose>
+						<c:when test="${vo.bd_del=='N'}">
+							<tr data-id="${vo.prod_id}" data-id2="${vo.bd_del}">
+								<td>${vo.bd_title}</td>
+								<td>${vo.bd_date}</td>
+							</tr>						
+						</c:when>
+					</c:choose>
 				</c:forEach>			
 			</table>
 		</div>
 	</div>
+	
+	<form id="reviewsDetail" action="/user/detail" method="get">
+		<input type="hidden" name="prod_id" id="prod_id">
+		<input type="hidden" name="bd_id" id="bd_id" value="${bd_id}">
+	</form>	
 	
 <!-- 이벤트 게시판 삭제 -->
 <!-- 	<div class="col-md-6" style="padding-left: 20px"> -->

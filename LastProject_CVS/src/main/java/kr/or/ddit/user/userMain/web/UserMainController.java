@@ -104,7 +104,7 @@ public class UserMainController {
 		//공지사항
 		List<BoardVo> notice = boardService.getListBoard();
 		//이벤트
-		List<BoardVo> review = boardService.getReviewOfProd();				
+		List<BoardVo> review = boardService.reviewList();				
 		
 		//model.addAttribute("ctgrName",ctgrName);
 		model.addAttribute("bestProduct",bestProd);
@@ -122,7 +122,7 @@ public class UserMainController {
 		
 		model.addAttribute("bestReview",bestReview);
 		model.addAttribute("notice",notice);
-		model.addAttribute("events",events);
+		model.addAttribute("review",review);
 		
 		return "userMain";
 	}

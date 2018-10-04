@@ -152,7 +152,7 @@
 			//form 태그를 submit
 // 			if($(this).data("id2") == 'N'){
 				$("#id").val($(this).data("id"));
-				$("#frm").submit();
+				$("#boardDetail").submit();
 // 			}
 		});
 	
@@ -179,7 +179,7 @@
 <!-- //products-breadcrumb -->
 
 <!-- banner -->
-<form id="frm" action="/board/view" method="get">
+<form id="boardDetail" action="/board/view" method="get">
 	<input type="hidden" name="id" id="id">
 	<input type="hidden" name="bd_kind_id" id="bd_kind_id" value="${bd_kind_id}">
 </form>
