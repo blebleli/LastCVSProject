@@ -179,7 +179,8 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							<a href="/admin/cvsInsert">
 								<i class="fa fa-print"></i> 등 록  </a>
 							</button>
-							<button class="btn btn-default" id="updateCvsBtn" onclick="cvsUpdatePopup();">
+<!-- 							<button class="btn btn-default" id="updateCvsBtn" onclick="cvsUpdatePopup();"> -->
+							<button type="button" id="updateCvsBtn" class="btn btn-default" data-toggle="modal" data-target=".prod-modal-md" onclick="cvsUpdatePopup();">
 <!-- 							<button class="btn btn-default" id="updateCvsBtn"> -->
 								<i class="fa fa-print"></i> 수 정
 							</button>
@@ -210,9 +211,12 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							</span>
 							
 							<span>
-							<button class="btn btn-default" id="btnExcel" onclick="excelDown();">
-								<i class="fa fa-print"></i> 엑 셀
-							</button>
+<!-- 							<button class="btn btn-default" id="btnExcel" onclick="excelDown();"> -->
+<!-- 							<button class="btn btn-default buttons-csv buttons-html5 btn-sm" tabindex="0" aria-controls="datatable-buttons" href="#"> -->
+<!-- 							<button class="btn btn-default" > -->
+								<a class="btn btn-default buttons-csv buttons-html5 btn-sm" tabindex="0" aria-controls="datatable-buttons" href="#">
+								<i class="fa fa-print"></i> 엑 셀</a>
+<!-- 							</button> -->
 							</span>
 							
 <!-- 						</div> -->
@@ -227,7 +231,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 				
 
 				 <div id="datatable-responsive_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
-				
+					
 					<!-- 
 							<div class="row">
 								<div class="col-sm-6">
@@ -253,6 +257,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 						<div class="col-sm-12">
 							<table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline collapsed" cellspacing="0" width="100%" role="grid"
 								aria-describedby="datatable-responsive_info" style="width: 100%;">
+								
 <!-- 									<table class="table table-striped jambo_table bulk_action">								 -->
  		
 								<thead>
@@ -403,5 +408,5 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 
 	<!-- Custom Theme Scripts -->
 	<script src="<c:url value='/build/js/custom.min.js' />"></script>
-        
+  
         
