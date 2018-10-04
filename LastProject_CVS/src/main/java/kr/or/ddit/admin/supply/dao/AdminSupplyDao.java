@@ -76,4 +76,9 @@ public class AdminSupplyDao implements AdminSupplyDaoInf{
 		return template.selectOne("supply.adminApplyViewTotCnt",supply_bcd);
 	}
 
+	@Override
+	public List<AdminApplyVo> adminApplyStateList(String supply_state) {
+		return template.selectList("supply.adminApplyStateList",supply_state);
+	}
+
 }

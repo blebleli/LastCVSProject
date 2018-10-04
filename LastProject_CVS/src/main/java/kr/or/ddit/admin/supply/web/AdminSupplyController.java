@@ -76,17 +76,29 @@ public class AdminSupplyController {
 	* @return
 	*/
 	@RequestMapping("/lookup")
-	public String adminSupplyLookup(@RequestParam(value="check", defaultValue="all") String check,
-									Model model){
+	public String adminSupplyLookup2(Model model){
 		
-		logger.debug("check : {}", check);
 		Map<String, Object> resultMap = adminSupplyService.adminApplyList();
-		
 		//키값(adminApplyList)
 		model.addAllAttributes(resultMap);
 		
 		return "ad_supplyLookup";
 	}
+	
+	@RequestMapping("/lookup2")
+	public String adminSupplyLookup(@RequestParam(value="btnChk", defaultValue="") String check,
+									Model model){
+		
+		logger.debug("check : {}", check);
+		
+		String supply_state = check;
+		
+		List<AdminApplyVo> adminApplyStateList = adminSupplyService.adminApplyStateList(supply_state);
+		model.addAttribute("adminApplyList", adminApplyStateList);
+		
+		return "ad_supplyLookup";
+	}
+	
 	
 	/**
 	* Method : adminSupplyLookupView

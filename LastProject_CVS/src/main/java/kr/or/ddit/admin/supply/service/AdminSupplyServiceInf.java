@@ -18,6 +18,8 @@ public interface AdminSupplyServiceInf {
 	*/
 	Map<String, Object> adminApplyList();
 	
+	List<AdminApplyVo> adminApplyStateList(String supply_state);
+	
 	/**
 	* Method : adminApplyListTotCnt
 	* Method 설명 :관리자가 볼 수불 신청 리스트 토탈 카운트

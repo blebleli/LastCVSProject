@@ -39,7 +39,6 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 		return resultMap;
 	}
 	
-
 	/**
 	* Method : adminApplyListTotCnt
 	* Method 설명 :관리자용 수불 전체 리스트 토탈 카운트
@@ -125,6 +124,11 @@ public class AdminSupplyService implements AdminSupplyServiceInf{
 	@Override
 	public int adminApplyViewTotCnt(String supply_bcd) {
 		return adminSupplyDao.adminApplyViewTotCnt(supply_bcd);
+	}
+
+	@Override
+	public List<AdminApplyVo> adminApplyStateList(String supply_state) {
+		return adminSupplyDao.adminApplyStateList(supply_state);
 	}
 
 }
