@@ -70,6 +70,11 @@ public class MemberMgtService implements MemberMgtServiceInf {
 		memberMgtDao.deleteCvsMember(paramMemberVo);
 		return 1;
 	}
+
+	@Override
+	public int updateCvsInfo(MemberVo cvs) {
+		return memberMgtDao.updateCvsInfo(cvs);
+	}
 	
 
 }
