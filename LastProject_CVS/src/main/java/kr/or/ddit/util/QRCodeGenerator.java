@@ -13,7 +13,7 @@ import java.nio.file.Path;
 public class QRCodeGenerator {
 	
 	//폴더만들기 
-	// 절대경로만든다음에 ++ 편의점 (사업자번호) 로 폴더만들어서
+	//절대경로만든다음에 ++ 편의점 (사업자번호) 로 폴더만들어서
     private static final String QR_CODE_IMAGE_PATH = "D:\\최종프\\barcodeImg\\BCD-1734baee-f5e7-4bc1-a735-8d7b0f0f918e.jpg"; //생성될 파일경로와 이름을 결정
 
     private static void generateQRCodeImage(String text, int width, int height, String filePath)

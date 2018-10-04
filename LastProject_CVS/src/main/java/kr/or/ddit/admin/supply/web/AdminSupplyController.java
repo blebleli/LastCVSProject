@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import kr.or.ddit.admin.model.AdminApplyVo;
 import kr.or.ddit.admin.supply.service.AdminSupplyServiceInf;
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
+import kr.or.ddit.barcode.util.QRCodeGenerator;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.MemberVo;
@@ -149,7 +150,9 @@ public class AdminSupplyController {
 	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
 							  @RequestParam(value="supply_bcd")String supply_bcd,
-							  @RequestParam(value="inputCount")String inputCount,
+							  
+							  @RequestParam(value="prod_id")String prod_id,
+							  @RequestParam(value="sum")String sum,
 							  AdminApplyVo adminApplyVo,
 							  Model model							  ){
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
@@ -157,7 +160,27 @@ public class AdminSupplyController {
 		//success 처리
 		adminSupplyService.setSuccessSupply(supply_bcd);
 		
-		logger.debug("inputCount : {}", inputCount);
+		String [] prod_idArray = prod_id.split("\\,");
+		
+		
+		
+		logger.debug("prod_id:{}",prod_id);
+		for (String string : prod_idArray) {
+			logger.debug("prod_idArray:{}",string);
+		}
+		
+		String [] sumArray = sum.split(",");
+		int [] intSumArray = null;
+		
+		for (int j = 0; j < sumArray.length; j++) {
+			intSumArray[j] = Integer.parseInt(sumArray[j].toString());
+		}
+		
+		logger.debug("sum:{}",sum);
+		for (String string : sumArray) {
+			logger.debug("sumArray:{}",string);
+			
+		}
 		
 		logger.debug("check: {}",check);
 		logger.debug("vo.getMem_id() : {}",adminApplyVo.getMem_id());
@@ -227,6 +250,7 @@ public class AdminSupplyController {
 			}else if(vo.getSplylist_info() == null){
 				supplyListVo.setSplylist_info("");
 			}
+			
 			
 			
 			//수량

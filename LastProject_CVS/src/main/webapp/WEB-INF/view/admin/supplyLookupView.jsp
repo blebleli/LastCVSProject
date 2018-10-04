@@ -52,10 +52,6 @@
 														</c:if>
 													</div>
 												</div>
-												<form action="/admin/supplyCheck" method="post" id="frm">
-													<input type="hidden" name="supply_bcd" value="${adminApplyVo.supply_bcd}"> 
-													<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
-													<input type="hidden" name="inputCount" id="inputCount">
 													
 													<c:if test="${adminApplyVo.supply_state == 10}">
 														<c:if test="${info != 'success'}">
@@ -63,7 +59,6 @@
 														</c:if>
 													</c:if>
 													<input type="hidden" name="array" id="array">
-												</form>
 												
 										</td>
 										</small>
@@ -104,6 +99,9 @@
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 -->
 							<div class="row">
 								<div class="col-xs-12 table">
+								<form action="/admin/supplyCheck" method="post" id="frm">
+									<input type="hidden" name="supply_bcd" value="${adminApplyVo.supply_bcd}"> 
+									<input type="hidden" name="mem_id" value="${memberVo.mem_id}">
 									<table class="table table-striped">
 										<thead>
 											<tr>
@@ -128,7 +126,10 @@
 												<tr>
 													<td>${vo.rnum}</td>
 													<!-- 번호 -->
-													<td>${vo.prod_id}</td>
+													<td>${vo.prod_id}
+														<input type="hidden" name="prod_id" value="${vo.prod_id}">
+													</td>
+													
 													<!-- 상품코드 -->
 													<td>${vo.prod_name}</td>
 													<!-- 상품이름 -->
@@ -186,6 +187,7 @@
 											</c:forEach>
 										</tbody>
 									</table>
+									</form>
 								</div>
 							</div>
 							<!-- 조계환 중간부분 제품들의 리스트를 보여주는 부분 끝-->
@@ -424,12 +426,12 @@ function fn_changeCost(el){
 
 <script>
 //버튼 아이디
-$("#btn").on("click", function() { 		
-	//폼태그 안에 있는 히든타입 아이디	//가능수량입력한 텍스트 타입의 아이디
-	$("#inputCount").val($("#formatSum").val());  
-	//폼태그 아이디
-	$("#frm").submit(); 			
-});
+// $("#btn").on("click", function() { 		
+// 	//폼태그 안에 있는 히든타입 아이디	//가능수량입력한 텍스트 타입의 아이디
+// 	$("#inputCount").val($("#formatSum").val());  
+// 	//폼태그 아이디
+// 	$("#frm").submit(); 			
+// });
 </script>
 
 
