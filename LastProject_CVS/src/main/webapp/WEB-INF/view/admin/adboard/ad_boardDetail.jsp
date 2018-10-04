@@ -36,63 +36,8 @@
 		
 		$("#commentsUpd").on("click",function() { // 댓글 수정을 누를시
 			var cm_id = $("#cm_id").val();
-			alert(cm_id);
-
-
-// 				$.ajax({
-// 					url : "review",
-// 					method : "get",
-// 					data : {
-// 						"bd_kind_id" : bd_kind_id // 게시판 구분(상품리뷰, 55) 저장
-// 					},
-
-// 					success : function(data) {
-// 						console.log(data); // 로그 검사
-// 						$("#reviews").html(""); // reviews 삭제
-// 						var content = ''; // content 생성
-// 						content +='<th><input type="checkbox" id="check-all" class="flat">'
-// 		                        +'  </th>'
-// 		                        +'  <th class="column-title">번호</th>'
-// 		                        +'  <th class="column-title">상품명</th>'
-// 		                        +'  <th class="column-title">제목</th>'
-// 		                        +'  <th class="column-title">평점</th>'
-// 		                        +'  <th class="column-title">작성자</th>'
-// 		                        +'  <th class="column-title">작성일</th>'
-// 		                        +'  <th class="bulk-actions" colspan="7">'
-// 		                        +'  <a class="antoo" style="color:#fff; font-weight:500;">'
-// 		                        +'  Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>'
-// 		                        +'  </th>'
-// 		                        +'  </tr>';							
-// 						$("#reviews").html(content); // content 추가
-						
-// 						$("#bd_code").html(""); // 성공시 기존 내용 삭제
-// 						$.each(data.boardpage, function(index,item){ // 상품리뷰 게시판 내용 조회 each
-// 							$("#bd_code").append( // 붙이기
-// 						'              <tr class="even pointer" data-id="'+item.bd_id+'">'+
-// 					    '                <td class="a-center ">'+
-// 					    '                  <input type="checkbox" class="flat" name="table_records">'+
-// 					    '                </td>'+
-// 					    '                <td class=" ">'+item.cnt+'</td>'+
-// 					    '                <td class=" ">'+item.prod_name+'</td>'+
-// 					    '                <td class=" ">'+item.bd_title+'</td>'+					    
-// 					    '                <td class=" ">'+item.bd_rating+'</td>'+
-// 					    '                <td class=" ">'+item.mem_name+'</td>'+
-// 					    '                <td class=" ">'+item.bd_date+'</td>'+
-// 					    '              </tr>'
-// 							); // append
-// 						}) // each
-						
-// 						$("#page").html(""); // 페이지 내비게이션 삭제
-// 						var navi = ''; // 내비게이션 추가
-// 						navi +='<ul class="pagination">'+data.pageNavi+'</ul>'
-// 							 +'<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="'+data.bd_kind_id+'">'
-// 							 +'	</div>';
-// 						$("#page").html(navi); // navi 추가
-						
-// 					} // success : function(data){
-// 				}); // $.ajax({
 				
-			}); // $("#bd_kind_id55").on("click", function(){	
+			});
 	
 		$("#boardUpd").on("click", function(){ // 게시글 수정 버튼을 누르면				
 			$("#frm").submit(); // 수정 이동				
@@ -110,15 +55,7 @@
 			} else { // 삭제 경고창 '아니오'를 누를시					
 				return false; // 그대로 있는다.					
 			}			
-		}); // $("#boardDel").on("click", function(){});			
-		
-// 		$("#commentsDelY").on("click", function(){ // 댓글 삭제 버튼을 누르면
-// 			if (confirm("삭제하시겠습니까?")){ // 삭제 경고창 '예'를 누를시					
-// 				$("#delete").submit(); // 삭제 이동					
-// 			} else { // 삭제 경고창 '아니오'를 누를시					
-// 				return false; // 그대로 있는다.					
-// 			}			
-// 		}); // $("#commentsDel").on("click", function(){});
+		}); // $("#boardDel").on("click", function(){});
 		
 		$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
 			alert("!");
@@ -137,17 +74,8 @@
    	});
 	
 	function fn_delete(geta){
-		
-	
-		if($('#commentsUpd')){
-			alert("dd");
-		}
-		
 		//a: form 자체를 의미
-		var a = document.getElementById(geta);
-		
-		alert(a);
-				
+		var a = document.getElementById(geta);	
 		// 삭제 경고창 '예'를 누를시
 		if (confirm("삭제하시겠습니까?")){		
 			// 삭제 이동
@@ -161,8 +89,6 @@
 	function fn_update(geta){		
 		//a: form 자체를 의미
 		var a = document.getElementById(geta);
-		
-		alert(a);
 				
 		// 삭제 경고창 '예'를 누를시
 		if (confirm("삭제하시겠습니까?")){		
@@ -182,9 +108,6 @@
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
-              <div class="title_left">
-                <h3>'${b.bd_title}' 글입니다.</h3>
-              </div>
             </div>
             <div class="clearfix"></div>
         <!-- page content -->

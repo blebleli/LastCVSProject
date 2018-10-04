@@ -150,10 +150,10 @@
 		$("table tbody tr").on("click", function(){
 			//tr태그의 data-id 속성 값을 읽어서 input 태그의 id 값으로 설정
 			//form 태그를 submit
-			if($(this).data("id2") == 'N'){
+// 			if($(this).data("id2") == 'N'){
 				$("#id").val($(this).data("id"));
 				$("#frm").submit();
-			}
+// 			}
 		});
 	
 		$("#search").on("click",function(){ // 제목 / 제목+내용 / 내용 / 작성자 중 선택 후 검색창을 누른다.
@@ -231,16 +231,6 @@
 												<td id="demoFonts">${vo.tot_cnt}</td>
 												<td style="text-align: left;"  id="demoFonts">
 												　　　[RE:]${vo.bd_title}</td>
-												<td id="demoFonts">관리자</td>
-												<td id="demoFonts">${vo.bd_date}</td>
-												<td id="demoFonts">${vo.bd_views}</td>
-											</tr>
-										</c:when>
-										<c:when test="${vo.bd_del=='Y'}">
-											<tr data-id="${vo.bd_id}">
-												<td id="demoFonts">${vo.tot_cnt}</td>
-												<td style="text-align: left;"  id="demoFonts">
-												${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')}</td>
 												<td id="demoFonts">관리자</td>
 												<td id="demoFonts">${vo.bd_date}</td>
 												<td id="demoFonts">${vo.bd_views}</td>

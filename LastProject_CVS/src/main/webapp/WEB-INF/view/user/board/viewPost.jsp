@@ -133,11 +133,6 @@
 <!-- //products-breadcrumb -->
 
 <!-- banner -->
-
-<form action="/board/view" method="post" id="frm">
-	<input type="hidden" name="bd_id" id="bd_id">
-</form>
-
 <div class="banner">
 		<!-- services -->
 		<div class="services">
