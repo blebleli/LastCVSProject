@@ -83,6 +83,10 @@ public class CvsPosMainController {
 	@Resource(name="somainService")
 	private soMainServiceInf somainService;
 	
+	@RequestMapping("/kakao")
+	public String kakao(Model model){
+		return "kakao_msg";
+	}
 
 	@RequestMapping("/main")
 	public ModelAndView cvsMain(Model model){

@@ -167,6 +167,11 @@
 	<put-attribute name="content" value="/WEB-INF/view/cvs/cvs_chart.jsp"/>
 	</definition>
 	
+	<!-- 통계 -->
+	<definition name="kakao_msg" extends="cvs_basicLayout">
+	<put-attribute name="content" value="/WEB-INF/view/cvs/kakaoTest.jsp"/>
+	</definition>
+	
 	
 	<!-- 관리자 레이아웃======================================================= -->
 	<definition name="ad_basicLayout" template="/WEB-INF/view/common/admin/ad_basicLayout.jsp">
