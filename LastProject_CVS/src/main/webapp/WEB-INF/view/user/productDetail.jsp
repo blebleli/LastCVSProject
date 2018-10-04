@@ -255,10 +255,10 @@
 											</div>
 											</c:when>
 											<c:otherwise>
-												<img id="meal" src="${review.src }" width="40px" height="35px"/>
-													<label>***** : *************</label>												
+												<img id="meal" src="" width="40px" height="35px"/>
+													<label>*****</label>												
 				
-													<div style="text-align: center;">** : ****</b></div>
+													<div style="text-align: center;"></b></div>
 											</div>
 											<br/>
 											<div class="col-md-8 w3agile_event_grid_right">
