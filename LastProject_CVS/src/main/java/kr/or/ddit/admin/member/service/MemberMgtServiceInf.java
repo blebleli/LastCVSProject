@@ -34,5 +34,15 @@ public interface MemberMgtServiceInf {
 	int deleteCvsMember(MemberVo paramMemberVo);
 	
 	
-	
+	/**
+	 * 편의점 정보 수정
+	 * Method 	  : updateCvsInfo
+	 * Method 설명  :
+	 * 최초작성일 : 2018. 9. 27.
+	 * 작성자 	  : 김현경
+	 * 변경이력   :
+	 *
+	 * @param MemberVo cvs
+	 */
+	int updateCvsInfo(MemberVo cvs);
 }
