@@ -92,7 +92,7 @@ public class AdminSupplyController {
 	public String adminSupplyLookup(@RequestParam(value="btnChk", defaultValue="") String check,
 									Model model){
 		
-//		logger.debug("check : {}", check);
+		logger.debug("check : {}", check);
 		
 		String supply_state = check;
 		
@@ -153,6 +153,7 @@ public class AdminSupplyController {
 		return "ad_supplyLookupView";
 	}
 	
+	@SuppressWarnings("null")
 	@RequestMapping("/supplyCheck")
 	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
@@ -168,10 +169,11 @@ public class AdminSupplyController {
 		String check = supply_bcd;
 		
 		//제품 아이디
-		String [] prod_idArray = prod_id.split(",");
+		String[] prod_idArray = prod_id.split(",");
 		
 		// 제품 수량
-		String [] sumArray = sum.split(",");
+		String[] sumArray = sum.split(",");
+		logger.debug("sumArray:{}",sumArray.length);
 		
 		//success 처리
 		adminSupplyService.setSuccessSupply(supply_bcd);
@@ -189,14 +191,15 @@ public class AdminSupplyController {
 //		}
 		//////////////////////////////////////////////////////
 		
-		//
-		
 		
 		// 최종 제품 개수 (형변환)
-		int [] intSumArray = null;
+		 int[] intSumArray = new int[sumArray.length];
+		
 		for (int j = 0; j < sumArray.length; j++) {
 			intSumArray[j] = Integer.parseInt(sumArray[j].toString());
+			logger.debug("intSumArray:{}",intSumArray);
 		}
+		
 		
 //		logger.debug("sum:{}",sum);
 //		for (String string : sumArray) {
