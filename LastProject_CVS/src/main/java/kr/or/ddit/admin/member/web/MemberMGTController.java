@@ -31,6 +31,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 /**
  * 
@@ -463,6 +464,17 @@ public class MemberMGTController {
 		response.setCharacterEncoding("UTF-8");
 
 		response.getWriter().print(result);
+	}
+	
+	@RequestMapping("/cvsUpdate")
+//	@ResponseBody
+	public String cvsUpdate(@RequestParam(value="mem_id")String mem_id, Model model){
+		MemberVo cvs = signUpService.getMember(mem_id);
+		if(cvs != null){
+			model.addAttribute("cvs", cvs);
+		}
+//		return "admin/member/ad_cvsMemberUpdate";
+		return "/admin/adprod/ad_category_popup";
 	}
 	
 	
