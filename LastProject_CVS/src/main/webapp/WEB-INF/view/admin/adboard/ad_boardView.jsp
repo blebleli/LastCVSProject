@@ -11,6 +11,9 @@
 .search {
 	text-align: center;
 }
+#iscenter {
+	text-align: center;
+}
 </style>
     <script src="/js/common/jquery-1.12.4.js"></script>
     <script>	
@@ -53,7 +56,6 @@
 			
 			$("#boardNew").on("click", function(){ // 게시글 작성을 누르면
 				$("#boardGo").attr("action","/adboard/boardNew") // 게시글 작성으로 이동한다.
-				alert($("#bd_kind_id3").val());
 				$("#boardGo").submit(); // 게시글 작성으로 이동한다.
 			});
 			
@@ -123,11 +125,11 @@
 							<c:when test="${bd_kind_id=='' || bd_kind_id=='44'}">
 							<thead>
 								<tr id="reviews" role="row" class="headings">
-									<th class="column-title" style="width: 5px;">번호</th>
-									<th class="column-title" style="width: 480px;">제목</th>
-									<th class="column-title" style="width: 30px;">작성자</th>
-									<th class="column-title" style="width: 35px;">작성일</th>
-									<th class="column-title" style="width: 35px;">조회수</th>
+									<th id="iscenter" class="column-title" style="width:5px;">순번</th>
+									<th class="column-title" style="width: 380px;">제목</th>
+									<th id="iscenter" class="column-title" style="width:70px;">작성자</th>
+									<th id="iscenter" class="column-title" style="width:75px;">작성일</th>
+									<th id="iscenter" class="column-title" style="width:55px;">조회수</th>
 								</tr>
 							</thead>
 							<tbody id="bd_code">
@@ -138,30 +140,57 @@
 										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
 											<tr class="even pointer" data-id="${vo.bd_id}"
 												data-id2="${vo.bd_del}">
-												<td>${vo.tot_cnt}</td>
+												<td id="iscenter">${vo.tot_cnt}</td>
 												<td>${vo.bd_title}</td>
-												<td>관리자</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>												
+												<td id="iscenter">
+													<c:choose>
+														<c:when test="${vo.mem_id=='admin'}">
+														관리자
+														</c:when>
+														<c:otherwise>
+														${vo.mem_name}
+														</c:otherwise>
+													</c:choose>
+												</td>
+												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>
 										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
 											<tr class="even pointer" data-id="${vo.bd_id}"
 												data-id2="${vo.bd_del}">
-												<td>${vo.tot_cnt }</td>
+												<td id="iscenter" >${vo.tot_cnt }</td>
 												<td>　　　[RE:]${vo.bd_title}</td>
-												<td>관리자</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>												
+												<td id="iscenter" >
+													<c:choose>
+														<c:when test="${vo.mem_id=='admin'}">
+														관리자
+														</c:when>
+														<c:otherwise>
+														${vo.mem_name}
+														</c:otherwise>
+													</c:choose>												
+												</td>
+												<td id="iscenter" >${vo.bd_date}</td>
+												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>										
 										<c:when test="${vo.bd_del=='Y'}">
 											<tr class="even pointer" data-id="${vo.bd_id}">
-												<td>${vo.tot_cnt }</td>
+												<td id="iscenter" >${vo.tot_cnt }</td>
 												<td>${fn:replace('[삭제된 글입니다]', nbsp, '&nbsp&nbsp&nbsp;')} -- [ 원제목 : ${vo.bd_title} ]</td>
-												<td>관리자</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>	
+												<td id="iscenter" >
+													<c:choose>
+														<c:when test="${vo.mem_id=='admin'}">
+														관리자
+														</c:when>
+														<c:otherwise>
+														${vo.mem_name}
+														</c:otherwise>
+													</c:choose>												
+												</td>
+												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter">${vo.bd_views}</td>	
 											</tr>
 										</c:when>
 									</c:choose>
@@ -171,13 +200,13 @@
 							<c:when test="${bd_kind_id=='55'}">
 							<thead>
 								<tr id="reviews" role="row" class="headings">
-									<th class="column-title" style="width: 5px;">순번</th>
-									<th class="column-title" style="width: 230px;">상품명</th>
+									<th id="iscenter" class="column-title" style="width: 5px;">순번</th>
+									<th id="iscenter" class="column-title" style="width: 150px;">상품명</th>
 									<th class="column-title" style="width: 250px;">제목</th>
-									<th class="column-title" style="width: 25px;">작성자</th>
-									<th class="column-title" style="width: 25px;">평점</th>
-									<th class="column-title" style="width: 25px;">작성일</th>
-									<th class="column-title" style="width: 25px;">조회수</th>
+									<th id="iscenter" class="column-title" style="width: 55px;">작성자</th>
+									<th id="iscenter" class="column-title" style="width: 35px;">평점</th>
+									<th id="iscenter" class="column-title" style="width: 55px;">작성일</th>
+									<th id="iscenter" class="column-title" style="width: 35px;">조회수</th>
 								</tr>
 							</thead>
 							<tbody id="bd_code">
@@ -188,13 +217,22 @@
 										<c:when test="${vo.bd_del=='N' && empty vo.bd_parent}">
 											<tr class="even pointer" data-id="${vo.bd_id}"
 												data-id2="${vo.bd_del}">
-												<td>${vo.tot_cnt}</td>
-												<td>${vo.prod_name}</td>
+												<td id="iscenter">${vo.tot_cnt}</td>
+												<td id="iscenter">${vo.prod_name}</td>
 												<td>${vo.bd_title}</td>
-												<td>${vo.mem_name}</td>
-												<td>${vo.bd_rating}</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>												
+												<td id="iscenter">
+													<c:choose>
+														<c:when test="${vo.mem_id=='admin'}">
+														관리자
+														</c:when>
+														<c:otherwise>
+														${vo.mem_name}
+														</c:otherwise>
+													</c:choose>												
+												</td>
+												<td id="iscenter">${vo.bd_rating}</td>
+												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>
 										<c:when test="${vo.bd_del=='N' && !empty vo.bd_parent}">
@@ -203,9 +241,19 @@
 												<td>${vo.tot_cnt }</td>
 												<td>${vo.prod_name}</td>
 												<td>　　　[RE:]${vo.bd_title}</td>
-												<td>${vo.mem_name}</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>												
+												<td id="iscenter">
+													<c:choose>
+														<c:when test="${vo.mem_id=='admin'}">
+														관리자
+														</c:when>
+														<c:otherwise>
+														${vo.mem_name}
+														</c:otherwise>
+													</c:choose>												
+												</td>
+												<td id="iscenter">${vo.bd_rating}</td>												
+												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>										
 										<c:when test="${vo.bd_del=='Y'}">
@@ -213,9 +261,19 @@
 												<td>${vo.tot_cnt }</td>
 												<td>${vo.prod_name}</td>
 												<td>[삭제된 글입니다] -- [ 원제목 : ${vo.bd_title} ]</td>
-												<td>${vo.mem_name}</td>
-												<td>${vo.bd_date}</td>
-												<td>${vo.bd_views}</td>	
+												<td>
+													<c:choose>
+														<c:when test="${vo.mem_id=='admin'}">
+														관리자
+														</c:when>
+														<c:otherwise>
+														${vo.mem_name}
+														</c:otherwise>
+													</c:choose>												
+												</td>
+												<td id="iscenter">${vo.bd_rating}</td>												
+												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter">${vo.bd_views}</td>	
 											</tr>
 										</c:when>
 									</c:choose>

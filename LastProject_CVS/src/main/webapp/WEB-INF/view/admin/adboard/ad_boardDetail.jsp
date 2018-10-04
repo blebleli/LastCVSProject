@@ -105,24 +105,24 @@
     <link href="/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
         
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" style="height: 1500px;" role="main">
           <div class="">
             <div class="page-title">
             </div>
             <div class="clearfix"></div>
         <!-- page content -->
 
-              <div style="float:inherit; margin-left: auto; margin-right: auto; width: 1100px;" class="col-md-12 col-sm-12 col-xs-12">
-                <div style="margin-left: auto; margin-right: auto;" class="x_panel">
+              <div style="float:inherit; margin-left: auto; margin-right: auto; width: 1100px; height: 1500px;" class="col-md-12 col-sm-12 col-xs-12">
+                <div style="margin-left: auto; margin-right: auto; height: 1400px;" class="x_panel">
                   <div style="margin-left: auto; margin-right: auto; width: 1000px;" class="x_title">
                     <h2>해당 글 정보입니다.</h2>
                     <div class="clearfix"></div>
                   </div>                  
                   
 				  <!-- ========================================================================== -->
-                  <div style="float:inherit; margin-left: auto; margin-right: auto; width: 1000px;" class="x_content">
+                  <div style="float:inherit; margin-left: auto; margin-right: auto; width: 1000px; height:800px;" class="x_content">
 		
-			<div style="width: 1000px;" class="w3ls_service_grids">
+			<div style="width: 1000px; height:800px;" class="w3ls_service_grids">
 
 				<div style="width: 1000px;" class="table-responsive">
 					<table style="margin-left: auto; margin-right: auto; width: 1000px;" class="table table-striped table-hover" id="reply_area">					
@@ -140,7 +140,7 @@
 							<td id="demoFont" class="col-sm-9">${b.bd_date}</td>
 						</tr>	
 						
-						<tr>
+						<tr style="height:350px;">
 							<td id="demoFonts" class="col-sm-1">내용</td>
 							<td id="demoFont" class="col-sm-9" colspan="3">${b.bd_content}</td>
 						</tr>

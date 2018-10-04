@@ -70,10 +70,10 @@
 										<button id="savebutton" type="button" class="btn btn-default">등록</button>
 									</div>
 								</div>
-								<input type="text" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
-								<input type="text" id="bd_kind_id" name="bd_kind_id" value="${boardVo.bd_kind_id}">
-								<input type="text" id="bd_del" name="bd_del" value="N">
-								<input type="text" id="bd_views" name="bd_views" value='0'>
+								<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">
+								<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${boardVo.bd_kind_id}">
+								<input type="hidden" id="bd_del" name="bd_del" value="N">
+								<input type="hidden" id="bd_views" name="bd_views" value='0'>
 							</form>
 						</div>
 			<!-- ==================================== 게시글 등록 내용 끝    ============================================================ -->
