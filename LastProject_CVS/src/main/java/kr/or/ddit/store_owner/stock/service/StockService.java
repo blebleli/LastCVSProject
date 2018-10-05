@@ -184,7 +184,7 @@ public class StockService implements StockServiceInf {
 	public int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id) {
 
 		//mem_id로 폴더 존재하는지 체크
-		barcodeService.makeDir("supply", mem_id);
+		barcodeService.makeDir("stock", mem_id);
 
 		//재고 테이블 insert
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
@@ -221,7 +221,7 @@ public class StockService implements StockServiceInf {
 
 			//바코드 생성
 			try {
-				barcodeService.generateQRCodeImage(bcd_id,"D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/"+bcd_id+".jpg");
+				barcodeService.generateQRCodeImage(bcd_id,"D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/"+mem_id+"/"+bcd_id+".jpg");
 			} catch (WriterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -250,8 +250,6 @@ public class StockService implements StockServiceInf {
 		return 1;
 	}
 
-	
-	
 //update ====================================================================================		
 	
 	
