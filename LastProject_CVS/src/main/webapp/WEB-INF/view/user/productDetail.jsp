@@ -93,7 +93,7 @@
 			// 			alert(rat + "\n" + bd_title + "\n" + bd_content + "\n" + $("#bd_rating").val()+ "\n" + $("#prod_id").val()+ "\n" + $("#mem_id").val());
 
 			$("#reFrm").submit();
-			
+			alert($("#point_name").val() + "님\n포인트 10점이 적립되었습니다.");			
 
 		});
 
@@ -108,7 +108,7 @@
 		});
 	});
 </script>
-
+<input type="hidden" id="point_name" value="${sessionScope.userInfo.mem_name}">
 <!-- top 이랑 구분 해주면서 현재 창의 카테고리 출력 -->
 <div class="products-breadcrumb">
 	<div class="container">
