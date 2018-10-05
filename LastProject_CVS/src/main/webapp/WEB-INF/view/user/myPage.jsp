@@ -589,16 +589,17 @@ $(document).ready(function() {
 									<div class="col-md-5 w3ls_w3l_banner_left">
 										<div class="hover14 column">
 											<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
-												<div class="agile_top_brand_left_grid_pos">
-													주머니 생성된 바코드 사진 - 임의의 데이터 수정요망 <img src="/images/offer.png" alt=" " class="img-responsive" />
-												</div>
+											
 												<div class="agile_top_brand_left_grid1 ">
 													<figure>
 														<div class="snipcart-item block">
 															<div class="snipcart-thumb">
-																<a href="/user/productDetail"> <img src="/images/5.png" alt=" " class="img-responsive" /></a>
+																<a href="/user/productDetail"> 
+																
+																<img src="/images/5.png" alt=" " class="img-responsive" /></a>
 																<p>상품이름</p>
 																<h4>가격</h4>
+																
 															</div>
 															<div class="snipcart-details">
 																<form action="#" method="post"> 
@@ -612,7 +613,7 @@ $(document).ready(function() {
 																		<input type="hidden" name="currency_code" value="USD" /> 
 																		<input type="hidden" name="return" value=" " /> 
 																		<input type="hidden" name="cancel_return" value=" " /> 
-																		<input type="submit" name="submit" value="Add to cart" class="button" />
+																		<input type="submit" name="submit" value="Add to cart" class="btn btn-default" />
 																	</fieldset>
 																</form>
 															</div>
@@ -668,10 +669,7 @@ $(document).ready(function() {
 					<div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-bookmarkProd">
 						
 							<div class="x_panel">
-								<div class="x_title">
-									<h3>즐겨찾는 상품</h3>
-									<div class="clearfix"></div>
-								</div>
+								
 								<div class="x_content">
 									<br />
 										<c:forEach items="${prodBookmarkList}" var="vo">
@@ -679,35 +677,32 @@ $(document).ready(function() {
 									<div class="col-md-5 w3ls_w3l_banner_left">
 										<div class="hover14 column">
 											<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
-												<div class="agile_top_brand_left_grid_pos">
-													<img src="/images/offer.png" alt=" " class="img-responsive" />
-												</div>
 												<div class="agile_top_brand_left_grid1 ">
 													<figure>
 														<div class="snipcart-item block">
-																<c:set var="prod_img" value="${vo.file_path}/${vo.file_upname }"/>
-																	<div class="snipcart-thumb">
-																		<a href="/userProd/detail?prod_id=${vo.prod_id}"> <img src="<c:url value='${prod_img}' />"  alt="prod img" class="img-responsive" />
-																		</a>
-																		<p align="center">${vo.prod_name}</p>
-																		<h4 align="center">${vo.prod_price}원</h4>
-																	</div>
-																	<div class="snipcart-details">
-																		<form action="#" method="post">
-																			<fieldset>
-																				<input type="hidden" name="cmd" value="_cart" /> 
-																				<input type="hidden" name="add" value="1" /> 
-																				<input type="hidden" name="business" value=" " /> 
-																				<input type="hidden" name="item_name" value="knorr instant soup" /> 
-																				<input type="hidden" name="amount" value="3.00" /> 
-																				<input type="hidden" name="discount_amount" value="1.00" /> 
-																				<input type="hidden" name="currency_code" value="USD" /> 
-																				<input type="hidden" name="return" value=" " /> 
-																				<input type="hidden" name="cancel_return" value=" " /> 
-																				<input type="submit" name="submit" value="상세보기" class="button" />
-																			</fieldset>
-																		</form>
-																	</div>
+															<c:set var="prod_img" value="${vo.file_path}/${vo.file_upname }"/>
+																<div class="snipcart-thumb">
+																	<a href="/userProd/detail?prod_id=${vo.prod_id}"> <img src="<c:url value='${prod_img}' />"  alt="prod img" class="img-responsive" />
+																	</a>
+																	<p align="center">${vo.prod_name}</p>
+																	<h4 align="center">${vo.prod_price}원</h4>
+																</div>
+																<div class="snipcart-details">
+																	<form action="#" method="post">
+																		<fieldset>
+																			<input type="hidden" name="cmd" value="_cart" /> 
+																			<input type="hidden" name="add" value="1" /> 
+																			<input type="hidden" name="business" value=" " /> 
+																			<input type="hidden" name="item_name" value="knorr instant soup" /> 
+																			<input type="hidden" name="amount" value="3.00" /> 
+																			<input type="hidden" name="discount_amount" value="1.00" /> 
+																			<input type="hidden" name="currency_code" value="USD" /> 
+																			<input type="hidden" name="return" value=" " /> 
+																			<input type="hidden" name="cancel_return" value=" " /> 
+																			<input type="submit" name="submit" value="상세보기" class="button" />
+																		</fieldset>
+																	</form>
+																</div>
 														</div>
 													</figure>
 												</div>
@@ -722,7 +717,6 @@ $(document).ready(function() {
 					</div>
 					<!-- 구매내역----------------------------------------------------------------------------------------------------------- -->
 					<div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="profile-buyHistory">
-						1. 구매내역이 보여진 후 클릭하면, 2. 상세 구매내역이 보여지도록 해야됨 --상세구매내역 아코디언으로
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -744,10 +738,7 @@ $(document).ready(function() {
 									</tr>
 								</c:forEach>
 							</tbody>
-						</table>
-						<div class="text-center" id="page">
-							<ul class="pagination">${pageNaviPayList}</ul>
-						</div>
+						</table>				
 					</div>
 				</div>
 			</div>
@@ -755,7 +746,7 @@ $(document).ready(function() {
 	</div>
 </div>
 <!-- //about -->
-</div>
+
 <div class="clearfix"></div>
 <div style="margin-bottom: 100px;"></div>
 <!-- //banner -->

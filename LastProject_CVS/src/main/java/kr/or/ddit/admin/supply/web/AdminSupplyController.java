@@ -216,6 +216,7 @@ public class AdminSupplyController {
 		//점주 ID이자 편의점 ID
 //		String mem_id = adminApplyVo.getMem_id();
 		
+		logger.debug("폴더생성과정--------------------------------");
 		//폴더 생성 (폴더가 있으면 그 폴더에 QR코드가 생성이 되고 폴더가 없으면 새로 생성)
 		barcodeService.makeDir("supply", mem_id);
 		
