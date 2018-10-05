@@ -145,7 +145,7 @@
 						<td id="demoFont" class="col-sm-1">제목</td>
 						<td id="demoFont2" class="col-sm-9">${post.bd_title}</td>
 						<td id="demoFont" class="col-sm-1">조회수</td>
-						<td id="demoFont2" class="col-sm-9">${b.bd_views}</td>			
+						<td id="demoFont2" class="col-sm-9">${post.bd_views}</td>			
 					</tr>
 					
 					<tr>
