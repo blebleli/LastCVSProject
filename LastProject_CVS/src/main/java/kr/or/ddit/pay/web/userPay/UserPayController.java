@@ -70,8 +70,8 @@ public class UserPayController {
 //	<input type="hidden" name="cancel_return"     value=" "> 
 	
 	@RequestMapping("/pay")
-	public String payView(@RequestParam(value="prod_name")String prod_name, @RequestParam(value="prod_info" ,defaultValue="")String prod_info, 
-			                    @RequestParam(value="prod_cnt")String prod_cnt, Model model){
+	public String payView(@RequestParam(value="prod_name",  defaultValue="")String prod_name, @RequestParam(value="prod_info" ,defaultValue="")String prod_info, 
+			                    @RequestParam(value="prod_cnt" , defaultValue="")String prod_cnt, Model model){
 		
 		logger.debug("payView=================================================================") ;
 		logger.debug("prod_name ==> {}",prod_name) ;
@@ -93,6 +93,11 @@ public class UserPayController {
 			// 쿼리 실행
 			vo = prodService.getPayProd(result);
 			
+			// 데이터 확인
+			//logger.debug("name : {} // cnt : {}",result.get("name") , result.get("cnt"));
+			//logger.debug("vo == > {}", vo);
+			
+			vo.setTot_cnt(i+1);
 			prod.add(vo);
 		}
 		
@@ -106,6 +111,7 @@ public class UserPayController {
 		
 //		ProdVo prod = prodService.getProd();
 		
+		model.addAttribute("cnt", name.length);
 		model.addAttribute("prod", prod);
 		
 		return "pay";
