@@ -4,8 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
+
+import kr.or.ddit.admin.member.service.MemberMgtServiceInf;
 import kr.or.ddit.admin.prod.service.AdminProdServiceInf;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
@@ -15,6 +18,8 @@ import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
+import kr.or.ddit.model.MemberVo;
+
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +46,9 @@ public class AdboardController {
 	
 	@Resource(name="adminProdService")
 	private AdminProdServiceInf adminProdService;
+	
+	@Resource(name="memberMgtService")
+	private MemberMgtServiceInf memberMgtService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -145,7 +153,7 @@ public class AdboardController {
 	 * @throws ServletException 
 	 */
 	@RequestMapping("/boardCreate")
-	public String boardCreate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile, BoardVo boardVo, Model model) throws ServletException, IOException{
+	public String boardCreate(@RequestParam(value="file_name", defaultValue="") List<MultipartFile> multipartFile, MemberVo memberVo, BoardVo boardVo, Model model) throws ServletException, IOException{
 		
 		// 리턴 페이지 
 		String returnPage = "";
@@ -186,9 +194,13 @@ public class AdboardController {
 			
 		}else if(boardVo.getBd_kind_id().equals("55")){ // 리뷰
 			boardVo.setBd_id(code.autoCode("BRE"));
-			tempSavePath += "/BRE/";
-			path+= "/BRE/";
-			returnPage = "redirect:/userProd/detail";
+			memberVo.setMem_point(10); // 상품리뷰 작성 후 10포인트 적립
+			int cnt = memberMgtService.pointPlus(memberVo); // 멤버 정보 수정
+			if (cnt > 0){
+				tempSavePath += "/BRE/";
+				path+= "/BRE/";
+				returnPage = "redirect:/userProd/detail";
+			}
 			
 		}else if(boardVo.getBd_kind_id().equals("66")){ // 이벤트
 			boardVo.setBd_id(code.autoCode("BEV"));

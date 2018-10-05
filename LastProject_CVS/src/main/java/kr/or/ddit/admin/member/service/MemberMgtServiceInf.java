@@ -45,4 +45,15 @@ public interface MemberMgtServiceInf {
 	 * @param MemberVo cvs
 	 */
 	int updateCvsInfo(MemberVo cvs);
+	
+	/**
+	 * Method : pointPlus
+	 * 최초작성일 : 2018. 10. 5.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param memberVo
+	 * @return
+	 * Method 설명 : 상품리뷰 작성시 포인트 획득
+	 */
+	int pointPlus(MemberVo memberVo);
 }

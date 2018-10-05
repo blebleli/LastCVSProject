@@ -389,4 +389,8 @@
 		 WHERE MEM_ID = #{mem_id}
   	</select>
   	
+  	<!-- 리뷰 작성 후 포인트 획득 -->
+  	<update id="pointPlus" parameterType="memberVo">
+		UPDATE MEMBER SET mem_point = mem_point + #{mem_point, jdbcType=NUMERIC} WHERE mem_id = #{mem_id}
+  	</update>  	
 </mapper>
