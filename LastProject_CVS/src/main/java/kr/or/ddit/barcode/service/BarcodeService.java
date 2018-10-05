@@ -1,5 +1,6 @@
 package kr.or.ddit.barcode.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -53,6 +54,16 @@ public class BarcodeService implements BarcodeServiceInf {
 			MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void makeDir(String kind,String mem_id) {
+		String patt = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\src\\main\\webapp\\barcode\\"+kind+"\\"+mem_id;
+		File filee = new File(patt);
+		if (!filee.exists()) {
+			try{filee.mkdir();} 
+		    catch(SecurityException se){}        
 		}
 	}
 

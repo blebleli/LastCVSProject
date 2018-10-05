@@ -183,12 +183,8 @@ public class StockService implements StockServiceInf {
 	@Override
 	public int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id) {
 
-		String patt = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\src\\main\\webapp\\barcode\\supply\\"+mem_id;
-		File filee = new File(patt);
-		if (!filee.exists()) {
-			try{filee.mkdir();} 
-		    catch(SecurityException se){}        
-		}
+		//mem_id로 폴더 존재하는지 체크
+		barcodeService.makeDir("supply", mem_id);
 
 		//재고 테이블 insert
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
@@ -222,9 +218,8 @@ public class StockService implements StockServiceInf {
 
 			barcodeVo.setBcd_path("-");       	 	 			//경로 888일때는 이미지도 생성
 			logger.debug("바코드생성 --------------------------- ");
-			
-			
-			
+
+			//바코드 생성
 			try {
 				barcodeService.generateQRCodeImage(bcd_id,"D:\\최종프\\barcodeImg\\"+bcd_id+".jpg");
 			} catch (WriterException e) {
@@ -232,7 +227,6 @@ public class StockService implements StockServiceInf {
 				e.printStackTrace();
 			}
 			
-
 			barcodeService.setInsertBarcode(barcodeVo);			
 			
 			//재고 리스트생성---------------------------------				
@@ -253,7 +247,6 @@ public class StockService implements StockServiceInf {
 		}
 		
 		logger.debug("입고 : stocklist insert 완료 -----");
-
 		return 1;
 	}
 
