@@ -164,6 +164,8 @@ public class AdminSupplyController {
 							  AdminApplyVo adminApplyVo,
 							  Model model							  ){
 		
+		logger.debug("mem_id=====:{}",mem_id);
+		
 		logger.debug("supplyCheck ======================adminApplyVo ===============> {} " ,adminApplyVo);
 		//발주 리스트중에서 상세 보기 후 그것에 대한 수불 바코드
 		String check = supply_bcd;
@@ -214,6 +216,9 @@ public class AdminSupplyController {
 		//점주 ID이자 편의점 ID
 //		String mem_id = adminApplyVo.getMem_id();
 		
+		//폴더 생성 (폴더가 있으면 그 폴더에 QR코드가 생성이 되고 폴더가 없으면 새로 생성)
+		barcodeService.makeDir("supply", mem_id);
+		
 		//supply_bcd를 새로이 생성
 		String code = "SUPPLY";
 		String supply_bcdCode = autoCodeCreate.barcode(code);
@@ -223,10 +228,10 @@ public class AdminSupplyController {
 
 		// 실제 저장될 경로
 		String filePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/LastProject_CVS/src/main/webapp/barcode/supply/"+mem_id+"/"+supply_bcdCode+".jpg";
+//		
 		String dbPath = "/barcode/supply/"+mem_id; 
-
 		
-		// 큐알코드 생성
+//		// QR코드 생성
 		try {
 			barcodeService.generateQRCodeImage(text, filePath);
 		} catch (WriterException e) {
