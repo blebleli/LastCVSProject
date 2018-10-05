@@ -59,7 +59,7 @@ public class BarcodeService implements BarcodeServiceInf {
 
 	@Override
 	public void makeDir(String kind,String mem_id) {
-		String patt = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\src\\main\\webapp\\barcode\\"+kind+"\\"+mem_id;
+		String patt = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/LastProject_CVS/src/main/webapp/barcode/"+kind+"/"+mem_id;
 		File filee = new File(patt);
 		if (!filee.exists()) {
 			try{filee.mkdir();} 
