@@ -26,9 +26,9 @@ public interface BarcodeServiceInf {
 	 * @param width
 	 * @param height
 	 * @param filePath 
-	 * Method 설명 :
+	 * Method 설명 :  
 	 */
-	 void generateQRCodeImage(String text, String filePath) throws WriterException;
+	 void generateQRCodeImage(String bcd_id,String kind, String mem_id) throws WriterException;
 	
 	 /**
 	  * 
@@ -37,7 +37,7 @@ public interface BarcodeServiceInf {
 	  * 작성자 : PC06 
 	  * 변경이력 : 
 	  * @param filePath 
-	  * Method 설명 :
+	  * Method 설명 : mem_id로 폴더가 없을경우 생성
 	  */
 	 void makeDir(String kind,String mem_id);
 }

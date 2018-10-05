@@ -221,7 +221,7 @@ public class StockService implements StockServiceInf {
 
 			//바코드 생성
 			try {
-				barcodeService.generateQRCodeImage(bcd_id,"D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/"+mem_id+"/"+bcd_id+".jpg");
+				barcodeService.generateQRCodeImage(bcd_id,"stock",mem_id);
 			} catch (WriterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

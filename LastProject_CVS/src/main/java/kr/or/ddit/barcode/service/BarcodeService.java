@@ -44,11 +44,30 @@ public class BarcodeService implements BarcodeServiceInf {
 		return 0;
 	}
 
+	//
+	private static String barcodePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/";
+	
+	/**
+	 * 
+	 * Method   : generateQRCodeImage 
+	 * 최초작성일  : 2018. 10. 5. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param bcd_id
+	 * @param kind
+	 * @param mem_id
+	 * @throws WriterException 
+	 * Method 설명 :bcd_id,kind,mem_id 순으로 입력하면 qr코드 생성
+	 */
 	@Override
-	public void generateQRCodeImage(String text, String filePath) throws WriterException {		    	
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, 350, 350);
+	public void generateQRCodeImage(String bcd_id,String kind, String mem_id) throws WriterException {
+		
+		String filePath = barcodePath+kind+"/"+mem_id+"/"+bcd_id+".jpg";
+        
+		QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(bcd_id, BarcodeFormat.QR_CODE, 350, 350);
 
+        
         Path path = FileSystems.getDefault().getPath(filePath);
         try {
 			MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
@@ -59,13 +78,20 @@ public class BarcodeService implements BarcodeServiceInf {
 
 	@Override
 	public void makeDir(String kind,String mem_id) {
-		String patt = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/"+kind+"/"+mem_id;
-		File filee = new File(patt);
-		if (!filee.exists()) {
-			try{filee.mkdir();} 
+		
+		String patt = barcodePath+kind+"/"+mem_id;
+		
+		File currentDir = new File(patt);
+	
+		if (!currentDir.exists()) {
+			try{currentDir.mkdir();} 
 		    catch(SecurityException se){}        
 		}
+
 	}
+	
+
+	
 
 
 }

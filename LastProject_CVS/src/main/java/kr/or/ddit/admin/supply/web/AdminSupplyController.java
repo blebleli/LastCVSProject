@@ -228,13 +228,13 @@ public class AdminSupplyController {
 		String text = supply_bcdCode;
 
 		// 실제 저장될 경로
-		String filePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/LastProject_CVS/src/main/webapp/barcode/supply/"+mem_id+"/"+supply_bcdCode+".jpg";
+//		String filePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/LastProject_CVS/src/main/webapp/barcode/supply/"+mem_id+"/"+supply_bcdCode+".jpg";
 //		
 		String dbPath = "/barcode/supply/"+mem_id; 
 		
 //		// QR코드 생성
 		try {
-			barcodeService.generateQRCodeImage(text, filePath);
+			barcodeService.generateQRCodeImage(text,"supply", mem_id);
 		} catch (WriterException e) {
 			e.printStackTrace();
 		}

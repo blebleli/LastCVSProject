@@ -227,6 +227,7 @@ FROM (
       WHERE MEM.MEM_ID     = #{mem_id}
         AND  ST.STOCK_KIND = #{stock_kind}
         AND  STL.PROD_ID = (SELECT PROD_ID FROM STOCK_LIST WHERE BCD_ID = #{bcd_id} )
+        AND STL.BCD_ID = #{bcd_id}
 )T
 GROUP BY    T.PROD_NAME , T.PROD_COST , T.PROD_PRICE  , T.EVENT_NAME, T.EVENT_DISCOUNT,T.prod_id, T.bcd_id, T.STCKLIST_EXDATE
 
