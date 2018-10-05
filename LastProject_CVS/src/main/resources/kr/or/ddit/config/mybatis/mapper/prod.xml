@@ -504,21 +504,23 @@ WHERE  PROD_ID 		= #{prod_id}
 
 
 <select id="getPayProd" resultType="prodVo" parameterType="map">
-
-SELECT   prod_id     
-        ,prod_name   
-        ,prod_intro  
-        ,prod_info   
-        ,prod_price  
-        ,#{cnt} AS prod_exnum  -- CNT로 대체
-        ,file_path   
-        ,file_upname 
-        ,pr_class_lg 
-        ,pr_class_md 
-        ,event_id    
-        ,prod_cost   
-FROM PROD 
-WHERE PROD_NAME = #{name}
+SELECT   P.PROD_ID     
+                ,P.PROD_NAME   
+                ,P.PROD_INTRO  
+                ,P.PROD_INFO   
+                ,P.PROD_PRICE  
+                ,#{cnt} AS PROD_EXNUM  -- CNT로 대체
+                ,P.FILE_PATH   
+                ,P.FILE_UPNAME 
+                ,P.PR_CLASS_LG 
+                ,P.PR_CLASS_MD 
+                ,P.EVENT_ID    
+                ,P.PROD_COST   
+                ,(
+                  SELECT NVL(AVG(BD_RATING),0) FROM BOARD WHERE PROD_ID = P.PROD_ID
+                  ) AS BD_RATING
+        FROM PROD P
+        WHERE P.PROD_NAME = #{name}   
 </select>
 
 </mapper>
