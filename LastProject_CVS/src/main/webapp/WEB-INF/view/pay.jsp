@@ -1,56 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<html>
-
-<%-- <%@include file="/WEB-INF/view/common/user/userTop.jsp" %> --%>
-<!-- products-breadcrumb -->
-	<div class="products-breadcrumb">
-		<div class="container">
-			<ul>
-				<li><i class="fa fa-home" aria-hidden="true"></i><a href="index.html">Home</a><span>|</span></li>
-				<li>결제</li>
-			</ul>
-		</div>
+<!-- top 이랑 구분 해주면서 현재 창의 상태 출력 -->
+<div class="products-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><i class="fa fa-home" aria-hidden="true"></i><a
+				href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+				<li>장바구니 &nbsp; </li>
+		</ul>
 	</div>
-<!-- //products-breadcrumb -->
-
-<!-- banner -->
-<div class="banner">
-		<div class="w3l_banner_nav_left">
-			<nav class="navbar nav_bottom">
-			 <!-- Brand and toggle get grouped for better mobile display -->
-			  <div class="navbar-header nav_2">
-				  <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				  </button>
-			   </div> 
-			   <!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
-					<ul class="nav navbar-nav nav_1">
-						<li><a href="products.html">간편식사</a></li>
-						<li><a href="household.html">즉석조리</a></li>
-						<li><a href="kitchen.html">과자류</a></li>
-						<li><a href="short-codes.html">아이스크림</a></li>
-						<li><a href="pet.html">식품</a></li>
-						<li><a href="bread.html">음료</a></li>
-						<li><a href="bread.html">생활용품</a></li>
-					</ul>
-				 </div><!-- /.navbar-collapse -->
-			</nav>
-		</div>
+</div>
 		
-		<div class="w3l_banner_nav_right">
-<!-- about -->
+		<div class="w3ls_w3l_banner_nav_right_grid">
 		<div class="privacy about">
-			<h3>Chec<span>kout</span></h3>
+			<h3>장바구니 결제</h3>
 			
 	      <div class="checkout-right">
-					<h4>선택한 상품 : <span>1</span>개의 상품</h4>
+					<h4>선택한 상품 : <span>${cnt }</span>개의 상품</h4>
 				<table class="timetable_sub">
 					<thead>
 						<tr>
@@ -111,9 +78,5 @@
 <!-- //about -->
 		</div>
 		<div class="clearfix"></div>
-	</div>
-<!-- //banner -->
 
 <%-- <%@include file="/WEB-INF/view/common/user/userBottom.jsp" %> --%>
-</body>
-</html>
