@@ -183,15 +183,13 @@ public class StockService implements StockServiceInf {
 	@Override
 	public int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id) {
 
-		String patt = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\src\\main\\webapp\\barcode\\"+mem_id;
-		Path path = Paths.get(patt);
-		File pahh = path.toFile();
-		
-		if (!Files.exists(path)) {
-			try{pahh.mkdir();} 
+		String patt = "D:\\A_TeachingMaterial\\8.LastProject\\workspace\\LastProject_CVS\\src\\main\\webapp\\barcode\\supply\\"+mem_id;
+		File filee = new File(patt);
+		if (!filee.exists()) {
+			try{filee.mkdir();} 
 		    catch(SecurityException se){}        
 		}
-		
+
 		//재고 테이블 insert
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
 
@@ -209,6 +207,7 @@ public class StockService implements StockServiceInf {
 		logger.debug("입고 : stock insert 완료 -----");
 
 //재고 리스트 insert ---------------------------------
+		
 		for (SupplyListVo vo : supplyListVo) {
 			
 			//바코드생성---------------------------------		
