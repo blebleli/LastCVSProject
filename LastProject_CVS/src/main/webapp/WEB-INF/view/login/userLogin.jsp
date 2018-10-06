@@ -183,10 +183,10 @@ $(document).ready(function() {
 						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required style=" margin-bottom: 0px;"> 
 						<div id="error">${errMsg}</div><br />
 <!-- 					<input type="submit" value="로그인 >" id="btnLogin" > -->
-						<input type="button" value="로그인 >" id="btnLogin" >
+						<input type="button" value="로그인 >" id="btnLogin" style="margin-bottom: 15px;">
 				</form>
 								
-					<!-- 카카오 로그인 test -->
+					<!-- 카카오 로그인 -->
 					<a id="kakao-login-btn"></a>
 
 				</div> <!-- //<div class="form">로그인  -->
@@ -283,17 +283,21 @@ $(document).ready(function() {
 <script>
 
 //<![CDATA[
-//사용할 앱의 JavaScript 키를 설정해 주세요.
+
 Kakao.init('20ef2122f316faf3ee201ff1da312505');
-//카카오 로그인 버튼을 생성합니다.
+
+//로그인 버튼을 생성합니다.
 Kakao.Auth.createLoginButton({
 container: '#kakao-login-btn',
 success: function(authObj) {
+	
   // 로그인 성공시, API를 호출합니다.
   Kakao.API.request({
     url: '/v2/user/me',
     success: function(res) {
       alert(JSON.stringify(res));
+		console.log('이메일has : '+res.kakao_account.has_email);
+		console.log('이메일 id--- : '+res.kakao_account.email);
     },
     fail: function(error) {
       alert(JSON.stringify(error));

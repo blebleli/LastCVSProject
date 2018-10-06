@@ -11,6 +11,7 @@
 <a id="kakao-link-btn" href="javascript:sendLink()">
 <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"/>
 </a>
+<a href="http://developers.kakao.com/logout">로그아웃</a>
 <script type='text/javascript'>
 
   //<![CDATA[

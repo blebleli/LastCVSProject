@@ -6,6 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- =======<tiles: ="content" /> ============> 마이페이지  myPage.jsp  -->
 <!-- login css  -->
@@ -26,6 +27,7 @@
 <script type="text/javascript" src="<c:url value='/js/common/move-top.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/easing.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/common/bootstrap.min.js' />"></script>	<!--// Bootstrap Core JavaScript -->
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <%-- <script type="text/javascript" src="<c:url value='/js/common/calendar.js' />"></script> <!-- 달력 : 별 09.07 --> --%>
 
 
@@ -574,61 +576,64 @@ $(document).ready(function() {
 						
 					</div> 
 					
-					<!-- 나의주머니 -------------------------------------------------------------------------------------------------------- -->
-					<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-mypocket">
+	<!-- 나의주머니 -------------------------------------------------------------------------------------------------------- -->
+	<div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-mypocket">
 
-						<div class="col-md-10 col-sm-10 col-xs-12">
-							<div class="x_panel">
-								<div class="x_title">
-									<h2>나의 주머니</h2>
-									<div class="clearfix"></div>
-								</div>
-								<div class="x_content">
-									<br />
+		<div class="col-md-10 col-sm-10 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>나의 주머니</h2>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<br />
 
-									<div class="col-md-5 w3ls_w3l_banner_left">
-										<div class="hover14 column">
-											<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">
-											
-												<div class="agile_top_brand_left_grid1 ">
-													<figure>
-														<div class="snipcart-item block">
-															<div class="snipcart-thumb">
-																<a href="/user/productDetail"> 
-																
-																<img src="/images/5.png" alt=" " class="img-responsive" /></a>
-																<p>상품이름</p>
-																<h4>가격</h4>
-																
-															</div>
-															<div class="snipcart-details">
-																<form action="#" method="post"> 
-																	<fieldset>
-																		<input type="hidden" name="cmd" value="_cart" /> 
-																		<input type="hidden" name="add" value="1" /> 
-																		<input type="hidden" name="business" value=" " /> 
-																		<input type="hidden" name="item_name" value="knorr instant soup" />
-																		<input type="hidden" name="amount" value="3.00" /> 
-																		<input type="hidden" name="discount_amount" value="1.00" /> 
-																		<input type="hidden" name="currency_code" value="USD" /> 
-																		<input type="hidden" name="return" value=" " /> 
-																		<input type="hidden" name="cancel_return" value=" " /> 
-																		<input type="submit" name="submit" value="Add to cart" class="btn btn-default" />
-																	</fieldset>
-																</form>
-															</div>
+				<c:choose>
+					<c:when test="${!empty myPocketList}">
+					<c:forEach items="${myPocketList}" var="vo" varStatus="status">
+
+							<div class="col-md-5 w3ls_w3l_banner_left">
+								<div class="hover14 column">
+									<div class="agile_top_brand_left_grid w3l_agile_top_brand_left_grid">												
+										<div class="agile_top_brand_left_grid1 ">
+											<figure>
+												<div class="snipcart-item block">
+													<div class="snipcart-thumb">
+													
+														<a href="/user/productDetail">
+														<img src="/images/5.png" alt=" " class="img-responsive" /></a>
+														<p>${vo.prod_name}</p>
+														<h4>생성날짜 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
+														
+														<div class="snipcart-details">
+															<a id="kakao-link-btn"  href="javascript:sendLink()">
+															<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width : 25px">
+															카카오톡 보내기
+															</a>
 														</div>
-													</figure>
+													</div>
+													
 												</div>
-											</div>
+											</figure>
 										</div>
 									</div>
-
 								</div>
 							</div>
-						</div>
-
+									
+									
+							</c:forEach> 
+							</c:when>
+							
+							<c:otherwise>
+								<tr><td colspan="3" align="center">즐겨찾기한 편의점이 없습니다.</td></tr>
+							</c:otherwise>
+						</c:choose>	
+						
 					</div>
+				</div>
+			</div>
+		</div>
+				
 
 
 					<!-- 자주가는 편의점-------------------------------------------------------------------------------------------------------- -->
@@ -750,5 +755,22 @@ $(document).ready(function() {
 <div class="clearfix"></div>
 <div style="margin-bottom: 100px;"></div>
 <!-- //banner -->
+
+<script type='text/javascript'>
+  //<![CDATA[
+    Kakao.init('20ef2122f316faf3ee201ff1da312505');
+
+    function sendLink() {
+      Kakao.Link.sendCustom({
+        templateId: 12634,
+        templateArgs: {
+          'title': "${sessionScope.userInfo.mem_name}"+' 고객님',
+          'content': '바코드 : BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee',
+          'bcdImg' : 'http://172.30.1.36:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg'
+        }
+      });
+    }
+  //]]>
+</script>
 
 <!-- =======<tiles: ="content" /> ============> 마이페이지  myPage.jsp 끝  -->
