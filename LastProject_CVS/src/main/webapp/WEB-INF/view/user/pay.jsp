@@ -151,7 +151,7 @@ $(function(){
 						'<input class="number credit-card-number form-control" type="text" name="number"'+
 									 'inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"'+
 									  'placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">'+
-						'<label class="control-label">CVV</label>'+
+						'<label class="control-label">CVC</label>'+
 						'<input class="security-code form-control"Â·'+
 									 ' inputmode="numeric"'+
 									  'type="text" name="security-code"'+
