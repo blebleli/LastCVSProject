@@ -79,9 +79,13 @@
   	<!-- 0920한수정 POS결제관련 -->
   	<typeAlias type="kr.or.ddit.store_owner.model.PosPayVo" alias="posPayVo"/>
   	
+  	<!-- 1006한수정 나의주머니 보기 관련 -->
+  	<typeAlias type="kr.or.ddit.user.model.PocketProdVo" alias="pocketProdVo"/>
+  	
   </typeAliases>
 
-  <mappers> 
+  <mappers>
+   	<mapper resource="kr/or/ddit/config/mybatis/mapper/pocket.xml"/>
  	<mapper resource="kr/or/ddit/config/mybatis/mapper/pay.xml"/>	
  	<mapper resource="kr/or/ddit/config/mybatis/mapper/disposal.xml"/>  
   	<mapper resource="kr/or/ddit/config/mybatis/mapper/barcode.xml"/>  

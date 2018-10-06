@@ -3,6 +3,7 @@ package kr.or.ddit.user.pocket.dao;
 import java.util.List;
 
 import kr.or.ddit.model.PocketVo;
+import kr.or.ddit.user.model.PocketProdVo;
 
 /**
 * @Class Name : PocketDaoInf.java
@@ -53,7 +54,7 @@ public interface PocketDaoInf {
 	* @param mem_id
 	* @return
 	*/
-	List<PocketVo> getListPocket(String mem_id);
+	List<PocketProdVo> getMyPocket(String mem_id);
 	
 	/**
 	* Method : getListPocket

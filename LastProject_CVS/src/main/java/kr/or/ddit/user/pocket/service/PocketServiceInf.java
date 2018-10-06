@@ -3,6 +3,7 @@ package kr.or.ddit.user.pocket.service;
 import java.util.List;
 
 import kr.or.ddit.model.PocketVo;
+import kr.or.ddit.user.model.PocketProdVo;
 
 public interface PocketServiceInf {
 	/**
@@ -23,11 +24,12 @@ public interface PocketServiceInf {
 	* 최초작성일 : 2018. 8. 30.
 	* 작성자 : 조계환
 	* 변경이력 :신규
+	*  --> 1006 상품정보 가져오도록 vo수정
 	* 조 회 :List<PocketVo> getListPocket(String mem_id)_회원 본인의 포켓에 들어가 있는 기프티콘 리스트 출력
 	* @param mem_id
 	* @return
 	*/
-	List<PocketVo> getListPocket(String mem_id);
+	List<PocketProdVo> getMyPocket(String mem_id);
 	
 	/**
 	* Method : getListPocket

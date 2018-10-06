@@ -16,11 +16,14 @@ import kr.or.ddit.model.BookmarkVo;
 import kr.or.ddit.model.EventVo;
 import kr.or.ddit.model.MemberShipVo;
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.PocketVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
 import kr.or.ddit.user.model.MainReviewsVo;
+import kr.or.ddit.user.model.PocketProdVo;
+import kr.or.ddit.user.pocket.service.PocketServiceInf;
 import kr.or.ddit.user.userMain.service.UserMainServiceInf;
 
 import org.apache.commons.lang.StringUtils;
@@ -53,6 +56,8 @@ public class UserMainController {
 	@Resource(name="eventService")
 	private EventServiceInf eventService;
 	
+	@Resource(name="pocketService")
+	private PocketServiceInf pocketService;
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	/**
@@ -202,13 +207,19 @@ public class UserMainController {
 		
 		
 		//==============================================
-		//== 
+
 		MemberShipVo shipVo = new MemberShipVo();
 		shipVo.setMemship_id("shipID");
 		shipVo.setMem_id(mem_id);
 		shipVo.setMemship_point(7777);
 		model.addAttribute("shipVo", shipVo);
 		//==============================================
+		
+		//나의 주머니
+		//==============================================
+		List<PocketProdVo> myPocketList = pocketService.getMyPocket(mem_id);
+		//바코드사진 상품이름 구입날짜
+		model.addAttribute("myPocketList",myPocketList);
 		
 		model.addAttribute("tab", StringUtils.defaultString(request.getParameter("tab"), ""));
 

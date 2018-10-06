@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pocket">
+
+<!-- insert ============================================================================= -->
+
+<!-- select ============================================================================= -->
+	<select id="getMyPocket" parameterType="String" resultType="pocketProdVo">
+		SELECT 
+		    pk.pocket_id,   --주머니 id
+		    pk.pocket_date, -- 주머니 날짜
+		    p.prod_name,    -- 상품이름
+		    p.prod_price,	-- 상품가격
+		    bcd.bcd_path    -- 바코트 경로
+	    FROM pocket pk
+	    JOIN prod p 
+	    ON   pk.prod_id = p.prod_id
+	    JOIN member mem 
+	    ON   pk.mem_id = mem.mem_id 
+	    JOIN barcode bcd 
+	    ON   bcd.bcd_id = pk.POCKET_ID
+	    WHERE mem.mem_id = #{mem_id}
+	</select>
+</mapper>
