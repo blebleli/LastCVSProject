@@ -60,7 +60,7 @@
 			if(confirm(cvsNm +  "을 정말로 미사용상태로 변경하시겠습니까?")){
 				
 				var mem_id = $("table#datatable-responsive tbody tr.selected").find("td:eq(2)").text(); // 사업자 번호
-				alert("mem_id " + mem_id);
+// 				alert("mem_id " + mem_id);
 				
 				$.ajax({
 		            type : "POST",
