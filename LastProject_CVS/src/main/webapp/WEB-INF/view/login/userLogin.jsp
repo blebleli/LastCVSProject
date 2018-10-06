@@ -7,7 +7,7 @@
 <script type="text/javascript" src="<c:url value='/js/rsa/rsa.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/rsa/prng4.js' />"></script>
 <script type="text/javascript" src="<c:url value='/js/rsa/rng.js' />"></script>
-
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 <style type="text/css">
 #error {
 	color: red;
@@ -141,6 +141,8 @@ $(document).ready(function() {
 	
 });
 
+
+
 </script>
 
 <!-- products-breadcrumb -->
@@ -166,8 +168,10 @@ $(document).ready(function() {
 					<div class="tooltip" style="font-size:120%; font-weight: bold;">회원가입</div>
 				</div>
 
-				<div class="form">
+				<div class="form" style="text-align: center">
 					<h2>로그인 하기</h2>
+					
+				
 					<form id="loginForm" action="<c:url value='/login/loginProcess' />" method="post">
 					
 						<!-- 암호화처리 : 공 -->
@@ -176,12 +180,15 @@ $(document).ready(function() {
 										
 						<!-- submit 로그인 클릭시  이동 경로 주기() ★  -->
 						<input type="text"  id="userId" name="userId" value="${userId}" placeholder="아이디 또는 이메일 주소를 입력해 주세요" required autofocus>
-						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required> 
+						<input type="password"  id="password" name="Password" placeholder="비밀번호를 입력해 주세요" required style=" margin-bottom: 0px;"> 
 						<div id="error">${errMsg}</div><br />
 <!-- 					<input type="submit" value="로그인 >" id="btnLogin" > -->
 						<input type="button" value="로그인 >" id="btnLogin" >
-				
-					</form>
+				</form>
+								
+					<!-- 카카오 로그인 test -->
+					<a id="kakao-login-btn"></a>
+
 				</div> <!-- //<div class="form">로그인  -->
 
 				<div class="form"> 
@@ -273,3 +280,30 @@ $(document).ready(function() {
 <div class="clearfix"></div>
 
 <!-- =======<tiles: ="content" /> ============> userLogin.jsp 끝   -->
+<script>
+
+//<![CDATA[
+//사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('20ef2122f316faf3ee201ff1da312505');
+//카카오 로그인 버튼을 생성합니다.
+Kakao.Auth.createLoginButton({
+container: '#kakao-login-btn',
+success: function(authObj) {
+  // 로그인 성공시, API를 호출합니다.
+  Kakao.API.request({
+    url: '/v2/user/me',
+    success: function(res) {
+      alert(JSON.stringify(res));
+    },
+    fail: function(error) {
+      alert(JSON.stringify(error));
+    }
+  });
+},
+fail: function(err) {
+  alert(JSON.stringify(err));
+}
+});
+//]]>
+
+</script>
