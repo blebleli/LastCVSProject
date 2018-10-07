@@ -104,4 +104,25 @@ public interface CategoryDaoInf {
 	*/
 	List<CategoryVo> getProdCategoryMd(String ctgy_name);
 	
+	/**
+	* Method : allCategory
+	* Method 설명 :카테고리 전체 조회
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* 
+	* @return List<CategoryVo>
+	*/
+	List<CategoryVo> allCategory();
+	
+	/**
+	* Method : updateCtgy
+	* Method 설명 :카테고리 수정
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* @param CategoryVo
+	* @return int
+	*/
+	int updateCtgy(CategoryVo ctgy);
 }
