@@ -130,7 +130,7 @@ public class AutoCodeServiceTest {
 //	  발주/수불/입고 바코드       : SUPPLY
 //	  제고리스트바코드 : BCD 
 //		logger.debug("code.barcode(POCKET) ==> {}",code.barcode("POCKET"));
-//		logger.debug("code.barcode(SUPPLY) ==> {}",code.barcode("SUPPLY"));
+		logger.debug("code.barcode(SUPPLY) ==> {}",code.barcode("SUPPLY"));
 //		logger.debug("code.barcode(BCD) ==> {}",code.barcode("BCD");		
 	}
 }
