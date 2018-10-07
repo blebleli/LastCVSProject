@@ -4,7 +4,7 @@
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-      <a href="#" class="site_title"><i class="fa fa-paw"></i> <span>Management</span></a>
+      <a href="#" class="site_title"><i class="fa fa-user-secret" aria-hidden="true"></i> <span>GOGOCVS</span></a>
     </div>
 
     <div class="clearfix"></div>
@@ -12,10 +12,10 @@
     <!-- menu profile quick info -->
     <div class="profile clearfix">
       <div class="profile_pic">
-        <img src="../production/images/img.jpg" alt="..." class="img-circle profile_img">
+        <img src="/images/logo-admin-png-4.png" alt="..." class="img-circle profile_img">
       </div>
       <div class="profile_info">
-        <span>관리자님, 환영합니다.</span>
+        <span>Welcome,<br><strong>Administrator</strong></span>
         <h2>${userInfo.mem_id}</h2>
       </div>
     </div>
