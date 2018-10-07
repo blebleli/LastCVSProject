@@ -1,4 +1,4 @@
-package kr.or.ddit.login.web;
+package kr.or.ddit.db;
 
 import static org.junit.Assert.*;
 
