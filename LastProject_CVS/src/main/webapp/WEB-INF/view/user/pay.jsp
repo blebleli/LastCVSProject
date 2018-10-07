@@ -10,14 +10,11 @@ function fn_mm(prodId, price, tot){
 	var cnt = 0;
 	var rePrice = price;
 	var totPrice = 0;
-	
-	console.log("함수 시작시 들어 오는 값 : " + prodId + " : " + price + " : " + tot);
-	
+// 	console.log("함수 시작시 들어 오는 값 : " + prodId + " : " + price + " : " + tot);
 // 	console.log("tot =====>" + tot);
 	$('tr').each(function () {
-
 		 // 수량 빼기
-		 $(this).find("#"+prodId).each(function(){
+		 $(this).find("#"+prodId+"s").each(function(){
 // 			 console.log( $(this).text());
 			 var cnt = $(this).text();
 			 if (cnt ==  1 || cnt <= 0) {
@@ -26,169 +23,111 @@ function fn_mm(prodId, price, tot){
 				 cnt --;
 			 }
 			 
-			$("input [name="+prodId+"]").text(cnt);
-			$("#"+prodId).text(cnt);
-		 	
 			// 제품 합계 금액
-			totPrice = parseInt(cnt) * parseInt(price) +"";
+			totPrice = parseInt(cnt) * parseInt(price);
+			
+			$("#"+prodId+"i").val(cnt);			// 보낼 개수
+			$("#"+prodId+"t").text(totPrice);	// 합계금액
+			$("#"+prodId+"s").text(cnt);		// 보여지는 개수
+			$("#"+tot+"tot").val(totPrice);
 			console.log("#"+prodId + "================================== 끝");
 		 });
 		 
-		 $(this).find("#"+tot).each(function(){
-			 
-			 console.log("#"+tot + " ==================================");
-			 
-			 console.log("================" +  $(this).text());
-			 console.log("$(input [name=+tot+]).text(totPrice);" + $("input [name="+tot+"]").val(totPrice));
-			$("input [name="+tot+"]").val(totPrice);
-			 console.log("$(input [name=+tot+]).text(totPrice);" + $("input [name="+tot+"]").val(totPrice));
-			
-			$("#"+name).text(totPrice);
-		 });
+		 
 	 });
-	 
-	 // 합계 변경
-	 
-	 
+	
+	// 전체 합계 구하는것
+	var cnt = $("#payCnt").text();
+	var payTot = 0;
+	for (var i = 1 ; i <= parseInt(cnt); i++) {
+		payTot +=  parseInt($("#"+i+"tot").val()); 
+	}
+	
+	$("#paySum").text(payTot);
+	$("#pay_sum").val(payTot);
 	
 }
-function fn_pp(prodId){
+function fn_pp(prodId, price, tot){
 	 $('tr').each(function () {
-		 $(this).find("#"+prodId).each(function(){
+		 $(this).find("#"+prodId+"s").each(function(){
 // 			 console.log( $(this).text());
 			 var cnt = $(this).text();
 			 cnt++;
-			 id = prodId;
-			$("input [name="+prodId+"]").text(cnt);
-			$("#"+prodId).text(cnt);
+			// 제품 합계 금액
+			totPrice = parseInt(cnt) * parseInt(price);
+			
+			$("#"+prodId+"i").val(cnt);			// 보낼 개수
+			$("#"+prodId+"t").text(totPrice);	// 합계금액
+			$("#"+prodId+"s").text(cnt);		// 보여지는 개수
+			$("#"+tot+"tot").val(totPrice);
 		 });
 	 });
+	// 전체 합계 구하는것
+	var cnt = $("#payCnt").text();
+	var payTot = 0;
+	for (var i = 1 ; i <= parseInt(cnt); i++) {
+		payTot +=  parseInt($("#"+i+"tot").val()); 
+	}
+	
+	$("#paySum").text(payTot);
+	$("#pay_sum").val(payTot);
 	
 }
 
 
-function fn_amount(val, price ) {
+// 시작 하자 마자 합계 
+$(document).ready(function(){
+	// 전체 합계 구하는것
+	var cnt = $("#payCnt").text();
+	var payTot = 0;
+	for (var i = 1 ; i <= parseInt(cnt); i++) {
+		payTot +=  parseInt($("#"+i+"tot").val()); 
+	}
 	
-	// 변경된 갯수
-	var cnt = val.value;
+	$("#paySum").text(payTot);
+	$("#pay_sum").val(payTot);
+});
+
+function fn_userPointChk(val){
 	
-	alert(cnt);
+	var userPoint = parseInt($("userPoint").val());
 	
-// 	console.log(cnt +" == "+price);
+	var point = parseInt($("#pay_point").val());
+	$("#prod_point").val(point);
 	
-	// tr 합계 변경
-	var totPrice = parseInt(cnt) * parseInt(price) +"";
-// 	console.log(totPrice);
+	var totPay =  parseInt($("#pay_sum").val());
+	$("#prod_card").val(totPay - point);
 	
-	//totalPay
+// 	alert(point +"\n" +totPay);
 	
-	// 전체 합계 변경
-	// 	테이블 자동 합계
-    var sum = 0;
-    var price  =  new Array();
-	 $('tr').each(function () {
-        
-		 // 각 tr 의 제품 합계
-        $(this).find(".priceClass").each(function(){
-        	price.push( $(this).text());
-        	sum += parseInt($(this).text());
-        });
-    });
-	 
-	 for(var i = 0 ; i < price.length ; i++) {
-		 sum += parseInt(price[i]);
-// 		 console.log( parseInt(price[i]));
-	 }
-	 
-	 $("#pay_sum").text(sum+"");
-	 $("input[name=pay_sum]").val(sum+"");
-	 
-// 	 console.log(sum);
+	
+// 	alert(userPoint);
+	
+	
+	// 로그인 안했을때 포인트 입력시 막아줘야함
+// 	if(userPoint == "로그인이 필요합니다.") {
+// 		alert("로그인 해주세요");
+// 	}
+	
+	
+	// 기존의 포인트보다 많이 입력시 최대 값으로 변경
+// 	if (userPoint < val) {
+// 		alert("포인트가 부족합니다.");
+// 		$("#pay_point").val(0);
+// 		$("#pay_point").focus();
+// 		return;
+// 	}
 	
 	
 }
 
 $(function(){
 	
-// 	$("#"+id).change(){
-// 		alert();	
-// 	}
-	
-	
-	
-// 	// 	테이블 자동 합계
-// 	 $('tr').each(function () {
-//          var sum = 0;
-         
-//          var asdf = $(this).find(".priceClass");
-//          console.log("=========>> " + asdf);
-         
-// //          $(this).find('.combat').each(function () {
-// //              var combat = $(this).text();
-// //              if (!isNaN(combat) && combat.length !== 0) {
-// //                  sum += parseFloat(combat);
-// //              }
-// //          });
-// //          $(this).find('.total-combat').html(sum);
-//      });
-	
-	$("#cardBtn").on("click",function(){
-		$("#payfor").html("");
-		var content = "";
-		content = '<h4>CARD결제</h4>'+
-            '<div class="vertical_post">'+
-        	'<form action="/userPay/cardForPay" method="post" class="creditly-card-form agileinfo_form">'+
-				'<div class="first-row form-group">'+
-					'<div class="controls">'+
-						'<h5>SELECT CARD</h5>'+
-						'<div class="section_room_pay">'+
-                              '<select class="year"><option value="">---카드선택---</option><option value="nonghyeop">농협</option><option value="hanna">KEB하나은행</option></select>'+
-						'</div>'+
-						'<br>'+
-						'<label class="control-label">Name on Card</label>'+
-						'<input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith">'+
-						'<label class="control-label">Card Number</label>'+
-						'<input class="number credit-card-number form-control" type="text" name="number"'+
-									 'inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"'+
-									  'placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">'+
-						'<label class="control-label">CVC</label>'+
-						'<input class="security-code form-control"Â·'+
-									 ' inputmode="numeric"'+
-									  'type="text" name="security-code"'+
-									 ' placeholder="&#149;&#149;&#149;">'+
-						'<label class="control-label">Expiration Date</label>'+
-						'<input class="expiration-month-and-year form-control" type="text" name="expiration-month-and-year" placeholder="MM / YY">'+
-					'</div>'+
-						'<div class="clear"> </div>'+
-					'</div>'+
-					'<div class="checkout-right-basket">'+
-	        			'<a href="payment.html">결제하기 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>'+
-      				'</div>'+
-					'</form>'+
-				'</div>';
-				$("#payfor").append(content);
-	});
-	
-	$("#pointBtn").on("click",function(){
-		$("#payfor").html("");
-		var content = "";
-		content ='<h4>POINT결제</h4><br><br>'+
-				'<div class="vertical_post">'+
-				'<form action="/userPay/pointForPay" method="post" class="creditly-card-form agileinfo_form">'+
-				'<div class="first-row form-group">'+
-				'<div class="controls">'+
-				'<h5>사용 가능한 Point : ${membership.membership_point }</h5><br></div><div class="clear"> </div>'+
-				'</div><div class="checkout-right-basket">'+
-				'<a href="payment.html">결제하기 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>'+
-				'</div></form></div>';
-				
-		$("#payfor").append(content);	
-	});	
-	
-	
-	$("#num").change(function() {
+	// 결제하기 버튼 클릭시
+	$("#pay_Btn").on("click", function(){
 		
-		alert("변경");
+		$("#payListFrm").submit();
+		
 		
 	});
 	
@@ -215,9 +154,9 @@ $(function(){
 			<h3>장바구니 결제</h3>
 	
 	<!-- 결제 상품 리스트 -->
-	<form action="" method="post" id="payListFrm">
+	<form action="/userPay/payment" method="post" id="payListFrm">
 	      <div class="checkout-right" >
-			<h4>선택한 상품 : <span>${cnt }</span>개의 상품</h4>
+			<h4>선택한 상품 : <span id="payCnt">${cnt }</span>개의 상품</h4>
 				
 				<!-- 결제 상품 리스트 테이블 -->
 				<table class="timetable_sub" id="payListTable">
@@ -245,8 +184,8 @@ $(function(){
 							<!-- 순번 -->
 							<td class="invert">${vo.tot_cnt }
 								<!-- 결제시 넘기기 위한 값 -->
-								<input type="hidden" name="prod_id" value="${vo.prod_id }">
-								<input type="hidden" name="prod_exnum" value="">
+								<input type="hidden" name="prod_id" value="${vo.prod_id }">  <!--  -->
+								
 							</td>
 							
 							<!-- 상품이름 -->
@@ -263,8 +202,8 @@ $(function(){
 							<!-- 결제상품 개수 -->
 							<td>
 								<button type="button" onclick="fn_mm('${vo.prod_id }', ${vo.prod_price } , '${vo.tot_cnt }')">-</button>
-								<span   class="spanCnt" id="${vo.prod_id }" >${vo.prod_exnum }</span>
-								<input  type="hidden" name="${vo.prod_id }" >
+								<span   class="spanCnt" id="${vo.prod_id }s" >${vo.prod_exnum }</span>
+								<input  type="hidden"   id="${vo.prod_id }i" name="prod_num" value="${vo.prod_exnum }">
 								<button type="button" onclick="fn_pp('${vo.prod_id }', ${vo.prod_price } , '${vo.tot_cnt }')" >+</button>
 							</td>
 							
@@ -272,7 +211,10 @@ $(function(){
 							<td >${vo.prod_price }</td>
 							
 							<!-- 상품 가격(개수 * 가격) -->
-							<td class="priceClass"><span id="${vo.prod_name}">${vo.prod_price * vo.prod_exnum }</span> </td>
+							<td class="priceClass">
+								<span id="${vo.prod_id}t" class="tot_pay">${vo.prod_price * vo.prod_exnum }</span>
+								<input type="hidden" id="${vo.tot_cnt }tot" value="${vo.prod_price * vo.prod_exnum }">
+							</td>
 							
 							<!-- 취소(row 삭제) -->
 							<td class="invert">
@@ -285,7 +227,8 @@ $(function(){
 					</c:forEach>
 						<tr>
 						<!-- 순번 -->
-							<td class="invert">합계</td>
+							<td class="invert">합계
+							</td>
 							
 							<!-- 상품이름 -->
 							<td class="invert" style="font-size: 1.4em">-</td>
@@ -298,15 +241,20 @@ $(function(){
 							
 							<!-- 결제상품 개수 -->
 							<td class="">
-								<span id="totalPay">${vo.prod_price * vo.prod_exnum }</span>
+								<span id="totalPay">-
+								
+								<input type="hidden" id="prod_point" name="prod_point"> <!-- 포인트 -->
+								<input type="hidden" id="prod_card" name="prod_card"> <!-- 카  드 -->
+								<input type="hidden" name="mem_id" value="${userInfo.mem_id }">
+								</span>
 							</td>
 							<!-- 상품 가격 -->
 							<td class="invert">-</td>
 							
 							<!-- 상품 가격(개수 * 가격) -->
 							<td class="invert">
-								<span id="pay_sum" >${vo.prod_price * vo.prod_exnum }</span>
-								<input type="hidden" name="pay_sum">
+								<span id="paySum" > </span>
+								<input type="hidden" id="pay_sum" name="prod_sum">
 							</td>
 							
 							<!-- 취소(row 삭제) -->
@@ -317,46 +265,79 @@ $(function(){
 				</table>
 			</div>
 			
-			<div class="checkout-left">	
-				<div class="col-md-4 checkout-left-basket">
-					<h4>결제 내역</h4>
-					<ul>
-						<li>Product1 <i>-</i> <span id="prodPrice">price</span></li>
-<!-- 						<li>Total Service Charges <i>-</i> <span>$1.00</span></li> -->
-						<li><label>Total</label><span id="totalPrice">price</span></li>
-					</ul>
-				</div>
-			
-				<div class="clearfix"> </div>
+			<div class="clearfix"> </div>
 				
-			</div>
 	</form>
 			<!-- ------------------------------------------------------------------------ -->
 					<!-- payment -->
 		<div class="privacy about">
-			<h3>Pay<span>ment</span></h3>
+			<h3>결제 내용</h3>
 				<br>
 	         <div class="checkout-right2">
-				<!--Horizontal Tab-->
-        	<form action="">
-        		<input type="button" class="col-md-6 btn btn-primary" name="payKind" id="cardBtn" value="Card">
-				<input type="button" class="col-md-6 btn btn-primary" name="payKind" id="pointBtn" value="Point">
-        	</form>
-					<br>
-					<br>
-					<br>
-					<div id="payfor">
+				<div>
+					<div class="first-row form-group">
+						<div class="controls">
+							
+							<table>
+								<tr>
+									<td >결제 금액</td>
+									<td id="pay_tot_sum">0</td>
+								</tr>
+								
+								<tr>
+									<td>사용가능 포인트</td>
+									<td>		
+										<c:if test="${userInfo != null }">
+											<span id="userPoint">${userInfo.mem_point }</span>
+											
+										</c:if>
+										<c:if test="${userInfo == null }">
+											<span id="userPoint" >로그인이 필요합니다.</span>	
+										</c:if>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>사용 포인트</td>
+									<td id="pay_tot_point"><input type="number" id="pay_point" onchange="fn_userPointChk(this)"> </td>
+								</tr> 
+								
+								<tr>
+									<td>최종 결제 금액</td>
+									<td>전체 - 포인트 = 최종결제금액(카드결제부분)</td>								
+								</tr>
+								
+								<tr> 
+									<td >카드선택</td>
+									<td>
+										<select  class="year">
+				                             <option value="">---카드선택---</option>
+				                             <option value="nonghyeop">농협</option>
+				                             <option value="hanna">KEB하나은행</option>
+			                             </select>
+									</td>
+								</tr>
+								
+								<tr>
+									<td>카드 번호</td>
+									<td>
+										<input class="number credit-card-number form-control" type="text" name="number" x-autocompletetype="cc-number"
+									  placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
+									</td>
+								</tr>
+							</table>
+							<div class="checkout-right-basket">
+								<button type="button" id="pay_Btn" class="glyphicon glyphicon-chevron-right" aria-hidden="true">결제하기</button>
+							</div>							
+						</div>
 					</div>
-
-                	</div> <!-- checkout  -->
-                </div> <!-- privacy about end -->
+						
+					</div>
+					
+				</div>
+           	</div> <!-- checkout  -->
+         </div> <!-- privacy about end -->
 	<!--Plug-in Initialisation-->
 	<!-- // Pay -->
 			 </div>
 		</div>
-		</div>
-<!-- //about -->
-		</div>
-		<div class="clearfix"></div>
-	</div>
-<!-- //banner -->
