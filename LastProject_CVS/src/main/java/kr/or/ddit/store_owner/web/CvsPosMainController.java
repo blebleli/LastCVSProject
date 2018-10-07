@@ -1,5 +1,8 @@
 package kr.or.ddit.store_owner.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +27,7 @@ import kr.or.ddit.store_owner.saleDis.service.SaleDisServiceInf;
 import kr.or.ddit.store_owner.sale_list.service.SaleServiceInf;
 import kr.or.ddit.store_owner.soMain.service.soMainServiceInf;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
+import oracle.net.aso.d;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +88,16 @@ public class CvsPosMainController {
 	private soMainServiceInf somainService;
 	
 	@RequestMapping("/kakao")
-	public String kakao(Model model){
+	public String kakao(Model model) throws IOException{
+		//클릭했을때 경로받아오고..
+		//
+		File file = new File("E:\\EclipseWorkspace\\jspSpring\\LastProject_CVS\\src\\main\\webapp\\barcode\\stock\\3380000-104-2014-00017\\BCD-94758f21-6002-41e0-ac07-640a219f53eb.jpg");
+		
+		byte[] fileContent = Files.readAllBytes(file.toPath());
+		
+		model.addAttribute("length",fileContent.length);
+		model.addAttribute("fileContent",fileContent);
+		
 		return "kakao_msg";
 	}
 
