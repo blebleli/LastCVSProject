@@ -78,4 +78,17 @@ public interface CategoryServiceInf {
 	*/
 	List<CategoryVo> getProdCategoryMd(String ctgy_name);
 	
+	List<CategoryVo> allCategory();
+	
+	/**
+	* Method : updateCtgy
+	* Method 설명 :카테고리 수정
+	* 최초작성일 : 2018. 8. 30.
+	* 작성자 : 김현경
+	* 변경이력 :신규
+	* @param CategoryVo
+	* @return int
+	*/
+	int updateCtgy(CategoryVo ctgy);
+	
 }
