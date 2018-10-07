@@ -36,6 +36,23 @@ INSERT INTO EVENT( EVENT_ID, EVENT_STARTDAY, EVENT_ENDDAY, EVENT_KIND, EVENT_NAM
 SELECT  *  FROM EVENT
 
 </select>
+<!-- 	아 이 디 : updateEvent
+  		반 환 값 : 
+  		매개변수 : eventVo
+  		설    명 : 이벤트 update
+  		작 성 자 : 김현경
+  		일    시 : 2018-09-18 
+-->
+<update id="updateEvent" parameterType="eventVo">
+	UPDATE event 
+	SET
+		event_startday=#{event_startday},
+		event_endday=#{event_endday},
+		event_kind =#{event_kind},
+		event_name=#{event_name},
+		event_discount=#{event_discount}
+	WHERE event_id=#{event_id}
+</update>
 
 
 </mapper>	
