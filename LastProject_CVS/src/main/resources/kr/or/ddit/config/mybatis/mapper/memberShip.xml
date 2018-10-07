@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberShip">
+
+<insert id="memberShipInsert" parameterType="memberShipVo">
+INSERT INTO MEMBERSHIP (  SHIPLIST_ID  ,SHIPLIST_POINT ,SHIPLIST_INFO ,MEM_ID ) 
+	   VALUES (
+				 #{shiplist_id   }
+				,#{shiplist_point}
+				,#{shiplist_info }
+				,#{mem_id        }
+			)
+</insert>
+
+</mapper>

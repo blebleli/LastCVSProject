@@ -85,6 +85,7 @@
   </typeAliases>
 
   <mappers>
+   	<mapper resource="kr/or/ddit/config/mybatis/mapper/memberShip.xml"/>
    	<mapper resource="kr/or/ddit/config/mybatis/mapper/pocket.xml"/>
  	<mapper resource="kr/or/ddit/config/mybatis/mapper/pay.xml"/>	
  	<mapper resource="kr/or/ddit/config/mybatis/mapper/disposal.xml"/>  

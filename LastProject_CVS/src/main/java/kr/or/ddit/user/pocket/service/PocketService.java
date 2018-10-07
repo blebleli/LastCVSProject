@@ -19,8 +19,7 @@ public class PocketService implements PocketServiceInf {
 
 	@Override
 	public int setInsertPocket(PocketVo pocketVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return pocketDao.setInsertPocket(pocketVo);
 	}
 
 	@Override

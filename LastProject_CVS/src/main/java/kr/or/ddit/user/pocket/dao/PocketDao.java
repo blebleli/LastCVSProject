@@ -18,8 +18,9 @@ public class PocketDao implements PocketDaoInf {
 	
 	@Override
 	public int setInsertPocket(PocketVo pocketVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return template.insert("pocket.pocketInsert",pocketVo);
+		
 	}
 
 	/**

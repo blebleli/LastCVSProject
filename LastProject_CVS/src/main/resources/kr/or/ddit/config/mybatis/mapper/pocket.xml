@@ -23,4 +23,18 @@
 	    ON   bcd.bcd_id = pk.POCKET_ID
 	    WHERE mem.mem_id = #{mem_id}
 	</select>
+	
+	<insert id="pocketInsert" parameterType="pocketVo">
+		INSERT INTO POCKET (  POCKET_ID  ,POCKET_USENY ,POCKET_DATE ,POCKET_DELNY ,MEM_ID ,PAY_ID  ,PROD_ID) 
+				VALUES(
+						 #{pocket_id   } 
+				        ,#{pocket_useny} 
+				        ,#{pocket_date } 
+				        ,#{pocket_delny} 
+				        ,#{mem_id      } 
+				        ,#{pay_id      } 
+				        ,#{prod_id     } 
+				       )
+	</insert>
+	
 </mapper>

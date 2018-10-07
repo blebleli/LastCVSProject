@@ -2,14 +2,28 @@ package kr.or.ddit.user.membership.service;
 
 import java.util.List;
 
-import kr.or.ddit.model.MemberShipVo;
+import javax.annotation.Resource;
 
+import kr.or.ddit.model.MemberShipVo;
+import kr.or.ddit.prod.service.ProdService;
+import kr.or.ddit.user.membership.dao.MemberShipDaoInf;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+
+@Service("memberShipService")
 public class MemberShipService implements MemberShipServiceInf {
 
+	@Resource(name="memberShipDao")
+	private MemberShipDaoInf memberShipDao;
+
+	private  Logger logger = LoggerFactory.getLogger(ProdService.class);
+		
 	@Override
 	public int newMemberShip(MemberShipVo memberShipVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return memberShipDao.setInsertMemberShip(memberShipVo);
 	}
 
 	@Override

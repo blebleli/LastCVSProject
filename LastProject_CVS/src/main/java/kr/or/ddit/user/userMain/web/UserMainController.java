@@ -209,9 +209,11 @@ public class UserMainController {
 		//==============================================
 
 		MemberShipVo shipVo = new MemberShipVo();
-		shipVo.setMemship_id("shipID");
+		shipVo.setShiplist_id("shipID");
+//		shipVo.setMemship_id("shipID");
 		shipVo.setMem_id(mem_id);
-		shipVo.setMemship_point(7777);
+		shipVo.setShiplist_point(7777);
+//		shipVo.setMemship_point(7777);
 		model.addAttribute("shipVo", shipVo);
 		//==============================================
 		
