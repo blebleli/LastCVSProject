@@ -27,8 +27,7 @@ public class EventService implements EventServiceInf {
 
 	@Override
 	public int updateEvent(EventVo eventVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.updateEvent(eventVo);
 	}
 
 	@Override
