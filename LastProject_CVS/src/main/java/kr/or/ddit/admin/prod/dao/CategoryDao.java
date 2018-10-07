@@ -60,5 +60,15 @@ public class CategoryDao implements CategoryDaoInf {
 		return session.selectList("category.getProdCategoryMd", ctgy_name);
 	}
 
+	@Override
+	public List<CategoryVo> allCategory() {
+		return session.selectList("category.allCategory");
+	}
+
+	@Override
+	public int updateCtgy(CategoryVo ctgy) {
+		return session.update("category.updateCtgy", ctgy);
+	}
+
 
 }
