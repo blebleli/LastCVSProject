@@ -40,8 +40,7 @@ public class EventDao implements EventDaoInf {
 
 	@Override
 	public int updateEvent(EventVo eventVo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return template.update("event.updateEvent", eventVo);
 	}
 
 	@Override
