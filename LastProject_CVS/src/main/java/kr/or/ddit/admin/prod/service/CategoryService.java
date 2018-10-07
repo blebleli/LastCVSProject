@@ -59,5 +59,15 @@ public class CategoryService implements CategoryServiceInf {
 		return categoryDao.getProdCategoryMd(ctgy_name);
 	}
 
+	@Override
+	public List<CategoryVo> allCategory() {
+		return categoryDao.allCategory();
+	}
+
+	@Override
+	public int updateCtgy(CategoryVo ctgy) {
+		return categoryDao.updateCategory(ctgy);
+	}
+
 
 }
