@@ -456,21 +456,20 @@ $(document).ready(function(){
 			<br>
 			<div class="w3ls_w3l_banner_nav_right_grid">
 				<!-- 이벤트 상품 관련 -->
-				<c:if test="${i =='3' }">
-					<form action="/userProd/eventList" method="get" id="eventCtgyFrm">
-						<input type="button" class="col-md-4 btn btn-primary" name="event"
-							id="opoBtn" value="1+1"> <input type="button"
-							class="col-md-4 btn btn-primary" name="event" id="tpoBtn"
-							value="2+1"> <input type="button"
-							class="col-md-4 btn btn-primary" name="event" id="discountBtn"
-							value="할인"> <input type="hidden" id="event_id"
-							name="event_id">
-						<c:if test="${category != null }">
-							<input type="hidden" name="ctgy_id" value="${ctgy_id }">
-							<input type="hidden" name="level" value="${ctgylevel }">
-						</c:if>
-					</form>
-				</c:if>
+<%-- 				<c:if test="${i =='3' }"> --%>
+<!-- 					<form action="/userProd/eventList" method="get" id="eventCtgyFrm"> -->
+<!-- 						<input type="button" class="col-md-4 btn btn-primary" name="event" id="opoBtn" value="1+1"> <input type="button" -->
+<!-- 							class="col-md-4 btn btn-primary" name="event" id="tpoBtn" -->
+<!-- 							value="2+1"> <input type="button" -->
+<!-- 							class="col-md-4 btn btn-primary" name="event" id="discountBtn" -->
+<!-- 							value="할인"> <input type="hidden" id="event_id" -->
+<!-- 							name="event_id"> -->
+<%-- 						<c:if test="${category != null }"> --%>
+<%-- 							<input type="hidden" name="ctgy_id" value="${ctgy_id }"> --%>
+<%-- 							<input type="hidden" name="level" value="${ctgylevel }"> --%>
+<%-- 						</c:if> --%>
+<!-- 					</form> -->
+<%-- 				</c:if> --%>
 				<!-- 이벤트 상품 관련 -->
 
 				<br> <br> <br>
@@ -655,8 +654,8 @@ $(document).ready(function(){
 					<div class="clearfix"></div>
 				</div>
 				<!-- ========================================================================================================================= -->
-						<input type="button" id="nextPage" value="더보기">
 			</div>
+				<button type="button" id="nextPage" class="glyphicon glyphicon-chevron-right" aria-hidden="true">더보기</button>
 		</div>
 		<div class="clearfix"></div>
 	</div>
