@@ -306,7 +306,7 @@ public class UserPayController {
 				PocketVo pocketVo = new PocketVo();
 				pocketVo.setPocket_id(barCode);				// 상품주머니코드
 				pocketVo.setPocket_useny("N");				// 사용여부
-				pocketVo.setPocket_date(new Date());		// 발급시간
+				pocketVo.setPocket_date(new Date());		// 제한기간
 				pocketVo.setPocket_delny("N");				// 삭제여부
 				pocketVo.setMem_id(mem_id);					// 아이디
 				pocketVo.setPay_id(pay_id);					// 결제코드
