@@ -117,7 +117,7 @@
 	select * 
 	from stock 
 	where mem_id=#{mem_id}
-	ORDER BY stock_date DESC
+	ORDER BY stock_date DESC, stock_kind DESC
 </select>
 
 
@@ -142,7 +142,38 @@
 	  		일    시 : 2018-09-21     
 	 -->
 <select id="getStockListByAttr" parameterType="Map" resultType="presentStockListVo">
-	SELECT a.prod_id, 
+SELECT   
+      -- STOCK_ID 새로생성
+      -- STOCK_DATE 새로생성
+         ST.MEM_ID
+        ,ST.STOCK_INFO
+        ,ST.STOCK_KIND
+
+      -- STL.BCD_ID   새로생성
+      -- STL.STOCK_ID 새로 생성
+        ,STL.STCKLIST_AMOUNT   -- 변경
+        ,STL.STCKLIST_EXDATE
+        ,STL.STCK_DATE         -- 다음날 변경
+        ,STL.STCKLIST_INFO
+        ,STL.STCKLIST_KIND     -- 변경
+        ,STL.SPLYLIST_ID
+        ,STL.PROD_ID
+        
+-- 화면에서 필요한 데이터       
+        ,P.PROD_NAME
+
+FROM STOCK ST
+JOIN STOCK_LIST STL
+ON  ST.STOCK_ID = STL.STOCK_ID
+JOIN PROD P
+ON  STL.PROD_ID = P.PROD_ID
+WHERE 1 = 1
+  and st.mem_id = #{mem_id}
+  and st.stock_id =  #{stock_id}
+  and to_char(st.stock_date , 'yyyy-mm-dd') =  #{stock_date}
+
+
+<!-- 	SELECT a.prod_id, 
 		   a.prod_name,
 		   a.prod_price,
 		   a.event_id,  
@@ -152,7 +183,7 @@
 		   c.stcklist_amount, 
 	       c.bcd_id
 	FROM prod a, supply b, stock_list c
-	WHERE ${cul} = #{param} AND c.prod_id = a.prod_id AND b.supply_state = '12'
+	WHERE ${cul} = #{param} AND c.prod_id = a.prod_id AND b.supply_state = '12' -->
 </select>
 
 
