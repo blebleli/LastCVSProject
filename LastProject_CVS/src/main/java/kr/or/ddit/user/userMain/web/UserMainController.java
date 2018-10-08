@@ -222,7 +222,6 @@ public class UserMainController {
 		List<PocketProdVo> myPocketList = pocketService.getMyPocket(mem_id);
 		//바코드사진 상품이름 구입날짜
 		model.addAttribute("myPocketList",myPocketList);
-		
 		model.addAttribute("tab", StringUtils.defaultString(request.getParameter("tab"), ""));
 
 		return "myPage";
