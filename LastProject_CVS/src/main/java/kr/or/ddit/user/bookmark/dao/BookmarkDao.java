@@ -69,6 +69,24 @@ public class BookmarkDao implements BookmarkDaoInf {
 	}
 
 
+	@Override
+	public int insertProdBookmark(BookmarkVo bmkProd) {
+		return template.insert("bookmark.insertProdBookmark", bmkProd);
+	}
+
+
+	@Override
+	public BookmarkVo getBmkProd(Map<String, String> map) {
+		return template.selectOne("bookmark.getBmkProd", map);
+	}
+
+
+	@Override
+	public int deleteBmkProd(String prod_id) {
+		return template.delete("bookmark.deleteBmkProd", prod_id);
+	}
+
+
 
 
 }
