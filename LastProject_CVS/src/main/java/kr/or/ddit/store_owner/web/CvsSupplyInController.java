@@ -130,6 +130,7 @@ public class CvsSupplyInController {
 
 			// 3. supply_list insert ===================================================
 			ProdVo prodvo = prodService.getProd(vo.getProd_id());
+			logger.debug("prod 가져와-----------{}", prodvo);
 			int exnum = prodvo.getProd_exnum(); //유통기한값
 			
 			Calendar cal = Calendar.getInstance();
