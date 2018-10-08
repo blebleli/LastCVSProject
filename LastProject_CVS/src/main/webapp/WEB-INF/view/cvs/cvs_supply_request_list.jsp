@@ -87,10 +87,10 @@
 									<td>${vo.total}</td>	<!-- 금액-->			
 									<td>									
 										<c:choose>
-											<c:when test="${vo.supply_state==10}">
+											<c:when test="${vo.supply_state=='10'}">
 												발주요청중..
 											</c:when>
-											<c:when test="${vo.supply_state==11}">
+											<c:when test="${vo.supply_state=='11'}">
 												입고대기중..
 											</c:when>									
 											<c:otherwise>
