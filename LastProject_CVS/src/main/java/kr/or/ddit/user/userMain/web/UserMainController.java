@@ -1,5 +1,8 @@
 package kr.or.ddit.user.userMain.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -142,12 +145,13 @@ public class UserMainController {
 	 * @param model
 	 * @return 
 	 * Method 설명 : mypage로 이동
+	 * @throws IOException 
 	 */
 	@RequestMapping("/mypage")	
 	public String myPageView(HttpServletRequest request, 
 								@RequestParam(value="page", defaultValue="1") int page,
 								@RequestParam(value="pageSize", defaultValue="10") int pageSize,
-								Model model) {
+								Model model) throws IOException {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
 		
@@ -222,6 +226,13 @@ public class UserMainController {
 		List<PocketProdVo> myPocketList = pocketService.getMyPocket(mem_id);
 		//바코드사진 상품이름 구입날짜
 		model.addAttribute("myPocketList",myPocketList);
+		
+		//카카오톡 보내기
+	    File file = new File("D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
+	    byte[] fileContent = Files.readAllBytes(file.toPath());
+	    model.addAttribute("length",fileContent.length);
+	    model.addAttribute("fileContent",fileContent);
+
 		model.addAttribute("tab", StringUtils.defaultString(request.getParameter("tab"), ""));
 
 		return "myPage";
