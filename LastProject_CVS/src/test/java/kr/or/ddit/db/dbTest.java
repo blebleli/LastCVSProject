@@ -71,11 +71,11 @@ public class dbTest { // db 값 저장
 	@Test
 	public void insertBarcodeTest() throws ParseException{
 //		String place_id = "5550000-104-2016-00006"; // 테스트용
-		String place_id = "4930000-104-2015-00011";
+//		String place_id = "4930000-104-2015-00011";
 //		String place_id = "3380000-104-2014-00017";
 //		String place_id = "3670000-104-2012-00104";
 //		String place_id = "3150000-104-2015-00104";
-//		String place_id = "3680000-104-2016-00025";
+		String place_id = "3680000-104-2016-00025";
 //		String place_id = "4180000-104-2016-00010";
 		
 		BarcodeVo barcodeVo = null;
@@ -128,26 +128,45 @@ public class dbTest { // db 값 저장
 		SupplyListVo supplyListVo = null;
 		
 		// 1. 바코드 생성 및 수불 신청 생성 후 -> 바코드 코드 가져오기 -> 유통기한 한개씩 처리
-//		String supply_bcd = "SUPPLY-a0eb9fb5-f082-47b9-9d0e-d609f44c649c";
-//		String supply_bcd = "SUPPLY-85622a45-7160-4a1a-956a-aa3243f9dd40";
-//		String supply_bcd = "SUPPLY-106b677d-1ffb-447f-82c7-bf03b088be14";
-		String supply_bcd = "SUPPLY-8f791de6-5b9e-4cc1-a25a-8a2aecf6db75";
+
+//		String supply_bcd = "SUPPLY-d6fc267f-3be2-41d1-9ada-1aa3f7251532";
+		String supply_bcd = "SUPPLY-2f2d11cd-d7dc-4cb9-9779-b794b0cc7c29"; ///////
+//		String supply_bcd = "SUPPLY-4fdf5a14-7bf8-41c3-8f4d-419e0599d176";
+//		String supply_bcd = "SUPPLY-7c49d8a4-601e-4d1d-aad7-f8c34f04d7f9";
 		
-		String splylist_id = "4930000-104-2015-00011";
+//		String splylist_id = "4930000-104-2015-00011";
 //		String splylist_id = "3380000-104-2014-00017";
 //		String splylist_id = "3670000-104-2012-00104";
 //		String splylist_id = "3150000-104-2015-00104";
-//		String splylist_id = "3680000-104-2016-00025";
+		String splylist_id = "3680000-104-2016-00025";
 //		String splylist_id = "4180000-104-2016-00010";
 		
-		String splylist_exdate_s = "2018/11/01 13:22";
-//		String splylist_exdate_s = "2018/11/02 11:31";
+//		String splylist_exdate_s = "2018/11/01 13:22";
+		String splylist_exdate_s = "2018/11/02 11:31";
 //		String splylist_exdate_s = "2018/10/03 09:21";
 //		String splylist_exdate_s = "2018/10/04 19:10";
 		
-		String prod_id[] = {"biscuit-00477","biscuit-00966","biscuit-00373","biscuit-00815","biscuit-01108","biscuit-00143",
-				            "biscuit-00102","biscuit-00591","biscuit-00053","biscuit-00105","biscuit-00867","biscuit-00101",
-				            "biscuit-00850","biscuit-00843","biscuit-01158","biscuit-00005"};
+//		String prod_id[] = {"biscuit-00477","biscuit-00966","biscuit-00373","biscuit-00815","biscuit-01108","biscuit-00143",
+//				            "biscuit-00102","biscuit-00591","biscuit-00053","biscuit-00105","biscuit-00867","biscuit-00101",
+//				            "biscuit-00850","biscuit-00843","biscuit-01158","biscuit-00005"};
+		
+		String prod_id[] = {"necessities-00004",
+				"necessities-00369",
+				"necessities-00440",
+				"necessities-00447",
+				"necessities-00928",
+				"necessities-00027",
+				"necessities-00944",
+				"necessities-00802",
+				"necessities-00790",
+				"necessities-00890",
+				"necessities-00338",
+				"necessities-00214",
+				"necessities-00292",
+				"necessities-00164",
+				"necessities-00217"
+				
+		};
 		int splylist_sum = 34;
 		
 		// ------------------------------------------- 수불 신청 리스트 자료(15가지)			
