@@ -601,7 +601,7 @@ $(document).ready(function() {
 													<div class="snipcart-thumb">
 													
 														<a href="/user/productDetail">
-														<img src="/images/5.png" alt=" " class="img-responsive" /></a>
+														<img src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive" /></a>
 														<p>${vo.prod_name}</p>
 														<h4>생성날짜 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
 														

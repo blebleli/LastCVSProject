@@ -253,7 +253,7 @@ var content="";
 		        dataType : "json",
 		        success: function(data){
 		        	
-// 		        	alert("성공"+data);
+		        //	alert("성공"+prod_id);
 		        	 $.each(data,function(index,item){
 						// 리턴 받은 값 (좌표) set
 						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
@@ -306,10 +306,10 @@ var content="";
 		        	
 		        	// 맨 마지막 편의점으로 이동
 		        	// 이동할 위도 경도 위치를 생성합니다 
-	        	    var moveLatLon = new daum.maps.LatLng(y, x);
+// 	        	    var moveLatLon = new daum.maps.LatLng(y, x);
 	        	    
 	        	    // 지도 중심을 이동 시킵니다
-	        	    map.setCenter(moveLatLon);
+// 	        	    map.setCenter(moveLatLon);
 
 		        	
 		        }
