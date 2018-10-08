@@ -14,6 +14,7 @@ public class PresentStockListVo {
 	private String event_id;                                // 행사제품코드
 	private String event_name;                                // 행사이름
 	private String bcd_id;                             // 재고리스트코드
+	private Date stck_date;      	//supp
 	public PresentStockListVo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -21,7 +22,7 @@ public class PresentStockListVo {
 	public PresentStockListVo(String prod_id, String prod_name,
 			Date supply_date, Date stcklist_exdate, int prod_price,
 			int stcklist_amount, String splylist_id, String event_id,
-			String event_name, String bcd_id) {
+			String event_name, String bcd_id, Date stck_date) {
 		super();
 		this.prod_id = prod_id;
 		this.prod_name = prod_name;
@@ -33,6 +34,7 @@ public class PresentStockListVo {
 		this.event_id = event_id;
 		this.event_name = event_name;
 		this.bcd_id = bcd_id;
+		this.stck_date = stck_date;
 	}
 	public String getProd_id() {
 		return prod_id;
@@ -94,7 +96,12 @@ public class PresentStockListVo {
 	public void setBcd_id(String bcd_id) {
 		this.bcd_id = bcd_id;
 	}
-	
+	public Date getStck_date() {
+		return stck_date;
+	}
+	public void setStck_date(Date stck_date) {
+		this.stck_date = stck_date;
+	}
 	@Override
 	public String toString() {
 		return "PresentStockListVo [prod_id=" + prod_id + ", prod_name="
@@ -102,8 +109,10 @@ public class PresentStockListVo {
 				+ ", stcklist_exdate=" + stcklist_exdate + ", prod_price="
 				+ prod_price + ", stcklist_amount=" + stcklist_amount
 				+ ", splylist_id=" + splylist_id + ", event_id=" + event_id
-				+ ", event_name=" + event_name + ", bcd_id=" + bcd_id + "]";
+				+ ", event_name=" + event_name + ", bcd_id=" + bcd_id
+				+ ", stck_date=" + stck_date + "]";
 	}
+
 
 	
 }

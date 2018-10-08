@@ -104,15 +104,19 @@ public class CvsDayendController {
 	 */
 	@RequestMapping("/getNowStock")
 	@ResponseBody
-	public List<PresentStockListVo> getNowStock(@RequestParam("stockID")String stockID){
- 
+	public List<PresentStockListVo> getNowStock(@RequestParam("stockID")String stockID,
+												@RequestParam("stock_date")String stock_date,
+												@ModelAttribute("userInfo") MemberVo memberVo){
+
+		
 		Map<String,String> map = new HashMap<String,String>();
-		map.put("cul", "c.stock_id");
-		map.put("param", stockID);
+		map.put("mem_id", memberVo.getMem_id());
+		map.put("stock_id", stockID);
+		//map.put("stock_kind", "888");
+		map.put("stock_date", stock_date);
 		
 		//재고아이디로 재고 리스트를 불러서 보여준다
 		List<PresentStockListVo> stockList = stockService.getStockListByAttr(map);
-
 		
 		return stockList;
 	}
