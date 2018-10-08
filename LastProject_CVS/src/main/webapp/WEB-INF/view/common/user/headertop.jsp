@@ -11,11 +11,33 @@
 
 	$(function(){
 		$("#payBtn").on("click", function() {
+			
+			if (${empty sessionScope.userInfo}) {
+				if (confirm("로그인 후 이용 가능합니다. \n 로그인 하시겠습니까?")) {
+					location.href = "/login/loginView";
+					return;
+				} else {
+
+					return;
+				}
+			}
+			
 			$("#frm").attr("action", "/userPay/pay");
 			$("#frm").submit();
 		});
 		
 		$("#prodPay").on("click", function() {
+			
+			if (${empty sessionScope.userInfo}) {
+				if (confirm("로그인 후 이용 가능합니다. \n 로그인 하시겠습니까?")) {
+					location.href = "/login/loginView";
+					return;
+				} else {
+
+					return;
+				}
+			}
+			
 			$("#frm").attr("action", "/userPay/pay");
 			$("#frm").submit();
 		});
