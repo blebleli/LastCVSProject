@@ -201,6 +201,10 @@ public class UserPayController {
 		String[] prodId  = prod_id.split(",");
 		String[] prodNum = prod_num.split(",");
 		
+		if (prod_id.equals("x") ) {
+			return "forward:/user/main";
+		}
+		
 		// 기본 데이터 생성
 		// 결제 코드 : pay_id
 		String pay_id = code.autoCode("PAY", mem_id);
