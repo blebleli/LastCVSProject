@@ -106,6 +106,31 @@
 				tbody.slideToggle();
 			});
 		});
+		var cnt = 1;
+		$("#like").on("click",function(){
+			
+			cnt++;
+			if(cnt % 2 == 0 ){
+				$("#like").empty();
+				$("#like").append('<i class="fa fa-heart" aria-hidden="true"></i>');
+			}else{
+				$("#like").empty();
+				$("#like").append('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+			}
+			
+			$.ajax({
+				url:"/userBookmark/likeProd",
+				method:"get",
+				data:{prod_id : $(this).data("id")},
+				success:function(response){
+					console.log("success");
+					console.log(response);
+					console.log(cnt);
+					
+				}
+			});
+			
+		})
 	});
 </script>
 <input type="hidden" id="point_name" value="${sessionScope.userInfo.mem_name}">
@@ -127,7 +152,10 @@
 <div class="banner">
 	<div class="w3l_banner_nav_right">
 		<div class="agileinfo_single">
-			<h5>${prod.prod_name }</h5>
+			<h5>${prod.prod_name } &nbsp;| &nbsp; <c:if test="${bmk ==null }"><a id="like" data-id="${prod.prod_id }"><i class="fa fa-heart-o" aria-hidden="true"></i></a></c:if>
+			<c:if test="${bmk != null }"><a id="like" data-id="${prod.prod_id }"><i class="fa fa-heart" aria-hidden="true"></i></a></c:if>
+			</h5>
+<!-- 			<a><i class="fa fa-heart-o" aria-hidden="true"></i></a> -->
 			<div class="col-md-4 agileinfo_single_left">
 				<img id="example" src="${prod.file_path }/${prod.file_upname}"
 					alt=" " class="img-responsive" />
