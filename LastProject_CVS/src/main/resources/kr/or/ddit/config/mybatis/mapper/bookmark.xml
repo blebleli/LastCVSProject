@@ -104,23 +104,48 @@
 	  		작 성 자 : 공은별
 	  		일    시 : 2018-09-17     
 	 -->
-<!-- 	<insert id="insertProdBookmark" parameterType="BookmarkVo"> -->
-<!-- 		INSERT INTO BOOKMARK  -->
-<!-- 		( -->
-<!-- 			  STAR_ID   -->
-<!-- 			, MEM_ID    -->
-<!-- 			, STAR_KIND -->
-<!-- 			, PROD_ID -->
-<!-- 		) -->
-<!-- 		VALUES  -->
-<!-- 		( -->
-<!-- 			  #{star_id} -->
-<!-- 			, #{mem_id} -->
-<!-- 			, #{star_kind} -->
-<!-- 			, #{prod_id} -->
-<!-- 		) -->
-<!-- 	</insert> -->
+	<insert id="insertProdBookmark" parameterType="BookmarkVo">
+		INSERT INTO BOOKMARK 
+		(
+			  STAR_ID  
+			, MEM_ID   
+			, STAR_KIND
+			, PROD_ID
+		)
+		VALUES 
+		(
+			  #{star_id}
+			, #{mem_id}
+			, #{star_kind}
+			, #{prod_id}
+		)
+	</insert>
 	
-
+	<!-- 	아 이 디 : getBmkProd
+	  		매개변수 : Map
+	  		반 환 값 : BookmarkVo
+	  		설    명 : 사용자가 즐겨찾기등록한 제품 
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
+	<select id="getBmkProd" parameterType="Map" resultType="BookmarkVo">
+		SELECT * 
+		FROM bookmark
+		WHERE mem_id=#{mem_id}
+		AND prod_id=#{prod_id}
+	</select>
+	
+	<!-- 	아 이 디 : deleteBmkProd
+	  		매개변수 : String prod_id
+	  		반 환 값 : 없음
+	  		설    명 : 사용자
+	  		작 성 자 : 김현경
+	  		일    시 : 2018-09-17     
+	 -->
+	<delete id="deleteBmkProd" parameterType="String">
+		DELETE 
+		FROM bookmark 
+		WHERE prod_id=#{prod_id}
+	</delete>
 
 </mapper>
