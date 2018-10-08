@@ -603,7 +603,7 @@ $(document).ready(function() {
 														<a href="/user/productDetail">
 														<img src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive" /></a>
 														<p>${vo.prod_name}</p>
-														<h4>생성날짜 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
+														<h4>유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
 														
 														<div class="snipcart-details">
 															<a id="kakao-link-btn"  href="javascript:sendLink()">
