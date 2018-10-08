@@ -91,12 +91,12 @@ public class CvsPosMainController {
 	public String kakao(Model model) throws IOException{
 		//클릭했을때 경로받아오고..
 		//
-		File file = new File("D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
+	//	File file = new File("D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
 		
-		byte[] fileContent = Files.readAllBytes(file.toPath());
+	//	byte[] fileContent = Files.readAllBytes(file.toPath());
 		
-		model.addAttribute("length",fileContent.length);
-		model.addAttribute("fileContent",fileContent);
+	//	model.addAttribute("length",fileContent.length);
+	//	model.addAttribute("fileContent",fileContent);
 		
 		return "kakao_msg";
 	}

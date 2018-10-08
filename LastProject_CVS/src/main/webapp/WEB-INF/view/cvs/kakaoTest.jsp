@@ -26,7 +26,7 @@
     Kakao.init('20ef2122f316faf3ee201ff1da312505');
 
  
-    //로컬 string 경로를 파일객체로 만들어주만하면!
+<%--     //로컬 string 경로를 파일객체로 만들어주만하면!
     
     //카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
     var btn = document.getElementById('btn');
@@ -50,7 +50,7 @@
         document.getElementById('uploadUrl').value = res.infos.original.url
         console.log(res.infos.original.url);
       });
-    };  
+    };   --%>
     
     
      function sendLink() {
