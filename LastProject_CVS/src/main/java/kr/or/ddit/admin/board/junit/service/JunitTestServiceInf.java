@@ -1,6 +1,7 @@
 package kr.or.ddit.admin.board.junit.service;
 
 import kr.or.ddit.model.BarcodeVo;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
@@ -50,4 +51,15 @@ public interface JunitTestServiceInf {
 	 * Method 설명 : 수불 리스트(발주)
 	 */
 	int insertSupplyListTest(SupplyListVo supplyListVo);
+	
+	/**
+	 * Method : prodReviews
+	 * 최초작성일 : 2018. 10. 8.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardVo
+	 * @return
+	 * Method 설명 : 상품리뷰 작성
+	 */
+	int prodReviews(BoardVo boardVo);
 }

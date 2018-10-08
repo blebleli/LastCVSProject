@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import kr.or.ddit.admin.board.junit.dao.JunitTestDaoInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
@@ -70,7 +71,6 @@ public class dbTest { // db 값 저장
 	 */
 	@Test
 	public void insertBarcodeTest() throws ParseException{ // 4일치 다 넣음. 나중에 그 전 4일치도 추가해서 돌리면 됨
-//		String place_id = "5550000-104-2016-00006"; // 테스트용
 //		String place_id = "4930000-104-2015-00011";
 //		String place_id = "3380000-104-2014-00017";
 //		String place_id = "3670000-104-2012-00104";
@@ -87,10 +87,14 @@ public class dbTest { // db 값 저장
 		
 		// ------------------------------------------- 바코드 자료
 		
-		String supply_date_s[] = {"2018/10/18 13:22","2018/10/19 11:31","2018/10/20 09:21","2018/10/21 19:10"};
+//		String supply_date_s[] = {"2018/10/15 13:22","2018/10/16 13:22","2018/10/17 13:22",
+//								  "2018/10/18 13:22","2018/10/19 11:31","2018/10/20 09:21","2018/10/21 19:10"};
+		
+		String supply_date_s[] = {"2018/10/22 13:22","2018/10/23 13:22","2018/10/24 13:22","2018/10/25 13:22"};		
 		
 		// ------------------------------------------- 수불 신청 자료	
-					
+		
+//		for (int i = 0; i <= 6; i++){					
 		for (int i = 0; i <= 3; i++){
 			Date supply_date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(supply_date_s[i]);
 			barcodeVo = new BarcodeVo();
@@ -129,10 +133,10 @@ public class dbTest { // db 값 저장
 		
 		// 1. 바코드 생성 및 수불 신청 생성 후 -> 바코드 코드 가져오기 -> 유통기한 한개씩 처리
 
-//		String supply_bcd = "SUPPLY-aff64375-0540-43d9-bd29-4874d3205c3e";
-//		String supply_bcd = "SUPPLY-f4c20d59-1ae3-4a5c-a734-209ee1fdf695"; ///////여기까지 했음..
-//		String supply_bcd = "SUPPLY-d698fb09-4767-4837-9830-720fc649982d";
-		String supply_bcd = "SUPPLY-18fbe7d8-2cf6-496f-956f-8aaf69183e69";
+//		String supply_bcd = "SUPPLY-f1c5beb5-ee75-4e8f-811d-6c3d81c25f79";
+//		String supply_bcd = "SUPPLY-bc86647a-3507-4843-a7aa-ff60ebf98828";
+//		String supply_bcd = "SUPPLY-7a9a1570-23c5-4fee-a75d-eaffd1b2e7e4";
+		String supply_bcd = "SUPPLY-1b2a6f34-2595-44c3-8673-44998b95975e";		
 		
 //		String splylist_id = "4930000-104-2015-00011";
 //		String splylist_id = "3380000-104-2014-00017";
@@ -141,22 +145,23 @@ public class dbTest { // db 값 저장
 //		String splylist_id = "3680000-104-2016-00025";
 		String splylist_id = "4180000-104-2016-00010";
 		
-		String splylist_exdate_s = "2018/11/01 13:22";
-//		String splylist_exdate_s = "2018/11/02 11:31";
-//		String splylist_exdate_s = "2018/10/03 09:21";
-//		String splylist_exdate_s = "2018/10/04 19:10";
+//		String splylist_exdate_s = "2018/11/08 13:22";
+//		String splylist_exdate_s = "2018/11/09 11:31";
+//		String splylist_exdate_s = "2018/10/10 09:21";
+		String splylist_exdate_s = "2018/10/11 19:10";	
+		
 		
 //		String splylist_exdate_s[] = {"2018/11/01 13:22","2018/10/04 19:10","2018/10/03 09:21","2018/11/02 11:31"};
 		
-//		String prod_id[] = {"biscuit-"2018/10/03 09:21"00477","biscuit-00966","biscuit-00373","biscuit-00815","biscuit-01108","biscuit-00143",
-//				            "biscuit-"2018/10/04 19:10"00102","biscuit-00591","biscuit-00053","biscuit-00105","biscuit-00867","biscuit-00101",
+//		String prod_id[] = {"biscuit-00477","biscuit-00966","biscuit-00373","biscuit-00815","biscuit-01108","biscuit-00143",
+//				            "biscuit-00102","biscuit-00591","biscuit-00053","biscuit-00105","biscuit-00867","biscuit-00101",
 //				            "biscuit-00850","biscuit-00843","biscuit-01158","biscuit-00005"};
 		
 		String prod_id[] = {"necessities-00004", "necessities-00369", "necessities-00440", "necessities-00447",
 							"necessities-00928", "necessities-00027", "necessities-00944", "necessities-00802",
 							"necessities-00790", "necessities-00890", "necessities-00338", "necessities-00214",
 							"necessities-00292", "necessities-00164","necessities-00217"};
-		int splylist_sum = 34;
+		int splylist_sum = 42;
 		
 		// ------------------------------------------- 수불 신청 리스트 자료(15가지)			
 		
@@ -172,5 +177,33 @@ public class dbTest { // db 값 저장
 			
 			junitTestDao.insertSupplyListTest(supplyListVo); // 수불 리스트(SUPPLY_LIST) 생성
 		}
-	}	
+	}
+	
+	@Test
+	public void prodReviews(){
+		String bd_title[] = {"고무고무~~","젤리? 실화?","ㅇㅇ 실화임..","이거 고무맛 남 퉤","ㅇㅇ맞음 고무맛남.."};
+		String bd_content[] = {"나는 원피스다~~","ㅋㅋㅋㅋㅋ","개졸맛","투웨","누가 만든거임.."};
+		String bd_date[] = {"2018-11-30","2018-10-29","2018-11-22","2018-11-12","2018-12-10"};
+		String mem_id[] = {"KBK@ddit.or.kr","vit_keb@naver.com","KMK@ddit.or.kr","LH@ddit.or.kr,","NMS@ddit.or.kr"};
+		String prod_id = "biscuit-00001";
+		int bd_rating[] = {5, 4, 4, 1, 1};
+		BoardVo boardVo = null;
+		
+		for(int i = 0; i <= 4; i++){
+			boardVo = new BoardVo();
+			boardVo.setBd_title(bd_title[i]);
+			boardVo.setBd_id(code.autoCode("BRE"));
+			boardVo.setBd_content(bd_content[i]);
+			boardVo.setBd_date(bd_date[i]);
+			boardVo.setBd_rating(bd_rating[i]);
+			boardVo.setBd_views(0);
+			boardVo.setBd_group(boardVo.getBd_id());
+			boardVo.setMem_id(mem_id[i]);
+			boardVo.setBd_parent("");
+			boardVo.setBd_kind_id("55");
+			boardVo.setProd_id(prod_id);
+			boardVo.setBd_del("N");
+			junitTestDao.prodReviews(boardVo);
+		}
+	}
 }

@@ -107,17 +107,17 @@ public class loginTest { // 24명 일반회원 저장하기
 			memberVo.setMem_addr(mem_addr[i]);		
 			memberVo.setMem_point(mem_point[i]);
 			
-//			FiledataVo filedataVo = null;
-//
-//		//  주소합침     =  기본주소             + 상세주소
-//		String addSum = memberVo.getMem_add() + memberVo.getMem_addr();
-//
-//		// 사용자가 입력한 주소로 좌표 반환하기
-//		Map<String, String> resultCoordinate  = commonService.transformationAddr(addSum);
-//		
-//		// memberVO 에 값 Set
-//		memberVo.setMem_x(resultCoordinate.get("x"));
-//		memberVo.setMem_y(resultCoordinate.get("y"));
+			FiledataVo filedataVo = null;
+
+		//  주소합침     =  기본주소             + 상세주소
+		String addSum = memberVo.getMem_add() + memberVo.getMem_addr();
+
+		// 사용자가 입력한 주소로 좌표 반환하기
+		Map<String, String> resultCoordinate  = commonService.transformationAddr(addSum);
+		
+		// memberVO 에 값 Set
+		memberVo.setMem_x(resultCoordinate.get("x"));
+		memberVo.setMem_y(resultCoordinate.get("y"));
 //		
 //		
 //		// 사용자 사진 업로드 09.11 - KONG==========================================================================

@@ -42,12 +42,12 @@ public class tableInsertTest {
 		// 데이터
 		// 일반사용자
 		MemberVo m = new MemberVo(
-				  "rlaakdma@hanmail.net"	//mem_id          -- 아이디
+				  "admin"	//mem_id          -- 아이디
 				, "test"					//mem_pw          -- 비밀번호                        
-				, "02"						//mem_kind        -- 구분  : 관리자(00), 점주(01), 일반(02)
-				, "김마음"					//mem_name        -- 이름                          
-				, "010-4434-2174"			//mem_tel         -- 연락처                         
-				, "19920507"				//mem_birth       -- 생년월일                        
+				, "00"						//mem_kind        -- 구분  : 관리자(00), 점주(01), 일반(02)
+				, "관리자"					//mem_name        -- 이름                          
+				, "010-1234-4567"			//mem_tel         -- 연락처                         
+				, "19890101"				//mem_birth       -- 생년월일                        
 				, "M"						//mem_gen         -- 성별(M:남자, F:여자)              
 				, 12345						//mem_zip         -- 우편번호                        
 				, "대전광역시"					//mem_add         -- 주소                          

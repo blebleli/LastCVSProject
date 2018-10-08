@@ -3,6 +3,7 @@ package kr.or.ddit.admin.board.junit.dao;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.BarcodeVo;
+import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
@@ -70,5 +71,19 @@ public class JunitTestDao implements JunitTestDaoInf {
 	@Override
 	public int insertSupplyListTest(SupplyListVo supplyListVo) {
 		return template.insert("supply.insertSupplyList", supplyListVo);
+	}
+	
+	/**
+	 * Method : prodReviews
+	 * 최초작성일 : 2018. 10. 8.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param boardVo
+	 * @return
+	 * Method 설명 : 상품리뷰 작성
+	 */
+	@Override
+	public int prodReviews(BoardVo boardVo) {
+		return template.insert("board.prodReviews", boardVo);
 	}	
 }

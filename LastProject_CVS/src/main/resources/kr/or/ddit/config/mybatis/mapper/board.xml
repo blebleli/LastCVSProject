@@ -516,4 +516,11 @@
     <select id="getReviewCnt" resultType="int" parameterType="String">
        SELECT COUNT(*) AS CNT FROM BOARD WHERE PROD_ID = #{prod_id}
     </select>
+    
+    <insert id="prodReviews" parameterType="boardVo">
+		INSERT INTO BOARD (BD_ID, BD_TITLE, BD_CONTENT, BD_DATE, BD_DEL, BD_RATING, BD_VIEWS,
+						   BD_GROUP, MEM_ID, BD_PARENT, BD_KIND_ID, PROD_ID)
+		VALUES (#{bd_id}, #{bd_title}, RAWTOHEX(#{bd_content}), to_date(#{bd_date},'YYYY-MM-DD'), #{bd_del}, #{bd_rating}, #{bd_views},
+				#{bd_group}, #{mem_id}, #{bd_parent}, #{bd_kind_id}, #{prod_id}) 
+    </insert>
 </mapper>

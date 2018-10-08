@@ -124,13 +124,7 @@
 <script>		
 $(function(){
 	
-	$("#commentsUpd").on("click",function() { // 댓글 수정을 누를시
-		var cm_id = $("#cm_id").val();
-			
-		});
-	
 	$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
-		alert("!");
 		var Y = $("input[id='cm_opennyY']:checked").val(); // 라디오 버튼 체크한 값			
 		if(Y=="Y"){ // 댓글 공개를 한다면
 			$("input[name='cm_RadioCkeck']").val("Y"); // cm_RadioCkeck에 Y값을 대입시킨다.					
@@ -269,7 +263,7 @@ function fn_delete(geta){
 							<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
 							<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
 							<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">									
-							<input type="hidden" id="mem_id" name="mem_id" value="admin">									
+							<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">									
 							<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
 							<input type="hidden" name="cm_RadioCkeck">
 					</td>
