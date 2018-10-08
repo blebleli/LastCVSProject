@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import kr.or.ddit.board.dao.BoardDaoInf;
 import kr.or.ddit.board.service.BoardServiceInf;
+import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.filedata.service.FileServiceInf;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * @Class Name : userBoardController.java
@@ -37,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 2018. 9. 28. 김마음 컨트롤러명 수정
  * </pre>
  */
+@SessionAttributes({"userInfo"})
 @RequestMapping("/board")
 @Controller("userBoardController")
 public class userBoardController {
@@ -51,6 +54,9 @@ public class userBoardController {
 
 	@Resource(name="boardDao")
 	private BoardDaoInf boardDao;
+	
+	@Resource(name="autoCodeCreate")
+	private AutoCodeCreate code;
 	
 	/**
 	 * Method : boardSearch
@@ -286,7 +292,7 @@ public class userBoardController {
 		model.addAttribute("bd_id", bd_id);
 		model.addAttribute("bd_kind_id2", bd_kind_id2);
 		model.addAttribute("post", post); // model에 저장한다.
-		model.addAttribute("commentsList", commentsList); // model에 저장한다.
+		model.addAttribute("cList", commentsList); // model에 저장한다.
 		model.addAttribute("FList", FList); // model에 저장한다.
 		
 		return "viewPost";
@@ -319,54 +325,66 @@ public class userBoardController {
 	}
 	
 	/**
-	* Method : newComment
-	* Method 설명 :신규 댓글 작성
-	* 최초작성일 : 2018. 9. 5.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :
-	* @param commentsVo
-	* @return
-	*/
-	@RequestMapping(value="/newComment")
-	public String newComment(@RequestParam(value="bd_id")String bd_id , CommentsVo commentsVo, Model model){
+	 * Method : newComment
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : 게시글 내 댓글 작성 C
+	 */
+	@RequestMapping("/newComment")
+	public String newComment(@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id,
+							 @RequestParam(value="cm_RadioCkeck", defaultValue="") String cm_RadioCkeck, CommentsVo cList, Model model){
+				
+		if(cm_RadioCkeck.equals("Y")){ // 댓글 공개하였다면
+			cList.setCm_openny(cm_RadioCkeck); // 공개 체크 저장
+			System.out.println("공개함");
+		}else{ // 댓글 비공개를 하였다면
+			cList.setCm_openny(cm_RadioCkeck); // 비공개 체크 저장
+			System.out.println("비공개함");
+		}
 		
-		//댓글 작성 메서드를 실행
-		commentsVo.setCm_group("0");
-		commentsVo.setCm_id2("");
-		int cnt = boardService.setInsertComments(commentsVo);
+		if(bd_kind_id.equals("44")){ // 공지사항이면
+			String CNOCODE = "CNO"; // 공지사항 코드 생성 준비
+			String cm_id = code.autoCode(CNOCODE); // 코드 생성
+			cList.setCm_id(cm_id); // 댓글코드 저장
+			System.out.println("공지사항 입니다. ========================>>>>");
+		} else { // 이벤트이면
+			String CEVCODE = "CEV"; // 이벤트 코드 생성 준비
+			String cm_id = code.autoCode(CEVCODE); // 코드 생성
+			cList.setCm_id(cm_id); // 댓글코드 저장
+			System.out.println("이벤트 입니다 =========================>>>>>");
+		}		
+		String cm_group = cList.getBd_id(); // 게시글 코드를
+		cList.setCm_group(cm_group); // 그룹코드에 저장(첫 댓글은 자기 자신이 그룹코드이다.)
 		
-		//리다이렉트해서 필요한 값을 넘겨주기 위함
-		model.addAttribute("bd_id",bd_id);
+		int cnt = boardService.setInsertComments(cList);
+		model.addAttribute("cList", cList);
 		
-		return "redirect:/board/view";
+		if(cnt != 0){
+			return "redirect:/board/view?id=" + cList.getBd_id();	// id가 상세조회 id이름과 동일해야함.		
+		}else{
+			return "ad_index";
+		}
 	}
 	
-//	/**
-//	* Method : deleteComment
-//	* Method 설명 :댓글 삭제 메서드
-//	* 최초작성일 : 2018. 9. 7.
-//	* 작성자 : 조계환
-//	* 변경이력 :신규
-//	* 조 회 :
-//	* @param commentsVo
-//	* @param model
-//	* @return
-//	*/
-//	@RequestMapping(value="/deleteComment")
-//	public String deleteComment(@RequestParam(value="bd_id")String bd_id, CommentsVo commentsVo, Model model){
-//		
-//		//댓글 삭제에 필요한 댓글 고유 id를 가져옴
-//		String id = commentsVo.getCm_id();
-//		logger.debug("id============================"+id);
-//		
-//		//댓글 삭제 기능 메서드
-//		int cnt = boardService.deleteComments(id);
-//		logger.debug("cnt============================"+cnt);
-//		
-//		//리다이렉트해서 필요한 값을 넘겨주기 위함
-//		model.addAttribute("bd_id",bd_id);
-//		
-//		return "redirect:/board/view";
-//	}
+	/**
+	 * Method : commentsDelete
+	 * 최초작성일 : 2018. 9. 19.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @return
+	 * Method 설명 : 게시글 내 댓글 삭제 D
+	 */
+	@RequestMapping("/commentsDel")
+	public String commentsDelete(@RequestParam(value="cm_id", defaultValue="") String cm_id,
+								 @RequestParam(value="bd_id", defaultValue="") String bd_id, Model model){		
+		int cnt = boardService.commentsDelete(cm_id); // 댓글코드로 댓글을 삭제한다.
+		
+		if(cnt != 0){ // 댓글 삭제 성공시
+			return "redirect:/board/view?id=" + bd_id; // 게시글 상세화면으로 이동한다.
+		}else{ // 댓글 삭제 실패시
+			return "ad_index"; // 관리자 메인으로 돌아간다.
+		}
+	}
 }

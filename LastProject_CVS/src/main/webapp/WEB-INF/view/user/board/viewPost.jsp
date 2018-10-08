@@ -121,6 +121,44 @@
 }
 </style>
 
+<script>		
+$(function(){
+	
+	$("#commentsUpd").on("click",function() { // 댓글 수정을 누를시
+		var cm_id = $("#cm_id").val();
+			
+		});
+	
+	$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
+		alert("!");
+		var Y = $("input[id='cm_opennyY']:checked").val(); // 라디오 버튼 체크한 값			
+		if(Y=="Y"){ // 댓글 공개를 한다면
+			$("input[name='cm_RadioCkeck']").val("Y"); // cm_RadioCkeck에 Y값을 대입시킨다.					
+			$("#newComments").submit(); // 댓글 공개상태 저장 이동
+		}else if($("input[id='cm_opennyN']:checked").val()=='N'){ // 비공개를 한다면					
+			$("input[name='cm_RadioCkeck']").val("N"); // cm_RadioCkeck에 N값을 대입시킨다.	
+			$("#newComments").submit(); // 댓글 비공개상태 저장 이동
+		}else{ // 아무것도 체크 안할시
+			alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
+			return
+		}
+	});			
+});
+
+function fn_delete(geta){
+	//a: form 자체를 의미
+	var a = document.getElementById(geta);	
+	// 삭제 경고창 '예'를 누를시
+	if (confirm("삭제하시겠습니까?")){		
+		// 삭제 이동
+		a.submit();
+	} else { // 삭제 경고창 '아니오'를 누를시					
+		// 그대로 있는다.
+		return false; 					
+	}
+}
+</script>
+
 <!-- products-breadcrumb -->
 <div class="products-breadcrumb">
 	<div class="container">
@@ -176,28 +214,12 @@
 						</td>
 					</tr>
 				</table>
-				
-				<form id="frm" action="/adboard/boardUpdateGo" method="post">
-					<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 form-group pull-right">
-						<span style="float: right">
-							<c:if test="${userInfo.mem_id == 'admin'}">
-							<button class="btn btn-primary" id="boardUpd" type="button">수정</button>
-							<button class="btn btn-primary" id="boardDel" type="reset">삭제</button>
-							<button class="btn btn-primary" id="boardRe" type="reset">답글</button>
-							</c:if>
-						</span>
-						<input type="hidden" id="bd_id" name="bd_id" value="${b.bd_id}">
-						<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">
-						<input type="hidden" id="bd_group" name="bd_group" value="${b.bd_group}">
-						<input type="hidden" id="bd_kind_id2" name="bd_kind_id2" value="${bd_kind_id2}">
-					</div>
-				</form>		
 						
 				<table class="table table-striped table-hover" id="reply_area">
 				<!-- 댓글 조회 -->
 				
 				<c:forEach items="${cList}" var="vo" varStatus="status">
-				<form name="delete${status.index}" id="delete${status.index}" action="/adboard/commentsDel" method="post">						
+				<form name="delete${status.index}" id="delete${status.index}" action="/board/commentsDel" method="post">						
 				<tr id="comment">
 					<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
 					
@@ -208,7 +230,7 @@
 								${vo.cm_content}
 								<input type="hidden" name="cm_id" id="cm_id${status.index}" value="${vo.cm_id}">
 								<input type="hidden" name="bd_id" id="bd_id${status.index}" value="${vo.bd_id}">
-								<input type="hidden" name="mem_id" id="mem_id${status.index}" value="admin">										
+								<input type="hidden" name="mem_id" id="mem_id${status.index}" value="${userInfo.mem_id}">										
 						</c:if>
 						
 						<c:if test="${vo.cm_delny == 'Y'}">
@@ -239,7 +261,7 @@
 				</c:forEach>								
 				
 				<!-- 댓글 작성 -->
-				<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">						
+				<form action="/board/newComment" method="post" name="cm_content" id="newComments">						
 				<tr>
 					<td id="demoFont" class="col-sm-1">댓글</td>
 					<td style="border-collapse:collapse;" rowspan="2" colspan="3" class="col-sm-9">

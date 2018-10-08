@@ -183,7 +183,7 @@
 					<table class="table table-striped table-hover" id="reply_area">
 						<!-- 댓글 조회 -->										
 						<c:forEach items="${cList}" var="vo" varStatus="status">
-						<form name="delete${status.index}" id="delete${status.index}" action="/adboard/commentsDel" method="post">						
+						<form name="delete${status.index}" id="delete${status.index}" action="/board/commentsDel" method="post">						
 						<tr id="comment">
 							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
 							
@@ -194,7 +194,7 @@
 										${vo.cm_content}
 										<input type="hidden" name="cm_id" id="cm_id${status.index}" value="${vo.cm_id}">
 										<input type="hidden" name="bd_id" id="bd_id${status.index}" value="${vo.bd_id}">
-										<input type="hidden" name="mem_id" id="mem_id${status.index}" value="admin">										
+										<input type="hidden" name="mem_id" id="mem_id${status.index}" value="${userInfo.mem_id}">										
 								</c:if>
 								
 								<c:if test="${vo.cm_delny == 'Y'}">
@@ -225,7 +225,7 @@
 						</c:forEach>								
 						
 						<!-- 댓글 작성 -->
-						<form action="/adboard/newComment" method="post" name="cm_content" id="newComments">						
+						<form action="/board/newComment" method="post" name="cm_content" id="newComments">						
 						<tr>
 							<td id="demoFonts" class="col-sm-1">댓글</td>
 							<td style="border-collapse:collapse;" rowspan="2" colspan="3" class="col-sm-9">
