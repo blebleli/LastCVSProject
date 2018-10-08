@@ -218,7 +218,7 @@ public class AdminSupplyController {
 		
 		logger.debug("폴더생성과정--------------------------------");
 		//폴더 생성 (폴더가 있으면 그 폴더에 QR코드가 생성이 되고 폴더가 없으면 새로 생성)
-		barcodeService.makeDir("supply", mem_id);
+		//barcodeService.makeDir("supply", mem_id);
 		
 		//supply_bcd를 새로이 생성
 		String code = "SUPPLY";

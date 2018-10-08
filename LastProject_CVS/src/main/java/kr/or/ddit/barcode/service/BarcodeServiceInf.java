@@ -30,7 +30,7 @@ public interface BarcodeServiceInf {
 	 */
 	 void generateQRCodeImage(String bcd_id,String kind, String mem_id) throws WriterException;
 	
-	 /**
+/*	 *//**
 	  * 
 	  * Method   : makeDir 
 	  * 최초작성일  : 2018. 10. 5. 
@@ -38,6 +38,6 @@ public interface BarcodeServiceInf {
 	  * 변경이력 : 
 	  * @param filePath 
 	  * Method 설명 : mem_id로 폴더가 없을경우 생성
-	  */
-	 void makeDir(String kind,String mem_id);
+	  *//*
+	 void makeDir(String kind,String mem_id);*/
 }

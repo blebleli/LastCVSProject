@@ -184,7 +184,7 @@ public class StockService implements StockServiceInf {
 	public int setSupplyStockInsert(List<SupplyListVo> supplyListVo, String mem_id) {
 
 		//mem_id로 폴더 존재하는지 체크
-		barcodeService.makeDir("stock", mem_id);
+		//barcodeService.makeDir("stock", mem_id);
 
 		//재고 테이블 insert
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	

@@ -279,15 +279,15 @@ public class UserPayController {
 				String barCode = code.barcode("POCKET");
 				
 				// 큐알코드 생성
-//				try {
-//					// 폴더 생성
-//					qrCode.makeDir("SAVE",mem_id);
-//					// 큐알코드 생성
-//					qrCode.generateQRCodeImage(barCode, "SAVE", mem_id);
-//				} catch (WriterException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+				try {
+					// 폴더 생성
+					//qrCode.makeDir("SAVE",mem_id);
+					// 큐알코드 생성
+					qrCode.generateQRCodeImage(barCode, "SAVE", mem_id);
+				} catch (WriterException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				// barcode===========================================================
 				BarcodeVo barcodeVo = new  BarcodeVo();

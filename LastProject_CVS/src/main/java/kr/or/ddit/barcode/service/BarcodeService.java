@@ -64,6 +64,14 @@ public class BarcodeService implements BarcodeServiceInf {
 		
 		String filePath = barcodePath+kind+"/"+mem_id+"/"+bcd_id+".jpg";
         
+		
+		File currentDir = new File(filePath);
+	
+		if (!currentDir.exists()) {
+			try{currentDir.mkdirs();} 
+		    catch(SecurityException se){}        
+		}
+		
 		QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(bcd_id, BarcodeFormat.QR_CODE, 350, 350);
 
@@ -76,7 +84,7 @@ public class BarcodeService implements BarcodeServiceInf {
 		}
 	}
 
-	@Override
+/*	@Override
 	public void makeDir(String kind,String mem_id) {
 		
 		String patt = barcodePath+kind+"/"+mem_id;
@@ -88,7 +96,7 @@ public class BarcodeService implements BarcodeServiceInf {
 		    catch(SecurityException se){}        
 		}
 
-	}
+	}*/
 	
 
 	
