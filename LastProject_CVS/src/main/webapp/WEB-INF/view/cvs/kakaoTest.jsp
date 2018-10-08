@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" import="java.net.InetAddress" %>
  <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -17,7 +18,10 @@
 <a href="http://developers.kakao.com/logout">로그아웃</a>
 <button id="btn">카카오 업로드 버튼</button>
 <input type="file" id="file" multiple>
-
+<%
+InetAddress inet= InetAddress.getLocalHost();
+%>
+server ip: <%=inet.getHostAddress()%>
 <a id="uploadUrl">uploadUrl</a>
 <script type='text/javascript'>
 
@@ -58,8 +62,8 @@
         templateId: 12634,
         templateArgs: {
           'title': "${sessionScope.userInfo.mem_name}"+' 고객님',
-          'content': 'http://192.168.207.125:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg',
-          'bcdImg' : 'http://192.168.207.125:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg',
+          'content': 'http://192.168.56.1:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg',
+          'bcdImg' : 'http://192.168.56.1:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg',
         }
       });
     }
