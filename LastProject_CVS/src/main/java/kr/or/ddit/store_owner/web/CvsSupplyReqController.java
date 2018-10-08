@@ -137,7 +137,7 @@ public class CvsSupplyReqController {
 	 */
 	@RequestMapping("/reqList")
 	public String requestList(Model model,@ModelAttribute("userInfo") MemberVo memberVo){
-
+		logger.debug("userInfo======{}",memberVo);
 		List<SupRequestListVo> supplyList = supplyService.supplyRequestList(memberVo.getMem_id());
 		model.addAttribute("supplyList", supplyList);	
 		return "cvs_supply_request_list";
@@ -400,6 +400,7 @@ public class CvsSupplyReqController {
 		
 		logger.debug("controller-----------------------");
 		Map modelMap = model.asMap();
+		MemberVo user = (MemberVo) modelMap.get("userInfo");
 		int result = 0;
 		
 		String bcd_id =autoCode.barcode("SUPPLY");
@@ -415,14 +416,14 @@ public class CvsSupplyReqController {
 			supply.setSupply_bcd(supBarcode.getBcd_id());
 			supply.setSupply_date(today);
 			supply.setSupply_state("10");
-			supply.setPlace_id("6510000-104-2015-00153");
+			supply.setPlace_id(user.getMem_id());
 			int supResult=supplyService.setInsertSupply(supply);
 			if(supResult > 0){
 				model.addAttribute("todaySupply", supply);
 			}
 		}
 		for(SupplyListVo sup : checkList){
-			sup.setSplylist_id(autoCode.autoCode("SUP10", "6510000-104-2015-00153"));
+			sup.setSplylist_id(autoCode.autoCode("SUP10", user.getMem_id()));
 			sup.setSupply_bcd(bcd_id);
 			sup.setSplylist_exdate(today);
 			sup.setSplylist_info("발주신청");
