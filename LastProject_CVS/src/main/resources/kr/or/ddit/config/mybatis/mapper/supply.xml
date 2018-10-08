@@ -273,7 +273,7 @@
 		select a.supply_bcd, a.supply_date , a.supply_state, a.place_id, sum(b.SPLYLIST_SUM)as total_amount , sum(b.SPLYLIST_SUM * c.prod_cost) as total
  			FROM supply a, supply_list b, prod c
 		 	WHERE a.place_id =#{place_id}
- 			AND a.supply_state ='10'
+ 			AND a.supply_state !='12'
  			AND b.prod_id = c.prod_id 
  			AND a.SUPPLY_BCD = b.SUPPLY_BCD
 			GROUP BY a.supply_bcd, a.supply_date,a.supply_state, a.place_id
