@@ -73,8 +73,20 @@
                           <tr class="even pointer">      
                             <td class=" ">${status.count}</td>
                             <td class=" "><span class="stockID">${stock.stock_id}</span></td>
-                            <td class=" "><fmt:formatDate value="${stock.stock_date}" pattern="yyyy-MM-dd" /></td> 
-                            <td class=" ">${stock.stock_kind}</td>                          
+                            <td class=" "><span class="stock_date"><fmt:formatDate value="${stock.stock_date}" pattern="yyyy-MM-dd" /></span></td> 
+                            <td class=" ">
+                            <c:choose>                   			
+								<c:when test="${stock.stock_kind==888}">
+									재고
+								</c:when>
+								<c:when test="${stock.stock_kind==999}">
+									마감
+								</c:when>									
+								<c:otherwise>
+									재고마감
+								</c:otherwise>									
+							</c:choose>
+                            </td>                         
                           </tr>
    						</c:forEach>
                                              
@@ -133,13 +145,19 @@
 	
 	//재고 상세리스트 출력
 	$("#stockTable tbody").on("click", "tr", function(){
-		var stockID =$(this).find(".stockID").html();	
+		
+		var stockID =$(this).find(".stockID").html();
+		var stock_date =$(this).find(".stock_date").html();
+		
 		console.log("stockID --->"+stockID);
+		console.log("stock_date --->"+stock_date);
+		
 		
 	 	$.ajax({
 			url : "/cvs/getNowStock",
 			method:"get",
-			data : {"stockID": stockID },
+			data : {"stockID": stockID,
+					"stock_date": stock_date},
 			success : function(stockList){
 				
 				$("#stockDetailTbody").empty();
@@ -153,7 +171,7 @@
 			
 				$.each(stockList,function(index, item){				
 				$("#stockDetailTbody").append(		    								
-							'<tr class="even pointer" data-splylist_id="'+item.splylist_id+'" data-supply_date="'+item.supply_date+'">'+        
+							'<tr class="even pointer" data-splylist_id="'+item.splylist_id+'" data-stck_date="'+item.stck_date+'">'+        
 	                        '<td >'+(index+1)+'</td>'+	                        
 	                        '<td ><span class="prod_id">'+item.prod_id+'</span></td>'+
 	                        '<td >'+item.prod_name+'</td>'+
@@ -196,7 +214,7 @@
 					
 				dayEndList.push({prod_id: trData.find('.prod_id').html(),
 							 splylist_id: trData.data('splylist_id'),
-							 supply_date: trData.data('supply_date'),
+							 stck_date: trData.data('stck_date'),
 						 stcklist_exdate: trData.find('.stcklist_exdate').html(),
 						 stcklist_amount: trData.find('.amount').val()});
 						 console.log("each index---"+trData.data('splylist_id'));
