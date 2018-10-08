@@ -10,9 +10,12 @@ import javax.annotation.Resource;
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.board.service.BoardServiceInf;
 import kr.or.ddit.commons.service.CommonsServiceInf;
+import kr.or.ddit.model.BookmarkVo;
 import kr.or.ddit.model.CategoryVo;
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
+import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +43,9 @@ public class UserProdController {
 	
 	@Resource(name="boardService")
 	private BoardServiceInf boardService;
+	
+	@Resource(name="bookmarkService")
+	private BookmarkServiceInf bmkService;
 	
 	@ModelAttribute("prodCtgy")
 	public List<CategoryVo> prodCtgyList(){
@@ -78,10 +84,20 @@ public class UserProdController {
 	//  상품 이미지 클릭 했을때
 //	@RequestMapping(value="/detail", method=RequestMethod.GET )
 	@RequestMapping("/detail")
-	public ModelAndView prodDetail(@RequestParam(value="prod_id") String prod_id){
+	public ModelAndView prodDetail(@RequestParam(value="prod_id") String prod_id, Model model){
+		Map modelMap = model.asMap();
+		MemberVo user = (MemberVo) modelMap.get("userInfo");
 		
 		ModelAndView mav = new ModelAndView("prodDetail");
 		
+		//즐겨찾기한 제품인지 확인
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("mem_id", user.getMem_id());
+		map.put("prod_id", prod_id);
+		BookmarkVo bmk = bmkService.getBmkProd(map);
+		if(bmk != null){
+			mav.addObject("bmk", bmk);
+		}
 		// 상품 정보
 		ProdVo prod = prodService.getProd(prod_id);
 		
