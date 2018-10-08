@@ -58,8 +58,8 @@
         templateId: 12634,
         templateArgs: {
           'title': "${sessionScope.userInfo.mem_name}"+' 고객님',
-          'content': 'http://k.kakaocdn.net/dn/unTzK/bWYpDX3TQ4V/lLnp7fEqBfaQkMFJ1bMRI0/kakaolink40_original.png',
-          'bcdImg' : 'http://k.kakaocdn.net/dn/unTzK/bWYpDX3TQ4V/lLnp7fEqBfaQkMFJ1bMRI0/kakaolink40_original.png',
+          'content': 'http://192.168.207.125:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg',
+          'bcdImg' : 'http://192.168.207.125:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg',
         }
       });
     }
