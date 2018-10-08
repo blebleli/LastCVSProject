@@ -8,20 +8,26 @@
 
 <!-- select ============================================================================= -->
 	<select id="getMyPocket" parameterType="String" resultType="pocketProdVo">
-		SELECT 
-		    pk.pocket_id,   --주머니 id
-		    pk.pocket_date, -- 주머니 날짜
-		    p.prod_name,    -- 상품이름
-		    p.prod_price,	-- 상품가격
-		    bcd.bcd_path    -- 바코트 경로
-	    FROM pocket pk
-	    JOIN prod p 
-	    ON   pk.prod_id = p.prod_id
-	    JOIN member mem 
-	    ON   pk.mem_id = mem.mem_id 
-	    JOIN barcode bcd 
-	    ON   bcd.bcd_id = pk.POCKET_ID
-	    WHERE mem.mem_id = #{mem_id}
+		 SELECT     pk.pocket_id   -- 주머니 id
+	               ,pk.pocket_date -- 기프티콘 유효날짜(90일)
+	               ,PK.POCKET_USENY -- 사용여부
+	               ,PK.POCKET_DELNY -- 삭제여부
+	               
+	               ,P.PROD_ID
+	               ,p.prod_name    -- 상품이름
+	               ,p.prod_price	 -- 상품가격
+	               ,P.FILE_PATH    -- 제품경로
+	               ,P.FILE_UPNAME  -- 제품이미지명
+	               
+	               ,BA.BCD_PATH    -- 바코드 경로
+	               ,BA.BCD_ID      -- 바코드이미지명
+	               ,(SELECT PAY_DATE FROM PAY WHERE PAY_ID = PK.PAY_ID) AS PAY_DATE -- 결제일시
+	      FROM POCKET PK
+	      JOIN PROD P
+	      ON PK.PROD_ID = P.PROD_ID
+	      JOIN BARCODE BA
+	      ON PK.POCKET_ID = BA.BCD_ID
+	      WHERE PK.MEM_ID = #{mem_id}
 	</select>
 	
 	<insert id="pocketInsert" parameterType="pocketVo">
