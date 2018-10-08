@@ -69,5 +69,23 @@ public class BookmarkService implements BookmarkServiceInf {
 	}
 
 
+	@Override
+	public int insertProdBookmark(BookmarkVo bmkProd) {
+		return bookmarkDao.insertProdBookmark(bmkProd);
+	}
+
+
+	@Override
+	public BookmarkVo getBmkProd(Map<String, String> map) {
+		return bookmarkDao.getBmkProd(map);
+	}
+
+
+	@Override
+	public int deleteBmkProd(String prod_id) {
+		return bookmarkDao.deleteBmkProd(prod_id);
+	}
+
+
 
 }
