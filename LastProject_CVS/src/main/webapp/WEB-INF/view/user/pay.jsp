@@ -6,6 +6,15 @@
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <script type="text/javascript">
 
+
+// 라인 삭제
+function deleteLine(obj) {
+    var tr = $(obj).parent().parent().parent();
+ 
+    //라인 삭제
+    tr.remove();
+}
+
 function fn_mm(prodId, price, tot){
 	var cnt = 0;
 	var rePrice = price;
@@ -89,35 +98,22 @@ $(document).ready(function(){
 });
 
 function fn_userPointChk(val){
+
+	// 사용가능한 포인트
+	var userPoint = parseInt($("#userPoint").text());
 	
-	var userPoint = parseInt($("userPoint").val());
-	
+	// 입력한 포인트
 	var point = parseInt($("#pay_point").val());
-	$("#prod_point").val(point);
 	
+	alert(userPoint + "// " + point);
+	
+	if (userPoint < point) {
+		$("#pay_point").val(userPoint);		
+	}
+	
+	$("#prod_point").val(point);
 	var totPay =  parseInt($("#pay_sum").val());
 	$("#prod_card").val(totPay - point);
-	
-// 	alert(point +"\n" +totPay);
-	
-	
-// 	alert(userPoint);
-	
-	
-	// 로그인 안했을때 포인트 입력시 막아줘야함
-// 	if(userPoint == "로그인이 필요합니다.") {
-// 		alert("로그인 해주세요");
-// 	}
-	
-	
-	// 기존의 포인트보다 많이 입력시 최대 값으로 변경
-// 	if (userPoint < val) {
-// 		alert("포인트가 부족합니다.");
-// 		$("#pay_point").val(0);
-// 		$("#pay_point").focus();
-// 		return;
-// 	}
-	
 	
 }
 
@@ -219,7 +215,8 @@ $(function(){
 							<!-- 취소(row 삭제) -->
 							<td class="invert">
 								<div class="rem">
-									<div class="close1"> </div>
+									<div class="close1" onclick="deleteLine(this)">
+</div>
 								</div>
 							</td>
 						</tr>
@@ -287,13 +284,7 @@ $(function(){
 								<tr>
 									<td>사용가능 포인트</td>
 									<td>		
-										<c:if test="${userInfo != null }">
-											<span id="userPoint">${userInfo.mem_point }</span>
-											
-										</c:if>
-										<c:if test="${userInfo == null }">
-											<span id="userPoint" >로그인이 필요합니다.</span>	
-										</c:if>
+										<span id="userPoint">${userInfo.mem_point }</span>
 									</td>
 								</tr>
 								
