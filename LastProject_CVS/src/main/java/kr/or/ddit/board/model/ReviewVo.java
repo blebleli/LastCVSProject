@@ -1,11 +1,13 @@
 package kr.or.ddit.board.model;
 
+import java.util.Date;
+
 public class ReviewVo {
 
 	private String bd_id;                               // 게시판코드
 	private String bd_title;                               // 제목
 	private String bd_content;                               // 내용
-	private String bd_date;                               // 시간
+	private Date bd_date;                               // 시간
 	private String bd_del;                               // 삭제여부
 	private int bd_rating;                               // 평점
 	private int bd_views;                               // 조회수
@@ -32,7 +34,7 @@ public class ReviewVo {
 	}
 
 	public ReviewVo(String bd_id, String bd_title, String bd_content,
-			String bd_date, String bd_del, int bd_rating, int bd_views,
+			Date bd_date, String bd_del, int bd_rating, int bd_views,
 			String bd_group, String prod_id, String mem_id, String bd_parent,
 			String bd_kind_id, String mem_name) {
 		super();
@@ -75,11 +77,11 @@ public class ReviewVo {
 		this.bd_content = bd_content;
 	}
 
-	public String getBd_date() {
+	public Date getBd_date() {
 		return bd_date;
 	}
 
-	public void setBd_date(String bd_date) {
+	public void setBd_date(Date bd_date) {
 		this.bd_date = bd_date;
 	}
 
