@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import kr.or.ddit.commons.service.AutoCodeCreate;
+import kr.or.ddit.commons.util.SessionUtil;
 import kr.or.ddit.filedata.FileUtil;
 import kr.or.ddit.filedata.service.FileServiceInf;
 import kr.or.ddit.login.service.SignUpServiceInf;
@@ -64,15 +66,27 @@ public class CvsSetController {
 	@Resource(name="fileService")
 	private FileServiceInf fileService;
 	
+	
 	@RequestMapping("/setting")
-	public String cvsSetting(Model model){
-		Map modelMap = model.asMap();
+	public String cvsSetting(HttpServletRequest request, Model model){
+		
+		logger.debug("requestUrl : {}", request.getRequestURL());
+		
+		String mem_id = SessionUtil.getSessionMemberId(request);
+		logger.debug("admin_setting >> addr_mem_id : {}", mem_id);
+		
+		if(mem_id == null || "".equals(mem_id)) {
+			return "redirect:/login/loginView";
+		}
+		model.addAttribute("user", userMainService.getMyPage(mem_id));
+		
+//		Map modelMap = model.asMap();
 //		MemberVo user = (MemberVo)modelMap.get("user");
-		MemberVo user = userMainService.getMyPage("6510000-104-2015-00153");
+//		MemberVo user = userMainService.getMyPage("6510000-104-2015-00153");
 		List<FiledataVo> fileList = fileService.getFrofilePicList("6510000-104-2015-00153");
-		model.addAttribute("user", user);
+//		model.addAttribute("user", user);
 		model.addAttribute("fileList", fileList);
-		logger.debug("user--------{}", user);
+//		logger.debug("user--------{}", user);
 		return "cvs_setting";
 	}	
 	

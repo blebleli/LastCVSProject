@@ -6,10 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import kr.or.ddit.board.dao.BoardDaoInf;
 import kr.or.ddit.board.model.ReviewVo;
 import kr.or.ddit.filedata.service.FileServiceInf;
@@ -17,6 +13,10 @@ import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.CommentsVo;
 import kr.or.ddit.model.FiledataVo;
 import kr.or.ddit.user.model.MainReviewsVo;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * @Class Name : BoardService.java
