@@ -59,7 +59,7 @@
 				(SELECT prod.*
 					FROM prod
 					ORDER BY prod_name)a
-					WHERE event_id !='200')
+					WHERE event_id !='BASIC1')
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 
 </select>
@@ -287,22 +287,22 @@ FROM (
                 AND EVENT_ID = #{event_id}
                 AND P.PROD_PRICE  BETWEEN  #{min_price} AND #{max_price}
                 AND P.PROD_NAME  LIKE '%'|| #{prodName}  ||'%'
-                <if test="mealChk != null and mealChk != '' ">
+                <if test='mealChk != null || mealChk != "" '>
 	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{mealChk}))
 				</if>
-				<if test="iceChk != null and iceChk != '' ">					                
+				<if test='iceChk != null || iceChk != ""'>					                
 	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{iceChk}))
 	            </if>
-				<if test="foodChk != null and foodChk != '' ">
+				<if test='foodChk != null || foodChk != "" '>
 	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{foodChk}))
 	            </if>
-				<if test="drinkChk != null and drinkChk != '' ">
+				<if test='drinkChk != null || drinkChk != "" '>
 	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{drinkChk}))
 	            </if>
-				<if test="biscuitChk != null and biscuitChk != '' ">
+				<if test='biscuitChk != null || biscuitChk != "" '>
 	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{biscuitChk}))
 	            </if>
-				<if test="necessitiesChk != null and necessitiesChk != '' ">
+				<if test='necessitiesChk != null || necessitiesChk != "" '>
 	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{necessitiesChk}))
 	            </if>
 	            
