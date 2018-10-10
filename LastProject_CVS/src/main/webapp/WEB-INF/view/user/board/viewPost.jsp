@@ -17,6 +17,7 @@
 *
 * </pre>
 */ -->
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/mbs/css/table.css' />">
 <style>
 .result_search .service {
 	overflow: hidden;
@@ -171,25 +172,45 @@ function fn_delete(geta){
 			<h3>공지사항</h3><br><br><br>
 
 				<div style="margin-left: auto; margin-right: auto; width: 1359px;" class="table-responsive">
-					<table style="margin-left: auto; margin-right: auto; width:1359px;" class="table table-striped table-hover">
+								
+<!-- 					<table style="margin-left: auto; margin-right: auto; width:1359px;" class="table table-striped table-hover"> -->
+				<table>
 				
+					<tbody>
 					<tr>
-						<td id="demoFont" class="col-sm-1">제목</td>
-						<td id="demoFont2" class="col-sm-9">${post.bd_title}</td>
-						<td id="demoFont" class="col-sm-1">조회수</td>
-						<td id="demoFont2" class="col-sm-9">${post.bd_views}</td>			
+							<th scope="row" class="w14p">제목</th>
+							<td colspan="5">${post.bd_title}</td>
+<!-- 						<td id="demoFont" class="col-sm-1">제목</td> -->
+<%-- 						<td id="demoFont2" class="col-sm-9">${post.bd_title}</td> --%>
+<!-- 						<td id="demoFont" class="col-sm-1">조회수</td> -->
+<%-- 						<td id="demoFont2" class="col-sm-9">${post.bd_views}</td>			 --%>
 					</tr>
 					
 					<tr>
-						<td id="demoFont" class="col-sm-1">작성자</td>
-						<td id="demoFont2" class="col-sm-9">${post.mem_id}</td>
-						<td id="demoFont" class="col-sm-1">작성일</td>
-						<td id="demoFont2" class="col-sm-9"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
+						<th scope="row">작성자</th>
+						<td>${post.mem_id}</td>
+<!-- 						<td id="demoFont" class="col-sm-1">작성자</td> -->
+<%-- 						<td id="demoFont2" class="col-sm-9">${post.mem_id}</td> --%>
+						<th scope="row" class="w14p">등록일</th>
+						<td class="w20p">${post.bd_date}</td>
+						<th scope="row" class="w12p">조회수</th>
+						<td class="w12p">${post.bd_views}</td>
+						
+<!-- 						<td id="demoFont" class="col-sm-1">작성일</td> -->
+<%-- 						<td id="demoFont2" class="col-sm-9">${post.bd_date}</td> --%>
 					</tr>
 					
 					<tr>
-						<td id="demoFont">내용</td>
-						<td id="demoFont2" colspan="3">${post.bd_content}</td>
+						<th scope="row">내용</th>
+						<td colspan="5">
+							<div class="cont_detail">
+								<p>
+								${post.bd_content}
+								</p>
+							</div>
+<!-- 						<td id="demoFont">내용</td> -->
+<%-- 						<td id="demoFont2" colspan="3">${post.bd_content}</td> --%>
+						</td>
 					</tr>
 					
 					<tr>
@@ -207,7 +228,10 @@ function fn_delete(geta){
 							</c:forEach>
 						</td>
 					</tr>
+				</tbody>
+					
 				</table>
+
 						
 				<table class="table table-striped table-hover" id="reply_area">
 				<!-- 댓글 조회 -->
@@ -266,14 +290,16 @@ function fn_delete(geta){
 							<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">									
 							<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
 							<input type="hidden" name="cm_RadioCkeck">
+							<input type="hidden" name="cm_opennyY" value="Y" >
+							
 					</td>
 				</tr>
 				
-				<tr>
-				<td id="demoFont" class="checked"><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개<br>
-							<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
-				</td>
-				</tr>						
+<!-- 				<tr> -->
+<!-- 				<td id="demoFont" class="checked"><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개<br> -->
+<!-- 							<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개 -->
+<!-- 				</td> -->
+<!-- 				</tr>						 -->
 				</form>
 			</table>
 			</div>
