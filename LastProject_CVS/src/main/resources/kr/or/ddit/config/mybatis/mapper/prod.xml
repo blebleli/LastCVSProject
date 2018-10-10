@@ -283,27 +283,29 @@ FROM (
                       ,P.FILE_UPNAME
                       ,P.PROD_PRICE
               FROM PROD P
-              WHERE 
-           		<if test="category == ''">
-           			1=1
-           		</if>
-              	<if test="category != ''">
-	                    P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{mealChk}))
-	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{iceChk}))
-	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{foodChk}))
-	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{drinkChk}))
-	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{biscuitChk}))
-	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{necessitiesChk}))
-                </if>
-                <if test="event_id == '200'">
-	            	AND EVENT_ID = '200'
-	            </if>
-	            <if test="event_id != '200'">
-	            	AND EVENT_ID != '200'
-	            </if>
-	            
+              WHERE 1=1
+                AND EVENT_ID = #{event_id}
                 AND P.PROD_PRICE  BETWEEN  #{min_price} AND #{max_price}
                 AND P.PROD_NAME  LIKE '%'|| #{prodName}  ||'%'
+                <if test="mealChk != null and mealChk != '' ">
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{mealChk}))
+				</if>
+				<if test="iceChk != null and iceChk != '' ">					                
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{iceChk}))
+	            </if>
+				<if test="foodChk != null and foodChk != '' ">
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{foodChk}))
+	            </if>
+				<if test="drinkChk != null and drinkChk != '' ">
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{drinkChk}))
+	            </if>
+				<if test="biscuitChk != null and biscuitChk != '' ">
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{biscuitChk}))
+	            </if>
+				<if test="necessitiesChk != null and necessitiesChk != '' ">
+	                OR  P.PR_CLASS_LG = ( SELECT CTGY_ID AS PR_CLASS_LG FROM   CATEGORY WHERE CTGY_NAME = (#{necessitiesChk}))
+	            </if>
+	            
               GROUP BY P.PROD_ID ,P.PROD_NAME ,P.FILE_PATH ,P.FILE_UPNAME ,P.PROD_PRICE
               ORDER BY P.PROD_ID
         )T
