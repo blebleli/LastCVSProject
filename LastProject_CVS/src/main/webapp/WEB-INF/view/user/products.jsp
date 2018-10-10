@@ -90,6 +90,8 @@
 			var min_price   = $("#min_price").val();
 			var max_price   = $("#max_price").val();
 			
+			
+			
 			// 상품명
 			var searchName  = $("#searchName").val();
 			
@@ -177,6 +179,11 @@
 	
 					$("#page").val(parseInt(page) + 1);		
 				} // success : function(responseData){
+				,error:function(e) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
+
+			    	alert("실패");
+
+			    }
 			});
 		}); 
 
@@ -194,7 +201,7 @@
 			// 가격
 			var min_price   = $("#min_price").val();
 			var max_price   = $("#max_price").val();
-			
+alert(min_price +"=\\ "+ max_price);
 			// 상품명
 			var searchName  = $("#searchName").val();
 			

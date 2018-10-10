@@ -55,6 +55,19 @@
 .info .link {color: #5085BB;}
 </style>
 
+<input type="hidden" id="point_name" value="${sessionScope.userInfo.mem_name}">
+<!-- top 이랑 구분 해주면서 현재 창의 카테고리 출력 -->
+<div class="products-breadcrumb">
+	<div class="container">
+		<ul>
+			<li><i class="fa fa-home" aria-hidden="true"></i> <a
+				href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+			<li>지도 검색 &nbsp; ▷</li>
+		</ul>
+	</div>
+</div>
+<!-- top 이랑 구분 해주면서 현재 창의 카테고리 출력 -->
+
 
 
 <div class="map_wrap">
@@ -252,9 +265,12 @@ var content="";
 		        data : {"prod_id":prod_id},
 		        dataType : "json",
 		        success: function(data){
+	
+		        	alert("클릭");
 		        	
 		        //	alert("성공"+prod_id);
 		        	 $.each(data,function(index,item){
+		        		 
 						// 리턴 받은 값 (좌표) set
 						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
 						x = item.mem_x;
@@ -310,6 +326,15 @@ var content="";
 	        	    
 	        	    // 지도 중심을 이동 시킵니다
 // 	        	    map.setCenter(moveLatLon);
+	        	    
+	        	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	        	    mapOption = { 
+	        	        center: new daum.maps.LatLng(y, x), // 지도의 중심좌표
+	        	        level: 3 // 지도의 확대 레벨
+	        	    };
+
+	        	    var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
 
 		        	
 		        }

@@ -8,11 +8,29 @@
 
 
 // 라인 삭제
-function deleteLine(obj) {
+function deleteLine(obj,prodId, price, tot) {
     var tr = $(obj).parent().parent().parent();
  
     //라인 삭제
     tr.remove();
+    
+ // 전체 합계 구하는것
+	var cnt = $("#payCnt").text();
+	var payTot = 0;
+	for (var i = 1 ; i <= parseInt(cnt); i++) {
+		
+		if ($("#"+i+"tot").val() == ""
+			|| $("#"+i+"tot").val() == null
+			|| $("#"+i+"tot").val() == undefined
+			|| ($("#"+i+"tot").val() != null && typeof $("#"+i+"tot").val() == "object" )) {
+			payTot += 0;
+		} else {
+			payTot +=  parseInt($("#"+i+"tot").val()); 
+		}
+	}
+	
+	$("#paySum").text(payTot);
+	$("#pay_sum").val(payTot);
 }
 
 function fn_mm(prodId, price, tot){
@@ -49,7 +67,15 @@ function fn_mm(prodId, price, tot){
 	var cnt = $("#payCnt").text();
 	var payTot = 0;
 	for (var i = 1 ; i <= parseInt(cnt); i++) {
-		payTot +=  parseInt($("#"+i+"tot").val()); 
+		
+		if ($("#"+i+"tot").val() == ""
+			|| $("#"+i+"tot").val() == null
+			|| $("#"+i+"tot").val() == undefined
+			|| ($("#"+i+"tot").val() != null && typeof $("#"+i+"tot").val() == "object" )) {
+			payTot += 0;
+		} else {
+			payTot +=  parseInt($("#"+i+"tot").val()); 
+		}
 	}
 	
 	$("#paySum").text(payTot);
@@ -75,7 +101,14 @@ function fn_pp(prodId, price, tot){
 	var cnt = $("#payCnt").text();
 	var payTot = 0;
 	for (var i = 1 ; i <= parseInt(cnt); i++) {
-		payTot +=  parseInt($("#"+i+"tot").val()); 
+		if ($("#"+i+"tot").val() == ""
+			|| $("#"+i+"tot").val() == null
+			|| $("#"+i+"tot").val() == undefined
+			|| ($("#"+i+"tot").val() != null && typeof $("#"+i+"tot").val() == "object" )) {
+			payTot += 0;
+		} else {
+			payTot +=  parseInt($("#"+i+"tot").val()); 
+		}
 	}
 	
 	$("#paySum").text(payTot);
@@ -188,7 +221,7 @@ $(function(){
 							<td class="invert" style="font-size: 1.4em">${vo.prod_name }</td>
 							
 							<!-- 상품 평점 -->
-							<td class="invert">${vo.bd_rating }</td>
+							<td class="invert" style="font-size: 1.4em">${vo.bd_rating }</td>
 							
 							<!-- 상품이미지 -->
 							<td class="invert-image" width="200px" align="center">
@@ -197,25 +230,25 @@ $(function(){
 							
 							<!-- 결제상품 개수 -->
 							<td>
-								<button type="button" onclick="fn_mm('${vo.prod_id }', ${vo.prod_price } , '${vo.tot_cnt }')">-</button>
-								<span   class="spanCnt" id="${vo.prod_id }s" >${vo.prod_exnum }</span>
+								<button type="button" style="width: 30px"  onclick="fn_mm('${vo.prod_id }', ${vo.prod_price } , '${vo.tot_cnt }')">-</button>
+								<span   class="spanCnt" id="${vo.prod_id }s" style="font-size: 1.4em">${vo.prod_exnum }</span>
 								<input  type="hidden"   id="${vo.prod_id }i" name="prod_num" value="${vo.prod_exnum }">
-								<button type="button" onclick="fn_pp('${vo.prod_id }', ${vo.prod_price } , '${vo.tot_cnt }')" >+</button>
+								<button type="button" style="width: 30px" onclick="fn_pp('${vo.prod_id }', ${vo.prod_price } , '${vo.tot_cnt }')" >+</button>
 							</td>
 							
 							<!-- 상품 가격 -->
-							<td >${vo.prod_price }</td>
+							<td style="font-size: 1.4em">${vo.prod_price }</td>
 							
 							<!-- 상품 가격(개수 * 가격) -->
-							<td class="priceClass">
-								<span id="${vo.prod_id}t" class="tot_pay">${vo.prod_price * vo.prod_exnum }</span>
+							<td class="priceClass" >
+								<span id="${vo.prod_id}t" class="tot_pay" style="font-size: 1.4em">${vo.prod_price * vo.prod_exnum }</span>
 								<input type="hidden" id="${vo.tot_cnt }tot" value="${vo.prod_price * vo.prod_exnum }">
 							</td>
 							
 							<!-- 취소(row 삭제) -->
 							<td class="invert">
 								<div class="rem">
-									<div class="close1" onclick="deleteLine(this)">
+									<div class="close1" onclick="deleteLine(this),'${vo.prod_id }', ${vo.prod_price } , '${vo.tot_cnt }'">
 </div>
 								</div>
 							</td>
