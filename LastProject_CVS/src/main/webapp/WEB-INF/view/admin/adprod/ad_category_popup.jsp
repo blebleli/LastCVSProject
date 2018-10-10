@@ -124,6 +124,33 @@ $(function() {
 		$("#ctgy_id_lg").val(name);
 		$("#ctgy_lg_info").val(info);
 	});
+	
+	$("ul.smallTree").on("click","a[name=ctgyMd]", function(){
+		var id = $(this).attr("value");
+		var name =$(this).text();
+		$("#ctgy_md").val(name);
+		$("#ctgy_id_md").val(id);
+		
+	});
+	
+	$("#updateCategory").on("click", function(){
+		
+		// 중분류
+		var ctgy_md    = $("#ctgy_md").val();		// 카테고리명
+		var ctgy_id_md = $("#ctgy_id_md").val();	// 카테고리코드
+		alert(ctgy_md+"+"+ctgy_id_md);
+		
+		if (isEmpty(ctgy_md)) {	// 중분류 카테고리명 값 체크
+			alert("수정할 중분류명을 작성해주세요");
+			$("#ctgy_md").focus();
+			return;
+		}
+		$("#update_ctgy_id").val(ctgy_id_md);
+		$("#update_ctgy_name").val(ctgy_md);
+		$("#updateFrm").submit();
+		
+		
+	});
 });
 </script>
 </head>
@@ -156,11 +183,11 @@ $(function() {
 	    			<input type="hidden" id="${all.ctgy_id }" name="${all.ctgy_info }" value="${all.ctgy_name }">
 	    		</a>
 	    </c:if>	
-		<ul>
+		<ul class="smallTree">
 	    <c:if test="${all.ctgy_parent == null }">
 	    	<c:forEach items="${categoryMd}" var="md">
 			    	<c:if test="${md.ctgy_group eq  value }">
-			    		<li><a href="#">${md.ctgy_name }</a></li>
+			    		<li><a href="#" name="ctgyMd" value="${md.ctgy_id }">${md.ctgy_name }</a>
 <%-- 			    		<input type="hidden" id="tree_id" value="${md.ctgy_id }"> --%>
 			    	</c:if>
 	    	</c:forEach>
@@ -213,10 +240,20 @@ $(function() {
               <div class="form-group">
                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 					<button class="btn btn-primary" type="reset">초기화</button>
-                  	<button type="button" class="btn btn-success" id="insertCategory">생성</button>
+<!--                   	<button type="button" class="btn btn-success" id="insertCategory">생성</button> -->
+                  	<c:if test="${where == null }">
+                  		<button type="button" class="btn btn-success" id="insertCategory">생성</button>
+                  	</c:if>
+                  	<c:if test="${where != null }">
+                  		<button type="button" class="btn btn-success" id="updateCategory">수정</button>
+                  	</c:if>
                 </div>
               </div>
 
+            </form>
+            <form action="/adCtgy/updateCtgy" method="post" id="updateFrm">
+            	<input type="hidden" name="ctgy_id" id="update_ctgy_id">
+            	<input type="hidden" name="ctgy_name" id="update_ctgy_name">
             </form>
           </div>
         </div>
