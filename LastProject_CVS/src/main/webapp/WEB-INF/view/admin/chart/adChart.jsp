@@ -5,9 +5,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ad-Chart</title>
+<title>admin | ad-Chart</title>
 
-    <link href="/build/css/custom.min.css" rel="stylesheet">
+<!--     <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 <!--     <link href="/build/js/custom.js"> -->
 
  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
