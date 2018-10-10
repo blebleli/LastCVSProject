@@ -373,7 +373,7 @@ public class LoginController {
 //				tempSavePath = request.getSession().getServletContext().getRealPath("/images/userpic");	 // 소스가 배포된 경로 - 실제 서버운영 시 이걸로 해야함
 //				tempSavePath = "C:/Storage/workspaces/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
 				
-				tempSavePath = "D:/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
+				tempSavePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
 //				tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/images/userpic/";	 //image 폴더 절대경로(각자의 PC마다 경로가 다름)
 				dbSavePath = "/images/userpic";
 				
@@ -386,8 +386,8 @@ public class LoginController {
 //				filedataVo.setFile_dot(fileExt); // 확장자
 
 				// 디렉토리 없을 경우 생성
-				if(!new File(FileUtil.fileUploadPath).exists()) {
-					new File(FileUtil.fileUploadPath).mkdirs();
+				if(!new File(tempSavePath).exists()) {
+					new File(tempSavePath).mkdirs();
 				}
 
 				logger.debug("file_path :::::::::: {}", filedataVo.getFile_path());
@@ -399,7 +399,7 @@ public class LoginController {
 
 				// 파일 저장
 				try {
-					FileUtils.writeByteArrayToFile(new File(filedataVo.getFile_path(), filedataVo.getFile_upname()), file.getBytes());
+					FileUtils.writeByteArrayToFile(new File(tempSavePath, filedataVo.getFile_upname()), file.getBytes());
 				} catch (IOException e) {
 					e.printStackTrace();
 					throw new Exception(file.getName() + " 파일 저장 실패");
