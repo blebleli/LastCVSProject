@@ -308,6 +308,67 @@ $(document).ready(function() {
 		_obj.closest("div.field").find(".msg_wrap").find(".error_txt").text(
 				_text);
 	}
+	
+    Kakao.init('20ef2122f316faf3ee201ff1da312505');
+	var vieww = [];
+	    
+	    function kakaoSend(){
+	    	var pocketid = $('#pocketId').text();
+	    	console.log(pocketid);
+	    	
+	    	$.ajax({
+	    		 url: "/user/kakaotest",
+				 method: "get",
+				 data: {"pocketId" : pocketid},
+				 success : function(responseData){
+					console.log(responseData.length);
+					console.log(responseData.fileContent);
+		
+				 	var fcc = responseData.fileContent;	 	
+				    vieww =  new Uint8Array(responseData.length);		//new Uint8Array(${length});
+				    
+				    for(i = 0; i < fcc.length ; i++){
+		    			vieww[i] = fcc[i];
+		    		};
+					
+		    		sendUpload();
+		    		
+					console.log('-----완료');
+					
+				}	
+			});
+	      	
+	    }
+	    
+	    function sendUpload(){
+
+ 	        var files = [new File([vieww], 'asdf.jpg',{type: "image/jpeg"})];
+
+ 	        Kakao.Link.uploadImage({
+ 	            file: files
+ 	          }).then(function(res){
+ 	            document.getElementById('uploadUrl').value = res.infos.original.url;
+ 	            console.log(res.infos.original.url);
+ 	            kakaoImg = res.infos.original.url;
+ 	            console.log('kakaoImg-->'+kakaoImg);
+ 	            sendLink(kakaoImg);
+ 	          });
+ 	   		}
+ 	       
+ 	       function sendLink(kakaoImg){
+ 	         Kakao.Link.sendCustom({
+
+ 	     	        templateId: 12634,
+ 	     	        templateArgs: {
+ 	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ $('#prodName').text(),
+ 	     	          'content': $('#prodExdate').text(),
+ 	     	          'bcdImg' : document.getElementById('uploadUrl').value
+ 	     	        }
+ 	      		 });
+ 	       }
+
+	    
+	    
 </script>
 
 
@@ -383,7 +444,7 @@ $(document).ready(function() {
 							</div>
 							
 							<div class=" col-md-9 col-lg-9 hidden-xs hidden-sm">  <!-- 데스크탑 사이즈에서 보임  -->
-								<strong><h4>이름 : ${member.mem_name}</h4></strong><br />
+								<h4><strong>이름 : ${member.mem_name}</strong></h4><br />
 								<table class="table table-user-information">
 									<tbody id="userInfoBody" style="font-size:17px;">
 										<tr>
@@ -602,11 +663,12 @@ $(document).ready(function() {
 													
 														<a href="/user/productDetail">
 														<img src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive" /></a>
-														<p>${vo.prod_name}</p>
-														<h4>유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
-														
+														<p  id="prodName" >${vo.prod_name}</p>
+														<h4 id="prodExdate" >유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
+														<%-- <input type="hidden" id="pocketId" value="${vo.pocket_id}"/ --%>
+														<p  id="pocketId" >${vo.pocket_id}</p>
 														<div class="snipcart-details">
-															<a id="kakao-link-btn"  href="javascript:sendLink()">
+															<a id="kakao-link-btn" onclick="kakaoSend();">
 															<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width : 25px">
 															카카오톡 보내기
 															</a>
@@ -625,7 +687,7 @@ $(document).ready(function() {
 							</c:when>
 							
 							<c:otherwise>
-								<tr><td colspan="3" align="center">즐겨찾기한 편의점이 없습니다.</td></tr>
+								<tr><td colspan="3" align="center">구매한 상품이 존재하지 않습니다.</td></tr>
 							</c:otherwise>
 						</c:choose>	
 						
@@ -755,22 +817,57 @@ $(document).ready(function() {
 <div class="clearfix"></div>
 <div style="margin-bottom: 100px;"></div>
 <!-- //banner -->
+<a id="uploadUrl">uploadUrl</a>
+<a id="prodName">uploadUrl</a>
+<input type="text" id="bcdLength" value="${length}" />
+ <script type='text/javascript'>
 
-<script type='text/javascript'>
-  //<![CDATA[
-    Kakao.init('20ef2122f316faf3ee201ff1da312505');
+        Kakao.init('20ef2122f316faf3ee201ff1da312505');
 
-    function sendLink() {
-      Kakao.Link.sendCustom({
-        templateId: 12634,
-        templateArgs: {
-          'title': "${sessionScope.userInfo.mem_name}"+' 고객님',
-          'content': '바코드 : BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee',
-          'bcdImg' : 'http://172.30.1.36:8180/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg'
-        }
-      });
-    }
-  //]]>
-</script>
+        //카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+        var kakaoImg = '';
+        var btn = document.getElementById('btn');
 
-<!-- =======<tiles: ="content" /> ============> 마이페이지  myPage.jsp 끝  -->
+    	 
+   	  var view =  new Uint8Array($('#bcdLength').val());//new Uint8Array(${length});
+   
+	 <%
+ 		byte[] fc = (byte[])request.getAttribute("fileContent");
+ 	 		out.println("<div id='viewDiv'>");
+		    		for(int i = 0; i < fc.length ; i++){
+		    			out.println("view[" + i + "] = " + fc[i]);
+		    		} 
+				out.println("</div>");
+ 	 %>  
+    	   
+
+/*  	    function sendUpload(){
+
+ 	        var files = [new File([vieww], 'asdf.jpg',{type: "image/jpeg"})];
+
+ 	        Kakao.Link.uploadImage({
+ 	            file: files
+ 	          }).then(function(res){
+ 	            document.getElementById('uploadUrl').value = res.infos.original.url;
+ 	            console.log(res.infos.original.url);
+ 	            kakaoImg = res.infos.original.url;
+ 	            console.log('kakaoImg-->'+kakaoImg);
+ 	            sendLink(kakaoImg);
+ 	          });
+ 	   		}
+ 	       
+ 	       function sendLink(kakaoImg){
+ 	         Kakao.Link.sendCustom({
+
+ 	     	        templateId: 12634,
+ 	     	        templateArgs: {
+ 	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ $('#prodName').text(),
+ 	     	          'content': $('#prodExdate').text(),
+ 	     	          'bcdImg' : document.getElementById('uploadUrl').value
+ 	     	        }
+ 	      		 });
+ 	       }
+ 		    */
+ 		
+        
+    </script>												

@@ -26,6 +26,7 @@
         var btn = document.getElementById('btn');
 
         btn.onclick = function() {
+        	console.log('버튼실행');
          //var files = document.getElementById('file').files;
          //var arr = new ArrayBuffer(512);
          var view = new Uint8Array(${length});
@@ -56,12 +57,12 @@
 
       	        templateId: 12634,
       	        templateArgs: {
-      	          'title': "${sessionScope.userInfo.mem_name}"+'고객님 // 구매한 상품 : '+${length},
+      	          'title'  : "${sessionScope.userInfo.mem_name}"+'고객님 // 구매한 상품 : '+${length},
       	          'content': '가격 : '+${length}+'유효기간 :'+'자세히 보기 : '+kakaoImg+'',
       	          'bcdImg' : document.getElementById('uploadUrl').value
       	        }
-       		 });
-         }
+       		 )};
+        }
 
 
 
