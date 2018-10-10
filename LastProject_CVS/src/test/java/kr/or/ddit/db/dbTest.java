@@ -177,12 +177,12 @@ public class dbTest { // db 값 저장
 	
 	@Test
 	public void prodReviews() throws ParseException{
-		String bd_title[] = {"뭬가토온","ㅋㅐ달..ㅋ","ㅋㅋㅋㅋㅋㅋ","너무 달아요","ㅡㅡ"};
-		String bd_content[] = {"ㅋㅋㅋ존맛!","ㅋㅋㅋㅋㅋㅋ","흠냐..","ㅡㅡ","아오"};
-		String bd_date_s[] = {"2018-11-30 13:22","2018-10-29 12:21","2018-11-22 03:22","2018-11-12 05:22","2018-12-10 17:22"};
+		String bd_title[] = {"파인애플 개꾸르맛","ㅋㅋㅋ","굿쟙","너무 달은디","흠냐"};
+		String bd_content[] = {"ㅋㅋㅋ존!","ㅎㅎ","한번더 먹으러..","ㅡㅡ","아오"};
+		String bd_date_s[] = {"2018-10-01 13:22","2018-10-02 12:21","2018-10-03 03:22","2018-10-14 05:22","2018-10-15 17:22"};
 		String mem_id[] = {"KBK@ddit.or.kr","vit_keb@naver.com","KMK@ddit.or.kr","LH@ddit.or.kr,","NMS@ddit.or.kr"};
-		String prod_id = "ice-00001";
-		int bd_rating[] = {5, 3, 2, 2, 1};
+		String prod_id = "ice-00002";
+		int bd_rating[] = {5, 5, 3, 2, 1};
 		BoardVo boardVo = null;
 		
 		for(int i = 0; i <= 4; i++){
