@@ -45,9 +45,15 @@ public class CategoryController {
 	}
 	
 	@RequestMapping("/updateCtgy")
-	public String updateCtgy(@RequestParam(value="ctgy_id")String ctgy_id, Model model){
+	public String updateCtgy(@RequestParam(value="ctgy_id")String ctgy_id, @RequestParam(value="ctgy_name")String ctgy_name, Model model){
+		logger.debug("ctgy_id====={}", ctgy_id);
+		logger.debug("ctgy_name----{}",ctgy_name);
 		CategoryVo ctgy = prodDao.getCtgy(ctgy_id);
-		model.addAttribute("ctgy", ctgy);
-		return "/admin/adprod/ad_category_popup";
+		logger.debug("ctgy----{}", ctgy);
+		ctgy.setCtgy_name(ctgy_name);
+		logger.debug("---ctgy----{}", ctgy);
+		int result = ctgyService.updateCtgy(ctgy);
+		logger.debug("result-----{}", result);
+		return "redirect:/event/add";
 	}
 }
