@@ -241,7 +241,7 @@
 										<c:when test="${review.bd_del=='N'}">
 											<div class="col-md-4 w3agile_event_grid_left">
 													<img id="meal" src="${review.src }" width="40px" height="35px"/>
-													<label>${review.mem_name } : ${review.bd_date }													
+													<label>${review.mem_name } : <fmt:formatDate value="${review.bd_date}" pattern="yyyy-MM-dd" />												
 													<c:if test="${userInfo.mem_id == review.mem_id }">
 														<a class="btn btn-danger" 
 														 href="/review/delete?bd_id=${review.bd_id}&prod_id=${review.prod_id}" aria-label="Delete"> 삭제 </a>

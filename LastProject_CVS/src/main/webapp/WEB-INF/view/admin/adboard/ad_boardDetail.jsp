@@ -137,7 +137,7 @@
 							<td id="demoFonts" class="col-sm-1">작성자</td>
 							<td id="demoFont" class="col-sm-9">${b.mem_id}</td>
 							<td id="demoFonts" class="col-sm-1">작성일</td>
-							<td id="demoFont" class="col-sm-9"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
+							<td id="demoFont" class="col-sm-9"><fmt:formatDate value="${b.bd_date}" pattern="yyyy.MM.dd" /></td>
 						</tr>	
 						
 						<tr style="height:350px;">
