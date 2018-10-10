@@ -2,6 +2,31 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
         
+        
+<script type="text/javascript">
+
+	$(function(){
+		$("#btnSetting").on("click", function() {
+			
+			if (${empty sessionScope.userInfo}) {
+				if (confirm("편의점 정보 입력은 로그인 후 이용 가능합니다. \n 로그인 하시겠습니까?")) {
+					location.href = "/login/loginView";
+					return;
+				} else {
+					return;
+					
+				}
+			}else{
+				location.href = "/cvs/setting";
+			}
+			
+		});
+	});
+	
+
+
+</script>
+
 <div class="col-md-3 left_col">
   <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
@@ -66,7 +91,8 @@
           </li>  
           <li><a href="/cvs/main"><i class="fa fa-bar-chart-o"></i> 통계</a>
           </li>         
-          <li><a href="/cvs/setting"><i class="fa fa fa-gears"></i> setting </a>
+<!--           <li><a href="/cvs/setting"><i class="fa fa fa-gears"></i> setting </a> -->
+          <li><a href="#" id="btnSetting"><i class="fa fa fa-gears"></i> setting </a>
           </li>                  
         </ul>
       </div>

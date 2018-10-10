@@ -282,6 +282,14 @@
           </div>
   
         <!-- /page content -->
+        
+        <footer>
+          <div class="pull-right">
+             Admin by  <a href="/cvs/main">gogo CVS</a>
+            
+          </div>
+          <div class="clearfix"></div>
+        </footer>
 
 
 

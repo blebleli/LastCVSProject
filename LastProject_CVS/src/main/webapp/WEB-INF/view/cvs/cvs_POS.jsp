@@ -123,7 +123,7 @@
  
  
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" style="min-height: 1000px;">
         
             <div class="page-title">
               <div class="title_left">
@@ -181,7 +181,12 @@
                         </thead>
 
 				<!-- 상품리스트=================  -->
-                        <tbody id="prodList"> </tbody>
+                        <tbody id="prodList" >  
+<!--                         <tr> -->
+<!--                          <td colspan="9" style="min-height:30%;"> </td> -->
+<!--                         </tr> -->
+                        </tbody>
+                       
                        
                         <tfoot>
                         <tr>         
@@ -688,6 +693,14 @@
           </div>
   
         <!-- /page content -->
+        
+        <footer>
+          <div class="pull-right">
+<!--             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
+           Admin by  <a href="/cvs/main">gogo CVS</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
 
 
     <!-- jQuery -->
@@ -702,7 +715,7 @@
     <script src="../vendors/iCheck/icheck.min.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="/build/js/custom.min.js"></script>
     
     <!-- Datatables -->
     <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>

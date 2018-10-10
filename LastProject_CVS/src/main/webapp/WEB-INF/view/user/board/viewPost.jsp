@@ -126,17 +126,19 @@
 $(function(){
 	
 	$("#commentButton").on("click", function(){ // 댓글 저장 버튼을 누르고
-		var Y = $("input[id='cm_opennyY']:checked").val(); // 라디오 버튼 체크한 값			
+// 		var Y = $("input[id='cm_opennyY']:checked").val(); // 라디오 버튼 체크한 값			
+		var Y = $("input[id='cm_opennyY']").val(); // 라디오 버튼 체크한 값			
 		if(Y=="Y"){ // 댓글 공개를 한다면
 			$("input[name='cm_RadioCkeck']").val("Y"); // cm_RadioCkeck에 Y값을 대입시킨다.					
 			$("#newComments").submit(); // 댓글 공개상태 저장 이동
-		}else if($("input[id='cm_opennyN']:checked").val()=='N'){ // 비공개를 한다면					
-			$("input[name='cm_RadioCkeck']").val("N"); // cm_RadioCkeck에 N값을 대입시킨다.	
-			$("#newComments").submit(); // 댓글 비공개상태 저장 이동
-		}else{ // 아무것도 체크 안할시
-			alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
-			return
 		}
+// 		}else if($("input[id='cm_opennyN']:checked").val()=='N'){ // 비공개를 한다면					
+// 			$("input[name='cm_RadioCkeck']").val("N"); // cm_RadioCkeck에 N값을 대입시킨다.	
+// 			$("#newComments").submit(); // 댓글 비공개상태 저장 이동
+// 		}else{ // 아무것도 체크 안할시
+// 			alert("공개여부를 선택하세요."); // 체크하라고 alert 띄운다.
+// 			return
+// 		}
 	});			
 });
 
@@ -192,7 +194,7 @@ function fn_delete(geta){
 <!-- 						<td id="demoFont" class="col-sm-1">작성자</td> -->
 <%-- 						<td id="demoFont2" class="col-sm-9">${post.mem_id}</td> --%>
 						<th scope="row" class="w14p">등록일</th>
-						<td class="w20p">${post.bd_date}</td>
+						<td class="w20p"><fmt:formatDate value="${post.bd_date}" pattern="yyyy.MM.dd" /></td> 
 						<th scope="row" class="w12p">조회수</th>
 						<td class="w12p">${post.bd_views}</td>
 						
@@ -232,10 +234,10 @@ function fn_delete(geta){
 					
 				</table>
 
-						
+					
 				<table class="table table-striped table-hover" id="reply_area">
 				<!-- 댓글 조회 -->
-				
+					<%-- 
 				<c:forEach items="${cList}" var="vo" varStatus="status">
 				<form name="delete${status.index}" id="delete${status.index}" action="/board/commentsDel" method="post">						
 				<tr id="comment">
@@ -290,7 +292,7 @@ function fn_delete(geta){
 							<input type="hidden" id="mem_id" name="mem_id" value="${userInfo.mem_id}">									
 							<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
 							<input type="hidden" name="cm_RadioCkeck">
-							<input type="hidden" name="cm_opennyY" value="Y" >
+							<input type="hidden" id="cm_opennyY" name="cm_opennyY" value="Y" >
 							
 					</td>
 				</tr>
@@ -301,7 +303,13 @@ function fn_delete(geta){
 <!-- 				</td> -->
 <!-- 				</tr>						 -->
 				</form>
-			</table>
+				--%>
+			</table> 
+			
+			<div class="btn_area">
+				<a href="javascript:void(0)" onclick="fn_goList();" class="btn2">목록</a>
+			</div>
+			
 			</div>
 		</div>
 	<div class="col-md-10 w3ls_service_grid_left">

@@ -326,7 +326,7 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                       <div>
                         <div class="x_title">
-                          <h2>Top Profiles</h2>
+                          <h2>Top Profiles</h2> <!-- 해당편의점을 즐겨찾기한 회원 들 5  -->
                           <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -437,7 +437,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content1">
-                    <div id="graph_bar_group" style="width:100%; height:100%;"></div>
+                    <div id="graph_bar_group" style="width:100%; height:290px;"></div>
                   </div>
                 </div>
               </div>
