@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequestMapping("/event")
@@ -37,6 +38,7 @@ public class EventController {
 	@RequestMapping("/event")
 	@ResponseBody
 	public List<EventVo> adeventList(Model model){
+		
 		List<EventVo> adeventList = eventService.getListEvent();
 		model.addAttribute("adeventList", adeventList);
 		return adeventList;
