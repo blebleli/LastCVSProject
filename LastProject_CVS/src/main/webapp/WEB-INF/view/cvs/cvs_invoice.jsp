@@ -68,8 +68,8 @@
 									To
 									<address>
 										<strong>${supplyMemInfo.mem_cvs_name}</strong> 
-										<br>${supplyMemInfo.mem_addr}  <!-- 편의점 주소 -->
-										<br>Phone: ${supplyMemInfo.mem_cvs_tel}	<!-- 편의점 연락처 -->
+										<br>Address: ${supplyMemInfo.mem_addr}  <!-- 편의점 주소 -->
+										<br>Phone : ${supplyMemInfo.mem_cvs_tel}	<!-- 편의점 연락처 -->
 										<br>담당자 : ${supplyMemInfo.mem_name}	<!-- 점주 이름 -->
 									</address>
 								</div>
