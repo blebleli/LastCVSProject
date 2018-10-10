@@ -20,7 +20,7 @@
 	$(document).ready(function(){
 		
 			$.ajax({
-				url : "/adprod/categoryPopup",
+				url : "/adprod/categoryPopup?where=manage",
 				datatype : "html",
 				success:function(responseData){
 					console.log("성공");
