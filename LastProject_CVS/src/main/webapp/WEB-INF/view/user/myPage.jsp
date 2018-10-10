@@ -312,11 +312,11 @@ $(document).ready(function() {
     Kakao.init('20ef2122f316faf3ee201ff1da312505');
 	var vieww = [];
 	    
-	    function kakaoSend(){
-	    	var pocketid = $('#pocketId').text();
+	    function kakaoSend(pocketid){
+	   // var pocketid = $('#pocketId').text();
 	    	console.log(pocketid);
 	    	
-	    	$.ajax({
+	     	$.ajax({
 	    		 url: "/user/kakaotest",
 				 method: "get",
 				 data: {"pocketId" : pocketid},
@@ -332,7 +332,6 @@ $(document).ready(function() {
 		    		};
 					
 		    		sendUpload();
-		    		
 					console.log('-----완료');
 					
 				}	
@@ -668,7 +667,7 @@ $(document).ready(function() {
 														<%-- <input type="hidden" id="pocketId" value="${vo.pocket_id}"/ --%>
 														<p  id="pocketId" >${vo.pocket_id}</p>
 														<div class="snipcart-details">
-															<a id="kakao-link-btn" onclick="kakaoSend();">
+															<a id="kakao-link-btn" onclick="kakaoSend('${vo.pocket_id}');">
 															<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width : 25px">
 															카카오톡 보내기
 															</a>

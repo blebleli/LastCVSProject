@@ -3,6 +3,7 @@ package kr.or.ddit.user.userMain.web;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,9 @@ import kr.or.ddit.commons.util.PageNavi;
 import kr.or.ddit.commons.util.SessionUtil;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.BookmarkVo;
-import kr.or.ddit.model.EventVo;
 import kr.or.ddit.model.MemberShipVo;
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
-import kr.or.ddit.model.PocketVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.prod.service.ProdServiceInf;
@@ -34,11 +34,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @RequestMapping("/user")
 @Controller("userMainController")
+@SessionAttributes({ "userInfo" })
 public class UserMainController {
 
 	@Resource(name="userMainService")
@@ -228,14 +233,51 @@ public class UserMainController {
 		model.addAttribute("myPocketList",myPocketList);
 		
 		//카카오톡 보내기
-//	    File file = new File("D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
-//	    byte[] fileContent = Files.readAllBytes(file.toPath());
-//	    model.addAttribute("length",fileContent.length);
-//	    model.addAttribute("fileContent",fileContent);
+	    File file = new File("D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
+	    byte[] fileContent = Files.readAllBytes(file.toPath());
+	    model.addAttribute("length",fileContent.length);
+	    model.addAttribute("fileContent",fileContent);
 
 		model.addAttribute("tab", StringUtils.defaultString(request.getParameter("tab"), ""));
 
 		return "myPage";
+	}
+	
+	
+	/** Method : 
+	* Method 설명 :
+	* 최초작성일 : 2018.10.10
+	* 작성자 : 한수정
+	* 변경이력 :신규
+	* 
+	* @param 
+	* @return Map<String, Object>
+	 * @throws IOException 
+	*/
+	@RequestMapping(value="/kakaotest", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> mdCategoryList(@RequestParam(value="pocketId")String pocketId,
+										      @ModelAttribute("userInfo") MemberVo memberVo
+											  ) throws IOException{
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		logger.debug("controller pocketID : " + pocketId);
+		String mem_id = memberVo.getMem_id();
+
+		String path = "D://A_TeachingMaterial//8.LastProject//workspace//LastProject_CVS//src//main//webapp//barcode//SAVE"
+				+ File.separator + mem_id + File.separator + pocketId + ".jpg";
+		File file = new File(path);
+		byte[] fileContent = Files.readAllBytes(file.toPath());
+
+		List<Integer> li = new ArrayList<Integer>();
+		for (int i = 0; i < fileContent.length; i++) {
+			li.add((int)fileContent[i]);
+		}
+		
+		resultMap.put("length", fileContent.length);
+		resultMap.put("fileContent", li);
+		
+		return resultMap;
 	}
 	
 	@RequestMapping("/speech")
