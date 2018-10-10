@@ -35,10 +35,7 @@ public class CategoryDao implements CategoryDaoInf {
 		return null;
 	}
 
-	@Override
-	public int updateCategory(CategoryVo categoryVo) {
-		return 0;
-	}
+
 
 	@Override
 	public int deleteCategory(String ctgy_id) {
