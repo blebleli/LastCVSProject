@@ -90,14 +90,21 @@ public class UserProdController {
 		
 		ModelAndView mav = new ModelAndView("prodDetail");
 		
+		
+		BookmarkVo bmk = null;
 		//즐겨찾기한 제품인지 확인
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("mem_id", user.getMem_id());
-		map.put("prod_id", prod_id);
-		BookmarkVo bmk = bmkService.getBmkProd(map);
-		if(bmk != null){
-			mav.addObject("bmk", bmk);
+		//로그인 되어 있는지 확인
+		if (user != null) {		// 로그인 되었을때 실행
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("mem_id", user.getMem_id());
+			map.put("prod_id", prod_id);
+			bmk = bmkService.getBmkProd(map);
+			
 		}
+		
+		mav.addObject("bmk", bmk);
+		
+		
 		// 상품 정보
 		ProdVo prod = prodService.getProd(prod_id);
 		
