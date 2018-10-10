@@ -67,7 +67,7 @@ public class CvsSetController {
 	private FileServiceInf fileService;
 	
 	
-	@RequestMapping("/setting")
+	@RequestMapping("/setting") // 2018.10.10- KONG : user가 "6510000-104-2015-00153"로  하드코딩 되있는것을 , 로그인한 사용자 정보를 가져와서 셋팅되도록 수정
 	public String cvsSetting(HttpServletRequest request, Model model){
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
