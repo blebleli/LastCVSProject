@@ -349,7 +349,7 @@ $(document).ready(function() {
 									src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
 									alt="User Pic">
 							    -->
-								<img class="img-circle" src="<c:url value='/images/userpic/${member.pic_name}' />" alt="User Pic" width="130px;" height="130px;" />
+								<img class="img-circle" src="${member.pic_name}" alt="User Pic" width="130px;" height="130px;" />
 							</div>
 							
 							<div class="col-xs-2 col-sm-2 hidden-md hidden-lg">  <!-- 데스크탑에서 안보임 : 모바일용-->
