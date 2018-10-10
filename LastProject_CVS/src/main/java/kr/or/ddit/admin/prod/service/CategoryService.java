@@ -32,11 +32,7 @@ public class CategoryService implements CategoryServiceInf {
 		return null;
 	}
 
-	@Override
-	public int updateCategory(CategoryVo categoryVo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	public int deleteCategory(String ctgy_id) {
@@ -66,7 +62,7 @@ public class CategoryService implements CategoryServiceInf {
 
 	@Override
 	public int updateCtgy(CategoryVo ctgy) {
-		return categoryDao.updateCategory(ctgy);
+		return categoryDao.updateCtgy(ctgy);
 	}
 
 
