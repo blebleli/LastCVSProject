@@ -182,12 +182,10 @@
 													</td>
 													
 													<td class="cost-result">
-														<p>
-															￦
-															<span>
-																${vo.splylist_sum * vo.prod_cost}
-															</span> 
-														</p>
+														￦
+														<span>
+															${vo.splylist_sum * vo.prod_cost}
+														</span> 
 													</td>
 													
 												</tr>
@@ -387,9 +385,11 @@ function fn_changeCost(el){
 	
 	//단가
 	var cost = item.parent().parent().siblings(".prod-cost").children("span").text();
-	
+	var costSplit = cost.split(",");
+	var costResult = costSplit[0]+costSplit[1];
+// 	alert("costResult : " + costResult);
 	//실시간으로 값이 변경될 부분
-	var result = item.parent().parent().siblings(".cost-result").children("p").children("span");
+	var result = item.parent().parent().siblings(".cost-result").children("span");
 	
 	//명세서 부분
 	var m1 = $(".m1").children("span");
@@ -400,28 +400,37 @@ function fn_changeCost(el){
 	
 	item.on("blur", function(){
 		
-		result.text(cost * item.val());
+		//alert("단가"+cost+"타입"+typeof(cost));
 		
+		//alert("출고 가능 수량"+item.val()+"타입"+typeof(item.val()));
+		
+		//alert("합계"+cost * item.val()+"타입"+typeof(cost * item.val()));
+		
+		//텍스트 필드에 입력한 값 예)출고가능수량 15 적었으면 alert창에 15 출력
+		
+		result.text(parseInt(costResult) * item.val());
+		
+		//발주를 원하는 물품 총 갯수 예)15개 종류의 물품들을 신청했으면 alert창에 15 출력
 // 		alert($(".cost-result").length);
+	
 		
 // 		alert("????"+$(".cost-result").children("p").children("span").eq(2).text());
 // 		alert("???????????"+parseInt($(".cost-result").children("p").children("span").eq(2).text()));
 		
-		var cnt = 0;
-		var resultSum =0 ;
+		var resultSum=0;
 		for(i = 0; i < $(".cost-result").length; i++){
-// 			alert("td1== "+ parseInt($(".cost-result").children("p").children("span").eq(0).text()));
-// 			alert("td2== "+ parseInt($(".cost-result").children("p").children("span").eq(1).text()));
-// 			alert("td3== "+ parseInt($(".cost-result").children("p").children("span").eq(2).text()));
-			resultSum = resultSum + parseInt($(".cost-result").children("p").children("span").eq(i).text()); 
-// 			alert("total ="+resultSum);
+			var a = $(".cost-result").children("span").eq(i).text(); 
+			a = parseInt(a);
+// 			alert(i+"번째 값(a)"+a);
+			resultSum = resultSum + a; 
+// 			alert("resultSum값"+resultSum);
+// 			alert("resultSum 타입"+typeof(resultSum));
 			
-			resultSum = Number(resultSum);
+			resultSum = parseInt(resultSum);
 			m1.text(resultSum);
 			m2.text(resultSum/20);
 			m3.text(resultSum/20);
 			m4.text(resultSum);
-			cnt++;
 		}
 // 		alert("finish :"+ cnt);
 		
