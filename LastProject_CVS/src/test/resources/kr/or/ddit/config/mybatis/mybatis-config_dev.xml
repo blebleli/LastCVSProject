@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
-<properties resource="kr/or/ddit/config/mybatis/db_dev.properties" />
+<!-- <properties resource="kr/or/ddit/config/mybatis/db.properties" /> -->
 	
   <typeAliases>
-  
-	<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.board.model □□□□□□□□□□□□□□□□□□□□ -->
+<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
   	<typeAlias type="kr.or.ddit.model.BarcodeVo"		alias="barcodeVo"/>
   	<typeAlias type="kr.or.ddit.model.BoardVo"			alias="boardVo"/>
-  	<typeAlias type="kr.or.ddit.model.BookmarkVo" 		alias="bookmarkVo"/>
+  	<typeAlias type="kr.or.ddit.model.BookmarkVo" 		alias="BookmarkVo"/>
   	<typeAlias type="kr.or.ddit.model.CategoryVo" 		alias="categoryVo"/>
   	<typeAlias type="kr.or.ddit.model.CommentsVo" 		alias="commentsVo"/>
   	<typeAlias type="kr.or.ddit.model.CvsServiceVo" 	alias="cvsServiceVo"/>
@@ -29,10 +26,99 @@
   	<typeAlias type="kr.or.ddit.model.StockVo" 			alias="stockVo"/>
   	<typeAlias type="kr.or.ddit.model.SupplyListVo" 	alias="supplyListVo"/>
   	<typeAlias type="kr.or.ddit.model.SupplyVo" 		alias="supplyVo"/>
-	<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.board.model □□□□□□□□□□□□□□□□□□□□ -->
+  	<typeAlias type="kr.or.ddit.model.StockVo" 			alias="stockVo"/>
+  	<typeAlias type="kr.or.ddit.model.StockListVo" 		alias="stockListVo"/>
+  	<typeAlias type="kr.or.ddit.model.FiledataVo" 		alias="filedataVo"/>
+  	<!-- 조계환 입고 상세보기 화면에 필요한 정보들(supplylist에 있는 수량과 제품 바코드, prod에 있는 제품이름을 동시에 가져와야 하기 때문에 만든 객체) -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdVo" 		alias="supplyProdVo"/>
+  	<!-- 조계환 입고 리스트에서 뿌려줄 입고에 대한 정보들  -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupplySumProdVo" 		alias="supplySumProdVo"/>
+  	<!-- 조계환 수불바코드를 직접입력하거나 스캔했을때 그에 대한 제품 정보들을 저장하는 객체 -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyScanInfoVo" 		alias="supplyScanInfoVo"/>
+  	
+  	<!-- 김현경 발주 목록 객체(발주 총수량, 발주 총액 포함) -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupRequestListVo" 		alias="supRequestListVo"/>
+  	
+  	<!-- 조계환 관리자가 볼 수불신청 리스트 내역을 가져올 객체 -->
+  	<typeAlias type="kr.or.ddit.admin.model.AdminApplyVo" 		alias="adminApplyVo"/>
+  	<!-- 조계환 관리자용 수불신청 리스트 상세 보기에서 제품들 정보를 받아올 객체 -->
+  	<typeAlias type="kr.or.ddit.admin.model.AdminApplyViewVo" 		alias="adminApplyViewVo"/>
+  	
+<!-- □□□□□□□□□□□□□□□□□□□□ kr.or.ddit.model □□□□□□□□□□□□□□□□□□□□ -->
+
+	<!-- 제품 검색 -->
+  	<typeAlias type="kr.or.ddit.user.search.model.CvsSearchVo" 		alias="cvsSearchVo"/>
+  	
+  	<!-- 편의점 검색 -->
+  	<typeAlias type="kr.or.ddit.user.search.model.SearchCvsServiceVo" 		alias="searchCvsServiceVo"/>
+	
+	<!-- 리뷰 목록 조회 -->
+  	<typeAlias type="kr.or.ddit.board.model.ReviewVo" 		alias="reviewVo"/>
+  	
+  	<!-- 편의점 제품 통계 판매량 조회 -->  	
+  	<typeAlias type="kr.or.ddit.store_owner.model.salelistJoinVo"		alias="saledisjoinVo"/>
+  	
+  	<!-- 편의점의 현재 재고 목록 -->
+  	<typeAlias type="kr.or.ddit.store_owner.model.PresentStockListVo"	alias="presentStockListVo"/>
+  	
+  	<!-- 수발주BCD로 상품검색 -->
+  	<typeAlias type="kr.or.ddit.supply.model.SupplyProdInfoVo"	alias="supplyProdInfoVo"/>
+  	
+  	<!-- 리뷰+제품(파일) -->
+  	<typeAlias type="kr.or.ddit.user.model.MainReviewsVo"	alias="mainReviewsVo"/>
+
+  	<!-- 관리자 상품관련 -->
+  	<typeAlias type="kr.or.ddit.admin.model.AdminProdVo"	alias="adminProdVo"/>
+  	
+  	<!-- chart vo -->
+  	<typeAlias type="kr.or.ddit.admin.model.CvsCountVo" alias="cvsCountVo"/>
+  	<typeAlias type="kr.or.ddit.admin.model.MonthTopVo" alias="monthTopVo"/>
+  	<typeAlias type="kr.or.ddit.admin.model.RankVo" alias="rankVo"/>
+  	<typeAlias type="kr.or.ddit.store_owner.model.OnedayChartVo" alias="onedayChartVo"/>
+  	
+  	<!-- 0920한수정 POS결제관련 -->
+  	<typeAlias type="kr.or.ddit.store_owner.model.PosPayVo" alias="posPayVo"/>
+  	
+  	<!-- 1006한수정 나의주머니 보기 관련 -->
+  	<typeAlias type="kr.or.ddit.user.model.PocketProdVo" alias="pocketProdVo"/>
+  	
   </typeAliases>
-  
+
   <mappers>
+   	<mapper resource="kr/or/ddit/config/mybatis/mapper/memberShip.xml"/>
+   	<mapper resource="kr/or/ddit/config/mybatis/mapper/pocket.xml"/>
+ 	<mapper resource="kr/or/ddit/config/mybatis/mapper/pay.xml"/>	
+ 	<mapper resource="kr/or/ddit/config/mybatis/mapper/disposal.xml"/>  
+  	<mapper resource="kr/or/ddit/config/mybatis/mapper/barcode.xml"/>  
+  	<mapper resource="kr/or/ddit/config/mybatis/mapper/board.xml"/>  
+  	<mapper resource="kr/or/ddit/config/mybatis/mapper/member.xml"/>
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/category.xml"/> 
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/search.xml"/>  
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/prod.xml"/> 
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale.xml"/> 
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/comments.xml"/>
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/sale_dis.xml"/> <!-- sale_dis(판매/폐기) -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/saledis_Join.xml"/>	<!-- sale_dis(판매/폐기), sale_list(판매상세조회) Join -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/stock.xml"/>	
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/supply.xml"/>	
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/bookmark.xml"/>	
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/filedata.xml"/>	
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/event.xml"/>	
+	
+	
+	<!-- 소스코드생성 -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/tableCode.xml"/>
+	
+	<!-- 데이터 생성 -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/tableInsert.xml"/>
+	
+	<!-- 통계 -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/chart.xml"/>
+	
+	<!-- 김마음 -->
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/test.xml"/>	
+	
+	
   </mappers>
 
 </configuration>
