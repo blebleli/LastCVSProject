@@ -45,6 +45,7 @@ public class BookmarkController {
 		map.put("mem_id", user.getMem_id());
 		map.put("prod_id", prod_id);
 		BookmarkVo getbmk = bmkService.getBmkProd(map);
+		logger.debug("likeProd=====", getbmk);
 		if(getbmk == null){
 			BookmarkVo bookProd = new BookmarkVo();
 			bookProd.setMem_id(user.getMem_id());
@@ -55,6 +56,7 @@ public class BookmarkController {
 			
 		}else{
 			bmkService.deleteBmkProd(prod_id);
+			logger.debug("delete====", prod_id);
 		}
 		
 		return new ResponseEntity<>( "Custom header set", HttpStatus.OK);
