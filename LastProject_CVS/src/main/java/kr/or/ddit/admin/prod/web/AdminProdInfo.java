@@ -76,7 +76,7 @@ public class AdminProdInfo {
 	}
 	
 	@RequestMapping("/categoryPopup")
-	public String categoryPopup(Model model){
+	public String categoryPopup(@RequestParam(value="where", defaultValue="")String where,Model model){
 //		logger.debug("categoryPopup ==================================================================");
 		// 전체 카테고리(계층)
 		List<CategoryVo> categoryAll = categoryService.getListCategory();
@@ -94,6 +94,9 @@ public class AdminProdInfo {
 		model.addAttribute("categoryLg", categoryLg);
 		model.addAttribute("categoryMd", categoryMd);
 		
+		if(where.equals("manage")){
+			model.addAttribute("where", "manage");
+		}
 		
 
 		return "/admin/adprod/ad_category_popup";
@@ -156,10 +159,14 @@ public class AdminProdInfo {
 	
 	// 이벤트 팝업
 	@RequestMapping("/eventPopup")
-	public String eventPopup(Model model){
+	public String eventPopup(@RequestParam(value="where", defaultValue="")String where,Model model){
 		
 		List<EventVo> eventList  =  eventService.getListEvent();
 		model.addAttribute("eventList", eventList);
+		
+		if(where.equals("manage")){
+			model.addAttribute("where", "manage");
+		}
 		
 		return "/admin/adprod/ad_event_popup";
 	}
@@ -450,5 +457,7 @@ public class AdminProdInfo {
 		
 		return "forward:/adprod/prodUpdatePopup";
 	}
+	
+	
 	
 }
