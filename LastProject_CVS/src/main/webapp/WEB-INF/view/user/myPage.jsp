@@ -349,8 +349,9 @@ $(document).ready(function() {
  	            document.getElementById('uploadUrl').value = res.infos.original.url;
  	            console.log(res.infos.original.url);
  	            kakaoImg = res.infos.original.url;
- 	            console.log('kakaoImg-->'+kakaoImg);
+ 	            console.log('kakaoImg-->'+kakaoImg);	    
  	            sendLink(kakaoImg);
+ 	            
  	          });
  	   		}
  	       
@@ -366,8 +367,6 @@ $(document).ready(function() {
  	      		 });
  	       }
 
-	    
-	    
 </script>
 
 

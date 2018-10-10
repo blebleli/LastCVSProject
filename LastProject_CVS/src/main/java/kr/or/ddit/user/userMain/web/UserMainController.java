@@ -274,6 +274,7 @@ public class UserMainController {
 			li.add((int)fileContent[i]);
 		}
 		
+		
 		resultMap.put("length", fileContent.length);
 		resultMap.put("fileContent", li);
 		

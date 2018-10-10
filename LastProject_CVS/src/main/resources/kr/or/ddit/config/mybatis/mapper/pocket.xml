@@ -30,6 +30,10 @@
 	      WHERE PK.MEM_ID = #{mem_id}
 	</select>
 	
+	<select id="getPocketById" parameterType="String" resultType="pocketProdVo">
+		 SELECT  * FROM POCKET WHERE pocket_id=#{pocket_id}
+	</select>
+	
 	<insert id="pocketInsert" parameterType="pocketVo">
 		INSERT INTO POCKET (  POCKET_ID  ,POCKET_USENY ,POCKET_DATE ,POCKET_DELNY ,MEM_ID ,PAY_ID  ,PROD_ID) 
 				VALUES(
