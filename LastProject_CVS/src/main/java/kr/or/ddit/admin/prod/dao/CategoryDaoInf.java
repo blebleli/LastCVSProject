@@ -69,17 +69,7 @@ public interface CategoryDaoInf {
 	*/
 	List<CategoryVo> getListCategoryProd(String ctgy_level);
 	
-	/**
-	* Method : updateCategory
-	* Method 설명 :관리자가 생성한 카테고리 수정 기능
-	* 최초작성일 : 2018. 8. 30.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :int updateCategory(CategoryVo categoryVo)_관리자가 생성한 카테고리 수정 기능
-	* @param categoryVo
-	* @return
-	*/
-	int updateCategory(CategoryVo categoryVo);
+	
 	
 	/**
 	* Method : deleteCategody
