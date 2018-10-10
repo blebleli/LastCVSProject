@@ -179,10 +179,11 @@ public class ProdService implements ProdServiceInf {
 			map.put("event_id", "BASIC1");
 			result = prodDao.getListAllSearchProd(map); 
 		} else if (iKind.equals("2")) {	// 베스트
+			map.put("event_id", "BASIC1");
 			map.put("pageSize", 30);
 			result = prodDao.getListBestSearchProd(map); 
 		} else if (iKind.equals("3")) {	// 이벤트
-			map.put("event_id", "0000");
+			map.put("event_id", map.get("event"));
 			result = prodDao.getListAllSearchProd(map);  
 		}
 		logger.debug("result==> {}",result);

@@ -211,6 +211,7 @@ public class UserProdController {
 								   , @RequestParam(value="drinkChk"      , defaultValue="")        String drinkChk          
 								   , @RequestParam(value="necessitiesChk", defaultValue="")        String necessitiesChk
 								   , @RequestParam(value="iKind"		 , defaultValue="1")       String iKind
+								   , @RequestParam(value="event"		 , defaultValue="dis1")       String event
 								   , Model model
 		){
 		
@@ -224,6 +225,7 @@ public class UserProdController {
 		if (prodName == null) {
 			prodName = "";
 		}
+		
 		paramMap.put("prodName", prodName);
 		paramMap.put("iKind"	, iKind);
 		
@@ -235,6 +237,9 @@ public class UserProdController {
 		paramMap.put("necessitiesChk",necessitiesChk);
 		String  category =mealChk+iceChk+foodChk+drinkChk+biscuitChk+necessitiesChk;
 		paramMap.put("category", category.trim());
+		paramMap.put("event", event);
+		
+		
 		
 		
 		List<ProdVo> searchList = prodService.searchProd(paramMap);
