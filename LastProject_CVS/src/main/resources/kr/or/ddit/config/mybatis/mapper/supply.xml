@@ -20,7 +20,7 @@
 					   place_id) 
 				VALUES(#{supply_bcd},
 					   #{supply_state}, 
-					   sysdate, 
+					   #{supply_date}, 
 					   #{place_id})
 	</insert>
 	

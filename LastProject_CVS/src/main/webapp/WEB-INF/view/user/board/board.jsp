@@ -222,7 +222,7 @@
 												<td id="demoFonts">${vo.tot_cnt}</td>
 												<td style="text-align: left;" id="demoFonts">${vo.bd_title}</td>
 												<td id="demoFonts">관리자</td>
-												<td id="demoFonts">${vo.bd_date}</td>
+												<td id="demoFonts"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="demoFonts">${vo.bd_views}</td>
 											</tr>
 										</c:when>
@@ -232,7 +232,7 @@
 												<td style="text-align: left;"  id="demoFonts">
 												　　　[RE:]${vo.bd_title}</td>
 												<td id="demoFonts">관리자</td>
-												<td id="demoFonts">${vo.bd_date}</td>
+												<td id="demoFonts"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="demoFonts">${vo.bd_views}</td>
 											</tr>
 										</c:when>

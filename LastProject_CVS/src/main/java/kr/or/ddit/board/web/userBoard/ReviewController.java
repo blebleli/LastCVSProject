@@ -1,5 +1,6 @@
 package kr.or.ddit.board.web.userBoard;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,8 @@ public class ReviewController {
 	@Resource(name="autoCodeCreate")
 	AutoCodeCreate autoCodeCreate;
 	
+	private Date today = new Date();
+	
 	//리뷰작성
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public ModelAndView writeReview(BoardVo review, Model model){
@@ -41,6 +44,7 @@ public class ReviewController {
 		ModelAndView mav = new ModelAndView();
 //
 		String bd_id = autoCodeCreate.autoCode("BRE");
+		review.setBd_date(today);
 		review.setBd_id(bd_id);
 		review.setBd_del("N");
 		logger.debug("review ==> {} ", review);

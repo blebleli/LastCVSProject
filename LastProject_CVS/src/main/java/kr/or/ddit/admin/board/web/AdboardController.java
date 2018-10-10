@@ -2,6 +2,7 @@ package kr.or.ddit.admin.board.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -51,6 +52,8 @@ public class AdboardController {
 	private MemberMgtServiceInf memberMgtService;
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	private Date today = new Date();
 	
 	@RequestMapping("/boardSearch")
 	public String boardSearch(@RequestParam(value="i", defaultValue="") String i,
@@ -173,6 +176,7 @@ public class AdboardController {
 			// 받아오는 bd_id ==> bd_parent set
 			boardVo.setBd_parent(boardVo.getBd_id());
 			
+			
 			// 그룹코드 받아 오기
 			groupCode = boardVo.getBd_group();
 			
@@ -212,6 +216,8 @@ public class AdboardController {
 			returnPage = "redirect:/adboard/boardView?btnChk=" + boardVo.getBd_kind_id();
 		}
 		
+		boardVo.setBd_date(today);
+		
 //		logger.debug("boardVo ==> {}" , boardVo);
 		
 		// 게시글 그룹코드 저장 (첫 글은 첫 글의 게시글 코드가 그룹코드임.)
@@ -220,6 +226,7 @@ public class AdboardController {
 //		logger.debug("groupCode ==> {} ", groupCode);
 		boardVo.setBd_group(groupCode);
 		
+		boardVo.setBd_date(today);
 		int cnt = boardService.setInsertBoard(boardVo); // 게시글 저장
 		
 		int fileResult = 0;
@@ -326,6 +333,7 @@ public class AdboardController {
 							  BoardVo b, Model model) throws ServletException, IOException {
 		
 		String tempSavePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/";
+		b.setBd_date(today);
 		int cnt = boardService.boardUpdate(b); // 게시글 저장
 		
 		if (cnt != 0){		

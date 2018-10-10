@@ -152,7 +152,7 @@
 														</c:otherwise>
 													</c:choose>
 												</td>
-												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>
@@ -171,7 +171,7 @@
 														</c:otherwise>
 													</c:choose>												
 												</td>
-												<td id="iscenter" >${vo.bd_date}</td>
+												<td id="iscenter" ><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>										
@@ -189,7 +189,7 @@
 														</c:otherwise>
 													</c:choose>												
 												</td>
-												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="iscenter">${vo.bd_views}</td>	
 											</tr>
 										</c:when>
@@ -231,7 +231,7 @@
 													</c:choose>												
 												</td>
 												<td id="iscenter">${vo.bd_rating}</td>
-												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>
@@ -252,7 +252,7 @@
 													</c:choose>												
 												</td>
 												<td id="iscenter">${vo.bd_rating}</td>												
-												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="iscenter">${vo.bd_views}</td>												
 											</tr>
 										</c:when>										
@@ -272,7 +272,7 @@
 													</c:choose>												
 												</td>
 												<td id="iscenter">${vo.bd_rating}</td>												
-												<td id="iscenter">${vo.bd_date}</td>
+												<td id="iscenter"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 												<td id="iscenter">${vo.bd_views}</td>	
 											</tr>
 										</c:when>

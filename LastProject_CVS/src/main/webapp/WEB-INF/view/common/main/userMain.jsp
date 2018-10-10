@@ -358,7 +358,9 @@ function speechPopup(){
 						
 					</a>
 				</td>
-				<td>${vo.bd_date}</td>
+				<td>
+					<fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" />
+				</td>
 				</tr>	
 				</c:forEach>			
 			</table>
@@ -375,7 +377,9 @@ function speechPopup(){
 						<c:when test="${vo.bd_del=='N'}">						
 							<tr data-id="${vo.prod_id}">
 								<td>${vo.bd_title}</td>
-								<td>${vo.bd_date}</td>
+								<td>
+									<fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" />
+								</td>
 							</tr>						
 						</c:when>
 					</c:choose>

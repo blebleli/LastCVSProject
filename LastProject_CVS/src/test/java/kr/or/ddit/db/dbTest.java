@@ -16,6 +16,7 @@ import kr.or.ddit.model.SupplyVo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,9 +25,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:kr/or/ddit/config/spring/root-context.xml",
 								 "classpath:kr/or/ddit/config/spring/transaction.xml",
-								 "classpath:kr/or/ddit/config/spring/datasource.xml"})
+								 "classpath:kr/or/ddit/config/spring/datasource_dev.xml"})
 public class dbTest { // db 값 저장
-
+	
+	@Resource(name="sqlSessionTemplate")
+	private SqlSessionTemplate template;
+	
 	@Resource(name="junitTestDao")
 	private JunitTestDaoInf junitTestDao;
 	
@@ -36,28 +40,27 @@ public class dbTest { // db 값 저장
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());	
 	
 	/**
-	 * Method : memberJunitTest
+	 * Method : updateCvsInfoTest
 	 * 최초작성일 : 2018. 10. 7.
 	 * 작성자 : 김마음
 	 * 변경이력 : 신규
 	 * Method 설명 : 점주 이름 수정
 	 */
 	@Test
-	public void memberJunitTest(){
+	public void updateCvsInfoTest(){
 		
 		MemberVo memberVo = null;
 		String mem_name[] = {"김마음","조계환","김현경","공은별","조종원","한수정"}; // 점주 수정할 이름 mem_name
 		String mem_id[] = {"4930000-104-2015-00011","3380000-104-2014-00017","3670000-104-2012-00104",
 						   "3150000-104-2015-00104","3680000-104-2016-00025","4180000-104-2016-00010"}; // 점주 mem_id	
 	
-		for (int i = 0; i < mem_name.length; i++){
-			
-		memberVo = new MemberVo();
-		memberVo.setMem_name(mem_name[i]);
-		memberVo.setMem_id(mem_id[i]);
-
-		junitTestDao.memberJunitTest(memberVo); // 이름 수정
-		
+		for (int i = 0; i < 1; i++){
+			memberVo = new MemberVo();
+			memberVo.setMem_id(mem_id[i]); // 아이디 저장
+			memberVo = template.selectOne("member.getMember", memberVo); // 아이디 저장 후 회원 정보 조회
+			logger.debug("memberVo {} : ", memberVo); // 회원 정보 조회 디버깅
+			memberVo.setMem_name(mem_name[i]); // 이름 변경
+			template.update("test.updateCvsInfo", memberVo); // 이름 수정		
 		}
 	}
 	
@@ -90,12 +93,12 @@ public class dbTest { // db 값 저장
 //		String supply_date_s[] = {"2018/10/15 13:22","2018/10/16 13:22","2018/10/17 13:22",
 //								  "2018/10/18 13:22","2018/10/19 11:31","2018/10/20 09:21","2018/10/21 19:10"};
 		
-		String supply_date_s[] = {"2018/10/22 13:22","2018/10/23 13:22","2018/10/24 13:22","2018/10/25 13:22"};		
+		String supply_date_s[] = {"2018/10/18 12:34","2018/10/23 13:22","2018/10/24 13:22","2018/10/25 13:22"};		
 		
 		// ------------------------------------------- 수불 신청 자료	
 		
 //		for (int i = 0; i <= 6; i++){					
-		for (int i = 0; i <= 3; i++){
+		for (int i = 0; i < 1; i++){
 			Date supply_date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(supply_date_s[i]);
 			barcodeVo = new BarcodeVo();
 			supplyVo = new SupplyVo();
@@ -113,9 +116,9 @@ public class dbTest { // db 값 저장
 			
 			// ------------------------------------------- 수불 신청 자료 저장 완료			
 			
-			junitTestDao.insertBarcodeTest(barcodeVo); // 바코드(BARCODE) 생성
+			template.insert("barcode.insertBarcode", barcodeVo); // 바코드(BARCODE) 생성
 			logger.debug("barcode ===> {} ", barcodeVo.getBcd_id()); // 바코드 확인 필수
-			junitTestDao.insertsupplyTest(supplyVo); // 수불(SUPPLY) 생성
+			template.insert("supply.insertSupply", supplyVo); // 수불(SUPPLY) 생성
 		}
 	}
 	
@@ -136,7 +139,7 @@ public class dbTest { // db 값 저장
 //		String supply_bcd = "SUPPLY-f1c5beb5-ee75-4e8f-811d-6c3d81c25f79";
 //		String supply_bcd = "SUPPLY-bc86647a-3507-4843-a7aa-ff60ebf98828";
 //		String supply_bcd = "SUPPLY-7a9a1570-23c5-4fee-a75d-eaffd1b2e7e4";
-		String supply_bcd = "SUPPLY-1b2a6f34-2595-44c3-8673-44998b95975e";		
+		String supply_bcd = "SUPPLY-dc2fc8eb-13bc-4559-ac38-f9dcc19a2756";	
 		
 //		String splylist_id = "4930000-104-2015-00011";
 //		String splylist_id = "3380000-104-2014-00017";
@@ -147,8 +150,8 @@ public class dbTest { // db 값 저장
 		
 //		String splylist_exdate_s = "2018/11/08 13:22";
 //		String splylist_exdate_s = "2018/11/09 11:31";
-//		String splylist_exdate_s = "2018/10/10 09:21";
-		String splylist_exdate_s = "2018/10/11 19:10";	
+//		String splylist_exdate_s = "2018/11/10 09:21";
+		String splylist_exdate_s = "2018/11/10 19:10";	
 		
 		
 //		String splylist_exdate_s[] = {"2018/11/01 13:22","2018/10/04 19:10","2018/10/03 09:21","2018/11/02 11:31"};
@@ -175,26 +178,27 @@ public class dbTest { // db 값 저장
 			supplyListVo.setSupply_bcd(supply_bcd);
 			supplyListVo.setProd_id(prod_id[i]);
 			
-			junitTestDao.insertSupplyListTest(supplyListVo); // 수불 리스트(SUPPLY_LIST) 생성
+			template.insert("supply.insertSupplyList", supplyListVo); // 수불 리스트(SUPPLY_LIST) 생성
 		}
 	}
 	
 	@Test
-	public void prodReviews(){
-		String bd_title[] = {"고무고무~~","젤리? 실화?","ㅇㅇ 실화임..","이거 고무맛 남 퉤","ㅇㅇ맞음 고무맛남.."};
-		String bd_content[] = {"나는 원피스다~~","ㅋㅋㅋㅋㅋ","개졸맛","투웨","누가 만든거임.."};
-		String bd_date[] = {"2018-11-30","2018-10-29","2018-11-22","2018-11-12","2018-12-10"};
+	public void prodReviews() throws ParseException{
+		String bd_title[] = {"프링프링프링글스~~","넘나 맛 ㄱㄱ","ㅋㅋㅋ캐맛남","누가 만든거임? 노노 맛 ㄴㄴ","ㅡㅡ"};
+		String bd_content[] = {"글스!","ㅋㅋㅋㅋㅋㅋㄱㄱㄱ하삼","그러겡","ㅡㅡ","아오"};
+		String bd_date_s[] = {"2018-11-30","2018-10-29","2018-11-22","2018-11-12","2018-12-10"};
 		String mem_id[] = {"KBK@ddit.or.kr","vit_keb@naver.com","KMK@ddit.or.kr","LH@ddit.or.kr,","NMS@ddit.or.kr"};
-		String prod_id = "biscuit-00001";
-		int bd_rating[] = {5, 4, 4, 1, 1};
+		String prod_id = "biscuit-00002";
+		int bd_rating[] = {5, 5, 5, 1, 2};
 		BoardVo boardVo = null;
 		
 		for(int i = 0; i <= 4; i++){
+			Date bd_date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(bd_date_s[i]);
 			boardVo = new BoardVo();
 			boardVo.setBd_title(bd_title[i]);
 			boardVo.setBd_id(code.autoCode("BRE"));
 			boardVo.setBd_content(bd_content[i]);
-			boardVo.setBd_date(bd_date[i]);
+			boardVo.setBd_date(bd_date);
 			boardVo.setBd_rating(bd_rating[i]);
 			boardVo.setBd_views(0);
 			boardVo.setBd_group(boardVo.getBd_id());
@@ -203,7 +207,7 @@ public class dbTest { // db 값 저장
 			boardVo.setBd_kind_id("55");
 			boardVo.setProd_id(prod_id);
 			boardVo.setBd_del("N");
-			junitTestDao.prodReviews(boardVo);
+			template.insert("board.setInsertBoard", boardVo);
 		}
 	}
 }

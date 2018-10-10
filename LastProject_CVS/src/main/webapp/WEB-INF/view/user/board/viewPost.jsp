@@ -184,7 +184,7 @@ function fn_delete(geta){
 						<td id="demoFont" class="col-sm-1">작성자</td>
 						<td id="demoFont2" class="col-sm-9">${post.mem_id}</td>
 						<td id="demoFont" class="col-sm-1">작성일</td>
-						<td id="demoFont2" class="col-sm-9">${post.bd_date}</td>
+						<td id="demoFont2" class="col-sm-9"><fmt:formatDate value="${vo.bd_date}" pattern="yyyy.MM.dd" /></td>
 					</tr>
 					
 					<tr>
