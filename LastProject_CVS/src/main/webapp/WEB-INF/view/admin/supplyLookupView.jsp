@@ -379,6 +379,11 @@
  
 // }
 
+function addComma(num) {
+  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+  return num.toString().replace(regexp, ',');
+}
+
 function fn_changeCost(el){
 	//가능 수량 입력한 값
 	var item = $(el);
@@ -427,10 +432,11 @@ function fn_changeCost(el){
 // 			alert("resultSum 타입"+typeof(resultSum));
 			
 			resultSum = parseInt(resultSum);
-			m1.text(resultSum);
-			m2.text(resultSum/20);
-			m3.text(resultSum/20);
-			m4.text(resultSum);
+			m1.text(addComma(resultSum));
+			var b = addComma(resultSum/20);
+			m2.text(b);
+			m3.text(b);
+			m4.text(addComma(resultSum));
 		}
 // 		alert("finish :"+ cnt);
 		
