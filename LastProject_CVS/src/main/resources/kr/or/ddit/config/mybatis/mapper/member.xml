@@ -144,7 +144,7 @@
 			 , MEM_X
 			 , MEM_Y
 			 , MEM_POINT
-			 , (SELECT FILE_UPNAME FROM FILEDATA WHERE MEM_ID = #{mem_id} AND ROWNUM = 1) as pic_name
+			 , (SELECT FILE_PATH || '/' || FILE_UPNAME FROM FILEDATA WHERE MEM_ID = #{mem_id} AND ROWNUM = 1) as pic_name
 		  FROM MEMBER
 		  WHERE MEM_ID = #{mem_id}
 	</select>
