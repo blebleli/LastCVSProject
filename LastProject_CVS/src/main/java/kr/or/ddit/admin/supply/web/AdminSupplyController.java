@@ -153,7 +153,6 @@ public class AdminSupplyController {
 		return "ad_supplyLookupView";
 	}
 	
-	@SuppressWarnings("null")
 	@RequestMapping("/supplyCheck")
 	public String supplyCheck(@RequestParam(value="page", defaultValue="1") int page,
 							  @RequestParam(value="pageSize", defaultValue="25") int pageSize,
@@ -181,9 +180,6 @@ public class AdminSupplyController {
 		adminSupplyService.setSuccessSupply(supply_bcd);
 		logger.debug("prod_id == > {} " , prod_id);
 		logger.debug("sum == > {} " , sum);
-		
-		
-		logger.debug("prod_idArray == > {} " , prod_idArray);
 		
 		
 		//찍어보기
