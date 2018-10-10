@@ -1,5 +1,6 @@
 package kr.or.ddit.admin.supply.web;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,6 @@ import javax.annotation.Resource;
 import kr.or.ddit.admin.model.AdminApplyVo;
 import kr.or.ddit.admin.supply.service.AdminSupplyServiceInf;
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
-import kr.or.ddit.barcode.util.QRCodeGenerator;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.MemberVo;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.QRCodeWriter;
 
 /**
 * @Class Name : AdminSupplyController.java
@@ -257,7 +256,7 @@ public class AdminSupplyController {
 			supplyVo.setSupply_bcd(barcodeVo.getBcd_id());
 			supplyVo.setSupply_state("11");
 			supplyVo.setPlace_id(mem_id);
-			
+			supplyVo.setSupply_date(new Date());
 			supplyService.setInsertSupply(supplyVo);
 			
 		}else {
