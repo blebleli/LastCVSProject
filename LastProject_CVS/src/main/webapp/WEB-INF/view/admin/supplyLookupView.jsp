@@ -226,22 +226,22 @@
 												</tr>
 												<tr>
 													<th>세금(5%) :</th>
-													<td>￦<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/></td>
+													<td>￦<fmt:formatNumber value="${sum/20}" type="number" /></td>
 													
 													<td class="m2">
 														￦
 														<span>
-															<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/>
+															<fmt:formatNumber value="${sum/20}" type="number" />
 														</span>
 													</td>
 												</tr>
 												<tr>
 													<th>배송비(5%) :</th>
-													<td>￦<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/></td>
+													<td>￦<fmt:formatNumber value="${sum/20}" type="number" /></td>
 													<td class="m3">
 														￦
 														<span>
-															<fmt:parseNumber value="${sum/20}" type="number" integerOnly="true"/>
+															<fmt:formatNumber value="${sum/20}" type="number" />
 														</span>
 													</td>
 												</tr>
