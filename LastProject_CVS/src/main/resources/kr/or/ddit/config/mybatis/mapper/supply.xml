@@ -20,7 +20,7 @@
 					   place_id) 
 				VALUES(#{supply_bcd},
 					   #{supply_state}, 
-					   #{supply_date}, 
+					   sysdate, 
 					   #{place_id})
 	</insert>
 	
@@ -401,4 +401,17 @@
 		UPDATE supply SET supply_info = 'success'
 		WHERE supply_bcd = #{supply_bcd}
 	</update>
+	
+	
+	<!-- 김마음 발주 신청 날짜 임의 생성 할 수 있는  junit supply insert문 입니다. 10/07 supply Test -->
+	<insert id="insertsupplyTest" parameterType="supplyVo">
+		INSERT INTO supply(supply_bcd, 
+						   supply_state, 
+						   supply_date, 
+						   place_id) 
+					VALUES(#{supply_bcd},
+						   #{supply_state}, 
+						   #{supply_date}, 
+						   #{place_id})		
+	</insert>
 </mapper>
