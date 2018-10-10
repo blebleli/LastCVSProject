@@ -13,7 +13,7 @@
 <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
 <!-- Custom styling plus plugins -->
-<!-- <link href="../build/css/custom.min.css" rel="stylesheet"> -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
 
 <!-- page content -->
 <div class="right_col" role="main">

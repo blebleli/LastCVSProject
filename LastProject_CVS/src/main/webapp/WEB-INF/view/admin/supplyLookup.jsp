@@ -32,7 +32,7 @@
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
-<!-- <link href="../build/css/custom.min.css" rel="stylesheet"> -->
+<link href="../build/css/custom.min.css" rel="stylesheet">
 
 <link href="/css/login/common/JKH.css" rel="stylesheet">
 
