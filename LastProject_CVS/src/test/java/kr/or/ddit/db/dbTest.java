@@ -3,17 +3,13 @@ package kr.or.ddit.db;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.annotation.Resource;
-
-import kr.or.ddit.admin.board.junit.dao.JunitTestDaoInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.BoardVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -30,9 +26,6 @@ public class dbTest { // db 값 저장
 	
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
-	
-	@Resource(name="junitTestDao")
-	private JunitTestDaoInf junitTestDao;
 	
 	@Resource(name="autoCodeCreate")
 	private AutoCodeCreate code;
@@ -184,16 +177,16 @@ public class dbTest { // db 값 저장
 	
 	@Test
 	public void prodReviews() throws ParseException{
-		String bd_title[] = {"프링프링프링글스~~","넘나 맛 ㄱㄱ","ㅋㅋㅋ캐맛남","누가 만든거임? 노노 맛 ㄴㄴ","ㅡㅡ"};
-		String bd_content[] = {"글스!","ㅋㅋㅋㅋㅋㅋㄱㄱㄱ하삼","그러겡","ㅡㅡ","아오"};
-		String bd_date_s[] = {"2018-11-30","2018-10-29","2018-11-22","2018-11-12","2018-12-10"};
+		String bd_title[] = {"뭬가토온","ㅋㅐ달..ㅋ","ㅋㅋㅋㅋㅋㅋ","너무 달아요","ㅡㅡ"};
+		String bd_content[] = {"ㅋㅋㅋ존맛!","ㅋㅋㅋㅋㅋㅋ","흠냐..","ㅡㅡ","아오"};
+		String bd_date_s[] = {"2018-11-30 13:22","2018-10-29 12:21","2018-11-22 03:22","2018-11-12 05:22","2018-12-10 17:22"};
 		String mem_id[] = {"KBK@ddit.or.kr","vit_keb@naver.com","KMK@ddit.or.kr","LH@ddit.or.kr,","NMS@ddit.or.kr"};
-		String prod_id = "biscuit-00002";
-		int bd_rating[] = {5, 5, 5, 1, 2};
+		String prod_id = "ice-00001";
+		int bd_rating[] = {5, 3, 2, 2, 1};
 		BoardVo boardVo = null;
 		
 		for(int i = 0; i <= 4; i++){
-			Date bd_date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(bd_date_s[i]);
+			Date bd_date = new SimpleDateFormat("yyyy-MM-dd").parse(bd_date_s[i]);
 			boardVo = new BoardVo();
 			boardVo.setBd_title(bd_title[i]);
 			boardVo.setBd_id(code.autoCode("BRE"));
