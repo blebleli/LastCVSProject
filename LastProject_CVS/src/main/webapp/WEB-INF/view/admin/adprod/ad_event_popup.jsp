@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -81,14 +82,25 @@ $(function() {
 	
 // 	트리뷰 클릭시 대분류에 한해서 오른쪽에 출력 
 	$("ul").on("click","a",function(){
-		var id =  $(this).children().attr('value');
-		var name =  $(this).children().attr('id');
-		var info =  $(this).children().attr('name');
-// 		alert (id + " : " + name );
-		$("#ctgy_lg").val(id);
-		$("#ctgy_id_lg").val(name);
-		$("#ctgy_lg_info").val(info);
+		var id = $(this).attr("value");
+		var name =  $(this).text();
+// 		var name =  $(this).children().attr('id');
+		var start =  $(this).children().attr('name');
+		var end =  $(this).children().attr('value');
+		var kind =  $(this).children(".kind").attr('value');
+		var discount =  $(this).children(".discount").attr('value');
+		console.log("select----"+$("select[name=event_kind]").val(kind))
+		$("#event_name").val(name);
+		$("#reservation").val(start+" - "+end);
+		$("select[name=event_kind]").val(kind);
+		$("#event_discount").val(discount);
+
 	});
+	
+	$("#updateEvent").on("click", function(){
+		
+	})
+	
 });
 </script>
 </head>
@@ -115,8 +127,10 @@ $(function() {
 	<!-- 카테고리 tree view -->
 	<ul class="tree" id = '1234'>
 	    <c:forEach items="${eventList }" var="ev">
-	    	<li><a href="#" id="category_lg">${ev.event_name }
-	    			<input type="hidden" id="${ev.event_id }" name="${ev.event_startday }~${ev.event_endday}" value="${ev.event_name }">
+	    	<li><a href="#" name="events" value="${ev.event_id }">${ev.event_name }
+	    			<input type="hidden" id="${ev.event_id }" name='<fmt:formatDate value="${ev.event_startday }" pattern="MM/dd/yyyy"/>' value='<fmt:formatDate value="${ev.event_endday }" pattern="MM/dd/yyyy"/>'>
+	    			<input type="hidden" class="kind" value="${ev.event_kind }">
+	    			<input type="hidden" class="discount" value="${ev.event_discount }">
 	    		</a>
 		    </li>	
 	    </c:forEach>
@@ -194,7 +208,12 @@ $(function() {
               <div class="form-group">
                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
 					<button class="btn btn-primary" type="reset">초기화</button>
-                  	<button type="button" class="btn btn-success" id="insertEvent">생성</button>
+                  		<c:if test="${where == null }">
+                  		<button type="button" class="btn btn-success" id="insertEvent">생성</button>
+                  	</c:if>
+                  	<c:if test="${where != null }">
+                  		<button type="button" class="btn btn-success" id="updateEvent">수정</button>
+                  	</c:if>
                 </div>
               </div>
 
