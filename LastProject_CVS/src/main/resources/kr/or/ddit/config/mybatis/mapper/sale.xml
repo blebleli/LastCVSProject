@@ -59,19 +59,18 @@
 		SELECT *
 		FROM (SELECT a.*, ROWNUM rn
 			  FROM
-				  (SELECT COUNT(*) OVER() AS TOT_CNT
-				        , PAY_ID
-						, PAY_SUM
-						, PAY_DATE
-						, PAY_NY
-						, MEM_ID
-						, SD_ID
-						, PAY_CASH
-						, PAY_CARD
-						, SHIPLIST_ID
-					 FROM PAY
-					WHERE MEM_ID = #{mem_id}
-					ORDER BY pay_date DESC)
+				  (SELECT PAY.PAY_ID
+				        , PAY.PAY_SUM
+						, PAY.PAY_DATE
+						, SUM(SALL.SALE_AMOUNT)  AS pay_cash <!-- sale_amount 컬럼이 없어서 재사용함 -->
+					FROM PAY
+					JOIN SALE_DIS SAL
+					ON PAY.SD_ID = SAL.SD_ID
+					JOIN SALE_LIST SALL
+					ON SAL.SD_ID = SALL.SD_ID					 
+					WHERE PAY.MEM_ID = #{mem_id}
+      				GROUP BY PAY.PAY_ID, PAY.PAY_SUM, PAY.PAY_DATE
+					ORDER BY PAY_DATE DESC)
 			  a )
 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 	</select>

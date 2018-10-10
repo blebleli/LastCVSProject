@@ -726,9 +726,8 @@ $(document).ready(function() {
 							<thead>
 								<tr>
 									<th>결제번호</th>
-									<th>제목</th>
 									<th>총수량</th>
-									<th>총합계</th>
+									<th>총금액</th>
 									<th>결제날짜</th>
 								</tr>
 							</thead>
@@ -736,10 +735,11 @@ $(document).ready(function() {
 								<c:forEach items="${myPayList}" var="vo">
 									<tr class="paytr" style=" cursor: pointer;">
 										<td>${vo.pay_id}</td>
-										<td>${vo.pay_date}의결제내역</td>
-										<td>총수량예정</td>
-										<td>총합계예정</td>
-										<td>${vo.pay_date}</td>
+										<td>${vo.pay_cash}</td> <!-- 총수량 컬럼이 없어서 재사용함 -->
+										<td>${vo.pay_sum}</td>
+										<td>
+											<fmt:formatDate value="${vo.pay_date}" pattern="yyyy.MM.dd" />
+										</td>					
 									</tr>
 								</c:forEach>
 							</tbody>

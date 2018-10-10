@@ -18,7 +18,6 @@ public class PayVo extends PageVo {
 	
 	public PayVo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public PayVo(String pay_id, int pay_sum, Date pay_date, String pay_ny,
@@ -90,18 +89,11 @@ public class PayVo extends PageVo {
 	public void setPay_card(int pay_card) {
 		this.pay_card = pay_card;
 	}
-	
 	@Override
 	public String toString() {
 		return "PayVo [pay_id=" + pay_id + ", pay_sum=" + pay_sum
 				+ ", pay_date=" + pay_date + ", pay_ny=" + pay_ny + ", mem_id="
 				+ mem_id + ", sd_id=" + sd_id + ", shiplist_id=" + shiplist_id
 				+ ", pay_cash=" + pay_cash + ", pay_card=" + pay_card + "]";
-	}
-	
-	
-
-	
-	
-
+	}	
 }
