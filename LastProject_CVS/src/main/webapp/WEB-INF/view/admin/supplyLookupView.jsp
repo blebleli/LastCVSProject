@@ -58,7 +58,6 @@
 															<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
 														</c:if>
 													</c:if>
-													${adminApplyVo.supply_info}
 													<input type="hidden" name="array" id="array">
 												
 										</td>
@@ -94,7 +93,7 @@
 								<div class="col-sm-4 invoice-col">
 									<b>수불바코드 : ${adminApplyVo.supply_bcd}</b> <br> <br> <br>
 									<c:if test="${adminApplyVo.supply_state != 10}">
-										<img src="/barcode/supply/3380000-104-2014-00017/SUPPLY-e3aefd49-4cd3-4c56-b2b9-b606ffe41b33.jpg" width="200" height="200">
+										<img src="/barcode/supply/${memberVo.mem_id}/${adminApplyVo.supply_bcd}.jpg" width="200" height="200">
 									</c:if>
 									<br>
 								</div>
@@ -266,7 +265,7 @@
 									</div>
 										<a href="/admin/lookup">
 											<i class="btn btn-primary pull-right">
-										 	뒤로가기
+										 	목록으로가기
 											</i>
 										</a>
 								</div>
