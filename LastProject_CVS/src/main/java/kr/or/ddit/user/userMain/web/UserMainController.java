@@ -1,5 +1,7 @@
 package kr.or.ddit.user.userMain.web;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,6 +23,7 @@ import kr.or.ddit.model.MemberShipVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.model.SaleDisVo;
 import kr.or.ddit.pay.service.PayServiceInf;
 import kr.or.ddit.prod.service.ProdServiceInf;
 import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
@@ -241,6 +244,16 @@ public class UserMainController {
 		model.addAttribute("tab", StringUtils.defaultString(request.getParameter("tab"), ""));
 
 		return "myPage";
+	}
+	
+	@RequestMapping(value="/user/sale_dis", method=RequestMethod.GET)
+	@ResponseBody
+	public List<ProdVo> saleList(@RequestParam(value="pay_id", defaultValue="") String pay_id){
+		logger.debug("pay_id {} ====> ",pay_id);
+		List<ProdVo> prodVoList = payService.mySaleList(pay_id);
+		logger.debug("prodVoList ===========> {}", prodVoList);
+		logger.debug("prodVoList.size() ===========> {}", prodVoList.size());		
+		return prodVoList;
 	}
 	
 	

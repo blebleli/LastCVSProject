@@ -45,10 +45,10 @@
   		작 성 자 : 김마음
   		일    시 : 2018-10-11     
 	 -->
-	<select id="mySaleList" parameterType="String" resultType="saleDisVo">
+	<select id="mySaleList" parameterType="String" resultType="prodVo">
 		SELECT   P.PROD_NAME
 		        ,P.PROD_PRICE
-		        ,SUM(SL.SALE_AMOUNT)
+		        ,SUM(SL.SALE_AMOUNT) AS PROD_COST <!-- 총합인데 PROD_COST를 재사용 -->
 		FROM PAY      PAY
 		JOIN SALE_DIS S
 		ON PAY.SD_ID = S.SD_ID

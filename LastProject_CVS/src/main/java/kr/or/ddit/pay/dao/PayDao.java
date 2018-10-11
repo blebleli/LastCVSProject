@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SaleDisVo;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -89,7 +90,7 @@ public class PayDao implements PayDaoInf {
 	 * Method 설명 : pay_id로 해당 결제 상품 리스트 조회
 	 */
 	@Override
-	public List<SaleDisVo> mySaleList(String pay_id) {
+	public List<ProdVo> mySaleList(String pay_id) {
 		return template.selectList("saledis.mySaleList", pay_id);
 	}
 }

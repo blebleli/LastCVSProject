@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SaleDisVo;
 
 /**
@@ -114,5 +115,5 @@ public interface PayDaoInf {
 	 * @return
 	 * Method 설명 : pay_id로 해당 결제 상품 리스트 조회
 	 */
-	List<SaleDisVo> mySaleList(String pay_id);
+	List<ProdVo> mySaleList(String pay_id);
 }

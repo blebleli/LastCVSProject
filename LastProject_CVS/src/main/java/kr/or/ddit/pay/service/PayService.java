@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SaleDisVo;
 import kr.or.ddit.pay.dao.PayDaoInf;
 
@@ -72,7 +73,7 @@ public class PayService implements PayServiceInf {
 	 * Method 설명 : pay_id로 해당 결제 상품 리스트 조회
 	 */
 	@Override
-	public List<SaleDisVo> mySaleList(String pay_id) {
+	public List<ProdVo> mySaleList(String pay_id) {
 		return payDao.mySaleList(pay_id);
 	}
 }

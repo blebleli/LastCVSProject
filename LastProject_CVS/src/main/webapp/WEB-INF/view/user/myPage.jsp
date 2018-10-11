@@ -275,6 +275,9 @@ $(document).ready(function() {
 		 * 구매내역 행 클릭
 		 */
 		$("tr.paytr").bind("click",function() {
+			
+	var pay_id = $(this).data("id");
+			
 
 				// 상세tr 삭제
 				if ($(this).next().hasClass("subPaytr")) {
@@ -282,13 +285,31 @@ $(document).ready(function() {
 				} else {
 					// 상세tr 전체삭제
 					$(this).parent().find('tr.subPaytr').each(function() {
-										$(this).hide("slow",function() {
-															$(this).remove();
-										});
-					});
+						$(this).hide("slow",function() {
+							$(this).remove();
+						});
+					});	
+					
+								var context = '';
+								var $subTr = $("");
+					$.ajax({
+			    		 url: "user/sale_dis",
+						 method: "get",
+						 data: {"pay_id" : pay_id},
+						 success : function(responseData){
+							console.log(responseData);
+							$.each(responseData,function(index,item){
+								$subTr +='상품명 : '+item.prod_name+' 상품가격 : '+item.prod_price+'원 구매개수 : '+item.prod_cost+'개</td><br>';
+							});
+							$(this).after($subTr);
+							console.log($subTr);
+						}
+					});	
+					
+					
+					
 					// 상세tr 보여주기
-					var $subTr = $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
-					$(this).after($($subTr));
+// 					var $subTr =context $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
 					$($subTr).show('slow');
 				}
 
@@ -793,7 +814,7 @@ $(document).ready(function() {
 							</thead>
 							<tbody>
 								<c:forEach items="${myPayList}" var="vo">
-									<tr class="paytr" style=" cursor: pointer;">
+									<tr data-id="${vo.pay_id}" class="paytr" style=" cursor: pointer;">
 										<td>${vo.pay_id}</td>
 										<td>${vo.pay_cash}</td> <!-- 총수량 컬럼이 없어서 재사용함 -->
 										<td>${vo.pay_sum}</td>
@@ -820,23 +841,20 @@ $(document).ready(function() {
 <input type="text" id="bcdLength" value="${length}" />
  <script type='text/javascript'>
 
-        Kakao.init('20ef2122f316faf3ee201ff1da312505');
+ 
+// 		Kakao.init('20ef2122f316faf3ee201ff1da312505');
 
-        //카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-        var kakaoImg = '';
-        var btn = document.getElementById('btn');
+// 		//카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+// 		var kakaoImg = '';
+// 		var btn = document.getElementById('btn');
 
-    	 
-   	  var view =  new Uint8Array($('#bcdLength').val());//new Uint8Array(${length});
-   
-	 <%
- 		byte[] fc = (byte[])request.getAttribute("fileContent");
- 	 		out.println("<div id='viewDiv'>");
-		    		for(int i = 0; i < fc.length ; i++){
-		    			out.println("view[" + i + "] = " + fc[i]);
-		    		} 
-				out.println("</div>");
- 	 %>  
+// 		var view = new Uint8Array($('#bcdLength').val());//new Uint8Array(${length});
+<%-- 	<%byte[] fc = (byte[]) request.getAttribute("fileContent"); --%>
+// 			out.println("<div id='viewDiv'>");
+// 			for (int i = 0; i < fc.length; i++) {
+// 				out.println("view[" + i + "] = " + fc[i]);
+// 			}
+<%-- 			out.println("</div>");%>   --%>
     	   
 
 /*  	    function sendUpload(){
