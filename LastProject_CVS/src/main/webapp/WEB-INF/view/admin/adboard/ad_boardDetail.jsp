@@ -116,6 +116,9 @@
                 <div style="margin-left: auto; margin-right: auto; height: 1400px;" class="x_panel">
                   <div style="margin-left: auto; margin-right: auto; width: 1000px;" class="x_title">
                     <h2>해당 글 정보입니다.</h2>
+	                  <div style="margin-left: auto; margin-right: auto; float:right; " class="x_title_right">
+	                  	<a href="/adboard/goList?btnChk=${bd_kind_id2 }"><i class="fa fa-list" aria-hidden="true"></i>목록</a>
+	                  </div>
                     <div class="clearfix"></div>
                   </div>                  
                   
@@ -225,26 +228,26 @@
 						</c:forEach>								
 						
 						<!-- 댓글 작성 -->
-						<form action="/board/newComment" method="post" name="cm_content" id="newComments">						
-						<tr>
-							<td id="demoFonts" class="col-sm-1">댓글</td>
-							<td style="border-collapse:collapse;" rowspan="2" colspan="3" class="col-sm-9">
-								<!-- 관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
-									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									
-									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}">
-									<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">									
-									<input type="hidden" id="mem_id" name="mem_id" value="admin">									
-									<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									
-									<input type="hidden" name="cm_RadioCkeck">
-							</td>
-						</tr>
+<!-- 						<form action="/board/newComment" method="post" name="cm_content" id="newComments">						 -->
+<!-- 						<tr> -->
+<!-- 							<td id="demoFonts" class="col-sm-1">댓글</td> -->
+<!-- 							<td style="border-collapse:collapse;" rowspan="2" colspan="3" class="col-sm-9"> -->
+<!-- 								관리자는 자신의 게시글에 댓글 작성이 가능하다. -->
+<!-- 									<input type="text" size="100" style="height:50px" id="cm_content" name="cm_content" required="required">									 -->
+<%-- 									<input type="hidden" id="bd_id" name="bd_id" value="${bd_id}"> --%>
+<%-- 									<input type="hidden" id="bd_kind_id" name="bd_kind_id" value="${b.bd_kind_id}">									 --%>
+<!-- 									<input type="hidden" id="mem_id" name="mem_id" value="admin">									 -->
+<!-- 									<input type="button" id="commentButton" style="height:50px" class="btn btn-default" value="댓글 저장">									 -->
+<!-- 									<input type="hidden" name="cm_RadioCkeck"> -->
+<!-- 							</td> -->
+<!-- 						</tr> -->
 						
-						<tr>
-						<td class="checked"><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개<br>
-									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개
-						</td>
-						</tr>						
-						</form>
+<!-- 						<tr> -->
+<!-- 						<td class="checked"><input type="radio" id="cm_opennyY" name="cm_opennyY" value="Y" checked="checked">공개<br> -->
+<!-- 									<input type="radio" id="cm_opennyN" name="cm_opennyY" value="N" >비공개 -->
+<!-- 						</td> -->
+<!-- 						</tr>						 -->
+<!-- 						</form> -->
 					</table>					
    
 					</div>
