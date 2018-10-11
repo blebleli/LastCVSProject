@@ -321,7 +321,7 @@ public class AdminSupplyController {
 			
 		}
 		
-		return "redirect:/admin/lookupView";
+		return "redirect:/admin/lookup";
 	}
 	
 }
