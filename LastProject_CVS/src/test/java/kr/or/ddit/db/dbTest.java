@@ -83,15 +83,15 @@ public class dbTest { // db 값 저장
 		
 		// ------------------------------------------- 바코드 자료
 		
-//		String supply_date_s[] = {"2018/10/15 13:22","2018/10/16 13:22","2018/10/17 13:22",
-//								  "2018/10/18 13:22","2018/10/19 11:31","2018/10/20 09:21","2018/10/21 19:10"};
+		String supply_date_s[] = {"2018/09/30 13:22","2018/10/05 13:22","2018/10/04 13:22",
+								  "2018/10/05 13:22","2018/10/12 11:31","2018/10/07 09:21","2018/10/09 19:10"};
 		
-		String supply_date_s[] = {"2018/10/18 12:34","2018/10/23 13:22","2018/10/24 13:22","2018/10/25 13:22"};		
+//		String supply_date_s[] = {"2018/10/18 12:34","2018/10/23 13:22","2018/10/24 13:22","2018/10/25 13:22"};		
 		
 		// ------------------------------------------- 수불 신청 자료	
 		
-//		for (int i = 0; i <= 6; i++){					
-		for (int i = 0; i < 1; i++){
+		for (int i = 0; i <= 6; i++){					
+//		for (int i = 0; i < 1; i++){
 			Date supply_date = new SimpleDateFormat("yyyy/MM/dd HH:mm").parse(supply_date_s[i]);
 			barcodeVo = new BarcodeVo();
 			supplyVo = new SupplyVo();
@@ -203,4 +203,193 @@ public class dbTest { // db 값 저장
 			template.insert("board.setInsertBoard", boardVo);
 		}
 	}
+//	// cvsstore										// cvsstore_test
+//	
+//	// barcode
+//	BCD_ID      NOT NULL VARCHAR2(200)           BCD_ID      NOT NULL VARCHAR2(200)  xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	BCD_CONTENT NOT NULL CLOB                    BCD_CONTENT NOT NULL CLOB           bcd_id pK키
+//	BCD_PATH    NOT NULL VARCHAR2(4000)          BCD_PATH    NOT NULL VARCHAR2(4000) 
+//	BCD_KIND    NOT NULL VARCHAR2(50)            BCD_KIND    NOT NULL VARCHAR2(50)
+//	
+//	// board
+//	BD_ID      NOT NULL VARCHAR2(200)           BD_ID      NOT NULL VARCHAR2(200)    xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	BD_TITLE   NOT NULL VARCHAR2(4000)          BD_TITLE   NOT NULL VARCHAR2(4000)  bd_parent fk, mem_id fk, prod_id fk, bd_id pk
+//	BD_CONTENT NOT NULL BLOB                    BD_CONTENT NOT NULL BLOB           
+//	BD_DATE    NOT NULL DATE                    BD_DATE    NOT NULL DATE           
+//	BD_DEL     NOT NULL CHAR(1)                 BD_DEL     NOT NULL CHAR(1)        
+//	BD_RATING           NUMBER                  BD_RATING           NUMBER         
+//	BD_VIEWS   NOT NULL NUMBER                  BD_VIEWS   NOT NULL NUMBER         
+//	BD_GROUP   NOT NULL VARCHAR2(200)           BD_GROUP   NOT NULL VARCHAR2(200)  
+//	MEM_ID     NOT NULL VARCHAR2(200)           MEM_ID     NOT NULL VARCHAR2(200)  
+//	BD_PARENT           VARCHAR2(200)           BD_PARENT           VARCHAR2(200)  
+//	PROD_ID             VARCHAR2(200)           BD_KIND_ID NOT NULL VARCHAR2(50)   
+//	BD_KIND_ID NOT NULL VARCHAR2(50)            PROD_ID             VARCHAR2(200)  
+//	
+//	// category
+//	CTGY_ID     NOT NULL VARCHAR2(200)         CTGY_ID     NOT NULL VARCHAR2(200)    xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	CTGY_NAME   NOT NULL VARCHAR2(4000)        CTGY_NAME   NOT NULL VARCHAR2(4000)  ctgy_parent fk, ctgy_id pk
+//	CTGY_INFO            VARCHAR2(4000)        CTGY_INFO            VARCHAR2(4000) 
+//	CTGY_GROUP           VARCHAR2(200)         CTGY_GROUP           VARCHAR2(200)  
+//	CTGY_KIND   NOT NULL VARCHAR2(50)          CTGY_KIND   NOT NULL VARCHAR2(50)   
+//	CTGY_PARENT          VARCHAR2(200)         CTGY_PARENT          VARCHAR2(200)  
+//	
+//	// comments
+//	CM_ID      NOT NULL VARCHAR2(200)          CM_ID      NOT NULL VARCHAR2(200)     xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	BD_ID      NOT NULL VARCHAR2(200)          BD_ID      NOT NULL VARCHAR2(200) 	 bd_id fk, cm_id2 fk, mem_id fk, cm_id pk
+//	CM_GROUP            VARCHAR2(200)          CM_GROUP            VARCHAR2(200) 
+//	MEM_ID     NOT NULL VARCHAR2(200)          MEM_ID     NOT NULL VARCHAR2(200) 
+//	CM_CONTENT NOT NULL CLOB                   CM_CONTENT NOT NULL CLOB          
+//	CM_DATE    NOT NULL DATE                   CM_DATE    NOT NULL DATE          
+//	CM_DELNY   NOT NULL CHAR(1)                CM_DELNY   NOT NULL CHAR(1)       
+//	CM_OPENNY  NOT NULL CHAR(1)                CM_OPENNY  NOT NULL CHAR(1)       
+//	CM_ID2              VARCHAR2(200)          CM_ID2              VARCHAR2(200) 
+//	
+//	// cvs_service
+//	SERVICE_ID NOT NULL VARCHAR2(200)         SERVICE_ID NOT NULL VARCHAR2(200)     xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	CTGY_ID    NOT NULL VARCHAR2(200)         CTGY_ID    NOT NULL VARCHAR2(200) 	ctgy_id fk, place_id fk, service_id pk
+//	PLACE_ID   NOT NULL VARCHAR2(200)         PLACE_ID   NOT NULL VARCHAR2(200) 
+//	
+//	// disposal_list
+//	DISP_ID     NOT NULL VARCHAR2(200)        DISP_ID     NOT NULL VARCHAR2(200)    xxxxxxxxxxxxxxxxxxxxxxxxxxv
+//	DISP_AMOUNT NOT NULL NUMBER               DISP_AMOUNT NOT NULL NUMBER        	sd_id fk, bcd_id fk, disp_id pk
+//	DISP_EXDATE NOT NULL DATE                 DISP_EXDATE NOT NULL DATE          
+//	SD_ID       NOT NULL VARCHAR2(200)        SD_ID       NOT NULL VARCHAR2(200) 
+//	BCD_ID               VARCHAR2(200)        BCD_ID               VARCHAR2(200) 
+//	
+//	// event
+//	EVENT_ID       NOT NULL VARCHAR2(200)     EVENT_ID       NOT NULL VARCHAR2(200)     xxxxxxxxxxxxxxxxxxxxxxxxxx 
+//	EVENT_STARTDAY NOT NULL DATE              EVENT_STARTDAY NOT NULL DATE           	event_id pk
+//	EVENT_ENDDAY   NOT NULL DATE              EVENT_ENDDAY   NOT NULL DATE           
+//	EVENT_KIND     NOT NULL VARCHAR2(200)     EVENT_KIND     NOT NULL VARCHAR2(200)  
+//	EVENT_NAME              VARCHAR2(4000)    EVENT_NAME              VARCHAR2(4000) 
+//	EVENT_DISCOUNT NOT NULL NUMBER            EVENT_DISCOUNT NOT NULL NUMBER         
+//	
+//	// filedata
+//	FILE_ID     NOT NULL VARCHAR2(200)       FILE_ID     NOT NULL VARCHAR2(200)      xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	FILE_NAME   NOT NULL VARCHAR2(4000)      FILE_NAME   NOT NULL VARCHAR2(4000) 	bd_id fk, mem_id fk, file_id pk
+//	FILE_UPNAME NOT NULL VARCHAR2(4000)      FILE_UPNAME NOT NULL VARCHAR2(4000) 
+//	FILE_PATH   NOT NULL VARCHAR2(4000)      FILE_PATH   NOT NULL VARCHAR2(4000) 
+//	BD_ID                VARCHAR2(200)       BD_ID                VARCHAR2(200)  
+//	MEM_ID      NOT NULL VARCHAR2(200)       MEM_ID      NOT NULL VARCHAR2(200)
+//	
+//	// member
+//	MEM_ID       NOT NULL VARCHAR2(200)      MEM_ID       NOT NULL VARCHAR2(200)     xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	MEM_PW       NOT NULL VARCHAR2(4000)     MEM_PW       NOT NULL VARCHAR2(4000) 	 mem_id pk, mem_tel unique
+//	MEM_KIND     NOT NULL VARCHAR2(4)        MEM_KIND     NOT NULL VARCHAR2(4)    
+//	MEM_NAME     NOT NULL VARCHAR2(50)       MEM_NAME     NOT NULL VARCHAR2(50)   
+//	MEM_TEL      NOT NULL VARCHAR2(30)       MEM_TEL      NOT NULL VARCHAR2(30)   
+//	MEM_BIRTH    NOT NULL VARCHAR2(8)        MEM_BIRTH    NOT NULL VARCHAR2(8)    
+//	MEM_GEN      NOT NULL CHAR(1)            MEM_GEN      NOT NULL CHAR(1)        
+//	MEM_ZIP      NOT NULL NUMBER             MEM_ZIP      NOT NULL NUMBER         
+//	MEM_ADD      NOT NULL VARCHAR2(4000)     MEM_ADD      NOT NULL VARCHAR2(4000) 
+//	MEM_ADDR     NOT NULL VARCHAR2(4000)     MEM_ADDR     NOT NULL VARCHAR2(4000) 
+//	MEM_CVS_NAME          VARCHAR2(4000)     MEM_CVS_NAME          VARCHAR2(4000) 
+//	MEM_CVS_TEL           VARCHAR2(30)       MEM_CVS_TEL           VARCHAR2(30)   
+//	MEM_INTRO             VARCHAR2(4000)     MEM_INTRO             VARCHAR2(4000) 
+//	MEM_X        NOT NULL NUMBER             MEM_X        NOT NULL NUMBER         
+//	MEM_Y        NOT NULL NUMBER             MEM_Y        NOT NULL NUMBER         
+//	MEM_POINT    NOT NULL NUMBER             MEM_POINT    NOT NULL NUMBER
+//	
+//	// membership
+//	SHIPLIST_ID    NOT NULL VARCHAR2(200)    SHIPLIST_ID    NOT NULL VARCHAR2(200)     xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	SHIPLIST_POINT NOT NULL NUMBER           SHIPLIST_POINT NOT NULL NUMBER         	mem_id fk, shiplist_id pk
+//	SHIPLIST_INFO           VARCHAR2(4000)   SHIPLIST_INFO           VARCHAR2(4000) 
+//	MEM_ID         NOT NULL VARCHAR2(200)    MEM_ID         NOT NULL VARCHAR2(200)
+//	
+//	// pay
+//	PAY_ID      NOT NULL VARCHAR2(200)      PAY_ID      NOT NULL VARCHAR2(200)        xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	PAY_SUM     NOT NULL NUMBER             PAY_SUM     NOT NULL NUMBER        		  shiplist_id fk, mem_id fk, sd_id fk, pay_id pk
+//	PAY_DATE    NOT NULL DATE               PAY_DATE    NOT NULL DATE          
+//	PAY_NY      NOT NULL CHAR(1)            PAY_NY      NOT NULL CHAR(1)       
+//	MEM_ID               VARCHAR2(200)      MEM_ID               VARCHAR2(200) 
+//	SD_ID       NOT NULL VARCHAR2(200)      SD_ID       NOT NULL VARCHAR2(200) 
+//	SHIPLIST_ID          VARCHAR2(200)      SHIPLIST_ID          VARCHAR2(200) 
+//	PAY_CASH    NOT NULL NUMBER             PAY_CASH    NOT NULL NUMBER        
+//	PAY_CARD    NOT NULL NUMBER             PAY_CARD    NOT NULL NUMBER
+//	
+//	// paykind
+//	PAYKIND_ID NOT NULL VARCHAR2(200)       PAYKIND_ID NOT NULL VARCHAR2(200)        xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	PAY_ID     NOT NULL VARCHAR2(200)       PAY_ID     NOT NULL VARCHAR2(200) 		 pay_id fk, paykind_id pk
+//	PKIND_CASH NOT NULL NUMBER              PKIND_CASH NOT NULL NUMBER        
+//	PKIND_CARD NOT NULL NUMBER              PKIND_CARD NOT NULL NUMBER
+//	
+//	// pocket
+//	POCKET_ID    NOT NULL VARCHAR2(200)     POCKET_ID    NOT NULL VARCHAR2(200)      xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	POCKET_USENY NOT NULL CHAR(1)           POCKET_USENY NOT NULL CHAR(1)       	 pocket_id fk, mem_id fk, pay_id fk, pocket_id pk
+//	POCKET_DATE  NOT NULL DATE              POCKET_DATE  NOT NULL DATE          	
+//	POCKET_DELNY NOT NULL CHAR(1)           POCKET_DELNY NOT NULL CHAR(1)       
+//	MEM_ID       NOT NULL VARCHAR2(200)     MEM_ID       NOT NULL VARCHAR2(200) 
+//	PAY_ID                VARCHAR2(200)     PAY_ID                VARCHAR2(200) 
+//	PROD_ID      NOT NULL VARCHAR2(200)     PROD_ID               VARCHAR2(200)
+//	
+//	// prod
+//	PROD_ID     NOT NULL VARCHAR2(200)     PROD_ID     NOT NULL VARCHAR2(200)       xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	PROD_NAME   NOT NULL VARCHAR2(4000)    PROD_NAME   NOT NULL VARCHAR2(4000) 		pr_class_lg fk, pr_class_md fk, event_id fk, 
+//	PROD_INTRO           VARCHAR2(4000)    PROD_INTRO           VARCHAR2(4000) 		prod_id pk
+//	PROD_INFO            VARCHAR2(4000)    PROD_INFO            VARCHAR2(4000) 
+//	PROD_PRICE  NOT NULL NUMBER            PROD_PRICE  NOT NULL NUMBER         
+//	PROD_EXNUM  NOT NULL NUMBER            PROD_EXNUM  NOT NULL NUMBER         
+//	FILE_PATH            VARCHAR2(4000)    FILE_PATH            VARCHAR2(4000) 
+//	FILE_UPNAME          VARCHAR2(4000)    FILE_UPNAME          VARCHAR2(4000) 
+//	PR_CLASS_LG NOT NULL VARCHAR2(200)     PR_CLASS_LG NOT NULL VARCHAR2(200)  
+//	PR_CLASS_MD NOT NULL VARCHAR2(200)     PR_CLASS_MD NOT NULL VARCHAR2(200)  
+//	EVENT_ID    NOT NULL VARCHAR2(200)     EVENT_ID    NOT NULL VARCHAR2(200)  
+//	PROD_COST   NOT NULL NUMBER            PROD_COST   NOT NULL NUMBER
+//	
+//	// reserve
+//	RESERVE_ID   NOT NULL VARCHAR2(200)    RESERVE_ID   NOT NULL VARCHAR2(200)     xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	RESERVE_DATE NOT NULL DATE             RESERVE_DATE NOT NULL DATE          		mem_id fk, place_id fk, reserve_id pk
+//	MEM_ID       NOT NULL VARCHAR2(200)    MEM_ID       NOT NULL VARCHAR2(200) 
+//	PLACE_ID              VARCHAR2(200)    PLACE_ID              VARCHAR2(200)
+//	
+//	// sale_dis
+//	SD_ID     NOT NULL VARCHAR2(200)       SD_ID     NOT NULL VARCHAR2(200)      xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	SD_DATE   NOT NULL DATE                SD_DATE   NOT NULL DATE          	mem_id fk, sd_id pk
+//	SD_SUM    NOT NULL NUMBER              SD_SUM    NOT NULL NUMBER        
+//	SALE_KIND NOT NULL VARCHAR2(4)         SALE_KIND NOT NULL VARCHAR2(4)   
+//	MEM_ID    NOT NULL VARCHAR2(200)       MEM_ID    NOT NULL VARCHAR2(200)
+//
+//	// sale_list
+//	SALE_ID	VARCHAR2(200 BYTE)    			SALE_ID     NOT NULL VARCHAR2(200) 		prod_id fk, sd_id fk, bcd_id fk, sale_id pk
+//	SALE_AMOUNT	NUMBER    					SALE_AMOUNT NOT NULL NUMBER        
+//	SALE_SUM	NUMBER    					SALE_SUM    NOT NULL NUMBER        
+//	SALE_KIND	VARCHAR2(4 BYTE)   			SALE_KIND   NOT NULL VARCHAR2(4)   
+//	SD_ID	VARCHAR2(200 BYTE)    			SD_ID       NOT NULL VARCHAR2(200) 
+//	PROD_ID	VARCHAR2(200 BYTE)    			PROD_ID              VARCHAR2(200) 
+//	BCD_ID	VARCHAR2(200 BYTE)    			BCD_ID               VARCHAR2(200) 
+//	
+//	
+//	// stock
+//	STOCK_ID   NOT NULL VARCHAR2(200)     SALE_ID     NOT NULL VARCHAR2(200)       <---------------- prod_id 추가  
+//	MEM_ID     NOT NULL VARCHAR2(200)     SALE_AMOUNT NOT NULL NUMBER        		mem_id fk, stock_id pk
+//	STOCK_INFO          VARCHAR2(4000)    SALE_SUM    NOT NULL NUMBER        	
+//	STOCK_DATE NOT NULL DATE              SALE_KIND   NOT NULL VARCHAR2(4)   
+//	STOCK_KIND NOT NULL VARCHAR2(4)       SD_ID       NOT NULL VARCHAR2(200) 
+//	                                      PROD_ID              VARCHAR2(200) 
+//	                                      
+//	// stock_list                         BCD_ID               VARCHAR2(200)
+//	BCD_ID          NOT NULL VARCHAR2(200)   BCD_ID          NOT NULL VARCHAR2(200)    <----- splylist_id null로 바뀜
+//	STCKLIST_AMOUNT NOT NULL NUMBER          STCKLIST_AMOUNT NOT NULL NUMBER         	bcd_id fk, prod_id fk, stock_id fk, splylist_id fk
+//	SICKLIST_EXDATE NOT NULL DATE            STCKLIST_EXDATE NOT NULL DATE           	bcd_id pk
+//	STCK_DATE       NOT NULL DATE            STCK_DATE       NOT NULL DATE           
+//	STCKLIST_INFO            VARCHAR2(4000)  STCKLIST_INFO            VARCHAR2(4000) 
+//	STCKLIST_KIND   NOT NULL VARCHAR2(4)     STCKLIST_KIND   NOT NULL VARCHAR2(4)    
+//	STOCK_ID        NOT NULL VARCHAR2(200)   STOCK_ID        NOT NULL VARCHAR2(200)  
+//	SPLYLIST_ID     NOT NULL VARCHAR2(200)   SPLYLIST_ID              VARCHAR2(200)  
+//	PROD_ID         NOT NULL VARCHAR2(200)   PROD_ID         NOT NULL VARCHAR2(200)
+//
+//	// supply
+//	SUPPLY_BCD   NOT NULL VARCHAR2(200)     SUPPLY_BCD   NOT NULL VARCHAR2(200)               xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	SUPPLY_DATE  NOT NULL DATE              SUPPLY_DATE  NOT NULL DATE            			supply_bcd fk, place_id supply_bcd pk
+//	SUPPLY_STATE NOT NULL VARCHAR2(200)     SUPPLY_STATE NOT NULL VARCHAR2(200)  	
+//	SUPPLY_INFO           VARCHAR2(4000)    SUPPLY_INFO           VARCHAR2(4000) 
+//	PLACE_ID     NOT NULL VARCHAR2(200)     PLACE_ID     NOT NULL VARCHAR2(200)
+//	
+//	// supply_list
+//	SPLYLIST_ID     NOT NULL VARCHAR2(200)   SPLYLIST_ID     NOT NULL VARCHAR2(200)          xxxxxxxxxxxxxxxxxxxxxxxxxx
+//	SPLYLIST_INFO            VARCHAR2(4000)  SPLYLIST_INFO            VARCHAR2(4000) 		PROD_ID fk, SUPPLY_BCD fk, SPLYLIST_ID pk
+//	SPLYLIST_EXDATE NOT NULL DATE            SPLYLIST_EXDATE NOT NULL DATE           
+//	SPLYLIST_SUM    NOT NULL NUMBER          SPLYLIST_SUM    NOT NULL NUMBER         
+//	SUPPLY_BCD      NOT NULL VARCHAR2(200)   SUPPLY_BCD      NOT NULL VARCHAR2(200)  
+//	PROD_ID         NOT NULL VARCHAR2(200)   PROD_ID         NOT NULL VARCHAR2(200)	
 }
