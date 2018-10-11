@@ -201,7 +201,7 @@
 			// 가격
 			var min_price   = $("#min_price").val();
 			var max_price   = $("#max_price").val();
-alert(min_price +"=\\ "+ max_price);
+// alert(min_price +"=\\ "+ max_price);
 			// 상품명
 			var searchName  = $("#searchName").val();
 			
@@ -571,8 +571,8 @@ $(document).ready(function(){
 
 										</tr>
 										<tr>
-											<td><input type="number" id="min_price" style="width: 30%">원 &nbsp; ~ &nbsp; 
-											<input type="number" id="max_price" style="width: 30%">원 &nbsp;&nbsp;&nbsp;</td>
+											<td><input type="number" id="min_price" style="width: 30%" disabled="disabled">원 &nbsp; ~ &nbsp; 
+											<input type="number" id="max_price" style="width: 30%" disabled="disabled">원 &nbsp;&nbsp;&nbsp;</td>
 										</tr>
 										<tr>
 											<td><br /> <br /></td>
