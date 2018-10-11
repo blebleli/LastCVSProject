@@ -20,7 +20,7 @@
 <link href="/vendors/datatables.net-bs/scroller.bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom Theme Style -->
-<!-- <link href="/build/css/custom.min.css" rel="stylesheet"> -->
+<link href="/build/css/customAdmin.min.css" rel="stylesheet">
 
 <style>
 fieldset {
@@ -80,15 +80,15 @@ function prodPopup(){
 }
 
 // 제품 삭제
-function fn_prodDel(prod_id,prod_name){
+// function fn_prodDel(prod_id,prod_name){
 	
-	var chk = confirm("삭제\n\n["+prod_name+"] 을 삭제 하시겠습니까?");
+// 	var chk = confirm("삭제\n\n["+prod_name+"] 을 삭제 하시겠습니까?");
 	
-	if(chk){
-		$("#prod_id").val(prod_id);
-		$("#prod_action").submit();
-	}
-}
+// 	if(chk){
+// 		$("#prod_id").val(prod_id);
+// 		$("#prod_action").submit();
+// 	}
+// }
 // 제품 수정
 function fn_prodUp(prod_id){
 	var url="/adprod/prodUpdatePopup?prod_id="+prod_id;
@@ -216,13 +216,14 @@ function fn_prodUp(prod_id){
 			
 		
 				<c:when test="${!empty prodList}">
-						<c:forEach items="${prodList }" var="vo" varStatus="status">
+						<c:forEach items="${prodList }" var="vo" varStatus="status" end="10">
 						
 						<c:if test="${status.index < 10}">
 						
 						<tr role="row" class="odd">
-							<td scope="row" align="center">${vo.cnt }<br><button class="btn btn-default" id="prodDel" onclick="fn_prodDel('${vo.prod_id}','${vo.prod_name}'); return false">
-										<i class="fa fa-print"></i> 삭제</button>
+							<td scope="row" align="center">${vo.cnt }<br>
+<%-- 							<button class="btn btn-default" id="prodDel" onclick="fn_prodDel('${vo.prod_id}','${vo.prod_name}'); return false"> --%>
+<!-- 										<i class="fa fa-print"></i> 삭제</button> -->
 									<button class="btn btn-default" id="prodUp" onclick="fn_prodUp('${vo.prod_id}'); return false;"><i class="fa fa-print"></i> 수정</button>
 							</td>
 							<td class="" tabindex="0">${vo.pr_class_lg }</td>
