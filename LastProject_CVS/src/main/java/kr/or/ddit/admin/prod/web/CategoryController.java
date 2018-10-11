@@ -51,6 +51,7 @@ public class CategoryController {
 		CategoryVo ctgy = prodDao.getCtgy(ctgy_id);
 		logger.debug("ctgy----{}", ctgy);
 		ctgy.setCtgy_name(ctgy_name);
+		ctgy.setCtgy_info("");
 		logger.debug("---ctgy----{}", ctgy);
 		int result = ctgyService.updateCtgy(ctgy);
 		logger.debug("result-----{}", result);
