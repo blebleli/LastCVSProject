@@ -183,49 +183,49 @@
 						</form>
 						
 													
-					<table class="table table-striped table-hover" id="reply_area">
+<!-- 					<table class="table table-striped table-hover" id="reply_area"> -->
 						<!-- 댓글 조회 -->										
-						<c:forEach items="${cList}" var="vo" varStatus="status">
-						<form name="delete${status.index}" id="delete${status.index}" action="/board/commentsDel" method="post">						
-						<tr id="comment">
-							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td>
+<%-- 						<c:forEach items="${cList}" var="vo" varStatus="status"> --%>
+<%-- 						<form name="delete${status.index}" id="delete${status.index}" action="/board/commentsDel" method="post">						 --%>
+<!-- 						<tr id="comment"> -->
+<!-- 							<td class="profile"><img id="meal" src="/images/category/ca_meal.png" width="40px" height="35px" /></td> -->
 							
-							<td id="demoFont2" rowspan="2" colspan="3">							
-								<span style="float: left;">								
-								<!-- 삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
-								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">									
-										${vo.cm_content}
-										<input type="hidden" name="cm_id" id="cm_id${status.index}" value="${vo.cm_id}">
-										<input type="hidden" name="bd_id" id="bd_id${status.index}" value="${vo.bd_id}">
-										<input type="hidden" name="mem_id" id="mem_id${status.index}" value="${userInfo.mem_id}">										
-								</c:if>
+<!-- 							<td id="demoFont2" rowspan="2" colspan="3">							 -->
+<!-- 								<span style="float: left;">								 -->
+<!-- 								삭제 된 댓글이 아니며, 공개 댓글이면 조회를 할 수 있다. -->
+<%-- 								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'Y'}">									 --%>
+<%-- 										${vo.cm_content} --%>
+<%-- 										<input type="hidden" name="cm_id" id="cm_id${status.index}" value="${vo.cm_id}"> --%>
+<%-- 										<input type="hidden" name="bd_id" id="bd_id${status.index}" value="${vo.bd_id}"> --%>
+<%-- 										<input type="hidden" name="mem_id" id="mem_id${status.index}" value="${userInfo.mem_id}">										 --%>
+<%-- 								</c:if> --%>
 								
-								<c:if test="${vo.cm_delny == 'Y'}">
-									삭제된 댓글입니다.<br>
-								</c:if>
+<%-- 								<c:if test="${vo.cm_delny == 'Y'}"> --%>
+<!-- 									삭제된 댓글입니다.<br> -->
+<%-- 								</c:if> --%>
 								
-								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  >
-										비공개 댓글 입니다.
-										<input type="hidden" name="cm_id" value="${vo.cm_id}">
-										<input type="hidden" name="bd_id" value="${vo.bd_id}">
-										<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제">
-										<input type="hidden" id="cm_delny" name="cm_delny" value="Y">
-										<br>
-								</c:if>
-								</span>						
+<%-- 								<c:if test="${vo.cm_delny == 'N' && vo.cm_openny == 'N'}"  > --%>
+<!-- 										비공개 댓글 입니다. -->
+<%-- 										<input type="hidden" name="cm_id" value="${vo.cm_id}"> --%>
+<%-- 										<input type="hidden" name="bd_id" value="${vo.bd_id}"> --%>
+<!-- 										<input type="submit" id="commentsDelN" style="font-size:12px" class="btn btn-default" value="삭제"> -->
+<!-- 										<input type="hidden" id="cm_delny" name="cm_delny" value="Y"> -->
+<!-- 										<br> -->
+<%-- 								</c:if> --%>
+<!-- 								</span>						 -->
 
-								<span style="float: right;100%">
-								<button type="button" id="commentsUpd" style="font-size:12px" onclick="return fn_update('update${status.index}')" class="btn btn-default">수정</button>
-								<button type="button" id="commentsDelY" style="font-size:12px" onclick="return fn_delete('delete${status.index}')" class="btn btn-default">삭제</button>								
-								</span>
-							</td>								
-						</tr>
+<!-- 								<span style="float: right;100%"> -->
+<%-- 								<button type="button" id="commentsUpd" style="font-size:12px" onclick="return fn_update('update${status.index}')" class="btn btn-default">수정</button> --%>
+<%-- 								<button type="button" id="commentsDelY" style="font-size:12px" onclick="return fn_delete('delete${status.index}')" class="btn btn-default">삭제</button>								 --%>
+<!-- 								</span> -->
+<!-- 							</td>								 -->
+<!-- 						</tr> -->
 						
-						<tr class="about">
-							<td>${vo.mem_id}<br>${vo.cm_date}</td>
-						</tr>		
-						</form>						
-						</c:forEach>								
+<!-- 						<tr class="about"> -->
+<%-- 							<td>${vo.mem_id}<br>${vo.cm_date}</td> --%>
+<!-- 						</tr>		 -->
+<!-- 						</form>						 -->
+<%-- 						</c:forEach>								 --%>
 						
 						<!-- 댓글 작성 -->
 <!-- 						<form action="/board/newComment" method="post" name="cm_content" id="newComments">						 -->
@@ -248,7 +248,7 @@
 <!-- 						</td> -->
 <!-- 						</tr>						 -->
 <!-- 						</form> -->
-					</table>					
+<!-- 					</table>					 -->
    
 					</div>
 				</div>
