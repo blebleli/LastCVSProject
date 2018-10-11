@@ -15,7 +15,7 @@
 <!-- NProgress -->
 <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
 <!-- Custom Theme Style -->
-<link href="/build/css/custom.min.css" rel="stylesheet">
+<link href="/build/css/customAdmin.min.css" rel="stylesheet">
 <!-- iCheck -->
 <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <!-- PNotify -->
@@ -98,17 +98,17 @@ $(function() {
 
 		// 값 체크
 		
-		if (isEmpty(ctgy_lg)) {	// 대분류 카테고리명 값 체크
-			alert("대분류 작성해주세요");
-			$("#ctgy_lg").focus();
-			return;
-		}
+// 		if (isEmpty(ctgy_lg)) {	// 대분류 카테고리명 값 체크
+// 			alert("대분류 작성해주세요");
+// 			$("#ctgy_lg").focus();
+// 			return;
+// 		}
 		
-		if (isEmpty(ctgy_md)) {	// 중분류 카테고리명 값 체크
-			alert("중분류 작성해주세요");
-			$("#ctgy_md").focus();
-			return;
-		}
+// 		if (isEmpty(ctgy_md)) {	// 중분류 카테고리명 값 체크
+// 			alert("중분류 작성해주세요");
+// 			$("#ctgy_md").focus();
+// 			return;
+// 		}
 		
 		$("#categoryForm").submit();
 	});
@@ -128,6 +128,7 @@ $(function() {
 	$("ul.smallTree").on("click","a[name=ctgyMd]", function(){
 		var id = $(this).attr("value");
 		var name =$(this).text();
+		
 		$("#ctgy_md").val(name);
 		$("#ctgy_id_md").val(id);
 		
@@ -138,7 +139,6 @@ $(function() {
 		// 중분류
 		var ctgy_md    = $("#ctgy_md").val();		// 카테고리명
 		var ctgy_id_md = $("#ctgy_id_md").val();	// 카테고리코드
-		alert(ctgy_md+"+"+ctgy_id_md);
 		
 		if (isEmpty(ctgy_md)) {	// 중분류 카테고리명 값 체크
 			alert("수정할 중분류명을 작성해주세요");
@@ -179,21 +179,37 @@ $(function() {
     <c:forEach items="${categoryAll }" var="all">
     	<c:if test="${all.level == 1 }">
     		<c:set var="value" value="${all.ctgy_id }"/>
-	    	<li><a href="#" id="category_lg">${all.ctgy_name }
+	    	<li><a href="#" name="category_lg_Ul">${all.ctgy_name }
 	    			<input type="hidden" id="${all.ctgy_id }" name="${all.ctgy_info }" value="${all.ctgy_name }">
 	    		</a>
 	    </c:if>	
-		<ul class="smallTree">
-	    <c:if test="${all.ctgy_parent == null }">
-	    	<c:forEach items="${categoryMd}" var="md">
-			    	<c:if test="${md.ctgy_group eq  value }">
-			    		<li><a href="#" name="ctgyMd" value="${md.ctgy_id }">${md.ctgy_name }</a>
-<%-- 			    		<input type="hidden" id="tree_id" value="${md.ctgy_id }"> --%>
-			    	</c:if>
-	    	</c:forEach>
+	    <c:if test="${where == null }">
+			<ul>
+		    <c:if test="${all.ctgy_parent == null }">
+		    	<c:forEach items="${categoryMd}" var="md">
+				    	<c:if test="${md.ctgy_group eq  value }">
+				    		<li><a href="#" name="ctgyMd" value="${md.ctgy_id }">${md.ctgy_name }</a>
+	<%-- 			    		<input type="hidden" id="tree_id" value="${md.ctgy_id }"> --%>
+				    	</c:if>
+		    	</c:forEach>
+		    </c:if>
+		    </ul>
+		    </li>	
+	    
 	    </c:if>
-	    </ul>
-	    </li>	
+	    <c:if test="${where != null }">
+			<ul class="smallTree">
+		    <c:if test="${all.ctgy_parent == null }">
+		    	<c:forEach items="${categoryMd}" var="md">
+				    	<c:if test="${md.ctgy_group eq  value }">
+				    		<li><a href="#" name="ctgyMd" value="${md.ctgy_id }">${md.ctgy_name }</a>
+	<%-- 			    		<input type="hidden" id="tree_id" value="${md.ctgy_id }"> --%>
+				    	</c:if>
+		    	</c:forEach>
+		    </c:if>
+		    </ul>
+		    </li>	
+	    </c:if>
     </c:forEach>
 </ul>
 </div> <!-- <div class="col-md-6 col-sm-6 col-xs-12"> -->
@@ -209,6 +225,7 @@ $(function() {
           <div class="x_content">
             <br>
             <form id="categoryForm" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" action="/adprod/categoryInsert" method="post">
+              <c:if test="${where == null }">
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">대분류</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -216,12 +233,22 @@ $(function() {
                   <input type="hidden" id="ctgy_id_lg" name="ctgy_id_lg">
                 </div>
               </div>
+              </c:if>
+              <c:if test="${where != null }">
               <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-20" for="first-name">설명</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">대분류</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="ctgy_lg_info" name="ctgy_lg_info" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="text" id="ctgy_lg" name="ctgy_lg" required="required" class="form-control col-md-7 col-xs-12" readonly="readonly">
+                  <input type="hidden" id="ctgy_id_lg" name="ctgy_id_lg">
                 </div>
               </div>
+              </c:if>
+<!--               <div class="form-group"> -->
+<!--                 <label class="control-label col-md-3 col-sm-3 col-xs-20" for="first-name">설명</label> -->
+<!--                 <div class="col-md-6 col-sm-6 col-xs-12"> -->
+<!--                   <input type="text" id="ctgy_lg_info" name="ctgy_lg_info" required="required" class="form-control col-md-7 col-xs-12"> -->
+<!--                 </div> -->
+<!--               </div> -->
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">중분류</label>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -229,12 +256,12 @@ $(function() {
                   <input type="hidden" id="ctgy_id_md" name="ctgy_id_md">
                 </div>
               </div>
-              <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">설명</label>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                  <input type="text" id="ctgy_md_info" name="ctgy_md_info" required="required" class="form-control col-md-7 col-xs-12">
-                </div>
-              </div>
+<!--               <div class="form-group"> -->
+<!--                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">설명</label> -->
+<!--                 <div class="col-md-6 col-sm-6 col-xs-12"> -->
+<!--                   <input type="text" id="ctgy_md_info" name="ctgy_md_info" required="required" class="form-control col-md-7 col-xs-12"> -->
+<!--                 </div> -->
+<!--               </div> -->
               
               <div class="ln_solid"></div>
               <div class="form-group">
