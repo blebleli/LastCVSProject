@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.SaleDisVo;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -77,6 +78,18 @@ public class PayDao implements PayDaoInf {
 	public List<PayVo> getMyPayPageList(PayVo paramVo) {
 		return template.selectList("sale.getMyPayPageList", paramVo);
 	}
-
-
+	
+	/**
+	 * Method : mySaleList
+	 * 최초작성일 : 2018. 10. 11.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param pay_id
+	 * @return
+	 * Method 설명 : pay_id로 해당 결제 상품 리스트 조회
+	 */
+	@Override
+	public List<SaleDisVo> mySaleList(String pay_id) {
+		return template.selectList("saledis.mySaleList", pay_id);
+	}
 }

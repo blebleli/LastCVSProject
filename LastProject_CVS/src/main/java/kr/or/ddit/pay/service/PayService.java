@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.SaleDisVo;
 import kr.or.ddit.pay.dao.PayDaoInf;
 
 import org.springframework.stereotype.Service;
@@ -60,6 +61,18 @@ public class PayService implements PayServiceInf {
 	public List<PayVo> getMyPayPageList(PayVo paramVo) {
 		return payDao.getMyPayPageList(paramVo);
 	}
-
-
+	
+	/**
+	 * Method : mySaleList
+	 * 최초작성일 : 2018. 10. 11.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param pay_id
+	 * @return
+	 * Method 설명 : pay_id로 해당 결제 상품 리스트 조회
+	 */
+	@Override
+	public List<SaleDisVo> mySaleList(String pay_id) {
+		return payDao.mySaleList(pay_id);
+	}
 }

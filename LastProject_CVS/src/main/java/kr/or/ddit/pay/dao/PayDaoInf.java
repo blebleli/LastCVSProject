@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.SaleDisVo;
 
 /**
 * @Class Name : PayDaoInf.java
@@ -103,5 +104,15 @@ public interface PayDaoInf {
 	 * Method 설명 : userId로 결제내역 조회 Paging
 	 */
 	List<PayVo> getMyPayPageList(PayVo paramVo);
-
+	
+	/**
+	 * Method : mySaleList
+	 * 최초작성일 : 2018. 10. 11.
+	 * 작성자 : 김마음
+	 * 변경이력 : 신규
+	 * @param pay_id
+	 * @return
+	 * Method 설명 : pay_id로 해당 결제 상품 리스트 조회
+	 */
+	List<SaleDisVo> mySaleList(String pay_id);
 }
