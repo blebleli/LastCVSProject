@@ -283,26 +283,23 @@ $(document).ready(function() {
 				if ($(this).next().hasClass("subPaytr")) {
 					$(this).next().remove();
 				} else {
-					// 상세tr 전체삭제
+// 					상세tr 전체삭제
 					$(this).parent().find('tr.subPaytr').each(function() {
 						$(this).hide("slow",function() {
 							$(this).remove();
 						});
-					});	
-					
-								var context = '';
-								var $subTr = $("");
+					});
+							var context = '';
 					$.ajax({
 			    		 url: "user/sale_dis",
 						 method: "get",
 						 data: {"pay_id" : pay_id},
 						 success : function(responseData){
+// 							var context = '';
 							console.log(responseData);
 							$.each(responseData,function(index,item){
-								$subTr +='상품명 : '+item.prod_name+' 상품가격 : '+item.prod_price+'원 구매개수 : '+item.prod_cost+'개</td><br>';
+								context +='<tr>상품명 : '+item.prod_name+' 상품가격 : '+item.prod_price+'원 구매개수 : '+item.prod_cost+'개</tr><br>';
 							});
-							$(this).after($subTr);
-							console.log($subTr);
 						}
 					});	
 					
@@ -310,7 +307,9 @@ $(document).ready(function() {
 					
 					// 상세tr 보여주기
 // 					var $subTr =context $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
-					$($subTr).show('slow');
+					$(this).after(context);
+					var a = $(this).after(context);
+					$(a).show('slow');
 				}
 
 		});
