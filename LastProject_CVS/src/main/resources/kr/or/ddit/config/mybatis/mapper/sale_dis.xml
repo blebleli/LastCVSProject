@@ -38,4 +38,26 @@
 	
 	</select>
 	
+	<!-- 아 이 디 : mySaleList
+  		반 환 값 : saleDisVo
+  		매개변수 : String(pay_id)
+  		설    명 : pay_id 로 해당 결제리스트 상품 가격 가져오는 기능
+  		작 성 자 : 김마음
+  		일    시 : 2018-10-11     
+	 -->
+	<select id="mySaleList" parameterType="String" resultType="saleDisVo">
+		SELECT   P.PROD_NAME
+		        ,P.PROD_PRICE
+		        ,SUM(SL.SALE_AMOUNT)
+		FROM PAY      PAY
+		JOIN SALE_DIS S
+		ON PAY.SD_ID = S.SD_ID
+		JOIN SALE_LIST SL
+		ON PAY.SD_ID = SL.SD_ID
+		JOIN PROD P
+		ON SL.PROD_ID = P.PROD_ID
+		WHERE PAY.PAY_ID = #{pay_id}
+		GROUP BY P.PROD_NAME, P.PROD_PRICE	
+	</select>
+	
 </mapper>
