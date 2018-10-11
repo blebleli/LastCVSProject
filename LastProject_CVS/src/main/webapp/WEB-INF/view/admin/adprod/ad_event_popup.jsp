@@ -94,6 +94,13 @@ $(function() {
 		var kind =  $(this).children(".kind").attr('value');
 		var discount =  $(this).children(".discount").attr('value');
 		console.log("select----"+$("select[name=event_kind]").val(kind))
+		if(kind =="일반" || kind =="행사"){
+			$("#event_discount").val("0");
+			$("#event_discount").attr("readonly", true);
+		}else{
+			$("#event_discount").attr("readonly", false);
+			
+		}
 		$("#event_name").val(name);
 		$("#reservation").val(start+" - "+end);
 		$("select[name=event_kind]").val(kind);
@@ -107,7 +114,7 @@ $(function() {
 		var event_kind 	  = $("#event_kind").val();	// 이벤트 종류
 		if(event_kind =="일반" || event_kind =="행사"){
 			$("#event_discount").val("0");
-			$("#event_discount").attr("readonly", "readonly");
+			$("#event_discount").attr("readonly", true);
 		}
 		var reservation    = $("#reservation").val(); // 이벤트 기간
 		var day = reservation.split('-');					
@@ -117,7 +124,17 @@ $(function() {
 		$("#event_endday").val(event_endday);
 		
 		$("#eventForm").submit();
-	})
+	});
+	
+	$("#event_kind").on("change", function(){
+		var event_kind 	  = $("#event_kind").val();	// 이벤트 종류
+		if(event_kind =="일반" || event_kind =="행사"){
+			$("#event_discount").val("0");
+			$("#event_discount").attr("readonly", true);
+		}else{
+			$("#event_discount").attr("readonly", false);
+		}
+	});
 	
 });
 </script>
@@ -179,7 +196,7 @@ $(function() {
                 <select id="event_kind" name="event_kind" class="form-control col-md-7 col-xs-12" required="required" >
                 	<option value="행사" selected="selected">행사</option>
                 	<option value="할인">할인</option>
-                	<option value="전체">전체</option>
+                	<option value="일반">일반</option>
                 </select>
 <!--                   <input type="text" id="ctgy_lg_info" name="ctgy_lg_info" required="required" class="form-control col-md-7 col-xs-12"> -->
                 </div>
