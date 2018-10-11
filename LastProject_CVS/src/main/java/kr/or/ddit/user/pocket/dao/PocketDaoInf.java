@@ -57,6 +57,13 @@ public interface PocketDaoInf {
 	List<PocketProdVo> getMyPocket(String mem_id);
 	
 	/**
+	 * m
+	 * @param pocket_id
+	 * @return
+	 */
+	PocketProdVo getPocketById(String pocket_id);
+	
+	/**
 	* Method : getListPocket
 	* Method 설명 :관리자가 보기 위한 전체 포켓 내역 리스트 
 	* 최초작성일 : 2018. 8. 30.

@@ -31,7 +31,15 @@
 	</select>
 	
 	<select id="getPocketById" parameterType="String" resultType="pocketProdVo">
-		 SELECT  * FROM POCKET WHERE pocket_id=#{pocket_id}
+		  SELECT    pk.pocket_id   	 -- 주머니 id
+	               ,pk.pocket_date	 -- 기프티콘 유효날짜(90일)     
+	               ,p.prod_name    	 -- 상품이름
+	               ,p.prod_price	 -- 상품가격
+
+	      FROM POCKET PK
+	      JOIN PROD P
+	      ON PK.PROD_ID = P.PROD_ID
+	      WHERE PK.pocket_id = #{pocket_id}
 	</select>
 	
 	<insert id="pocketInsert" parameterType="pocketVo">

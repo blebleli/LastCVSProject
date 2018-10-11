@@ -1,7 +1,5 @@
 package kr.or.ddit.user.userMain.web;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.request;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,25 +10,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
-import kr.or.ddit.admin.prod.service.EventServiceInf;
-import kr.or.ddit.board.service.BoardServiceInf;
-import kr.or.ddit.commons.util.PageNavi;
-import kr.or.ddit.commons.util.SessionUtil;
-import kr.or.ddit.model.BoardVo;
-import kr.or.ddit.model.BookmarkVo;
-import kr.or.ddit.model.MemberShipVo;
-import kr.or.ddit.model.MemberVo;
-import kr.or.ddit.model.PayVo;
-import kr.or.ddit.model.ProdVo;
-import kr.or.ddit.model.SaleDisVo;
-import kr.or.ddit.pay.service.PayServiceInf;
-import kr.or.ddit.prod.service.ProdServiceInf;
-import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
-import kr.or.ddit.user.model.MainReviewsVo;
-import kr.or.ddit.user.model.PocketProdVo;
-import kr.or.ddit.user.pocket.service.PocketServiceInf;
-import kr.or.ddit.user.userMain.service.UserMainServiceInf;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -43,6 +22,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import kr.or.ddit.admin.prod.service.EventServiceInf;
+import kr.or.ddit.board.service.BoardServiceInf;
+import kr.or.ddit.commons.util.PageNavi;
+import kr.or.ddit.commons.util.SessionUtil;
+import kr.or.ddit.model.BoardVo;
+import kr.or.ddit.model.BookmarkVo;
+import kr.or.ddit.model.MemberShipVo;
+import kr.or.ddit.model.MemberVo;
+import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.PocketVo;
+import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.pay.service.PayServiceInf;
+import kr.or.ddit.prod.service.ProdServiceInf;
+import kr.or.ddit.user.bookmark.service.BookmarkServiceInf;
+import kr.or.ddit.user.model.MainReviewsVo;
+import kr.or.ddit.user.model.PocketProdVo;
+import kr.or.ddit.user.pocket.service.PocketServiceInf;
+import kr.or.ddit.user.userMain.service.UserMainServiceInf;
 
 @RequestMapping("/user")
 @Controller("userMainController")
@@ -236,7 +234,8 @@ public class UserMainController {
 		model.addAttribute("myPocketList",myPocketList);
 		
 		//카카오톡 보내기
-	    File file = new File("D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
+	    File file = new File("E:/EclipseWorkspace/jspSpring/LastProject_CVS/src/main/webapp/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg");
+	    		//"D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
 	    byte[] fileContent = Files.readAllBytes(file.toPath());
 	    model.addAttribute("length",fileContent.length);
 	    model.addAttribute("fileContent",fileContent);
@@ -277,8 +276,10 @@ public class UserMainController {
 		logger.debug("controller pocketID : " + pocketId);
 		String mem_id = memberVo.getMem_id();
 
-		String path = "D://A_TeachingMaterial//8.LastProject//workspace//LastProject_CVS//src//main//webapp//barcode//SAVE"
-				+ File.separator + mem_id + File.separator + pocketId + ".jpg";
+		String path = "E://EclipseWorkspace//jspSpring//LastProject_CVS//src//main//webapp//barcode//SAVE"
+						+ File.separator + mem_id + File.separator + pocketId + ".jpg";
+				//"D://A_TeachingMaterial//8.LastProject//workspace//LastProject_CVS//src//main//webapp//barcode//SAVE"
+			
 		File file = new File(path);
 		byte[] fileContent = Files.readAllBytes(file.toPath());
 
@@ -287,9 +288,13 @@ public class UserMainController {
 			li.add((int)fileContent[i]);
 		}
 		
+		//주머니 정보 가져오기
+		PocketProdVo pocketVo= pocketService.getPocketById(pocketId);
+		
 		
 		resultMap.put("length", fileContent.length);
 		resultMap.put("fileContent", li);
+		resultMap.put("pocketVo", pocketVo);
 		
 		return resultMap;
 	}

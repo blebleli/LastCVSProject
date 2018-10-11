@@ -27,6 +27,16 @@ public class PocketService implements PocketServiceInf {
 		// TODO Auto-generated method stub
 		return pocketDao.getMyPocket(mem_id);
 	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public PocketProdVo getPocketById(String pocket_id) {
+		// TODO Auto-generated method stub
+		return pocketDao.getPocketById(pocket_id);
+	}
+
 
 	@Override
 	public List<PocketVo> getListPocket() {

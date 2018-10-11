@@ -37,6 +37,13 @@ public class PocketDao implements PocketDaoInf {
 	public List<PocketProdVo> getMyPocket(String mem_id) {
 		return template.selectList("pocket.getMyPocket",mem_id);
 	}
+	
+
+	@Override
+	public PocketProdVo getPocketById(String pocket_id) {
+		return template.selectOne("pocket.getMyPocket",pocket_id);
+	}
+
 
 	@Override
 	public List<PocketVo> getListPocket() {
