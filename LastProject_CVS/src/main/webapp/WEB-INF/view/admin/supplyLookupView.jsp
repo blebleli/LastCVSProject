@@ -54,10 +54,11 @@
 												</div>
 													
 													<c:if test="${adminApplyVo.supply_state == 10}">
-														<c:if test="${info != 'success'}">
+														<c:if test="${adminApplyVo.supply_info != 'success'}">
 															<input type="button" id="btn" value="발주 신청 확인" class="btn btn-primary pull-right" style="margin-right: 5px;">
 														</c:if>
 													</c:if>
+													${adminApplyVo.supply_info}
 													<input type="hidden" name="array" id="array">
 												
 										</td>
@@ -86,15 +87,14 @@
 										
 										<br>담당자 : ${memberVo.mem_name}			<!-- 점주 이름 -->
 										
+										<br>점주 아이디 : ${memberVo.mem_id}		<!-- 점주 아이디 -->
 									</address>
 								</div>
 								<!-- /.col -->
 								<div class="col-sm-4 invoice-col">
-									<c:if test="${adminApplyVo.supply_state == 10}">
-										<b>수불바코드 : ${adminApplyVo.supply_bcd}</b> <br> <br> <br>
-									</c:if>
+									<b>수불바코드 : ${adminApplyVo.supply_bcd}</b> <br> <br> <br>
 									<c:if test="${adminApplyVo.supply_state != 10}">
-										<img src="/barcode/supply/${memberVo.mem_id}/${adminApplyVo.supply_bcd}.jpg" width="200" height="200">
+										<img src="/barcode/supply/3380000-104-2014-00017/SUPPLY-e3aefd49-4cd3-4c56-b2b9-b606ffe41b33.jpg" width="200" height="200">
 									</c:if>
 									<br>
 								</div>
@@ -264,6 +264,11 @@
 											</tbody>
 										</table>
 									</div>
+										<a href="/admin/lookup">
+											<i class="btn btn-primary pull-right">
+										 	뒤로가기
+											</i>
+										</a>
 								</div>
 								<!-- 명세서 부분 끝 -->
 							</div>
