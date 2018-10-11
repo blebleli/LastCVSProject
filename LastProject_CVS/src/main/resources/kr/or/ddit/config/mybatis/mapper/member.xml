@@ -376,7 +376,8 @@
   	<select id="updateCvsInfo" parameterType="memberVo">
   		UPDATE MEMBER
 		   SET 
-		   	   MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, (SELECT  MEM_BIRTH FROM MEMBER WHERE MEM_ID = #{mem_id}))
+		   	   MEM_NAME=#{mem_name, jdbcType=VARCHAR}
+		   	 , MEM_PW = CRYPTPACK.ENCRYPT(#{mem_pw, jdbcType=VARCHAR}, (SELECT  MEM_BIRTH FROM MEMBER WHERE MEM_ID = #{mem_id}))
 			 , MEM_TEL = #{mem_tel, jdbcType=VARCHAR}
 			 , MEM_ZIP = #{mem_zip, jdbcType=NUMERIC}
 			 , MEM_ADD = #{mem_add, jdbcType=VARCHAR}
