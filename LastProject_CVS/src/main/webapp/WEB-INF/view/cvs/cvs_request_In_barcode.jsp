@@ -39,7 +39,7 @@
 	</script>
    
         <!-- page content -->
-        <div class="right_col" role="main">
+        <div class="right_col" role="main" style="min-height:1000px">
           <div class="">
             <div class="page-title">
               <div class="title_left">
@@ -165,7 +165,7 @@
 			                         '  <td>'+item.splylist_sum+'</td> '+ 	                    
 			                         '	<td><input class="amount" style="width : 100%"type="number" value='+item.splylist_sum+'>'+
 				                     '	</input></td>'+		                         
-			                         '  <td>'+item.splylist_info+'</td> '+
+			                        // '  <td>'+item.splylist_info+'</td> '+
 			                         '</tr>'
 			                    );			                   
 			    		});
@@ -267,7 +267,7 @@
                             <th class="column-title">상품코드</th>                            
                             <th class="column-title">수량</th>
                             <th class="column-title">실수량</th>
-                            <th class="column-title">비고</th>          
+                          <!--   <th class="column-title">비고</th>  -->         
                           </tr>
                         </thead>
 
@@ -283,14 +283,14 @@
   
         <!-- /page content -->
         
-        <footer>
+  <!--       <footer>
           <div class="pull-right">
              Admin by  <a href="/cvs/main">gogo CVS</a>
             
           </div>
           <div class="clearfix"></div>
         </footer>
-
+ -->
 
 
     <!-- jQuery -->

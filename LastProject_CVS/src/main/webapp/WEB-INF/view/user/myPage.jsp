@@ -329,6 +329,12 @@ $(document).ready(function() {
 				_text);
 	}
 	
+	
+	
+	/*
+	* 카카오 나에게 보내기
+	*/
+	
     Kakao.init('20ef2122f316faf3ee201ff1da312505');
 	var vieww = [];
 	    
@@ -350,8 +356,10 @@ $(document).ready(function() {
 				    for(i = 0; i < fcc.length ; i++){
 		    			vieww[i] = fcc[i];
 		    		};
-					
-		    		sendUpload();
+		    		var prodName = responseData.pocketVo.prod_name;
+		    		var pocketExdate = responseData.pocketVo.pocket_date;
+		    		
+		    		sendUpload(prodName,pocketExdate);
 					console.log('-----완료');
 					
 				}	
@@ -359,7 +367,7 @@ $(document).ready(function() {
 	      	
 	    }
 	    
-	    function sendUpload(){
+	    function sendUpload(prodName,prodExdate){
 
  	        var files = [new File([vieww], 'asdf.jpg',{type: "image/jpeg"})];
 
@@ -370,18 +378,18 @@ $(document).ready(function() {
  	            console.log(res.infos.original.url);
  	            kakaoImg = res.infos.original.url;
  	            console.log('kakaoImg-->'+kakaoImg);	    
- 	            sendLink(kakaoImg);
+ 	            sendLink(kakaoImg,prodName,prodExdate);
  	            
  	          });
  	   		}
  	       
- 	       function sendLink(kakaoImg){
+ 	       function sendLink(kakaoImg,prodName,prodExdate){
  	         Kakao.Link.sendCustom({
 
  	     	        templateId: 12634,
  	     	        templateArgs: {
- 	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ $('#prodName').text(),
- 	     	          'content': $('#prodExdate').text(),
+ 	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ prodName,
+ 	     	          'content': prodExdate,
  	     	          'bcdImg' : document.getElementById('uploadUrl').value
  	     	        }
  	      		 });
@@ -684,7 +692,7 @@ $(document).ready(function() {
 														<p  id="prodName" >${vo.prod_name}</p>
 														<h4 id="prodExdate" >유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
 														<%-- <input type="hidden" id="pocketId" value="${vo.pocket_id}"/ --%>
-														<p  id="pocketId" >${vo.pocket_id}</p>
+														
 														<div class="snipcart-details">
 															<a id="kakao-link-btn" onclick="kakaoSend('${vo.pocket_id}');">
 															<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width : 25px">
