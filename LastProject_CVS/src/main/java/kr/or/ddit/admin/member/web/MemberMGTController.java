@@ -488,6 +488,7 @@ public class MemberMGTController {
 		cvs.setMem_y(addResult.get("y"));
 
 		int result = memberMgtService.updateCvsInfo(cvs);
+		logger.debug("result======={}", result);
 		if (result >0){
 			logger.debug("UpdateCvsInfo========{}", cvs);
 		}
