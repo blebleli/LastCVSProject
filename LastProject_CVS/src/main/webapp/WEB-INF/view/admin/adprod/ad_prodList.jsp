@@ -216,9 +216,10 @@ function fn_prodUp(prod_id){
 			
 		
 				<c:when test="${!empty prodList}">
-						<c:forEach items="${prodList }" var="vo" varStatus="status" end="10">
+<%-- 						<c:forEach items="${prodList }" var="vo" varStatus="status" end="10"> --%>
+						<c:forEach items="${prodList }" var="vo">
 						
-						<c:if test="${status.index < 10}">
+<%-- 						<c:if test="${status.index < 10}"> --%>
 						
 						<tr role="row" class="odd">
 							<td scope="row" align="center">${vo.cnt }<br>
@@ -238,7 +239,7 @@ function fn_prodUp(prod_id){
 						    <td ><img src="${vo.file_path }/${vo.file_upname }" width="50px;" height="50px;"/></td>
 						</tr>
 						
-						</c:if>
+<%-- 						</c:if> --%>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
