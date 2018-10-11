@@ -351,16 +351,14 @@
 		       ,SL.STCKLIST_AMOUNT -- 수량
 		       ,SL.STCK_DATE       -- 날짜
 		       ,SL.STCKLIST_INFO   -- 비고
-		       ,F.FILE_UPNAME  -- 파일업로드명
-		       ,F.FILE_PATH    -- 파일경로
+		       ,(SELECT FILE_UPNAME FROM FILEDATA WHERE MEM_ID = M.MEM_ID ) AS FILE_UPNAME  -- 파일업로드명
+		       ,(SELECT FILE_PATH FROM FILEDATA WHERE MEM_ID = M.MEM_ID ) AS FILE_PATH    -- 파일경로
 		        
 		FROM MEMBER M           -- 회원테이블
 		JOIN STOCK  S           -- 재고테이블
 		ON M.MEM_ID = S.MEM_ID
 		JOIN STOCK_LIST  SL     -- 재고리스트테이블
 		ON S.STOCK_ID = SL.STOCK_ID
-		JOIN FILEdATA F         -- 자료테이블
-		ON M.MEM_ID = F.MEM_ID
 		WHERE 1=1
 		  AND TO_CHAR(SL.STCK_DATE ,'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') -- 현재날짜
 		  AND SL.STCKLIST_KIND = '888' -- 재고
