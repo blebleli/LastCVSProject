@@ -263,7 +263,8 @@ public class AdminProdInfo {
 		
 		//★  서버 이미지 경로 
 //		String tempSavePath = "F:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
-		String tempSavePath = "D:/A_TeachingMaterial/Spring/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+		String tempSavePath = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/Image/product"; // 파일 저장 경로
+							   
 		String path = "/Image/product";	// DB 저장 경로
 		
 		// 대분류에 따라 저장 장소가 변함
