@@ -115,7 +115,7 @@ $(function() {
 	
 	
 	// 트리뷰 클릭시 대분류에 한해서 오른쪽에 출력 
-	$("ul").on("click","a",function(){
+	$("ul.tree").on("click","a[name=category_lg_Ul]",function(){
 		var id =  $(this).children().attr('value');
 		var name =  $(this).children().attr('id');
 		var info =  $(this).children().attr('name');
