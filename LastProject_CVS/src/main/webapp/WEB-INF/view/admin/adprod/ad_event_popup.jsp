@@ -16,7 +16,7 @@
 <!-- NProgress -->
 <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
 <!-- Custom Theme Style -->
-<link href="/build/css/custom.min.css" rel="stylesheet">
+<link href="/build/css/customAdmin.min.css" rel="stylesheet">
 <!-- iCheck -->
 <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <!-- PNotify -->
@@ -60,7 +60,10 @@ $(function() {
 		
 		var event_name    = $("#event_name").val();	// 이벤트명
 		var event_kind 	  = $("#event_kind").val();	// 이벤트 종류
-		
+		if(event_kind =="일반" || event_kind =="행사"){
+			$("#event_discount").val("0");
+			$("#event_discount").attr("readonly", "readonly");
+		}
 		var reservation    = $("#reservation").val();// 이벤트 기간
 		var day = reservation.split('-');					
 		var event_startday = day[0];				// 시작일
@@ -83,6 +86,7 @@ $(function() {
 // 	트리뷰 클릭시 대분류에 한해서 오른쪽에 출력 
 	$("ul").on("click","a",function(){
 		var id = $(this).attr("value");
+		$("#event_id").val(id);
 		var name =  $(this).text();
 // 		var name =  $(this).children().attr('id');
 		var start =  $(this).children().attr('name');
@@ -98,7 +102,21 @@ $(function() {
 	});
 	
 	$("#updateEvent").on("click", function(){
+		alert($("#event_id").val());
+		$("#eventForm").attr('action', '/event/updateEvent');
+		var event_kind 	  = $("#event_kind").val();	// 이벤트 종류
+		if(event_kind =="일반" || event_kind =="행사"){
+			$("#event_discount").val("0");
+			$("#event_discount").attr("readonly", "readonly");
+		}
+		var reservation    = $("#reservation").val(); // 이벤트 기간
+		var day = reservation.split('-');					
+		var event_startday = day[0];				// 시작일
+		var event_endday   = day[1];				// 종료일
+		$("#event_startday").val(event_startday);
+		$("#event_endday").val(event_endday);
 		
+		$("#eventForm").submit();
 	})
 	
 });
@@ -152,6 +170,7 @@ $(function() {
                 <label class="control-label col-md-3 col-sm-3 col-xs-12" >이벤트명</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                   <input type="text" id="event_name" name="event_name" required="required" class="form-control col-md-7 col-xs-12">
+                  <input type="hidden" id="event_id" name="event_id">
                 </div>
               </div>
               <div class="form-group">
