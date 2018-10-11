@@ -117,7 +117,7 @@ $(document).ready(function() {
 				$(".con").append(
 					'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-check-circle fa-5x" aria-hidden="true" style="align:middle;"></i>'	+
 // 					'<br>'+
-					'&nbsp;<a>수정 완료했습니다</a><br><br>'
+					'&nbsp;<a>수정 완료했습니다</a><br><br><br>'
 				);
 			}
 			
