@@ -14,7 +14,7 @@
     <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="/build/css/customAdmin.min.css" rel="stylesheet">
     
 <script>
 	$(document).ready(function(){
@@ -29,7 +29,7 @@
 			});
 
 			$.ajax({
-				url : "/adprod/eventPopup",
+				url : "/adprod/eventPopup?where=manage",
 				datatype : "html",
 				success:function(responseData){
 					console.log("성공");
