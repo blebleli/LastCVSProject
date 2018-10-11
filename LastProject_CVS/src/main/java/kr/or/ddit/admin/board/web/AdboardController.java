@@ -102,7 +102,8 @@ public class AdboardController {
 	public String boardView(@RequestParam(value="btnChk", defaultValue="") String bd_kind_id,
 							@RequestParam(value="bd_kind_id", defaultValue="") String bd_kind_id2,
 							CategoryVo categoryVo, Model model){
-		
+		logger.debug("bd_kind_id----{}",bd_kind_id);
+		logger.debug("bd_kind_id2----{}",bd_kind_id2);
 		String ctgy_kind = "301"; // 카테고리 제품 코드
 		String ctgy_parent = "";
 		categoryVo.setCtgy_kind(ctgy_kind);
@@ -528,5 +529,10 @@ public class AdboardController {
 		}else{ // 댓글 삭제 실패시
 			return "ad_index"; // 관리자 메인으로 돌아간다.
 		}
+	}
+	
+	@RequestMapping("/goList")
+	public String goList(@RequestParam(value="btnChk")String btnChk){
+		return "redirect:/adboard/boardView?btnChk="+btnChk;
 	}
 }
