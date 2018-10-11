@@ -118,7 +118,7 @@ public class AdminProdInfo {
 		CategoryVo lgVo = new CategoryVo();
 		lgVo.setCtgy_id(ctgy_id_lg);
 		
-		if (ctgy_id_lg.isEmpty()) { // 새로운 대분류 추가
+		if (ctgy_id_lg.equals("0")) { // 새로운 대분류 추가
 			
 			String lgCode = acc.autoCode("CA");		// 코드생성
 //			logger.debug("lgCode ==>{}", lgCode );
@@ -136,7 +136,7 @@ public class AdminProdInfo {
 		}
 		
 		CategoryVo mdVo = new CategoryVo();
-		if (!ctgy_md.isEmpty()) {	// 중분류 insert 
+		if (!ctgy_md.equals("0")) {	// 중분류 insert 
 			
 			String mdCode = acc.autoCode("CA");		// 코드생성
 //			logger.debug("lgCode ==>{}", mdCode );
