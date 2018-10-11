@@ -43,4 +43,11 @@ public class EventController {
 		model.addAttribute("adeventList", adeventList);
 		return adeventList;
 	}
+	
+	@RequestMapping("/updateEvent")
+	public String updateEvent(EventVo vo, Model model){
+		int result = eventService.updateEvent(vo);
+		logger.debug("result======{}", result);
+		return "redirect:/event/add";
+	}
 }
