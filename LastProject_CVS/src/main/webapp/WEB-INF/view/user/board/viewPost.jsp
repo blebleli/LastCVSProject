@@ -215,21 +215,21 @@ function fn_delete(geta){
 						</td>
 					</tr>
 					
-					<tr>
-						<td id="demoFont" class="col-sm-1">첨부파일</td>
-						<td id="demoFont2" class="col-sm-9" colspan="3">
-							<c:forEach items="${FList}" var="vo">
-								<c:choose>
-									<c:when test="${empty vo.file_name}">
-										파일이 없습니다.
-									</c:when>
-									<c:when test="${vo.file_name!=''}">
-										[ ${vo.file_name } ]   
-									</c:when>
-								</c:choose>						
-							</c:forEach>
-						</td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<td id="demoFont" class="col-sm-1">첨부파일</td> -->
+<!-- 						<td id="demoFont2" class="col-sm-9" colspan="3"> -->
+<%-- 							<c:forEach items="${FList}" var="vo"> --%>
+<%-- 								<c:choose> --%>
+<%-- 									<c:when test="${empty vo.file_name}"> --%>
+<!-- 										파일이 없습니다. -->
+<%-- 									</c:when> --%>
+<%-- 									<c:when test="${vo.file_name!=''}"> --%>
+<%-- 										[ ${vo.file_name } ]    --%>
+<%-- 									</c:when> --%>
+<%-- 								</c:choose>						 --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</td> -->
+<!-- 					</tr> -->
 				</tbody>
 					
 				</table>
