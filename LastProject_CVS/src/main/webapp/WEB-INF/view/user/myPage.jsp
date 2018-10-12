@@ -348,8 +348,7 @@ $(document).ready(function() {
 				 data: {"pocketId" : pocketid},
 				 success : function(responseData){
 					console.log(responseData.length);
-					console.log(responseData.fileContent);
-		
+				
 				 	var fcc = responseData.fileContent;	 	
 				    vieww =  new Uint8Array(responseData.length);		//new Uint8Array(${length});
 				    
