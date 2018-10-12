@@ -204,12 +204,12 @@ public class UserProdController {
 								   , @RequestParam(value="min_price"	 , defaultValue="0")       String min
 								   , @RequestParam(value="max_price"	 , defaultValue="1000000") String max
 								   , @RequestParam(value="searchName"	 , defaultValue="")        String prodName  
-								   , @RequestParam(value="mealChk"       , defaultValue="")        String mealChk           
-								   , @RequestParam(value="biscuitChk"    , defaultValue="")        String biscuitChk        
-								   , @RequestParam(value="iceChk"        , defaultValue="")        String iceChk          
-								   , @RequestParam(value="foodChk"       , defaultValue="")        String foodChk           
-								   , @RequestParam(value="drinkChk"      , defaultValue="")        String drinkChk          
-								   , @RequestParam(value="necessitiesChk", defaultValue="")        String necessitiesChk
+								   , @RequestParam(value="mealChk"       , defaultValue="null")        String mealChk           
+								   , @RequestParam(value="biscuitChk"    , defaultValue="null")        String biscuitChk        
+								   , @RequestParam(value="iceChk"        , defaultValue="null")        String iceChk          
+								   , @RequestParam(value="foodChk"       , defaultValue="null")        String foodChk           
+								   , @RequestParam(value="drinkChk"      , defaultValue="null")        String drinkChk          
+								   , @RequestParam(value="necessitiesChk", defaultValue="null")        String necessitiesChk
 								   , @RequestParam(value="iKind"		 , defaultValue="1")       String iKind
 								   , @RequestParam(value="event"		 , defaultValue="dis1")       String event
 								   , Model model
@@ -244,9 +244,9 @@ public class UserProdController {
 		
 		List<ProdVo> searchList = prodService.searchProd(paramMap);
 		
-		logger.debug("paramMap ==> {} ", paramMap.toString());
-		logger.debug("paramMap.get('iKind') ==> {}",paramMap.get("iKind"));
-		logger.debug("searchList==> {}",searchList);
+//		logger.debug("paramMap ==> {} ", paramMap.toString());
+//		logger.debug("paramMap.get('iKind') ==> {}",paramMap.get("iKind"));
+//		logger.debug("searchList==> {}",searchList);
 		return searchList;
 	}
 	

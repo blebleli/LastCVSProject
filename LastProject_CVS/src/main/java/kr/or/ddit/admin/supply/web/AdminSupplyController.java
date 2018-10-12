@@ -227,6 +227,8 @@ public class AdminSupplyController {
 //		
 		String dbPath = "/barcode/supply/"+mem_id; 
 		
+//		D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/ mem_id / supply_bcdCode 
+		
 //		// QR코드 생성
 		try {
 			barcodeService.generateQRCodeImage(text,"supply", mem_id);
@@ -257,7 +259,10 @@ public class AdminSupplyController {
 			supplyVo.setSupply_state("11");
 			supplyVo.setPlace_id(mem_id);
 			supplyVo.setSupply_date(new Date());
-			supplyService.setInsertSupply(supplyVo);
+			
+			int resultInsert = supplyService.setInsertSupply(supplyVo);
+			
+			logger.debug("resultInsert == > {}", resultInsert);
 			
 		}else {
 			logger.debug("바코드 생성을 실패 하였습니다.");
