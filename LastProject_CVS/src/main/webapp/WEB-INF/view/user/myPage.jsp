@@ -356,8 +356,10 @@ $(document).ready(function() {
 				    for(i = 0; i < fcc.length ; i++){
 		    			vieww[i] = fcc[i];
 		    		};
+		    		console.log(responseData.pocketVo);
 		    		var prodName = responseData.pocketVo.prod_name;
-		    		var pocketExdate = responseData.pocketVo.pocket_date;
+		    		var pocketd = new Date(responseData.pocketVo.pocket_date);
+		    		var pocketExdate = pocketd.toISOString().split('T')[0]
 		    		
 		    		sendUpload(prodName,pocketExdate);
 					console.log('-----완료');
@@ -389,7 +391,7 @@ $(document).ready(function() {
  	     	        templateId: 12634,
  	     	        templateArgs: {
  	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ prodName,
- 	     	          'content': prodExdate,
+ 	     	          'content': '유효기간 : '+prodExdate,
  	     	          'bcdImg' : document.getElementById('uploadUrl').value
  	     	        }
  	      		 });
