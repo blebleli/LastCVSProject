@@ -131,7 +131,7 @@ public class MemberMGTController {
 	@RequestMapping("/userMemberList")
 	public String userMemberListView(HttpServletRequest request, 
 			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="pageSize", defaultValue="10") int pageSize,
+			@RequestParam(value="pageSize", defaultValue="100") int pageSize,
 			Model model) {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
@@ -143,6 +143,7 @@ public class MemberMGTController {
 		paramMemberVo.setMem_kind("02"); 
 
 		List<MemberVo> userMemberList= memberMgtService.getMemberPageList(paramMemberVo);
+		
 		model.addAttribute("userMemberList", userMemberList);	
 		
 		int tot_cnt = 0;
@@ -174,7 +175,7 @@ public class MemberMGTController {
 	@RequestMapping("/cvsMemberList")
 	public String cvsMemberList(HttpServletRequest request, 
 			@RequestParam(value="page", defaultValue="1") int page,
-			@RequestParam(value="pageSize", defaultValue="25") int pageSize,
+			@RequestParam(value="pageSize", defaultValue="100") int pageSize,
 			Model model) {
 		
 		logger.debug("requestUrl : {}", request.getRequestURL());
@@ -186,6 +187,7 @@ public class MemberMGTController {
 		paramMemberVo.setMem_kind("01");
 		
 		List<MemberVo> cvsMemberList= memberMgtService.getMemberPageList(paramMemberVo);
+		logger.debug("size======{}",cvsMemberList.size() );
 		model.addAttribute("cvsMemberList", cvsMemberList);	
 		
 		int tot_cnt = 0;
