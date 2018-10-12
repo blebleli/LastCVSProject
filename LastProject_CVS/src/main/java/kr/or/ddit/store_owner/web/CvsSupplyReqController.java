@@ -116,12 +116,10 @@ public class CvsSupplyReqController {
 	@RequestMapping("/stock")
 	public String myStockList(Model model, @ModelAttribute("userInfo") MemberVo memberVo){
 
-		logger.debug("memberVo.getMem_id()------"+memberVo.getMem_id());
+		logger.debug("memberVo.getMem_id()------>"+memberVo.getMem_id());
 
 		//mem_id 로 가장 최근1건의 stock의 stock-list 			
 		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(memberVo.getMem_id());
-		
-		System.out.println("왔을까?");
 		
 		model.addAttribute("myStockList", myStockList);
 

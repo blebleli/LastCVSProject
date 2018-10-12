@@ -32,7 +32,8 @@
 	
 	<select id="getPocketById" parameterType="String" resultType="pocketProdVo">
 		  SELECT    pk.pocket_id   	 -- 주머니 id
-	               ,pk.pocket_date	 -- 기프티콘 유효날짜(90일)     
+	               ,pk.pocket_date	 -- 기프티콘 유효날짜(90일) 
+	               ,p.prod_id    	 -- prod id
 	               ,p.prod_name    	 -- 상품이름
 	               ,p.prod_price	 -- 상품가격
 

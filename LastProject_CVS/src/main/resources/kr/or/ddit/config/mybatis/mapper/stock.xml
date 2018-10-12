@@ -299,8 +299,8 @@ SELECT  T.prod_id,
         T.stcklist_exdate,
         --T.stcklist_amount,
         T.event_name,
-        T.stcklist_amount
-       -- SUM(T.stcklist_amount) AS stcklist_amount
+       -- T.stcklist_amount
+        SUM(T.stcklist_amount) AS stcklist_amount
 FROM (
       SELECT  a.prod_id,      
               a.prod_name,
@@ -313,16 +313,17 @@ FROM (
       FROM  prod a, supply b, stock_list c, EVENT d
       WHERE b.supply_state = '12' AND 
             c.prod_id = a.prod_id AND 
-            a.event_id = d.event_id         
---            AND
---            c.stock_id= (SELECT stock_id
---                         FROM (SELECT stock_id,
---                                    rank() over (partition by mem_id order by stock_date desc) rnk
---                               FROM stock
---                               WHERE mem_id= #{mem_id}  ) 
---                          WHERE rnk = 1)    
+            a.event_id = d.event_id  AND     
+            b.place_id= #{mem_id} 
+            AND
+            c.stock_id= (SELECT stock_id
+                         FROM (SELECT stock_id,
+                                    rank() over (partition by mem_id order by stock_date desc) rnk
+                               FROM stock
+                               WHERE mem_id= #{mem_id}  ) 
+                          WHERE rnk = 1)    
 ) T
-GROUP BY T.prod_id, T.prod_name, T.prod_price, T.bcd_id, T.stcklist_exdate, T.event_name
+GROUP BY T.prod_id, T.prod_name, T.prod_price, T.bcd_id, T.stcklist_exdate, T.event_name, T.stcklist_amount
 </select>
 
 

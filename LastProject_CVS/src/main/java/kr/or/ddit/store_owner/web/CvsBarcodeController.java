@@ -38,6 +38,8 @@ import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 import kr.or.ddit.supply.service.SupplyServiceInf;
+import kr.or.ddit.user.model.PocketProdVo;
+import kr.or.ddit.user.pocket.service.PocketServiceInf;
 
 /**
  * 담당 -- 한수정
@@ -73,6 +75,10 @@ public class CvsBarcodeController {
 	
 	@Resource(name="autoCodeCreate")
 	private AutoCodeCreate autoCodeCreate;
+	
+	@Resource(name="pocketService")
+	private PocketServiceInf pocketService;
+	
 	
 	
 	
@@ -130,18 +136,22 @@ public class CvsBarcodeController {
 			//입고리스트일때
 	    	List<SupplyListVo> supplyList = supplyService.getListSupply(decoded);
  			mav.addObject("supplyList", supplyList);
-	    	
+ 			logger.debug("supplyList ------"+supplyList);	
+ 			
 	    	//상품바코드일때 처리(결제, 주머니, 폐기)
  			Map<String,String> map = new HashMap<String, String>();
-	
  			map.put("mem_id",memberVo.getMem_id());
  			map.put("stock_kind", "888");
- 			map.put("bcd_id", decoded);
- 			
+ 			map.put("bcd_id", decoded);			
   			PresentStockListVo prodVo = stockService.getBarcodeProd(map);
+  			mav.addObject("prodVo", prodVo);
+  			logger.debug("prodVo ------"+prodVo);	
   			
-  			logger.debug("prodVo 확인용------"+prodVo);	
- 			mav.addObject("prodVo", prodVo);			
+  			//주머니 일때 
+  			PocketProdVo pocketVo = pocketService.getPocketById(decoded);
+  			mav.addObject("pocketVo", pocketVo);
+  			logger.debug("pocketVo ------"+pocketVo);
+ 						
 		}
 		
 		return mav;
