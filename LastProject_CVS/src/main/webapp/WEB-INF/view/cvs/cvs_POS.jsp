@@ -193,7 +193,7 @@
                         	<td colspan="4" style="text-align: center;
 							color: #fff;
 						    background-color: #449d44;
-						    border-color: #398439;"> 합계 수량/ 금액 / 할인 </td>                       
+						    border-color: #398439;"> 합계 수량/ 금액 </td>                       
                             <td><b><span id="amount_sum"></span></b></td>
                             <td><b><span class="subtot_sum"></span>원</b></td>
                             <td><b><span id="discount_sum"></span></b>  </td>
@@ -262,13 +262,21 @@
 						    $('#posTable tbody tr').has('div.checked').remove();  
 						}
 				    	
-				    	/*결제버튼 클릭시*/
+/*결제버튼 클릭시*///-------------------------------------------------------------------
 				    	function btnSale(kind) {
 				    	
-							var saleList=[];		
+							var saleList=[];
+							var pocketList=[];
 				    		
+							//주머니일때 아닐때 나눠서 각 배열리스트에 넣어주기
 				    		$("#posTable tbody tr").each(function () {		                    	 
-				    			var trData = $(this);					    			
+				    			var trData = $(this);
+				    			var trKind = trData.data('kind');
+				    		
+				    			
+				    			if(1==1){
+				  
+				    				//상품일때
 				    			saleList.push({bcd_id: trData.data('bcd_id'),
 				    				       prod_price: trData.find('.price1').html(),
 				    				  stcklist_amount: trData.find('.amount').val(),
@@ -276,9 +284,13 @@
 					    					  pay_kind : kind
 					    					  });
 				    			console.log("saleList ::: "+saleList.pay_kind);
+				    			}else{
+				    				//주머니일때
+				    			}
+				    			
 		                     });	
 				    	
-				    		if(saleList.length > 0){
+				    	  if(saleList.length > 0){
 					    	  	$.ajax({
 			    					  url: "/cvs/pos/saleInsert",
 			    					  method: "post",
@@ -316,12 +328,7 @@
 						}
 			    	
 //-------------------------------------------------------------------------------------------------				    	
-				    	
-				    	
-				    	
-				    	
-				    	
-				    	
+
 				    	/*폐기버튼 클릭시*/
 				    	function btnDisposal() {
 			    		
@@ -383,14 +390,14 @@
 				    	
 				    		//행추가
 							$("#prodList").append(		    								
-								     '<tr data-bcd_id="'+data.prodVo.bcd_id+'" data-stcklist_exdate="'+data.prodVo.stcklist_exdate+'">'+
+								     '<tr data-kind="prod" data-bcd_id="'+data.prodVo.bcd_id+'" data-stcklist_exdate="'+data.prodVo.stcklist_exdate+'">'+				
 			                         '  <td> '+   
 			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
 			                         '  </td>'+
 			                         '  <td><span class="num">'+1+'</span></td>'+
 			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
 			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
-			                         '  <td ><input type="number" class="amount" value="'+1+'"style="width:100px; text-align: center "></td>'+    				                         
+			                         '  <td ><input type="number" class="amount" value="'+1+'"style="width:100px; text-align: center ">개</td>'+    				                         
 			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
 			                         '  <td ><span class="distot">'+ data.prodVo.event_name+'</span></td> '+	        
 			                         '  <td style="display: none"><span class="prod_id">'+ data.prodVo.prod_id+'</span></td> '+
@@ -417,50 +424,26 @@
 				    	
 /* 주머니바코드추가 *///----------------------------------------------------------------------------
 				    	function addPocket(data){
-				    		
-				    		//아이디가 같을때 처리 
-				    		var dataProdId = data.pocketVo.prod_id;
-				    		
-				    		console.log('같은 dataProdId 있는지'+data.pocketVo.prod_id);
-				    		
-				    		var findProdEle = $("#posTable tbody tr .prod_id").toArray().find(function(e){ 	    			
-				    		 	return dataProdId == e.innerText;
-				    		});			
-				    		
-				    		console.log('같은 prod 있는지'+findProdEle);
-				    		//같은prodID 없을때
-				    		if(findProdEle == undefined){
-				    	
-				    		//행추가
+	
+				    		//행추가 -- pocket은 무조건 한줄씩 늘어나게 한다.
 							$("#prodList").append(		    								
-								     '<tr>'+
+								     '<tr data-kind="pocket" data-pocket_id="'+data.pocketVo.pocket_id+'">'+
 			                         '  <td> '+   
 			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
 			                         '  </td>'+
 			                         '  <td><span class="num">'+1+'</span></td>'+
 			                         '  <td >'+ data.pocketVo.prod_name+'</td>'+
 			                         '  <td ><span class="price1">'+data.pocketVo.prod_price+'</span>원</td>'+ 
-			                         '  <td ><input type="number" class="amount" value="'+0+'"style="width:100px; text-align: center "></td>'+    				                         
-			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
+			                         '  <td ><input type="number" class="amount" value="'+1+'"style="width:100px; text-align: center" disabled>개</td>'+    				                         
+			                         '  <td ><span class="subtot">0</span>원</td> '+
 			                         '  <td ><span class="distot">주머니상품</span></td> '+	        
 			                         '  <td style="display: none"><span class="prod_id">'+ data.pocketVo.prod_id+'</span></td> '+
 			                         '</tr>'			    								                                                                                     
-							);
+							 );
 							 
 							 $('input[type="checkbox"]').iCheck({
 				   		            checkboxClass: 'icheckbox_flat-green'
 				   		     });
-						
-				    		} else{
-				    			//수량증가
-				    			var amountEle = $(findProdEle).parent().parent().find('.amount');
-				    			amountEle.val(parseFloat(amountEle.val())+1);
-				    		}
-							
-				    		//금액합계 작업은 하지 않는다
-							/* amountSum();
-							rowSum();
-							subtot_sum(); */
 				    	}
 				    	
 /* 수량합계 계산*///------------------------------------------------------------------------
@@ -547,7 +530,7 @@
 				    	};
 
 				    	
-				    	/* 바코드 img 해석*/
+/* 상품 바코드 img 해석*///---------------------------------------------------------
 		    			function sendImage(){
 		    				var image = getImage();
 		    				var request = $.ajax({
@@ -573,6 +556,7 @@
 								  });	    							    			
 		    			};	
 		    			
+/* 주머니 바코드 img 해석*///---------------------------------------------------------		    			
 		    			function sendPocket(){
 		    				var image = getImage();
 		    				var request = $.ajax({
@@ -585,10 +569,8 @@
 		    				         if(data.returnMsg == "decodedText"){
 		    				            	console.log("data decodedText ---- :"+data.decodedText);
 		    				            	console.log("data pocketVo ---- :"+data.pocketVo);
-		    				            	
 		    				            	clearInterval(intervalID);
 			    							addPocket(data);
-
 		    				          } else {
 		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
 		    				          }
@@ -695,7 +677,7 @@
 					    </div>
 					  </div>
 					</div>
-					
+				
 				   <button type="button" class="culcBtn op" onclick="startCapture(sendPocket)">주머니</button>
 	       
 					

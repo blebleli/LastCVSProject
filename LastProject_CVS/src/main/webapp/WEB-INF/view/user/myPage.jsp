@@ -390,7 +390,7 @@ $(document).ready(function() {
  	     	        templateId: 12634,
  	     	        templateArgs: {
  	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ prodName,
- 	     	          'content': '유효기간 : '+prodExdate,
+ 	     	          'content': '유효기간 : '+prodExdate+'크게보기 : '+document.getElementById('uploadUrl').value,
  	     	          'bcdImg' : document.getElementById('uploadUrl').value
  	     	        }
  	      		 });

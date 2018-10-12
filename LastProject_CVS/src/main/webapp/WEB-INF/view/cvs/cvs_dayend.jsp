@@ -148,10 +148,10 @@
 		
 		var stockID =$(this).find(".stockID").html();
 		var stock_date =$(this).find(".stock_date").html();
+		var indx = $(this).index();
 		
 		console.log("stockID --->"+stockID);
-		console.log("stock_date --->"+stock_date);
-		
+		console.log("indx-->"+indx);
 		
 	 	$.ajax({
 			url : "/cvs/getNowStock",
@@ -168,20 +168,35 @@
 				    table.destroy();
 				    table = null;    
 				}
-			
-				$.each(stockList,function(index, item){				
-				$("#stockDetailTbody").append(		    								
-							'<tr class="even pointer" data-splylist_id="'+item.splylist_id+'" data-stck_date="'+item.stck_date+'">'+        
-	                        '<td >'+(index+1)+'</td>'+	                        
-	                        '<td ><span class="prod_id">'+item.prod_id+'</span></td>'+
-	                        '<td >'+item.prod_name+'</td>'+
-	                        '<td ><input style="width : 100%" type="number" name="amount" class="amount" value='+item.stcklist_amount+'>'+
-	                        '</input></td>'+
-	                        '<td ><span class="stcklist_exdate">'+ new Date(item.stcklist_exdate).toISOString().substring(0, 10)+'</span></td>'+
-	                        '</tr>'
-					);
-				});
 				
+				if(indx==0){
+					$.each(stockList,function(index, item){				
+						$("#stockDetailTbody").append(		    								
+									'<tr class="even pointer" data-splylist_id="'+item.splylist_id+'" data-stck_date="'+item.stck_date+'">'+        
+			                        '<td >'+(index+1)+'</td>'+	                        
+			                        '<td ><span class="prod_id">'+item.prod_id+'</span></td>'+
+			                        '<td >'+item.prod_name+'</td>'+
+			                        '<td ><input style="width : 100%" type="number" name="amount" class="amount" value='+item.stcklist_amount+'>'+
+			                        '</input></td>'+
+			                        '<td ><span class="stcklist_exdate">'+ new Date(item.stcklist_exdate).toISOString().substring(0, 10)+'</span></td>'+
+			                        '</tr>'
+							);
+						});
+				}else{
+					$.each(stockList,function(index, item){				
+						$("#stockDetailTbody").append(		    								
+									'<tr class="even pointer" data-splylist_id="'+item.splylist_id+'" data-stck_date="'+item.stck_date+'">'+        
+			                        '<td >'+(index+1)+'</td>'+	                        
+			                        '<td ><span class="prod_id">'+item.prod_id+'</span></td>'+
+			                        '<td >'+item.prod_name+'</td>'+
+			                        '<td ><input style="width : 100%" type="number" name="amount" class="amount" value='+item.stcklist_amount+' disabled>'+
+			                        '</input></td>'+
+			                        '<td ><span class="stcklist_exdate">'+ new Date(item.stcklist_exdate).toISOString().substring(0, 10)+'</span></td>'+
+			                        '</tr>'
+							);
+						});
+				}
+
 				
 				table = $('#stockListTable').DataTable({
 				  "scrollY":        "380px",
