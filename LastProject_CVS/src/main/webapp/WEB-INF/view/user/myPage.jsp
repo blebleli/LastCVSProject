@@ -276,45 +276,64 @@ $(document).ready(function() {
 		 */
 		$("tr.paytr").bind("click",function() {
 			
-	var pay_id = $(this).data("id");
+			var pay_id = $("tr.paytr").data("id");
+			var List = $("tr.paytrhidden").data("id2");	
+			
+			if(pay_id==List){
+				alert(List);			
+//	 			var status = $("#"+List).css("display");
+				var status = $("tr.paytrhidden").css("display");
+				alert(status);
+					if (status == "none") {
+						$("tr.paytrhidden").css("display", "");
+					} else {
+						$("tr.paytrhidden").css("display", "none");
+					}
+			}else{
+				alert("틀려");
+			}
+			
 			
 
-				// 상세tr 삭제
-				if ($(this).next().hasClass("subPaytr")) {
-					$(this).next().remove();
-				} else {
-// 					상세tr 전체삭제
-					$(this).parent().find('tr.subPaytr').each(function() {
-						$(this).hide("slow",function() {
-							$(this).remove();
-						});
-					});
-							var context = '';
-					$.ajax({
-			    		 url: "user/sale_dis",
-						 method: "get",
-						 data: {"pay_id" : pay_id},
-						 success : function(responseData){
-// 							var context = '';
-							console.log(responseData);
-							$.each(responseData,function(index,item){
-								context +='<tr>상품명 : '+item.prod_name+' 상품가격 : '+item.prod_price+'원 구매개수 : '+item.prod_cost+'개</tr><br>';
-							});
-						}
-					});	
-					
-					
-					
-					// 상세tr 보여주기
-// 					var $subTr =context $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
-					$(this).after(context);
-					var a = $(this).after(context);
-					$(a).show('slow');
-				}
 
-		});
+				
 
-});
+//	 				// 상세tr 삭제
+//	 				if ($(this).next().hasClass("subPaytr")) {
+//	 					$(this).next().remove();
+//	 				} else {
+	// // 					상세tr 전체삭제
+//	 					$(this).parent().find('tr.subPaytr').each(function() {
+//	 						$(this).hide("slow",function() {
+//	 							$(this).remove();
+//	 						});
+//	 					});
+//	 							var context = '';
+//	 					$.ajax({
+//	 			    		 url: "user/sale_dis",
+//	 						 method: "get",
+//	 						 data: {"pay_id" : pay_id},
+//	 						 success : function(responseData){
+	// // 							var context = '';
+//	 							console.log(responseData);
+//	 							$.each(responseData,function(index,item){
+//	 								context +='<tr>상품명 : '+item.prod_name+' 상품가격 : '+item.prod_price+'원 구매개수 : '+item.prod_cost+'개</tr><br>';
+//	 							});
+//	 						}
+//	 					});	
+						
+						
+						
+//	 					// 상세tr 보여주기
+	// // 					var $subTr =context $("_$tag___________________________________________________$tag___________뭘보여줘야지_$tag_$tag");
+//	 					$(this).after(context);
+//	 					var a = $(this).after(context);
+//	 					$(a).show('slow');
+//	 				}
+
+			});
+
+	});
 
 	/**
 	 * 오류메시지
@@ -830,6 +849,14 @@ $(document).ready(function() {
 											<fmt:formatDate value="${vo.pay_date}" pattern="yyyy.MM.dd" />
 										</td>					
 									</tr>
+									<tr id="${vo.pay_id}_id" style="cursor: pointer; display:none;" hidden="true"  data-id2="${vo.pay_id}" class="paytrhidden">
+										<td>${vo.pay_id}</td>
+										<td>${vo.pay_cash}</td> <!-- 총수량 컬럼이 없어서 재사용함 -->
+										<td>${vo.pay_sum}</td>
+										<td>
+											<fmt:formatDate value="${vo.pay_date}" pattern="yyyy.MM.dd" />
+										</td>					
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>				
@@ -840,6 +867,7 @@ $(document).ready(function() {
 	</div>
 </div>
 <!-- //about -->
+
 
 <div class="clearfix"></div>
 <div style="margin-bottom: 100px;"></div>
