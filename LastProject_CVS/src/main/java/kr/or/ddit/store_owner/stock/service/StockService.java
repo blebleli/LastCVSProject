@@ -230,13 +230,14 @@ public class StockService implements StockServiceInf {
 			barcodeService.setInsertBarcode(barcodeVo);			
 			
 			//재고 리스트생성---------------------------------				
-			
+			logger.debug("vo확인 --------------------------- " + vo);
 			StockListVo stockListVo = new StockListVo();
 			stockListVo.setBcd_id(bcd_id);
 			stockListVo.setProd_id(vo.getProd_id());	        	 // prod id
 			stockListVo.setSplylist_id(vo.getSplylist_id()); 		 //stockVoin.getSplylist_id()); //수불입고리스트 id 보류
 			stockListVo.setStck_date(today); 						 //888일때 다음날짜 재고로 +1 
 			stockListVo.setStcklist_amount(vo.getSplylist_sum()); // 넘어온 수량값
+			logger.debug("오류확인 --------------------------- " + vo.getSplylist_exdate());
 			stockListVo.setStcklist_exdate(vo.getSplylist_exdate());
 			stockListVo.setStcklist_info("입고 : "+mem_id);
 			stockListVo.setStcklist_kind("888");
