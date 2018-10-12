@@ -51,11 +51,11 @@ public class loginTest { // 24명 일반회원 저장하기
 	public void joinProcessTest() throws Exception{
 		MemberVo memberVo = null;
 		
-		String mem_id[] = {"KBK@ddit.or.kr","vit_keb@naver.com","KMK@ddit.or.kr","LH@ddit.or.kr,","YSY@ddit.or.kr","LDJ@ddit.or.kr",
-						   "LSB@ddit.or.kr","LJH@ddit.or.kr","CDL@ddit.or.kr","BSA@ddit.or.kr","YKM@ddit.or.kr","SYJ@ddit.or.kr",
-						   "YSH@ddit.or.kr","KJS@ddit.or.kr","KYS@ddit.or.kr","NMS@ddit.or.kr","akdma2211447@naver.com",
-						   "jongwon_ny2@naver.com","khyun5335@naver.com","blebleli@naver.com","KYB@ddit.or.kr","abcd532@naver.com",
-						   "HSH@ddit.or.kr","KJY@ddit.or.kr"};
+		String mem_id[] = {"kbk@ddit.or.kr","vit_keb@naver.com","kmk@ddit.or.kr","lh@ddit.or.kr","ysy@ddit.or.kr","ldj@ddit.or.kr",
+						   "lsb@ddit.or.kr","ljh@ddit.or.kr","cdl@ddit.or.kr","bsa@ddit.or.kr","ykm@ddit.or.kr","syj@ddit.or.kr",
+						   "ysh@ddit.or.kr","kjs@ddit.or.kr","kys@ddit.or.kr","nms@ddit.or.kr","akdma2211447@naver.com",
+						   "jongwon_ny2@naver.com","khyun5335@naver.com","blebleli@naver.com","kyb@ddit.or.kr","abcd532@naver.com",
+						   "hsh@ddit.or.kr","kjy@ddit.or.kr"};
 		String mem_name[] = {"강병관","공은별","김민겸","임현","육소연","이동주","임수빈","이정훈","차득림","백설아","양관모","서영준","윤성호","김지수",
 						     "김요섭","노미소","김마음","조종원","김현경","한수정","김영빈","조계환","한송희","김진영"};
 		String mem_pw = "test";
