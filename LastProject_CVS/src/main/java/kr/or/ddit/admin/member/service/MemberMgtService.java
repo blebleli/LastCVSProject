@@ -1,6 +1,8 @@
 package kr.or.ddit.admin.member.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -89,4 +91,32 @@ public class MemberMgtService implements MemberMgtServiceInf {
 	public int pointPlus(MemberVo memberVo) {
 		return memberMgtDao.pointPlus(memberVo);
 	}
+
+	@Override
+	public Map<Object, Object> cvsTotalPageList(Map<Object, Object> map) {
+		Map<Object, Object> resultMap = new HashMap<Object, Object>();
+		List<MemberVo> cvsPageList = memberMgtDao.cvsTotalPageList(map);
+		int totalCnt = totalCvsCnt();
+		return resultMap;
+	}
+
+	@Override
+	public int totalCvsCnt() {
+		return memberMgtDao.totalCvsCnt();
+	}
+	
+//	public String Page(int page, int pageSize, int totalCnt){
+//		int cnt = totalCnt / pageSize;
+//		int left = totalCnt % pageSize;
+//		if(left > 0){
+//			cnt++;
+//		}
+//		int prev = page == 1? 1: page-1;
+//		int next = cnt;
+//		StringBuffer pages = new StringBuffer();
+//		pages.append("<button class=\"btn btn-success\" name=\"pageBtn\" type=\"button\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></button>");
+//		for(int i = 1; i <cnt+1; i++){
+//			
+//		}
+//	}
 }
