@@ -1,6 +1,7 @@
 package kr.or.ddit.admin.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -81,5 +82,17 @@ public class MemberMgtDao implements MemberMgtDaoInf {
 	@Override
 	public int pointPlus(MemberVo memberVo) {
 		return template.update("member.pointPlus", memberVo);
+	}
+
+
+	@Override
+	public List<MemberVo> cvsTotalPageList(Map<Object, Object> map) {
+		return template.selectList("member.cvsTotalPageList", map);
+	}
+
+
+	@Override
+	public int totalCvsCnt() {
+		return template.selectOne("member.totalCvsCnt");
 	}
 }
