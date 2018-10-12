@@ -293,6 +293,7 @@ public class UserMainController {
 		//주머니 정보 가져오기
 		PocketProdVo pocketVo= pocketService.getPocketById(pocketId);
 		
+		logger.debug("pocketVo : "+pocketVo);
 		
 		resultMap.put("length", fileContent.length);
 		resultMap.put("fileContent", li);

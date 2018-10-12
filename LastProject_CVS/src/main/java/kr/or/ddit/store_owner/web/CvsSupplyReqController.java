@@ -120,6 +120,9 @@ public class CvsSupplyReqController {
 
 		//mem_id 로 가장 최근1건의 stock의 stock-list 			
 		List<PresentStockListVo> myStockList = stockService.getStockListByMemid(memberVo.getMem_id());
+		
+		System.out.println("왔을까?");
+		
 		model.addAttribute("myStockList", myStockList);
 
 		return "cvs_stock";

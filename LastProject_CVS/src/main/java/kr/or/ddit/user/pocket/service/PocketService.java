@@ -30,10 +30,16 @@ public class PocketService implements PocketServiceInf {
 	
 	/**
 	 * 
+	 * Method   : getPocketById 
+	 * 최초작성일  : 2018. 10. 12. 
+	 * 작성자 : PC06 
+	 * 변경이력 : 
+	 * @param pocket_id
+	 * @return 
+	 * Method 설명 : pocket_id로 한건의 pocketprod 가져오기
 	 */
 	@Override
 	public PocketProdVo getPocketById(String pocket_id) {
-		// TODO Auto-generated method stub
 		return pocketDao.getPocketById(pocket_id);
 	}
 
