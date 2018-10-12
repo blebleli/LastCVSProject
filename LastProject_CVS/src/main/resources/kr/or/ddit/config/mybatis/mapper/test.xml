@@ -5,4 +5,17 @@
   	<update id="updateCvsInfo" parameterType="memberVo">
   		UPDATE member SET mem_name=#{mem_name} WHERE mem_id=#{mem_id}
   	</update>
+  	
+  	<select id="prodTest" resultType="prodVo">
+		SELECT PROD_ID
+		FROM PROD 
+		WHERE PROD_ID != 'meal-00351'
+		  AND PROD_ID != 'biscuit-01026'
+		  AND PROD_ID != 'ice-00066'
+		  AND PROD_ID != 'food-01065'
+		  AND PROD_ID != 'drink-00866'
+		  AND PROD_ID != 'necessities-01022'
+		  AND EVENT_ID = 'BASIC1'
+		  AND PROD_PRICE >4000
+  	</select>
 </mapper>
