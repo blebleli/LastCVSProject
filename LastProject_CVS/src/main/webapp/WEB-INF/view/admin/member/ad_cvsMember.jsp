@@ -310,7 +310,24 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							
 							</table>
 						</div>
+						<div class="btn-toolbar">
+							<div class="btn-group">
+<!-- 	                          <button class="btn btn-success" type="button">5</button> -->
+<!-- 	                          <button class="btn btn-success" type="button">6</button> -->
+<!-- 	                          <button class="btn btn-success" type="button">7</button> -->
+<!-- 	                          <button class="btn btn-success" type="button"><i class="fa fa-arrow-right" aria-hidden="true"></i></button> -->
+                        	</div>
+						</div>
+<!-- 							<div class="col-md-6 w3ls_service_grid_left"> -->
+<!-- 								<nav> -->
+<!-- 								  <ul class="pagination"> -->
+<%-- 								    	${pageNavimemberList} --%>
+<!-- 								  </ul> -->
+<!-- 								</nav>										 -->
+<!-- 							</div> -->
 					</div>
+					
+					
 
 
 			
