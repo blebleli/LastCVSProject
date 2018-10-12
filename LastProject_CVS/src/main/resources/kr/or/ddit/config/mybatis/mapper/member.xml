@@ -392,4 +392,20 @@
   	<update id="pointPlus" parameterType="memberVo">
 		UPDATE MEMBER SET mem_point = mem_point + #{mem_point, jdbcType=NUMERIC} WHERE mem_id = #{mem_id}
   	</update>
+  	
+  	<select id="cvsTotalPageList" parameterType="Map" resultType="memberVo">
+  		SELECT a.* 
+  		FROM
+           (SELECT member.*
+                    FROM member
+                    where mem_kind= '01'
+                    ORDER BY mem_name)a      
+          WHERE rownum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+  	</select>
+  	
+  	<select id="totalCvsCnt" resultType="Integer">
+  		SELECT count(*) as cnt 
+  		FROM member 
+  		WHERE mem_kind='01'
+  	</select>
 </mapper>
