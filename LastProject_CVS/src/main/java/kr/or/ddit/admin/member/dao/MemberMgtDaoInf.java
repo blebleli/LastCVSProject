@@ -1,6 +1,7 @@
 package kr.or.ddit.admin.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.model.MemberVo;
 
@@ -53,5 +54,19 @@ public interface MemberMgtDaoInf {
 	 * @return
 	 * Method 설명 : 상품리뷰 작성시 포인트 획득
 	 */
-	int pointPlus(MemberVo memberVo);	
+	int pointPlus(MemberVo memberVo);
+	
+	/**
+	 * 편의점 정보 페이징처리
+	 * Method 	  : cvsTotalPageList
+	 * Method 설명  :
+	 * 최초작성일 : 2018. 9. 27.
+	 * 작성자 	  : 김현경
+	 * 변경이력   :
+	 *
+	 * @param Map
+	 */
+	List<MemberVo> cvsTotalPageList(Map<Object, Object> map);
+	
+	int totalCvsCnt();
 }
