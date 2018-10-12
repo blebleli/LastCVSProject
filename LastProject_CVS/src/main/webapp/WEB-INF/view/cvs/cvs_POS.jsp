@@ -214,7 +214,7 @@
 				   
 
                   <div class="x_content">
-                   <button type="button" class="btn btn-primary" onclick="startCapture(this)">인식</button>
+                   <button type="button" class="btn btn-primary" onclick="startCapture(sendImage)">인식</button>
                    <button type="button" class="btn btn-default" onclick="stopCapture(this)">완료</button>					
  
 				   <div class="clearfix"></div>
@@ -299,7 +299,29 @@
 				    			saleList=[];
 				    		}
 						}
+				    	
+				    	
+//---------------------------------------------------------------------------------				    	
+				    	/*주머니 클릭시*/
+				    	function btnPocket(kind) {
+				    		startCapture();
+							//동영상인식되고
+							//pocket 만 인식하도록 구현?
+							//pocket에서의 상품이 prod_id기준으로 갯수만 늘어나게됨
+							
+							//-- 결제될때
+							//pocket table update 되도록 - userny ==> y가된다
+						
+						
+						}
 			    	
+//-------------------------------------------------------------------------------------------------				    	
+				    	
+				    	
+				    	
+				    	
+				    	
+				    	
 				    	/*폐기버튼 클릭시*/
 				    	function btnDisposal() {
 			    		
@@ -392,7 +414,56 @@
 				    		
 				    	}
 				    	
-				    	/* 수량합계 계산*/
+				    	
+/* 주머니바코드추가 *///----------------------------------------------------------------------------
+				    	function addPocket(data){
+				    		
+				    		//아이디가 같을때 처리 
+				    		var dataProdId = data.pocketVo.prod_id;
+				    		
+				    		console.log('같은 dataProdId 있는지'+data.pocketVo.prod_id);
+				    		
+				    		var findProdEle = $("#posTable tbody tr .prod_id").toArray().find(function(e){ 	    			
+				    		 	return dataProdId == e.innerText;
+				    		});			
+				    		
+				    		console.log('같은 prod 있는지'+findProdEle);
+				    		//같은prodID 없을때
+				    		if(findProdEle == undefined){
+				    	
+				    		//행추가
+							$("#prodList").append(		    								
+								     '<tr>'+
+			                         '  <td> '+   
+			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
+			                         '  </td>'+
+			                         '  <td><span class="num">'+1+'</span></td>'+
+			                         '  <td >'+ data.pocketVo.prod_name+'</td>'+
+			                         '  <td ><span class="price1">'+data.pocketVo.prod_price+'</span>원</td>'+ 
+			                         '  <td ><input type="number" class="amount" value="'+0+'"style="width:100px; text-align: center "></td>'+    				                         
+			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
+			                         '  <td ><span class="distot">주머니상품</span></td> '+	        
+			                         '  <td style="display: none"><span class="prod_id">'+ data.pocketVo.prod_id+'</span></td> '+
+			                         '</tr>'			    								                                                                                     
+							);
+							 
+							 $('input[type="checkbox"]').iCheck({
+				   		            checkboxClass: 'icheckbox_flat-green'
+				   		     });
+						
+				    		} else{
+				    			//수량증가
+				    			var amountEle = $(findProdEle).parent().parent().find('.amount');
+				    			amountEle.val(parseFloat(amountEle.val())+1);
+				    		}
+							
+				    		//금액합계 작업은 하지 않는다
+							/* amountSum();
+							rowSum();
+							subtot_sum(); */
+				    	}
+				    	
+/* 수량합계 계산*///------------------------------------------------------------------------
 				    	function amountSum(){
 		                     var total_sum = 0;
 
@@ -500,7 +571,31 @@
 		    				      },		 						
 								  error : function(){console.log("error");}		  
 								  });	    							    			
-		    			};		    			
+		    			};	
+		    			
+		    			function sendPocket(){
+		    				var image = getImage();
+		    				var request = $.ajax({
+		    					  url: "/cvs/bcdRead",
+		    					  method: "POST",
+		    					  data: { file : image },
+		    					  dataType: "json",
+		    					  contentType : "application/x-www-form-urlencoded" ,
+		    					  success : function (data) {
+		    				         if(data.returnMsg == "decodedText"){
+		    				            	console.log("data decodedText ---- :"+data.decodedText);
+		    				            	console.log("data pocketVo ---- :"+data.pocketVo);
+		    				            	
+		    				            	clearInterval(intervalID);
+			    							addPocket(data);
+
+		    				          } else {
+		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
+		    				          }
+		    				      },		 						
+								  error : function(){console.log("error");}		  
+								  });	    							    			
+		    			};	
 
 
 				        var player = document.getElementById('player');
@@ -514,11 +609,11 @@
 						//인식버튼
 				    	function startCapture(e) {
 				    		player.play(); 
-				    		intervalID = setInterval(sendImage, 1000);
+				    		intervalID = setInterval(e, 1000);
 						}
 				    	
 						//멈춤버튼
-				    	function stopCapture(e) {
+				    	function stopCapture() {
 				    	
 				    		player.pause();			    		
 				    		clearInterval(intervalID);
@@ -600,12 +695,17 @@
 					    </div>
 					  </div>
 					</div>
-	
-	               <button type="button" class="culcBtn op" data-toggle="modal" data-target="#myPocket">
-					  주머니
-				   </button>
+					
+				   <button type="button" class="culcBtn op" onclick="startCapture(sendPocket)">주머니</button>
+	       
 					
 					<!-- 주머니 modal ==================================== -->
+					
+				<!--<button type="button" class="culcBtn op" data-toggle="modal" data-target="#myPocket">
+					  주머니
+				   </button> -->
+				   
+				   
 					<div class="modal fade" id="myPocket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-sm" style="text-align: center">
 					    <div class="modal-content">
