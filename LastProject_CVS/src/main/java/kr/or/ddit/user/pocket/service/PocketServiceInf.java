@@ -50,15 +50,11 @@ public interface PocketServiceInf {
 	List<PocketVo> getListPocket();
 	
 	/**
-	* Method : updatePocket
-	* Method 설명 :기프티콘을 사용했을때 사용여부를 수정하기 위한 메서드
-	* 최초작성일 : 2018. 8. 30.
-	* 작성자 : 조계환
-	* 변경이력 :신규
-	* 조 회 :int updatePocket(PocketVo pocketVo)_기프티콘을 사용했을때 사용여부를 수정하기 위한 메서드
-	* @param pocketVo
-	* @return
-	*/
-	int updatePocket(PocketVo pocketVo);
+	 * 2018.10.13
+	 * pocket 사용으로 바꾸는 메서드 
+	 * @param pocketVo
+	 * @return
+	 */
+	int updatePocketUse(String pocket_id);
 
 }

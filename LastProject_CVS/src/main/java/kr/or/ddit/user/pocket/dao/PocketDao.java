@@ -52,9 +52,8 @@ public class PocketDao implements PocketDaoInf {
 	}
 
 	@Override
-	public int updatePocket(PocketVo pocketVo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updatePocketUse(String pocket_id) {
+		return template.update("pocket.updatePocketUse", pocket_id);
 	}
 
 

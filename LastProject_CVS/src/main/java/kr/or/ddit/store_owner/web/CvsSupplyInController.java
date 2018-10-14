@@ -17,6 +17,7 @@ import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 import kr.or.ddit.prod.service.ProdServiceInf;
+import kr.or.ddit.store_owner.model.SupplyInListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 import kr.or.ddit.supply.model.SupplyProdInfoVo;
 import kr.or.ddit.supply.service.SupplyServiceInf;
@@ -232,9 +233,9 @@ public class CvsSupplyInController {
 	@ResponseBody
 	public ModelAndView searchSupplyInList(@RequestParam(value="bcdText")String supply_bcd, Model model){
 		ModelAndView mav = new ModelAndView("jsonView");
-		List<SupplyListVo> supplyList = supplyService.getListSupply(supply_bcd);
+		List<SupplyInListVo> supplyList = supplyService.getListSupply(supply_bcd);
 		mav.addObject("supplyList", supplyList);
-		logger.debug("bcdText-----"+supply_bcd);
+		logger.debug("supplyList----- --"+supplyList);
 		return mav;
 	}
 	

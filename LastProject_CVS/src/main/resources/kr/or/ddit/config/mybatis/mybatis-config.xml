@@ -79,9 +79,11 @@
   	<!-- 0920한수정 POS결제관련 -->
   	<typeAlias type="kr.or.ddit.store_owner.model.PosPayVo" alias="posPayVo"/>
   	
-  	<!-- 1006한수정 나의주머니 보기 관련 -->
+  	<!-- 1006한수정 나의주머니 관련 -->
   	<typeAlias type="kr.or.ddit.user.model.PocketProdVo" alias="pocketProdVo"/>
   	
+  	<!-- 1013한수정 입고리스트 관련 -->
+  	<typeAlias type="kr.or.ddit.store_owner.model.SupplyInListVo" alias="supplyInListVo"/>
   </typeAliases>
 
   <mappers>

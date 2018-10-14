@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+import kr.or.ddit.store_owner.model.SupplyInListVo;
 import kr.or.ddit.supply.dao.SupplyDaoInf;
 import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
@@ -58,7 +59,7 @@ public class SupplyService implements SupplyServiceInf {
 	* @return
 	*/
 	@Override
-	public List<SupplyListVo> getListSupply(String supply_bcd) {
+	public List<SupplyInListVo> getListSupply(String supply_bcd) {
 		return supplyDao.getListSupply(supply_bcd);
 	}
 

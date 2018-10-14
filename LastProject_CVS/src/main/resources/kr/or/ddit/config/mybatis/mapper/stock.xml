@@ -291,39 +291,17 @@ GROUP BY    T.PROD_NAME , T.PROD_COST , T.PROD_PRICE  , T.EVENT_NAME, T.EVENT_DI
 	 -->
 <select id="getStockListByMemId" parameterType="String" resultType="presentStockListVo">
 
-SELECT  T.prod_id,      
-        T.prod_name,
-        T.prod_price,
-        --T.supply_date,
-        T.bcd_id,
-        T.stcklist_exdate,
-        --T.stcklist_amount,
-        T.event_name,
-       -- T.stcklist_amount
-        SUM(T.stcklist_amount) AS stcklist_amount
-FROM (
-      SELECT  a.prod_id,      
-              a.prod_name,
-              a.prod_price,
-              b.supply_date,
-              c.bcd_id,
-              c.stcklist_exdate,
-              c.stcklist_amount,
-              d.event_name
-      FROM  prod a, supply b, stock_list c, EVENT d
-      WHERE b.supply_state = '12' AND 
-            c.prod_id = a.prod_id AND 
-            a.event_id = d.event_id  AND     
-            b.place_id= #{mem_id} 
-            AND
-            c.stock_id= (SELECT stock_id
-                         FROM (SELECT stock_id,
-                                    rank() over (partition by mem_id order by stock_date desc) rnk
-                               FROM stock
-                               WHERE mem_id= #{mem_id}  ) 
-                          WHERE rnk = 1)    
-) T
-GROUP BY T.prod_id, T.prod_name, T.prod_price, T.bcd_id, T.stcklist_exdate, T.event_name, T.stcklist_amount
+select t.prod_id, p.prod_name,p.prod_price,e.event_name, t.stcklist_amount from 
+(select sl.prod_id, sum(sl.stcklist_amount) stcklist_amount from stock_list sl
+join stock s
+on sl.STOCK_ID = s.STOCK_ID
+where s.MEM_ID= #{mem_id}
+group by sl.prod_id) t
+left join prod p
+on p.prod_id = t.prod_id
+left join event e
+on e.EVENT_ID = p.event_id
+
 </select>
 
 

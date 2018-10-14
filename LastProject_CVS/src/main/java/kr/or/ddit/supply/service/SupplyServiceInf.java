@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+import kr.or.ddit.store_owner.model.SupplyInListVo;
 import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
 import kr.or.ddit.supply.model.SupplyProdInfoVo;
@@ -46,7 +47,7 @@ public interface SupplyServiceInf {
 	* @param supply_bcd
 	* @return
 	*/
-	List<SupplyListVo> getListSupply(String supply_bcd);
+	List<SupplyInListVo> getListSupply(String supply_bcd);
 	
 	/**
 	* Method : updateSupply

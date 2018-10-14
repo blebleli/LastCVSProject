@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import kr.or.ddit.model.PocketVo;
-import kr.or.ddit.supply.dao.SupplyDaoInf;
 import kr.or.ddit.user.model.PocketProdVo;
 import kr.or.ddit.user.pocket.dao.PocketDaoInf;
 
@@ -51,9 +50,9 @@ public class PocketService implements PocketServiceInf {
 	}
 
 	@Override
-	public int updatePocket(PocketVo pocketVo) {
+	public int updatePocketUse(String pocket_id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return pocketDao.updatePocketUse(pocket_id);
 	}
 
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+import kr.or.ddit.store_owner.model.SupplyInListVo;
 import kr.or.ddit.supply.model.SupRequestListVo;
 import kr.or.ddit.supply.model.SupplyProdVo;
 import kr.or.ddit.supply.model.SupplyProdInfoVo;
@@ -86,7 +87,7 @@ public class SupplyDao implements SupplyDaoInf {
 	* @return
 	*/
 	@Override
-	public List<SupplyListVo> getListSupply(String supply_bcd) {
+	public List<SupplyInListVo> getListSupply(String supply_bcd) {
 		return template.selectList("supply.supplyDetail",supply_bcd);
 	}
 

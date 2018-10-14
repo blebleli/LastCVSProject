@@ -3,7 +3,9 @@ package kr.or.ddit.store_owner.web;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.DisposalListVo;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
+import kr.or.ddit.model.PocketVo;
 import kr.or.ddit.model.SaleDisVo;
 import kr.or.ddit.model.SaleListVo;
 import kr.or.ddit.model.StockListVo;
@@ -27,6 +30,9 @@ import kr.or.ddit.store_owner.saleDis.service.SaleDisServiceInf;
 import kr.or.ddit.store_owner.sale_list.service.SaleServiceInf;
 import kr.or.ddit.store_owner.soMain.service.soMainServiceInf;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
+import kr.or.ddit.user.model.PocketProdVo;
+import kr.or.ddit.user.pocket.service.PocketService;
+import kr.or.ddit.user.pocket.service.PocketServiceInf;
 import oracle.net.aso.d;
 
 import org.slf4j.Logger;
@@ -64,7 +70,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("cvsMainController")
 @SessionAttributes({"userInfo"})
 public class CvsPosMainController {
-	private Logger logger = LoggerFactory.getLogger(CvsSupplyReqController.class);	
+	private Logger logger = LoggerFactory.getLogger(CvsPosMainController.class);	
 
 	@Resource(name="autoCodeCreate")
 	private AutoCodeCreate autoCodeCreate;	
@@ -87,6 +93,9 @@ public class CvsPosMainController {
 	@Resource(name="somainService")
 	private soMainServiceInf somainService;
 	
+	@Resource(name="pocketService")
+	private PocketServiceInf pocketService;
+
 	@RequestMapping("/kakao")
 	public String kakao(Model model) throws IOException{
 		//클릭했을때 경로받아오고..
@@ -161,9 +170,8 @@ public class CvsPosMainController {
 			 								  @RequestBody List<PosPayVo> posPayVo,
 											  Model model) {
 		logger.debug("controller접속확인 --------------");
-		logger.debug("controller posPayVo --------------"+posPayVo);
 		
-		//바코드로 재고리스트 그 건을 가져온다 
+/*		//바코드로 재고리스트 그 건을 가져온다 
 		//stockService.getStockListByBcdID(posPayVo);		
 		//판매(sale) insert =====================================================
 		
@@ -249,19 +257,41 @@ public class CvsPosMainController {
 		int insertPay = payService.setInsertPay(payvo);
 		logger.debug("pay insert 완료 --------------");
 	
-		if(insertPay ==1){  //성공조건 체크
+	
+		if(insertPay ==1){*/  //성공조건 체크
 		   	HttpHeaders headers = new HttpHeaders();
 		    headers.add("Custom-Header", "foo");
 		         
 		    return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
-		}
+	//	}
 		
-		return null;  //return 실패 조건 확인
+	//	return null;  //return 실패 조건 확인
 
 		
 	 }
 
-	
+	@RequestMapping("/pos/pocketSale")	
+	 public ResponseEntity<String> pocketSale(@ModelAttribute("userInfo") MemberVo memberVo,
+			 								  @RequestBody List<PocketProdVo> pocketProdVo,
+											  Model model) {
+		for (PocketProdVo pocket : pocketProdVo) {
+			logger.debug("getBcd_id 확인용 : "+pocket.getBcd_id());
+			
+			//주머니 사용으로 바꾸기
+			pocketService.updatePocketUse(pocket.getPocket_id());
+			
+			//재고줄이기
+			StockListVo StockListVo = stockService.getStockListByBcdID(pocket.getBcd_id());	
+			
+			int nowAmount = StockListVo.getStcklist_amount();
+			int saledAmount = (nowAmount-1);				
+			StockListVo.setStcklist_amount(nowAmount-saledAmount);		
+			stockService.updateStockList(StockListVo);
+			
+		}
+		
+		return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
+	}
 	
 	/**
 	 * 

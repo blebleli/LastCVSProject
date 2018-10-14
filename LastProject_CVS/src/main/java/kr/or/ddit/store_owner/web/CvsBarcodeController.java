@@ -36,6 +36,7 @@ import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.store_owner.model.PresentStockListVo;
+import kr.or.ddit.store_owner.model.SupplyInListVo;
 import kr.or.ddit.store_owner.stock.service.StockServiceInf;
 import kr.or.ddit.supply.service.SupplyServiceInf;
 import kr.or.ddit.user.model.PocketProdVo;
@@ -134,7 +135,7 @@ public class CvsBarcodeController {
 			mav.addObject("decodedText", decoded);				
 
 			//입고리스트일때
-	    	List<SupplyListVo> supplyList = supplyService.getListSupply(decoded);
+	    	List<SupplyInListVo> supplyList = supplyService.getListSupply(decoded);
  			mav.addObject("supplyList", supplyList);
  			logger.debug("supplyList ------"+supplyList);	
  			
