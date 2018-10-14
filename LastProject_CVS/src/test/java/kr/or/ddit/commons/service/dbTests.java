@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.BookmarkVo;
 import kr.or.ddit.model.ProdVo;
+import kr.or.ddit.model.StockListVo;
+import kr.or.ddit.model.StockVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
 
@@ -35,101 +37,101 @@ public class dbTests {
 	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());	
 	
-//	@Test
-//	public void formoon() throws ParseException{
-//		
-//		List<ProdVo> prodList = template.selectList("test.prodTest");
-//		logger.debug("prodList {} ========================>>>> ",prodList);
-//		
-//		BarcodeVo barcodeVo = null;
-//		SupplyVo supplyVo = null;
-//		SupplyListVo supplyListVo = null;
-//		
-//			// 편의점         
-//			String[] mem_id = {	            
-//	            // 대전 65건
-//	             "3650000-104-2017-00068"
-//	            ,"3660000-104-2017-00128"
-//	            ,"3670000-104-2011-00081"
-//	            ,"3660000-104-2015-00114"
-//	            ,"3640000-104-2016-00064"
-//	            ,"3650000-104-2017-00009"
-//	            ,"3660000-104-2017-00041"
-//	            ,"3650000-104-2017-00034"
-//	            ,"3680000-104-2010-00018"
-//	            ,"3660000-104-2018-00152"
-//	            ,"3680000-104-2014-00012"
-//	            ,"3680000-104-2014-00013"
-//	            ,"3680000-104-2014-00016"
-//	            ,"3680000-104-2018-00042"
-//	            ,"3660000-104-2018-00197"
-//	            ,"3680000-104-2016-00049"
-//	            ,"3640000-104-2018-00024"
-//	            ,"3650000-104-2016-00005"
-//	            ,"3640000-104-2016-00033"
-//	            ,"3640000-104-2016-00074"
-//	            ,"3640000-104-2018-00034"
-//	            ,"3640000-104-2017-00018"
-//	            ,"3650000-104-2014-00001"
-//	            ,"3650000-104-2015-00043"
-//	            ,"3660000-104-2017-00055"
-//	            ,"3660000-104-2015-00189"
-//	            ,"3660000-104-2010-00023"
-//	            ,"3660000-104-2011-00085"
-//	            ,"3660000-104-2012-00022"
-//	            ,"3660000-104-2012-00024"
-//	            ,"3660000-104-2012-00040"
-//	            ,"3660000-104-2011-00171"
-//	            ,"3660000-104-2011-00146"
-//	            ,"3660000-104-2013-00016"
-//	            ,"3660000-104-2018-00100"
-//	            ,"3660000-104-2018-00090"
-//	            ,"3660000-104-2018-00055"
-//	            ,"3660000-104-2018-00076"
-//	            ,"3660000-104-2015-00131"
-//	            ,"3640000-104-2018-00010"
-//	            ,"3650000-104-2017-00132"
-//	            ,"3660000-104-2018-00031"
-//	            ,"3660000-104-2017-00224"
-//	            ,"3660000-104-2017-00159"
-//	            ,"3650000-104-2015-00091"
-//	            ,"3640000-104-2017-00120"
-//	            ,"3660000-104-2017-00094"
-//	            ,"3640000-104-2010-00003"
-//	            ,"3640000-104-2012-00030"
-//	            ,"3640000-104-2014-00004"
-//	            ,"3640000-104-2014-00044"
-//	            ,"3640000-104-2017-00117"
-//	            ,"3650000-104-2010-00055"
-//	            ,"3650000-104-2014-00080"
-//	            ,"3650000-104-2014-00020"
-//	            ,"3660000-104-2018-00043"
-//	            ,"3650000-104-2015-00093"
-//	            ,"3650000-104-2017-00076"
-//	            ,"3680000-104-2017-00035"
-//	            ,"3660000-104-2017-00153"
-//	            ,"3650000-104-2017-00095"
-//	            ,"3660000-104-2017-00110"
-//	            ,"3660000-104-2017-00190"
-//	            
-//	            // 세종 16
-//	            ,"5690000-104-2016-00146"
-//	            ,"5690000-104-2017-00111"
-//	            ,"5690000-104-2015-00047"
-//	            ,"5690000-104-2010-00007"
-//	            ,"5690000-104-2011-00003"
-//	            ,"5690000-104-2011-00006"
-//	            ,"5690000-104-2014-00049"
-//	            ,"5690000-104-2018-00057"
-//	            ,"3760000-104-2018-00079"
-//	            ,"5690000-104-2018-00090"
-//	            ,"5690000-104-2017-00013"
-//	            ,"5690000-104-2018-00064"
-//	            ,"5690000-104-2017-00140"
-//	            ,"5690000-104-2017-00201"
-//	            ,"5690000-104-2018-00034"
-//	            ,"5690000-104-2017-00064"
-//	            
+	@Test
+	public void formoon() throws ParseException{
+		
+		List<ProdVo> prodList = template.selectList("test.prodTest");
+		logger.debug("prodList {} ========================>>>> ",prodList);
+		
+		BarcodeVo barcodeVo = null;
+		SupplyVo supplyVo = null;
+		SupplyListVo supplyListVo = null;
+		
+			// 편의점         
+			String[] mem_id = {	            
+	            // 대전 65건
+	             "3650000-104-2017-00068"
+	            ,"3660000-104-2017-00128"
+	            ,"3670000-104-2011-00081"
+	            ,"3660000-104-2015-00114"
+	            ,"3640000-104-2016-00064"
+	            ,"3650000-104-2017-00009"
+	            ,"3660000-104-2017-00041"
+	            ,"3650000-104-2017-00034"
+	            ,"3680000-104-2010-00018"
+	            ,"3660000-104-2018-00152"
+	            ,"3680000-104-2014-00012"
+	            ,"3680000-104-2014-00013"
+	            ,"3680000-104-2014-00016"
+	            ,"3680000-104-2018-00042"
+	            ,"3660000-104-2018-00197"
+	            ,"3680000-104-2016-00049"
+	            ,"3640000-104-2018-00024"
+	            ,"3650000-104-2016-00005"
+	            ,"3640000-104-2016-00033"
+	            ,"3640000-104-2016-00074"
+	            ,"3640000-104-2018-00034"
+	            ,"3640000-104-2017-00018"
+	            ,"3650000-104-2014-00001"
+	            ,"3650000-104-2015-00043"
+	            ,"3660000-104-2017-00055"
+	            ,"3660000-104-2015-00189"
+	            ,"3660000-104-2010-00023"
+	            ,"3660000-104-2011-00085"
+	            ,"3660000-104-2012-00022"
+	            ,"3660000-104-2012-00024"
+	            ,"3660000-104-2012-00040"
+	            ,"3660000-104-2011-00171"
+	            ,"3660000-104-2011-00146"
+	            ,"3660000-104-2013-00016"
+	            ,"3660000-104-2018-00100"
+	            ,"3660000-104-2018-00090"
+	            ,"3660000-104-2018-00055"
+	            ,"3660000-104-2018-00076"
+	            ,"3660000-104-2015-00131"
+	            ,"3640000-104-2018-00010"
+	            ,"3650000-104-2017-00132"
+	            ,"3660000-104-2018-00031"
+	            ,"3660000-104-2017-00224"
+	            ,"3660000-104-2017-00159"
+	            ,"3650000-104-2015-00091"
+	            ,"3640000-104-2017-00120"
+	            ,"3660000-104-2017-00094"
+	            ,"3640000-104-2010-00003"
+	            ,"3640000-104-2012-00030"
+	            ,"3640000-104-2014-00004"
+	            ,"3640000-104-2014-00044"
+	            ,"3640000-104-2017-00117"
+	            ,"3650000-104-2010-00055"
+	            ,"3650000-104-2014-00080"
+	            ,"3650000-104-2014-00020"
+	            ,"3660000-104-2018-00043"
+	            ,"3650000-104-2015-00093"
+	            ,"3650000-104-2017-00076"
+	            ,"3680000-104-2017-00035"
+	            ,"3660000-104-2017-00153"
+	            ,"3650000-104-2017-00095"
+	            ,"3660000-104-2017-00110"
+	            ,"3660000-104-2017-00190"
+	            
+	            // 세종 16
+	            ,"5690000-104-2016-00146"
+	            ,"5690000-104-2017-00111"
+	            ,"5690000-104-2015-00047"
+	            ,"5690000-104-2010-00007"
+	            ,"5690000-104-2011-00003"
+	            ,"5690000-104-2011-00006"
+	            ,"5690000-104-2014-00049"
+	            ,"5690000-104-2018-00057"
+	            ,"3760000-104-2018-00079"
+	            ,"5690000-104-2018-00090"
+	            ,"5690000-104-2017-00013"
+	            ,"5690000-104-2018-00064"
+	            ,"5690000-104-2017-00140"
+	            ,"5690000-104-2017-00201"
+	            ,"5690000-104-2018-00034"
+	            ,"5690000-104-2017-00064"
+	            
 //	            // 충청 374
 //	            ,"4390000-104-2016-00060"
 //	            ,"4520000-104-2016-00071"
@@ -505,144 +507,123 @@ public class dbTests {
 //	            ,"4540000-104-2013-00010"
 //	            ,"4540000-104-2011-00024"
 //	            ,"5680000-104-2017-00068"
-//	      };
-//	      
-////		SupplyListVo supplyListVo = null;
-//		Random random = new Random();
-////		int sum = 30;
-////		int ran = random.nextInt((10)+1);
-//		String[] date = {"2018-10-11 13:12","2018-10-12 02:22","2018-10-13 12:22","2018-10-14 11:23","2018-10-15 12:22","2018-10-16 15:12","2018-10-17 12:22"}; // 날짜
-//		String[] e_date = {"2018-11-11 13:12","2018-11-12 02:22","2018-11-13 12:22","2018-11-14 11:23","2018-11-15 12:22","2018-11-16 15:12","2018-11-17 12:22"}; // 날짜
-//		String[] state = {"10","11","12"};
-//		String bcd_path = "/barcode/supply";
-//		String[] prod_ids = { "meal-00351",
-//							   "meal-00136",
-//							   "meal-00182",
-//							   "meal-00516",
-//							   "meal-00017",				   
-//							   "biscuit-01026",
-//							   "biscuit-00368",
-//							   "biscuit-00405",
-//							   "biscuit-00187",
-//							   "biscuit-00238",				   
-//							   "ice-00003",
-//							   "ice-00126",
-//							   "ice-00175",
-//							   "ice-00183",
-//							   "ice-00066",				   
-//							   "food-01065",
-//							   "food-00591",
-//							   "food-00489",
-//							   "food-00577",
-//							   "food-00494",				   
-//							   "drink-00866",
-//							   "drink-00558",
-//							   "drink-01076",
-//							   "drink-00557",
-//							   "drink-00002",				   
-//							   "necessities-01022",
-//							   "necessities-00442",
-//							   "necessities-01026",
-//							   "necessities-00835",
-//							   "necessities-00704"};		
-//		
-//		for ( int x = 0; x < date.length; x++) { // 날짜 11 ~ 17 date.length
-//				supplyVo = new SupplyVo();
-//				supplyListVo = new SupplyListVo();
-//				Date supply_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date[x]); // String을 Date로 변환
-//				Date ex_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(e_date[x]); // String을 Date로 변환
-//				supplyVo.setSupply_date(supply_date); // 날짜 저장
-//				supplyListVo.setSplylist_exdate(ex_date);
-//				
-//			for ( int a = 0; a < state.length; a++) { // 발주, 승인, 입고 state.length					
-//					supplyVo.setSupply_state(state[a]); // 진행상태 저장
-//					
-//				for ( int i = 0; i < mem_id.length; i++){ // 편의점 400곳 mem_id.length					
-//					String supply = code.barcode("SUPPLY"); // 바코드 400, 수불신청 400 // 발주 : 400, 승인 400, 입고  400, (마감 400, 재고 400)
-//					barcodeVo = new BarcodeVo();
-//					barcodeVo.setBcd_id(supply);
-//					barcodeVo.setBcd_content("발주 바코드 생성..");
-//					barcodeVo.setBcd_path(bcd_path);
-//					barcodeVo.setBcd_kind("102");
-//					
-//					supplyVo.setSupply_bcd(supply); // supply 수불바코드 저장
-//					
-//					if(supplyVo.getSupply_state().equals("10")){ // 진행상태가 발주
-//						supplyVo.setSupply_info("발주신청."); // 비고에 "발주신청"으로 저장
-//					}else if(supplyVo.getSupply_state().equals("11")){ // 결제면
-//						supplyVo.setSupply_info("발주승인."); // "발주승인"으로
-//					}else if(supplyVo.getSupply_state().equals("12")){ // 입고면
-//						supplyVo.setSupply_info("입고완료."); // "입고완료"로 저장
-//					}
-//					
-//					supplyVo.setPlace_id(mem_id[i]); // 수불신청 편의점 이름 저장
-//					
-//					template.insert("barcode.insertBarcode", barcodeVo);
-//					template.insert("supply.insertSupply", supplyVo);
-//					// 바코드 insert 코딩하기
-//					// 수불신청 insert 코딩하기
-//					
-////					for (int j = 0; j < 10; j++){ // 수불리스트 10개씩(제품 10개)
-////						supplyListVo = new SupplyListVo();						
-////						int ran = random.nextInt(prodList.size()-1);	
-////						supplyListVo.setProd_id(prodList.get(ran).getProd_id());
-////						System.out.println(barcodeVo.getBcd_id());
-////						System.out.println(j+"번째"+supply);						
-////						// 수불리스트 insert
-////					}
-//					
-//					for (int z = 0; z < prod_ids.length; z++){ // 수불리스트 고정 30개 prod_ids.length
-//						String Splylist_id10 = code.autoCode("SUP10",supplyVo.getPlace_id()); // 제품리스트 코드 10 ~ 12(발주, 결제, 입고)
-//						String Splylist_id11 = code.autoCode("SUP11",supplyVo.getPlace_id());
-//						String Splylist_id12 = code.autoCode("SUP12",supplyVo.getPlace_id());
-//						
-//						if(supplyVo.getSupply_state().equals("10")){ // SUPPY 상태가 발주 중이면
-//							supplyListVo.setSplylist_id(Splylist_id10); // SupplyList 제품리스트코드를 발주10
-//							supplyListVo.setSplylist_info("발주신청."); // 비고에는 발주신청
-//							int ran = random.nextInt(10)+1;
-//							supplyListVo.setSplylist_sum(ran); // 수량 1~10개 랜덤값 저장							
-//						}else if(supplyVo.getSupply_state().equals("11")){ // 결제 중이면
-//							supplyListVo.setSplylist_id(Splylist_id11); // 결제11
-//							supplyListVo.setSplylist_info("발주승인."); // 발주승인
-//							int ran = random.nextInt(10)+1;
-//							supplyListVo.setSplylist_sum(ran); // 수량 1~10개 랜덤값 저장
-//						}else if(supplyVo.getSupply_state().equals("12")){ // 입고면
-//							supplyListVo.setSplylist_id(Splylist_id12); // 입고12로 저장
-//							supplyListVo.setSplylist_info("입고완료."); // 입고완료로 저장
-//							int ran = random.nextInt(10)+1;
-//							supplyListVo.setSplylist_sum(ran); // 수량 1~10개 랜덤값 저장
-//						}
-//						
-//						supplyListVo.setSupply_bcd(supplyVo.getSupply_bcd()); // 수불바코드 저장
-//						supplyListVo.setProd_id(prod_ids[z]);
-//						template.insert("supply.insertSupplyList", supplyListVo); // supply_list insert		
-//					}					
-//				
-//				}
-//			}			
-//		}
-//	}
-	
-//	@Test
-//	public void Test(){
-//		BarcodeVo barcodeVo = null;
-////		List<BarcodeVo> barcodeList = null;
-//		SupplyVo supplyVo = null;
+	      };
+	      
 //		SupplyListVo supplyListVo = null;
-//		for (int i = 0; i < 3; i++){
-//			barcodeVo = new BarcodeVo();
-//			supplyVo = new SupplyVo();
-//			barcodeVo.setBcd_id(code.barcode("SUPPY"));
-//			supplyVo.setSupply_bcd(barcodeVo.getBcd_id());
-//			System.out.println("barcode =======>> "+barcodeVo.getBcd_id());
-//			for (int j = 0; j < 3; j++){
-//				supplyListVo = new SupplyListVo();
-//				System.out.println("잘 나오나?"+supplyVo.getSupply_bcd());
-//				supplyListVo.setSupply_bcd(supplyVo.getSupply_bcd());
-//				System.out.println("supply ======>> "+supplyVo.getSupply_bcd());
-//			}
-//		}
-//	}
+		Random random = new Random();
+//		int sum = 30;
+//		int ran = random.nextInt((10)+1);
+		String[] date = {"2018-10-15 12:22","2018-10-16 15:12","2018-10-17 12:22"}; // 날짜
+		String[] e_date = {"2018-11-15 12:22","2018-11-16 15:12","2018-11-17 12:22"}; // 날짜
+		String[] state = {"10","11","12"};
+		String bcd_path = "/barcode/supply";
+		String[] prod_ids = { "meal-00351",
+							   "meal-00136",
+							   "meal-00182",
+							   "meal-00516",
+							   "meal-00017",				   
+							   "biscuit-01026",
+							   "biscuit-00368",
+							   "biscuit-00405",
+							   "biscuit-00187",
+							   "biscuit-00238",				   
+							   "ice-00003",
+							   "ice-00126",
+							   "ice-00175",
+							   "ice-00183",
+							   "ice-00066",				   
+							   "food-01065",
+							   "food-00591",
+							   "food-00489",
+							   "food-00577",
+							   "food-00494",				   
+							   "drink-00866",
+							   "drink-00558",
+							   "drink-01076",
+							   "drink-00557",
+							   "drink-00002",				   
+							   "necessities-01022",
+							   "necessities-00442",
+							   "necessities-01026",
+							   "necessities-00835",
+							   "necessities-00704"};		
+		
+		for ( int x = 0; x < date.length; x++) { // 날짜 11 ~ 17 date.length
+				supplyVo = new SupplyVo();
+				supplyListVo = new SupplyListVo();
+				Date supply_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date[x]); // String을 Date로 변환
+				Date ex_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(e_date[x]); // String을 Date로 변환
+				supplyVo.setSupply_date(supply_date); // 날짜 저장
+				supplyListVo.setSplylist_exdate(ex_date);
+				
+			for ( int a = 0; a < state.length; a++) { // 발주, 승인, 입고 state.length					
+					supplyVo.setSupply_state(state[a]); // 진행상태 저장
+					
+				for ( int i = 0; i < mem_id.length; i++){ // 편의점 400곳 mem_id.length					
+					String supply = code.barcode("SUPPLY"); // 바코드 400, 수불신청 400 // 발주 : 400, 승인 400, 입고  400, (마감 400, 재고 400)
+					barcodeVo = new BarcodeVo();
+					barcodeVo.setBcd_id(supply);
+					barcodeVo.setBcd_content("발주 바코드 생성..");
+					barcodeVo.setBcd_path(bcd_path);
+					barcodeVo.setBcd_kind("102");
+					
+					supplyVo.setSupply_bcd(supply); // supply 수불바코드 저장
+					
+					if(supplyVo.getSupply_state().equals("10")){ // 진행상태가 발주
+						supplyVo.setSupply_info("success"); // 비고에 "발주신청"으로 저장
+					}else if(supplyVo.getSupply_state().equals("11")){ // 결제면
+						supplyVo.setSupply_info("발주승인."); // "발주승인"으로
+					}else if(supplyVo.getSupply_state().equals("12")){ // 입고면
+						supplyVo.setSupply_info("입고완료."); // "입고완료"로 저장
+					}
+					
+					supplyVo.setPlace_id(mem_id[i]); // 수불신청 편의점 이름 저장
+					
+					template.insert("barcode.insertBarcode", barcodeVo);
+					template.insert("supply.insertSupply", supplyVo);
+					// 바코드 insert 코딩하기
+					// 수불신청 insert 코딩하기
+					
+//					for (int j = 0; j < 10; j++){ // 수불리스트 10개씩(제품 10개)
+//						supplyListVo = new SupplyListVo();						
+//						int ran = random.nextInt(prodList.size()-1);	
+//						supplyListVo.setProd_id(prodList.get(ran).getProd_id());
+//						System.out.println(barcodeVo.getBcd_id());
+//						System.out.println(j+"번째"+supply);						
+//						// 수불리스트 insert
+//					}
+					
+					for (int z = 0; z < prod_ids.length; z++){ // 수불리스트 고정 30개 prod_ids.length
+						int[] sum = {3,5,4,7,6,9,3,2,1,4,2,4,4,6,3,2,1,6,4,2,3,5,3,1,6,3,6,4,1,2};
+						String Splylist_id10 = code.autoCode("SUP10",supplyVo.getPlace_id()); // 제품리스트 코드 10 ~ 12(발주, 결제, 입고)
+						String Splylist_id11 = code.autoCode("SUP11",supplyVo.getPlace_id());
+						String Splylist_id12 = code.autoCode("SUP12",supplyVo.getPlace_id());
+						
+						if(supplyVo.getSupply_state().equals("10")){ // SUPPY 상태가 발주 중이면
+							supplyListVo.setSplylist_id(Splylist_id10); // SupplyList 제품리스트코드를 발주10
+							supplyListVo.setSplylist_info("발주신청."); // 비고에는 발주신청
+							supplyListVo.setSplylist_sum(sum[z]);
+//							int ran = random.nextInt(10)+1;
+//							supplyListVo.setSplylist_sum(ran); // 수량 1~10개 랜덤값 저장
+						}else if(supplyVo.getSupply_state().equals("11")){ // 결제 중이면
+							supplyListVo.setSplylist_id(Splylist_id11); // 결제11
+							supplyListVo.setSplylist_info("발주승인."); // 발주승인
+							supplyListVo.setSplylist_sum(sum[z]);
+						}else if(supplyVo.getSupply_state().equals("12")){ // 입고면
+							supplyListVo.setSplylist_id(Splylist_id12); // 입고12로 저장
+							supplyListVo.setSplylist_info("입고완료."); // 입고완료로 저장
+							supplyListVo.setSplylist_sum(sum[z]);
+						}
+						
+						supplyListVo.setSupply_bcd(supplyVo.getSupply_bcd()); // 수불바코드 저장
+						supplyListVo.setProd_id(prod_ids[z]);
+						template.insert("supply.insertSupplyList", supplyListVo); // supply_list insert		
+					}					
+				
+				}
+			}			
+		}
+	}
 	
 	@Test
 	public void Event(){ // 행사제품 입력
@@ -688,6 +669,116 @@ public class dbTests {
 			}
 //		}
 	}
+	
+	
+	@Test // 팀원 6명 발주,승인,입고
+	public void formoonTest() throws ParseException{				
+		BarcodeVo barcodeVo = null;
+		SupplyVo supplyVo = null;
+		SupplyListVo supplyListVo = null;
+		
+		// 편의점         
+		String[] mem_id = { "4930000-104-2015-00011", "3380000-104-2014-00017",
+							"3670000-104-2012-00104", "3150000-104-2015-00104",
+							"3680000-104-2016-00025", "4180000-104-2016-00010" };
+		String[] date = {"2018-10-16 13:10","2018-10-17 09:32"}; // 날짜
+		String[] e_date = {"2018-11-16 13:10","2018-11-17 09:32"}; // 날짜
+		String[] state = {"10","11","12"};
+		String bcd_path = "/barcode/supply";
+		String[] prod_ids = { "meal-00351",
+							   "meal-00136",
+							   "meal-00182",
+							   "meal-00516",
+							   "meal-00017",				   
+							   "biscuit-01026",
+							   "biscuit-00368",
+							   "biscuit-00405",
+							   "biscuit-00187",
+							   "biscuit-00238",				   
+							   "ice-00003",
+							   "ice-00126",
+							   "ice-00175",
+							   "ice-00183",
+							   "ice-00066",				   
+							   "food-01065",
+							   "food-00591",
+							   "food-00489",
+							   "food-00577",
+							   "food-00494",				   
+							   "drink-00866",
+							   "drink-00558",
+							   "drink-01076",
+							   "drink-00557",
+							   "drink-00002",				   
+							   "necessities-01022",
+							   "necessities-00442",
+							   "necessities-01026",
+							   "necessities-00835",
+							   "necessities-00704"};		
+		
+		for ( int x = 0; x < date.length; x++) { // 날짜 11 ~ 17 date.length
+				supplyVo = new SupplyVo();
+				supplyListVo = new SupplyListVo();
+				Date supply_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date[x]); // String을 Date로 변환
+				Date ex_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(e_date[x]); // String을 Date로 변환
+				supplyVo.setSupply_date(supply_date); // 날짜 저장
+				supplyListVo.setSplylist_exdate(ex_date);
+				
+			for ( int a = 0; a < state.length; a++) { // 발주, 승인, 입고 state.length					
+					supplyVo.setSupply_state(state[a]); // 진행상태 저장
+					
+				for ( int i = 0; i < mem_id.length; i++){ // 편의점 400곳 mem_id.length					
+					String supply = code.barcode("SUPPLY"); // 바코드 400, 수불신청 400 // 발주 : 400, 승인 400, 입고  400, (마감 400, 재고 400)
+					barcodeVo = new BarcodeVo();
+					barcodeVo.setBcd_id(supply);
+					barcodeVo.setBcd_content("발주 바코드 생성..");
+					barcodeVo.setBcd_path(bcd_path);
+					barcodeVo.setBcd_kind("102");
+					
+					supplyVo.setSupply_bcd(supply); // supply 수불바코드 저장
+					
+					if(supplyVo.getSupply_state().equals("10")){ // 진행상태가 발주
+						supplyVo.setSupply_info("success"); // 비고에 "발주신청"으로 저장
+					}else if(supplyVo.getSupply_state().equals("11")){ // 결제면
+						supplyVo.setSupply_info("발주승인."); // "발주승인"으로
+					}else if(supplyVo.getSupply_state().equals("12")){ // 입고면
+						supplyVo.setSupply_info("입고완료."); // "입고완료"로 저장
+					}
+					
+					supplyVo.setPlace_id(mem_id[i]); // 수불신청 편의점 이름 저장
+					
+					template.insert("barcode.insertBarcode", barcodeVo); // 바코드 insert 코딩하기
+					template.insert("supply.insertSupply", supplyVo); // 수불신청 insert 코딩하기
+					
+					for (int z = 0; z < prod_ids.length; z++){ // 수불리스트 고정 30개 prod_ids.length
+						int[] sum = {3,5,4,7,6,9,3,2,1,4,2,4,4,6,3,2,1,6,4,2,3,5,3,1,6,3,6,4,1,2};
+						String Splylist_id10 = code.autoCode("SUP10",supplyVo.getPlace_id()); // 제품리스트 코드 10 ~ 12(발주, 결제, 입고)
+						String Splylist_id11 = code.autoCode("SUP11",supplyVo.getPlace_id());
+						String Splylist_id12 = code.autoCode("SUP12",supplyVo.getPlace_id());
+						
+						if(supplyVo.getSupply_state().equals("10")){ // SUPPY 상태가 발주 중이면
+							supplyListVo.setSplylist_id(Splylist_id10); // SupplyList 제품리스트코드를 발주10
+							supplyListVo.setSplylist_info("발주신청."); // 비고에는 발주신청
+							supplyListVo.setSplylist_sum(sum[z]);
+						}else if(supplyVo.getSupply_state().equals("11")){ // 결제 중이면
+							supplyListVo.setSplylist_id(Splylist_id11); // 결제11
+							supplyListVo.setSplylist_info("발주승인."); // 발주승인
+							supplyListVo.setSplylist_sum(sum[z]);
+						}else if(supplyVo.getSupply_state().equals("12")){ // 입고면
+							supplyListVo.setSplylist_id(Splylist_id12); // 입고12로 저장
+							supplyListVo.setSplylist_info("입고완료."); // 입고완료로 저장
+							supplyListVo.setSplylist_sum(sum[z]);
+						}						
+						supplyListVo.setSupply_bcd(supplyVo.getSupply_bcd()); // 수불바코드 저장
+						supplyListVo.setProd_id(prod_ids[z]);
+						template.insert("supply.insertSupplyList", supplyListVo); // supply_list insert		
+					}				
+				}
+			}			
+		}
+	}
+	
+	
 	
 	// 구매내역
 	@Test
