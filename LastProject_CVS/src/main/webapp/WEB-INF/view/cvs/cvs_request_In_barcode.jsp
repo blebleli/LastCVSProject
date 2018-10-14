@@ -161,6 +161,7 @@
 								    '<tr>'+
 								     '  <td>'+(index+1)+'</td>'+
 			                         '  <td><span  class="splylist_id">'+item.splylist_id+'</span></td>'+
+			                         '  <td>'+item.prod_name+'</td>'+
 			                         '  <td><span  class="prod_id">'+item.prod_id+'</span></td> '+
 			                         '  <td>'+item.splylist_sum+'</td> '+ 	                    
 			                         '	<td><input class="amount" style="width : 100%"type="number" value='+item.splylist_sum+'>'+
@@ -176,7 +177,10 @@
 			    	        "paging":         false,
 			    	        "columnDefs": [
 							      { "width": "9%" , "targets": 0 },
-							      { "width": "15%", "targets": 4 }
+							      { "width": "20%", "targets": 2 },
+							      { "width": "15%", "targets": 3 },
+							      { "width": "10%", "targets": 4 },
+							      { "width": "15%", "targets": 5 }
 							     		 ]
 			    	    } );
 					}   
@@ -263,7 +267,8 @@
                           <tr class="headings">
                             
                             <th class="column-title">번호</th>
-                            <th class="column-title">입고코드</th>
+                            <th class="column-title">입고리스트코드</th>
+                            <th class="column-title">상품명</th>
                             <th class="column-title">상품코드</th>                            
                             <th class="column-title">수량</th>
                             <th class="column-title">실수량</th>

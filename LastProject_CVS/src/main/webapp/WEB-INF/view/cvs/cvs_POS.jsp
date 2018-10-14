@@ -117,6 +117,7 @@
 #saleTable td{
 	text-align: right;
 }
+
  </style>
  		
  
@@ -194,7 +195,7 @@
 							color: #fff;
 						    background-color: #449d44;
 						    border-color: #398439;"> 합계 수량/ 금액 </td>                       
-                            <td><b><span id="amount_sum"></span></b></td>
+                            <td><b><span id="amount_sum"></span>개</b></td>
                             <td><b><span class="subtot_sum"></span>원</b></td>
                             <td><b><span id="discount_sum"></span></b>  </td>
                         <tr>
@@ -208,7 +209,7 @@
                 <div class=" col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel" >
                   <div class="x_title">
-                    <h2>바코드인식 <small>Custom design</small></h2>
+                    <h2>바코드인식 <b><small id="barcodeText">Custom design</small></b></h2>
                     <div class="clearfix"></div>
                   </div>
 				   
@@ -224,7 +225,7 @@
 				   <canvas id="snapshot" width=500 height=500 style="display: none"></canvas>				    				
 				   			    
 				     <script>
-				    	var intervalID;
+				    	var intervalID;			
 				    
 				    	function getImage(){
 				    		var context = snapshot.getContext('2d');
@@ -269,14 +270,12 @@
 							var pocketList=[];
 				    		
 							//주머니일때 아닐때 나눠서 각 배열리스트에 넣어주기
-				    		$("#posTable tbody tr").each(function () {		                    	 
+				    		$("#posTable tbody tr").each(function(){		                    	 
 				    			var trData = $(this);
 				    			var trKind = trData.data('kind');
-				    		
-				    			
-				    			if(1==1){
-				  
-				    				//상품일때
+				    					    			
+				    			if(trKind=='prod'){
+				    			//상품일때
 				    			saleList.push({bcd_id: trData.data('bcd_id'),
 				    				       prod_price: trData.find('.price1').html(),
 				    				  stcklist_amount: trData.find('.amount').val(),
@@ -284,26 +283,39 @@
 					    					  pay_kind : kind
 					    					  });
 				    			console.log("saleList ::: "+saleList.pay_kind);
-				    			}else{
-				    				//주머니일때
-				    			}
 				    			
+				    			}else{
+				    				console.log("pocket_id확인 ::: "+trData.data('pocket_id'));
+				    				console.log("bcd_id확인 ::: "+trData.data('bcd_id'));
+				    				
+				    				pocketList.push({bcd_id: trData.data('bcd_id'),
+				    							  pocket_id: trData.data('pocket_id')});
+				    			}
 		                     });	
 				    	
-				    	  if(saleList.length > 0){
+				    	   if(saleList.length > 0){
 					    	  	$.ajax({
 			    					  url: "/cvs/pos/saleInsert",
 			    					  method: "post",
 			    					  data: JSON.stringify(saleList),
 			    					  contentType: "application/json",
 			    					  success : function (data) {
-	
+			    						  
+			    						  if(pocketList.length > 0){
+			    						   pocketSale(pocketList);
+			    						  }
+			    						  
 			    						  alert("결제 되었습니다.");
 			    						  emptyTable(); 
 			    						  $("#saleModalBtn").click();
 			    						  
+			    						 //비워주기 처리
+			    						 $('.subtot_sum').text("0")
+			    						 $('#amount_sum').text("0")
+			    					
+			    						 
 			    				      },		 						
-									  error : function(){console.log("error");}		  								  
+									  error : function(){console.log("saleInsert error");}		  								  
 					    		});
 				    		}else{
 				    			alert('결제할 리스트가 없습니다.');
@@ -311,10 +323,23 @@
 				    			saleList=[];
 				    		}
 						}
-				    	
-				    	
-//---------------------------------------------------------------------------------				    	
-				    	/*주머니 클릭시*/
+/*주머니 결제 진행*///----------------------------------------------------------------
+					function pocketSale(pocketList){
+					 	$.ajax({
+	    					  url: "/cvs/pos/pocketSale",
+	    					  method: "post",
+	    					  data: JSON.stringify(pocketList),
+	    					  contentType: "application/json",
+	    					  success : function (data) {
+	    						  console.log("pocketSale 완료")
+	    				      },		 						
+							  error : function(){console.log("pocketSale error");}		  								  
+			    		});
+	
+					}
+
+/*주머니 클릭시*///---------------------------------------------------------------------------------				    	
+				    
 				    	function btnPocket(kind) {
 				    		startCapture();
 							//동영상인식되고
@@ -327,9 +352,9 @@
 						
 						}
 			    	
-//-------------------------------------------------------------------------------------------------				    	
+/*폐기버튼 클릭시*///-------------------------------------------------------------------------------------------------				    	
 
-				    	/*폐기버튼 클릭시*/
+				    	
 				    	function btnDisposal() {
 			    		
 				    		var dispList=[];		
@@ -376,15 +401,11 @@
 				    	function addRow(data){
 				    		
 				    		//아이디가 같을때 처리 
-				    		var dataProdId = data.prodVo.prod_id;
-				    		
-				    		console.log('같은 dataProdId 있는지'+data.prodVo.prod_id);
-				    		
+				    		var dataProdId = data.prodVo.prod_id;				    	
 				    		var findProdEle = $("#posTable tbody tr .prod_id").toArray().find(function(e){ 	    			
 				    		 	return dataProdId == e.innerText;
 				    		});			
-				    		
-				    		console.log('같은 prod 있는지'+findProdEle);
+
 				    		//같은prodID 없을때
 				    		if(findProdEle == undefined){
 				    	
@@ -423,11 +444,11 @@
 				    	
 				    	
 /* 주머니바코드추가 *///----------------------------------------------------------------------------
-				    	function addPocket(data){
+				    	function addPocket(data,bcdID){
 	
-				    		//행추가 -- pocket은 무조건 한줄씩 늘어나게 한다.
+				    		//행추가 -- pocket은 한줄씩 늘어나게 한다.
 							$("#prodList").append(		    								
-								     '<tr data-kind="pocket" data-pocket_id="'+data.pocketVo.pocket_id+'">'+
+								     '<tr data-kind="pocket" data-pocket_id="'+data.pocketVo.pocket_id+'" data-bcd_id="'+bcdID+'">'+
 			                         '  <td> '+   
 			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
 			                         '  </td>'+
@@ -531,7 +552,8 @@
 
 				    	
 /* 상품 바코드 img 해석*///---------------------------------------------------------
-		    			function sendImage(){
+		    			function sendImage(param,pkData){
+						
 		    				var image = getImage();
 		    				var request = $.ajax({
 		    					  url: "/cvs/bcdRead",
@@ -540,15 +562,29 @@
 		    					  dataType: "json",
 		    					  contentType : "application/x-www-form-urlencoded" ,
 		    					  success : function (data) {
+		  
 		    				         if(data.returnMsg == "decodedText"){
 		    				            	console.log("data decodedText ---- :"+data.decodedText);
 		    				            	console.log("data prodVo ---- :"+data.prodVo);
+		    				            	var bcdID = data.decodedText;
 		    				            	
 		    				            	clearInterval(intervalID);
-			    							addRow(data);
-			    					
+		    				            	if(param=='pkProd'){
+		    				            		$('#barcodeText').text("주머니 상품 인식완료-----------").css( "color", "green" );		    				            
+		    				            		 //주머니상품 추가
+		    				            		 console.log('확인용 주모니--'+bcdID);
+		    				            		 addPocket(pkData,bcdID);
+		    				            	}else{
+		    				            		$('#barcodeText').text("상품 인식완료---");
+		    				            		addRow(data);
+		    				            	}
+			    									    				
 			    							
 		    				          } else {
+		    				        	    $('#barcodeText').text("상품 바코드 인식중입니다-----------").css( "color", "red" );
+		    				        	    $("#barcodeText").animate({opacity:0},200,"linear",function(){
+												  $(this).animate({opacity:1},200);
+											});
 		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
 		    				          }
 		    				      },		 						
@@ -567,18 +603,27 @@
 		    					  contentType : "application/x-www-form-urlencoded" ,
 		    					  success : function (data) {
 		    				         if(data.returnMsg == "decodedText"){
+		    				        		$('#barcodeText').text("주머니 인식완료-----------");
 		    				            	console.log("data decodedText ---- :"+data.decodedText);
 		    				            	console.log("data pocketVo ---- :"+data.pocketVo);
+		    				            
 		    				            	clearInterval(intervalID);
-			    							addPocket(data);
+		    				            	
+		    				            	alert('해당상품을 인식해주세요');
+		    				            	intervalID = setInterval(sendImage, 1000, "pkProd",data);
+
 		    				          } else {
+		    				        	   $('#barcodeText').text("주머니 바코드 인식중입니다-----------").css( "color", "blue" );
+		    				        	   $("#barcodeText").animate({opacity:0},200,"linear",function(){
+												  $(this).animate({opacity:1},200);
+											});
 		    				            	console.log("data returnMsg ---- :"+data.returnMsg);
 		    				          }
 		    				      },		 						
 								  error : function(){console.log("error");}		  
 								  });	    							    			
 		    			};	
-
+		    			
 
 				        var player = document.getElementById('player');
 				        var snapshotCanvas = document.getElementById('snapshot');
@@ -593,12 +638,13 @@
 				    		player.play(); 
 				    		intervalID = setInterval(e, 1000);
 						}
+						
 				    	
 						//멈춤버튼
-				    	function stopCapture() {
-				    	
-				    		player.pause();			    		
+				    	function stopCapture() {				    	
+				    		player.pause();
 				    		clearInterval(intervalID);
+				    		$('#barcodeText').text("완료----").css( "color", "black" );
 						}				    	
 				    	
 				        navigator.mediaDevices.getUserMedia({ video: true })
@@ -712,65 +758,6 @@
 	           
 	              </div>
            </div>   
-           
-           
-<!-- 
-               <div class="clearfix"></div> -->
-              
-<!--               <div class="col-md-3 col-sm-3 col-xs-3">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>입력창 <small>Custom design</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-
-                  <div class="x_content">
-
-            	  <table>
-				    <tbody>
-				      <tr>
-						<td colspan="3" class="col3">
-						<div class="input-box">
-						    <input class="numInput" type="text" placeholder="0">
-						  </div>
-						</td>
-				      </tr>
-				      <tr>
-				        <td><button class="culcBtn number">7</button></td>
-				        <td><button class="culcBtn number">8</button></td>
-				        <td><button class="culcBtn number">9</button></td>
-
-				      </tr>
-				      <tr>
-				        <td><button class="culcBtn number">4</button></td>
-				        <td><button class="culcBtn number">5</button></td>
-				        <td><button class="culcBtn number">6</button></td>
-
-				      </tr>
-				      <tr>
-				        <td><button class="culcBtn number">1</button></td>
-				        <td><button class="culcBtn number">2</button></td>
-				        <td><button class="culcBtn number">3</button></td>
-
-				      </tr>
-				      <tr>
-				        <td colspan="2" class="col2"><button class="culcBtn number">0</button></td>
-				        <td><button class="culcBtn number">지움</button></td>
-
-				      </tr>
-				    </tbody>
-				  </table>
-	
-                  </div>
-                </div>      
-              </div> -->
-              
 
           </div>
   
@@ -778,7 +765,6 @@
         
         <footer>
           <div class="pull-right">
-<!--             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a> -->
            Admin by  <a href="/cvs/main">gogo CVS</a>
           </div>
           <div class="clearfix"></div>
