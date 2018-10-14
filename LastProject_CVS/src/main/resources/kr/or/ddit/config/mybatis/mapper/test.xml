@@ -18,4 +18,10 @@
 		  AND EVENT_ID = 'BASIC1'
 		  AND PROD_PRICE >4000
   	</select>
+  	
+  	<update id="prodEventUpdate" parameterType="prodVo">
+  		UPDATE PROD
+  		SET EVENT_ID = #{event_id}
+  		WHERE PROD_id = #{prod_id}
+  	</update>
 </mapper>
