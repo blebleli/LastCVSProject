@@ -135,12 +135,12 @@ overMarkerSize = new daum.maps.Size(OVER_MARKER_WIDTH, OVER_MARKER_HEIGHT), // �
 overMarkerOffset = new daum.maps.Point(OVER_OFFSET_X, OVER_OFFSET_Y), // 오버 마커의 기준 좌표
 spriteImageSize = new daum.maps.Size(SPRITE_WIDTH, SPRITE_HEIGHT); // 스프라이트 이미지의 크기
 
-var positions = [  // 마커의 위치
-//     new daum.maps.LatLng(126.82453038844578, 35.20188756879909),
-//     new daum.maps.LatLng(33.450579, 126.56956),
-//     new daum.maps.LatLng(33.4506468, 126.5707)
-],
-selectedMarker = null; // 클릭한 마커를 담을 변수
+// var positions = [  // 마커의 위치
+// //     new daum.maps.LatLng(126.82453038844578, 35.20188756879909),
+// //     new daum.maps.LatLng(33.450579, 126.56956),
+// //     new daum.maps.LatLng(33.4506468, 126.5707)
+// ],
+// selectedMarker = null; // 클릭한 마커를 담을 변수
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = { 
@@ -164,75 +164,76 @@ var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니�
 // }
 
 //마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다
-function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
-// alert("마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다");
-// 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
-var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
-    overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
-    clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+// function addMarker(position, normalOrigin, overOrigin, clickOrigin) {
+// // alert("마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다");
+// // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
+// var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+//     overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+//     clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
 
-// 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
-var marker = new daum.maps.Marker({
-    map: map,
-    position: position,
-    image: normalImage
-});
+// // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+// var marker = new daum.maps.Marker({
+//     map: map,
+//     position: position,
+//     image: normalImage
+// });
 
-// 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
-marker.normalImage = normalImage;
+// // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+// marker.normalImage = normalImage;
 
-// 마커에 mouseover 이벤트를 등록합니다
-daum.maps.event.addListener(marker, 'mouseover', function() {
+// // 마커에 mouseover 이벤트를 등록합니다
+// daum.maps.event.addListener(marker, 'mouseover', function() {
 
-    // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
-    // 마커의 이미지를 오버 이미지로 변경합니다
-    if (!selectedMarker || selectedMarker !== marker) {
-        marker.setImage(overImage);
-    }
-});
+//     // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
+//     // 마커의 이미지를 오버 이미지로 변경합니다
+//     if (!selectedMarker || selectedMarker !== marker) {
+//         marker.setImage(overImage);
+//     }
+// });
 
-// 마커에 mouseout 이벤트를 등록합니다
-daum.maps.event.addListener(marker, 'mouseout', function() {
+// // 마커에 mouseout 이벤트를 등록합니다
+// daum.maps.event.addListener(marker, 'mouseout', function() {
 
-    // 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
-    // 마커의 이미지를 기본 이미지로 변경합니다
-    if (!selectedMarker || selectedMarker !== marker) {
-        marker.setImage(normalImage);
-    }
-});
+//     // 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
+//     // 마커의 이미지를 기본 이미지로 변경합니다
+//     if (!selectedMarker || selectedMarker !== marker) {
+//         marker.setImage(normalImage);
+//     }
+// });
 
-// 마커에 click 이벤트를 등록합니다
-daum.maps.event.addListener(marker, 'click', function() {
+// // 마커에 click 이벤트를 등록합니다
+// daum.maps.event.addListener(marker, 'click', function() {
 
-    // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
-    // 마커의 이미지를 클릭 이미지로 변경합니다
-    if (!selectedMarker || selectedMarker !== marker) {
+//     // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
+//     // 마커의 이미지를 클릭 이미지로 변경합니다
+//     if (!selectedMarker || selectedMarker !== marker) {
 
-        // 클릭된 마커 객체가 null이 아니면
-        // 클릭된 마커의 이미지를 기본 이미지로 변경하고
-        !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+//         // 클릭된 마커 객체가 null이 아니면
+//         // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+//         !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
 
-        // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
-        marker.setImage(clickImage);
-    }
+//         // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+//         marker.setImage(clickImage);
+//     }
 
-    // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
-    selectedMarker = marker;
-});
+//     // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+//     selectedMarker = marker;
+// });
 
-//마커 위에 커스텀오버레이를 표시합니다
-//마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-var overlay = new daum.maps.CustomOverlay({
- content: content,
- map: map,
- position: marker.getPosition()       
-});
+// //마커 위에 커스텀오버레이를 표시합니다
+// //마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+// alert("content==>"+ content);
+// var overlay = new daum.maps.CustomOverlay({
+//  content: content,
+//  map: map,
+//  position: marker.getPosition()       
+// });
 
-//마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-daum.maps.event.addListener(marker, 'click', function() {
- overlay.setMap(map);
-});
-}
+// //마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+// daum.maps.event.addListener(marker, 'click', function() {
+//  overlay.setMap(map);
+// });
+// }
 
 //MakrerImage 객체를 생성하여 반환하는 함수입니다
 function createMarkerImage(markerSize, offset, spriteOrigin) {
@@ -265,16 +266,16 @@ var content="";
 		        data : {"prod_id":prod_id},
 		        dataType : "json",
 		        success: function(data){
-	
-		        	alert("클릭");
-		        	
-		        //	alert("성공"+prod_id);
 		        	 $.each(data,function(index,item){
 		        		 
 						// 리턴 받은 값 (좌표) set
-						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
-						x = item.mem_x;
-						y = item.mem_y;
+						var position = 
+						       new daum.maps.LatLng(item.mem_y,item.mem_x);
+						var selectedMarker = null; // 클릭한 마커를 담을 변수
+						
+// 						positions.push(new daum.maps.LatLng(item.mem_y,item.mem_x));
+// 						x = item.mem_x;
+// 						y = item.mem_y;
 						
 // 						alert(item.mem_x + " : " + item.mem_y);
 						// 커스텀 오버레이에 표시할 컨텐츠 입니다
@@ -303,47 +304,98 @@ var content="";
 						            '    </div>' +    
 						            '</div>';
 						            
-						            
+		          	//마커 위에 커스텀오버레이를 표시합니다
+		        	//마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
 						
-		        	 alert(positions.length);
+// 		        	 alert(positions.length);
 		        	//지도 위에 마커를 표시합니다
-		        	 for (var i = 0, len = positions.length; i < len; i++) {
+// 		        	 for (var i = 0, len = positions.length; i < len; i++) {
 // 		        	     alert("지도 위에 마커를 표시합니다");
 		        	 var gapX = (MARKER_WIDTH + SPRITE_GAP), // 스프라이트 이미지에서 마커로 사용할 이미지 X좌표 간격 값
-		        	     originY = (MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
-		        	     overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * i, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
+		        	     originY = (MARKER_HEIGHT + SPRITE_GAP) * index, // 스프라이트 이미지에서 기본, 클릭 마커로 사용할 Y좌표 값
+		        	     overOriginY = (OVER_MARKER_HEIGHT + SPRITE_GAP) * index, // 스프라이트 이미지에서 오버 마커로 사용할 Y좌표 값
 		        	     normalOrigin = new daum.maps.Point(0, originY), // 스프라이트 이미지에서 기본 마커로 사용할 영역의 좌상단 좌표
 		        	     clickOrigin = new daum.maps.Point(gapX, originY), // 스프라이트 이미지에서 마우스오버 마커로 사용할 영역의 좌상단 좌표
 		        	     overOrigin = new daum.maps.Point(gapX * 2, overOriginY); // 스프라이트 이미지에서 클릭 마커로 사용할 영역의 좌상단 좌표
 			        	 // 마커를 생성하고 지도위에 표시합니다
-			        	 addMarker(positions[i], normalOrigin, overOrigin, clickOrigin);
-		        	 }
-		        	 });
+// 			        	 addMarker(positions, normalOrigin, overOrigin, clickOrigin);
+		        	     
+		        	     
+		        	     
+		        	  // // alert("마커를 생성하고 지도 위에 표시하고, 마커에 mouseover, mouseout, click 이벤트를 등록하는 함수입니다");
+		        	  // // 기본 마커이미지, 오버 마커이미지, 클릭 마커이미지를 생성합니다
+		        	  var normalImage = createMarkerImage(markerSize, markerOffset, normalOrigin),
+		        	       overImage = createMarkerImage(overMarkerSize, overMarkerOffset, overOrigin),
+		        	       clickImage = createMarkerImage(markerSize, markerOffset, clickOrigin);
+
+		        	  // // 마커를 생성하고 이미지는 기본 마커 이미지를 사용합니다
+		        	  var marker = new daum.maps.Marker({
+		        	       map: map,
+		        	       position: position,
+		        	       image: normalImage
+		        	  });
+
+		        	  // // 마커 객체에 마커아이디와 마커의 기본 이미지를 추가합니다
+		        	  marker.normalImage = normalImage;
+
+		        	  // // 마커에 mouseover 이벤트를 등록합니다
+		        	  daum.maps.event.addListener(marker, 'mouseover', function() {
+
+		        	       // 클릭된 마커가 없고, mouseover된 마커가 클릭된 마커가 아니면
+		        	       // 마커의 이미지를 오버 이미지로 변경합니다
+		        	       if (!selectedMarker || selectedMarker !== marker) {
+		        	           marker.setImage(overImage);
+		        	       }
+		        	  });
+
+		        	  // // 마커에 mouseout 이벤트를 등록합니다
+		        	  daum.maps.event.addListener(marker, 'mouseout', function() {
+
+		        	       // 클릭된 마커가 없고, mouseout된 마커가 클릭된 마커가 아니면
+		        	       // 마커의 이미지를 기본 이미지로 변경합니다
+		        	       if (!selectedMarker || selectedMarker !== marker) {
+		        	           marker.setImage(normalImage);
+		        	       }
+		        	  });
+
+		        	  // 마커에 click 이벤트를 등록합니다
+		        	  daum.maps.event.addListener(marker, 'click', function() {
+
+		        	       // 클릭된 마커가 없고, click 마커가 클릭된 마커가 아니면
+		        	       // 마커의 이미지를 클릭 이미지로 변경합니다
+		        	       if (!selectedMarker || selectedMarker !== marker) {
+
+		        	           // 클릭된 마커 객체가 null이 아니면
+		        	           // 클릭된 마커의 이미지를 기본 이미지로 변경하고
+		        	           !!selectedMarker && selectedMarker.setImage(selectedMarker.normalImage);
+
+		        	           // 현재 클릭된 마커의 이미지는 클릭 이미지로 변경합니다
+		        	           marker.setImage(clickImage);
+		        	       }
+
+		        	       // 클릭된 마커를 현재 클릭된 마커 객체로 설정합니다
+		        	       selectedMarker = marker;
+		        	  });
+
+		        	  //마커 위에 커스텀오버레이를 표시합니다
+		        	  //마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+// 		        	  alert("content==>"+ content);
+		        	  var overlay = new daum.maps.CustomOverlay({
+		        	   content: content,
+		        	   map: map,
+		        	   position: marker.getPosition()       
+		        	  });
+
+		        	  //마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+		        	  daum.maps.event.addListener(marker, 'click', function() {
+		        	   overlay.setMap(map);
+		        	  });
 		        	 
-		        	 
-		        	
-		        	
-		        	// 맨 마지막 편의점으로 이동
-		        	// 이동할 위도 경도 위치를 생성합니다 
-// 	        	    var moveLatLon = new daum.maps.LatLng(y, x);
-	        	    
-	        	    // 지도 중심을 이동 시킵니다
-// 	        	    map.setCenter(moveLatLon);
-	        	    
-// 	        	    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-// 	        	    mapOption = { 
-// 	        	        center: new daum.maps.LatLng(y, x), // 지도의 중심좌표
-// 	        	        level: 3 // 지도의 확대 레벨
-// 	        	    };
-
-// 	        	    var map = daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-
-		        	
-		        }
+		        	 }); // $.each(data,function(index,item){
+		        } //  success: function(data){
 			    ,error:function(e) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
 
-			    	alert("실패");
+// 			    	alert("실패");
 
 			    }
 
