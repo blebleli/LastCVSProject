@@ -408,4 +408,16 @@
   		FROM member 
   		WHERE mem_kind='01'
   	</select>
+  	
+  	<update id="pointUpdate" parameterType="memberVo">
+  		
+  		UPDATE (
+		  SELECT MEM_POINT before, 
+		         (MEM_POINT - #{mem_point}) AS after
+		    FROM member
+		   WHERE MEM_ID = #{mem_id}
+		) t
+		SET t.before = t.after;
+  	
+  	</update>
 </mapper>
