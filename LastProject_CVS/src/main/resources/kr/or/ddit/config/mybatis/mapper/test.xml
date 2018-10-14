@@ -24,4 +24,21 @@
   		SET EVENT_ID = #{event_id}
   		WHERE PROD_id = #{prod_id}
   	</update>
+  	
+  	<!-- stock_list의 제품리스트코드, 수량, 유통기한, supply의 날짜를 알기 위한 쿼리 -->
+  	<select id="supplyListGet" resultType="supplyListVo">
+			SELECT T.*
+			FROM
+			(
+		      SELECT b.splylist_id as splylist_id,
+		      		 b.splylist_sum as splylist_sum, 
+		      		 b.splylist_exdate as splylist_exdate,
+		      		 b.prod_id
+		      FROM supply a, supply_list b, prod c
+		      WHERE a.place_id=#{place_id}
+		      AND c.prod_id = b.prod_id   
+		      AND a.supply_state = 12
+		      AND a.supply_bcd = b.supply_bcd
+			) T
+	</select>
 </mapper>
