@@ -34,10 +34,14 @@ import javax.annotation.Resource;
 
 
 
+
+
+
 import kr.or.ddit.barcode.service.BarcodeServiceInf;
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
 import kr.or.ddit.model.MemberShipVo;
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.PocketVo;
 import kr.or.ddit.model.ProdVo;
@@ -247,6 +251,13 @@ public class UserPayController {
 		saleDisVo.setSale_kind("ON");						// 판매종류(온라인:on)
 		saleDisVo.setMem_id(mem_id);						// 회원아이디
 		
+		
+		// member ==========================================================
+		MemberVo memberVo = new  MemberVo();
+		memberVo.setMem_id(mem_id);
+		memberVo.setMem_point(Integer.parseInt(prod_point));
+
+		int point =  payService.pointUpdate(memberVo);
 		int saleDis = saleDisService.setInsertSaleDis(saleDisVo);
 		int memberShip = memberShipService.newMemberShip(memberShipVo);
 		int pay = payService.setInsertPay(payVo);
@@ -324,8 +335,7 @@ public class UserPayController {
 		logger.debug("saleList==>{}",saleList);
 		logger.debug("pocket==>{}",pocket);
 		logger.debug("barcode==>{}",barcode);
-		
-		
+		logger.debug("point==>{}",point);
 		
 		return "forward:/user/mypage";
 	}

@@ -3,6 +3,7 @@ package kr.or.ddit.pay.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SaleDisVo;
@@ -34,6 +35,8 @@ import kr.or.ddit.model.SaleDisVo;
 	//int deletePay(String pay_id)_결제 내역 삭제 기능
 public interface PayDaoInf {
 	
+	
+	int pointUpdate(MemberVo memberVo);
 	/**
 	* Method : setInsertPay
 	* Method 설명 :사용자가 새로이 구입한 물품 결제 내역

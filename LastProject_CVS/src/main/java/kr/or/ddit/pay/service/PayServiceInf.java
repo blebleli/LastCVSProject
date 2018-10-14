@@ -3,12 +3,15 @@ package kr.or.ddit.pay.service;
 import java.util.List;
 import java.util.Map;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SaleDisVo;
 
 public interface PayServiceInf {
 
+	
+	int pointUpdate(MemberVo memberVo);
 	/**
 	* Method : setInsertPay
 	* Method 설명 :사용자가 새로이 구입한 물품 결제 내역

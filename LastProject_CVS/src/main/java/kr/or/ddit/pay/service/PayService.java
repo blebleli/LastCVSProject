@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import kr.or.ddit.model.MemberVo;
 import kr.or.ddit.model.PayVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SaleDisVo;
@@ -75,5 +76,10 @@ public class PayService implements PayServiceInf {
 	@Override
 	public List<ProdVo> mySaleList(String pay_id) {
 		return payDao.mySaleList(pay_id);
+	}
+
+	@Override
+	public int pointUpdate(MemberVo memberVo) {
+		return payDao.pointUpdate(memberVo);
 	}
 }
