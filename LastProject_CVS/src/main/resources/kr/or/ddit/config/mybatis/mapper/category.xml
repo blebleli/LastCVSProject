@@ -98,26 +98,52 @@
 </select>
 
 <select id="searchCvsService" parameterType="Map" resultType="searchCvsServiceVo">
-	 select   a.MEM_ID
-			, a.MEM_PW
-			, a.MEM_KIND
-			, a.MEM_NAME
-			, a.MEM_TEL
-			, a.MEM_BIRTH
-			, a.MEM_GEN
-			, a.MEM_ZIP
-			, a.MEM_ADD
-			, a.MEM_ADDR
-			, a.MEM_CVS_NAME
-			, a.MEM_CVS_TEL
-			, a.MEM_INTRO
-			, TO_CHAR(a.MEM_X) MEM_X
-			, TO_CHAR(a.MEM_Y) MEM_Y, b.ctgy_id, b.ctgy_name 
-      from member a, category b, cvs_service c
-      where a.mem_id = c.place_id
-      and b.ctgy_id = c.ctgy_id
-      and b.ctgy_id =#{ctgy_id}      
-      and a.mem_cvs_name like '%'||#{mem_cvs_name}||'%'
+SELECT  M.MEM_ID              
+        M.MEM_KIND     
+        M.MEM_NAME     
+        M.MEM_TEL               
+        M.MEM_ZIP      
+        M.MEM_ADD      
+        M.MEM_ADDR     
+        M.MEM_CVS_NAME 
+        M.MEM_CVS_TEL  
+        M.MEM_INTRO    
+        M.MEM_X        
+        M.MEM_Y         
+FROM MEMBER M
+WHERE M.MEM_ID IN (
+                  SELECT T.PLACE_ID
+                  FROM (
+                        SELECT    PLACE_ID
+                                , LISTAGG(CTGY_ID, ', ') within group (order by CTGY_ID) CTGY_ID
+                        FROM CVS_SERVICE
+                        GROUP BY  PLACE_ID
+                        )T
+                  WHERE T.CTGY_ID = #{ctgy_id}
+              )
+AND M.MEM_CVS_NAME LIKE '%'||#{mem_cvs_name}||'%'
+
+
+<!-- 	 select   a.MEM_ID -->
+<!-- 			, a.MEM_PW -->
+<!-- 			, a.MEM_KIND -->
+<!-- 			, a.MEM_NAME -->
+<!-- 			, a.MEM_TEL -->
+<!-- 			, a.MEM_BIRTH -->
+<!-- 			, a.MEM_GEN -->
+<!-- 			, a.MEM_ZIP -->
+<!-- 			, a.MEM_ADD -->
+<!-- 			, a.MEM_ADDR -->
+<!-- 			, a.MEM_CVS_NAME -->
+<!-- 			, a.MEM_CVS_TEL -->
+<!-- 			, a.MEM_INTRO -->
+<!-- 			, TO_CHAR(a.MEM_X) MEM_X -->
+<!-- 			, TO_CHAR(a.MEM_Y) MEM_Y, b.ctgy_id, b.ctgy_name  -->
+<!--       from member a, category b, cvs_service c -->
+<!--       where a.mem_id = c.place_id -->
+<!--       and b.ctgy_id = c.ctgy_id -->
+<!--       and b.ctgy_id in ( #{ctgy_id}  )     -->
+<!--       and a.mem_cvs_name like '%'||#{mem_cvs_name}||'%' -->
 </select>
  <!-- 	아 이 디 : allCategory
   		반 환 값 :  categoryVo
@@ -150,3 +176,4 @@ select * from category
 
 
 </mapper>
+
