@@ -31,6 +31,7 @@ function deleteLine(obj,prodId, price, tot) {
 	
 	$("#paySum").text(payTot);
 	$("#pay_sum").val(payTot);
+	$("#pay_tot_sum").text(payTot);
 }
 
 function fn_mm(prodId, price, tot){
@@ -80,6 +81,7 @@ function fn_mm(prodId, price, tot){
 	
 	$("#paySum").text(payTot);
 	$("#pay_sum").val(payTot);
+	$("#pay_tot_sum").text(payTot);
 	
 }
 function fn_pp(prodId, price, tot){
@@ -113,6 +115,7 @@ function fn_pp(prodId, price, tot){
 	
 	$("#paySum").text(payTot);
 	$("#pay_sum").val(payTot);
+	$("#pay_tot_sum").text(payTot);
 	
 }
 
@@ -128,6 +131,7 @@ $(document).ready(function(){
 	
 	$("#paySum").text(payTot);
 	$("#pay_sum").val(payTot);
+	$("#pay_tot_sum").text(payTot);
 });
 
 function fn_userPointChk(val){
@@ -138,7 +142,7 @@ function fn_userPointChk(val){
 	// 입력한 포인트
 	var point = parseInt($("#pay_point").val());
 	
-	alert(userPoint + "// " + point);
+// 	alert(userPoint + "// " + point);
 	
 	if (userPoint < point) {
 		$("#pay_point").val(userPoint);		
@@ -146,7 +150,10 @@ function fn_userPointChk(val){
 	
 	$("#prod_point").val(point);
 	var totPay =  parseInt($("#pay_sum").val());
+	var tt = totPay - point;
 	$("#prod_card").val(totPay - point);
+	$("#tot_sum").text(tt);
+	
 	
 }
 
@@ -311,7 +318,9 @@ $(function(){
 							<table>
 								<tr>
 									<td >결제 금액</td>
-									<td id="pay_tot_sum">0</td>
+									<td id="">
+										<span id="pay_tot_sum"></span>
+									</td>
 								</tr>
 								
 								<tr>
@@ -328,7 +337,9 @@ $(function(){
 								
 								<tr>
 									<td>최종 결제 금액</td>
-									<td>전체 - 포인트 = 최종결제금액(카드결제부분)</td>								
+									<td>
+										<span id="tot_sum"></span>
+									</td>								
 								</tr>
 								
 								<tr> 
