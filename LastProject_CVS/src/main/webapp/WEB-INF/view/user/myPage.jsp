@@ -878,19 +878,20 @@ $(document).ready(function() {
  <script type='text/javascript'>
 
  
-// 		Kakao.init('20ef2122f316faf3ee201ff1da312505');
+ 		Kakao.init('20ef2122f316faf3ee201ff1da312505');
 
 // 		//카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-// 		var kakaoImg = '';
-// 		var btn = document.getElementById('btn');
+ 		var kakaoImg = '';
+ 		var btn = document.getElementById('btn');
 
-// 		var view = new Uint8Array($('#bcdLength').val());//new Uint8Array(${length});
-<%-- 	<%byte[] fc = (byte[]) request.getAttribute("fileContent"); --%>
-// 			out.println("<div id='viewDiv'>");
-// 			for (int i = 0; i < fc.length; i++) {
-// 				out.println("view[" + i + "] = " + fc[i]);
-// 			}
-<%-- 			out.println("</div>");%>   --%>
+ 		var view = new Uint8Array($('#bcdLength').val());//new Uint8Array(${length});
+ 		
+ 		<% byte[] fc = (byte[]) request.getAttribute("fileContent");
+ 			out.println("<div id='viewDiv'>");
+ 			for (int i = 0; i < fc.length; i++) {
+ 				out.println("view[" + i + "] = " + fc[i]);
+ 			}
+ 			out.println("</div>"); %>  
     	   
 
 /*  	    function sendUpload(){

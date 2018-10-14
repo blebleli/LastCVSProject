@@ -234,11 +234,9 @@ public class UserMainController {
 		model.addAttribute("myPocketList",myPocketList);
 		
 		//카카오톡 보내기
-	    File file = new File("D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
-	    				//"E:/EclipseWorkspace/jspSpring/LastProject_CVS/src/main/webapp/barcode/stock/BCD-22e7cf9c-df06-45dc-b523-586ad9c5d5ee.jpg");
-	    				//"D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/barcode/stock/6510000-104-2015-00153/BCD-7d224985-9b1a-4cf0-83c6-ce2b97e67ea6.jpg");
-	    byte[] fileContent = Files.readAllBytes(file.toPath());
-	    model.addAttribute("length",fileContent.length);
+
+		byte[] fileContent = {};
+		model.addAttribute("length",fileContent.length);
 	    model.addAttribute("fileContent",fileContent);
 
 		model.addAttribute("tab", StringUtils.defaultString(request.getParameter("tab"), ""));
