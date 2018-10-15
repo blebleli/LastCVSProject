@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/normalize.css' />" media="all"></link>
+<%-- <link rel="stylesheet" type="text/css"	href="<c:url value='/css/normalize.css' />" media="all"></link> --%>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/css/ion.rangeSlider.css' />" media="all"></link>
 <link rel="stylesheet" type="text/css"
