@@ -448,8 +448,7 @@
 	
 				    		//행추가 -- pocket은 한줄씩 늘어나게 한다.
 							$("#prodList").append(		    								
-								     '<tr data-kind="pocket" data-pocket_id=
-								    	 "'+data.pocketVo.pocket_id+'" data-bcd_id="'+bcdID+'">'+
+								     '<tr data-kind="pocket" data-pocket_id="'+data.pocketVo.pocket_id+'" data-bcd_id="'+bcdID+'">'+
 			                         '  <td> '+   
 			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
 			                         '  </td>'+

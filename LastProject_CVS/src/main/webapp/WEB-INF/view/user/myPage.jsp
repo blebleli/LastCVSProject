@@ -397,7 +397,7 @@ $(document).ready(function() {
  	            document.getElementById('uploadUrl').value = res.infos.original.url;
  	            console.log(res.infos.original.url);
  	            kakaoImg = res.infos.original.url;
- 	            console.log('kakaoImg-->'+kakaoImg);	    
+   
  	            sendLink(kakaoImg,prodName,prodExdate);
  	            
  	          });
@@ -409,7 +409,7 @@ $(document).ready(function() {
  	     	        templateId: 12634,
  	     	        templateArgs: {
  	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ prodName,
- 	     	          'content': '유효기간 : '+prodExdate+'크게보기 : '+document.getElementById('uploadUrl').value,
+ 	     	          'content': '유효기간 : '+prodExdate+' 크게보기 : '+document.getElementById('uploadUrl').value,
  	     	          'bcdImg' : document.getElementById('uploadUrl').value
  	     	        }
  	      		 });
@@ -816,7 +816,7 @@ $(document).ready(function() {
 																			<!--<input type="submit" name="submit" value="상세보기" class="button" />-->
 																			<!-- KONG 10/15 상세보기 버튼 클릭시 장바구로 가는거 제품 상세보기 페이지로 이동되도록 수정   -->
 																			<input type="button" name="submit" value="상세보기" class="button" onclick="location.href='<c:url value='${pageContext.request.contextPath}/userProd/detail?prod_id=${vo.prod_id}' />';" />
-																		</fieldset>
+																	</fieldset>
 																	</form>
 																</div>
 														</div>
@@ -895,35 +895,5 @@ $(document).ready(function() {
  				out.println("view[" + i + "] = " + fc[i]);
  			}
  			out.println("</div>"); %>  
-    	   
-
-/*  	    function sendUpload(){
-
- 	        var files = [new File([vieww], 'asdf.jpg',{type: "image/jpeg"})];
-
- 	        Kakao.Link.uploadImage({
- 	            file: files
- 	          }).then(function(res){
- 	            document.getElementById('uploadUrl').value = res.infos.original.url;
- 	            console.log(res.infos.original.url);
- 	            kakaoImg = res.infos.original.url;
- 	            console.log('kakaoImg-->'+kakaoImg);
- 	            sendLink(kakaoImg);
- 	          });
- 	   		}
- 	       
- 	       function sendLink(kakaoImg){
- 	         Kakao.Link.sendCustom({
-
- 	     	        templateId: 12634,
- 	     	        templateArgs: {
- 	     	          'title'  :"${sessionScope.userInfo.mem_name}"+' 고객님 - 구매한 상품 : '+ $('#prodName').text(),
- 	     	          'content': $('#prodExdate').text(),
- 	     	          'bcdImg' : document.getElementById('uploadUrl').value
- 	     	        }
- 	      		 });
- 	       }
- 		    */
- 		
-        
+     
     </script>												
