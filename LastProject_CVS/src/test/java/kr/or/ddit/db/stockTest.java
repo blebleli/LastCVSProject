@@ -16,6 +16,8 @@ import kr.or.ddit.model.SupplyListVo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,6 +31,8 @@ public class stockTest {
 	
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());	
 
 	@Test
 	public void stockTest() throws ParseException{ // 재고, 재고/마감 리스트 생성
@@ -122,50 +126,56 @@ public class stockTest {
             ,"5690000-104-2018-00034"
             ,"5690000-104-2017-00064" };
 		
+		String[] stcklist_kind = {"888","999"};
 		String[] date = {"2018-10-15 12:22","2018-10-16 15:12","2018-10-17 12:22"}; // 날짜
 //		String[] e_date = {"2018-11-15 12:22","2018-11-16 15:12","2018-11-17 12:22"}; // 날짜
-		
-		for(int i = 0; i < mem_id.length; i++){ // 편의점 id mem_id.length;
-			String stock = code.autoCode("ST", mem_id[i]); // 재고 코드 생성
-			stockVo = new StockVo();
-			Date stock_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date[i]); // String을 Date로 변환
-			stockVo.setStock_id(stock); // 재고 코드
-			stockVo.setMem_id(mem_id[i]); // 아이디
-			stockVo.setStock_info(""); // 재고 info
-			stockVo.setStock_date(stock_date); // 날짜
-			stockVo.setStock_kind("재"); // 종류?? --->> 아직...
+		for(int x = 0; x < stcklist_kind.length; x++){
 			
-			template.insert("stock.insertStock", stockVo); // STOCK INSERT
-			System.out.println(1+i+"번째 재고 생성");
-			
-			// 수불/입고리스트(Supply_list)의 제품리스트코드, 유통기한, 수량을 가지고 온다.
-			// 수불/입고(Supply)의 날짜를 가지고 온다.(이건 미정..)
-			Date Stck_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date[i]); // String을 Date로 변환
-			List<SupplyListVo> supplyList = template.selectList("test.supplyListGet", mem_id[i]);
-			for(int j = 0; j < supplyList.size(); j++){ // 제품리스트코드 갯수 supplyList.size();
 				stockListVo = new StockListVo(); // 재고/마감리스트 생성
-				barcodeVo = new BarcodeVo(); // 바코드 생성
+				stockListVo.setStcklist_kind(stcklist_kind[x]); // 재고, 마감?
 				
-				String bcd_id = code.barcode("BCD");
-				barcodeVo.setBcd_id(bcd_id);
-				barcodeVo.setBcd_content("재고 바코드 생성..");
-				barcodeVo.setBcd_path("/barcode/stock");
-				barcodeVo.setBcd_kind("100");
-//				Date ex_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(e_date[j]); // String을 Date로 변환
+			for(int i = 0; i < mem_id.length; i++){ // 편의점 id mem_id.length;
 				
-				stockListVo.setBcd_id(bcd_id); // 재고리스트 바코드
-				stockListVo.setStcklist_amount(supplyList.get(j).getSplylist_sum()); // 수량
-				stockListVo.setStcklist_exdate(supplyList.get(j).getSplylist_exdate()); // 유통기한
-				stockListVo.setStck_date(Stck_date); // 이건 아직
-				stockListVo.setStcklist_info(""); // 비고
-				stockListVo.setStcklist_kind("888"); // 재고, ------------>> 마감은.. 아직
-				stockListVo.setStock_id(stockVo.getStock_id()); // 재고 코드
-				stockListVo.setSplylist_id(supplyList.get(j).getSplylist_id()); // 제품리스트코드
-				stockListVo.setProd_id(supplyList.get(j).getProd_id()); // 제품명				
+				String stock = code.autoCode("ST", mem_id[i]); // 재고 코드 생성
+				stockVo = new StockVo();
+				Date stock_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date[i]); // String을 Date로 변환
+				stockVo.setStock_id(stock); // 재고 코드
+				stockVo.setMem_id(mem_id[i]); // 아이디
+				stockVo.setStock_info(""); // 재고 info
+				stockVo.setStock_date(stock_date); // 날짜
+				stockVo.setStock_kind("재"); // 종류?? --->> 아직...
 				
-				template.insert("barcode.insertBarcode", barcodeVo); // BARCODE INSERT
-				template.insert("stock.insertStockList", stockListVo); // STOCK_LIST INSERT
-				System.out.println(1+j+"번째 재고리스트 생성");
+				template.insert("stock.insertStock", stockVo); // STOCK INSERT
+				logger.debug("stockVo.size() --> 1"+i+"번째 재고/마감 생성");
+				
+				// 수불/입고리스트(Supply_list)의 제품리스트코드, 유통기한, 수량을 가지고 온다.
+				// 수불/입고(Supply)의 날짜를 가지고 온다.(이건 미정..)
+				Date Stck_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(date[i]); // String을 Date로 변환
+				List<SupplyListVo> supplyList = template.selectList("test.supplyListGet", mem_id[i]);
+				for(int j = 0; j < supplyList.size(); j++){ // 제품리스트코드 갯수 supplyList.size();
+					barcodeVo = new BarcodeVo(); // 바코드 생성
+					
+					String bcd_id = code.barcode("BCD");
+					barcodeVo.setBcd_id(bcd_id);
+					barcodeVo.setBcd_content("재고 바코드 생성..");
+					barcodeVo.setBcd_path("/barcode/stock");
+					barcodeVo.setBcd_kind("100");
+	//				Date ex_date = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(e_date[j]); // String을 Date로 변환
+					
+					stockListVo.setBcd_id(bcd_id); // 재고리스트 바코드
+					stockListVo.setStcklist_amount(supplyList.get(j).getSplylist_sum()); // 수량
+					stockListVo.setStcklist_exdate(supplyList.get(j).getSplylist_exdate()); // 유통기한
+					stockListVo.setStck_date(Stck_date); // 이건 아직
+					stockListVo.setStcklist_info(""); // 비고
+					stockListVo.setStock_id(stockVo.getStock_id()); // 재고 코드
+					stockListVo.setSplylist_id(supplyList.get(j).getSplylist_id()); // 제품리스트코드
+					stockListVo.setProd_id(supplyList.get(j).getProd_id()); // 제품명				
+					
+					template.insert("barcode.insertBarcode", barcodeVo); // BARCODE INSERT
+					template.insert("stock.insertStockList", stockListVo); // STOCK_LIST INSERT
+					logger.debug("stockListVo.size() --> 1"+i+"번째 재고/마감리스트 생성");
+					
+				}
 			}
 		}
 	}
