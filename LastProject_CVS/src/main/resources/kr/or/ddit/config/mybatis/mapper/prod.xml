@@ -109,18 +109,18 @@
 
 <!-- 전체 상품 조회 -->
 <select id="getAllProd" parameterType="Map" resultType="prodVo" >
-<!-- SELECT *  -->
-<!-- 		FROM -->
-<!-- 			(SELECT a.*,ROWNUM rn  -->
-<!-- 				FROM -->
-<!-- 				(SELECT prod.* -->
-<!-- 					FROM prod -->
-<!-- 					ORDER BY prod_name)a -->
-<!--           ) -->
-<!-- 		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize} -->
+SELECT * 
+		FROM
+			(SELECT a.*,ROWNUM rn 
+				FROM
+				(SELECT prod.*
+					FROM prod
+					ORDER BY prod_name)a
+          )
+		WHERE rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 
 
-SELECT * FROM PROD ORDER BY PROD_NAME
+<!-- SELECT * FROM PROD ORDER BY PROD_NAME -->
 </select>
 
 
