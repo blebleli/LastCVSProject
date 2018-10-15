@@ -12,7 +12,7 @@
 
 <style type="text/css">
 	div.field{width:750px}
-	span.error_txt.small{display:inline;color:#ff9933;font-size:10px;}
+	span.error_txt.small{display:inline;color:#ff9933;font-size:11px;}
 </style>
 
 <!-- 달력 js -->
@@ -121,6 +121,17 @@ function fn_errMessage(_obj, _text) {
 
 </script>
 
+<!-- products-breadcrumb -->
+	<div class="products-breadcrumb">
+		<div class="container">
+			<ul>
+				<li><i class="fa fa-home" aria-hidden="true"></i><a href="<c:url value='/index.jsp' />">Home</a><span>|</span></li>
+				<li>비밀번호 재설정</li>
+			</ul>
+		</div>
+	</div>
+<!-- //products-breadcrumb -->
+
 <div id="wrap">
 
 	<div id="container">
@@ -149,14 +160,14 @@ function fn_errMessage(_obj, _text) {
 									<label for="mem_pw" class="label">비밀번호</label>
 									<div>
 										<input type="password" id="mem_pw" name="mem_pw" title="비밀번호를 입력해주세요" value="" class="input_text small" style="width:268px">
-										<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
+										<br><span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 									</div>
 								</div>
 								<div class="field">
 									<label for="mem_pw_confirm" class="label">비밀번호확인</label>
 									<div>
 										<input type="password" id="mem_pw_confirm" value="" class="input_text small" style="width:268px">
-										<span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
+										<br><span class="msg_wrap" style="display:none"><span class="error_txt small"></span></span>
 									</div>
 								</div>
 								<div class="bn_ar">
