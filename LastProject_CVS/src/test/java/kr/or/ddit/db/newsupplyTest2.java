@@ -1,11 +1,20 @@
 package kr.or.ddit.db;
 
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.Resource;
+
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.model.BarcodeVo;
+import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.model.SupplyListVo;
 import kr.or.ddit.model.SupplyVo;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -13,12 +22,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:kr/or/ddit/config/spring/root-context.xml",
 								 "classpath:kr/or/ddit/config/spring/transaction.xml",
 								 "classpath:kr/or/ddit/config/spring/datasource.xml"})
-public class newsupplyTest { // 15일자 6개 편의점 발주 신청하기
+public class newsupplyTest2 {
 
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
@@ -84,6 +92,69 @@ public class newsupplyTest { // 15일자 6개 편의점 발주 신청하기
 				sup.setProd_id(prod_id[x]); // 상품 아이디
 				template.insert("supply.insertSupplyList", sup); // SUPPLY_LIST 생성				
 			}
-		}	
+		} // 발주 신청
+		
+		// 결제
+		
+		// 입고 확인
+		for(int i = 0; i < mem_id.length; i++){
+			String bcd_id = autoCode.barcode("SUPPLY");
+			supBarcode = new BarcodeVo();
+			supBarcode.setBcd_id(bcd_id);      	 	 			//바코드코드
+			supBarcode.setBcd_content("SUPPLY : "+mem_id[i]);   //내용			
+			supBarcode.setBcd_kind("102"); 		      			//재고 : 100, 저장소 : 101, 수불 : 102 마감 :103
+			supBarcode.setBcd_path("-");       	 	 			//경로 결제 일때 이미지도 생성
+			
+			template.insert("barcode.insertBarcode",supBarcode); // 입고 승인
+			
+			logger.debug("바코드 supply insert === 완료 ");
+			
+			SupplyVo supplyVo = new SupplyVo();
+			supplyVo.setPlace_id(mem_id[i]); // 편의점 아이디
+			supplyVo.setSupply_bcd(bcd_id); // 수불바코드
+			supplyVo.setSupply_info("SUPPLY_REQ_IN : "+mem_id[i]); // 비고
+			supplyVo.setSupply_state("12"); // 진행 상태(입고)
+						
+			template.insert("supply.insertSupply",supplyVo);
+			
+			logger.debug("바코드 supply insert === 완료 ");
+			
+			List<SupplyListVo> supplyListInsert = new ArrayList<SupplyListVo>();
+			
+			// supply list insert
+			for (SupplyListVo vo : supplyListVo) {
+
+				String splylist_id = autoCodeCreate.autoCode("SUP12",memberVo.getMem_id());
+
+				// 3. supply_list insert ===================================================
+				ProdVo prodvo = prodService.getProd(vo.getProd_id());
+				logger.debug("prod 가져와-----------{}", prodvo);
+				int exnum = prodvo.getProd_exnum(); //유통기한값
+				
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, exnum);
+				
+				SupplyListVo supplyList = new SupplyListVo();
+				supplyList.setProd_id(vo.getProd_id());
+				supplyList.setSplylist_exdate(cal.getTime()); //prod 유통기한값 가져와서 계산
+				supplyList.setSplylist_id(splylist_id);
+				supplyList.setSplylist_info(new Date()+"hsj 입고 test");
+				supplyList.setSplylist_sum(vo.getSplylist_sum());
+				supplyList.setSupply_bcd(supply_bcd);
+				
+				supplyService.setInsertSupplyList(supplyList);
+				supplyListInsert.add(supplyList);
+				
+			}
+			
+			//4. stock 생성, 
+			//5. stock_list 바코드 생성, 
+			//6. stock_list 생성 
+			//===================================================
+//			stockService.setSupplyStockInsert(supplyListInsert, memberVo.getMem_id());
+		}
+		
+		
+		
 	}
 }
