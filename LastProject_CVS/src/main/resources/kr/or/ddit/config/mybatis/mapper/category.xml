@@ -97,31 +97,46 @@
 	select * from cvs_service where place_id = #{place_id}
 </select>
 
-<select id="searchCvsService" parameterType="Map" resultType="searchCvsServiceVo">
-SELECT  M.MEM_ID              
-        M.MEM_KIND     
-        M.MEM_NAME     
-        M.MEM_TEL               
-        M.MEM_ZIP      
-        M.MEM_ADD      
-        M.MEM_ADDR     
-        M.MEM_CVS_NAME 
-        M.MEM_CVS_TEL  
-        M.MEM_INTRO    
-        M.MEM_X        
-        M.MEM_Y         
-FROM MEMBER M
-WHERE M.MEM_ID IN (
-                  SELECT T.PLACE_ID
-                  FROM (
-                        SELECT    PLACE_ID
-                                , LISTAGG(CTGY_ID, ', ') within group (order by CTGY_ID) CTGY_ID
-                        FROM CVS_SERVICE
-                        GROUP BY  PLACE_ID
-                        )T
-                  WHERE T.CTGY_ID = #{ctgy_id}
-              )
-AND M.MEM_CVS_NAME LIKE '%'||#{mem_cvs_name}||'%'
+<select id="searchCvsService" parameterType="Map" resultType="memberVo">
+select tb2.mem_id,
+       tb2.mem_kind,
+       tb2.MEM_NAME    ,
+       tb2.MEM_TEL     ,        
+       tb2.MEM_ZIP     ,  
+       tb2.MEM_ADD     , 
+       tb2.MEM_ADDR    , 
+       tb2.MEM_CVS_NAME, 
+       tb2.MEM_CVS_TEL , 
+       tb2.MEM_INTRO   , 
+       tb2.MEM_X       , 
+       tb2.MEM_Y  
+       FROM
+        (SELECT tb.*, ROWNUM rn FROM      
+          (SELECT  M.MEM_ID ,             
+              M.MEM_KIND    , 
+              M.MEM_NAME    ,
+              M.MEM_TEL     ,        
+              M.MEM_ZIP     ,  
+              M.MEM_ADD     , 
+              M.MEM_ADDR    , 
+              M.MEM_CVS_NAME, 
+              M.MEM_CVS_TEL , 
+              M.MEM_INTRO   , 
+              M.MEM_X       , 
+              M.MEM_Y         
+      FROM MEMBER M
+      WHERE M.MEM_ID IN (
+                        SELECT T.PLACE_ID 
+                        FROM (
+                              SELECT    PLACE_ID
+                                      , LISTAGG(CTGY_ID, ', ') within group (order by CTGY_ID) CTGY_ID
+                              FROM CVS_SERVICE
+                              GROUP BY  PLACE_ID
+                              )T
+                        WHERE T.CTGY_ID = #{ctgy_id}
+                    )
+      AND M.MEM_CVS_NAME LIKE '%'||#{mem_cvs_name}||'%') tb)tb2
+WHERE tb2.rn BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
 
 
 <!-- 	 select   a.MEM_ID -->
@@ -174,6 +189,13 @@ select * from category
 	 WHERE ctgy_id=#{ctgy_id}
 </update>
 
+<select id="cvsReqCtgy" parameterType="String" resultType="categoryVo">
+	 select ctgy_id, ctgy_name, ctgy_parent, ctgy_group 
+	  	from category
+		where ctgy_group =#{ctgy_group}
+		and ctgy_parent is not null
+		and ctgy_kind ='301'
+</select>
 
 </mapper>
 
