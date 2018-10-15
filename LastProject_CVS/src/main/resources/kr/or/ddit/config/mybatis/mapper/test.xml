@@ -25,8 +25,23 @@
   		WHERE PROD_id = #{prod_id}
   	</update>
   	
+  	<!-- supply 발주신청 10을 조회하기 위한 쿼리 -->
+  	<select id="supplyselects" resultType="supplyVo" parameterType="String">
+  		SELECT * 
+  		FROM SUPPLY 
+  		WHERE SUPPLY_STATE='10'
+  		AND SUPPLY_INFO IS NULL
+  		AND SUPPLY_BCD=#{supply_bcd}
+  	</select>
+  	
+  	<select id="supplyListGet" resultType="supplyListVo" parameterType="String">
+  		select *
+  		from supply_list
+  		where supply_bcd=#{supply_bcd}
+  	</select>
+  	
   	<!-- stock_list의 제품리스트코드, 수량, 유통기한, supply의 날짜를 알기 위한 쿼리 -->
-  	<select id="supplyListGet" resultType="supplyListVo">
+  	<select id="supplyListGets" resultType="supplyListVo">
 			SELECT T.*
 			FROM
 			(
