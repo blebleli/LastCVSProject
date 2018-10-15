@@ -1,4 +1,5 @@
 ﻿
+
     <title>Gentelella Alela! | </title>
 
     <!-- Bootstrap -->
@@ -38,21 +39,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>입고 리스트 내역 <small>현재 선택한 입고 리스트의 상세 내역 페이지 입니다.</small></h2>
-<!--                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul> -->
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -62,9 +49,9 @@
                       <div class="row">
                         <div class="col-xs-12 invoice-header">
                           <h1>
-                                          <i class="fa fa-globe"></i> Invoice.
-                                          <small class="pull-right">Date: 16/08/2016</small>
-                                      </h1>
+                              <i class="fa fa-globe"></i> Invoice.
+                              <small class="pull-right">Date: 16/08/2016</small>
+                          </h1>
                         </div>
                         <!-- /.col -->
                       </div>
@@ -199,8 +186,8 @@
                       <div class="row no-print">
                         <div class="col-xs-12">
                           <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-                          <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-                          <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+                    <!--  <button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+                          <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button> -->
                         </div>
                       </div>
                     </section>
