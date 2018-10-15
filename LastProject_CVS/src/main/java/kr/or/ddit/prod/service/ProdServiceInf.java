@@ -215,4 +215,17 @@ public interface ProdServiceInf {
 	
 	List<CategoryVo> cvsReqCtgy(String ctgy_group);
 	
+	/**
+	 * Method   : getCtgyProdByClass 
+	 * 최초작성일  : 2018. 10. 15. 
+	 * 작성자 :  한수정 
+	 * 변경이력 : 신규
+	 * @param string
+	 * @param string2
+	 * @return 
+	 * Method 설명 : 카테고리를 넘겨서 해당 제품 정보 가져 오는거
+	 */
+	List<ProdVo> getCtgyProdByClass(Map<String, String> result);
+	
+	
 }

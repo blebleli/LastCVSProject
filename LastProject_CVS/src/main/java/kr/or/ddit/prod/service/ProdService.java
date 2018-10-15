@@ -318,4 +318,10 @@ public class ProdService implements ProdServiceInf {
 		return prodDao.cvsReqCtgy(ctgy_group);
 	}
 
+
+	@Override
+	public List<ProdVo> getCtgyProdByClass(Map<String, String> result) {
+		// TODO Auto-generated method stub
+		return prodDao.getCtgyProdByClass(result);
+	}
 }

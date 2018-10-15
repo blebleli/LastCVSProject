@@ -17,6 +17,7 @@
 
 </select>
 
+
 <!-- 카테고리 별 제품의 갯수  -->
 <select id="getCtgyProdCount" parameterType="Map" resultType="Integer">
 	select count(*) 
@@ -24,6 +25,25 @@
 	where ${pr_class} = #{pr_class_id}
 	
 </select>
+
+
+<!-- 아 이 디 : getCtgyProdListBy
+	 반 환 값 : 
+     매개변수 : 상품 코드
+	 설    명 : 
+	 작 성 자 : 한수정
+	 일    시 : 2018-10-15    
+
+ -->
+<select id="getCtgyProdByClass" parameterType="Map" resultType="prodVo">
+	select *
+	from prod
+	where ${pr_class} = #{pr_class_id}
+</select>
+
+
+
+
 
 <!-- 	아 이 디 : getProd
   		반 환 값 : 

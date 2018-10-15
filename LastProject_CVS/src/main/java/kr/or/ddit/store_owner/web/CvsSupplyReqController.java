@@ -308,8 +308,8 @@ public class CvsSupplyReqController {
 	@ResponseBody
 	public Map<String, Object> mdCategoryList(@RequestParam(value="ctgy_id")String ctgy_id, Model model){
 		
-		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("pr_class", "pr_class_md");
 		paramMap.put("pr_class_id", ctgy_id);
@@ -320,6 +320,31 @@ public class CvsSupplyReqController {
 		
 		return resultMap;
 	}
+	
+	
+	@RequestMapping(value="/getCtgyProdByClass", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getCtgyProdByClass(@RequestParam(value="pr_class")String pr_class,
+												  @RequestParam(value="pr_class_id")String ctgy_id,
+											Model model){
+		
+		Map<String, String> paramMap = new HashMap<String, String>();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		paramMap.put("pr_class", pr_class );
+		paramMap.put("pr_class_id", ctgy_id );
+	
+		List<ProdVo> lgProd = prodService.getCtgyProdByClass(paramMap);
+		logger.debug("lgProd = = = = "+lgProd.size());
+		List<CategoryVo> mdCategory = prodService.cvsReqCtgy(ctgy_id);
+		
+		resultMap.put("lgList", lgProd);
+		resultMap.put("mdCategory", mdCategory);
+		
+		return resultMap;
+	}
+	
+	
+	
 	
 
 

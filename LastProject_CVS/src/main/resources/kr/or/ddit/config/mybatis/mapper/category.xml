@@ -189,6 +189,7 @@ select * from category
 	 WHERE ctgy_id=#{ctgy_id}
 </update>
 
+
 <select id="cvsReqCtgy" parameterType="String" resultType="categoryVo">
 	 select ctgy_id, ctgy_name, ctgy_parent, ctgy_group 
 	  	from category

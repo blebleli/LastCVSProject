@@ -27,7 +27,7 @@
     	$(function(){
     		
     		//발주 신청 리스트 추가
-    		$("#datatable tbody").on("click", "tr", function(){
+    		$("#ctgrProdTable tbody").on("click", "tr", function(){
     			var requestProd =$(this).data("class");
     			
     			//중복 체크
@@ -50,38 +50,53 @@
 	    					$("#datatable-buttons2 > tbody").append('<tr class="evenpointer2" data-class="'+responseData.prod_id +'" name="requestTr">'+
 	    																'<td>'+responseData.prod_name+'</td>'+
 	    																'<td>'+responseData.prod_price+'</td>'+
-	    																'<td><input type="number" name="amount" class="amount" value="0"></td>'+
+	    																'<td><input type="number" name="amount" class="amount"></td>'+
 	    															+'</tr>');
 	    			}
 	    		});
 
     		});
+    		
+    	  	var table = null;
   //----------------------------------------------------------------------------------------------
   			//대분류 선택 후 대분류에 따른 중분류, 해당 대분류의 상품목록
     		$("select[name=lgCtgyBtn]").val("${param.lgCtgyBtn}").prop("selected",true);
     		$("select[name=lgCtgyBtn]").on("change", function(){
     			
     			var lgC = $("select[name=lgCtgyBtn]").val();
+    			console.log("lgc--->"+lgC);
+    			
     			$.ajax({
-	    			url : "selectLgCtgy",
+	    			url : "/cvs/getCtgyProdByClass", //"selectLgCtgy",
 	    			method:"get",
-	    			data : {"ctgy_id": lgC},
+	    			data : {"pr_class": "pr_class_lg" ,
+	    					"pr_class_id" : lgC},
 	    			success : function(responseData){
-    					console.log(responseData);
-    					$("select[name=mdCtgyBtn]").empty();
-	    				$.each(responseData.mdCategory,function(index, item){
+ 					$("select[name=mdCtgyBtn]").empty();
+	    				
+    					$.each(responseData.mdCategory,function(index, item){
 	    					$("select[name=mdCtgyBtn]").append(
 	    							'<option value="'+item.ctgy_id+'">'+item.ctgy_name+'</option></select>'
 								);
-	    				})
-	    				$("#datatable > tbody").empty();
+	    				});
+    					
+	    				$("#ctgrProdTable > tbody").empty();
+	    				
+	    				if (table !== null) {
+	    				    table.clear().draw();
+	    				    table.destroy();
+	    				    table = null;    
+	    				}
+	    				
 	    				$.each(responseData.lgList,function(index, item){
-	    					$("#datatable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
+	    					$("#ctgrProdTable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
 	    																'<td>'+item.prod_name+'</td>'+
 	    																'<td>'+item.prod_price+'</td>'+
 	    															+'</tr>'
 							);
-	    				})
+	    				});
+			
+	    				table = $('#ctgrProdTable').DataTable();
 	    			}	
 	    		});
     		})
@@ -91,20 +106,30 @@
     			
     			var mdC = $("select[name=mdCtgyBtn]").val();
     			$.ajax({
-	    			url : "selectmdCtgy",
+	    			url : "/cvs/getCtgyProdByClass",
 	    			method:"get",
-	    			data : {"ctgy_id": mdC},
-	    			success : function(responseData){
-    					console.log(responseData);
-    					
-	    				$("#datatable > tbody").empty();
-	    				$.each(responseData.mdList,function(index, item){
-	    					$("#datatable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
+	    			data : {"pr_class": "pr_class_md" ,
+	    					"pr_class_id" : mdC },
+	    				success : function(responseData){
+    				
+	    				$("#ctgrProdTable > tbody").empty();
+	    				
+	    				if (table !== null) {								
+
+	    				    table.clear().draw();
+	    				    table.destroy();
+	    				    table = null;    
+	    				}
+	    				
+	    				$.each(responseData.lgList,function(index, item){
+	    					$("#ctgrProdTable > tbody").append('<tr data-class="'+item.prod_id+'" class="evenpointer" name="prod_id">'+
 	    																'<td>'+item.prod_name+'</td>'+
 	    																'<td>'+item.prod_price+'</td>'+
 	    															+'</tr>'
 							);
 	    				})
+	    				
+	    				table = $('#ctgrProdTable').DataTable();
 	    			}	
 	    		});
     		})
@@ -201,7 +226,7 @@
                       	<div class="btn-group open" id="ctgy">
 						  <select class="btn btn-primary" name="lgCtgyBtn" >
 						  	<option value="" disabled selected hidden>선택하세요</option>
-						  	<c:forEach items="${lgCtgy }" var="ctgy">
+						  	<c:forEach items= "${lgCtgy }" var="ctgy">
 						  		<option value="${ctgy.ctgy_id}">${ctgy.ctgy_name}</option>
 						  	</c:forEach>
 						  </select>
@@ -211,7 +236,7 @@
 						</div>
                     </p>
                     <div class="table-responsive">
-                    <table id="datatable" class="table table-striped table-bordered">
+                    <table id="ctgrProdTable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
                           <th>상품명</th>
@@ -226,8 +251,8 @@
 								<td> ${prod.prod_price}</td> 
 							</tr>
                       	</c:forEach>
- 
                       </tbody>
+                      
                     </table>
                     </div>
                   </div>

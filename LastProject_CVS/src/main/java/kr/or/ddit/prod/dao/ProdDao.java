@@ -291,4 +291,16 @@ public class ProdDao implements ProdDaoInf {
 		return session.selectList("category.cvsReqCtgy", ctgy_group);
 	}
 	
+	/**
+	 * 
+	 * @param result
+	 * @return
+	 */
+	@Override
+	public List<ProdVo> getCtgyProdByClass(Map<String, String> result) {
+		return session.selectList("prod.getCtgyProdByClass",result);
+	}
+
+
+	
 }
