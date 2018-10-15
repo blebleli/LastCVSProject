@@ -159,7 +159,7 @@
 	  		작 성 자 : 한수정
 	  		일    시 : 2018-10-13     
 	 -->
-	<select id="supplyDetail" parameterType="String" resultType="supplyInListVo">
+	<select id="supplyDetail" parameterType="String" resultType="supplyListVo">
 		SELECT * 
 		FROM supply_list sl
 		JOIN prod p
