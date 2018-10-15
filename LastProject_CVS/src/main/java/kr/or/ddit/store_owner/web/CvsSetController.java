@@ -117,7 +117,7 @@ public class CvsSetController {
 				String path = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";
 				String upName = UUID.randomUUID().toString();
 				
-				File uploadFile = new File(path+upName);
+				File uploadFile = new File(path+upName+ext);
 				
 				FiledataVo fileDataVo = new FiledataVo();
 				fileDataVo.setMem_id(user.getMem_id());

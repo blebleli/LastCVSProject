@@ -127,8 +127,8 @@
 <!-- 							<div class="flexslider"> -->
 								<div class="form-group">
 									<div class="col-md-6 col-sm-6 col-xs-12">
-									  	<c:forEach items="${fileList }" var="file">
-								      		<img src="/images/userpic/${file.file_upname}" align="middle" width="70%"/>
+									  	<c:forEach items="${fileList}" var="file">
+								      		<img src="${file.file_path}/${file.file_upname}" style="align:center"  width="150px;"/>
 									  	</c:forEach>
 									</div>
 								</div>
