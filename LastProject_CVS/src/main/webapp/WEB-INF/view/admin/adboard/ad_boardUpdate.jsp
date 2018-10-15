@@ -7,6 +7,9 @@
 	
     <!-- Datatables -->
     <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    
+     <!-- Custom Theme Style -->
+    <link href="/build/css/customAdmin.min.css" rel="stylesheet">
         
 		<!-- page content -->
 		<div class="right_col" role="main">
