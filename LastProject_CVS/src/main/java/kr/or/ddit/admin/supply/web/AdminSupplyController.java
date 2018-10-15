@@ -271,60 +271,97 @@ public class AdminSupplyController {
 		List<SupplyListVo> list = supplyService.getListSupplyList(check);
 		SupplyListVo supplyListVo = null;
 		
-		for (SupplyListVo vo : list) {
-//			logger.debug("/////////////////////////////////////////////////////////////{}");
-//			logger.debug("supplyListVo.getSplylist_id() : {}",vo.getSplylist_id());
-//			logger.debug("supplyListVo.getSupply_bcd() : {}",vo.getSupply_bcd());
-//			logger.debug("/////////////////////////////////////////////////////////////{}");
-//			logger.debug("supplyListVo.getSplylist_info() : {}",vo.getSplylist_info());
-//			logger.debug("supplyListVo.getSplylist_exdate() : {}",vo.getSplylist_exdate());
-//			logger.debug("supplyListVo.getSplylist_sum() : {}",vo.getSplylist_sum());
-//			logger.debug("supplyListVo.getProd_id() : {}",vo.getProd_id());
-			
-			//supply_list를 만들기 위한 객체
+// 변경
+		
+		for(int j = 0; j < list.size(); j++){
 			supplyListVo = new SupplyListVo();
-			
-			////////////////////////////////////////////////////////
-			//기존에 있던 supply_list 정보를 가져다 넣는다
-			//제품 아이디
-			supplyListVo.setProd_id(vo.getProd_id());
-			
+			// 기존 supply_list 정보 가져다 놓기
+			// 제품 아이디
+			supplyListVo.setProd_id(list.get(j).getProd_id());
 			// 유통기한
-			supplyListVo.setSplylist_exdate(vo.getSplylist_exdate());
-			
-			
-			//비고
-			if(vo.getSplylist_info() != null){
-				supplyListVo.setSplylist_info(vo.getSplylist_info());
-			}else if(vo.getSplylist_info() == null){
+			supplyListVo.setSplylist_exdate(list.get(j).getSplylist_exdate());
+			// 비고
+			if(list.get(j).getSplylist_info() != null){
+				supplyListVo.setSplylist_info(list.get(j).getSplylist_info());
+			}else if(list.get(j).getSplylist_info() == null){
 				supplyListVo.setSplylist_info("");
 			}
-			
-			//수량 ===============================================
-			
+			// 수량
 			for (int k = 0 ; k < prod_idArray.length; k++) {
 				if (supplyListVo.getProd_id().equals(prod_idArray[k])){
 					supplyListVo.setSplylist_sum(intSumArray[k]);
 				}
 			}
-			
-			////////////////////////////////////////////////////////
-			
 			//새로이 만든 바코드로 supply와 supply_list의 supply_bcd값을 일치 시킨다.
 			supplyListVo.setSupply_bcd(barcodeVo.getBcd_id());
 			
 			//splylist_id를 새로이 만들기 위한 코드 자동 생성 메서드 실행
 			String code2 = "SUP11";
 			
-			// splylist_id ..
+//			// splylist_id ..
 			String splylist_id = autoCodeCreate.autoCode(code2, mem_id);
 			
-			//새로 만든 코드를 가지고 supply_list의 splylist_id값으로 집어 넣는다.
+//			//새로 만든 코드를 가지고 supply_list의 splylist_id값으로 집어 넣는다.
 			supplyListVo.setSplylist_id(splylist_id);
 			
 			supplyService.setInsertSupplyList(supplyListVo);
-			
 		}
+	
+// 기존		
+//		for (SupplyListVo vo : list) {
+////			logger.debug("/////////////////////////////////////////////////////////////{}");
+////			logger.debug("supplyListVo.getSplylist_id() : {}",vo.getSplylist_id());
+////			logger.debug("supplyListVo.getSupply_bcd() : {}",vo.getSupply_bcd());
+////			logger.debug("/////////////////////////////////////////////////////////////{}");
+////			logger.debug("supplyListVo.getSplylist_info() : {}",vo.getSplylist_info());
+////			logger.debug("supplyListVo.getSplylist_exdate() : {}",vo.getSplylist_exdate());
+////			logger.debug("supplyListVo.getSplylist_sum() : {}",vo.getSplylist_sum());
+////			logger.debug("supplyListVo.getProd_id() : {}",vo.getProd_id());
+//			
+//			//supply_list를 만들기 위한 객체
+//			supplyListVo = new SupplyListVo();
+//			
+//			////////////////////////////////////////////////////////
+//			//기존에 있던 supply_list 정보를 가져다 넣는다
+//			//제품 아이디
+//			supplyListVo.setProd_id(vo.getProd_id());
+//			
+//			// 유통기한
+//			supplyListVo.setSplylist_exdate(vo.getSplylist_exdate());
+//			
+//			
+//			//비고
+//			if(vo.getSplylist_info() != null){
+//				supplyListVo.setSplylist_info(vo.getSplylist_info());
+//			}else if(vo.getSplylist_info() == null){
+//				supplyListVo.setSplylist_info("");
+//			}
+//			
+//			//수량 ===============================================
+//			
+//			for (int k = 0 ; k < prod_idArray.length; k++) {
+//				if (supplyListVo.getProd_id().equals(prod_idArray[k])){
+//					supplyListVo.setSplylist_sum(intSumArray[k]);
+//				}
+//			}
+//			
+//			////////////////////////////////////////////////////////
+//			
+//			//새로이 만든 바코드로 supply와 supply_list의 supply_bcd값을 일치 시킨다.
+//			supplyListVo.setSupply_bcd(barcodeVo.getBcd_id());
+//			
+//			//splylist_id를 새로이 만들기 위한 코드 자동 생성 메서드 실행
+//			String code2 = "SUP11";
+//			
+//			// splylist_id ..
+//			String splylist_id = autoCodeCreate.autoCode(code2, mem_id);
+//			
+//			//새로 만든 코드를 가지고 supply_list의 splylist_id값으로 집어 넣는다.
+//			supplyListVo.setSplylist_id(splylist_id);
+//			
+//			supplyService.setInsertSupplyList(supplyListVo);
+//			
+//		}
 		
 		return "redirect:/admin/lookup";
 	}
