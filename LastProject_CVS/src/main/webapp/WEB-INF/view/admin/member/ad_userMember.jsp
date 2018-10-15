@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<!-- Custom Theme Style -->
+<link href="/build/css/customAdmin.min.css" rel="stylesheet">
     
 <!-- 09.20 KEB : 관리자단에서  일반회원 리스트 출력하는 화면  -->
 
