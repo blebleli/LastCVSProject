@@ -199,13 +199,13 @@
 			    		$("#tblReqIN tbody tr").each(function (index) {		                    	 
 			    			var data = $(this);		
 
-			    			if(index<=10){ //test용---------------------------------------
+// 			    			if(index<=10){ //test용---------------------------------------
 			    				
 			    				reqInList.push({	    					
 			    					   splylist_sum : data.find('.amount').val(),
 			    					        prod_id : data.find('.prod_id').text()
 			    					 	  });			  					
-			    			};
+// 			    			};
 			    			
 			    			
 			             });	
