@@ -4,6 +4,17 @@
 
 <link href='//fonts.googleapis.com/css?family=Ubuntu:400,300,300italic,400italic,500,500italic,700,700italic' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<style>
+.checkout-left-basket ul li {
+    list-style-type: none;
+    margin-bottom: 1em;
+    font-size: 15px;
+    color: #212121;
+}
+<!--
+
+-->
+</style>
 <script type="text/javascript">
 
 
@@ -31,7 +42,7 @@ function deleteLine(obj,prodId, price, tot) {
 	
 	$("#paySum").text(payTot);
 	$("#pay_sum").val(payTot);
-	$("#pay_tot_sum").text(payTot);
+	$("#pay_tot_sum").text(payTot + "원");
 }
 
 function fn_mm(prodId, price, tot){
@@ -81,7 +92,7 @@ function fn_mm(prodId, price, tot){
 	
 	$("#paySum").text(payTot);
 	$("#pay_sum").val(payTot);
-	$("#pay_tot_sum").text(payTot);
+	$("#pay_tot_sum").text(payTot + "원");
 	
 }
 function fn_pp(prodId, price, tot){
@@ -115,7 +126,7 @@ function fn_pp(prodId, price, tot){
 	
 	$("#paySum").text(payTot);
 	$("#pay_sum").val(payTot);
-	$("#pay_tot_sum").text(payTot);
+	$("#pay_tot_sum").text(payTot + "원");
 	
 }
 
@@ -129,9 +140,9 @@ $(document).ready(function(){
 		payTot +=  parseInt($("#"+i+"tot").val()); 
 	}
 	
-	$("#paySum").text(payTot);
+	$("#paySum").text(payTot + "원");
 	$("#pay_sum").val(payTot);
-	$("#pay_tot_sum").text(payTot);
+	$("#pay_tot_sum").text(payTot + "원");
 });
 
 function fn_userPointChk(val){
@@ -152,7 +163,7 @@ function fn_userPointChk(val){
 	var totPay =  parseInt($("#pay_sum").val());
 	var tt = totPay - point;
 	$("#prod_card").val(totPay - point);
-	$("#tot_sum").text(tt);
+	$("#tot_sum").text(tt + "원");
 	
 	
 }
@@ -310,7 +321,32 @@ $(function(){
 		<div class="privacy about">
 			<h3>결제 내용</h3>
 				<br>
-	         <div class="checkout-right2">
+			<div class="checkout-left">	
+				<div class="col-md-4 checkout-left-basket" style="width: 60.33333333%; margin-left: 20%;">
+					<h4>Continue to basket</h4>
+					<ul>
+						<li>결제 금액 <i>-</i> <span id="pay_tot_sum" style="margin-right:20px;"></span></li>
+						<li>사용가능 포인트 <i>-</i> <span id="userPoint" style="margin-right:20px;">${userInfo.mem_point }</span></li>
+						<li>사용 포인트 <i>-</i> <span id="pay_tot_point" style="margin-right:20px;"><input type="number" id="pay_point" onchange="fn_userPointChk(this)" placeholder="입력"> </span></li> 
+						
+						<li>최종 결제 금액 <i>-</i> <span id="tot_sum" style="margin-right:20px;"></span></li>
+						<li>카드선택 <i>-</i> <span style="margin-right:20px;"><select  class="year" style="padding: 0px 0px;">
+				                             <option value="">---카드선택---</option>
+				                             <option value="nonghyeop">농협</option>
+				                             <option value="hanna">KEB하나은행</option>
+			                             </select></span></li>
+					</ul>
+				</div>
+
+				<div class="clearfix"> </div>
+					<div class="checkout-right-basket" style="margin-right:20em;" >
+				        	<a href="#" id="pay_Btn">결제하기 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
+<!-- 				        	<button type="button" id="pay_Btn" class="glyphicon glyphicon-chevron-right" aria-hidden="true">결제하기</button> -->
+			      	</div>
+				
+			</div>
+									
+	        <%--  <div class="checkout-right2">
 				<div>
 					<div class="first-row form-group">
 						<div class="controls">
@@ -332,7 +368,7 @@ $(function(){
 								
 								<tr>
 									<td>사용 포인트</td>
-									<td id="pay_tot_point"><input type="number" id="pay_point" onchange="fn_userPointChk(this)"> </td>
+									<td id="pay_tot_point"><input type="number" id="pay_point" onchange="fn_userPointChk(this)" placeholder="입력"> </td>
 								</tr> 
 								
 								<tr>
@@ -361,15 +397,16 @@ $(function(){
 									</td>
 								</tr>
 							</table>
+							
 							<div class="checkout-right-basket">
 								<button type="button" id="pay_Btn" class="glyphicon glyphicon-chevron-right" aria-hidden="true">결제하기</button>
 							</div>							
 						</div>
 					</div>
-						
 					</div>
-					
-				</div>
+				</div> --%>
+				
+				
            	</div> <!-- checkout  -->
          </div> <!-- privacy about end -->
 	<!--Plug-in Initialisation-->
