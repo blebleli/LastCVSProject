@@ -280,7 +280,7 @@
  			AND a.supply_state !='12'
  			AND b.prod_id = c.prod_id 
  			AND a.SUPPLY_BCD = b.SUPPLY_BCD
-			GROUP BY a.supply_bcd, a.supply_date,a.supply_state, a.place_id
+			GROUP BY a.supply_info, a.supply_bcd, a.supply_date,a.supply_state, a.place_id
 			ORDER BY a.supply_date desc
 	</select> 
 	
