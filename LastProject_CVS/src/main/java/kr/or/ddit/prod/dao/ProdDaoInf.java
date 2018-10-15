@@ -364,4 +364,6 @@ public interface ProdDaoInf {
 	 */
 	ProdVo getPayProd(Map<String, String> result);
 	
+	List<CategoryVo> cvsReqCtgy(String ctgy_group);
+	
 }
