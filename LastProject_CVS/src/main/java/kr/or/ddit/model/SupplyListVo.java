@@ -10,6 +10,7 @@ public class SupplyListVo {
 	private int splylist_sum;                           // 수량
 	private String supply_bcd;                          // 수불바코드
 	private String prod_id;   							// 제품바코드
+	private String prod_name;
 	
 	public SupplyListVo() {
 		super();
@@ -18,7 +19,7 @@ public class SupplyListVo {
 	
 	public SupplyListVo(String splylist_id, String splylist_info,
 			Date splylist_exdate, int splylist_sum, String supply_bcd,
-			String prod_id) {
+			String prod_id, String prod_name) {
 		super();
 		this.splylist_id = splylist_id;
 		this.splylist_info = splylist_info;
@@ -26,6 +27,7 @@ public class SupplyListVo {
 		this.splylist_sum = splylist_sum;
 		this.supply_bcd = supply_bcd;
 		this.prod_id = prod_id;
+		this.prod_name=prod_name;
 	}
 	
 	public String getSplylist_id() {
@@ -65,15 +67,20 @@ public class SupplyListVo {
 		this.prod_id = prod_id;
 	}
 	
+	public String getProd_name() {
+		return prod_name;
+	}
+
+	public void setProd_name(String prod_name) {
+		this.prod_name = prod_name;
+	}
+
 	@Override
 	public String toString() {
 		return "SupplyListVo [splylist_id=" + splylist_id + ", splylist_info="
 				+ splylist_info + ", splylist_exdate=" + splylist_exdate
 				+ ", splylist_sum=" + splylist_sum + ", supply_bcd="
-				+ supply_bcd + ", prod_id=" + prod_id + "]";
-	}
-	
-	
-	
-
+				+ supply_bcd + ", prod_id=" + prod_id + ", prod_name="
+				+ prod_name + "]";
+	}	
 }
