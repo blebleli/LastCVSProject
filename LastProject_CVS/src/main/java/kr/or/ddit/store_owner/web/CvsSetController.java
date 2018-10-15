@@ -120,7 +120,7 @@ public class CvsSetController {
 				File uploadFile = new File(path+upName);
 				
 				FiledataVo fileDataVo = new FiledataVo();
-				fileDataVo.setMem_id("6510000-104-2015-00153");
+				fileDataVo.setMem_id(user.getMem_id());
 				fileDataVo.setFile_id(autoCodeCreate.autoCode("CP"));
 				fileDataVo.setFile_name(fileOriginalName);
 				fileDataVo.setFile_upname(upName+ext);
