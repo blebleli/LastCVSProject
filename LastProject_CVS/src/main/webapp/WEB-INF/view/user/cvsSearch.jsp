@@ -236,7 +236,7 @@ function searchList(pageNo){
       												<form action="/search/cvsSearchAction" method="get" id="searchFrm">
     		  											<span class="input-group-btn">
 			   												<input type="text" class="form-control" name="searchWord" id="searchWord"  placeholder="Search for...">
-		      												<button class="btn btn-default" type="submit">Go!</button>
+		      												<button class="btn btn-default" type="submit"  style="height:40px;">Go!</button>
 	      												</span>
       												</form>
    											</div>								

@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css' />" media="all"></link>
 <style>
-  .col-md-3 {
+div.row .col-md-3 {
     width: 16%;
 }
    .bestImg{
