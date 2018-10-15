@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import kr.or.ddit.commons.service.AutoCodeCreate;
 import kr.or.ddit.commons.util.SessionUtil;
@@ -70,7 +71,9 @@ public class CvsSetController {
 	@RequestMapping("/setting") // 2018.10.10- KONG : user가 "6510000-104-2015-00153"로  하드코딩 되있는것을 , 로그인한 사용자 정보를 가져와서 셋팅되도록 수정
 	public String cvsSetting(HttpServletRequest request, Model model){
 		
-		logger.debug("requestUrl : {}", request.getRequestURL());
+		// left 메뉴에서 setting 클릭시 
+		
+//		logger.debug("requestUrl : {}", request.getRequestURL());
 		
 		String mem_id = SessionUtil.getSessionMemberId(request);
 		logger.debug("admin_setting >> addr_mem_id : {}", mem_id);
@@ -78,12 +81,13 @@ public class CvsSetController {
 		if(mem_id == null || "".equals(mem_id)) {
 			return "redirect:/login/loginView";
 		}
+		
 		model.addAttribute("user", userMainService.getMyPage(mem_id));
 		
 //		Map modelMap = model.asMap();
 //		MemberVo user = (MemberVo)modelMap.get("user");
 //		MemberVo user = userMainService.getMyPage("6510000-104-2015-00153");
-		List<FiledataVo> fileList = fileService.getFrofilePicList("6510000-104-2015-00153");
+		List<FiledataVo> fileList = fileService.getFrofilePicList(mem_id);
 //		model.addAttribute("user", user);
 		model.addAttribute("fileList", fileList);
 //		logger.debug("user--------{}", user);
@@ -91,20 +95,26 @@ public class CvsSetController {
 	}	
 	
 	@RequestMapping(value="/changeInfo", method=RequestMethod.POST)
-	public ModelAndView changeInfo(@RequestParam(value="password")String pw, @RequestParam(value="tel")String tel, @RequestParam(value="mem_intro")String mem_intro, @RequestParam(value="file")MultipartFile file, Model model ) throws Exception{
+	public ModelAndView changeInfo(HttpServletRequest request,
+									@RequestParam(value="password")String pw
+								  , @RequestParam(value="tel")String tel
+								  , @RequestParam(value="mem_intro")String mem_intro
+								  , @RequestParam(value="file")MultipartFile file, Model model ) throws Exception{
+		
+		HttpSession session = request.getSession();
+		MemberVo memberVo =  (MemberVo) session.getAttribute("userInfo");
+		
 		ModelAndView mav = new ModelAndView();
 		Map modelMap = model.asMap();
 		mav.setViewName("redirect:/cvs/setting");
 //		MemberVo user = modelMap.get("user");
-		MemberVo user = userMainService.getMyPage("6510000-104-2015-00153");
+		MemberVo user = userMainService.getMyPage(memberVo.getMem_id());
 		
 		if(file.getContentType() != null){
 			
 				String fileOriginalName= file.getOriginalFilename();
 				String ext = fileOriginalName.substring(fileOriginalName.lastIndexOf("."), fileOriginalName.length());
-//				String path = "C:/mypro/W/W/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";
-//				String path = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/ ";
-				String path = "D:/W/";
+				String path = "D:/A_TeachingMaterial/8.LastProject/workspace/LastProject_CVS/src/main/webapp/images/userpic/";
 				String upName = UUID.randomUUID().toString();
 				
 				File uploadFile = new File(path+upName);
@@ -114,7 +124,7 @@ public class CvsSetController {
 				fileDataVo.setFile_id(autoCodeCreate.autoCode("CP"));
 				fileDataVo.setFile_name(fileOriginalName);
 				fileDataVo.setFile_upname(upName+ext);
-				fileDataVo.setFile_path(path);
+				fileDataVo.setFile_path("/images/userpic");
 				
 				logger.debug("file_name-------------{}", fileDataVo.getFile_name());
 				logger.debug("file_Path-------------{}", fileDataVo.getFile_path());
