@@ -17,6 +17,15 @@
 	width : 25%;
 	height: 400px;
 }
+
+.btn-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+    margin-left: 91%;
+    margin-bottom: 20px;
+    margin-top: -25px;
+}
 </style>
 <script> 
 	$(function() {
@@ -662,7 +671,9 @@ $(document).ready(function(){
 				</div>
 				<!-- ========================================================================================================================= -->
 			</div>
-				<button type="button" id="nextPage" class="glyphicon glyphicon-chevron-right" aria-hidden="true">더보기</button>
+<!-- 				<button type="button" id="nextPage" class="glyphicon glyphicon-chevron-right" aria-hidden="true">더보기</button> -->
+<!-- 				<button type="button" id="nextPage" class="btn btn-round btn-default">더보기</button> -->
+					<button type="button" id="nextPage" class="btn btn-round btn-info">더보기 + </button>
 		</div>
 		<div class="clearfix"></div>
 	</div>
