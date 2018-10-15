@@ -648,8 +648,8 @@ $(document).ready(function() {
 										<div>
 											<div>
 												<input type="text" id="mem_zip" name="mem_zip" title="우편번호 입력" value="${member.mem_zip}" class="input_text small" style="width:60px" readonly="readonly" />
-												<a href="javascript:void(0);" id="btnOpenSearchZip" class="btn txt small" title="새창열림"><span>우편번호찾기</span></a>
-												<input type="text" id="mem_add" name="mem_add" title="기본주소" value="${member.mem_add}" class="input_text small" style="width:440px" readonly="readonly" />
+												<a href="javascript:void(0);" id="btnOpenSearchZip" class="btn txt small" title="새창열림"><span class="glyphicon glyphicon-search" aria-hidden="true"></span><span>우편번호찾기</span></a>
+												<input type="text" id="mem_add" name="mem_add" title="기본주소" value="${member.mem_add}" class="input_text small" style="width:420px" readonly="readonly" />
 												<br />
 												<input type="text" id="mem_addr" name="mem_addr" title="상세주소" value="${member.mem_addr}" class="input_text small" style="width:600px;" />
 											</div>
@@ -707,7 +707,8 @@ $(document).ready(function() {
 												<div class="snipcart-item block">
 													<div class="snipcart-thumb">
 													
-														<a href="/user/productDetail">
+<!-- 													<a href="/user/productDetail"> 제품디테일 화면 오류 수정 KONG  -->
+														<a href="/userProd/detail?prod_id=${vo.prod_id }"> 
 														<img src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive" /></a>
 														<p  id="prodName" >${vo.prod_name}</p>
 														<h4 id="prodExdate" >유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
@@ -876,7 +877,7 @@ $(document).ready(function() {
 <!-- //banner -->
 <a id="uploadUrl">uploadUrl</a>
 <a id="prodName">uploadUrl</a>
-<input type="text" id="bcdLength" value="${length}" />
+<input type="hidden" id="bcdLength" value="${length}" />
  <script type='text/javascript'>
 
  
