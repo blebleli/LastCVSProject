@@ -285,5 +285,10 @@ public class ProdDao implements ProdDaoInf {
 	public ProdVo getPayProd(Map<String, String> result) {
 		return session.selectOne("prod.getPayProd",result);
 	}
+
+	@Override
+	public List<CategoryVo> cvsReqCtgy(String ctgy_group) {
+		return session.selectList("category.cvsReqCtgy", ctgy_group);
+	}
 	
 }
