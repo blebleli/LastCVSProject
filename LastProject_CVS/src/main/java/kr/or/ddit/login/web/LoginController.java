@@ -378,7 +378,7 @@ public class LoginController {
 				dbSavePath = "/images/userpic";
 				
 				filedataVo.setMem_id(memberVo.getMem_id());
-				filedataVo.setFile_id(autoCodeCreate.autoCode("CP")); //파일코드
+				filedataVo.setFile_id(autoCodeCreate.autoCode("MP")); //파일코드
 				filedataVo.setFile_path(dbSavePath);    
 				filedataVo.setFile_name(fileName);
 				filedataVo.setFile_upname(UUID.randomUUID().toString()+fileExt); 
