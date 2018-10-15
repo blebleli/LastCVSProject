@@ -812,7 +812,9 @@ $(document).ready(function() {
 																			<input type="hidden" name="currency_code" value="USD" /> 
 																			<input type="hidden" name="return" value=" " /> 
 																			<input type="hidden" name="cancel_return" value=" " /> 
-																			<input type="submit" name="submit" value="상세보기" class="button" />
+																			<!--<input type="submit" name="submit" value="상세보기" class="button" />-->
+																			<!-- KONG 10/15 상세보기 버튼 클릭시 장바구로 가는거 제품 상세보기 페이지로 이동되도록 수정   -->
+																			<input type="button" name="submit" value="상세보기" class="button" onclick="location.href='<c:url value='${pageContext.request.contextPath}/userProd/detail?prod_id=${vo.prod_id}' />';" />
 																		</fieldset>
 																	</form>
 																</div>

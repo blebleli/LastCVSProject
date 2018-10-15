@@ -154,6 +154,14 @@ function fn_delete(geta){
 		return false; 					
 	}
 }
+
+
+function fn_goList()
+{
+    location.href='<c:url value='/board/boardMain' />';
+}
+
+
 </script>
 
 <!-- products-breadcrumb -->
