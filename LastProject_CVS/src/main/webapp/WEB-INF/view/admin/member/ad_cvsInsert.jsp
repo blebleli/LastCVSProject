@@ -25,6 +25,8 @@
 <script src="/build/js/custom.min.js"></script>
 <!-- jquery.inputmask -->
 <script src="/vendors/datatables.net-bs/jquery.inputmask.bundle.min.js"></script>
+<!-- Custom Theme Style -->
+<link href="/build/css/customAdmin.min.css" rel="stylesheet">
 
 <!-- 달력 js -->
 <script type="text/javascript" src="<c:url value='/js/jquery-ui-1.12.1/jquery-ui.min.js' />"></script>
