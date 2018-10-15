@@ -417,7 +417,7 @@
 		    FROM member
 		   WHERE MEM_ID = #{mem_id}
 		) t
-		SET t.before = t.after;
+		SET t.before = t.after
   	
   	</update>
 </mapper>
