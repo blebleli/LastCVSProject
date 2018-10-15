@@ -9,7 +9,7 @@
 <!-- NProgress -->
 <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
 <!-- Custom Theme Style -->
-<link href="/build/css/custom.min.css" rel="stylesheet">
+<link href="/build/css/customAdmin.min.css" rel="stylesheet">
 <!-- iCheck -->
 <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
 <!-- PNotify -->
