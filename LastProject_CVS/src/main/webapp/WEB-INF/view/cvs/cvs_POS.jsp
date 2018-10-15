@@ -448,7 +448,8 @@
 	
 				    		//행추가 -- pocket은 한줄씩 늘어나게 한다.
 							$("#prodList").append(		    								
-								     '<tr data-kind="pocket" data-pocket_id="'+data.pocketVo.pocket_id+'" data-bcd_id="'+bcdID+'">'+
+								     '<tr data-kind="pocket" data-pocket_id=
+								    	 "'+data.pocketVo.pocket_id+'" data-bcd_id="'+bcdID+'">'+
 			                         '  <td> '+   
 			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
 			                         '  </td>'+
@@ -570,18 +571,18 @@
 		    				            	
 		    				            	clearInterval(intervalID);
 		    				            	if(param=='pkProd'){
-		    				            		$('#barcodeText').text("주머니 상품 인식완료-----------").css( "color", "green" );		    				            
+		    				            		$('#barcodeText').text("주머니 상품 인식완료").css( "color", "green" );		    				            
 		    				            		 //주머니상품 추가
 		    				            		 console.log('확인용 주모니--'+bcdID);
 		    				            		 addPocket(pkData,bcdID);
 		    				            	}else{
-		    				            		$('#barcodeText').text("상품 인식완료---");
+		    				            		$('#barcodeText').text("상품 인식완료");
 		    				            		addRow(data);
 		    				            	}
 			    									    				
 			    							
 		    				          } else {
-		    				        	    $('#barcodeText').text("상품 바코드 인식중입니다-----------").css( "color", "red" );
+		    				        	    $('#barcodeText').text("상품 바코드 인식중입니다").css( "color", "red" );
 		    				        	    $("#barcodeText").animate({opacity:0},200,"linear",function(){
 												  $(this).animate({opacity:1},200);
 											});
@@ -603,7 +604,7 @@
 		    					  contentType : "application/x-www-form-urlencoded" ,
 		    					  success : function (data) {
 		    				         if(data.returnMsg == "decodedText"){
-		    				        		$('#barcodeText').text("주머니 인식완료-----------");
+		    				        		$('#barcodeText').text("주머니 인식완료");
 		    				            	console.log("data decodedText ---- :"+data.decodedText);
 		    				            	console.log("data pocketVo ---- :"+data.pocketVo);
 		    				            
@@ -613,7 +614,7 @@
 		    				            	intervalID = setInterval(sendImage, 1000, "pkProd",data);
 
 		    				          } else {
-		    				        	   $('#barcodeText').text("주머니 바코드 인식중입니다-----------").css( "color", "blue" );
+		    				        	   $('#barcodeText').text("주머니 바코드 인식중입니다").css( "color", "blue" );
 		    				        	   $("#barcodeText").animate({opacity:0},200,"linear",function(){
 												  $(this).animate({opacity:1},200);
 											});
@@ -637,21 +638,19 @@
 				    	function startCapture(e) {
 				    		player.play(); 
 				    		intervalID = setInterval(e, 1000);
-						}
-						
+						}						
 				    	
 						//멈춤버튼
 				    	function stopCapture() {				    	
 				    		player.pause();
 				    		clearInterval(intervalID);
-				    		$('#barcodeText').text("완료----").css( "color", "black" );
+				    		$('#barcodeText').text("완료").css( "color", "black" );
 						}				    	
 				    	
 				        navigator.mediaDevices.getUserMedia({ video: true })
 				            .then(handleSuccess);
 		 
 				      
-
 				    </script>
 
                   </div>
@@ -727,13 +726,12 @@
 				   <button type="button" class="culcBtn op" onclick="startCapture(sendPocket)">주머니</button>
 	       
 					
-					<!-- 주머니 modal ==================================== -->
+			  <!-- 주머니 modal ==================================== -->
 					
-				<!--<button type="button" class="culcBtn op" data-toggle="modal" data-target="#myPocket">
+			  <!-- <button type="button" class="culcBtn op" data-toggle="modal" data-target="#myPocket">
 					  주머니
 				   </button> -->
-				   
-				   
+
 					<div class="modal fade" id="myPocket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-sm" style="text-align: center">
 					    <div class="modal-content">
@@ -742,9 +740,9 @@
 					        <h4 class="modal-title" id="myModalLabel">주머니 인식</h4>
 					      </div>
 					      <div class="modal-body">
-					          <!--  <video  id="poketPlayer" width="250" height="250" controls autoplay></video>  
+					     <!--  <video  id="poketPlayer" width="250" height="250" controls autoplay></video>  
 							   <button id="poketCapture" style="display: none">Capture</button>
-							   <canvas id="poketSnapshot" width=500 height=500 style="display: none"></canvas>	 -->			    											   		
+							   <canvas id="poketSnapshot" width=500 height=500 style="display: none"></canvas>  -->			    											   		
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -753,10 +751,8 @@
 					    </div>
 					  </div>
 					</div>
-
 	               <button type="button" class="culcBtn op" onclick="btnDisposal()">폐기</button>
-	           
-	              </div>
+	            </div>
            </div>   
 
           </div>

@@ -78,7 +78,6 @@
 									<b>수불바코드 : ${supply_bcd}</b> <br> <br> <br>
 									<br>
 								</div>
-							
 							</div>
 							<!-- 상단 부분 끝 -->
 
@@ -172,7 +171,7 @@
 									<button class="btn btn-success" onclick="window.print();">
 										<i class="fa fa-print"></i> Print
 									</button>
-									<!-- <button class="btn btn-success pull-right">
+							   <!-- <button class="btn btn-success pull-right">
 										<i class="fa fa-credit-card"></i> Submit Payment
 									</button>
 									<button class="btn btn-primary pull-right"
