@@ -10,6 +10,7 @@ public class SupRequestListVo {
 	private String place_id;                               // 편의점
 	private int total_amount;								//발주내역 총 수량
 	private int total;										// 총 금액
+	private String supply_info;								// success 구별
 	
 	
 	
@@ -19,7 +20,7 @@ public class SupRequestListVo {
 
 
 	public SupRequestListVo(String supply_bcd, Date supply_date,
-			String supply_state, String place_id, int total_amount, int total) {
+			String supply_state, String place_id, int total_amount, int total, String supply_info) {
 		super();
 		this.supply_bcd = supply_bcd;
 		this.supply_date = supply_date;
@@ -27,6 +28,7 @@ public class SupRequestListVo {
 		this.place_id = place_id;
 		this.total_amount = total_amount;
 		this.total = total;
+		this.supply_info=supply_info;
 	}
 
 
@@ -88,17 +90,21 @@ public class SupRequestListVo {
 	public void setTotal(int total) {
 		this.total = total;
 	}
+	
 
+	public String getSupply_info() {
+		return supply_info;
+	}
+
+	public void setSupply_info(String supply_info) {
+		this.supply_info = supply_info;
+	}
 
 	@Override
 	public String toString() {
 		return "SupRequestListVo [supply_bcd=" + supply_bcd + ", supply_date="
 				+ supply_date + ", supply_state=" + supply_state
 				+ ", place_id=" + place_id + ", total_amount=" + total_amount
-				+ ", total=" + total + "]";
-	}
-	
-	
-	
-	
+				+ ", total=" + total + ", supply_info=" + supply_info + "]";
+	}	
 }

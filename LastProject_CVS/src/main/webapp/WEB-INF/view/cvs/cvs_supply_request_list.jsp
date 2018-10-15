@@ -90,7 +90,7 @@
 											<c:when test="${vo.supply_state=='10' && vo.supply_info != 'success'}">
 												발주요청중..
 											</c:when>
-											<c:when test="${vo.supply_state=='10' && vo.supply_info == 'success'}}">
+											<c:when test="${vo.supply_state=='10' && vo.supply_info == 'success'}">
 												발주 완료
 											</c:when>
 											<c:when test="${vo.supply_state=='11'}">
