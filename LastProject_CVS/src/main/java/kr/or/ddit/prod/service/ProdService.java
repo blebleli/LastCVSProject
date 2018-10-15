@@ -11,6 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+
+
+
+
+
+import kr.or.ddit.admin.member.service.MemberMgtService;
+import kr.or.ddit.admin.member.service.MemberMgtServiceInf;
+import kr.or.ddit.commons.util.PageNavi;
 import kr.or.ddit.model.CategoryVo;
 import kr.or.ddit.model.ProdVo;
 import kr.or.ddit.prod.dao.ProdDaoInf;
@@ -21,6 +29,7 @@ public class ProdService implements ProdServiceInf {
 	
 	@Resource(name="prodDao")
 	private ProdDaoInf prodDao;
+	
 
 	private  Logger logger = LoggerFactory.getLogger(ProdService.class);
 	
@@ -54,6 +63,7 @@ public class ProdService implements ProdServiceInf {
 	public Map<String, Object> getCtgyProdList(Map<String, Object> map) {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
+		MemberMgtService mgtService = new MemberMgtService();
 		int page = (int) map.get("page");
 		int pageSize = (int) map.get("pageSize");
 		String pr_class =(String) map.get("pr_class");
@@ -63,8 +73,10 @@ public class ProdService implements ProdServiceInf {
 		cntMap.put("pr_class", pr_class);
 		cntMap.put("pr_class_id", pr_class_id);
 		int cnt = prodDao.getCtgyProdCount(cntMap);
-		
+		logger.debug("cnt------{}", cnt);
+		List<String> pages = mgtService.page(page, pageSize, cnt);
 		result.put("pagination", pagination(page, pageSize, cnt));
+		result.put("paging",pages);
 		
 		List<ProdVo> prodList = prodDao.getCtgyProdList(map);
 		result.put("ctgyProdList", prodList);
@@ -300,6 +312,10 @@ public class ProdService implements ProdServiceInf {
 	@Override
 	public ProdVo getPayProd(Map<String, String> result) {
 		return prodDao.getPayProd(result);
+	}
+	
+	public List<CategoryVo> cvsReqCtgy(String ctgy_group){
+		return prodDao.cvsReqCtgy(ctgy_group);
 	}
 
 }
