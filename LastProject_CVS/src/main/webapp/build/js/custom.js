@@ -407,9 +407,9 @@ if (typeof NProgress != 'undefined') {
 			[15, 4],
 			[16, 9]
 		];
+
 		
-		
-		for (var i = 0; i < 30; i++) {
+		for (var i = -10; i < 30; i++) {
 		  chart_plot_02_data.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
 		}
 		
@@ -517,7 +517,7 @@ if (typeof NProgress != 'undefined') {
 			xaxis: {
 				mode: "time",
 				minTickSize: [1, "day"],
-				timeformat: "%d/%m/%y",
+				timeformat: "%y/%m/%d",
 				min: chart_plot_02_data[0][0],
 				max: chart_plot_02_data[20][0]
 			}
