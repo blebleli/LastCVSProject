@@ -62,6 +62,8 @@
 }
 </style>
 
+
+
 <input type="hidden" id="point_name" value="${sessionScope.userInfo.mem_name}">
 <!-- top 이랑 구분 해주면서 현재 창의 카테고리 출력 -->
 <div class="products-breadcrumb">
@@ -120,6 +122,44 @@
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=20ef2122f316faf3ee201ff1da312505&libraries=services"></script>
+
+<<script type="text/javascript">
+
+var cnt = 1;
+$("#like").on("click",function(){
+	
+	$.ajax({
+		url:"/userBookmark/likeProd",
+		method:"get",
+		data:{prod_id : $(this).data("id")},
+		success:function(response){
+			
+			cnt++;
+			if(cnt % 2 == 0 ){
+				$("#like").empty();
+				$("#like").append('<i class="fa fa-heart" aria-hidden="true"></i>');
+				alert("즐겨찾기 등록");
+			}else{
+				$("#like").empty();
+				$("#like").append('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+				alert("즐겨찾기 해제");
+			}
+			
+			console.log("success");
+			console.log(response);
+			console.log(cnt);
+			
+		}
+		,error:function(e) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
+
+			alert("로그인 후 가능 합니다.");
+
+	    }
+	});
+	
+})
+
+</script>
 
 <script>
 
@@ -292,6 +332,9 @@ var content="";
 						            '    <div class="info">' + 
 						            '        <div class="title">' + 
 						            '            '+item.mem_cvs_name +
+						            '<c:if test="${bmk ==null }"><a id="like" data-id="${prod.prod_id }"><i class="fa fa-heart-o" aria-hidden="true"></i></a></c:if>'+
+									'<c:if test="${bmk != null }"><a id="like" data-id="${prod.prod_id }"><i class="fa fa-heart" aria-hidden="true"></i></a></c:if>'+
+						            
 						            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
 						            '        </div>' + 
 						            '        <div class="body">' + 
