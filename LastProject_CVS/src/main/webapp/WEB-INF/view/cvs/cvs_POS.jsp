@@ -174,7 +174,7 @@
                             <th class="column-title">단가 </th>
                             <th class="column-title">수량 </th>
                             <th class="column-title">금액 </th>
-                            <th class="column-title">할인 </th>                            
+                            <th class="column-title">비고 </th>                            
                             <th class="bulk-actions" colspan="7">
                               <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
                             </th>
@@ -467,6 +467,38 @@
 				   		     });
 				    	}
 				    	
+/* 폐기바코드추가 *///----------------------------------------------------------------------------
+		    	function addDisp(data){
+
+		    		//행추가 -- pocket은 한줄씩 늘어나게 한다.
+					$("#prodList").append(		    								
+								     '<tr data-kind="prod" data-bcd_id="'+data.prodVo.bcd_id+'" data-stcklist_exdate="'+data.prodVo.stcklist_exdate+'">'+				
+			                         '  <td> '+   
+			                         '    <input type="checkbox" class="icheckbox_flat-green" name="table_records">'+			                      
+			                         '  </td>'+
+			                         '  <td><span class="num">'+1+'</span></td>'+
+			                         '  <td >'+ data.prodVo.prod_name+'</td>'+
+			                         '  <td ><span class="price1">'+data.prodVo.prod_price+'</span>원</td>'+ 
+			                         '  <td ><input type="number" class="amount" value="'+1+'"style="width:100px; text-align: center ">개</td>'+    				                         
+			                         '  <td ><span class="subtot">합계예정</span>원</td> '+
+			                         '  <td style="color : red">폐기상품</td> '+	        
+			                         '  <td style="display: none"><span class="prod_id">'+ data.prodVo.prod_id+'</span></td> '+
+			                         '</tr>'			    								                                                                                     
+					);
+					 
+					 $('input[type="checkbox"]').iCheck({
+		   		            checkboxClass: 'icheckbox_flat-green'
+		   		     });
+					 
+					amountSum();
+					rowSum();
+					subtot_sum();
+		    	}
+				    					    	
+				    	
+				    	
+				    	
+				    	
 /* 수량합계 계산*///------------------------------------------------------------------------
 				    	function amountSum(){
 		                     var total_sum = 0;
@@ -572,8 +604,14 @@
 		    				            	if(param=='pkProd'){
 		    				            		$('#barcodeText').text("주머니 상품 인식완료").css( "color", "green" );		    				            
 		    				            		 //주머니상품 추가
-		    				            		 console.log('확인용 주모니--'+bcdID);
+		    				            		 console.log('주머니 bcd--'+bcdID);
 		    				            		 addPocket(pkData,bcdID);
+		    				            	}else if(param=='disp'){
+		    				            		$('#barcodeText').text("폐기 상품 인식완료").css( "color", "green" );		    				            
+		    				            		 //폐기상품 추가
+		    				            		 console.log('폐기bcd--'+bcdID);
+		    				            		 addDisp(data);
+		    				            		
 		    				            	}else{
 		    				            		$('#barcodeText').text("상품 인식완료");
 		    				            		addRow(data);
@@ -581,7 +619,7 @@
 			    									    				
 			    							
 		    				          } else {
-		    				        	    $('#barcodeText').text("상품 바코드 인식중입니다").css( "color", "red" );
+		    				        	    $('#barcodeText').text("바코드 인식중입니다").css( "color", "red" );
 		    				        	    $("#barcodeText").animate({opacity:0},200,"linear",function(){
 												  $(this).animate({opacity:1},200);
 											});
@@ -634,9 +672,10 @@
 				        };
 								        
 						//인식버튼
-				    	function startCapture(e) {
+				    	function startCapture(e,param) {
 				    		player.play(); 
-				    		intervalID = setInterval(e, 1000);
+				    		//intervalID = setInterval(e, 1000);
+				    		intervalID = setInterval(e, 1000, param);
 						}						
 				    	
 						//멈춤버튼
@@ -750,7 +789,7 @@
 					    </div>
 					  </div>
 					</div>
-	               <button type="button" class="culcBtn op" onclick="btnDisposal()">폐기</button>
+	               <button type="button" class="culcBtn op" onclick="startCapture(sendImage,'disp')">폐기</button>
 	            </div>
            </div>   
 
