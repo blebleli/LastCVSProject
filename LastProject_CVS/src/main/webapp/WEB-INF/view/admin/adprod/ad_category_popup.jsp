@@ -38,14 +38,15 @@ ul,ol, li {list-style:none}
 }
 
 .tree li a {
-   color:#46CFB0;
+/*     color:#46CFB0; */
+    color:#8A0868;
     text-decoration: none;
     line-height: 20pt;
     border-radius: 4px;
 }
 
 .tree li a:hover {
-    background-color: #34BC9D;
+    background-color: #8A0868;
     color: #fff;
 }
 

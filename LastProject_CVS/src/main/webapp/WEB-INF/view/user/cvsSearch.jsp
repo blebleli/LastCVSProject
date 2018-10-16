@@ -189,6 +189,46 @@ function searchList(pageNo){
 	});
 }
 
+
+$(function(){
+	
+	
+	var cnt = 1;
+	$("#like").on("click",function(){
+		alert("클릭");
+// 		$.ajax({
+// 			url:"/userBookmark/likeProd",
+// 			method:"get",
+// 			data:{prod_id : $(this).data("id")},
+// 			success:function(response){
+				
+// 				cnt++;
+// 				if(cnt % 2 == 0 ){
+// 					$("#like").empty();
+// 					$("#like").append('<i class="fa fa-heart" aria-hidden="true"></i>');
+// 					alert("즐겨찾기 등록");
+// 				}else{
+// 					$("#like").empty();
+// 					$("#like").append('<i class="fa fa-heart-o" aria-hidden="true"></i>');
+// 					alert("즐겨찾기 해제");
+// 				}
+				
+// 				console.log("success");
+// 				console.log(response);
+// 				console.log(cnt);
+				
+// 			}
+// 			,error:function(e) {	// 이곳의 ajax에서 에러가 나면 얼럿창으로 에러 메시지 출력
+
+// 				alert("로그인 후 가능 합니다.");
+
+// 		    }
+// 		});
+		
+// 	})
+	
+	
+});
 </script>
 
 <!-- top 이랑 구분 해주면서 현재 창의 카테고리 출력 -->
@@ -348,6 +388,8 @@ function searchList(pageNo){
 									<input type="hidden" name="mem_x" id="mem_x" class="mem_x" value="${vo.mem_x}">
 									<input type="hidden" name="mem_y" id="mem_y" class="mem_y" value="${vo.mem_y}">
 									<button id ="clickCvs" name="clickCvs" onclick="fn_click(${vo.mem_x}, ${vo.mem_y});">위치</button>
+									<c:if test="${bmk ==null }"><a id="like" data-id="${vo.mem_id }"><i class="fa fa-heart-o" aria-hidden="true"></i></a></c:if>
+									<c:if test="${bmk != null }"><a id="like" data-id="${vo.mem_id }"><i class="fa fa-heart" aria-hidden="true"></i></a></c:if>
 								</td>
 							</tr>
 						</c:forEach>
