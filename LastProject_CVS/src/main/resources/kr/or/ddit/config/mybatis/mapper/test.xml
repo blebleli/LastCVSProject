@@ -56,4 +56,38 @@
 		      AND a.supply_bcd = b.supply_bcd
 			) T
 	</select>
+	
+		<insert id="insertSupplyinfo" parameterType="supplyVo">
+	INSERT INTO supply(supply_bcd, 
+					   supply_state, 
+					   supply_date,
+					   supply_info,
+					   place_id) 
+				VALUES(#{supply_bcd},
+					   #{supply_state},
+					   #{supply_date}, 
+					   #{supply_info},
+					   #{place_id})
+	</insert>
+	
+	<select id="getStockIds" resultType="stockListVo" parameterType="String">
+		SELECT DISTINCT(S.STOCK_ID)
+		  FROM STOCK_LIST  SL
+		  JOIN STOCK  S
+		  ON   SL.STOCK_ID = S.STOCK_ID
+		  WHERE SL.STCKLIST_KIND ='888'
+		  AND  TO_CHAR(SL.STCK_DATE,'YYYY-MM-DD') = ('2018-10-17')
+		  AND S.MEM_ID = #{mem_id}
+	</select>
+	
+	<select id="getStockId" resultType="stockListVo" parameterType="String">
+		SELECT DISTINCT(S.STOCK_ID), SL.PROD_ID, SL.STCKLIST_EXDATE,
+		                SL.STCK_DATE, SL.STCKLIST_AMOUNT, SL.STCK_DATE, SL.SPLYLIST_ID
+		  FROM STOCK_LIST  SL
+		  JOIN STOCK  S
+		  ON   SL.STOCK_ID = S.STOCK_ID
+		  WHERE SL.STCKLIST_KIND ='888'
+		  AND  TO_CHAR(SL.STCK_DATE,'YYYY-MM-DD') = ('2018-10-16')
+		  AND S.MEM_ID = #{mem_id}
+	</select>	
 </mapper>
