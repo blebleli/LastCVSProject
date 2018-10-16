@@ -83,18 +83,26 @@
     padding: 0;
   }
 </style>
+
 <script src="/build/js/jquery-1.12.4.js"></script>
+
 </head>
-<div class="row">
-<div class="clearfix"></div>
-<div class="col-md-6 col-sm-4 col-xs-16" id="categoryDiv" >
-<div class="x_panel">
-    <div class="x_title">
+
+<!-- <div class="row"> -->
+
+<!-- <div class="clearfix"></div>
+<div class="col-md-3 col-sm-3 col-xs-3" id="categoryDiv" > -->
+
+<!-- <div class="x_panel"> -->
+		<!-- <div class="x_title">
 		<h2 class="center" id="headline">
 			<a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
-   			Speak!</a></h2>
-   			<div class="clearfix"></div>
-   	</div>
+		 			Speak!</a></h2>
+		<div class="clearfix"></div>
+		
+		</div> -->
+<h2 class="center" id="headline">
+	<a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">Speak!</a></h2>
 <div id="info">
   <p id="info_start">Click on the microphone icon and begin speaking.</p>
   <p id="info_speak_now">Speak now.</p>
@@ -154,11 +162,10 @@
     </select>
   </div>
 </div>
-</div>
-
-</div> <!-- <div class="col-md-6 col-sm-6 col-xs-12 "> -->
-</div>  <!-- <div class> --> 
-</div>  <!-- <div class="row">  -->
+<!--  </div>
+</div> <div class="col-md-6 col-sm-6 col-xs-12 ">
+</div>  <div class="row">  
+-->
 <script>
 var create_email = false;
 var final_transcript = '';

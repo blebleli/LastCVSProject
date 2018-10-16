@@ -23,21 +23,21 @@ div.row .col-md-3 {
 		});
 	});
 </script>
-<script>
+<!-- <script>
 function speechPopup(){
 	
 	$.ajax({
 		url : "/user/speech",
 		datatype : "html",
 		success:function(responseData){
-			console.log("성공");
+			console.log("음성인식 클릭");
 			console.log(responseData);
 			 $('#speechDiv').html(responseData);
 		}
 	});
 	
 }
-</script>
+</script> -->
 <script>
 	$(function(){
 		$("table tbody tr").on("click", function(){ // 실시간 상품 리뷰 글 클릭시 상품 정보창으로 이동함
@@ -56,18 +56,20 @@ function speechPopup(){
 <div class="products-breadcrumb">
 	<div class="container">
 <!-- 		<a><i class="fa fa-microphone" aria-hidden="true"></i></a> -->
-	<a data-toggle="modal" data-target=".ctgr-modal-lg" onclick="speechPopup();"><i class="fa fa-microphone" aria-hidden="true"></i></a>
-			<div class="modal fade ctgr-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			  <div class="modal-dialog modal-lg">
-				<div class="modal-content">								  
+
+<!-- 	<a data-toggle="modal" data-target=".ctgr-modal-sm" onclick="speechPopup();"><i class="fa fa-microphone" aria-hidden="true"></i></a>
+			<div class="modal fade ctgr-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-sm">
+				    <div class="modal-content" style="width : 400px">						  
+				 
 				  <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        <h4 class="modal-title">MIC-Search</h4>
 			      </div>										      
-			      	<div id="speechDiv" class="modal-content"></div>																			   												
+			      	<div id="speechDiv" class="modal-content" ></div>																			   												
 			    </div>
 			  </div>
-			</div>
+			</div> -->
 	</div>
 </div>
 

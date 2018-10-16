@@ -74,9 +74,9 @@ public class ProdService implements ProdServiceInf {
 		cntMap.put("pr_class_id", pr_class_id);
 		int cnt = prodDao.getCtgyProdCount(cntMap);
 		logger.debug("cnt------{}", cnt);
-		List<String> pages = mgtService.page(page, pageSize, cnt);
+		//List<String> pages = mgtService.page(page, pageSize, cnt);
 		result.put("pagination", pagination(page, pageSize, cnt));
-		result.put("paging",pages);
+	//	result.put("paging",pages);
 		
 		List<ProdVo> prodList = prodDao.getCtgyProdList(map);
 		result.put("ctgyProdList", prodList);

@@ -186,9 +186,9 @@ $(document).ready(function() {
 						<input type="button" value="로그인 >" id="btnLogin" style="margin-bottom: 15px;">
 				</form>
 								
-					<!-- 카카오 로그인 -->
+				<!-- 	카카오 로그인 
 					<a id="kakao-login-btn"></a>
-
+				 -->
 				</div> <!-- //<div class="form">로그인  -->
 
 				<div class="form"> 

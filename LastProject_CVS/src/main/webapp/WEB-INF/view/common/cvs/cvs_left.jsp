@@ -5,7 +5,7 @@
         
 <script type="text/javascript">
 
-//	$(function(){
+	$(function(){
 		$("#btnSetting").on("click", function() {
 			
 			if (${empty sessionScope.userInfo}) {
@@ -21,7 +21,7 @@
 			}
 			
 		});
-//	});
+	});
 	
 
 

@@ -54,29 +54,50 @@
 
 <!-- 최상단  -->
 <div class="agileits_header">
-<!-- 	<div class="w3l_header_left"> -->
-<!-- 		<a><i class="fa fa-microphone" aria-hidden="true" style="color : white;"></i></a> -->
-<!-- 	</div> -->
+
 	<div class="w3l_search">
 		
+	<!-- <a><i class="fa fa-microphone" aria-hidden="true" style="color : white;"></i></a> -->
 		<!-- 검색하기 submit 검색버튼 클릭시 ...★ 이동 경로 주기()-->
 		<form action="/search/prodSearch" method="post">
+		
 			<input type="text" name="Product" value="검색하기"
 				onfocus="this.value = '';"
 				onblur="if (this.value == '') {this.value = '검색하기';}" required="">
 			<input type="submit" value="">
-			
+		
 		</form>
+
 	</div>
+
+
 	
+	<div class="product_list_header" style="margin-left: 0px;">
 	
-	<div class="product_list_header" >
 		<!-- 장바구니 submit버튼 클릭시  ★ 이동 경로 주기(장바구니 화면) -->
 		<form action="#" method="post" class="last">
+	
 			<fieldset>
+			
+			
+			<!-- 	<a><i class="fa fa-microphone" aria-hidden="true" style="color : white;"></i></a> -->
+			<a data-toggle="modal" data-target=".ctgr-modal-sm" onclick="speechPopup();"><i class="fa fa-microphone" aria-hidden="true" style="color : white;"></i></a>
+				<div class="modal fade ctgr-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-sm">
+					    <div class="modal-content" style="width : 400px">						  
+					 
+					  <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">MIC-Search</h4>
+				      </div>										      
+				      	<div id="speechDiv" class="modal-content" ></div>																			   												
+				    </div>
+				  </div>
+				</div>
+				
 				<input type="hidden" name="cmd" value="_cart" /> 
 				<input type="hidden" name="display" value="1" /> 
-				<input type="submit" name="submit" value="장바구니 보기" class="button" />
+				<input type="submit" name="submit" value="장바구니 보기" class="button" style="margin-left: 250px;"/>
 			</fieldset>
 		</form>
 	</div>
@@ -301,6 +322,22 @@ $(".panel-group").hover(function(){
 			}
 		});
 
+</script>
+
+<script>
+function speechPopup(){
+	
+	$.ajax({
+		url : "/user/speech",
+		datatype : "html",
+		success:function(responseData){
+			console.log("음성인식 클릭");
+			console.log(responseData);
+			 $('#speechDiv').html(responseData);
+		}
+	});
+	
+}
 </script>
 
 

@@ -706,33 +706,38 @@ $(document).ready(function() {
 											<figure>
 												<div class="snipcart-item block">
 													<div class="snipcart-thumb">
-													
-<!-- 													<a href="/user/productDetail"> 제품디테일 화면 오류 수정 KONG  -->
-														<a href="/userProd/detail?prod_id=${vo.prod_id }"> 
-														<img src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive" /></a>
-														<p  id="prodName" >${vo.prod_name}</p>
-														<h4 id="prodExdate" >유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
-														<%-- <input type="hidden" id="pocketId" value="${vo.pocket_id}"/ --%>
-														
-														<div class="snipcart-details">
-															<a id="kakao-link-btn" onclick="kakaoSend('${vo.pocket_id}');">
-															<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width : 25px">
-															카카오톡 보내기
-															</a>
-														</div>
+														<c:choose>
+															<c:when test="${vo.pocket_useny=='N'}">																			
+																<a href="/userProd/detail?prod_id=${vo.prod_id }"> 
+																<img src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive" /></a>
+																	<p  id="prodName" >${vo.prod_name}</p>
+																	<h4 id="prodExdate" >유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
+																	<div class="snipcart-details">																		
+																		<a id="kakao-link-btn" onclick="kakaoSend('${vo.pocket_id}');">
+																		<img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" style="width : 25px">
+																		카카오톡 보내기
+																		</a>															
+																	</div>
+															</c:when>									
+															<c:otherwise>
+																<a href="/userProd/detail?prod_id=${vo.prod_id }"> 
+																<img src="${vo.file_path }/${vo.file_upname}" alt=" " class="img-responsive" style="filter: grayscale(100%)"/></a>													
+																<p  id="prodName" >${vo.prod_name}</p>
+																<h4 id="prodExdate" >유효기간 : <fmt:formatDate value="${vo.pocket_date}" pattern="yyyy-MM-dd" /></h4>
+																	<div class="snipcart-details">																		
+																		사용완료															
+																	</div>
+															</c:otherwise>									
+														</c:choose>																		
 													</div>
-													
 												</div>
 											</figure>
 										</div>
 									</div>
 								</div>
-							</div>
-									
-									
+							</div>	
 							</c:forEach> 
 							</c:when>
-							
 							<c:otherwise>
 								<tr><td colspan="3" align="center">구매한 상품이 존재하지 않습니다.</td></tr>
 							</c:otherwise>
