@@ -104,7 +104,7 @@ public class StockService implements StockServiceInf {
 	public int dayendInsert(List<PresentStockListVo> stockVoList, String stock_kind, String mem_id) {
 
 		SimpleDateFormat format = new SimpleDateFormat("MM-dd");
-
+		
 		//재고 테이블 insert (마감)
 		String stock_id = autoCodeCreate.autoCode("ST",mem_id);	
 		
