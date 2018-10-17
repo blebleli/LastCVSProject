@@ -469,8 +469,7 @@ $(function(){
 									<input type="hidden" name="mem_x" id="mem_x" class="mem_x" value="${vo.mem_x}">
 									<input type="hidden" name="mem_y" id="mem_y" class="mem_y" value="${vo.mem_y}">
 									<button id ="clickCvs" name="clickCvs" onclick="fn_click(${vo.mem_x}, ${vo.mem_y});">위치</button>
-									<c:if test="${bmk ==null }"><a id="like" data-id="${vo.mem_id }"><i class="fa fa-heart-o" aria-hidden="true"></i></a></c:if>
-									<c:if test="${bmk != null }"><a id="like" data-id="${vo.mem_id }"><i class="fa fa-heart" aria-hidden="true"></i></a></c:if>
+									
 								</td>
 							</tr>
 						</c:forEach>

@@ -288,7 +288,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 											<c:forEach items="${cvsMemberList}" var="memberVo" varStatus="status">
 												<tr role="row" class="even pointer" data-class="${memberVo.mem_id}">
 													<td scope="row">${memberVo.rn}</td>
-													<td>${memberVo.mem_kind eq '04' ? '미사용' : '사용'}</td>
+													<td>${(memberVo.mem_kind eq '04') ? '미사용' : '사용'}</td>
 													<td class="" tabindex="0">${memberVo.mem_id}</td>
 													<td class="sorting_1">${memberVo.mem_cvs_name}</td>
 													<td>${memberVo.mem_cvs_tel}</td>

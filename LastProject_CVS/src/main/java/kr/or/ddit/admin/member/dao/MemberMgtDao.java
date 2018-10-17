@@ -60,8 +60,8 @@ public class MemberMgtDao implements MemberMgtDaoInf {
 	 * Method 설명 :
 	 */
 	@Override
-	public void deleteCvsMember(MemberVo paramMemberVo) {
-		template.delete("member.UpdateCvsMember", paramMemberVo);
+	public int deleteCvsMember(MemberVo paramMemberVo) {
+		return template.update("member.UpdateCvsMember", paramMemberVo);
 	}
 
 

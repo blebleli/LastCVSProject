@@ -350,6 +350,9 @@ public class MemberMGTController {
 			}
 		}
 		memberVo.setMem_point(0);
+		
+		memberVo.setMem_pw("test");
+		
 		int result = signUpService.newMember(memberVo);
 		
 		logger.debug("signUpService.newMember - result : {}", result );

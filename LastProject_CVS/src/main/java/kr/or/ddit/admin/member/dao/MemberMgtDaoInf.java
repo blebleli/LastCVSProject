@@ -31,7 +31,7 @@ public interface MemberMgtDaoInf {
 	 *
 	 * @param paramMemberVo
 	 */
-	void deleteCvsMember(MemberVo paramMemberVo);
+	int deleteCvsMember(MemberVo paramMemberVo);
 	
 	/**
 	 * 편의점 정보 수정

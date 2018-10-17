@@ -393,10 +393,10 @@
 		UPDATE MEMBER SET mem_point = mem_point + #{mem_point, jdbcType=NUMERIC} WHERE mem_id = #{mem_id}
   	</update>
   	
-  	<select id="cvsTotalPageList" parameterType="Map" resultType="memberVo">
+  	<select id="cvsTotalPageList" resultType="memberVo">
            SELECT member.*
                     FROM member
-                    where mem_kind= '01'
+                    where mem_kind in ( '01' , '04')
                     ORDER BY mem_name      
   	</select>
   	

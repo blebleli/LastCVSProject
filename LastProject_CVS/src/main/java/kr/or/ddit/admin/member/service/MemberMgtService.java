@@ -70,8 +70,8 @@ public class MemberMgtService implements MemberMgtServiceInf {
 	 */
 	@Override
 	public int deleteCvsMember(MemberVo paramMemberVo) {
-		memberMgtDao.deleteCvsMember(paramMemberVo);
-		return 1;
+		
+		return memberMgtDao.deleteCvsMember(paramMemberVo); 
 	}
 
 	@Override

@@ -274,24 +274,24 @@ $(document).ready(function() {
 		/**
 		 * 구매내역 행 클릭
 		 */
-		$("tr.paytr").bind("click",function() {
+// 		$("tr.paytr").bind("click",function() {
 			
-			var pay_id = $("tr.paytr").data("id");
-			var List = $("tr.paytrhidden").data("id2");	
+// 			var pay_id = $("tr.paytr").data("id");
+// 			var List = $("tr.paytrhidden").data("id2");	
 			
-			if(pay_id==List){
-				alert(List);			
-//	 			var status = $("#"+List).css("display");
-				var status = $("tr.paytrhidden").css("display");
-				alert(status);
-					if (status == "none") {
-						$("tr.paytrhidden").css("display", "");
-					} else {
-						$("tr.paytrhidden").css("display", "none");
-					}
-			}else{
-				alert("틀려");
-			}
+// 			if(pay_id==List){
+// 				alert(List);			
+// //	 			var status = $("#"+List).css("display");
+// 				var status = $("tr.paytrhidden").css("display");
+// 				alert(status);
+// 					if (status == "none") {
+// 						$("tr.paytrhidden").css("display", "");
+// 					} else {
+// 						$("tr.paytrhidden").css("display", "none");
+// 					}
+// 			}else{
+// 				alert("틀려");
+// 			}
 			
 			
 
@@ -550,7 +550,7 @@ $(document).ready(function() {
 				
 					<li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="false"> 나의정보</a></li>
 					<li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-mypocket" data-toggle="tab" aria-expanded="false">나의 주머니</a></li>
-					<li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-FavoriCVS" data-toggle="tab" aria-expanded="false">자주가는 편의점</a></li>
+<!-- 					<li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-FavoriCVS" data-toggle="tab" aria-expanded="false">자주가는 편의점</a></li> -->
 					<li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-bookmarkProd" data-toggle="tab" aria-expanded="false">즐겨찾는 상품</a></li>
 					<li role="presentation" class=""><a href="#tab_content5" role="tab" id="profile-buyHistory" data-toggle="tab" aria-expanded="false">구매 내역</a></li>
 				</ul>
