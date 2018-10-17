@@ -1,5 +1,6 @@
 package kr.or.ddit.admin.member.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,6 +98,8 @@ public class MemberMgtService implements MemberMgtServiceInf {
 		Map<Object, Object> resultMap = new HashMap<Object, Object>();
 		List<MemberVo> cvsPageList = memberMgtDao.cvsTotalPageList(map);
 		int totalCnt = totalCvsCnt();
+		resultMap.put("cvsPageList", cvsPageList);
+		resultMap.put("paging", page((int)map.get("page"), (int)map.get("pageSize"),totalCnt));
 		return resultMap;
 	}
 
@@ -105,18 +108,21 @@ public class MemberMgtService implements MemberMgtServiceInf {
 		return memberMgtDao.totalCvsCnt();
 	}
 	
-//	public String Page(int page, int pageSize, int totalCnt){
-//		int cnt = totalCnt / pageSize;
-//		int left = totalCnt % pageSize;
-//		if(left > 0){
-//			cnt++;
-//		}
-//		int prev = page == 1? 1: page-1;
-//		int next = cnt;
-//		StringBuffer pages = new StringBuffer();
-//		pages.append("<button class=\"btn btn-success\" name=\"pageBtn\" type=\"button\"><i class=\"fa fa-arrow-left\" aria-hidden=\"true\"></i></button>");
-//		for(int i = 1; i <cnt+1; i++){
-//			
-//		}
-//	}
+	public List<String> page(int page, int pageSize, int totalCnt){
+		int cnt = totalCnt / pageSize;
+		int left = totalCnt % pageSize;
+		if(left > 0){
+			cnt++;
+		}
+		int prev = page == 1? 1: page-1;
+		int next = cnt;
+		List<String> pages = new ArrayList<String>();
+		
+		for(int i = 1; i <cnt+1; i++){
+			String p = "<button class=\"btn btn-success\" name=\"pageBtn\" type=\"button\" value=\""+i+"\">"+i+"</button>";
+			pages.add(p);
+		}
+		logger.debug("page---{}", pages);
+		return pages;
+	}
 }
