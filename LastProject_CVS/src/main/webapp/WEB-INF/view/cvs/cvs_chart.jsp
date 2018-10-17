@@ -336,7 +336,7 @@
                     <div class="col-md-3 col-sm-12 col-xs-12">
                       <div>
                         <div class="x_title">
-                          <h2>즐겨찾는 회원</h2> <!-- 해당편의점을 즐겨찾기한 회원 들 5  -->
+                          <h2>즐겨찾는 회원</h2> 해당편의점을 즐겨찾기한 회원 들 5 
                         
                           <div class="clearfix"></div>
                         </div>
@@ -346,9 +346,9 @@
                               <i class="fa fa-user aero"></i>
                             </a>
                             <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
+                              <a class="title" href="#">강병관 <small>kbk@ddit.or.kr</small></a>
+                              <p><strong>1000P </strong> 	19940503</p>
+                              <p> <small>경기 광주시 경안로 104 (경안동, 해태그린아파트 상가)</small>
                               </p>
                             </div>
                           </li>
@@ -357,9 +357,9 @@
                               <i class="fa fa-user green"></i>
                             </a>
                             <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
+                              <a class="title" href="#">김민겸<small>	kmk@ddit.or.kr</small></a>
+                              <p><strong>4000P </strong> 19960902</p>
+                              <p> <small>경기 가평군 가평읍 가화로 214 (읍내리, 해오름아파트)</small>
                               </p>
                             </div>
                           </li>
@@ -368,9 +368,9 @@
                               <i class="fa fa-user blue"></i>
                             </a>
                             <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
+                              <a class="title" href="#">임수빈<small>	lsb@ddit.or.kr</small></a>
+                              <p><strong>24000P </strong>	19951214</p>
+                              <p> <small>대전 중구 목중로 76 (중촌동, 세종아파트)</small>
                               </p>
                             </div>
                           </li>
@@ -379,20 +379,22 @@
                               <i class="fa fa-user aero"></i>
                             </a>
                             <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
+                              <a class="title" href="#">차득림<small>	cdl@ddit.or.kr</small></a>
+                              <p><strong>15000P </strong>19961201</p>
+                              <p> <small>충남 서천군 서천읍 충절로29번길 16 (군사리, 제일아파트)</small>
                               </p>
                             </div>
                           </li>
                           <li class="media event">
-                            <a class="pull-left border-green profile_thumb">
-                              <i class="fa fa-user green"></i>
+                            <a class="pull-left border-green profile_thumb"><span>
+                          		<i class="fa fa-user green"></img></i>  
+<!--                               <img class="img-circle" src="/images/userpic/33.png"></img> -->
+                            </span>
                             </a>
                             <div class="media-body">
-                              <a class="title" href="#">Ms. Mary Jane</a>
-                              <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                              <p> <small>12 Sales Today</small>
+                              <a class="title" href="#">백설아<small>	bsa@ddit.or.kr</small></a>
+                              <p><strong>35000P </strong> 	19970801</p>
+                              <p> <small>충남 서산시 음암면 서령로 330 (부산리, 음암마을아파트)</small>
                               </p>
                             </div>
                           </li>
