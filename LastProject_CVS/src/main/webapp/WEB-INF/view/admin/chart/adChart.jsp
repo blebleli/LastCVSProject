@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>admin | ad-Chart</title>
+<title> admin | ad-Chart</title>
 
 <!--     <link href="/build/css/custom.min.css" rel="stylesheet"> -->
 <!--     <link href="/build/js/custom.js"> -->
@@ -214,7 +214,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content1">
-                    <div id="graph_bar_group" style="width:100%; height:280px;"></div>
+                    <div id="graph_bar_group" style="width:100%; height:290px;"></div>
                   </div>
                 </div>
               </div>
@@ -249,38 +249,51 @@
               </div>
               <!-- /Pie chart -->
 
-              <!-- graph area -->
-<!--               <div class="col-md-6 col-sm-6 col-xs-12"> -->
-<!--                 <div class="x_panel"> -->
-<!--                   <div class="x_title"> -->
-<!--                     <h2>인기 편의점 Top5<small>즐겨찾기 많이한 편의점</small></h2> -->
-<!--                     <div class="clearfix"></div> -->
-<!--                   </div> -->
-<!--                   <div class="x_content2"> -->
-<!--                     <div id="graph_area" style="width:100%; height:300px;"></div> -->
-<!--                   </div> -->
-<!--                 </div> -->
-<!--               </div> -->
-              <!-- /graph area -->
+<!-- 
+              graph area
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>인기 편의점 Top5<small>즐겨찾기 많이한 편의점</small></h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content2">
+                    <div id="graph_area" style="width:100%; height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+              /graph area
 
-              <!-- line graph -->
-<!--               <div class="col-md-6 col-sm-6 col-xs-12"> -->
-<!--                 <div class="x_panel"> -->
-<!--                   <div class="x_title"> -->
-<!--                     <h2>인기 제품 <small>즐겨찾기 많이한 제품</small></h2> -->
+              line graph
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>인기 제품 <small>즐겨찾기 많이한 제품</small></h2>
  
-<!--                     <div class="clearfix"></div> -->
-<!--                   </div> -->
-<!--                   <div class="x_content2"> -->
-<!--                     <div id="graph_line" style="width:100%; height:300px;"></div> -->
-<!--                   </div> -->
-<!--                 </div> -->
-<!--               </div> -->
-              <!-- /line graph -->
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content2">
+                    <div id="graph_line" style="width:100%; height:300px;"></div>
+                  </div>
+                </div>
+              </div>
+              /line graph
+               -->
+              
             </div>
           </div>
         </div>
         <!-- /page content -->
+
+
+     	<!-- footer content -->
+		<footer>
+			<div class="pull-right">
+				Gentelella - Bootstrap Admin Template by <a href="https://localhost:8180">gogo CVS</a>
+			</div>
+			<div class="clearfix"></div>
+		</footer>
+		<!-- /footer content -->
 
 
     <!-- jQuery -->
