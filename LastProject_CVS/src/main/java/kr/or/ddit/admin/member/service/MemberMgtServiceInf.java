@@ -70,4 +70,6 @@ public interface MemberMgtServiceInf {
 	Map<Object, Object> cvsTotalPageList(Map<Object, Object> map);
 	
 	int totalCvsCnt();
+	
+	List<String> page(int page, int pageSize, int totalCnt);
 }
