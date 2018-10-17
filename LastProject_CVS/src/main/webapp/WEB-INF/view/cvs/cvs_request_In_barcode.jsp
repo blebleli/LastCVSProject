@@ -137,14 +137,15 @@
 						//인식버튼
 				    	function startCapture(e) {
 				    		player.play(); 
-				    		intervalID = setInterval(sendImage, 1000);
+				    		intervalID = setInterval(sendImage, 2000);
 						}
 				    	
 						//멈춤버튼
 				    	function stopCapture(e) {
+				    		clearInterval(intervalID);
 				    		player.pause(); 
 				    		player.style.display = "none";
-				    		clearInterval(intervalID);
+				    		
 						}				    	
 					
 				    	
