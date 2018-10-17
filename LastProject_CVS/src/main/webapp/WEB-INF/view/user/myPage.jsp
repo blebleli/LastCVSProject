@@ -331,7 +331,7 @@ $(document).ready(function() {
 //	 					$(a).show('slow');
 //	 				}
 
-			});
+// 			});
 
 	});
 
