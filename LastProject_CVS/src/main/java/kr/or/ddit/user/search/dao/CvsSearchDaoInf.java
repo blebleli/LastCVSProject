@@ -74,7 +74,18 @@ public interface CvsSearchDaoInf {
 	 */
 	List<CvsSearchVo> getListProdMember(String prod_id);
 	
-	List<SearchCvsServiceVo> searchCvsService(Map<String, Object> map);
+	List<MemberVo> searchCvsService(Map<String, Object> map);
 	
 	MemberVo getCvs(String mem_id);
+	
+	/**
+	 * Method : getCntSearchCvsService
+	 * 최초작성일 : 오전 12:32:57
+	 * 작성자 : 김현경
+	 * 변경이력 : 신규
+	 * @param   : 편의점 서비스와 편의점이름 
+	 * @return  : int
+	 * Method 설명 : 편의점 서비스 검색의 조회 건수
+	 */
+	int getCntSearchCvsService(Map<String, Object> map);
 }
