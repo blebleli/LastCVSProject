@@ -116,6 +116,7 @@
 	
 	<!-- 통계 -->
 	<mapper resource="kr/or/ddit/config/mybatis/mapper/chart.xml"/>
+	<mapper resource="kr/or/ddit/config/mybatis/mapper/test.xml"/>
 	
   </mappers>
 
