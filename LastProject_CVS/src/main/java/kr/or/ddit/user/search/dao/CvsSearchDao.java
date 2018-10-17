@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import kr.or.ddit.model.MemberVo;
@@ -31,6 +33,7 @@ import kr.or.ddit.user.search.model.SearchCvsServiceVo;
  */
 @Repository("cvsSearchDao")
 public class CvsSearchDao implements CvsSearchDaoInf{
+	private Logger logger = LoggerFactory.getLogger(CvsSearchDao.class);
 
 	@Resource(name="sqlSessionTemplate")
 	private SqlSessionTemplate template;
@@ -91,13 +94,23 @@ public class CvsSearchDao implements CvsSearchDaoInf{
 	}
 
 	@Override
-	public List<SearchCvsServiceVo> searchCvsService(Map<String, Object> map) {
-		return template.selectList("category.searchCvsService", map);
+	public List<MemberVo> searchCvsService(Map<String, Object> map) {
+		logger.debug("searchCvsDao");
+		logger.debug("map--------{}", map);
+		List<MemberVo> list = template.selectList("category.searchCvsService", map);
+		logger.debug("searchList-------{}", list);
+ 		return list;
+		
 	}
 
 	@Override
 	public MemberVo getCvs(String mem_id) {
 		return template.selectOne("member.getCvs", mem_id);
+	}
+
+	@Override
+	public int getCntSearchCvsService(Map<String, Object> map) {
+		return template.selectOne("category.getCntSearchCvsService", map);
 	}
 	
 	
