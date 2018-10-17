@@ -16,21 +16,19 @@
 
 .btn-group .btn{ 
 	margin-right: 10px; 
-	padding: 7px 15px; 
-    font-size: 14px;
+    font-size: 14px; 
     line-height: 1.5;
     border-radius: 3px;
-    border-color: #9e09ac; 
     font-weight: 400;
-    border: 2px solid;
+/*     border: 2px solid; */
 }
 
 .dataTables_filter { width: 30%; }
+
 #datatable-buttons > thead > tr > th{
 
 	background: #8c42ad45;
 	font-weight: 700;
-	color: #032d5a;
 	color: #032d5a;
 }
 </style>

@@ -1,6 +1,6 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<title>Gentelella Alela! |</title>
+<title>CVStore_admin |수불 신청 내역</title>
 
 
 <!-- Bootstrap -->
@@ -78,15 +78,17 @@
 								<div class="col-sm-4 invoice-col">
 									To
 									<address>
-										<strong>${memberVo.mem_cvs_name}</strong> <br>${memberVo.mem_addr}	<!-- 편의점 주소 -->
+										<strong>${memberVo.mem_cvs_name}</strong> 
+										
+										<br>주 소  : ${memberVo.mem_addr}	<!-- 편의점 주소 -->
 										
 										<br>Phone: ${memberVo.mem_tel}			<!-- 점주 폰번 -->
 										
-										<br>Tel: ${memberVo.mem_cvs_tel}		<!-- 편의점 연락처 -->
+										<br>Tel  : ${memberVo.mem_cvs_tel}		<!-- 편의점 연락처 -->
 										
-										<br>담당자 : ${memberVo.mem_name}			<!-- 점주 이름 -->
+										<br>담당자   : ${memberVo.mem_name}			<!-- 점주 이름 -->
 										
-										<br>점주 아이디 : ${memberVo.mem_id}		<!-- 점주 아이디 -->
+										<br>점주아이디 : ${memberVo.mem_id}		<!-- 점주 아이디 -->
 									</address>
 								</div>
 								<!-- /.col -->

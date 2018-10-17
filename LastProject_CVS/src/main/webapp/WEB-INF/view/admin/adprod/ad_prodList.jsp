@@ -2,7 +2,7 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 
-
+<title> CVStore_admin | prodList </title>
 <!-- Bootstrap -->
 <!-- <link href="/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <!-- Font Awesome -->
@@ -97,7 +97,8 @@ function fn_prodUp(prod_id){
 
 </script>
 
-<form action="/adprod/prodDel" method="post" id="prod_action">
+<form action="/adprod/prodDel" method="post" id="prod_action" style="
+    margin-bottom: -10em;">
 	<input type="hidden" id="prod_id"  name="prod_id" value="">
 </form>
 
@@ -257,6 +258,7 @@ function fn_prodUp(prod_id){
 				</div>
 			</div>
 			<!-- /page content -->
+			
         	<!-- footer content -->
 			<footer>
 				<div class="pull-right">

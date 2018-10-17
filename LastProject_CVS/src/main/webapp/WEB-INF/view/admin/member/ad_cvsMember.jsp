@@ -6,6 +6,13 @@
 <!-- 09.20 KEB : 관리자단에서 편의점 리스트 출력하는 화면  -->
 
 <title> CVStore_admin | cvsMember </title>
+<style>
+#datatable-responsive > thead > tr > th {
+    background: #8c42ad45;
+    font-weight: 700;
+    color: #032d5a;
+}
+</style>
 
 <script src="<c:url value='/build/js/jquery-1.12.4.js' />"></script>
 <!-- Datatables -->

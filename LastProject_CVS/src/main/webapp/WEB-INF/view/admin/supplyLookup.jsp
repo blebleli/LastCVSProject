@@ -2,7 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<title>DataTables | Gentelella</title>
+<title>CVStore_admin | 수불 신청 현황</title>
+
+<style type="text/css">
+.left_col {
+    background: #00b497;
+}
+
+#status {
+    font-weight: 700;
+    color: #4000FF;
+}
+</style>
 
 <!-- Bootstrap -->
 <link href="../vendors/bootstrap/dist/css/bootstrap.min.css"
@@ -32,14 +43,14 @@
 	rel="stylesheet">
 
 <!-- Custom Theme Style -->
-<link href="../build/css/custom.min.css" rel="stylesheet">
-
+<!-- <link href="../build/css/custom.min.css" rel="stylesheet"> -->
+<link href="/build/css/customAdmin.min.css" rel="stylesheet">
 <link href="/css/login/common/JKH.css" rel="stylesheet">
 
 <!-- page content -->
 
 
-<div class="right_col" role="main">
+<div class="right_col" role="main"  style="min-height: 1000px;">
 	<div class="">
 		<div class="page-title">
 			<div class="title_left">
@@ -116,7 +127,7 @@
 									<td>
 										<fmt:formatDate value="${vo.supply_date}" pattern="yyyy.MM.dd. HH:mm" />
 									</td>
-									<td>
+									<td id="status">
 										<!-- 신청 날짜 --> 
 										<c:choose>
 										<c:when test="${vo.supply_state == 10 && vo.supply_info != 'success'}">
