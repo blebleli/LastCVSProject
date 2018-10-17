@@ -179,12 +179,12 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 <%-- 							<button class="btn btn-default" onclick="location.href ='<c:url value='${pageContext.request.contextPath}/admin/cvsInsert' />';"> --%>
 							<button class="btn btn-default">
 							<a href="/admin/cvsInsert">
-								<i class="fa fa-print"></i> 등 록  </a>
+								<i class="fa fa-check-circle-o"></i> 등 록  </a>
 							</button>
 <!-- 							<button class="btn btn-default" id="updateCvsBtn" onclick="cvsUpdatePopup();"> -->
 							<button type="button" id="updateCvsBtn" class="btn btn-default" data-toggle="modal" data-target=".prod-modal-md" onclick="cvsUpdatePopup();">
 <!-- 							<button class="btn btn-default" id="updateCvsBtn"> -->
-								<i class="fa fa-print"></i> 수 정
+								<i class="fa fa-pencil-square-o"></i> 수 정
 							</button>
 							<div class="modal fade prod-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 							  <div class="modal-dialog modal-md">
@@ -200,7 +200,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							
 							<span>
 							<button class="btn btn-default" id="btnDelete">
-								<i class="fa fa-print"></i> 삭 제 
+								<i class="fa fa-times-circle-o"></i> 삭 제 
 							</button>
 							</span>
 							
@@ -214,7 +214,7 @@ table.dataTable tbody .sorting_1, table.dataTable thead .sorting_asc, table.data
 							
 							<span>
 							<button class="btn btn-default" id="btnExcel">
-								<a href="/admin/cvsListExcelDown"><i class="fa fa-print"></i> 엑 셀</a>
+								<a href="/admin/cvsListExcelDown"><i class="fa fa-file-excel-o"></i> 엑 셀</a>
 							</button>
 							</span>
 							
