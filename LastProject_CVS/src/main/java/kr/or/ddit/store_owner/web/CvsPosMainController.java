@@ -171,7 +171,7 @@ public class CvsPosMainController {
 											  Model model) {
 		logger.debug("controller접속확인 --------------");
 		
-/*		//바코드로 재고리스트 그 건을 가져온다 
+		//바코드로 재고리스트 그 건을 가져온다 
 		//stockService.getStockListByBcdID(posPayVo);		
 		//판매(sale) insert =====================================================
 		
@@ -258,14 +258,14 @@ public class CvsPosMainController {
 		logger.debug("pay insert 완료 --------------");
 	
 	
-		if(insertPay ==1){*/  //성공조건 체크
+		if(insertPay ==1){  //성공조건 체크
 		   	HttpHeaders headers = new HttpHeaders();
 		    headers.add("Custom-Header", "foo");
 		         
 		    return new ResponseEntity<>( "Custom header set",HttpStatus.OK);
-	//	}
+		}
 		
-	//	return null;  //return 실패 조건 확인
+		return null;  //return 실패 조건 확인
 
 		
 	 }
