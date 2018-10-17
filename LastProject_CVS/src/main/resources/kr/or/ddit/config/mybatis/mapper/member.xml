@@ -394,13 +394,10 @@
   	</update>
   	
   	<select id="cvsTotalPageList" parameterType="Map" resultType="memberVo">
-  		SELECT a.* 
-  		FROM
-           (SELECT member.*
+           SELECT member.*
                     FROM member
                     where mem_kind= '01'
-                    ORDER BY mem_name)a      
-          WHERE rownum BETWEEN (#{page}-1)*#{pageSize}+1 AND #{page}*#{pageSize}
+                    ORDER BY mem_name      
   	</select>
   	
   	<select id="totalCvsCnt" resultType="Integer">
