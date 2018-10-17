@@ -112,11 +112,11 @@ function myFunc(e, ctgy) {
 			$.ajax({
 				url : "/search/cvsServiceSearch",
 				method : "post",
-   				data : JSON.stringify(ctgys),
+   				data : JSON.stringify(ctgys),  
    				contentType: "application/json",
    				success : function(data){
    					$("#table > tbody").empty();
-   					$.each(data, function(index, item){
+   					$.each(data.CvsPageList, function(index, item){
 	   					$("#table > tbody").append('<tr name="cvsTr">'+
 	   												'<td class="nameAndTel">'+
 														item.mem_cvs_name+'/'+
@@ -128,11 +128,25 @@ function myFunc(e, ctgy) {
 													'<td>'+
 														'<input type="hidden" name="mem_x" id="mem_x" class="mem_x" value="'+item.mem_x+'">'+
 														'<input type="hidden" name="mem_y" id="mem_y" class="mem_y" value="'+item.mem_y+'">'+
-														'<button id ="clickCvs" name="clickCvs" onclick="fn_click(${vo.mem_x}, ${vo.mem_y});">위치</button>'+
+														'<button id ="clickCvs" name="clickCvs" onclick="fn_click('+item.mem_x+','+ item.mem_y+');">위치</button>'+
 													'</td>'+
 												'</tr>');
+	   					
    						
    					});
+	   					var totalPage = data.totalCnt / 15;
+	   					console.log(totalPage);
+	   					$(".btn-group").empty();
+	   					if(totalPage > 10){
+	   					$(".btn-group").append('<button class="btn btn-success" id="prevBtn" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>');
+	   					$.each(data.pageNavi, function(index, item){
+	   							if(index <10){
+			   						$(".btn-group").append(item);
+			   						return;
+	   							}
+	   					});
+	   					$(".btn-group").append('<button class="btn btn-success" id="nextBtn" type="button"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>');
+   						}
    				}
 			}); //ajax end
     } else {
@@ -148,7 +162,7 @@ function myFunc(e, ctgy) {
 				contentType: "application/json",
 				success : function(data){
 					$("#table > tbody").empty();
-					$.each(data, function(index, item){
+					$.each(data.CvsPageList, function(index, item){
    					$("#table > tbody").append('<tr name="cvsTr">'+
    												'<td class="nameAndTel">'+
 													item.mem_cvs_name+'/'+
@@ -160,11 +174,25 @@ function myFunc(e, ctgy) {
 												'<td>'+
 													'<input type="hidden" name="mem_x" id="mem_x" class="mem_x" value="'+item.mem_x+'">'+
 													'<input type="hidden" name="mem_y" id="mem_y" class="mem_y" value="'+item.mem_y+'">'+
-													'<button id ="clickCvs" name="clickCvs" onclick="fn_click(${vo.mem_x}, ${vo.mem_y});">위치</button>'+
+													'<button id ="clickCvs" name="clickCvs" onclick="fn_click('+item.mem_x+','+ item.mem_y+');">위치</button>'+
 												'</td>'+
 											'</tr>');
 						
 					});
+					var totalPage = data.totalCnt / 15;
+   					console.log(totalPage);
+   					$(".btn-group").empty();
+//    					if(totalPage > 10){
+   					$(".btn-group").append('<button class="btn btn-success" id="prevBtn" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>');
+   					$.each(data.pageNavi, function(index, item){
+   							if(index <10){
+		   						$(".btn-group").append(item);
+		   						return;
+   							}
+   					});//each end
+   					
+   					$(".btn-group").append('<button class="btn btn-success" id="nextBtn" type="button"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>');
+// 						}
 				}
 		}); //ajax end
     }
@@ -190,12 +218,12 @@ function searchList(pageNo){
 }
 
 
-$(function(){
+// $(function(){
 	
 	
-	var cnt = 1;
-	$("#like").on("click",function(){
-		alert("클릭");
+// 	var cnt = 1;
+// 	$("#like").on("click",function(){
+// 		alert("클릭");
 // 		$.ajax({
 // 			url:"/userBookmark/likeProd",
 // 			method:"get",
@@ -228,6 +256,58 @@ $(function(){
 // 	})
 	
 	
+// });
+</script>
+<script>
+$(function(){
+	var which ="";
+	
+	$("button[name=pageBtn]").on("click", function(){
+		var page = $(this).val();
+		console.log(page);
+		if(ctgys.length != 0){
+			which ="service";
+		}else{
+			which = "word";
+		}
+		$.ajax({
+			url:"/search/page",
+			data:{page:page, which : which},
+			success: function(data){
+				$("#table > tbody").empty();
+					$.each(data.CvsPageList, function(index, item){
+   					$("#table > tbody").append('<tr name="cvsTr">'+
+   												'<td class="nameAndTel">'+
+													item.mem_cvs_name+'/'+
+													item.mem_cvs_tel+'<br>'+
+													'</td>'+
+												'<td class="addrAndService">'+
+													item.mem_addr+'<br>'+
+												'</td>'+
+												'<td>'+
+													'<input type="hidden" name="mem_x" id="mem_x" class="mem_x" value="'+item.mem_x+'">'+
+													'<input type="hidden" name="mem_y" id="mem_y" class="mem_y" value="'+item.mem_y+'">'+
+													'<button id ="clickCvs" name="clickCvs" onclick="fn_click('+item.mem_x+','+ item.mem_y+');">위치</button>'+
+												'</td>'+
+											'</tr>');
+				}) //each end
+				if(which == "word"){
+					var totalPage = data.totalCnt / 15;
+   					console.log(totalPage);
+   					$(".btn-group").empty();
+   					if(totalPage > 10){
+   					$(".btn-group").append('<button class="btn btn-success" id="prevBtn" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>');
+   					$.each(data.pageNavi, function(index, item){
+   							if(index <10){
+		   						$(".btn-group").append(item);
+		   						return;
+   							}
+   					});  //each end
+				} // if end
+			} //if end
+			} //success end
+		});
+	});
 });
 </script>
 
@@ -276,7 +356,8 @@ $(function(){
       												<form action="/search/cvsSearchAction" method="get" id="searchFrm">
     		  											<span class="input-group-btn">
 			   												<input type="text" class="form-control" name="searchWord" id="searchWord"  placeholder="Search for...">
-		      												<button class="btn btn-default" type="submit"  style="height:40px;">Go!</button>
+		      												<button class="btn btn-default" type="submit">Go!</button>
+		      												<input type="hidden" id="word" value="${searchWord }">
 	      												</span>
       												</form>
    											</div>								
@@ -313,43 +394,43 @@ $(function(){
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500002'); return false;"><img src="/images/store/icon_big_02_delivery.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS3435100001'); return false;"><img src="/images/store/icon_big_02_delivery.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">택배 서비스</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500003'); return false;"><img src="/images/store/icon_big_03_bakery.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS2243500001'); return false;"><img src="/images/store/icon_big_03_bakery.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">베이커리 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500004'); return false;"><img src="/images/store/icon_big_04_fried.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1123200001'); return false;"><img src="/images/store/icon_big_04_fried.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">튀김 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500005'); return false;"><img src="/images/store/icon_big_05_coffee.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS3397300001'); return false;"><img src="/images/store/icon_big_05_coffee.png" alt=""></a>
 											<a class="text" href="#" onclick="myFunc(this); return false;">에스프레소<br>커피 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500006'); return false;" ><img src="/images/store/icon_big_06_lotto.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS4353100001'); return false;" ><img src="/images/store/icon_big_06_lotto.png" alt=""></a>
 											<a class="text" href="#"  onclick="myFunc(this); return false;">로또 판매</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500007'); return false;"><img src="/images/store/icon_big_07_toto.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1253600001'); return false;"><img src="/images/store/icon_big_07_toto.png" alt=""></a>
 											<a class="text" href="#"   onclick="myFunc(this); return false;">스포츠토토</a>
 										</div>
 									</li>
 									<li>
 										<div class="group_service">
-											<a class="emblem" href="#" onclick="myFunc(this,'CVS1234500008'); return false;"><img src="/images/store/icon_big_08_cash.png" alt=""></a>
+											<a class="emblem" href="#" onclick="myFunc(this,'CVS1987300001'); return false;"><img src="/images/store/icon_big_08_cash.png" alt=""></a>
 											<a class="text" href="#"   onclick="myFunc(this); return false;">현금지급기</a>
 										</div>
 									</li>
@@ -411,11 +492,20 @@ $(function(){
 				
 				<div class="clearfix"> </div>
 				<div class="col-md-6 w3ls_service_grid_left">
-					<nav>
-					  <ul class="pagination">
-					    	${pageNavi}
-					  </ul>
-					</nav>										
+					<div class="btn-toolbar"> 
+							<div class="btn-group">
+	                          <button class="btn btn-success" id="prevBtn" type="button"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+	                          	<c:forEach items="${pageNavi }" var="page" begin="0" end="9">
+	                          		${page}
+	                          	</c:forEach>
+	                          <button class="btn btn-success" id="nextBtn" type="button"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                        	</div>
+						</div>
+<!-- 					<nav> -->
+<!-- 					  <ul class="pagination"> -->
+<%-- 					    	${pageNavi} --%>
+<!-- 					  </ul> -->
+<!-- 					</nav>										 -->
 				</div>
 			</div>
 		</div>
@@ -554,3 +644,4 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 var map = new daum.maps.Map(mapContainer, mapOption); 
 </script>
 <!-- kakao map -->
+
