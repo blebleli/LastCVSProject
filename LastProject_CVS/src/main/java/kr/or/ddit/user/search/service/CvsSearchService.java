@@ -1,5 +1,6 @@
 package kr.or.ddit.user.search.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,6 +112,7 @@ public class CvsSearchService implements CvsSearchServiceInf{
 		int pageSize = (int) map.get("pageSize");
 		String searchWord = (String)map.get("mem_cvs_name");
 		resultMap.put("pageNavi", makePageNavi(page, pageSize, totCnt, searchWord));
+		resultMap.put("totalCnt", totCnt);
 		
 		logger.debug("{}=========================resultMap.get(pageNavi)" , resultMap.get("pageNavi"));
 
@@ -128,7 +130,7 @@ public class CvsSearchService implements CvsSearchServiceInf{
 	 * @return 
 	 * Method 설명 :페이징 처리  
 	 */
-	private String makePageNavi(int page, int pageSize, int totCnt, String searchWord){
+	private List<String> makePageNavi(int page, int pageSize, int totCnt, String searchWord){
 
 		int cnt = totCnt / pageSize; // 몫
 		int mod = totCnt % pageSize; // 나머지
@@ -136,35 +138,43 @@ public class CvsSearchService implements CvsSearchServiceInf{
 		if (mod > 0)
 			cnt++;
 
-		StringBuffer pageNaviStr = new StringBuffer();
+		
 
 		int prevPage = page == 1? 1 : page-1;
 		int nextPage = page == cnt ? page : page+1;
-		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + 1 + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
-		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + prevPage + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Previous\">"+"<span aria-hidden=\"true\">&laquo;</span></a></li>");
-
-		for(int i = 1; i <= cnt; i++){
-			// /board/list?page=3&pageSize=10 
-			String activeClass = "";
-			if(i == page)
-				activeClass = "class=\"active\"";
-			pageNaviStr.append("<li " + activeClass + "><a href=\"/search/cvsSearchAction?page=" + i + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\"> "+ i +" </a></li>");
+		List<String> pages = new ArrayList<String>();
+		
+		for(int i = 1; i <cnt+1; i++){
+			String p = "<button class=\"btn btn-success\" name=\"pageBtn\" type=\"button\" value=\""+i+"\">"+i+"</button>";
+			pages.add(p);
 		}
+		
+		logger.debug("page---{}", pages);
+		return pages;
 
-		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + nextPage + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
-		pageNaviStr.append("<li><a href=\"/search/cvsSearchAction?page=" + cnt + "&pageSize=" + pageSize + "&searchWord=" + searchWord +"\" aria-label=\"Next\">"+"<span aria-hidden=\"true\">&raquo;</span></a></li>");
-
-		return pageNaviStr.toString();
 	}
 
 	@Override
-	public List<SearchCvsServiceVo> searchCvsService(Map<String, Object> map) {
-		return cvsSearchDao.searchCvsService(map);
+	public Map<String, Object> searchCvsService(Map<String, Object> map) {
+		logger.debug("searchCvsService");
+		String word = (String) map.get("mem_cvs_name");
+		int totCnt = getCntSearchCvsService(map);
+		List<MemberVo> cvsServiceList = cvsSearchDao.searchCvsService(map);
+		Map <String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("CvsPageList", cvsServiceList);
+		resultMap.put("pageNavi", makePageNavi((int)map.get("page"), (int)map.get("pageSize"), totCnt,word));
+		resultMap.put("totalCnt", totCnt);
+		return resultMap;
 	}
 
 	@Override
 	public MemberVo getCvs(String mem_id) {
 		return cvsSearchDao.getCvs(mem_id);
+	}
+
+	@Override
+	public int getCntSearchCvsService(Map<String, Object> map) {
+		return cvsSearchDao.getCntSearchCvsService(map);
 	}
 
 }
