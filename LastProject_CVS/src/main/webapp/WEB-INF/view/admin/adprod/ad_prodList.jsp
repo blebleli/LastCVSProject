@@ -226,7 +226,7 @@ function fn_prodUp(prod_id){
 							<td scope="row" align="center">${vo.cnt }<br>
 <%-- 							<button class="btn btn-default" id="prodDel" onclick="fn_prodDel('${vo.prod_id}','${vo.prod_name}'); return false"> --%>
 <!-- 										<i class="fa fa-print"></i> 삭제</button> -->
-									<button class="btn btn-default" id="prodUp" onclick="fn_prodUp('${vo.prod_id}'); return false;"><i class="fa fa-print"></i> 수정</button>
+									<button class="btn btn-default" id="prodUp" onclick="fn_prodUp('${vo.prod_id}'); return false;">수정  <i class="fa fa-pencil"></i></button>
 							</td>
 							<td class="" tabindex="0">${vo.pr_class_lg }</td>
 							<td class="sorting_1">${vo.pr_class_md }</td>
