@@ -409,8 +409,8 @@ if (typeof NProgress != 'undefined') {
 		];
 
 		
-		for (var i = -10; i < 30; i++) {
-		  chart_plot_02_data.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
+		for (var i = -19; i < 20; i++) {
+		  chart_plot_02_data.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 25]);
 		}
 		
 		
