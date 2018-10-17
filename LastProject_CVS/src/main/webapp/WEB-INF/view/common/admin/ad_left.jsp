@@ -9,14 +9,21 @@
 
     <div class="clearfix"></div>
 
+
+
     <!-- menu profile quick info -->
     <div class="profile clearfix">
       <div class="profile_pic">
         <img src="/images/logo-admin-png-4.png" alt="..." class="img-circle profile_img">
       </div>
       <div class="profile_info">
-        <span>Welcome,<br><strong>Administrator</strong></span>
-        <h2>${userInfo.mem_id}</h2>
+        <span>안녕하세요,<br><strong>관리자님</strong></span>
+        <h2><%
+			 java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy년MM월dd일");
+			 String today = formatter.format(new java.util.Date());
+			 out.println(today);
+			%></h2>
+<%--         <h2>${userInfo.mem_id}</h2> --%>
       </div>
     </div>
     <!-- /menu profile quick info -->
@@ -28,7 +35,7 @@
       <div class="menu_section">
         <ul class="nav side-menu">
           <li><a href="/admin/main"><i class="fa fa-home"></i> Home </a>
-          </li> 
+          </li>
           
           <!-- 조계환 -->
           <li><a href="/admin/lookup"><i class="fa fa-table"></i> 수주 처리</a>
