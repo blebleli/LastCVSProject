@@ -2,6 +2,7 @@ package kr.or.ddit.admin.member.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -181,24 +182,32 @@ public class MemberMGTController {
 		logger.debug("requestUrl : {}", request.getRequestURL());
 	
 		//== 편의점 회원리스트 페이징 처리하여 조회 
-		MemberVo paramMemberVo = new MemberVo();
-		paramMemberVo.setPage(page);
-		paramMemberVo.setPageSize(pageSize);
-		paramMemberVo.setMem_kind("01");
+//		MemberVo paramMemberVo = new MemberVo();
+//		paramMemberVo.setPage(page);
+//		paramMemberVo.setPageSize(pageSize);
+//		paramMemberVo.setMem_kind("01");
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("page", 1);
+		paramMap.put("pageSize", 100);
+		Map<Object, Object> resultMap = memberMgtService.cvsTotalPageList(paramMap);
+		List<MemberVo> cvsPageList = (List<MemberVo>) resultMap.get("cvsPageList");
+		List<String> paging = (List<String>) resultMap.get("paging");
 		
-		List<MemberVo> cvsMemberList= memberMgtService.getMemberPageList(paramMemberVo);
-		logger.debug("size======{}",cvsMemberList.size() );
-		model.addAttribute("cvsMemberList", cvsMemberList);	
-		
-		int tot_cnt = 0;
-		if(cvsMemberList != null && cvsMemberList.size() > 0) {
-			tot_cnt = cvsMemberList.get(0).getTot_cnt();
-		}
+//		List<MemberVo> cvsMemberList= memberMgtService.getMemberPageList(paramMemberVo);
+//		logger.debug("size======{}",cvsMemberList.size() );
+//		model.addAttribute("cvsMemberList", cvsMemberList);	
+//		
+//		int tot_cnt = 0;
+//		if(cvsMemberList != null && cvsMemberList.size() > 0) {
+//			tot_cnt = cvsMemberList.get(0).getTot_cnt();
+//		}
 		
 		// 페이지 네비게이션 문자열 
-		PageNavi pageNavi = new PageNavi(page, pageSize, tot_cnt);
-		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/cvsMemberList"));
+//		PageNavi pageNavi = new PageNavi(page, pageSize, tot_cnt);
+//		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/cvsMemberList"));
 		//==============================================
+		model.addAttribute("cvsMemberList", cvsPageList);
+		model.addAttribute("paging", paging);
 		
 		return "/member/ad_cvsMember";
 	}
@@ -520,6 +529,18 @@ public class MemberMGTController {
 //		model.addAttribute("pageNavimemberList", pageNavi.getPageNavi(request, paramMemberVo, "/admin/cvsMemberList"));
 		
 		return "excelDownloadView";
+	}
+	
+	@RequestMapping(value="/cvsPaging", method=RequestMethod.GET )
+	@ResponseBody
+	public List<MemberVo> cvsPaging(@RequestParam(value="page", defaultValue="1")String page, @RequestParam(value="pageSize", defaultValue="100")String pageSize, Model model){
+		Map<Object, Object> paramMap = new HashMap<Object, Object>();
+		paramMap.put("page", Integer.parseInt(page));
+		paramMap.put("pageSize", Integer.parseInt(pageSize));
+		Map<Object, Object> resultMap = memberMgtService.cvsTotalPageList(paramMap);
+		List<MemberVo> cvsMemberList = (List<MemberVo>) resultMap.get("cvsPageList"); 
+		logger.debug("pageList===={}",cvsMemberList);
+		return cvsMemberList;
 	}
 	
 }
