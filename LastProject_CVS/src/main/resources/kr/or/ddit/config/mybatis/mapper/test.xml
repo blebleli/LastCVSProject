@@ -76,7 +76,8 @@
 		  JOIN STOCK  S
 		  ON   SL.STOCK_ID = S.STOCK_ID
 		  WHERE SL.STCKLIST_KIND ='888'
-		  AND  TO_CHAR(SL.STCK_DATE,'YYYY-MM-DD') = ('2018-10-17')
+		  AND  TO_CHAR(SL.STCK_DATE,'YYYY-MM-DD') = ('2018-10-18')
+		  AND STOCK_INFO like '%Wed%'
 		  AND S.MEM_ID = #{mem_id}
 	</select>
 	
@@ -87,7 +88,7 @@
 		  JOIN STOCK  S
 		  ON   SL.STOCK_ID = S.STOCK_ID
 		  WHERE SL.STCKLIST_KIND ='888'
-		  AND  TO_CHAR(SL.STCK_DATE,'YYYY-MM-DD') = ('2018-10-16')
+		  AND  TO_CHAR(SL.STCK_DATE,'YYYY-MM-DD') = ('2018-10-17')
 		  AND S.MEM_ID = #{mem_id}
 	</select>	
 </mapper>
