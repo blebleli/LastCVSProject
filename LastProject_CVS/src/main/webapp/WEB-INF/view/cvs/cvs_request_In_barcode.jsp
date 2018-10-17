@@ -286,16 +286,16 @@
             </div>
           </div>
   
-        <!-- /page content -->
+     <!-- /page content -->
         
-  <!--       <footer>
+    <!-- footer content -->
+        <footer>
           <div class="pull-right">
-             Admin by  <a href="/cvs/main">gogo CVS</a>
-            
+           Store Owner by  <a href="/cvs/main">gogo CVS</a>
           </div>
           <div class="clearfix"></div>
         </footer>
- -->
+    <!-- /footer content -->
 
 
     <!-- jQuery -->

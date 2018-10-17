@@ -129,6 +129,17 @@
    </div>
    </div>     
         <!-- /page content -->
+        
+    <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+           Store Owner by  <a href="/cvs/main">gogo CVS</a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+    <!-- /footer content -->
+    
+    
 	<script>
 	$(document).ready(function(){
 		$('#stockTable').DataTable({
