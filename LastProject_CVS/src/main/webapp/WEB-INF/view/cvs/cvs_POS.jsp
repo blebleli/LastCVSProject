@@ -799,7 +799,7 @@
         
         <footer>
           <div class="pull-right">
-           Store Owner by  <a href="/cvs/main">gogo CVS</a>
+           Admin by  <a href="/cvs/main">gogo CVS</a>
           </div>
           <div class="clearfix"></div>
         </footer>
