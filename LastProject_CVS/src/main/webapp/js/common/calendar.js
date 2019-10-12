@@ -10,6 +10,7 @@
     	var funcDate = {    			
 
     		// 날짜포맷에 맞는지 검사
+			// 비스킷 대단해~~~~~
     		isDateFormat : function( d ) {
     			var df;
     			if( opts.flag == "-" ) {
